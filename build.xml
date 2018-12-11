@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="Yajem Extension Build" default="build">
+
+    <property name="build.version" value="0.0.1"/>
+
+    <property name="zip.dir" value="${project.basedir}/build/com_yajem"/>
+    <property name="build.dir" value="${project.basedir}/build/com_yajem"/>
+    <property name="dist.dir" value="${project.basedir}/target"/>
+    <property name="admin.src.dir" value="${project.basedir}/administrator/components/com_yajem"/>
+    <property name="site.src.dir" value="${project.basedir}/components/com_yajem"/>
+    <property name="media.src.dir" value="${project.basedir}/media/com_yajem"/>
+
+    <tstamp/>
+    <tstamp>
+        <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
+    </tstamp>
+    <property name="creation.date" value="${TODAY}"/>
+
+    <target name="prepare" description="prepare for packaging">
+        <delete dir="${dist.dir}" includeemptydirs="true"/>
+        <mkdir dir="${build.dir}"/>
+        <mkdir dir="${dist.dir}"/>
+    </target>
+
+    <target name="cleanup" description="cleaning after build">
+        <delete dir="${build.dir}" includeemptydirs="true"/>
+    </target>
+
+    <target name="copyFiles" description="copy main files for packaging">
+
+        <copy todir="${build.dir}">
+            <fileset dir="${project.basedir}">
+                <include name="**/script.php"/>
+                <include name="**/yajem.xml"/>
+                <include name="**/LICENSE"/>
+                <include name="administrator/**"/>
+                <include name="components/**"/>
+                <include name="media/**"/>
+                <exclude name="vendor/**"/>
+            </fileset>
+        </copy>
+
+    </target>
+
+    <target name="zip" description="package the archive" depends="copyFiles">
+        <zip destfile="${dist.dir}/com_yajem_${build.version}.zip" includeemptydirs="true">
+            <fileset dir="${zip.dir}">
+                <include name="**/**"/>
+            </fileset>
+        </zip>
+    </target>
+
+    <target name="build" description="packaging all"
+            depends="prepare, zip, cleanup"/>
+
+</project>

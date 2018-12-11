@@ -1,0 +1,15 @@
+{
+  "name": "bahlo/yajem",
+  "description": "description_text",
+  "minimum-stability": "stable",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Alexander Bahlo",
+      "email": "abahlo@hotmail.de"
+    }
+  ],
+  "require": {
+    "phing/phing": "2.16.1"
+  }
+}
