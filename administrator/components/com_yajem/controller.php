@@ -9,6 +9,7 @@
  */
 
 use Joomla\CMS\MVC\Controller\BaseController;
+use Joomla\CMS\Factory;
 
 defined('_JEXEC') or die;
 
@@ -20,4 +21,20 @@ defined('_JEXEC') or die;
  */
 class YajemController extends BaseController
 {
+	/**
+	 * @param   bool    $cachable   default false
+	 * @param   array   $urlparams  default empty
+	 *
+	 * @return JControllerLegacy
+	 *
+	 * @since version
+	 * @throws Exception
+	 */
+	public function display($cachable = false, $urlparams = array())
+	{
+		$view = Factory::getApplication()->input->getCmd('view', 'events');
+		Factory::getApplication()->input->set('view', $view);
+
+		return parent::display($cachable, $urlparams);
+	}
 }

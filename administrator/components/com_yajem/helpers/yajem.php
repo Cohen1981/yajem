@@ -18,7 +18,7 @@ defined('_JEXEC') or die;
  * @package     A package name
  * @since       1.0
  */
-class YajemHelper
+class YajemHelperAdmin
 {
 	/**
 	 * Render submenu.
@@ -31,7 +31,7 @@ class YajemHelper
 	 */
 	public function addSubmenu($vName)
 	{
-		#JHtmlSidebar::addEntry(Text::_('COM_YAJEM'), 'index.php?option=com_yajem&view=yajem', $vName == 'yajem');
+		#HtmlHelperSidebar::addEntry(Text::_('COM_YAJEM'), 'index.php?option=com_yajem&view=yajem', $vName == 'yajem');
 		JHtmlSidebar::addEntry(
 			JText::_('COM_YAJEM_SUBMENU_EVENTS'),
 			'index.php?option=com_yajem&view=events',
@@ -50,4 +50,61 @@ class YajemHelper
 			$vName == 'categories'
 		);
 	}
+
+	/**
+	 * Get a list of Actions that can be performed
+	 *
+	 * @return JObject
+	 *
+	 * @since version
+	 */
+	public static function getActions()
+	{
+		$user   = JFactory::getUser();
+		$result = new JObject;
+
+		$assetName = 'com_yajem';
+
+		$actions = array(
+			'core.admin', 'core.manage', 'core.create', 'core.edit', 'core.edit.own', 'core.edit.state', 'core.delete'
+		);
+
+		foreach ($actions as $action)
+		{
+			$result->set($action, $user->authorise($action, $assetName));
+		}
+
+		return $result;
+	}
+
+	/**
+	 * Get the link to a location
+	 * @param   string $id      location id
+	 * @param   string $catid   category id of location
+	 *
+	 * @return string
+	 *
+	 * @since version
+	 */
+	public static function getLocationRoute($id, $catid)
+	{
+		// Create the link
+		$link = 'index.php?option=com_contact&view=contact&id=' . $id;
+
+		if ($catid > 1)
+		{
+			$link .= '&catid=' . $catid;
+		}
+
+		return $link;
+	}
+}
+/**
+ * Joomla's way to add SubMenus in categoris view
+ * @package     Yajem
+ *
+ * @since       version
+ */
+class YajemHelper extends YajemHelperAdmin
+{
 }

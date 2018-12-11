@@ -21,7 +21,7 @@ if (!Factory::getUser()->authorise('core.manage', 'com_yajem'))
 }
 
 // Require the helper
-require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/events.php';
+require_once JPATH_COMPONENT_ADMINISTRATOR . '/helpers/yajem.php';
 
 // Execute the task
 $controller = BaseController::getInstance('yajem');

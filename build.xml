@@ -10,7 +10,6 @@
     <property name="site.src.dir" value="${project.basedir}/components/com_yajem"/>
     <property name="media.src.dir" value="${project.basedir}/media/com_yajem"/>
 
-    <tstamp/>
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
     </tstamp>
@@ -28,17 +27,30 @@
 
     <target name="copyFiles" description="copy main files for packaging">
 
+        <copy todir="media/com_yajem/css">
+            <filelist dir="vendor/fortawesome/font-awesome/css" files="font-awesome.min.css"/>
+        </copy>
+
+        <copy todir="media/com_yajem/fonts">
+            <fileset dir="vendor/fortawesome/font-awesome/fonts">
+                <exclude name="**/FontAwesome.otf"/>
+            </fileset>
+        </copy>
+
         <copy todir="${build.dir}">
             <fileset dir="${project.basedir}">
-                <include name="**/script.php"/>
-                <include name="**/yajem.xml"/>
                 <include name="**/LICENSE"/>
                 <include name="administrator/**"/>
                 <include name="components/**"/>
                 <include name="media/**"/>
+                <exclude name="administartor/components/com_yajem/yajem.xml"/>
+                <exclude name="administartor/components/com_yajem/script.php"/>
                 <exclude name="vendor/**"/>
             </fileset>
         </copy>
+
+        <move file="${build.dir}/administrator/components/com_yajem/yajem.xml" todir="${build.dir}"/>
+        <move file="${build.dir}/administrator/components/com_yajem/script.php" todir="${build.dir}"/>
 
     </target>
 

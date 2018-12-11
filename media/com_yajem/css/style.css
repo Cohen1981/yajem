@@ -1,0 +1,164 @@
+@import "fontawesome-all.min.css";
+
+#yajem_container {
+    display: block;
+}
+
+#yajem_reg{
+    background-color: forestgreen;
+}
+#yajem_unreg{
+    background-color: crimson;
+}
+#yajem_confirm{
+    margin-right: 10px;
+}
+.yajem-button-group{
+    padding-top:10px;
+}
+
+.yajem_bottom-rounded {
+    border-radius: 0px 0px 6px 6px;
+    box-shadow: 0 0px 8px #BDBDBD;
+}
+.yajem_hidden {
+    display: none;
+}
+
+.yajem_rounded {
+    border-radius: 6px 6px 6px 6px;
+    box-shadow: 0 0px 8px #BDBDBD;
+}
+
+.yajem_css_switch{
+    padding:10px 10px;
+    word-spacing: normal;
+    margin:0px;
+    border:1px solid #BDBDBD;
+    width: auto;
+}
+#yajem_attendees{
+    padding-top:10px;
+}
+#yajem_comment_line{
+    padding-top: 10px;
+}
+
+.yajem_flex_row {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+.yajem_cell {
+    display: block;
+    width: auto;
+    padding: 10px 10px 10px 0px;
+}
+.yajem_head {
+    font-weight: bold;
+}
+
+.yajem_image {
+    display: inline-block;
+    float: right;
+    max-width: 150px;
+    height: auto;
+    overflow: hidden;
+}
+.yajem_grid_section {
+    display: grid;
+    grid-template-columns: minmax(100px, 200px) auto;
+    grid-gap: 10px;
+}
+.yajem_full_grid_row {
+    grid-column-start: 1;
+    grid-column-end: span 2;
+}
+.yajem_section_container {
+    display: block;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    border-bottom: darkgrey solid 1px;
+    clear:both;
+    overflow: auto;
+}
+.yajem_label{}
+.yajem_output{}
+
+.yajem_attendee {
+    border: 1px solid #BDBDBD;
+    margin-right: 10px;
+    border-radius: 6px 6px 6px 6px;
+}
+.yajem_avatar_container{
+    padding: 5px;
+    border-right: 1px solid #BDBDBD;
+    display: block;
+    max-width: 140px;
+}
+.yajem_ustatus{
+    display:block;
+    height: 50%;
+}
+.yajem_att_status{
+    padding:5px;
+    display:block;
+}
+.yajem_uname{
+    padding: 5px;
+    display: block;
+    position: relative;
+    border-right: 1px solid #BDBDBD;
+}
+.yajem_att_comment{
+    position: relative;
+    display: block;
+    height: 50%;
+}
+
+#google_map {
+    width:100%;
+    height:400px;
+}
+
+.yajem_avatar {
+    display: inline-block;
+    width: auto;
+}
+input[type=checkbox]:checked ~ .yajem_switchable {
+    display: block;
+    overflow: auto;
+}
+.yajem_inline-block{
+    display: inline-block;
+}
+.yajem_switch{
+    display: inline-block;
+    float: right;
+    font-size: 20px;
+    padding:10px 20px;
+    word-spacing: normal;
+    margin:0px;
+}
+
+.yajem_switchable{
+    display:none;
+    overflow:hidden;
+}
+.yajem_section_header{
+    border:1px solid #BDBDBD;
+    display: block;
+    margin-top:10px;
+}
+.yajem_line{
+    border-bottom: 1px solid #BDBDBD;
+    padding-top: 20px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 700px) {
+    .yajem_image {
+        max-width: 50px;
+        max-height: 50px;
+    }
+}

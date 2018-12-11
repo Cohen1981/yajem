@@ -1,32 +1,31 @@
 <?php
 /**
- * @package    yajem
+ * @package     Yajem.Administrator
+ * @subpackage  Yajem
  *
- * @author     abahl <your@email.com>
- * @copyright  A copyright
- * @license    GNU General Public License version 2 or later; see LICENSE.txt
- * @link       http://your.url.com
+ * @copyright   2018 Alexander Bahlo
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
+ * @since       1.0
  */
+
+defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Factory;
 
-defined('_JEXEC') or die;
-
 /**
- * Yajem
+ * @package     Yajem
  *
- * @package  yajem
- * @since    1.0
+ * @since       version
  */
-class YajemModelEvents extends ListModel
+class YajemModelLocations extends ListModel
 {
 	/**
-	 * YajemModelEvents constructor.
+	 * YajemModelLocations constructor.
 	 *
 	 * @param   array $config An optional associative array of configuration settings.
 	 *
-	 * @since   1.0
+	 * @since version
 	 */
 	public function __construct(array $config = array())
 	{
@@ -43,12 +42,7 @@ class YajemModelEvents extends ListModel
 				'title','a.title',
 				'catid', 'a.catid',
 				'image', 'a.image',
-				'hoster','a.hoster',
-				'organizer', 'org.name',
-				'startDate', 'a.startDate',
-				'endDate', 'a.endDate',
-				'startDateTime', 'a.startDateTime',
-				'endDateTime', 'a.endDateTime'
+				'contact', 'con.contact'
 			);
 		}
 
@@ -62,7 +56,7 @@ class YajemModelEvents extends ListModel
 	 * @param   null $direction default=asc
 	 *
 	 * @return void
-	 * @since 1.0
+	 * @since version
 	 * @throws Exception
 	 */
 	protected function populateState($ordering = null, $direction = null)
@@ -80,51 +74,31 @@ class YajemModelEvents extends ListModel
 	}
 
 	/**
-	 * Getting the list of Events
 	 *
 	 * @return JDatabaseQuery
 	 *
-	 * @since 1.0
+	 * @since version
 	 */
 	protected function getListQuery()
 	{
-		$params = JComponentHelper::getParams('com_yajem');
-
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
 
-		$query->select(
-			$db->quoteName(
-				array('a.id', 'a.published', 'a.ordering', 'a.title',
-					'a.image',	'a.startDateTime', 'a.endDateTime', 'a.endDate',
-					'a.startDate','a.allDayEvent')
-			)
-		);
+		$query->select($db->quoteName(array('a.id', 'a.published', 'a.ordering', 'a.title', 'a.image')));
 
-		$query->from('#__yajem_events AS a');
+		$query->from('#__yajem_locations AS a');
 
 		$query->select('u.name AS created_by_name');
-		$query->join('LEFT', '#__users AS u ON u.id = a.createdBy');
+		$query->join('LEFT', '#__users AS u ON u.id = a.created_by');
 
 		$query->select('m.name AS modified_by_name');
-		$query->join('LEFT', '#__users AS m ON m.id = a.modifiedBy');
+		$query->join('LEFT', '#__users AS m ON m.id = a.modified_by');
 
 		$query->select('c.title AS catid');
 		$query->join('LEFT', '#__categories AS c ON c.id = a.`catid`');
 
-		// If no hoster is used, we don't need to join.
-		if ((bool) $params->get('use_host'))
-		{
-			$query->select('h.name AS hoster');
-			$query->join('LEFT', '#__contact_details AS h ON h.id = a.hostId');
-		}
-
-		// If no organizer is used, we don'even need to join
-		if ((bool) $params->get('use_organizer'))
-		{
-			$query->select('org.name AS organizer');
-			$query->join('LEFT', '#__contact_details AS org ON org.id = a.organizerId');
-		}
+		$query->select('con.name AS contact');
+		$query->join('LEFT', '#__contact_details AS con ON con.id = a.contactid');
 
 		$published = $this->getState('filter.published');
 

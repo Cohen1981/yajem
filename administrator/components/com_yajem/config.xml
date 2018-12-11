@@ -1,12 +1,85 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <config>
-	<fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
-		<field name="rules"
-			   type="rules"
-			   label="JCONFIG_PERMISSIONS_LABEL"
-			   filter="rules"
-			   component="com_yajem"
-			   section="component">
+    <fieldset label="COM_YAJEM_CONFIG_EVENT" name="yajem_event">
+        <field name="use_host"
+               type="radio"
+               label="COM_YAJEM_PARAM_HOST_LABEL"
+               description="COM_YAJEM_PARAM_HOST_DESC"
+               class="btn-group btn-group-yesno"
+               default="1"
+               >
+        <option value="1">COM_YAJEM_PARAM_YES</option>
+        <option value="0">COM_YAJEM_PARAM_NO</option>
+        </field>
+
+        <field name="use_organizer"
+               type="radio"
+               label="COM_YAJEM_PARAM_ORGANIZER_LABEL"
+               description="COM_YAJEM_PARAM_ORGANIZER_DESC"
+               class="btn-group btn-group-yesno"
+               default="1"
+        >
+            <option value="1">COM_YAJEM_PARAM_YES</option>
+            <option value="0">COM_YAJEM_PARAM_NO</option>
+        </field>
+
+		<field name="use_modal_location"
+			   type="radio"
+			   label="COM_YAJEM_PARAM_MODAL_LOCATION_LABEL"
+			   description="COM_YAJEM_PARAM_MODAL_LOCATION_DESC"
+			   class="btn-group btn-group-yesno"
+			   default="1"
+		>
+			<option value="1">COM_YAJEM_PARAM_YES</option>
+			<option value="0">COM_YAJEM_PARAM_NO</option>
 		</field>
-	</fieldset>
+
+		<field name="show_pastEvents"
+			   type="radio"
+			   label="COM_YAJEM_PARAM_PASTEVENTS_LABEL"
+			   description="COM_YAJEM_PARAM_PASTEVENTS_DESC"
+			   class="btn-group btn-group-yesno"
+			   default="0"
+		>
+			<option value="1">COM_YAJEM_PARAM_YES</option>
+			<option value="0">COM_YAJEM_PARAM_NO</option>
+		</field>
+
+    </fieldset>
+
+    <fieldset label="COM_YAJEM_CONFIG_LOCATION" name="yajem_location">
+
+        <field name="use_location_contact"
+               type="radio"
+               label="COM_YAJEM_PARAM_LOCATION_CONTACT_LABEL"
+               description="COM_YAJEM_PARAM_LOCATION_CONTACT_DESC"
+               class="btn-group btn-group-yesno"
+               default="0"
+        >
+            <option value="1">COM_YAJEM_PARAM_YES</option>
+            <option value="0">COM_YAJEM_PARAM_NO</option>
+        </field>
+
+        <field name="global_googleapi"
+               type="textarea"
+               default=""
+               label="COM_YAJEM_PARAM_GOOGLEAPI_LABEL"
+               description="COM_YAJEM_PARAM_GOOGLEAPI_DESC"
+               rows="1"
+               cols="10"
+        />
+
+    </fieldset>
+
+    <fieldset name="permissions" label="JCONFIG_PERMISSIONS_LABEL" description="JCONFIG_PERMISSIONS_DESC">
+        <field name="rules"
+            type="rules"
+            label="JCONFIG_PERMISSIONS_LABEL"
+            class="inputbox"
+            validate="rules"
+            filter="rules"
+            component="com_yajem"
+            section="component"
+        />
+    </fieldset>
 </config>
