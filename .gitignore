@@ -3,5 +3,5 @@
 build
 target
 vendor
-media/com_yajem/css/font-awesome.min.css
-media/com_yajem/fonts
+media/com_yajem/css/fontawesome-all.min.css
+media/com_yajem/webfonts

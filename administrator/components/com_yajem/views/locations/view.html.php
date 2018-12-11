@@ -118,7 +118,7 @@ class YajemViewLocations extends HtmlView
 
 		}
 
-		/*if ($state->get('filter.published') == -2  && $canDo->get('core.delete'))
+		if ($state->get('filter.published') == -2  && $canDo->get('core.delete'))
 		{
 			JToolBarHelper::deleteList('', 'locations.delete', 'JTOOLBAR_EMPTY_TRASH');
 			JToolBarHelper::divider();
@@ -127,7 +127,7 @@ class YajemViewLocations extends HtmlView
 		{
 			JToolBarHelper::trash('locations.trash', 'JTOOLBAR_TRASH');
 			JToolBarHelper::divider();
-		}*/
+		}
 
 		if ($canDo->get('core.admin'))
 		{

@@ -45,6 +45,12 @@ class YajemHelperAdmin
 		);
 
 		JHtmlSidebar::addEntry(
+			JText::_('COM_YAJEM_SUBMENU_ATTENDEES'),
+			'index.php?option=com_yajem&view=attendees',
+			$vName == 'attendees'
+		);
+
+		JHtmlSidebar::addEntry(
 			JText::_('JCATEGORIES') . ' (Yajem)',
 			"index.php?option=com_categories&extension=com_yajem&view=categories",
 			$vName == 'categories'

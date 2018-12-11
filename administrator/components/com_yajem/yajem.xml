@@ -62,6 +62,8 @@
 			-->
 			<menu link="option=com_yajem&amp;view=locations"
 				  alt="Yajem List/Locations">COM_YAJEM_SUBMENU_LOCATIONS</menu>
+			<menu link="option=com_yajem&amp;view=attendees"
+				  alt="Yajem List/Locations">COM_YAJEM_SUBMENU_ATTENDEES</menu>
 			<menu link="option=com_categories&amp;extension=com_yajem"
 				  view="categories" alt="Locations/Categories">COM_YAJEM_SUBMENU_LOCATIONS_CATEGORY</menu>
 		</submenu>

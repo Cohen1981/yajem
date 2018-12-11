@@ -130,7 +130,7 @@ class YajemViewAttendees extends HtmlView
 			'a.id'      => JText::_('JGRID_HEADING_ORDERING'),
 			'a.attendeeId' => JText::_('COM_YAJEM_TITLE_EVENT_ID'),
 			'a.userId'  => JText::_('COM_YAJEM_TITLE_USERID'),
-			'attendee'     => JText::_('COM_YAJEM_TITLE_EVENTS'),
+			'event'     => JText::_('COM_YAJEM_TITLE_EVENTS'),
 			'attendee'  => JText::_('COM_YAJEM_TITLE_ATTENDEE')
 		);
 	}

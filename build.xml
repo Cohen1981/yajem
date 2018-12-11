@@ -28,12 +28,12 @@
     <target name="copyFiles" description="copy main files for packaging">
 
         <copy todir="media/com_yajem/css">
-            <filelist dir="vendor/fortawesome/font-awesome/css" files="font-awesome.min.css"/>
+            <filelist dir="vendor/components/font-awesome/css" files="fontawesome-all.min.css"/>
         </copy>
 
-        <copy todir="media/com_yajem/fonts">
-            <fileset dir="vendor/fortawesome/font-awesome/fonts">
-                <exclude name="**/FontAwesome.otf"/>
+        <copy todir="media/com_yajem/webfonts">
+            <fileset dir="vendor/components/font-awesome/webfonts">
+                <include name="**.**"/>
             </fileset>
         </copy>
 
