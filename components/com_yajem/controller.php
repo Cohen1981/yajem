@@ -18,4 +18,24 @@ defined('_JEXEC') or die;
  * @package  yajem
  * @since    1.0
  */
-class YajemController extends BaseController { }
+class YajemController extends BaseController {
+	/**
+	 * @param   boolean $cachable   false
+	 * @param   boolean $urlparams  false
+	 *
+	 * @return $this|JControllerLegacy
+	 *
+	 * @since version
+	 * @throws Exception
+	 */
+	public function display($cachable = false, $urlparams = false)
+	{
+		$app  = JFactory::getApplication();
+		$view = $app->input->getCmd('view', 'events');
+		$app->input->set('view', $view);
+
+		parent::display($cachable, $urlparams);
+
+		return $this;
+	}
+}
