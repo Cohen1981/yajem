@@ -33,7 +33,7 @@ defined('_JEXEC') or die;
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  * @since       1.0
  */
-class com_helloWorldInstallerScript
+class com_YajemInstallerScript
 {
 	/**
 	 * This method is called after a component is installed.
@@ -46,7 +46,7 @@ class com_helloWorldInstallerScript
 	 */
 	public function install($parent)
 	{
-		$parent->getParent()->setRedirectURL('index.php?option=com_helloworld');
+
 	}
 
 	/**
@@ -117,12 +117,7 @@ class com_helloWorldInstallerScript
 			$db = Factory::getDBO();
 			$query = $db->getQuery(true);
 			$query->update($db->quoteName('#__extensions'));
-			$defaults = '{"use_modal_location":"1",
-							"use_location_contact":"0",
-							"use_host":"1",
-							"use_organizer":"1",
-							"show_pastEvents":"0"
-							}';
+			$defaults = '{"use_modal_location":"1","use_location_contact":"0","use_host":"0","use_organizer":"1","show_pastEvents":"0"}';
 			$query->set($db->quoteName('params') . ' = ' . $db->quote($defaults));
 			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_yajem'));
 			$db->setQuery($query);

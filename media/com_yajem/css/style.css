@@ -21,8 +21,9 @@
     border-radius: 0px 0px 6px 6px;
     box-shadow: 0 0px 8px #BDBDBD;
 }
+/* !important became necessary while testing with other templates*/
 .yajem_hidden {
-    display: none;
+    display: none !important;
 }
 
 .yajem_rounded {

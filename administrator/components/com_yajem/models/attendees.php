@@ -149,6 +149,8 @@ class YajemModelAttendees extends ListModel
 	}
 
 	/**
+	 * Method to delete all rows when an event ist deleted
+	 *
 	 * @param $eventId
 	 *
 	 * @return mixed

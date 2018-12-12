@@ -60,10 +60,12 @@
 				Note that all & must be escaped to &amp; for the file to be valid
 				XML and be parsed by the installer
 			-->
+			<menu link="option=com_yajem&amp;view=events"
+				  alt="Yajem List/Events">COM_YAJEM_SUBMENU_EVENTS</menu>
 			<menu link="option=com_yajem&amp;view=locations"
 				  alt="Yajem List/Locations">COM_YAJEM_SUBMENU_LOCATIONS</menu>
 			<menu link="option=com_yajem&amp;view=attendees"
-				  alt="Yajem List/Locations">COM_YAJEM_SUBMENU_ATTENDEES</menu>
+				  alt="Yajem List/Attendees">COM_YAJEM_SUBMENU_ATTENDEES</menu>
 			<menu link="option=com_categories&amp;extension=com_yajem"
 				  view="categories" alt="Locations/Categories">COM_YAJEM_SUBMENU_LOCATIONS_CATEGORY</menu>
 		</submenu>

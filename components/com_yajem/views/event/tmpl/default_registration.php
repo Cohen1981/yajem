@@ -36,7 +36,7 @@ if (!$guest)
 
 ?>
 
-<?php if ($this->event->registerUntil): ?>
+<?php if ((bool) $this->event->useRegisterUntil): ?>
 <div id="organizer" class="yajem_grid_section">
     <div class="yajem_label"><?php echo JText::_('COM_YAJEM_REGISTER_UNTIL'); ?></div>
     <div class="yajem_output"><?php echo $this->event->registerUntil; ?></div>

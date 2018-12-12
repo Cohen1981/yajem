@@ -70,6 +70,16 @@ class YajemControllerEvents extends AdminController
 		Factory::getApplication()->close();
 	}
 
+	/**
+	 * Overwriting parent method for deleting corresponding rows in the #__yajem_attendees table
+	 *
+	 * @param JModelLegacy $model
+	 * @param null         $ids
+	 *
+	 * @return bool|void
+	 *
+	 * @since 1.0
+	 */
 	protected function postDeleteHook(\JModelLegacy $model, $ids = null)
 	{
 		$modelAttendees = $this->getModel('Attendees');
