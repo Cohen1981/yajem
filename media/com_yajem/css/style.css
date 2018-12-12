@@ -131,6 +131,7 @@ input[type=checkbox]:checked ~ .yajem_switchable {
 }
 .yajem_inline-block{
     display: inline-block;
+    padding:0px 10px;
 }
 .yajem_switch{
     display: inline-block;

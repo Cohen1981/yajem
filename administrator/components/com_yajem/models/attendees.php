@@ -54,7 +54,7 @@ class YajemModelAttendees extends ListModel
 	 *
 	 * @since version
 	 */
-	public function getAllUsers()
+	public function getAllUsersForEvent()
 	{
 		$db = $this->getDbo();
 		$db->setQuery($this->getListQuery());
@@ -146,5 +146,26 @@ class YajemModelAttendees extends ListModel
 		}
 
 		return $query;
+	}
+
+	/**
+	 * @param $eventId
+	 *
+	 * @return mixed
+	 *
+	 * @since 1.0
+	 */
+	public function deleteAttendeesForEvent($eventId)
+	{
+		$db = JFactory::getDbo();
+
+		$query = $db->getQuery(true);
+
+		$query->delete($db->quoteName('#__yajem_attendees'));
+		$query->where($db->quoteName('eventId') . ' = ' . (int) $eventId);
+
+		$db->setQuery($query);
+
+		return $db->execute();
 	}
 }

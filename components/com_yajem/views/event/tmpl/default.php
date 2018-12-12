@@ -16,8 +16,11 @@ $user       = Factory::getUser();
 $guest		= $user->guest;
 $useReg = (bool) $this->event->useRegistration;
 $googleApiKey = (string) JComponentHelper::getParams('com_yajem')->get('global_googleapi');
-$useOrga = (bool) JComponentHelper::getParams('com_yajem')->get('use_organizer');
-$useOrganizer = (bool) JComponentHelper::getParams('com_yajem')->get('use_organizer');
+$useOrg = (bool) JComponentHelper::getParams('com_yajem')->get('use_organizer');
+if ($useOrga)
+{
+	$useOrga = (bool) $this->event->useOrganizer;
+}
 
 if ($useOrga)
 {
@@ -109,38 +112,6 @@ if ($useOrga)
 						src="https://www.google.com/maps/embed/v1/place?key=<?php echo $googleApiKey; ?>&q=<?php echo $googleAddress ?>"
 						allowfullscreen>
 				</iframe>
-			</div>
-		</div>
-	<?php endif; ?>
-
-	<!-- Organizer -->
-	<?php if (($useOrganizer || $this->event->registerUntil) && !$guest): ?>
-		<div class="yajem_switch_container">
-			<div class="yajem_section_header yajem_bottom-rounded">
-				<div class="yajem_inline-block">
-					<h2>
-						<?php echo JText::_('COM_YAJEM_TITLE_ORGA'); ?>
-					</h2>
-				</div>
-				<label id="orga-section-button" class="yajem_switch" for="yajem_switch_orga">
-					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
-				</label>
-			</div>
-			<input type="checkbox" id="yajem_switch_orga" class="yajem_hidden"/>
-			<div class="yajem_section_container yajem_switchable">
-
-				<div id="organizer" class="yajem_grid_section">
-					<?php if ($useOrganizer): ?>
-						<div class="yajem_label"><?php echo JText::_('COM_YAJEM_ORGANIZER_LABEL'); ?></div>
-						<div class="yajem_output"><?php echo $this->event->organizerLink; ?></div>
-					<?php endif; ?>
-
-					<?php if ($this->event->registerUntil): ?>
-						<div class="yajem_label"><?php echo JText::_('COM_YAJEM_REGISTER_UNTIL'); ?></div>
-						<div class="yajem_output"><?php echo $this->event->registerUntil; ?></div>
-					<?php endif; ?>
-				</div>
-
 			</div>
 		</div>
 	<?php endif; ?>

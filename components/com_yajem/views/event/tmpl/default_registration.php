@@ -15,7 +15,6 @@ use Joomla\CMS\Factory;
 $user	= Factory::getUser();
 $userId = $user->get('id');
 $guest	= $user->guest;
-$useOrganizer = (bool) JComponentHelper::getParams('com_yajem')->get('use_organizer');
 $waitingList = (!$this->attendeeNumber < $this->event->registrationLimit && (bool) $this->event->useWaitingList);
 
 $regPossible = false;
@@ -26,7 +25,7 @@ if (!$guest)
 	$regUntil = Factory::getDate($this->event->registerUntil, 'UTC');
 	$currentDate = Factory::getDate('now', 'UTC');
 
-	if ($currentDate < $regUntil)
+	if ($currentDate < $regUntil || !(bool) $this->event->userRegisterUntil)
 	{
 		if ($this->event->registrationLimit == 0 || $this->attendeeNumber < $this->event->registrationLimit || $waitingList)
 		{
@@ -36,6 +35,13 @@ if (!$guest)
 }
 
 ?>
+
+<?php if ($this->event->registerUntil): ?>
+<div id="organizer" class="yajem_grid_section">
+    <div class="yajem_label"><?php echo JText::_('COM_YAJEM_REGISTER_UNTIL'); ?></div>
+    <div class="yajem_output"><?php echo $this->event->registerUntil; ?></div>
+</div>
+<?php endif; ?>
 
 <div id="yajem_attendees" class="yajem_flex_row">
 	<?php

@@ -129,18 +129,23 @@ $currentDate 	= Factory::getDate('now', 'UTC');
 				if (!$guest)
 				{
 					echo '<div class="yajem_cell">';
-					switch ($item->eventStatus)
+					if ((bool)$item->useOrganizer)
 					{
-						case 0:
-							echo $symbolOpen;
-							break;
-						case 1:
-							echo $symbolConfirmed;
-							break;
-						case 2:
-							echo $symbolCanceled;
-							break;
-					}
+						switch ($item->eventStatus)
+						{
+							case 0:
+								echo $symbolOpen;
+								break;
+							case 1:
+								echo $symbolConfirmed;
+								break;
+							case 2:
+								echo $symbolCanceled;
+								break;
+						}
+					} else {
+						echo $symbolConfirmed;
+                    }
 					echo '</div>';
 				}
 			?>

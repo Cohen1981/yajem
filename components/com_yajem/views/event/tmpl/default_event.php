@@ -16,8 +16,16 @@ use Joomla\CMS\Factory;
 $user       = Factory::getUser();
 $userId     = $user->get('id');
 $allDay = (bool) $this->event->allDayEvent;
-
+$useHost = (bool) JComponentHelper::getParams('com_yajem')->get('use_host');
+if ($useHost)
+{
+	$useHost = (bool) $this->event->useOrganizer;
+}
 $useOrga = (bool) JComponentHelper::getParams('com_yajem')->get('use_organizer');
+if ($useOrga)
+{
+	$useOrga = (bool) $this->event->useOrganizer;
+}
 
 if ($useOrga)
 {
@@ -104,13 +112,18 @@ if ($useOrga)
 		?>
 	</div>
 
-	<?php if ($this->event->hostLink): ?>
+	<?php if ($useHost): ?>
 		<div class="yajem_label">
 			<?php echo JText::_('COM_YAJEM_EVENT_HOST_LABEL'); ?>
 		</div>
 		<div class="yajem_output">
 			<?php echo $this->event->hostLink; ?>
 		</div>
+	<?php endif; ?>
+
+	<?php if ($useOrga): ?>
+        <div class="yajem_label"><?php echo JText::_('COM_YAJEM_ORGANIZER_LABEL'); ?></div>
+        <div class="yajem_output"><?php echo $this->event->organizerLink; ?></div>
 	<?php endif; ?>
 
 	<?php if ($this->event->description): ?>

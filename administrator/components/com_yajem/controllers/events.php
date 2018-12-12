@@ -23,9 +23,9 @@ defined('_JEXEC') or die;
 class YajemControllerEvents extends AdminController
 {
 	/**
-	 * @param   string $name    Event
-	 * @param   string $prefix  YajemModel
-	 * @param   array  $config  none
+	 * @param   string $name   Event
+	 * @param   string $prefix YajemModel
+	 * @param   array  $config none
 	 *
 	 * @return boolean|JModelLegacy
 	 *
@@ -47,7 +47,7 @@ class YajemControllerEvents extends AdminController
 	public function saveOrderAjax()
 	{
 		// Get the input
-		$input = JFactory::getApplication()->input;
+		$input = Factory::getApplication()->input;
 		$pks   = $input->post->get('cid', array(), 'array');
 		$order = $input->post->get('order', array(), 'array');
 
@@ -68,5 +68,14 @@ class YajemControllerEvents extends AdminController
 
 		// Close the application
 		Factory::getApplication()->close();
+	}
+
+	protected function postDeleteHook(\JModelLegacy $model, $ids = null)
+	{
+		$modelAttendees = $this->getModel('Attendees');
+		foreach ($ids as $id){
+			$modelAttendees->deleteAttendeesForEvent($id);
+		}
+		return true;
 	}
 }

@@ -176,7 +176,19 @@
 
 	<fieldset name="contact_host" addfieldpath="/administrator/components/com_contact/models/fields">
 		<field
+				name="useHost"
+				type="radio"
+				label="COM_YAJEM_FIELD_HOST_LABEL"
+				description="COM_YAJEM_FIELD_HOST_DESC"
+				class="btn-group btn-group-yesno"
+				default="0"
+		>
+			<option value="1">COM_YAJEM_PARAM_YES</option>
+			<option value="0">COM_YAJEM_PARAM_NO</option>
+		</field>
+		<field
 				name="hostId"
+				showon="useHost:1"
 				type="modal_contact"
 				default=""
 				label="COM_YAJEM_EVENT_HOST_SELECT_LABEL"
@@ -184,7 +196,19 @@
 	</fieldset>
 	<fieldset name="contact_organizer" addfieldpath="/administrator/components/com_contact/models/fields">
 		<field
+				name="useOrganizer"
+				type="radio"
+				label="COM_YAJEM_FIELD_ORGANIZER_LABEL"
+				description="COM_YAJEM_FIELD_ORGANIZER_DESC"
+				class="btn-group btn-group-yesno"
+				default="0"
+		>
+			<option value="1">COM_YAJEM_PARAM_YES</option>
+			<option value="0">COM_YAJEM_PARAM_NO</option>
+		</field>
+		<field
 				name="organizerId"
+				showon="useOrganizer:1"
 				type="modal_contact"
 				default=""
 				label="COM_YAJEM_EVENT_ORGANIZER_SELECT_LABEL"
@@ -214,11 +238,23 @@
 			<option value="0">COM_YAJEM_PARAM_NO</option>
 		</field>
 		<field
-				name="registerUntil"
+				name="useRegisterUntil"
 				showon="useRegistration:1"
+				type="radio"
+				label="COM_YAJEM_FIELD_USEREGISTRATIONUNTIL_LABEL"
+				description="COM_YAJEM_FIELD_REGISTRATION_DESC"
+				class="btn-group btn-group-yesno"
+				default="1"
+		>
+			<option value="1">COM_YAJEM_PARAM_YES</option>
+			<option value="0">COM_YAJEM_PARAM_NO</option>
+		</field>
+		<field
+				name="registerUntil"
+				showon="useRegisterUntil:1"
 				class="yajem_registration"
 				type="calendar"
-				label="JGLOBAL_FIELD_REGISTER_UNTIL_LABEL"
+				label="COM_YAJEM_FIELD_REGISTER_UNTIL_LABEL"
 				description="COM_YAJEM_FIELD_REGISTER_UNTIL_DESC"
 				size="22"
 				format="%d-%m-%Y"
