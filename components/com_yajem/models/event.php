@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 JHtml::_('stylesheet', JUri::root() . 'media/com_yajem/css/style.css');
 
-use Joomla\CMS\MVC\Model\ItemModelModel;
+use Joomla\CMS\MVC\Model\ItemModel;
 use Joomla\Utilities\ArrayHelper;
 use Joomla\Event\Dispatcher;
 
@@ -21,7 +21,7 @@ use Joomla\Event\Dispatcher;
  *
  * @since       version
  */
-class YajemModelEvent extends \Joomla\CMS\MVC\Model\ItemModel
+class YajemModelEvent extends ItemModel
 {
 	/**
 	 * @param   null $ordering  Null

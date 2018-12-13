@@ -93,4 +93,44 @@ class YajemTableLocation extends Table
 
 		return parent::bind($src, $ignore);
 	}
+
+	/**
+	 * Overloaded delete function for enforcing data integrity
+	 * Should also work when called from Frontend
+	 *
+	 * @param null $pk
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0
+	 */
+	public function delete($pk = null)
+	{
+		$return = parent::delete($pk);
+
+		if ($return)
+		{
+			// Now check for events to delete
+			$db = $this->getDbo();
+			$query = $db->getQuery(true)
+				->select($db->quoteName('id'))
+				->from(
+					$db->quoteName('#__yajem_events')
+				)
+				->where('locationId = ' . (int) $pk);
+			$db->setQuery($query);
+			$ids=$db->loadColumn();
+
+			// deleting should be done through native table which should care for own dependencies.
+			jimport('joomla.application.component.table');
+			JTable::addIncludePath(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_yajem' . DS . 'tables');
+			$eventTable = JTable::getInstance( 'Event', 'YajemTable' );
+			foreach ($ids as $id)
+			{
+				$eventTable->delete($id);
+			}
+		}
+
+		return $return;
+	}
 }

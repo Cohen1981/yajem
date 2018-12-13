@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * @package     Yajem
@@ -144,4 +145,5 @@ class YajemModelLocation extends AdminModel
 
 		parent::prepareTable($table);
 	}
+
 }

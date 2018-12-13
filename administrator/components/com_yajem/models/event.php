@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
+use Joomla\Utilities\ArrayHelper;
 
 /**
  * @package     Yajem
@@ -145,4 +146,40 @@ class YajemModelEvent extends AdminModel
 		parent::prepareTable($table);
 	}
 
+	/**
+	 * Deletes given records and enforce data integrity due deleting depending rows in yajem_attendees
+	 *
+	 * @param array $pks
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0
+
+	public function delete(&$pks)
+	{
+		$return = parent::delete($pks);
+
+		if ($return)
+		{
+			// Now check for attenddees to delete
+			$db = $this->getDbo();
+			$query = $db->getQuery(true)
+				->select($db->quoteName('id'))
+				->from(
+					$db->quoteName('#__yajem_attendees')
+				)
+				->where('eventId IN (' . implode(',', $pks) . ')');
+			$db->setQuery($query);
+			$ids=$db->loadColumn();
+
+			// deleting should be done through native model which should care for own dependencies.
+			jimport('joomla.application.component.model');
+			JModelLegacy::addIncludePath(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_yajem' . DS . 'models');
+			$attendeeModel = JModelLegacy::getInstance( 'Attendee', 'YajemModel' );
+			$attendeeModel->delete(ArrayHelper::toInteger($ids));
+
+		}
+
+		return $return;
+	}*/
 }
