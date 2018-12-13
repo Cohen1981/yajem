@@ -22,7 +22,8 @@ CREATE TABLE IF NOT EXISTS `#__yajem_locations` (
   PRIMARY KEY (`id`),
   INDEX `idx_loc_catid` (catid ASC),
   INDEX `idx_loc_conid` (contactid ASC))
-  ENGINE = MyISAM CHARACTER SET `utf8` COLLATE `utf8_general_ci`;
+  ENGINE=InnoDB
+  DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
 
 CREATE TABLE IF NOT EXISTS `#__yajem_events` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id of the Event',
@@ -60,8 +61,8 @@ CREATE TABLE IF NOT EXISTS `#__yajem_events` (
   INDEX `idx_event_locid` (`locationId` ASC),
   INDEX `idx_event_hostid` (`hostId` ASC),
   INDEX `idx_event_orgid` (`organizerId` ASC))
-  ENGINE = MyISAM
-  DEFAULT CHARACTER SET = `utf8` COLLATE `utf8_general_ci`;
+  ENGINE=InnoDB
+  DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
 
 CREATE TABLE IF NOT EXISTS `#__yajem_attendees` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
@@ -72,5 +73,5 @@ CREATE TABLE IF NOT EXISTS `#__yajem_attendees` (
   PRIMARY KEY (`id`),
   INDEX `idx_att_event` (`eventId` ASC),
   INDEX `idx_att_user` (`userId` ASC ))
-  ENGINE = MyISAM
-  DEFAULT CHARACTER SET = `utf8` COLLATE `utf8_general_ci`;
+  ENGINE=InnoDB
+  DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
