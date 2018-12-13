@@ -345,14 +345,4 @@
         />
     </fieldset>
 
-	<!--<field name= "invitation"
-		   description= "COM_YAJEM_INVITATIONS_DESC"
-		   type= "subform"
-		   label= "COM_YAJEM_INVITATIONS_LABEL"
-		   required= "false"
-		   formsource= "/administrator/components/com_yajem/models/forms/attendee.xml"
-		   multiple= "true"
-		   buttons= "add,remove"
-	/>-->
-
 </form>
