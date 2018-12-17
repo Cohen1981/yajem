@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<extension type="package" version="2.5" method="upgrade">
+    <name>pkg_yajem</name>
+    <packagename>yajem</packagename>
+    <creationDate>17.12.2018</creationDate>
+    <author>Alexander Bahlo</author>
+    <authorEmail>abahlo@hotmail.de</authorEmail>
+    <copyright>A copyright</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>1.0</version>
+    <description>PKG_YAJEM_INSTALLATION_DESCRIPTION</description>
+    <packager>Alexander Bahlo</packager>
+
+    <scriptfile>pkg_install.php</scriptfile>
+
+    <files folder="packages">
+        <file type="component" id="com_yajem">com_yajem.zip</file>
+
+        <file type="plugin" id="mailer" group="yajem">plg_yajem_mailer.zip</file>
+    </files>
+
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.pkg_jem.sys.ini</language>
+    </languages>
+</extension>

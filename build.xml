@@ -3,12 +3,12 @@
 
     <property name="build.version" value="0.0.1"/>
 
-    <property name="zip.dir" value="${project.basedir}/build/com_yajem"/>
-    <property name="build.dir" value="${project.basedir}/build/com_yajem"/>
+    <property name="build.dir" value="${project.basedir}/build"/>
     <property name="dist.dir" value="${project.basedir}/target"/>
     <property name="admin.src.dir" value="${project.basedir}/administrator/components/com_yajem"/>
     <property name="site.src.dir" value="${project.basedir}/components/com_yajem"/>
     <property name="media.src.dir" value="${project.basedir}/media/com_yajem"/>
+    <property name="plg.scr.dir" value="${project.basedir}\plugins"/>
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
@@ -18,7 +18,9 @@
     <target name="prepare" description="prepare for packaging">
         <delete dir="${dist.dir}" includeemptydirs="true"/>
         <mkdir dir="${build.dir}"/>
+        <mkdir dir="${build.dir}/com_yajem"/>
         <mkdir dir="${dist.dir}"/>
+        <mkdir dir="${dist.dir}/packages"/>
     </target>
 
     <target name="cleanup" description="cleaning after build">
@@ -37,7 +39,7 @@
             </fileset>
         </copy>
 
-        <copy todir="${build.dir}">
+        <copy todir="${build.dir}/com_yajem">
             <fileset dir="${project.basedir}">
                 <include name="**/LICENSE"/>
                 <include name="administrator/**"/>
@@ -49,14 +51,23 @@
             </fileset>
         </copy>
 
-        <move file="${build.dir}/administrator/components/com_yajem/yajem.xml" todir="${build.dir}"/>
-        <move file="${build.dir}/administrator/components/com_yajem/script.php" todir="${build.dir}"/>
+        <copy todir="${dist.dir}">
+            <filelist dir="${project.basedir}" files="pkg_yajem.xml"/>
+        </copy>
+
+        <move file="${build.dir}/administrator/components/com_yajem/yajem.xml" todir="${build.dir}/com_yajem"/>
+        <move file="${build.dir}/administrator/components/com_yajem/script.php" todir="${build.dir}/com_yajem"/>
 
     </target>
 
     <target name="zip" description="package the archive" depends="copyFiles">
-        <zip destfile="${dist.dir}/com_yajem_${build.version}.zip" includeemptydirs="true">
-            <fileset dir="${zip.dir}">
+        <zip destfile="${dist.dir}/packages/com_yajem.zip" includeemptydirs="true">
+            <fileset dir="${build.dir}/com_yajem">
+                <include name="**/**"/>
+            </fileset>
+        </zip>
+        <zip destfile="${dist.dir}/pkg_yajem_${build.version}.zip" includeemptydirs="true">
+            <fileset dir="${dist.dir}">
                 <include name="**/**"/>
             </fileset>
         </zip>
