@@ -13,7 +13,7 @@ defined('_JEXEC') or die;
 JFormHelper::loadFieldClass('list');
 
 /**
- * @package     COM_YAJEM
+ * @package     Yajem
  *
  * @since       version
  */

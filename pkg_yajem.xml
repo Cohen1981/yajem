@@ -5,9 +5,9 @@
     <creationDate>17.12.2018</creationDate>
     <author>Alexander Bahlo</author>
     <authorEmail>abahlo@hotmail.de</authorEmail>
-    <copyright>A copyright</copyright>
+    <copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <description>PKG_YAJEM_INSTALLATION_DESCRIPTION</description>
     <packager>Alexander Bahlo</packager>
 

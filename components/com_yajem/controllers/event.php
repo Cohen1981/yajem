@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Plugin\PluginHelper;
 
 /**
  * @package     Yajem
@@ -86,15 +87,18 @@ class YajemControllerEvent extends BaseController
 
 		if ($todo = $input['eStatus'])
 		{
+			PluginHelper::importPlugin('yajem');
 			$model = $this->getModel('Event');
 
 			switch ($todo)
 			{
 				case 'confirm':
 					$model->changeStatus($input['eventId'], 1);
+					Factory::getApplication()->triggerEvent('onChangeEventState', array($input['eventId'], 'confirmed'));
 					break;
 				case 'cancel':
 					$model->changeStatus($input['eventId'], 2);
+					Factory::getApplication()->triggerEvent('onChangeEventState', array($input['eventId'], 'cancelled'));
 					break;
 			}
 		}

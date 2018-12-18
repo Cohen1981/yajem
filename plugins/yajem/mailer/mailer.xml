@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="plugin" version="3.8" group="yajem" method="upgrade">
+<name>PLG_YAJEM_MAILER</name>
+<creationDate>18.12.2018</creationDate>
+<author>Alexander Bahlo</author>
+<authorEmail>abahlo@hotmail.de</authorEmail>
+<copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
+<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+<version>1.0.0</version>
+<description>PLG_YAJEM_XML_DESCRIPTION</description>
+
+<!-- Scripts to run on installation
+<scriptfile></scriptfile>
+-->
+
+<!-- Plugin files -->
+<files>
+    <filename plugin="mailer">mailer.php</filename>
+    <filename>index.html</filename>
+    <folder>language</folder>
+</files>
+
+<!-- Config parameter -->
+<config>
+    <fields name="params">
+        <fieldset name="basic" label="PLG_YAJEM_MAILER_OPTIONS">
+
+            <field type="spacer" label="PLG_YAJEM_MAILER_RECIPIENTS_GENERAL" />
+
+            <field type="radio" name="mail_to_all"
+                   label="PLG_YAJEM_MAILER_MAIL_ALL_LABEL"
+                   default="1"
+                   description="PLG_YAJEM_MAILER_MAIL_ALL_DESC"
+                   class="btn-group btn-group-yesno"
+            >
+                <option value="1">PLG_YAJEM_OPTION_ALL</option>
+                <option value="0">PLG_YAJEM_OPTION_GROUP</option>
+            </field>
+
+            <field type="usergrouplist" name="mail_to_group" label="PLG_YAJEM_MAILER_CHOOSE_GROUP"
+            showon="mail_to_all:0"/>
+
+            <field type="spacer" label="PLG_YAJEM_MAILER_EVENT_EDITING" />
+
+            <field type="radio" name="mail_new_event"
+                   label="PLG_YAJEM_MAILER_NEW_EVENT_LABEL"
+                   default="1"
+                   description="PLG_YAJEM_MAILER_NEW_EVENT_DESC"
+                   class="btn-group btn-group-yesno"
+            >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+
+            <field type="radio" name="mail_edit_event"
+                   label="PLG_YAJEM_MAILER_EDIT_EVENT_LABEL"
+                   default="1"
+                   description="PLG_YAJEM_MAILER_EDIT_EVENT_DESC"
+                   class="btn-group btn-group-yesno"
+            >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+
+            <field type="radio" name="mail_event_editAttendees"
+                   label="PLG_YAJEM_MAILER_EVENT_EDIT_ATTENDEES_LABEL"
+                   showon="mail_event_state:1"
+                   default="1"
+                   description="PLG_YAJEM_MAILER_EVENT_EDIT_ATTENDEES_DESC"
+                   class="btn-group btn-group-yesno"
+            >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+
+            <field type="spacer" label="PLG_YAJEM_MAILER_EVENT_STATE" />
+
+            <field type="radio" name="mail_event_state"
+                   label="PLG_YAJEM_MAILER_EVENT_STATE_LABEL"
+                   default="1"
+                   description="PLG_YAJEM_MAILER_EVENT_STATE_DESC"
+                   class="btn-group btn-group-yesno"
+            >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+
+            <field type="radio" name="mail_event_stateAttendees"
+                   label="PLG_YAJEM_MAILER_EVENT_STATE_ATTENDEES_LABEL"
+                   showon="mail_event_state:1"
+                   default="1"
+                   description="PLG_YAJEM_MAILER_EVENT_STATE_ATTENDEES_DESC"
+                   class="btn-group btn-group-yesno"
+            >
+                <option value="1">JYES</option>
+                <option value="0">JNO</option>
+            </field>
+
+        </fieldset>
+    </fields>
+</config>
+
+</extension>
