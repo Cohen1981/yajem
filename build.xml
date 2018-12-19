@@ -8,7 +8,7 @@
     <property name="admin.src.dir" value="${project.basedir}/administrator/components/com_yajem"/>
     <property name="site.src.dir" value="${project.basedir}/components/com_yajem"/>
     <property name="media.src.dir" value="${project.basedir}/media/com_yajem"/>
-    <property name="plg.scr.dir" value="${project.basedir}\plugins"/>
+    <property name="plg.scr.dir" value="${project.basedir}/plugins"/>
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
@@ -19,6 +19,7 @@
         <delete dir="${dist.dir}" includeemptydirs="true"/>
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.dir}/com_yajem"/>
+        <mkdir dir="${build.dir}/plg_yajem_mailer"/>
         <mkdir dir="${dist.dir}"/>
         <mkdir dir="${dist.dir}/packages"/>
     </target>
@@ -55,14 +56,25 @@
             <filelist dir="${project.basedir}" files="pkg_yajem.xml"/>
         </copy>
 
-        <move file="${build.dir}/administrator/components/com_yajem/yajem.xml" todir="${build.dir}/com_yajem"/>
-        <move file="${build.dir}/administrator/components/com_yajem/script.php" todir="${build.dir}/com_yajem"/>
+        <copy todir="${build.dir}/plg_yajem_mailer">
+            <fileset dir="${plg.scr.dir}/yajem/mailer">
+                <include name="**/**" />
+            </fileset>
+        </copy>
+
+        <move file="${build.dir}/com_yajem/administrator/components/com_yajem/yajem.xml" todir="${build.dir}/com_yajem"/>
+        <move file="${build.dir}/com_yajem/administrator/components/com_yajem/script.php" todir="${build.dir}/com_yajem"/>
 
     </target>
 
     <target name="zip" description="package the archive" depends="copyFiles">
         <zip destfile="${dist.dir}/packages/com_yajem.zip" includeemptydirs="true">
             <fileset dir="${build.dir}/com_yajem">
+                <include name="**/**"/>
+            </fileset>
+        </zip>
+        <zip destfile="${dist.dir}/packages/plg_yajem_mailer.zip" includeemptydirs="true">
+            <fileset dir="${build.dir}/plg_yajem_mailer">
                 <include name="**/**"/>
             </fileset>
         </zip>
