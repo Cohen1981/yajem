@@ -12,7 +12,6 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\Input\Input;
 
 /**
  * Send Mail at defined events.
@@ -59,13 +58,14 @@ class PlgYajemMailer extends CMSPlugin
 	{
 		$input = Factory::getApplication()->input;
 		$data = $input->post->getArray();
+		$event = $data['jform'];
 		if ( $isNew )
 		{
-			// Neues Event
 			if ( (bool) $this->params['mail_new_event'] )
 			{
 				$recipients = $this->getRecipientsMails(false );
 				$subject = Text::_('PLG_YAJEM_EVENT_CREATED');
+
 			}
 		} else {
 			if ( (bool) $this->params['mail_edit_event'] )
@@ -74,12 +74,12 @@ class PlgYajemMailer extends CMSPlugin
 				$subject = Text::_('PLG_YAJEM_EVENT_CHANGED');
 			}
 		}
-		$subject = $subject . ": " . $data['jform']['title'];
-		if ( $data['jform']['allDayEvent'] )
+		$subject = $subject . ": " . $event['title'];
+		if ( $event['allDayEvent'] )
 		{
-			$subject = $subject . " : " . $data['jform']['startDate'] . " -> " . $data['jform']['endDate'];
+			$subject = $subject . " : " . $event['startDate'] . " -> " . $event['endDate'];
 		} else {
-			$subject = $subject . " : " . $data['jform']['startDateTime'] . " -> " . $data['jform']['endDateTime'];
+			$subject = $subject . " : " . $event['startDateTime'] . " -> " . $event['endDateTime'];
 		}
 		$body = Text::_('PLG_YAJEM_MAIL_BODY');
 
@@ -98,9 +98,35 @@ class PlgYajemMailer extends CMSPlugin
 	{
 		if ( (bool) $this->params['mail_event_state'] )
 		{
+			//load model for recieving additional event information
+			JModelLegacy::addIncludePath(JPATH_SITE . DS . 'components' . DS . 'com_yajem' . DS . 'models');
+
+			//get the Event
+			$modelEvent = JModelLegacy::getInstance('event', 'YajemModel');
+			$event = $modelEvent->getData($eventId);
+
+			//get the location
+			$modelLocation = JModelLegacy::getInstance('locations', 'YajemModel');
+			$location = $modelLocation->getLocation( (int) $event->locationId );
+
+			//get the recipients
 			$recipients = $this->getRecipientsMails( (bool) $this->params['mail_event_stateAttendees'], $eventId );
-			$subject = Text::_('PLG_YAJEM_EVENT_STATE_CHANGED') . " : " . $status;
-			$body = Text::_('PLG_YAJEM_MAIL_BODY');
+			//build the subject
+			if ( $status == 'confirmed' )
+			{
+				$subject = Text::_('PLG_YAJEM_EVENT_STATE_CONFIRMED');
+			} else {
+				$subject = Text::_('PLG_YAJEM_EVENT_STATE_CANCELLED');
+			}
+			$subject = $subject . " => " . $event->title;
+			if ( (bool) $event->allDayEvent )
+			{
+				$body = Text::_('PLG_YAJEM_EVENT_TIME') . " : " . $event->startDate . " -> " . $event->endDate;
+			} else {
+				$body = Text::_('PLG_YAJEM_EVENT_TIME') . " : " . $event->startDateTime . " -> " . $event->endDateTime;
+			}
+			$body = $this->addLocationToBody($location, $body);
+
 			$this->sendMail($recipients, $subject, $body);
 		}
 	}
@@ -163,6 +189,23 @@ class PlgYajemMailer extends CMSPlugin
 				Factory::getApplication()->enqueueMessage(Text::_('PLG_YAJEM_MAIL_SEND_SUCCESS'), 'message');
 			}
 		}
+	}
+
+	/**
+	 * @param JModelLegacy    $location
+	 * @param string $body
+	 *
+	 * @return string
+	 *
+	 * @since 1.0
+	 */
+	private function addLocationToBody($location, $body = "")
+	{
+		$body = $body . " \n\n " . Text::_('PLG_YAJEM_EVENT_LOCATION') . "\n" .
+			$location->title . "\n" .
+			$location->street . "\n" .
+			$location->postalCode . " " . $location->city;
+		return $body;
 	}
 
 }

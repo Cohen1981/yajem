@@ -56,9 +56,10 @@ class YajemModelEvent extends ItemModel
 	/**
 	 * @param   null $id Id of the Event to load
 	 *
-	 * @return boolean|object
+	 * @return  boolean|object
 	 *
-	 * @since version
+	 * @since 1.0
+	 * @throws Exception
 	 */
 	public function &getData($id = null)
 	{
