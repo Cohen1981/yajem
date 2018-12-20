@@ -65,6 +65,8 @@ class YajemViewEvents extends HtmlView
 		{
 			throw new Exception(implode("\n", $errors));
 		}
+		$this->filterForm = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
 
 		parent::display($tpl);
 	}

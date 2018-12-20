@@ -12,8 +12,8 @@ defined('_JEXEC') or die;
 
 JHtml::_('stylesheet', JUri::root() . 'media/com_yajem/css/style.css');
 
-use Joomla\Registry\Registry;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 JHtml::addIncludePath(JPATH_COMPONENT . '/helpers/');
 JHtml::_('bootstrap.tooltip');
@@ -48,18 +48,24 @@ $currentDate 	= Factory::getDate('now', 'UTC');
 	}
 </script>
 
+
 <form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>" method="post"
 	  name="adminForm" id="adminForm">
 
 <div id="yajem_container">
+	<?php
+	echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
+	?>
 
     <?php if ($canCreate) : ?>
     <div class="yajem_section_container">
         <a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editevent.add'); ?>">
 		    <i class="fas fa-calendar-plus" aria-hidden="true"></i>
-        </a>
+	        <?php echo Text::_('COM_YAJEM_NEW_EVENT'); ?>
+        </a>&nbsp;
         <a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editlocation.add'); ?>">
             <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+	        <?php echo Text::_('COM_YAJEM_NEW_LOCATION'); ?>
         </a>
     </div>
     <?php endif; ?>
@@ -167,6 +173,7 @@ $currentDate 	= Factory::getDate('now', 'UTC');
 	<?php endif; ?>
 	<?php endforeach; ?>
 </div>
+	<?php echo $this->pagination->getListFooter(); ?>
 
 	<input type="hidden" name="filter_order" value="<?php echo $this->list['ordering']; ?>" />
 	<input type="hidden" name="filter_order_Dir" value="<?php echo $this->list['direction']; ?>" />

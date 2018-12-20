@@ -59,8 +59,7 @@ class YajemModelEvents extends ListModel
 		$params = JComponentHelper::getParams('com_yajem');
 		$this->setState('params', $params);
 
-		$list['limit']     = (int) JFactory::getConfig()->get('list_limit', 20);
-		$list['start']     = $app->input->getInt('start', 0);
+		$list = $app->getUserStateFromRequest($this->context . '.list', 'list', array(), 'array');
 
 		$app->setUserState($this->context . '.list', $list);
 		$app->input->set('list', null);
@@ -104,7 +103,7 @@ class YajemModelEvents extends ListModel
 			$this->setState('list.direction', $list['direction']);
 		}
 
-		parent::populateState($ordering, $direction);
+		parent::populateState($list['ordering'], $list['direction']);
 	}
 
 	/**
@@ -115,7 +114,6 @@ class YajemModelEvents extends ListModel
 	 */
 	protected function getListQuery()
 	{
-		$params = JComponentHelper::getParams('com_yajem');
 
 		$db    = $this->getDbo();
 		$query = $db->getQuery(true);
