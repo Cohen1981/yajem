@@ -17,7 +17,7 @@ use Joomla\CMS\MVC\View\HtmlView;
  *
  * @since       version
  */
-class YajemViewEditevent extends HtmlView
+class YajemViewEditlocation extends HtmlView
 {
 	/**
 	 * @var state
@@ -26,10 +26,10 @@ class YajemViewEditevent extends HtmlView
 	protected $state;
 
 	/**
-	 * @var event
+	 * @var location
 	 * @since version
 	 */
-	protected $event;
+	protected $location;
 
 	/**
 	 * @var form
@@ -51,7 +51,7 @@ class YajemViewEditevent extends HtmlView
 		$this->state = $this->get('State');
 
 		// Note to self: Property always Item.
-		$this->event = $this->get('Item');
+		$this->location = $this->get('Item');
 		$this->form = $this->get('Form');
 
 		if (count($errors = $this->get('Errors')))

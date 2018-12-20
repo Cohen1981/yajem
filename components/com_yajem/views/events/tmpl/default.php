@@ -53,11 +53,16 @@ $currentDate 	= Factory::getDate('now', 'UTC');
 
 <div id="yajem_container">
 
+    <?php if ($canCreate) : ?>
     <div class="yajem_section_container">
         <a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editevent.add'); ?>">
 		    <i class="fas fa-calendar-plus" aria-hidden="true"></i>
         </a>
+        <a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editlocation.add'); ?>">
+            <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+        </a>
     </div>
+    <?php endif; ?>
 
 	<div class="yajem_section_container">
 		<div class="yajem_flex_row">

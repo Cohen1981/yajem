@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Yajem.Administrator
+ * @package     Yajem.Site
  * @subpackage  Yajem
  *
  * @copyright   2018 Alexander Bahlo
@@ -17,7 +17,7 @@ use Joomla\CMS\MVC\Controller\FormController;
  *
  * @since       version
  */
-class YajemControllerLocation extends FormController
+class YajemControllerEditlocation extends FormController
 {
 	/**
 	 * The URL view item variable.
@@ -25,7 +25,7 @@ class YajemControllerLocation extends FormController
 	 * @var    string
 	 * @since  1.6
 	 */
-	protected $view_item = 'location';
+	protected $view_item = 'editlocation';
 
 	/**
 	 * The URL view list variable.
@@ -33,6 +33,6 @@ class YajemControllerLocation extends FormController
 	 * @var    string
 	 * @since  1.6
 	 */
-	protected $view_list = 'locations';
+	protected $view_list = 'events';
 
 }
