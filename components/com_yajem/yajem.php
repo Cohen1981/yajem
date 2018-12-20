@@ -13,6 +13,11 @@ use Joomla\CMS\MVC\Controller\BaseController;
 
 defined('_JEXEC') or die;
 
+$language = Factory::getLanguage();
+$extension = 'com_yajem';
+$language_tag = $language->getTag(); // loads the current language-tag
+$base_dir = JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . "components" . DIRECTORY_SEPARATOR . $extension;
+$language->load($extension, $base_dir, $language_tag, true);
 $controller = BaseController::getInstance('yajem');
 $controller->execute(Factory::getApplication()->input->get('task'));
 $controller->redirect();

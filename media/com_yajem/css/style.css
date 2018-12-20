@@ -1,5 +1,8 @@
 @import "fontawesome-all.min.css";
 
+fieldset{
+    display: inline-block;
+}
 #yajem_container {
     display: block;
 }
