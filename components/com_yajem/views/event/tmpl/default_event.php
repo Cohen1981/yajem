@@ -49,36 +49,6 @@ if ($useOrga)
 </div>
 
 <div id="event_basics" class="yajem_grid_section">
-	<?php if ($userId == $this->event->organizer->user_id): ?>
-
-		<div class="yajem_full_grid_row">
-			<form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>"  name="eventForm" id="eventForm" method="post">
-				<div class="yajem_flex_row" id="eventStatus">
-					<?php
-					switch ($this->event->eventStatus)
-					{
-						case 0:
-							echo $linkConfirm;
-							echo $linkCancel;
-							break;
-						case 1:
-							echo $linkCancel;
-							break;
-						case 2:
-							echo $linkConfirm;
-							break;
-					}
-					?>
-					<input type="radio" class="yajem_hidden" id="eConfirm" name="eStatus" value="confirm" onchange="eventForm.submit()" />
-					<input type="radio" class="yajem_hidden" id="eCancel" name="eStatus" value="cancel" onchange="eventForm.submit()" />
-					<input type="hidden" name="eventId" value="<?php echo $this->event->id; ?>" />
-					<input type="hidden" name="task" value="event.changeEventStatus" />
-					<?php echo JHtml::_( 'form.token' ); ?>
-				</div>
-			</form>
-		</div>
-
-	<?php endif; ?>
 
 	<div class="yajem_label">
 		<?php echo JText::_('COM_YAJEM_EVENT_STARTDATE_LABEL'); ?>

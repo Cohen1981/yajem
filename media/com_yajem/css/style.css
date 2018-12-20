@@ -7,8 +7,14 @@
 #yajem_reg{
     background-color: forestgreen;
 }
+.green{
+    color: forestgreen;
+}
 #yajem_unreg{
     background-color: crimson;
+}
+.crimson{
+    color:crimson;
 }
 #yajem_confirm{
     margin-right: 10px;
@@ -156,6 +162,14 @@ input[type=checkbox]:checked ~ .yajem_switchable {
     border-bottom: 1px solid #BDBDBD;
     padding-top: 20px;
     margin-bottom: 10px;
+}
+
+.yajem-no-margin {
+    margin:0px;
+}
+
+label {
+    margin-bottom:0px !important;
 }
 
 @media (max-width: 700px) {
