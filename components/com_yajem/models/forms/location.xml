@@ -18,7 +18,7 @@
                 label="JCATEGORY"
                 description="COM_YAJEM_FIELD_CATEGORY_DESC"
                 extension="com_yajem"
-                required="true"
+                required="false"
                 addfieldpath="/administrator/components/com_categories/models/fields"
                 default=""
         />

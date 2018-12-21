@@ -18,7 +18,7 @@
                 label="JCATEGORY"
                 description="COM_YAJEM_FIELD_CATEGORY_DESC"
                 extension="com_yajem"
-                required="true"
+                required="false"
                 addfieldpath="/administrator/components/com_categories/models/fields"
                 default=""
         />
@@ -110,7 +110,7 @@
 				label="COM_YAJEM_FIELD_STARTDATE_LABEL"
 				description="COM_YAJEM_FIELD_STARTDATE_DESC"
 				size="22"
-				format="%d-%m-%Y %H:%M"
+				format="%d.%m.%Y %H:%M"
 				filter="user_utc"
 				showtime="true"
 				timeformat="24"
@@ -123,7 +123,7 @@
 				label="COM_YAJEM_FIELD_ENDDATE_LABEL"
 				description="COM_YAJEM_FIELD_ENDDATE_DESC"
 				size="22"
-				format="%d-%m-%Y %H:%M"
+				format="%d.%m.%Y %H:%M"
 				filter="user_utc"
 				showtime="true"
 				timeformat="24"
@@ -137,7 +137,7 @@
 				label="COM_YAJEM_FIELD_STARTDATE_LABEL"
 				description="COM_YAJEM_FIELD_STARTDATE_DESC"
 				size="22"
-				format="%d-%m-%Y"
+				format="%d.%m.%Y"
 				filter="user_utc"
 		/>
 
@@ -148,7 +148,7 @@
 				label="COM_YAJEM_FIELD_ENDDATE_LABEL"
 				description="COM_YAJEM_FIELD_ENDDATE_DESC"
 				size="22"
-				format="%d-%m-%Y"
+				format="%d.%m.%Y"
 				filter="user_utc"
 		/>
 	</fieldset>
@@ -257,7 +257,7 @@
 				label="COM_YAJEM_FIELD_REGISTER_UNTIL_LABEL"
 				description="COM_YAJEM_FIELD_REGISTER_UNTIL_DESC"
 				size="22"
-				format="%d-%m-%Y"
+				format="%d.%m.%Y"
 				filter="user_utc"
 		/>
 		<field
@@ -311,7 +311,7 @@
                 label="COM_YAJEM_FIELD_CREATED_LABEL"
                 description="COM_YAJEM_FIELD_CREATED_DESC"
                 size="22"
-                format="%Y-%m-%d %H:%M:%S"
+                format="%d.%m.%Y %H:%M:%S"
                 filter="user_utc"
         />
 
@@ -330,7 +330,7 @@
                 class="readonly"
                 size="22"
                 readonly="true"
-                format="%Y-%m-%d %H:%M:%S"
+                format="%d.%m.%Y %H:%M:%S"
                 filter="user_utc"
         />
 

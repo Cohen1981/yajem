@@ -143,6 +143,21 @@ class YajemModelEvents extends ListModel
 		$query->order($db->escape($this->getState('list.ordering', 'a.startDate')) . ' ' .
 			$db->escape($this->getState('list.direction', 'ASC'))
 		);
+		// Filter by search in title
+		$search = $this->getState('filter.search');
+
+		if (!empty($search))
+		{
+			if (stripos($search, 'id:') === 0)
+			{
+				$query->where('a.id = ' . (int) substr($search, 3));
+			}
+			else
+			{
+				$search = $db->Quote('%' . $db->escape($search, true) . '%');
+				$query->where('( a.title LIKE ' . $search . ' )');
+			}
+		}
 
 		return $query;
 	}
