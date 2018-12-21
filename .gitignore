@@ -1,7 +1,6 @@
 .idea
 .phpstorm.meta.php
 build
-target
 vendor
 media/com_yajem/css/fontawesome-all.min.css
 media/com_yajem/webfonts
