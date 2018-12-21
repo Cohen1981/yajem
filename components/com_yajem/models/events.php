@@ -140,6 +140,9 @@ class YajemModelEvents extends ListModel
 		$query->select('c.title AS cat_title');
 		$query->join('LEFT', '#__categories AS c ON c.id = a.catid');
 
+		// only published events
+		$query->where('a.published = 1');
+
 		$query->order($db->escape($this->getState('list.ordering', 'a.startDate')) . ' ' .
 			$db->escape($this->getState('list.direction', 'ASC'))
 		);

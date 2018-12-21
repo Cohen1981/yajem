@@ -59,6 +59,14 @@ class PlgYajemMailer extends CMSPlugin
 		$input = Factory::getApplication()->input;
 		$data = $input->post->getArray();
 		$event = $data['jform'];
+
+		//load model for recieving additional event information
+		JModelLegacy::addIncludePath(JPATH_SITE . DS . 'components' . DS . 'com_yajem' . DS . 'models');
+
+		//get the location
+		$modelLocation = JModelLegacy::getInstance('locations', 'YajemModel');
+		$location = $modelLocation->getLocation( (int) $event['locationId'] );
+
 		if ( $isNew )
 		{
 			if ( (bool) $this->params['mail_new_event'] )
@@ -81,7 +89,20 @@ class PlgYajemMailer extends CMSPlugin
 		} else {
 			$subject = $subject . " : " . $event['startDateTime'] . " -> " . $event['endDateTime'];
 		}
-		$body = Text::_('PLG_YAJEM_MAIL_BODY');
+		$body="";
+		if ( !empty($event['description']) )
+		{
+			$body = Text::_('PLG_YAJEM_EVENT_DESC') . "\n" . $event['description'] . "\n\n";
+		}
+		if ( (bool) $event['useOrganizer'] )
+		{
+			$body = $this->addOrganizerToBody($event['organizerId'], $body);
+		}
+		if ( (bool) $event['useRegisterUntil'] )
+		{
+			$body = $body . Text::_('PLG_YAJEM_EVENT_REGUNTIL') . "\n" . $event['registerUntil'] . "\n\n";
+		}
+		$body = $this->addLocationToBody($location, $body);
 
 		$this->sendMail($recipients, $subject, $body);
 	}
@@ -121,9 +142,9 @@ class PlgYajemMailer extends CMSPlugin
 			$subject = $subject . " => " . $event->title;
 			if ( (bool) $event->allDayEvent )
 			{
-				$body = Text::_('PLG_YAJEM_EVENT_TIME') . " : " . $event->startDate . " -> " . $event->endDate;
+				$body = Text::_('PLG_YAJEM_EVENT_TIME') . " : " . $event->startDate . " -> " . $event->endDate . "\n\n";
 			} else {
-				$body = Text::_('PLG_YAJEM_EVENT_TIME') . " : " . $event->startDateTime . " -> " . $event->endDateTime;
+				$body = Text::_('PLG_YAJEM_EVENT_TIME') . " : " . $event->startDateTime . " -> " . $event->endDateTime . "\n\n";
 			}
 			$body = $this->addLocationToBody($location, $body);
 
@@ -201,11 +222,32 @@ class PlgYajemMailer extends CMSPlugin
 	 */
 	private function addLocationToBody($location, $body = "")
 	{
-		$body = $body . " \n\n " . Text::_('PLG_YAJEM_EVENT_LOCATION') . "\n" .
+		$body = $body . Text::_('PLG_YAJEM_EVENT_LOCATION') . "\n" .
 			$location->title . "\n" .
 			$location->street . "\n" .
 			$location->postalCode . " " . $location->city;
 		return $body;
+	}
+
+	/**
+	 * @param int    $organizerID
+	 * @param string $body
+	 *
+	 * @return string
+	 *
+	 * @since 1.0
+	 */
+	private function addOrganizerToBody($organizerID, $body = "")
+	{
+		$db = JFactory::getDbo();
+		$conQuery = $db->getQuery(true);
+		$conQuery->select('name')
+			->from('#__contact_details')
+			->where('id = ' . (int) $organizerID);
+		$db->setQuery($conQuery);
+		$organizerName = $db->loadResult();
+
+		return $body . Text::_('PLG_YAJEM_EVENT_ORGANIZER') . "\n" . $organizerName . "\n\n";
 	}
 
 }
