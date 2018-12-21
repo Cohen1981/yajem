@@ -19,7 +19,8 @@
         <file type="plugin" id="mailer" group="yajem">plg_yajem_mailer.zip</file>
     </files>
 
-    <languages folder="language">
+    <!--<languages folder="language">
         <language tag="en-GB">en-GB/en-GB.pkg_jem.sys.ini</language>
     </languages>
+    -->
 </extension>

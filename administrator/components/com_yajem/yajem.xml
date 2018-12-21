@@ -87,8 +87,9 @@
 		</files>
 	</administration>
 
-	<!-- Update servers -->
+	<!-- Update servers
 	<updateservers>
 		<server type="extension" priority="1" name="yajem">https://www.example.com/yajem.xml</server>
 	</updateservers>
+	 -->
 </extension>

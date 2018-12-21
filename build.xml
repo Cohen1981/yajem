@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="Yajem Extension Build" default="build">
 
-    <property name="build.version" value="0.0.1"/>
+    <property name="build.version" value="1.0.0"/>
 
     <property name="build.dir" value="${project.basedir}/build"/>
     <property name="dist.dir" value="${project.basedir}/target"/>
