@@ -52,14 +52,17 @@ class YajemControllerEvent extends FormController
 	 */
 	protected function postSaveHook(\JModelLegacy $model, $validData = array())
 	{
-		$isNew     = $model->getState('event.new');
-		$id = $model->getState('event.id');
+		// frontend differs from backend model by name
+		$modelname = $model->get('name');
+		// get needed params from the model
+		$isNew     = $model->getState($modelname . '.new');
+		$id = $model->getState($modelname . '.id');
 
-		// trigger all jem plugins
+		// trigger the plugins
 		PluginHelper::importPlugin('yajem');
 		Factory::getApplication()->triggerEvent('onEventEdited', array($id, $isNew));
 
-		// but show warning if mailer is disabled
+		// show warning if mailer is disabled
 		if (!PluginHelper::isEnabled('yajem', 'mailer')) {
 			Factory::getApplication()->enqueueMessage(Text::_('COM_YAJEM_MAILPLUGIN_DISABLED'), 'warning');
 		}

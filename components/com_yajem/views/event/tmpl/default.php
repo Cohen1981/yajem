@@ -11,12 +11,15 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 $user       = Factory::getUser();
 $guest		= $user->guest;
 $userId     = $user->get('id');
 $useReg = (bool) $this->event->useRegistration;
 $googleApiKey = (string) JComponentHelper::getParams('com_yajem')->get('global_googleapi');
+$canCreate  = $user->authorise('core.create', 'com_yajem');
+$canEdit    = $user->authorise('core.edit.state', 'com_yajem');
 $useOrgG = (bool) JComponentHelper::getParams('com_yajem')->get('use_organizer');
 if ($useOrgG)
 {
@@ -48,6 +51,14 @@ if ($useOrg)
 ?>
 
 <div id="yajem_container">
+	<?php if ($canEdit) : ?>
+        <div class="yajem_section_container">
+            <a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editevent.edit&id=') . $this->event->id; ?>">
+                <i class="fas fa-edit" aria-hidden="true"></i>
+				<?php echo Text::_('COM_YAJEM_EDIT_EVENT'); ?>
+            </a>&nbsp;
+        </div>
+	<?php endif; ?>
 
 	<!-- Event Basics Section -->
 	<div class="yajem_switch_container">
