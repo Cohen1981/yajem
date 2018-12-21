@@ -284,6 +284,29 @@
 			<option value="1">COM_YAJEM_PARAM_YES</option>
 			<option value="0">COM_YAJEM_PARAM_NO</option>
 		</field>
+		<!--
+		<field name= "invited_users"
+			   description= "Past work history"
+			   type= "subform"
+			   label= "Invited"
+			   min= "1"
+			   max= "1000"
+			   required= "true"
+			   multiple= "true"
+			   buttons= "add,remove"
+			   layout="joomla.form.field.subform.repeatable-table"
+			   groupByFieldset="false">
+			<form>
+				<field
+						name="invitedId"
+						type="user"
+						label="COM_YAJEM_FIELD_ORGANIZER_SELECT_LABEL"
+						description="COM_YAJEM_FIELD_ORGANIZER_SELECT_DESC"
+						required="false"
+				/>
+			</form>
+		</field>
+		-->
 
 	</fieldset>
 

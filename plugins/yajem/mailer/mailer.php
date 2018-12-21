@@ -50,22 +50,29 @@ class PlgYajemMailer extends CMSPlugin
 	/**
 	 * @param   int     $eventId
 	 * @param   boolean $isNew
+	 * @param   boolean $isBackend
 	 *
 	 * @since   1.0
 	 * @throws  \Exception
 	 */
-	public function onEventEdited($eventId, $isNew)
+	public function onEventEdited($eventId, $isNew, $isBackend)
 	{
 		$input = Factory::getApplication()->input;
 		$data = $input->post->getArray();
 		$event = $data['jform'];
 
-		//load model for recieving additional event information
-		JModelLegacy::addIncludePath(JPATH_SITE . DS . 'components' . DS . 'com_yajem' . DS . 'models');
-
-		//get the location
-		$modelLocation = JModelLegacy::getInstance('locations', 'YajemModel');
-		$location = $modelLocation->getLocation( (int) $event['locationId'] );
+		if ( $isBackend )
+		{
+			$modelLocation = JModelLegacy::getInstance('location', 'YajemModel');
+			$location = $modelLocation->getItem( (int) $event['locationId'] );
+		} else
+		{
+			//load model for recieving additional event information
+			JModelLegacy::addIncludePath(JPATH_SITE . DS . 'components' . DS . 'com_yajem' . DS . 'models');
+			//get the location
+			$modelLocation = JModelLegacy::getInstance('locations', 'YajemModel');
+			$location = $modelLocation->getLocation( (int) $event['locationId'] );
+		}
 
 		if ( $isNew )
 		{
