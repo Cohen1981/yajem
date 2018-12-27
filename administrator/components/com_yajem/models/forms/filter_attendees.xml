@@ -10,11 +10,11 @@
 
 		<field
 				name="eventId"
-				type="events"
-				label="JOPTION_FILTER_CATEGORY"
+				type="Events"
+				label="COM_YAJEM_FILTER_EVENT"
 				onchange="this.form.submit();"
 		>
-			<option value="">JOPTION_SELECT_CATEGORY</option>
+			<option value="">COM_YAJEM_SELECT EVENT</option>
 		</field>
 
 	</fields>

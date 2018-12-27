@@ -38,7 +38,7 @@ class JFormFieldEvents extends JFormFieldList
 		$event = $app->input->get('event');
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
-		$query->select('title')->from('`#__yajem_events`');
+		$query->select('id, title')->from('`#__yajem_events`');
 
 		if ($event)
 		{
@@ -49,7 +49,7 @@ class JFormFieldEvents extends JFormFieldList
 
 		foreach ($rows as $row)
 		{
-			$events[] = $row->title;
+			$events[] = JHtml::_('select.option', $row->id, $row->title);
 		}
 
 		// Merge any additional options in the XML definition.
