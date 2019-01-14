@@ -49,17 +49,23 @@ class YajemModelAttendees extends ListModel
 	}
 
 	/**
+	 * Method to receive all attendees for a given event
 	 *
-	 * @return mixed
+	 * @param int       $eventId    ID of the Event
 	 *
-	 * @since version
+	 * @return mixed    Attendees for given event
+	 *
+	 * @since 1.0
 	 */
-	public function getAllUsersForEvent()
+	public function getAllUsersForEvent($eventId)
 	{
 		$db = $this->getDbo();
+		$this->setState('filter.eventId', $eventId);
+		$this->__state_set = true;
 		$db->setQuery($this->getListQuery());
 
-		return $db->loadObjectList();
+		$attendees = $db->loadObjectList();
+		return $attendees;
 	}
 
 	/**

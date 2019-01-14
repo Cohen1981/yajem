@@ -14,6 +14,8 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 
+require_once ("attendee.php");
+
 /**
  * @package     Yajem
  *
@@ -145,9 +147,28 @@ class YajemModelEvent extends AdminModel
 		parent::prepareTable($table);
 	}
 
+	/**
+	 * @param array $data
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0
+	 * @throws Exception
+	 */
 	public function save($data)
 	{
 		$new = (bool)empty($data['id']);
-		return parent::save($data);
+		$saved = parent::save($data);
+
+		if ($data['invited_users']) {
+			$eventId = ($this->getState('event.id')!=null?$this->getState('event.id'):$this->getState('editevent.id'));
+
+			foreach ($data['invited_users'] as $user) {
+				$modelAttendee = new YajemModelAttendee();
+				$invited = ['eventId' => $eventId, 'userId' => $user, 'status' => 0, 'comment' => ''];
+				$modelAttendee->save($invited);
+			}
+		}
+		return $saved;
 	}
 }
