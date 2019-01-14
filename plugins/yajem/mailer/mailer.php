@@ -61,28 +61,35 @@ class PlgYajemMailer extends CMSPlugin
 		$data = $input->post->getArray();
 		$event = $data['jform'];
 
-		if ( $isBackend )
-		{
+		//load model for recieving additional event information
+		if ( $isBackend ) {
 			$modelLocation = JModelLegacy::getInstance('location', 'YajemModel');
 			$location = $modelLocation->getItem( (int) $event['locationId'] );
-		} else
-		{
-			//load model for recieving additional event information
+		} else {
 			JModelLegacy::addIncludePath(JPATH_SITE . DS . 'components' . DS . 'com_yajem' . DS . 'models');
 			//get the location
 			$modelLocation = JModelLegacy::getInstance('locations', 'YajemModel');
 			$location = $modelLocation->getLocation( (int) $event['locationId'] );
 		}
 
+		// check for new or edtited event
 		if ( $isNew )
 		{
+			// mailing enabled for new event ?
 			if ( (bool) $this->params['mail_new_event'] )
 			{
-				$recipients = $this->getRecipientsMails(false );
+				// if there are invited users, then we should only send a mail to them
+				if ($event['invited_users'] == null)
+				{
+					$recipients = $this->getRecipientsMails(false);
+				} else {
+					$recipients = $this->getRecipientsMails( true, $eventId );
+				}
 				$subject = Text::_('PLG_YAJEM_EVENT_CREATED');
 
 			}
 		} else {
+			//mailing enabled for edited event ?
 			if ( (bool) $this->params['mail_edit_event'] )
 			{
 				$recipients = $this->getRecipientsMails( (bool) $this->params['mail_event_editAttendees'], $eventId );
@@ -174,12 +181,19 @@ class PlgYajemMailer extends CMSPlugin
 		$query = $db->getQuery(true);
 		$query->select('u.email');
 		$query->from('#__users AS u');
-		if ($attendees)
+
+		$input = Factory::getApplication()->input;
+		$data = $input->post->getArray();
+		$event = $data['jform'];
+
+		// if there are attendees ore invited users we only mail to them
+		if ($attendees || $event['invited_users'] != null)
 		{
-			//select attendees
+			// select attendees
 			$query->innerJoin( '#__yajem_attendees AS a ON a.userId = u.id' );
 			$query->where('a.eventId = ' . (int) $eventId );
 		} else {
+			// if mail should be send only to a specified user_group
 			if ( !(bool) $this->params['mail_to_all'])
 			{
 				$query->innerJoin( '#__user_usergroup_map AS ug ON ug.user_id = u.id' );

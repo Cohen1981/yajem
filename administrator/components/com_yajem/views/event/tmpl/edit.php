@@ -118,6 +118,15 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
 			</div>
 		</fieldset>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'inviting', JText::_('COM_YAJEM_EVENT_TAB_INVITING')); ?>
+        <div class="row-fluid">
+            <div class="span10 form-horizontal">
+                <fieldset class="adminform">
+                    <?php echo $this->form->renderFieldset('inviteUsers'); ?>
+                </fieldset>
+            </div>
+        </div>
+		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
 
 		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_YAJEM_TITLE_PUBLISHING', true)); ?>
 		<?php echo $this->form->renderField('published'); ?>

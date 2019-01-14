@@ -38,7 +38,7 @@ class JFormFieldLocations extends JFormFieldList
 		$location = $app->input->get('location');
 		$db = JFactory::getDbo();
 		$query = $db->getQuery(true);
-		$query->select('title')->from('`#__yajem_locations`');
+		$query->select('id, title')->from('`#__yajem_locations`');
 
 		if ($location)
 		{
@@ -49,7 +49,7 @@ class JFormFieldLocations extends JFormFieldList
 
 		foreach ($rows as $row)
 		{
-			$locations[] = $row->title;
+			$locations[] = JHtml::_('select.option', $row->id, $row->title);
 		}
 
 		// Merge any additional options in the XML definition.

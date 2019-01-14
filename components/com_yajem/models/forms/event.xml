@@ -286,6 +286,10 @@
 			<option value="0">COM_YAJEM_PARAM_NO</option>
 		</field>
 
+		<field name="invited_users" type="Attendees" label="JGLOBAL_TITLE"
+			   description="JFIELD_TITLE_DESC"
+			   required="false" />
+
 	</fieldset>
 
 	<fieldset name="request" addfieldpath="/administrator/components/com_yajem/models/fields">
