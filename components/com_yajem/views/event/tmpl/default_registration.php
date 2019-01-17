@@ -43,21 +43,29 @@ if (!$guest)
 </div>
 <?php endif; ?>
 
-<div id="yajem_attendees" class="yajem_flex_row">
+<div id="yajem_attendees" class="yajem_grid_section yajem_no_column_gap">
 	<?php
 	// Guest will only see number of attending persons
 	if (!$guest)
 	{
 		foreach ($this->attendees as $i => $item)
 		{
-			echo ('<div class="yajem_attendee yajem_flex_row">');
+			//echo ('<div class="yajem_attendee">');
 
-			echo ('<div class="yajem_user">');
+			echo ('<div class="yajem_label yajem_border_right yajem_label_border">');
 
 			if ($item->avatar)
 			{
-				echo '<div class="yajem_avatar_container"><img class="yajem_avatar" src="' . $item->avatar . '"/></div>';
-			}
+				echo '<div class="yajem_avatar_container"><img class="yajem_avatar yajem_img_round" src="' . $item->avatar . '"/></div>';
+			} else {
+				echo '<div class="yajem_avatar_container"><img class="yajem_avatar" src="'. JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/></div>';
+            }
+			//label end
+            echo ('</div>');
+
+			echo ('<div class="yajem_output yajem_output_border">');
+
+			//User Name
 			if ($item->clearName)
 			{
 				$userName = $item->clearName;
@@ -68,8 +76,6 @@ if (!$guest)
 			}
 
 			echo ('<div class="yajem_uname">' . $userName . '</div>');
-
-			echo ('</div>');
 
 			echo ('<div class="yajem_att_status">');
 			switch ($item->status)
@@ -100,11 +106,10 @@ if (!$guest)
 					break;
 			}
 
-			echo ('<div class="yajem_att_comment"><i class="far fa-comment" aria-hidden="true"> ' . $item->comment . '</i></div>');
-
 			echo ('</div>');
 			echo ('</div>');
 		}
+		//echo ('</div>');
 	}
 	?>
 </div>
@@ -144,10 +149,6 @@ if (!$guest)
 					break;
 			}
 			?>
-		</div>
-		<div class="yajem_flex_row" id="yajem_comment_line">
-			<div class="yajem_label"><?php echo JText::_('COM_YAJEM_ATTENDEE_COMMENT') . ' &nbsp;';?></div>
-			<input type="text" class="yajem_comment input-xxlarge input-large-text" id="comment" name="comment" value=""/>
 		</div>
 
 		<input type="radio" class="yajem_hidden" id="reg" name="register" value="reg" onchange="adminForm.submit()" />

@@ -47,8 +47,13 @@ fieldset{
     border:1px solid #BDBDBD;
     width: auto;
 }
-#yajem_attendees{
-    padding-top:10px;
+.yajem_label_border {
+    border: 1px solid;
+    border-radius: 6px 0px 0px 6px;
+}
+.yajem_output_border {
+    border: 1px solid;
+    border-radius: 0px 6px 6px 0px;
 }
 #yajem_comment_line{
     padding-top: 10px;
@@ -80,6 +85,9 @@ fieldset{
     grid-template-columns: minmax(100px, 200px) auto;
     grid-gap: 10px;
 }
+.yajem_no_column_gap {
+    grid-column-gap: 0px;
+}
 .yajem_full_grid_row {
     grid-column-start: 1;
     grid-column-end: span 2;
@@ -95,16 +103,14 @@ fieldset{
 .yajem_label{}
 .yajem_output{}
 
-.yajem_attendee {
+.yajem_bordered {
     border: 1px solid #BDBDBD;
     margin-right: 10px;
     border-radius: 6px 6px 6px 6px;
 }
 .yajem_avatar_container{
     padding: 5px;
-    border-right: 1px solid #BDBDBD;
     display: block;
-    max-width: 140px;
 }
 .yajem_ustatus{
     display:block;
@@ -118,6 +124,8 @@ fieldset{
     padding: 5px;
     display: block;
     position: relative;
+}
+.yajem_border_right {
     border-right: 1px solid #BDBDBD;
 }
 .yajem_att_comment{
@@ -133,7 +141,11 @@ fieldset{
 
 .yajem_avatar {
     display: inline-block;
-    width: auto;
+    height: 100px;
+    width: 100px;
+}
+.yajem_img_round {
+    border-radius: 50%;
 }
 input[type=checkbox]:checked ~ .yajem_switchable {
     display: block;

@@ -34,7 +34,7 @@ class YajemModelAttendees extends ListModel
 
 		$query = $db->getQuery(true);
 
-		$query->select('a.id, a.userId, a.status,a.comment');
+		$query->select('a.id, a.userId, a.status');
 		$query->from('#__yajem_attendees AS a');
 		$query->where('a.eventId = ' . (int) $eventId);
 

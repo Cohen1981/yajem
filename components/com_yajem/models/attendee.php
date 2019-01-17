@@ -75,7 +75,6 @@ class YajemModelAttendee extends ItemModel
 		{
 			$table->load($id);
 			$table->set('status', $status);
-			$table->set('comment', $comment);
 		}
 		else
 		{
@@ -83,7 +82,6 @@ class YajemModelAttendee extends ItemModel
 			$data['userId'] = $user;
 			$data['eventId'] = $eventId;
 			$data['status'] = $status;
-			$data['comment'] = $comment;
 			$table->bind($data);
 
 			if (!$table->check())

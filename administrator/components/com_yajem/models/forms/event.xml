@@ -76,8 +76,6 @@
                 filter="JComponentHelper::filterText"
                 buttons="true"
                 hide="readmore,pagebreak"
-                height="100px"
-                rows="15"
         />
 
         <field

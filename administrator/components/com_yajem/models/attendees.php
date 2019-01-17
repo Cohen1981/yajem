@@ -38,7 +38,6 @@ class YajemModelAttendees extends ListModel
 				'eventId','a.eventId',
 				'userId','a.userId',
 				'status','a.status',
-				'comment','a.comment',
 				'u.id','u.name',
 				'event',
 				'attendee'
@@ -103,7 +102,7 @@ class YajemModelAttendees extends ListModel
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
 
-		$query->select($db->quoteName(array('a.id', 'a.eventId', 'a.userId', 'a.status', 'a.comment')));
+		$query->select($db->quoteName(array('a.id', 'a.eventId', 'a.userId', 'a.status')));
 
 		$query->from('#__yajem_attendees AS a');
 

@@ -69,7 +69,6 @@ CREATE TABLE IF NOT EXISTS `#__yajem_attendees` (
   `eventId` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__yajame_events',
   `userId` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__users',
   `status` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Status: 0=no reply, 2=attending, 3=not attending',
-  `comment` MEDIUMTEXT NULL COMMENT 'Optional Comment',
   PRIMARY KEY (`id`),
   INDEX `idx_att_event` (`eventId` ASC),
   INDEX `idx_att_user` (`userId` ASC ))
