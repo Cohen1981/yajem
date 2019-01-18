@@ -31,7 +31,7 @@ class YajemModelEvent extends ItemModel
 	 *
 	 * @throws Exception
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	protected function populateState($ordering = null, $direction = null)
 	{
@@ -147,7 +147,7 @@ class YajemModelEvent extends ItemModel
 	 *
 	 * @return boolean true on success
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function changeStatus($eventId, $status)

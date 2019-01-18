@@ -12,8 +12,6 @@ use Joomla\CMS\HTML\HTMLHelper;
 
 defined('_JEXEC') or die;
 
-JHtml::_('stylesheet', JUri::root() . 'media/com_yajem/css/style.css');
-
 HtmlHelper::addIncludePath(JPATH_COMPONENT . '/helpers/html');
 HtmlHelper::_('behavior.tooltip');
 HtmlHelper::_('behavior.formvalidation');
@@ -27,46 +25,45 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
 
 ?>
 <script type="text/javascript">
-	js = jQuery.noConflict();
-	js(document).ready(function () {
+    js = jQuery.noConflict();
+    js(document).ready(function () {
 
-	});
+    });
 
-	Joomla.submitbutton = function (task) {
-		if (task == 'editevent.cancel') {
-			Joomla.submitform(task, document.getElementById('item-form'));
-		}
-		else {
+    Joomla.submitbutton = function (task) {
+        if (task == 'event.cancel') {
+            Joomla.submitform(task, document.getElementById('item-form'));
+        }
+        else {
 
-			if (task != 'editevent.cancel' && document.formvalidator.isValid(document.id('item-form'))) {
+            if (task != 'event.cancel' && document.formvalidator.isValid(document.id('item-form'))) {
 
-				Joomla.submitform(task, document.getElementById('item-form'));
-			}
-			else {
-				alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
-			}
-		}
-	}
+                Joomla.submitform(task, document.getElementById('item-form'));
+            }
+            else {
+                alert('<?php echo $this->escape(JText::_('JGLOBAL_VALIDATION_FORM_FAILED')); ?>');
+            }
+        }
+    }
 </script>
 
-<div id="yajem_container">
 <form
-		action="<?php echo JRoute::_('index.php?option=com_yajem&layout=edit&id=' . (int) $this->event->id); ?>"
-		method="post" enctype="multipart/form-data" name="adminForm" id="item-form" class="form-validate">
+        action="<?php echo JRoute::_('index.php?option=com_yajem&layout=edit&id=' . (int) $this->event->id); ?>"
+        method="post" enctype="multipart/form-data" name="adminForm" id="item-form" class="form-validate">
 
 	<?php echo $this->form->renderField('title'); ?>
 	<?php echo $this->form->renderField('alias'); ?>
 
-	<div class="form-horizontal">
+    <div class="form-horizontal">
 		<?php echo HtmlHelper::_('bootstrap.startTabSet', 'myTab', array('active' => 'general')); ?>
 
 		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'general', JText::_('COM_YAJEM_TITLE_EVENT', true)); ?>
-		<div class="row-fluid">
+        <div class="row-fluid">
+            <div class="span10 form-horizontal">
+                <fieldset class="adminform">
 
-				<fieldset class="adminform">
-
-					<input type="hidden" name="jform[id]" value="<?php echo $this->event->id; ?>"/>
-					<input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>"/>
+                    <input type="hidden" name="jform[id]" value="<?php echo $this->event->id; ?>"/>
+                    <input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>"/>
 
 					<?php echo $this->form->renderField('catid'); ?>
 					<?php echo $this->form->renderField('url'); ?>
@@ -83,43 +80,52 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
 					<?php endif ?>
 					<?php echo $this->form->renderField('description'); ?>
 
-				</fieldset>
-
-		</div>
+                </fieldset>
+            </div>
+        </div>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
 
 		<?php if ($useHost || $useOrganizer): ?>
-		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'organization', JText::_('COM_YAJEM_TITLE_ORGANIZATION', true)); ?>
-		<div class="row-fluid">
-			<div class="span10 form-horizontal">
-				<fieldset class="adminform">
+			<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'organization', JText::_('COM_YAJEM_TITLE_ORGANIZATION', true)); ?>
+            <div class="row-fluid">
+                <div class="span10 form-horizontal">
+                    <fieldset class="adminform">
 
-					<?php
-					if ($useHost)
-					{
-						echo $this->form->renderFieldset('contact_host');
-					}
-					if ($useOrganizer)
-					{
-						echo $this->form->renderFieldset('contact_organizer');
-					}
-					?>
-					<?php echo $this->form->renderFieldset('registration'); ?>
+						<?php
+						if ($useHost)
+						{
+							echo $this->form->renderFieldset('contact_host');
+						}
+						if ($useOrganizer)
+						{
+							echo $this->form->renderFieldset('contact_organizer');
+						}
+						?>
+						<?php echo $this->form->renderFieldset('registration'); ?>
 
-				</fieldset>
-			</div>
-		</div>
-		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
+                    </fieldset>
+                </div>
+            </div>
+			<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
 		<?php endif; ?>
 
 		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'image', JText::_('COM_YAJEM_EVENT_TAB_IMAGE')); ?>
-		<fieldset class="adminform">
-			<div class="row-fluid">
-				<div class="span6">
+        <fieldset class="adminform">
+            <div class="row-fluid">
+                <div class="span6">
 					<?php echo $this->form->renderFieldset('image');  ?>
-				</div>
-			</div>
-		</fieldset>
+                </div>
+            </div>
+        </fieldset>
+		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
+		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'inviting', JText::_('COM_YAJEM_EVENT_TAB_INVITING')); ?>
+        <div class="row-fluid">
+            <div class="span10 form-horizontal">
+                <fieldset class="adminform">
+					<?php echo $this->form->renderFieldset('inviteUsers'); ?>
+                </fieldset>
+            </div>
+        </div>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
 
 		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_YAJEM_TITLE_PUBLISHING', true)); ?>
@@ -130,22 +136,8 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
 
 		<?php echo HtmlHelper::_('bootstrap.endTabSet'); ?>
 
-	</div>
-    <div class="btn-toolbar">
-        <div class="btn-group">
-            <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('editevent.save')">
-                <span class="icon-ok"></span><?php echo JText::_('JSAVE') ?>
-            </button>
-        </div>
-        <div class="btn-group">
-            <button type="button" class="btn" onclick="Joomla.submitbutton('editevent.cancel')">
-                <span class="icon-cancel"></span><?php echo JText::_('JCANCEL') ?>
-            </button>
-        </div>
+        <input type="hidden" name="task" value=""/>
+		<?php echo HtmlHelper::_('form.token'); ?>
+
     </div>
-
-    <input type="hidden" name="task" />
-	<?php echo JHtml::_('form.token'); ?>
-
 </form>
-</div>

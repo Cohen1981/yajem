@@ -21,6 +21,7 @@ $googleApiKey = (string) JComponentHelper::getParams('com_yajem')->get('global_g
 $canCreate  = $user->authorise('core.create', 'com_yajem');
 $canEdit    = $user->authorise('core.edit.state', 'com_yajem');
 $useOrgG = (bool) JComponentHelper::getParams('com_yajem')->get('use_organizer');
+$useComments = (bool) JComponentHelper::getParams('com_yajem')->get('use_comments');
 if ($useOrgG)
 {
 	$useOrg = (bool) $this->event->useOrganizer;
@@ -180,6 +181,29 @@ if ($useOrg)
 
 			</div>
 		</div>
+	<?php endif; ?>
+
+    <!-- Comments if used and registered user -->
+	<?php if (!$guest && $useComments): ?>
+        <div class="yajem_switch_container">
+            <div class="yajem_section_header yajem_bottom-rounded">
+                <div class="yajem_inline-block">
+                    <h2>
+						<?php echo JText::_('COM_YAJEM_TITLE_COMMENTS') . "&nbsp;"; ?>
+						<?php echo ('<i class="fas fa-comment" aria-hidden="true"></i>&nbsp;' . $this->commentCount); ?>
+                    </h2>
+                </div>
+                <label id="comment-section-button" class="yajem_switch" for="yajem_switch_comment">
+                    <i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
+                </label>
+            </div>
+            <input type="checkbox" id="yajem_switch_comment" class="yajem_hidden"/>
+            <div class="yajem_section_container yajem_switchable">
+
+				<?php echo $this->loadTemplate('comments'); ?>
+
+            </div>
+        </div>
 	<?php endif; ?>
 
 </div>

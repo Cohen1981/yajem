@@ -29,7 +29,7 @@ class YajemControllerEvents extends AdminController
 	 *
 	 * @return boolean|JModelLegacy
 	 *
-	 * @since version 1.0
+	 * @since 1.0
 	 */
 	public function getModel($name = 'Event', $prefix = 'YajemModel', $config = array('ignore-request' => true))
 	{
@@ -39,7 +39,7 @@ class YajemControllerEvents extends AdminController
 	/**
 	 *
 	 *
-	 * @since version 1.0
+	 * @since 1.0
 	 * @throws Exception
 	 * @return void
 	 *

@@ -25,7 +25,7 @@ class YajemControllerEvent extends BaseController
 	 *
 	 * @return JControllerLegacy|void
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function view()
@@ -34,6 +34,7 @@ class YajemControllerEvent extends BaseController
 		$view->setModel($this->getModel('Event'));
 		$view->setModel($this->getModel('Attendees'));
 		$view->setModel($this->getModel('Locations'));
+		$view->setModel($this->getModel('Comments'));
 
 		$view->display();
 	}
@@ -45,7 +46,7 @@ class YajemControllerEvent extends BaseController
 	 *
 	 * @throws Exception
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function changeAttendingStatus()
 	{
@@ -58,13 +59,13 @@ class YajemControllerEvent extends BaseController
 			switch ($todo)
 			{
 				case 'reg':
-					$model->registration($input['id'], $input['eventId'], 1, $input['comment']);
+					$model->registration($input['id'], $input['eventId'], 1);
 					break;
 				case 'regw':
-					$model->registration($input['id'], $input['eventId'], 3, $input['comment']);
+					$model->registration($input['id'], $input['eventId'], 3);
 					break;
 				case 'unreg':
-					$model->registration($input['id'], $input['eventId'], 2, $input['comment']);
+					$model->registration($input['id'], $input['eventId'], 2);
 					break;
 			}
 		}
@@ -79,7 +80,7 @@ class YajemControllerEvent extends BaseController
 	 *
 	 * @throws Exception
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function changeEventStatus()
 	{
@@ -101,6 +102,18 @@ class YajemControllerEvent extends BaseController
 					Factory::getApplication()->triggerEvent('onChangeEventState', array($input['eventId'], 'cancelled'));
 					break;
 			}
+		}
+
+		Factory::getApplication()->redirect(JRoute::_('index.php?option=com_yajem&task=event.view&id=' . $input['eventId']), false);
+	}
+
+	public function saveComment() {
+		$input = Factory::getApplication()->input->post->getArray();
+
+		if ($todo = $input['commit_comment'])
+		{
+			$model = $this->getModel('Comment');
+			$model->comment($input['userId'], $input['eventId'], $input['comment']);
 		}
 
 		Factory::getApplication()->redirect(JRoute::_('index.php?option=com_yajem&task=event.view&id=' . $input['eventId']), false);

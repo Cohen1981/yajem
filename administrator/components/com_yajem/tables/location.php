@@ -79,7 +79,7 @@ class YajemTableLocation extends Table
 	 *
 	 * @return boolean
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function bind($src, $ignore = array())
 	{

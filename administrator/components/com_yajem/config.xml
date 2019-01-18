@@ -45,6 +45,17 @@
 			<option value="0">COM_YAJEM_PARAM_NO</option>
 		</field>
 
+        <field name="use_comments"
+               type="radio"
+               label="COM_YAJEM_PARAM_COMMENTS_LABEL"
+               description="COM_YAJEM_PARAM_COMMENTS_DESC"
+               class="btn-group btn-group-yesno"
+               default="0"
+        >
+            <option value="1">COM_YAJEM_PARAM_YES</option>
+            <option value="0">COM_YAJEM_PARAM_NO</option>
+        </field>
+
     </fieldset>
 
     <fieldset label="COM_YAJEM_CONFIG_LOCATION" name="yajem_location">

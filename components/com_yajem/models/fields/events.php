@@ -21,7 +21,7 @@ class JFormFieldEvents extends JFormFieldList
 {
 	/**
 	 * @var string Name of the custom Field
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $type = 'Events';
 
@@ -29,7 +29,7 @@ class JFormFieldEvents extends JFormFieldList
 	 * Get the List of events for selection
 	 * @return array    key->value
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function getOptions()

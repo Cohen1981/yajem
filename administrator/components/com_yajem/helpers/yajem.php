@@ -62,7 +62,7 @@ class YajemHelperAdmin
 	 *
 	 * @return JObject
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public static function getActions()
 	{
@@ -90,7 +90,7 @@ class YajemHelperAdmin
 	 *
 	 * @return string
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public static function getLocationRoute($id, $catid)
 	{

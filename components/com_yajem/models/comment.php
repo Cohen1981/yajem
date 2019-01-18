@@ -17,9 +17,9 @@ use Joomla\Utilities\ArrayHelper;
 /**
  * @package     YAJEM
  *
- * @since       version
+ * @since       1.0
  */
-class YajemModelAttendee extends ItemModel
+class YajemModelComment extends ItemModel
 {
 	/**
 	 * @param   null $id Attendee Primary id
@@ -27,6 +27,7 @@ class YajemModelAttendee extends ItemModel
 	 * @return array|boolean|object
 	 *
 	 * @since 1.0
+	 * @throws Exception
 	 */
 	public function &getData($id = null)
 	{
@@ -40,7 +41,7 @@ class YajemModelAttendee extends ItemModel
 			}
 
 			// Get a level row instance.
-			$table = $this->getTable('Attendee', 'YajemTable');
+			$table = $this->getTable('Comment', 'YajemTable');
 
 			// Attempt to load the row.
 			if ($table->load($id))
@@ -55,9 +56,9 @@ class YajemModelAttendee extends ItemModel
 	}
 
 	/**
-	 * @param   int|null    $id         Primary Key of Attendee Table
+	 * @param   int         $userId     userId
 	 * @param   int         $eventId    EventId
-	 * @param   int         $status     Status
+	 * @param   text        $comment    Comment
 	 *
 	 * @return boolean
 	 *
@@ -65,28 +66,21 @@ class YajemModelAttendee extends ItemModel
 	 *
 	 * @since 1.0
 	 */
-	public function registration($id, $eventId, $status)
+	public function comment($userId, $eventId, $comment)
 	{
-		$user = Factory::getUser()->get('id');
-		$table = $this->getTable('Attendee', 'YajemTable');
+		$timestamp = Factory::getDate()->toSql();
+		$table = $this->getTable('Comment', 'YajemTable');
 
-		if ($id)
-		{
-			$table->load($id);
-			$table->set('status', $status);
-		}
-		else
-		{
-			$data['id'] = null;
-			$data['userId'] = $user;
-			$data['eventId'] = $eventId;
-			$data['status'] = $status;
-			$table->bind($data);
+		$data['id'] = null;
+		$data['userId'] = $userId;
+		$data['eventId'] = $eventId;
+		$data['comment'] = $comment;
+		$data['timestamp'] = $timestamp;
+		$table->bind($data);
 
-			if (!$table->check())
-			{
-				throw new Exception("Missing Data");
-			}
+		if (!$table->check())
+		{
+			throw new Exception("Missing Data");
 		}
 
 		return $table->store(true);

@@ -21,19 +21,19 @@ class YajemViewEditlocation extends HtmlView
 {
 	/**
 	 * @var state
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $state;
 
 	/**
 	 * @var location
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $location;
 
 	/**
 	 * @var form
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $form;
 
@@ -44,7 +44,7 @@ class YajemViewEditlocation extends HtmlView
 	 *
 	 * @throws Exception
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function display($tpl = null)
 	{

@@ -25,7 +25,7 @@ class YajemModelAttendees extends ListModel
 	 *
 	 * @param   array $config An optional associative array of configuration settings.
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function __construct(array $config = array())
 	{
@@ -38,7 +38,6 @@ class YajemModelAttendees extends ListModel
 				'eventId','a.eventId',
 				'userId','a.userId',
 				'status','a.status',
-				'comment','a.comment',
 				'u.id','u.name',
 				'event',
 				'attendee'
@@ -75,7 +74,7 @@ class YajemModelAttendees extends ListModel
 	 * @param   null $direction default=asc
 	 *
 	 * @return void
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	protected function populateState($ordering = null, $direction = null)
@@ -96,14 +95,14 @@ class YajemModelAttendees extends ListModel
 	 *
 	 * @return JDatabaseQuery
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	protected function getListQuery()
 	{
 		$db = $this->getDbo();
 		$query = $db->getQuery(true);
 
-		$query->select($db->quoteName(array('a.id', 'a.eventId', 'a.userId', 'a.status', 'a.comment')));
+		$query->select($db->quoteName(array('a.id', 'a.eventId', 'a.userId', 'a.status')));
 
 		$query->from('#__yajem_attendees AS a');
 

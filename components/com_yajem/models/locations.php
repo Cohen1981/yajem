@@ -26,7 +26,7 @@ class YajemModelLocations extends ListModel
 	 *
 	 * @return mixed the location Object
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function __construct(array $config = array())
 	{
@@ -57,7 +57,7 @@ class YajemModelLocations extends ListModel
 	 * @param   null $direction default=asc
 	 *
 	 * @return void
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	protected function populateState($ordering = null, $direction = null)
@@ -78,7 +78,7 @@ class YajemModelLocations extends ListModel
 	 *
 	 * @return JDatabaseQuery
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	protected function getListQuery()
 	{

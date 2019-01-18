@@ -25,7 +25,7 @@ class YajemModelEvents extends ListModel
 	 *
 	 * @param   array $config Configuration array
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function __construct($config = array())
 	{
@@ -46,7 +46,7 @@ class YajemModelEvents extends ListModel
 	 *
 	 * @return void
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	protected function populateState($ordering = null, $direction = null)
@@ -110,7 +110,7 @@ class YajemModelEvents extends ListModel
 	 *
 	 * @return JDatabaseQuery
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	protected function getListQuery()
 	{
@@ -169,7 +169,7 @@ class YajemModelEvents extends ListModel
 	 *
 	 * @return mixed
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function getItems()
 	{

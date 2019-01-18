@@ -24,13 +24,13 @@ class YajemModelLocation extends AdminModel
 {
 	/**
 	 * @var string Just for convenience
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $textPrefix = 'COM_YAJEM';
 
 	/**
 	 * @var null Holds the single location
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $item = null;
 
@@ -42,7 +42,7 @@ class YajemModelLocation extends AdminModel
 	 *
 	 * @return boolean|JObject
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function getItem($pk = null)
 	{
@@ -66,7 +66,7 @@ class YajemModelLocation extends AdminModel
 	 *
 	 * @return JTable A database object
 	 *
-	 * @since version 1.0
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function getTable($name = 'Location', $prefix = 'YajemTable', $options = array())
@@ -82,7 +82,7 @@ class YajemModelLocation extends AdminModel
 	 *
 	 * @return boolean|JForm|void  A JForm object on success, false on failure
 	 *
-	 * @since version 1.0
+	 * @since 1.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -105,7 +105,7 @@ class YajemModelLocation extends AdminModel
 	 *
 	 * @return array|boolean|JObject|mixed|null
 	 *
-	 * @since version 1.0
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	protected function loadFormData()
@@ -129,7 +129,7 @@ class YajemModelLocation extends AdminModel
 	 * @param   JTable $table The Table
 	 *
 	 * @return void
-	 * @since version
+	 * @since 1.0
 	 */
 	protected function prepareTable($table)
 	{

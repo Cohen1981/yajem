@@ -26,7 +26,7 @@ class YajemControllerAttendee extends FormController
 	 *
 	 * @throws Exception
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function __construct(array $config = array())
 	{

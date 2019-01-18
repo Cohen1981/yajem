@@ -69,9 +69,19 @@ CREATE TABLE IF NOT EXISTS `#__yajem_attendees` (
   `eventId` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__yajame_events',
   `userId` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__users',
   `status` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Status: 0=no reply, 2=attending, 3=not attending',
-  `comment` MEDIUMTEXT NULL COMMENT 'Optional Comment',
   PRIMARY KEY (`id`),
   INDEX `idx_att_event` (`eventId` ASC),
   INDEX `idx_att_user` (`userId` ASC ))
+  ENGINE=InnoDB
+  DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
+
+CREATE TABLE IF NOT EXISTS `#__yajem_comments` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
+  `userId` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__users',
+  `eventId` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__yajame_events',
+  `comment` MEDIUMTEXT NOT NULL ,
+  `timestamp` DATETIME,
+  PRIMARY KEY (`id`),
+  INDEX `idx_comment_time` (`timestamp` DESC))
   ENGINE=InnoDB
   DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;

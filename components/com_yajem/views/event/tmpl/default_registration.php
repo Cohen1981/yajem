@@ -44,69 +44,71 @@ if (!$guest)
 <?php endif; ?>
 
 <div id="yajem_attendees" class="yajem_flex_row">
-	<?php
-	// Guest will only see number of attending persons
-	if (!$guest)
-	{
-		foreach ($this->attendees as $i => $item)
-		{
-			echo ('<div class="yajem_attendee yajem_flex_row">');
 
-			echo ('<div class="yajem_user">');
+	<!-- Guest will only see number of attending persons -->
+	<?php if (!$guest): ?>
+	    <?php foreach ($this->attendees as $i => $item) : ?>
 
-			if ($item->avatar)
-			{
-				echo '<div class="yajem_avatar_container"><img class="yajem_avatar" src="' . $item->avatar . '"/></div>';
+            <?php
+			// Which Avatar to use
+			if ($item->avatar) {
+				$avatar = '<img class="yajem_avatar yajem_img_round" src="' . $item->avatar . '"/>';
+			} else {
+				$avatar = '<img class="yajem_avatar" src="'. JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
 			}
-			if ($item->clearName)
-			{
+            // Normal registration or waiting list
+			if ($waitingList) {
+				$regButton = '<label id="yajem_reg" class="yajem_css_switch yajem_rounded" for="regw">' . JText::_('COM_YAJEM_REGW') . '</label>';
+			}
+			else {
+				$regButton = '<label id="yajem_reg" class="yajem_css_switch yajem_rounded" for="reg">' . JText::_('COM_YAJEM_REG') . '</label>';
+			}
+			$unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" for="unreg">' . JText::_('COM_YAJEM_UNREG') . '</label>';
+
+            //User Name
+			if ($item->clearName) {
 				$userName = $item->clearName;
-			}
-			else
-			{
+			} else {
 				$userName = $item->attendee;
 			}
-
-			echo ('<div class="yajem_uname">' . $userName . '</div>');
-
-			echo ('</div>');
-
-			echo ('<div class="yajem_att_status">');
 			switch ($item->status)
 			{
 				case 0:
-					echo ('<div class="yajem_ustatus">
-							<i class="fas fa-question-circle" aria-hidden="true"></i> ' . JText::_("COM_YAJEM_NOT_DECIDED") . '
-							</div>'
-					);
+					$user_status = '<div class="yajem_ustatus yajem_status_open"><i class="fas fa-question-circle" aria-hidden="true">
+                    </i> ' . JText::_("COM_YAJEM_NOT_DECIDED") . '</div>';
 					break;
 				case 1:
-					echo ('<div class="yajem_ustatus">
-							<i class="far fa-thumbs-up" aria-hidden="true"></i> ' . JText::_("COM_YAJEM_ATTENDING") . '
-							</div>'
-					);
+					$user_status = '<div class="yajem_ustatus yajem_status_attending"><i class="far fa-thumbs-up" aria-hidden="true">
+                    </i> ' . JText::_("COM_YAJEM_ATTENDING") . '</div>';
 					break;
 				case 2:
-					echo ('<div class="yajem_ustatus">
-							<i class="far fa-thumbs-down" aria-hidden="true"></i> ' . JText::_("COM_YAJEM_NOT_ATTENDING") . '
-							</div>'
-					);
+					$user_status = '<div class="yajem_ustatus yajem_status_declined"><i class="far fa-thumbs-down" aria-hidden="true">
+                    </i> ' . JText::_("COM_YAJEM_NOT_ATTENDING") . '</div>';
 					break;
 				case 3:
-					echo ('<div class="yajem_ustatus">
-							<i class="far fa-clock" aria-hidden="true"></i> ' . JText::_("COM_YAJEM_ON_WAITINGLIST") . '
-							</div>'
-					);
+					$user_status = '<div class="yajem_ustatus yajem_status_waiting"><i class="far fa-clock" aria-hidden="true">
+                    </i> ' . JText::_("COM_YAJEM_ON_WAITINGLIST") . '</div>';
 					break;
 			}
+            ?>
 
-			echo ('<div class="yajem_att_comment"><i class="far fa-comment" aria-hidden="true"> ' . $item->comment . '</i></div>');
+            <div class="yajem_attendee">
+                <div class="yajem_avatar_container">
+                    <?php echo $avatar ?>
+                </div>
 
-			echo ('</div>');
-			echo ('</div>');
-		}
-	}
-	?>
+                <!--<div class="yajem_output">-->
+                <div class="yajem_att_status">
+
+                    <div class="yajem_uname"> <?php echo $userName ?> </div>
+
+                    <?php echo $user_status ?>
+
+                </div>
+                <!--</div>-->
+            </div>
+		<?php endforeach; ?>
+	<?php endif; ?>
 </div>
 
 <div class="yajem_line"></div>
@@ -116,16 +118,6 @@ if (!$guest)
 	<form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>"  name="adminForm" id="adminForm" method="post">
 		<div class="yajem_flex_row yajem-button-group">
 			<?php
-			if ($waitingList)
-			{
-				$regButton = '<label id="yajem_reg" class="yajem_css_switch yajem_rounded" for="regw">' . JText::_('COM_YAJEM_REGW') . '</label>';
-			}
-			else
-			{
-				$regButton = '<label id="yajem_reg" class="yajem_css_switch yajem_rounded" for="reg">' . JText::_('COM_YAJEM_REG') . '</label>';
-			}
-
-			$unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" for="unreg">' . JText::_('COM_YAJEM_UNREG') . '</label>';
 
 			switch ($this->attendees[$userId]->status)
 			{
@@ -144,10 +136,6 @@ if (!$guest)
 					break;
 			}
 			?>
-		</div>
-		<div class="yajem_flex_row" id="yajem_comment_line">
-			<div class="yajem_label"><?php echo JText::_('COM_YAJEM_ATTENDEE_COMMENT') . ' &nbsp;';?></div>
-			<input type="text" class="yajem_comment input-xxlarge input-large-text" id="comment" name="comment" value=""/>
 		</div>
 
 		<input type="radio" class="yajem_hidden" id="reg" name="register" value="reg" onchange="adminForm.submit()" />

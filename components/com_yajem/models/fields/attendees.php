@@ -21,7 +21,7 @@ class JFormFieldAttendees extends JFormFieldCheckboxes
 {
 	/**
 	 * @var string Name of the custom Field
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $type = 'Attendees';
 
@@ -29,7 +29,7 @@ class JFormFieldAttendees extends JFormFieldCheckboxes
 	 * Get the List of events for selection
 	 * @return array    key->value
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function getOptions()
@@ -62,7 +62,7 @@ class JFormFieldAttendees extends JFormFieldCheckboxes
 	 *
 	 * @return array
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	protected function getLayoutData()

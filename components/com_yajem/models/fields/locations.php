@@ -21,7 +21,7 @@ class JFormFieldLocations extends JFormFieldList
 {
 	/**
 	 * @var string Name of the custom Field
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $type = 'Locations';
 
@@ -29,7 +29,7 @@ class JFormFieldLocations extends JFormFieldList
 	 * Get the List of locations for selection
 	 * @return array    key->value
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function getOptions()

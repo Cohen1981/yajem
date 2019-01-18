@@ -47,8 +47,13 @@ fieldset{
     border:1px solid #BDBDBD;
     width: auto;
 }
-#yajem_attendees{
-    padding-top:10px;
+.yajem_label_border {
+    border: 1px solid;
+    border-radius: 6px 0px 0px 6px;
+}
+.yajem_output_border {
+    border: 1px solid;
+    border-radius: 0px 6px 6px 0px;
 }
 #yajem_comment_line{
     padding-top: 10px;
@@ -80,6 +85,9 @@ fieldset{
     grid-template-columns: minmax(100px, 200px) auto;
     grid-gap: 10px;
 }
+.yajem_no_column_gap {
+    grid-column-gap: 0px;
+}
 .yajem_full_grid_row {
     grid-column-start: 1;
     grid-column-end: span 2;
@@ -95,29 +103,35 @@ fieldset{
 .yajem_label{}
 .yajem_output{}
 
-.yajem_attendee {
+.yajem_bordered {
     border: 1px solid #BDBDBD;
     margin-right: 10px;
     border-radius: 6px 6px 6px 6px;
 }
 .yajem_avatar_container{
     padding: 5px;
-    border-right: 1px solid #BDBDBD;
     display: block;
-    max-width: 140px;
+    height: 70px;
 }
 .yajem_ustatus{
     display:block;
-    height: 50%;
+    border-radius: 6px 6px 6px 6px;
+    padding: 5px;
+    margin-top: 5px;
 }
 .yajem_att_status{
     padding:5px;
     display:block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .yajem_uname{
     padding: 5px;
     display: block;
-    position: relative;
+    border-radius: 6px 6px 6px 6px;
+    background-color: #d3d3d3;
+}
+.yajem_border_right {
     border-right: 1px solid #BDBDBD;
 }
 .yajem_att_comment{
@@ -131,9 +145,51 @@ fieldset{
     height:400px;
 }
 
+.yajem_attendee {
+    border: 1px solid #BDBDBD;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius: 6px 6px 6px 6px;
+    width: 150px;
+}
+
 .yajem_avatar {
-    display: inline-block;
-    width: auto;
+    display: block;
+    height: 60px;
+    width: 60px;
+    margin-left: auto;
+    margin-right: auto;
+}
+#comments .yajem_avatar {
+    display: block;
+    float: left;
+    margin-right: 5px;
+}
+#comments .yajem_output {
+    padding-top: 5px;
+}
+#comments .yajem_label {}
+#comments .yajem_avatar_container {
+    height: auto;
+}
+#comments .yajem_uname {
+    padding: 5px 0px;
+    margin-left: 10px;
+}
+#commentForm #comment {
+    width: 100%;
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
+    height: 100px;
+}
+#yajem_comment{
+    background-color: #004b8d;
+    color: white;
+    font-weight: bold;
+}
+
+.yajem_img_round {
+    border-radius: 50%;
 }
 input[type=checkbox]:checked ~ .yajem_switchable {
     display: block;
@@ -166,6 +222,9 @@ input[type=checkbox]:checked ~ .yajem_switchable {
     padding-top: 20px;
     margin-bottom: 10px;
 }
+#comments .yajem_line{
+    padding-top: 10px;
+}
 
 .yajem-no-margin {
     margin:0px;
@@ -173,6 +232,18 @@ input[type=checkbox]:checked ~ .yajem_switchable {
 
 label {
     margin-bottom:0px !important;
+}
+.yajem_status_open {
+    background-color: #d3d3d3;
+}
+.yajem_status_attending {
+    background-color: forestgreen;
+}
+.yajem_status_declined {
+    background-color: crimson;
+}
+.yajem_status_waiting {
+    background-color: cornflowerblue;
 }
 
 @media (max-width: 700px) {

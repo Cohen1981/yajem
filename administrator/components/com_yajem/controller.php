@@ -27,7 +27,7 @@ class YajemController extends BaseController
 	 *
 	 * @return JControllerLegacy
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function display($cachable = false, $urlparams = array())

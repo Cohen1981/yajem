@@ -17,7 +17,7 @@ use Joomla\CMS\MVC\Model\ListModel;
  *
  * @since       version
  */
-class YajemModelAttendees extends ListModel
+class YajemModelComments extends ListModel
 {
 	/**
 	 * Get the Attendees for an event
@@ -28,44 +28,38 @@ class YajemModelAttendees extends ListModel
 	 *
 	 * @since 1.0
 	 */
-	public function getAttendees($eventId)
+	public function getComments($eventId)
 	{
 		$db = JFactory::getDbo();
 
 		$query = $db->getQuery(true);
 
-		$query->select('a.id, a.userId, a.status');
-		$query->from('#__yajem_attendees AS a');
+		$query->select('a.id, a.userId, a.eventId, a.comment, a.timestamp');
+		$query->from('#__yajem_comments AS a');
 		$query->where('a.eventId = ' . (int) $eventId);
 
-		$query->select('u.name AS attendee');
+		$query->select('u.name AS userName');
 		$query->join('LEFT', '#__users AS u ON u.id = userId');
 
 		$query->select('cd.name AS clearName, cd.image AS avatar');
 		$query->join('LEFT', '#__contact_details AS cd on cd.user_id = userId');
+
+		$query->order('a.timestamp DESC');
 
 		$db->setQuery($query);
 
 		return $db->loadObjectList();
 	}
 
-	/**
-	 * Get the Number of Attendees for an event
-	 * @param   int $eventId The Event id
-	 *
-	 * @return integer AttendeeNumber
-	 *
-	 * @since 1.0
-	 */
-	public function getAttendeeNumber($eventId)
+	public function getCommentCount($eventId)
 	{
 		$db = JFactory::getDbo();
 
 		$query = $db->getQuery(true);
 
-		$query->select('count(*) as attendeeNumber');
-		$query->from('#__yajem_attendees AS a');
-		$query->where('a.status=1 AND a.eventId = ' . (int) $eventId);
+		$query->select('count(*) as commentCount');
+		$query->from('#__yajem_comments AS a');
+		$query->where('a.eventId = ' . (int) $eventId);
 
 		$db->setQuery($query);
 

@@ -62,9 +62,6 @@ $listDirn  	= $this->escape($this->state->get('list.direction'));
 				<th class="left">
 					<?php echo JHtml::_('searchtools.sort', 'COM_YAJEM_TITLE_ATTENDEES_STATUS', 'status', $listDirn, $listOrder); ?>
 				</th>
-				<th class="left">
-					<?php echo JText::_('COM_YAJEM_TITLE_ATTENDEES_COMMENT'); ?>
-				</th>
 			</tr>
 			</thead>
 			<tfoot>
@@ -118,9 +115,6 @@ $listDirn  	= $this->escape($this->state->get('list.direction'));
 								break;
 						}
 						?>
-					</td>
-					<td>
-						<?php echo $item->comment; ?>
 					</td>
 
 				</tr>
