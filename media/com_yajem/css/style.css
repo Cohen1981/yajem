@@ -111,19 +111,25 @@ fieldset{
 .yajem_avatar_container{
     padding: 5px;
     display: block;
+    height: 110px;
 }
 .yajem_ustatus{
     display:block;
-    height: 50%;
+    border-radius: 6px 6px 6px 6px;
+    padding: 5px;
+    margin-top: 5px;
 }
 .yajem_att_status{
     padding:5px;
     display:block;
+    margin-left: auto;
+    margin-right: auto;
 }
 .yajem_uname{
     padding: 5px;
     display: block;
-    position: relative;
+    border-radius: 6px 6px 6px 6px;
+    background-color: #d3d3d3;
 }
 .yajem_border_right {
     border-right: 1px solid #BDBDBD;
@@ -139,10 +145,20 @@ fieldset{
     height:400px;
 }
 
+.yajem_attendee {
+    border: 1px solid #BDBDBD;
+    margin-right: 10px;
+    margin-top: 10px;
+    border-radius: 6px 6px 6px 6px;
+    width: 150px;
+}
+
 .yajem_avatar {
-    display: inline-block;
+    display: block;
     height: 100px;
     width: 100px;
+    margin-left: auto;
+    margin-right: auto;
 }
 .yajem_img_round {
     border-radius: 50%;
@@ -185,6 +201,18 @@ input[type=checkbox]:checked ~ .yajem_switchable {
 
 label {
     margin-bottom:0px !important;
+}
+.yajem_status_open {
+    background-color: #d3d3d3;
+}
+.yajem_status_attending {
+    background-color: forestgreen;
+}
+.yajem_status_declined {
+    background-color: crimson;
+}
+.yajem_status_waiting {
+    background-color: cornflowerblue;
 }
 
 @media (max-width: 700px) {
