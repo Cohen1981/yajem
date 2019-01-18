@@ -25,19 +25,19 @@ class YajemViewEvents extends HtmlView
 {
 	/**
 	 * @var events
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $items;
 
 	/**
 	 * @var pagination
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $pagination;
 
 	/**
 	 * @var state
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $state;
 
@@ -48,7 +48,7 @@ class YajemViewEvents extends HtmlView
 	 *
 	 * @throws Exception
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function display($tpl = null)
 	{
@@ -79,7 +79,7 @@ class YajemViewEvents extends HtmlView
 	/**
 	 * Adding the toolbar
 	 *
-	 * @since version
+	 * @since 1.0
 	 *
 	 * @return void
 	 */
@@ -137,7 +137,7 @@ class YajemViewEvents extends HtmlView
 	 *
 	 * @return array Array of sortable Fields
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	protected function getSortFields()
 	{

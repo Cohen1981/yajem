@@ -21,13 +21,13 @@ class YajemViewEvent extends HtmlView
 {
 	/**
 	 * @var state
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $state;
 
 	/**
 	 * @var event
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $event;
 
@@ -36,7 +36,7 @@ class YajemViewEvent extends HtmlView
 	 *
 	 * @return mixed|void
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function display($tpl = null)
@@ -62,6 +62,9 @@ class YajemViewEvent extends HtmlView
 
 			$this->attendees = $attArray;
 		}
+
+		$this->comments = $this->getModel('Comments')->getComments($this->event->id);
+		$this->commentCount = $this->getModel('Comments')->getCommentCount($this->event->id);
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

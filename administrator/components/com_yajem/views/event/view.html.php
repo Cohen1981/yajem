@@ -23,19 +23,19 @@ class YajemViewEvent extends HtmlView
 {
 	/**
 	 * @var state
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $state;
 
 	/**
 	 * @var event
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $event;
 
 	/**
 	 * @var form
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $form;
 
@@ -46,7 +46,7 @@ class YajemViewEvent extends HtmlView
 	 *
 	 * @throws Exception
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function display($tpl = null)
 	{
@@ -69,7 +69,7 @@ class YajemViewEvent extends HtmlView
 	/**
 	 * Adding the toolbar
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 *
 	 * @return void

@@ -21,25 +21,25 @@ class YajemViewEvents extends HtmlView
 {
 	/**
 	 * @var   $items
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $items;
 
 	/**
 	 * @var   $pagination
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $pagination;
 
 	/**
 	 * @var   $state
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $state;
 
 	/**
 	 * @var   $params
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $params;
 
@@ -48,7 +48,7 @@ class YajemViewEvents extends HtmlView
 	 *
 	 * @return mixed|void
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function display($tpl = null)

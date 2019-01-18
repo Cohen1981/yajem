@@ -54,7 +54,7 @@ if (!$guest)
 			if ($item->avatar) {
 				$avatar = '<img class="yajem_avatar yajem_img_round" src="' . $item->avatar . '"/>';
 			} else {
-				$avatar = '<div class="yajem_avatar_container"><img class="yajem_avatar" src="'. JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/></div>';
+				$avatar = '<img class="yajem_avatar" src="'. JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
 			}
             // Normal registration or waiting list
 			if ($waitingList) {

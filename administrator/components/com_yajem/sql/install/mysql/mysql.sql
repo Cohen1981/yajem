@@ -74,3 +74,14 @@ CREATE TABLE IF NOT EXISTS `#__yajem_attendees` (
   INDEX `idx_att_user` (`userId` ASC ))
   ENGINE=InnoDB
   DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
+
+CREATE TABLE IF NOT EXISTS `#__yajem_comments` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
+  `userId` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__users',
+  `eventId` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__yajame_events',
+  `comment` MEDIUMTEXT NOT NULL ,
+  `timestamp` DATETIME,
+  PRIMARY KEY (`id`),
+  INDEX `idx_comment_time` (`timestamp` DESC))
+  ENGINE=InnoDB
+  DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;

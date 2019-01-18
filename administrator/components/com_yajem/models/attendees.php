@@ -25,7 +25,7 @@ class YajemModelAttendees extends ListModel
 	 *
 	 * @param   array $config An optional associative array of configuration settings.
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function __construct(array $config = array())
 	{
@@ -74,7 +74,7 @@ class YajemModelAttendees extends ListModel
 	 * @param   null $direction default=asc
 	 *
 	 * @return void
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 */
 	protected function populateState($ordering = null, $direction = null)
@@ -95,7 +95,7 @@ class YajemModelAttendees extends ListModel
 	 *
 	 * @return JDatabaseQuery
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	protected function getListQuery()
 	{

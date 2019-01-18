@@ -143,6 +143,26 @@ class YajemTableEvent extends Table
 			{
 				$attendeeTable->delete($id);
 			}
+
+			// Now check for comments to delete
+			$db = $this->getDbo();
+			$query = $db->getQuery(true)
+				->select($db->quoteName('id'))
+				->from(
+					$db->quoteName('#__yajem_comments')
+				)
+				->where('eventId = ' . (int) $pk);
+			$db->setQuery($query);
+			$ids=$db->loadColumn();
+
+			// deleting should be done through native table which should care for own dependencies.
+			jimport('joomla.application.component.table');
+			JTable::addIncludePath(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_yajem' . DS . 'tables');
+			$commentTable = JTable::getInstance( 'Comment', 'YajemTable' );
+			foreach ($ids as $id)
+			{
+				$commentTable->delete($id);
+			}
 		}
 
 		return $return;

@@ -21,19 +21,19 @@ class YajemViewEditevent extends HtmlView
 {
 	/**
 	 * @var state
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $state;
 
 	/**
 	 * @var event
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $event;
 
 	/**
 	 * @var form
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $form;
 
@@ -44,7 +44,7 @@ class YajemViewEditevent extends HtmlView
 	 *
 	 * @throws Exception
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function display($tpl = null)
 	{

@@ -140,7 +140,7 @@ class JFormFieldModal_Location extends JFormField
 	 *
 	 * @return mixed|string
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	protected function getLabel()
 	{

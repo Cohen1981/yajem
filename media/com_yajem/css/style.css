@@ -111,7 +111,7 @@ fieldset{
 .yajem_avatar_container{
     padding: 5px;
     display: block;
-    height: 110px;
+    height: 70px;
 }
 .yajem_ustatus{
     display:block;
@@ -155,11 +155,39 @@ fieldset{
 
 .yajem_avatar {
     display: block;
-    height: 100px;
-    width: 100px;
+    height: 60px;
+    width: 60px;
     margin-left: auto;
     margin-right: auto;
 }
+#comments .yajem_avatar {
+    display: block;
+    float: left;
+    margin-right: 5px;
+}
+#comments .yajem_output {
+    padding-top: 5px;
+}
+#comments .yajem_label {}
+#comments .yajem_avatar_container {
+    height: auto;
+}
+#comments .yajem_uname {
+    padding: 5px 0px;
+    margin-left: 10px;
+}
+#commentForm #comment {
+    width: 100%;
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
+    height: 100px;
+}
+#yajem_comment{
+    background-color: #004b8d;
+    color: white;
+    font-weight: bold;
+}
+
 .yajem_img_round {
     border-radius: 50%;
 }
@@ -193,6 +221,9 @@ input[type=checkbox]:checked ~ .yajem_switchable {
     border-bottom: 1px solid #BDBDBD;
     padding-top: 20px;
     margin-bottom: 10px;
+}
+#comments .yajem_line{
+    padding-top: 10px;
 }
 
 .yajem-no-margin {

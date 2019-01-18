@@ -22,19 +22,19 @@ class YajemViewLocation extends HtmlView
 {
 	/**
 	 * @var state
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $state;
 
 	/**
 	 * @var location
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $location;
 
 	/**
 	 * @var form
-	 * @since version
+	 * @since 1.0
 	 */
 	protected $form;
 
@@ -45,7 +45,7 @@ class YajemViewLocation extends HtmlView
 	 *
 	 * @throws Exception
 	 *
-	 * @since version
+	 * @since 1.0
 	 */
 	public function display($tpl = null)
 	{
@@ -68,7 +68,7 @@ class YajemViewLocation extends HtmlView
 	/**
 	 * Adding the toolbar
 	 *
-	 * @since version
+	 * @since 1.0
 	 * @throws Exception
 	 *
 	 * @return void

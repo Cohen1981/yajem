@@ -27,7 +27,7 @@ class YajemControllerAttendees extends AdminController
 	 *
 	 * @return boolean|JModelLegacy
 	 *
-	 * @since version 1.0
+	 * @since 1.0
 	 */
 	public function getModel($name = 'Attendee', $prefix = 'YajemModel', $config = array('ignore-request' => true))
 	{
