@@ -34,6 +34,15 @@ if (!$guest)
 	}
 }
 
+// Normal registration or waiting list
+if ($waitingList) {
+	$regButton = '<label id="yajem_reg" class="yajem_css_switch yajem_rounded" for="regw">' . JText::_('COM_YAJEM_REGW') . '</label>';
+}
+else {
+	$regButton = '<label id="yajem_reg" class="yajem_css_switch yajem_rounded" for="reg">' . JText::_('COM_YAJEM_REG') . '</label>';
+}
+$unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" for="unreg">' . JText::_('COM_YAJEM_UNREG') . '</label>';
+
 ?>
 
 <?php if ((bool) $this->event->useRegisterUntil): ?>
@@ -56,14 +65,6 @@ if (!$guest)
 			} else {
 				$avatar = '<img class="yajem_avatar" src="'. JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
 			}
-            // Normal registration or waiting list
-			if ($waitingList) {
-				$regButton = '<label id="yajem_reg" class="yajem_css_switch yajem_rounded" for="regw">' . JText::_('COM_YAJEM_REGW') . '</label>';
-			}
-			else {
-				$regButton = '<label id="yajem_reg" class="yajem_css_switch yajem_rounded" for="reg">' . JText::_('COM_YAJEM_REG') . '</label>';
-			}
-			$unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" for="unreg">' . JText::_('COM_YAJEM_UNREG') . '</label>';
 
             //User Name
 			if ($item->clearName) {
@@ -119,22 +120,28 @@ if (!$guest)
 		<div class="yajem_flex_row yajem-button-group">
 			<?php
 
-			switch ($this->attendees[$userId]->status)
+			if ($this->attendees)
 			{
-				case 0:
-					echo $regButton;
-					echo $unregButton;
-					break;
-				case 1:
-					echo $unregButton;
-					break;
-				case 2:
-					echo $regButton;
-					break;
-				case 3:
-					echo $unregButton;
-					break;
-			}
+				switch ($this->attendees[$userId]->status)
+				{
+					case 0:
+						echo $regButton;
+						echo $unregButton;
+						break;
+					case 1:
+						echo $unregButton;
+						break;
+					case 2:
+						echo $regButton;
+						break;
+					case 3:
+						echo $unregButton;
+						break;
+				}
+			} else {
+				echo $regButton;
+				echo $unregButton;
+            }
 			?>
 		</div>
 
