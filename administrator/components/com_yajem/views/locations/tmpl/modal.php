@@ -27,7 +27,7 @@ HtmlHelper::_('bootstrap.tooltip', '.hasTooltip', array('placement' => 'bottom')
 HtmlHelper::_('bootstrap.popover', '.hasPopover', array('placement' => 'bottom'));
 HtmlHelper::_('formbehavior.chosen', 'select');
 HtmlHelper::_('behavior.polyfill', array('event'), 'lt IE 9');
-HtmlHelper::_('script', 'com_yajem/admin-locations-modal.min.js', array('version' => 'auto', 'relative' => true));
+HtmlHelper::_('script', 'com_yajem/admin-locations-modal.js', array('version' => 'auto', 'relative' => true));
 
 // Special case for the search field tooltip.
 $searchFilterDesc = $this->filterForm->getFieldAttribute('search', 'description', null, 'filter');
@@ -67,7 +67,7 @@ if (!empty($editor))
 						<?php echo HtmlHelper::_('searchtools.sort', 'JGLOBAL_TITLE', 'a.title', $listDirn, $listOrder); ?>
 					</th>
 					<th width="10%" class="nowrap">
-						<?php echo HtmlHelper::_('searchtools.sort', 'COM_YAJEM_FIELD_LINKED_USER_LABEL', 'a.catid', $listDirn, $listOrder); ?>
+						<?php echo HtmlHelper::_('searchtools.sort', 'JCATEGORY', 'a.catid', $listDirn, $listOrder); ?>
 					</th>
 				</tr>
 				</thead>
@@ -116,7 +116,6 @@ if (!empty($editor))
 							<a class="select-link" href="javascript:void(0)" data-function="<?php echo $this->escape($onclick); ?>" data-id="<?php echo $item->id; ?>" data-title="<?php echo $this->escape(addslashes($item->title)); ?>" data-uri="<?php echo $this->escape(YajemHelperAdmin::getLocationRoute($item->id, $item->catid)); ?>" data-language="<?php echo $this->escape($lang); ?>">
 								<?php echo $this->escape($item->title); ?>
 							</a>
-							<?php echo $this->escape($item->title); ?></a>
 							<div class="small">
 								<?php echo JText::_('JCATEGORY') . ': ' . $this->escape($item->catid); ?>
 							</div>
