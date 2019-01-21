@@ -161,9 +161,7 @@ $currentDate 	= Factory::getDate('now', 'UTC');
 								echo $symbolCanceled;
 								break;
 						}
-					} else {
-						echo $symbolConfirmed;
-                    }
+					}
 					echo '</div>';
 				}
 			?>
