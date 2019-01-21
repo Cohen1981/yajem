@@ -66,10 +66,16 @@ if ($useOrg)
 		<div class="yajem_section_header yajem_bottom-rounded">
 			<div class="yajem_inline-block">
 				<h2>
-					<?php echo $this->event->title . '&nbsp;&nbsp;'; ?>
-					<?php if ($useOrg && !$guest): ?>
-						<?php echo $eventStatus; ?>
-					<?php endif; ?>
+                    <?php
+                    if ($this->event->url) {
+                        echo '<a href="'. $this->event->url. '" target="_blank">' . $this->event->title . '</a>&nbsp;&nbsp;';
+                    } else {
+	                    echo $this->event->title . '&nbsp;&nbsp;';
+                    }
+                    if ($useOrg && !$guest) {
+                        echo $eventStatus;
+                    }
+                    ?>
 				</h2>
             </div>
             <div class="yajem_inline-block">
@@ -116,14 +122,20 @@ if ($useOrg)
 		<div class="yajem_section_header yajem_bottom-rounded">
 			<div class="yajem_inline-block">
 				<h2>
-					<?php echo $this->location->title; ?>
+                    <?php
+                    if ($this->location->url) {
+                        echo '<a href="'. $this->location->url. '" target="_blank">' . $this->location->title . '</a>&nbsp;&nbsp;';
+                    } else {
+	                    echo $this->location->title . '&nbsp;&nbsp;';
+                    }
+                    ?>
 				</h2>
 			</div>
 			<label id="location-section-button" class="yajem_switch" for="yajem_switch_location">
 				<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 			</label>
 		</div>
-		<input type="checkbox" id="yajem_switch_location" class="yajem_hidden"/>
+		<input type="checkbox" id="yajem_switch_location" class="yajem_hidden" checked="checked"/>
 		<div class="yajem_section_container yajem_switchable">
 
 			<?php echo $this->loadTemplate('location'); ?>

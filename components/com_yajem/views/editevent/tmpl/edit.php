@@ -51,6 +51,19 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
         action="<?php echo JRoute::_('index.php?option=com_yajem&layout=edit&id=' . (int) $this->event->id); ?>"
         method="post" enctype="multipart/form-data" name="adminForm" id="item-form" class="form-validate">
 
+    <div class="btn-toolbar">
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('editevent.save')">
+                <span class="icon-ok"></span><?php echo JText::_('JSAVE') ?>
+            </button>
+        </div>
+        <div class="btn-group">
+            <button type="button" class="btn" onclick="Joomla.submitbutton('editevent.cancel')">
+                <span class="icon-cancel"></span><?php echo JText::_('JCANCEL') ?>
+            </button>
+        </div>
+    </div>
+
 	<?php echo $this->form->renderField('title'); ?>
 	<?php echo $this->form->renderField('alias'); ?>
 
@@ -135,6 +148,19 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
 
 		<?php echo HtmlHelper::_('bootstrap.endTabSet'); ?>
+
+        <div class="btn-toolbar">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('editevent.save')">
+                    <span class="icon-ok"></span><?php echo JText::_('JSAVE') ?>
+                </button>
+            </div>
+            <div class="btn-group">
+                <button type="button" class="btn" onclick="Joomla.submitbutton('editevent.cancel')">
+                    <span class="icon-cancel"></span><?php echo JText::_('JCANCEL') ?>
+                </button>
+            </div>
+        </div>
 
         <input type="hidden" name="task" value=""/>
 		<?php echo HtmlHelper::_('form.token'); ?>
