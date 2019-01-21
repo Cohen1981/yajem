@@ -15,7 +15,6 @@
 
     <files folder="packages">
         <file type="component" id="com_yajem">com_yajem.zip</file>
-
         <file type="plugin" id="mailer" group="yajem">plg_yajem_mailer.zip</file>
     </files>
 
