@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<extension type="package" version="2.5" method="upgrade">
+<extension type="package" version="3.9" method="upgrade">
     <name>pkg_yajem</name>
     <packagename>yajem</packagename>
     <creationDate>17.12.2018</creationDate>
@@ -18,8 +18,9 @@
         <file type="plugin" id="mailer" group="yajem">plg_yajem_mailer.zip</file>
     </files>
 
-    <!--<languages folder="language">
-        <language tag="en-GB">en-GB/en-GB.pkg_jem.sys.ini</language>
+    <languages folder="language">
+        <language tag="en-GB">en-GB/en-GB.pkg_yajem.sys.ini</language>
+        <language tag="de-DE">de-DE/de-DE.pkg_yajem.sys.ini</language>
     </languages>
-    -->
+
 </extension>

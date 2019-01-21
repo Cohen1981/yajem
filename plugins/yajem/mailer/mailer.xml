@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<extension type="plugin" version="3.8" group="yajem" method="upgrade">
+<extension type="plugin" version="3.9" group="yajem" method="upgrade">
 <name>PLG_YAJEM_MAILER</name>
 <creationDate>18.12.2018</creationDate>
 <author>Alexander Bahlo</author>

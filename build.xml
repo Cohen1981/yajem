@@ -53,7 +53,11 @@
         </copy>
 
         <copy todir="${dist.dir}">
-            <filelist dir="${project.basedir}" files="pkg_yajem.xml"/>
+            <fileset dir="${project.basedir}">
+                <include name="pkg_yajem.xml"/>
+                <include name="pkg_install.php"/>
+                <include name="language/**"/>
+            </fileset>
         </copy>
 
         <copy todir="${build.dir}/plg_yajem_mailer">
