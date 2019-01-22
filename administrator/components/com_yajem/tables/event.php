@@ -10,8 +10,10 @@
 
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
+use com_yajem\administrator\helpers\tableHelper;
 
 defined('_JEXEC') or die;
+require_once (JPATH_COMPONENT_ADMINISTRATOR . '/helpers/tableHelper.php');
 
 /**
  * Yajem table.
@@ -120,48 +122,18 @@ class YajemTableEvent extends Table
 	 */
 	public function delete($pk = null)
 	{
-		$return = parent::delete($pk);
+		//$return = parent::delete($pk);
+		$return = true;
 
 		if ($return)
 		{
-			jimport('joomla.application.component.table');
-			// Now check for attenddees to delete
-			$db = $this->getDbo();
-			$query = $db->getQuery(true)
-				->select($db->quoteName('id'))
-				->from(
-					$db->quoteName('#__yajem_attendees')
-				)
-				->where('eventId = ' . (int) $pk);
-			$db->setQuery($query);
-			$ids=$db->loadColumn();
+			$tableHelper = new tableHelper();
 
-			// deleting should be done through native table which should care for own dependencies.
-			JTable::addIncludePath(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_yajem' . DS . 'tables');
-			$attendeeTable = JTable::getInstance( 'Attendee', 'YajemTable' );
-			foreach ($ids as $id)
-			{
-				$attendeeTable->delete($id);
-			}
+			$tableHelper->deleteForeignTable('#__yajem_attendees', 'Attendee', 'eventId', $pk);
 
-			// Now check for comments to delete
-			$db = $this->getDbo();
-			$query = $db->getQuery(true)
-				->select($db->quoteName('id'))
-				->from(
-					$db->quoteName('#__yajem_comments')
-				)
-				->where('eventId = ' . (int) $pk);
-			$db->setQuery($query);
-			$ids=$db->loadColumn();
+			$tableHelper->deleteForeignTable('#__yajem_comments', 'Comment', 'eventId', $pk);
 
-			// deleting should be done through native table which should care for own dependencies.
-			JTable::addIncludePath(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_yajem' . DS . 'tables');
-			$commentTable = JTable::getInstance( 'Comment', 'YajemTable' );
-			foreach ($ids as $id)
-			{
-				$commentTable->delete($id);
-			}
+			$tableHelper->deleteForeignTable('#__yajem_attachments', 'Attachment', 'eventId', $pk);
 		}
 
 		return $return;

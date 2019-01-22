@@ -12,6 +12,9 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
+use com_yajem\administrator\helpers\tableHelper;
+
+require_once (JPATH_COMPONENT_ADMINISTRATOR . '/helpers/tableHelper.php');
 
 /**
  * @package     Yajem
@@ -110,25 +113,11 @@ class YajemTableLocation extends Table
 
 		if ($return)
 		{
-			// Now check for events to delete
-			$db = $this->getDbo();
-			$query = $db->getQuery(true)
-				->select($db->quoteName('id'))
-				->from(
-					$db->quoteName('#__yajem_events')
-				)
-				->where('locationId = ' . (int) $pk);
-			$db->setQuery($query);
-			$ids=$db->loadColumn();
+			$tableHelper = new tableHelper();
 
-			// deleting should be done through native table which should care for own dependencies.
-			jimport('joomla.application.component.table');
-			JTable::addIncludePath(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_yajem' . DS . 'tables');
-			$eventTable = JTable::getInstance( 'Event', 'YajemTable' );
-			foreach ($ids as $id)
-			{
-				$eventTable->delete($id);
-			}
+			$tableHelper->deleteForeignTable('#__yajem_events', 'Event', 'locationId', $pk);
+
+			$tableHelper->deleteForeignTable('#__yajem_attachments', 'Attachment', 'locationId', $pk);
 		}
 
 		return $return;
