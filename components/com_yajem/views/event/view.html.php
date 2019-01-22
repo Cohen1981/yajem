@@ -66,6 +66,10 @@ class YajemViewEvent extends HtmlView
 		$this->comments = $this->getModel('Comments')->getComments($this->event->id);
 		$this->commentCount = $this->getModel('Comments')->getCommentCount($this->event->id);
 
+		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
+		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');
+		$this->event->attachments = $modelAttachments->getAttachments( (int) $this->event->id, 'event' );
+
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
 		{

@@ -124,6 +124,7 @@ class YajemTableEvent extends Table
 
 		if ($return)
 		{
+			jimport('joomla.application.component.table');
 			// Now check for attenddees to delete
 			$db = $this->getDbo();
 			$query = $db->getQuery(true)
@@ -136,7 +137,6 @@ class YajemTableEvent extends Table
 			$ids=$db->loadColumn();
 
 			// deleting should be done through native table which should care for own dependencies.
-			jimport('joomla.application.component.table');
 			JTable::addIncludePath(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_yajem' . DS . 'tables');
 			$attendeeTable = JTable::getInstance( 'Attendee', 'YajemTable' );
 			foreach ($ids as $id)
@@ -156,7 +156,6 @@ class YajemTableEvent extends Table
 			$ids=$db->loadColumn();
 
 			// deleting should be done through native table which should care for own dependencies.
-			jimport('joomla.application.component.table');
 			JTable::addIncludePath(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_yajem' . DS . 'tables');
 			$commentTable = JTable::getInstance( 'Comment', 'YajemTable' );
 			foreach ($ids as $id)

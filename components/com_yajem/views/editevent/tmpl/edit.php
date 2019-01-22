@@ -127,6 +127,7 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
             <div class="row-fluid">
                 <div class="span6">
 					<?php echo $this->form->renderFieldset('image');  ?>
+					<?php echo $this->form->renderFieldset('attachments');  ?>
                 </div>
             </div>
         </fieldset>
