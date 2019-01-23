@@ -245,6 +245,9 @@ label {
 .yajem_status_waiting {
     background-color: cornflowerblue;
 }
+.yajem_attachment {
+    width: auto;
+}
 
 @media (max-width: 700px) {
     .yajem_image {

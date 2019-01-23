@@ -40,8 +40,6 @@ class YajemViewEditlocation extends HtmlView
 	/**
 	 * @param   null $tpl Template to be used
 	 *
-	 * @return mixed
-	 *
 	 * @throws Exception
 	 *
 	 * @since 1.0
@@ -54,12 +52,21 @@ class YajemViewEditlocation extends HtmlView
 		$this->location = $this->get('Item');
 		$this->form = $this->get('Form');
 
+		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
+		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');
+		$this->location->attachments = array();
+		if ($this->location->id)
+		{
+			$this->location->attachments = $modelAttachments->getAttachments((int) $this->location->id, 'location');
+		}
 		if (count($errors = $this->get('Errors')))
 		{
 			throw new Exception(implode("\n", $errors));
 		}
 
-		return parent::display($tpl);
+		parent::display($tpl);
+
+		YajemHelperAdmin::setDocument();
 	}
 
 }

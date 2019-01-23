@@ -175,8 +175,8 @@
 		<field
 			name="attachment"
 			type="file"
-			label="Enter some text"
-			description="Choose an image from your computer with maximum 100KB"
+			label="COM_YAJEM_ATTACHMENTS_LABEL"
+			description="COM_YAJEM_ATTACHMENTS_DESC"
 			size="100"
 			accept=".pdf"
 			multiple="true" />

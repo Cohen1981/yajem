@@ -71,11 +71,15 @@ class YajemModelAttachments extends ListModel
 			default:
 				break;
 		}
-		$this->setState('filter.eventId', $id);
 		$this->__state_set = true;
 		$db->setQuery($this->getListQuery());
 
 		$result = $db->loadObjectList();
+
+		//clearing filters
+		$this->setState('filter.eventId',null);
+		$this->setState('filter.locationId',null);
+
 		return $result;
 	}
 
@@ -130,11 +134,11 @@ class YajemModelAttachments extends ListModel
 			$query->where('a.eventId = ' . (int) $eventId);
 		}
 
-		$filterLocation = $this->state->get('filter.locationId');
+		$locationId = $this->getState('filter.locationId');
 
-		if ($filterLocation)
+		if (is_numeric($locationId)) // Set Filter for State
 		{
-			$query->where("a.`locationId` = '" . $db->escape($filterLocation) . "'");
+			$query->where('a.locationId = ' . (int) $locationId);
 		}
 
 		$orderCol  = $this->state->get('list.ordering');
@@ -154,7 +158,7 @@ class YajemModelAttachments extends ListModel
 	 * @param int    $id          Id of location or event
 	 *
 	 *
-	 * @since version
+	 * @since 1.1
 	 * @throws Exception
 	 */
 	public function saveAttachments($attachments, $type, $id) {
@@ -164,8 +168,8 @@ class YajemModelAttachments extends ListModel
 			{
 				$filename   = File::makeSafe($attachments[$i]['name']);
 				$src        = $attachments[$i]['tmp_name'];
-				$dest       = JPATH_SITE . DIRECTORY_SEPARATOR . "media" . DIRECTORY_SEPARATOR . "com_yajem" .DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR . $filename;
-				$url        = "media" .DIRECTORY_SEPARATOR . "com_yajem" .DIRECTORY_SEPARATOR . "uploads" . DIRECTORY_SEPARATOR . $filename;
+				$dest       = YAJEM_UPLOADS . DIRECTORY_SEPARATOR . $type . $id . DIRECTORY_SEPARATOR . $filename;
+				$url        = YAJEM_UPLOAD_URL . DIRECTORY_SEPARATOR . $type . $id . DIRECTORY_SEPARATOR . $filename;
 				File::upload($src, $dest);
 				$modelAttachment = new YajemModelAttachment();
 				switch ((string)$type) {

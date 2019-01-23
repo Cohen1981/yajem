@@ -13,6 +13,8 @@ use Joomla\CMS\MVC\Controller\BaseController;
 
 defined('_JEXEC') or die;
 
+require_once JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/defines.php';
+
 $language = Factory::getLanguage();
 $extension = 'com_yajem';
 $language_tag = $language->getTag(); // loads the current language-tag

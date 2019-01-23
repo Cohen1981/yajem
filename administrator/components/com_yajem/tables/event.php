@@ -122,8 +122,9 @@ class YajemTableEvent extends Table
 	 */
 	public function delete($pk = null)
 	{
+		// TODO just for testing. uncomment when ready
+		$return=true;
 		//$return = parent::delete($pk);
-		$return = true;
 
 		if ($return)
 		{

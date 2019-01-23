@@ -45,9 +45,14 @@ class YajemViewEvent extends HtmlView
 
 		$this->event = $this->get('Data', 'Event');
 
+		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
+		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');
+		$this->event->attachments = $modelAttachments->getAttachments( (int) $this->event->id, 'event' );
+
 		if ($this->event->locationId)
 		{
 			$this->location = $this->getModel('Locations')->getLocation($this->event->locationId);
+			$this->location->attachments = $modelAttachments->getAttachments( (int) $this->location->id, 'location' );
 		}
 
 		$this->attendees = $this->getModel('Attendees')->getAttendees($this->event->id);
@@ -65,10 +70,6 @@ class YajemViewEvent extends HtmlView
 
 		$this->comments = $this->getModel('Comments')->getComments($this->event->id);
 		$this->commentCount = $this->getModel('Comments')->getCommentCount($this->event->id);
-
-		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
-		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');
-		$this->event->attachments = $modelAttachments->getAttachments( (int) $this->event->id, 'event' );
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

@@ -9,6 +9,7 @@
  */
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 
 defined('_JEXEC') or die;
 
@@ -112,8 +113,24 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
 		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'image', JText::_('COM_YAJEM_EVENT_TAB_IMAGE')); ?>
 		<fieldset class="adminform">
 			<div class="row-fluid">
-				<div class="span6">
+				<div class="span16">
 					<?php echo $this->form->renderFieldset('image');  ?>
+					<?php echo $this->form->renderFieldset('attachments');  ?>
+                    <div class="control-group">
+                        <div class="control-label">
+							<?php echo Text::_('COM_YAJEM_ATTACHED') ?>
+                        </div>
+                        <div class="controls">
+							<?php foreach ($this->event->attachments as $attachment):?>
+                                <div id="<?php echo $attachment->id; ?>" class="yajem_attachment">
+                                    <a onclick="delAttachment(<?php echo $attachment->id; ?>)">
+                                        <i class="fas fa-trash-alt" aria-hidden="true">&nbsp;</i>
+                                    </a>
+									<?php echo $attachment->title; ?>
+                                </div>
+							<?php endforeach; ?>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</fieldset>

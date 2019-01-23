@@ -159,8 +159,6 @@ class YajemModelEvent extends AdminModel
 	{
 		$new = (bool)empty($data['id']);
 
-		$jinput = Factory::getApplication()->input;
-
 		$saved = parent::save($data);
 
 		if ($saved)
@@ -180,6 +178,7 @@ class YajemModelEvent extends AdminModel
 			}
 
 			// getting the list of files to attach
+			$jinput = Factory::getApplication()->input;
 			$attachmentsList = $jinput->files->get('jform');
 
 			foreach ($attachmentsList as $attachments)

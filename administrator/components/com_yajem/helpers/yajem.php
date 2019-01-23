@@ -9,6 +9,7 @@
  */
 
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Factory;
 
 defined('_JEXEC') or die;
 
@@ -103,6 +104,20 @@ class YajemHelperAdmin
 		}
 
 		return $link;
+	}
+
+	/**
+	 * Method to set up the html document properties
+	 *
+	 * @return void
+	 *
+	 * @since 1.1
+	 */
+	public static function setDocument()
+	{
+		$document = Factory::getDocument();
+		$document->addScript(JUri::root() . 'media/com_yajem/js/attachments.js');
+		$document->addStyleSheet(JUri::root() . 'media/com_yajem/css/style.css');
 	}
 }
 /**
