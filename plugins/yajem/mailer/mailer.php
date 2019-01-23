@@ -168,12 +168,13 @@ class PlgYajemMailer extends CMSPlugin
 
 	/**
 	 *
-	 * @param boolean   $attendees  true if only event attendees should be used
-	 * @param int       eventId     id for the event -> default null if new event
+	 * @param boolean   $attendees   true if only event attendees should be used
+	 * @param int       $eventId     id for the event -> default null if new event
 	 *
 	 * @return array    array holding all recipients email
 	 *
 	 * @since 1.0
+	 * @throws Exception
 	 */
 	private function getRecipientsMails($attendees, $eventId = null)
 	{

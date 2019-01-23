@@ -42,8 +42,6 @@ class YajemViewEvent extends HtmlView
 	/**
 	 * @param   null $tpl Template to be used
 	 *
-	 * @return mixed
-	 *
 	 * @throws Exception
 	 *
 	 * @since 1.0
@@ -56,6 +54,14 @@ class YajemViewEvent extends HtmlView
 		$this->event = $this->get('Item');
 		$this->form = $this->get('Form');
 
+		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
+		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');
+		$this->event->attachments = array();
+		if ($this->event->id)
+		{
+			$this->event->attachments = $modelAttachments->getAttachments((int) $this->event->id, 'event');
+		}
+
 		if (count($errors = $this->get('Errors')))
 		{
 			throw new Exception(implode("\n", $errors));
@@ -63,7 +69,9 @@ class YajemViewEvent extends HtmlView
 
 		$this->addToolbar();
 
-		return parent::display($tpl);
+		parent::display($tpl);
+
+		YajemHelperAdmin::setDocument();
 	}
 
 	/**

@@ -104,4 +104,20 @@ if ($useOrga)
 			<?php echo $this->event->description; ?>
 		</div>
 	<?php endif; ?>
+    <div class="yajem_label">
+            <?php echo JText::_('COM_YAJEM_ATTACHMENTS_LABEL');?>
+    </div>
+    <div class="yajem_output">
+	    <?php foreach ($this->event->attachments as $a => $attachment) : ?>
+        <div class="yajem_flex_row">
+            <div>
+                <?php
+                    $src = JURI::root() . $attachment->file;
+                ?>
+                <a href="<?php echo $src ?>" target="_blank"><i class="fas fa-paperclip" aria-hidden="true">&nbsp;</i><?php echo $attachment->title ?></a>
+            </div>
+        </div>
+	    <?php endforeach; ?>
+    </div>
+
 </div>

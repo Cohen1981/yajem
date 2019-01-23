@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<form>
+<form enctype="multipart/form-data">
 	<fieldset name="details">
 
 		<field
@@ -171,6 +171,16 @@
 				   size="30"/>
 		</fieldset>
 	</fields>
+	<fieldset name="attachments">
+		<field
+			name="attachment"
+			type="file"
+			label="COM_YAJEM_ATTACHMENTS_LABEL"
+			description="COM_YAJEM_ATTACHMENTS_DESC"
+			size="100"
+			accept=".pdf"
+			multiple="true" />
+	</fieldset>
 
 	<fieldset name="contact_host" addfieldpath="/administrator/components/com_contact/models/fields">
 		<field

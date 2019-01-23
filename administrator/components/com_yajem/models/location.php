@@ -15,6 +15,8 @@ use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
+require_once ("attachments.php");
+
 /**
  * @package     Yajem
  *
@@ -80,7 +82,7 @@ class YajemModelLocation extends AdminModel
 	 * @param   array    $data      Data for the form.
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return boolean|JForm|void  A JForm object on success, false on failure
+	 * @return boolean|JForm  A JForm object on success, false on failure
 	 *
 	 * @since 1.0
 	 */
@@ -144,6 +146,35 @@ class YajemModelLocation extends AdminModel
 		}
 
 		parent::prepareTable($table);
+	}
+
+	/**
+	 * @param array $data
+	 *
+	 * @return bool
+	 *
+	 * @since 1.1
+	 * @throws Exception
+	 */
+	public function save($data)
+	{
+		$return = parent::save($data);
+
+		if ($return)
+		{
+			$locationId = $this->getState('location.id');
+			// getting the list of files to attach
+			$jinput          = Factory::getApplication()->input;
+			$attachmentsList = $jinput->files->get('jform');
+
+			foreach ($attachmentsList as $attachments)
+			{
+				$modelAttachments = new YajemModelAttachments();
+
+				$modelAttachments->saveAttachments($attachments, 'location', $locationId);
+			}
+		}
+		return $return;
 	}
 
 }

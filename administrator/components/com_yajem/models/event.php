@@ -14,7 +14,7 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 
-require_once ("attendee.php");
+require_once ("attachments.php");
 
 /**
  * @package     Yajem
@@ -158,15 +158,34 @@ class YajemModelEvent extends AdminModel
 	public function save($data)
 	{
 		$new = (bool)empty($data['id']);
+
 		$saved = parent::save($data);
 
-		if ($data['invited_users']) {
-			$eventId = ($this->getState('event.id')!=null?$this->getState('event.id'):$this->getState('editevent.id'));
+		if ($saved)
+		{
 
-			foreach ($data['invited_users'] as $user) {
-				$modelAttendee = new YajemModelAttendee();
-				$invited = ['eventId' => $eventId, 'userId' => $user, 'status' => 0, 'comment' => ''];
-				$modelAttendee->save($invited);
+			$eventId = ($this->getState('event.id') != null ? $this->getState('event.id') : $this->getState('editevent.id'));
+
+			if ($data['invited_users'])
+			{
+
+				foreach ($data['invited_users'] as $user)
+				{
+					$modelAttendee = new YajemModelAttendee();
+					$invited       = ['eventId' => $eventId, 'userId' => $user, 'status' => 0, 'comment' => ''];
+					$modelAttendee->save($invited);
+				}
+			}
+
+			// getting the list of files to attach
+			$jinput = Factory::getApplication()->input;
+			$attachmentsList = $jinput->files->get('jform');
+
+			foreach ($attachmentsList as $attachments)
+			{
+				$modelAttachments = new YajemModelAttachments();
+
+				$modelAttachments->saveAttachments($attachments, 'event', $eventId);
 			}
 		}
 		return $saved;

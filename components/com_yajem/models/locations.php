@@ -146,13 +146,20 @@ class YajemModelLocations extends ListModel
 		return $query;
 	}
 
+	/**
+	 * @param $id
+	 *
+	 * @return mixed
+	 *
+	 * @since 1.0
+	 */
 	public function getLocation($id)
 	{
 		$db = JFactory::getDbo();
 
 		$locQuery = $db->getQuery(true);
 
-		$locQuery->select('l.title, l.description, l.url,
+		$locQuery->select('l.id, l.title, l.description, l.url,
 			l.street, l.postalCode, l.city, l.image, l.latlng'
 		);
 		$locQuery->from('#__yajem_locations AS l');
