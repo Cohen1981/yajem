@@ -11,6 +11,7 @@
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
 use com_yajem\administrator\helpers\tableHelper;
+use Joomla\Filesystem\Folder;
 
 defined('_JEXEC') or die;
 require_once (JPATH_COMPONENT_ADMINISTRATOR . '/helpers/tableHelper.php');
@@ -122,9 +123,7 @@ class YajemTableEvent extends Table
 	 */
 	public function delete($pk = null)
 	{
-		// TODO just for testing. uncomment when ready
-		$return=true;
-		//$return = parent::delete($pk);
+		$return = parent::delete($pk);
 
 		if ($return)
 		{
@@ -135,6 +134,10 @@ class YajemTableEvent extends Table
 			$tableHelper->deleteForeignTable('#__yajem_comments', 'Comment', 'eventId', $pk);
 
 			$tableHelper->deleteForeignTable('#__yajem_attachments', 'Attachment', 'eventId', $pk);
+		}
+
+		if (JFolder::exists(YAJEM_UPLOADS . DIRECTORY_SEPARATOR . 'event' . $pk)) {
+			Folder::delete(YAJEM_UPLOADS . DIRECTORY_SEPARATOR . 'event' . $pk);
 		}
 
 		return $return;

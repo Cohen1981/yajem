@@ -29,6 +29,7 @@ class tableHelper
 	 * @param string    $foreignKeyName     Name of the foreign key in the foreign table
 	 * @param int       $id                 id to search for
 	 *
+	 * @return int  number of deleted rows
 	 *
 	 * @since 1.1
 	 */
@@ -56,5 +57,6 @@ class tableHelper
 				$foreignTable->delete($pk);
 			}
 		}
+		return (count($ids));
 	}
 }

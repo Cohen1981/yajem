@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
 use com_yajem\administrator\helpers\tableHelper;
+use Joomla\Filesystem\Folder;
 
 require_once (JPATH_COMPONENT_ADMINISTRATOR . '/helpers/tableHelper.php');
 
@@ -120,6 +121,9 @@ class YajemTableLocation extends Table
 			$tableHelper->deleteForeignTable('#__yajem_attachments', 'Attachment', 'locationId', $pk);
 		}
 
+		if (JFolder::exists(YAJEM_UPLOADS . DIRECTORY_SEPARATOR . 'location' . $pk)) {
+			Folder::delete(YAJEM_UPLOADS . DIRECTORY_SEPARATOR . 'location' . $pk);
+		}
 		return $return;
 	}
 }

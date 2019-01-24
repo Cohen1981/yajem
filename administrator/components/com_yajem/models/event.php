@@ -14,6 +14,7 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 
+require_once ("attendee.php");
 require_once ("attachments.php");
 
 /**

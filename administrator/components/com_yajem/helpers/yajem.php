@@ -116,7 +116,7 @@ class YajemHelperAdmin
 	public static function setDocument()
 	{
 		$document = Factory::getDocument();
-		$document->addScript(JUri::root() . 'media/com_yajem/js/attachments.js');
+		$document->addScript(JUri::root() . 'media/com_yajem/js/event.js');
 		$document->addStyleSheet(JUri::root() . 'media/com_yajem/css/style.css');
 	}
 }
