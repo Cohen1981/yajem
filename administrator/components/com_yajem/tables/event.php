@@ -14,7 +14,6 @@ use com_yajem\administrator\helpers\tableHelper;
 use Joomla\Filesystem\Folder;
 
 defined('_JEXEC') or die;
-require_once (JPATH_COMPONENT_ADMINISTRATOR . '/helpers/tableHelper.php');
 
 /**
  * Yajem table.

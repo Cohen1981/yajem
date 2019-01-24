@@ -15,8 +15,6 @@ use Joomla\CMS\Factory;
 use com_yajem\administrator\helpers\tableHelper;
 use Joomla\Filesystem\Folder;
 
-require_once (JPATH_COMPONENT_ADMINISTRATOR . '/helpers/tableHelper.php');
-
 /**
  * @package     Yajem
  *
