@@ -38,7 +38,7 @@ class YajemModelAttendees extends ListModel
 		$query->from('#__yajem_attendees AS a');
 		$query->where('a.eventId = ' . (int) $eventId);
 
-		$query->select('u.name AS attendee');
+		$query->select('u.name AS attendee, u.email AS mail');
 		$query->join('LEFT', '#__users AS u ON u.id = userId');
 
 		$query->select('cd.name AS clearName, cd.image AS avatar');
@@ -46,7 +46,15 @@ class YajemModelAttendees extends ListModel
 
 		$db->setQuery($query);
 
-		return $db->loadObjectList();
+		$attendees = $db->loadObjectList();
+
+		foreach ($attendees as $attendee) {
+			if ($attendee->clearName) {
+				$attendee->attendee = $attendee->clearName;
+			}
+		}
+
+		return $attendees;
 	}
 
 	/**

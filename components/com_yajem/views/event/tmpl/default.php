@@ -52,14 +52,23 @@ if ($useOrg)
 ?>
 
 <div id="yajem_container">
-	<?php if ($canEdit) : ?>
+
         <div class="yajem_section_container">
-            <a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editevent.edit&id=') . $this->event->id; ?>">
-                <i class="fas fa-edit" aria-hidden="true"></i>
-				<?php echo Text::_('COM_YAJEM_EDIT_EVENT'); ?>
-            </a>&nbsp;
+            <button onclick="getIcs(<?php echo $this->event->id; ?>)"
+                    class="hasPopover"
+                    data-content="<?php echo Text::_('COM_YAJEM_ICS_DOWNLOAD_DESC'); ?>"
+                    data-original-title="<?php echo Text::_('COM_YAJEM_ICS_DOWNLOAD'); ?>">
+                <i class="fas fa-file-download" aria-hidden="true"></i>
+            </button>
+	        <?php if ($canEdit) : ?>
+                <div class="yajem_inline-block">
+                    <a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editevent.edit&id=') . $this->event->id; ?>">
+                        <i class="fas fa-edit" aria-hidden="true"></i>
+				        <?php echo Text::_('COM_YAJEM_EDIT_EVENT'); ?>
+                    </a>
+                </div>
+	        <?php endif; ?>
         </div>
-	<?php endif; ?>
 
 	<!-- Event Basics Section -->
 	<div class="yajem_switch_container">
