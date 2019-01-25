@@ -98,9 +98,10 @@ class YajemModelEvent extends ItemModel
 		{
 			$db = JFactory::getDbo();
 			$conQuery = $db->getQuery(true);
-			$conQuery->select('name, user_id')
-				->from('#__contact_details')
-				->where('id = ' . $this->_item->organizerId);
+			$conQuery->select('cd.name as name, cd.user_id as user_id, u.email as email')
+				->from('#__contact_details AS cd')
+				->where('cd.id = ' . $this->_item->organizerId)
+				->join('left', '#__users as u on u.id = cd.user_id');
 			$db->setQuery($conQuery);
 			$this->_item->organizer = $db->loadObject();
 			$this->_item->organizerLink = "<a href='index.php?option=com_contact&view=contact&id=" .
@@ -165,5 +166,110 @@ class YajemModelEvent extends ItemModel
 		}
 
 		return $table->store(true);
+	}
+
+	public function makeIcs() {
+		if ($eventId = $this->getState('item.id'))
+		{
+			JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_yajem/models');
+
+			$event = $this->getData($eventId);
+
+			if ($event->locationId) {
+				//get the location
+				$modelLocation = JModelLegacy::getInstance('locations', 'YajemModel');
+				$location = $modelLocation->getLocation( (int) $event->locationId );
+			}
+
+			//check for attendees
+			$modelAttendees = JModelLegacy::getInstance('attendees', 'YajemModel');
+			$attendees = $modelAttendees->getAttendees( (int) $event->id );
+			if (count($attendees)>0) {
+				foreach ($attendees as $attendee) {
+					if (!$attendee->userId == $event->organizer->userId) {
+						$kb_attendees[]='ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN="'
+							. $attendee->attendee
+							. '":Mailto:' . $attendee->mail;
+					}
+				}
+			}
+
+			if ($event->organizerId) {
+				$kb_organizer = 'ORGANIZER;CN="'. $event->organizer->name .'":Mailto:' . $event->organizer->email;
+			}
+
+			if ((bool) $event->allDayEvent) {
+				$kb_start       = new DateTime($event->startDate);
+				$kb_start       = $kb_start->format('Ymd');
+
+				$kb_end         = new DateTime($event->endDate);
+				$kb_end         = $kb_end->format('Ymd');
+			} else {
+				$kb_start       = new DateTime($event->startDateTime);
+				$kb_start       = $kb_start->format('Ymd') . 'T' . $kb_start->format('Hms');
+
+				$kb_end         = new DateTime($event->endDateTime);
+				$kb_end         = $kb_end->format('Ymd') . 'T' . $kb_end->format('Hms');
+			}
+			$kb_current_time = new DateTime(now);
+			$kb_title        = html_entity_decode($event->title, ENT_COMPAT, 'UTF-8');
+			$kb_location     = html_entity_decode(
+				$location->street.", ".$location->postalCode." ".$location->city,
+				ENT_COMPAT,
+				'UTF-8');
+			$kb_description  = html_entity_decode($event->description, ENT_COMPAT, 'UTF-8');
+			$eol            = "\r\n";
+
+			$kb_ics_content =
+				'BEGIN:VCALENDAR' . $eol
+				. 'VERSION:2.0' . $eol
+				. 'CALSCALE:GREGORIAN' . $eol
+				. 'PRODID:https://www.survivants-d-acre.de' . $eol
+				. 'METHOD:REQUEST' . $eol
+				. 'BEGIN:VTIMEZONE' . $eol
+				. 'TZID:Europe/Berlin' . $eol
+				. 'BEGIN:DAYLIGHT' . $eol
+				. 'TZOFFSETFROM:+0100' . $eol
+				. 'TZOFFSETTO:+0200' . $eol
+				. 'TZNAME:CEST' . $eol
+				. 'DTSTART:19700329T020000' . $eol
+				. 'RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=3' . $eol
+				. 'END:DAYLIGHT' . $eol
+				. 'BEGIN:STANDARD' . $eol
+				. 'TZOFFSETFROM:+0200' . $eol
+				. 'TZOFFSETTO:+0100' . $eol
+				. 'TZNAME:CET' . $eol
+				. 'DTSTART:19701025T030000' . $eol
+				. 'RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=10' . $eol
+				. 'END:STANDARD' . $eol
+				. 'END:VTIMEZONE' . $eol
+				. 'BEGIN:VEVENT' . $eol
+				. 'UID:{UID}' . $eol
+				. 'SEQUENCE:{Sequence}' . $eol
+				. 'STATUS:CONFIRMED' . $eol
+				. $kb_organizer . $eol;
+			/* TODO Man könnte später auch auf Rückmeldung durch Kalender reagieren.
+			if (count($kb_attendees)>0) {
+				foreach ($kb_attendees as $kbAttendee)
+				{
+					$kb_ics_content = $kb_ics_content . $kbAttendee . $eol;
+				}
+			}*/
+			$kb_ics_content = $kb_ics_content
+				. 'CLASS:PUBLIC' . $eol
+				. 'SUMMARY:' . $kb_title . $eol
+				. 'DTSTART;TZID=Europe/Berlin:' . $kb_start . $eol
+				. 'DTEND;TZID=Europe/Berlin:' . $kb_end . $eol
+				. 'DTSTAMP:' . $kb_current_time->format('Ymd') . 'T' . $kb_current_time->format('Hms') . $eol
+				. 'LAST-MODIFIED:' . $kb_current_time->format('Ymd') . 'T' . $kb_current_time->format('Hms') . $eol
+				. 'DESCRIPTION:' . $kb_description . $eol
+				. 'LOCATION:' . $kb_location . $eol
+				. 'END:VEVENT' . $eol
+				. 'END:VCALENDAR'
+			;
+
+			return $kb_ics_content;
+		}
+		return false;
 	}
 }

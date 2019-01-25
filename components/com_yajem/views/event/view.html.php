@@ -77,6 +77,7 @@ class YajemViewEvent extends HtmlView
 			throw new Exception(implode("\n", $errors));
 		}
 
+		YajemHelperAdmin::setDocument();
 		parent::display($tpl);
 	}
 }

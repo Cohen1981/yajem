@@ -114,9 +114,9 @@ $googleApiKey = (string) JComponentHelper::getParams('com_yajem')->get('global_g
                         <div class="controls">
 							<?php foreach ($this->location->attachments as $attachment):?>
                                 <div id="<?php echo $attachment->id; ?>" class="yajem_attachment">
-                                    <a onclick="delAttachment(<?php echo $attachment->id; ?>)">
+                                    <button onclick="delAttachment(<?php echo $attachment->id; ?>)">
                                         <i class="fas fa-trash-alt" aria-hidden="true">&nbsp;</i>
-                                    </a>
+                                    </button>
 									<?php echo $attachment->title; ?>
                                 </div>
 							<?php endforeach; ?>
