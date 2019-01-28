@@ -38,12 +38,6 @@ class YajemModelComments extends ListModel
 		$query->from('#__yajem_comments AS a');
 		$query->where('a.eventId = ' . (int) $eventId);
 
-		$query->select('u.name AS userName');
-		$query->join('LEFT', '#__users AS u ON u.id = userId');
-
-		$query->select('cd.name AS clearName, cd.image AS avatar');
-		$query->join('LEFT', '#__contact_details AS cd on cd.user_id = userId');
-
 		$query->order('a.timestamp DESC');
 
 		$db->setQuery($query);

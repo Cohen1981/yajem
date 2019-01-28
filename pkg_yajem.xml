@@ -7,7 +7,7 @@
     <authorEmail>abahlo@hotmail.de</authorEmail>
     <copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>1.1.0</version>
+    <version>1.2.0</version>
     <description>PKG_YAJEM_INSTALLATION_DESCRIPTION</description>
     <packager>Alexander Bahlo</packager>
 
@@ -16,6 +16,7 @@
     <files folder="packages">
         <file type="component" id="com_yajem">com_yajem.zip</file>
         <file type="plugin" id="mailer" group="yajem">plg_yajem_mailer.zip</file>
+        <file type="plugin" id="profileYajem" group="user">plg_user_profileYajem.zip</file>
     </files>
 
     <languages folder="language">

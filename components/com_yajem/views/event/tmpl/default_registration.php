@@ -60,18 +60,12 @@ $unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" f
 
             <?php
 			// Which Avatar to use
-			if ($item->avatar) {
-				$avatar = '<img class="yajem_avatar yajem_img_round" src="' . $item->avatar . '"/>';
+			if ($item->attendee['avatar']) {
+				$avatar = '<img class="yajem_avatar yajem_img_round" src="' . $item->attendee['avatar'] . '"/>';
 			} else {
 				$avatar = '<img class="yajem_avatar" src="'. JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
 			}
 
-            //User Name
-			if ($item->clearName) {
-				$userName = $item->clearName;
-			} else {
-				$userName = $item->attendee;
-			}
 			switch ($item->status)
 			{
 				case 0:
@@ -101,7 +95,7 @@ $unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" f
                 <!--<div class="yajem_output">-->
                 <div class="yajem_att_status">
 
-                    <div class="yajem_uname"> <?php echo $userName ?> </div>
+                    <div class="yajem_uname"> <?php echo $item->attendee['name'] ?> </div>
 
                     <?php echo $user_status ?>
 

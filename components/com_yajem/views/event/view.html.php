@@ -55,6 +55,10 @@ class YajemViewEvent extends HtmlView
 			$this->location->attachments = $modelAttachments->getAttachments( (int) $this->location->id, 'location' );
 		}
 
+		if ($this->event->organizerId) {
+			$this->event->organizer = YajemHelperAdmin::getUser($this->event->organizerId);
+		}
+
 		$this->attendees = $this->getModel('Attendees')->getAttendees($this->event->id);
 		$this->attendeeNumber = $this->getModel('Attendees')->getAttendeeNumber($this->event->id);
 
@@ -70,6 +74,8 @@ class YajemViewEvent extends HtmlView
 
 		$this->comments = $this->getModel('Comments')->getComments($this->event->id);
 		$this->commentCount = $this->getModel('Comments')->getCommentCount($this->event->id);
+
+		$this->userProfiles = YajemHelperAdmin::getUserList();
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="Yajem Extension Build" default="build">
 
-    <property name="build.version" value="1.1.0"/>
+    <property name="build.version" value="1.2.0"/>
 
     <property name="build.dir" value="${project.basedir}/build"/>
     <property name="dist.dir" value="${project.basedir}/target"/>
@@ -66,6 +66,12 @@
             </fileset>
         </copy>
 
+        <copy todir="${build.dir}/plg_user_profileYajem">
+            <fileset dir="${plg.scr.dir}/user/profileYajem">
+                <include name="**/**" />
+            </fileset>
+        </copy>
+
         <move file="${build.dir}/com_yajem/administrator/components/com_yajem/yajem.xml" todir="${build.dir}/com_yajem"/>
         <move file="${build.dir}/com_yajem/administrator/components/com_yajem/script.php" todir="${build.dir}/com_yajem"/>
 
@@ -79,6 +85,11 @@
         </zip>
         <zip destfile="${dist.dir}/packages/plg_yajem_mailer.zip" includeemptydirs="true">
             <fileset dir="${build.dir}/plg_yajem_mailer">
+                <include name="**/**"/>
+            </fileset>
+        </zip>
+        <zip destfile="${dist.dir}/packages/plg_user_profileYajem.zip" includeemptydirs="true">
+            <fileset dir="${build.dir}/plg_user_profileYajem">
                 <include name="**/**"/>
             </fileset>
         </zip>

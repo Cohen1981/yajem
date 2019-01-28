@@ -14,6 +14,7 @@ use Joomla\Registry\Registry;
 use Joomla\CMS\Factory;
 
 $user       = Factory::getUser();
+$guest		= $user->guest;
 $userId     = $user->get('id');
 $allDay = (bool) $this->event->allDayEvent;
 $useHost = (bool) JComponentHelper::getParams('com_yajem')->get('use_host');
@@ -91,9 +92,9 @@ if ($useOrga)
 		</div>
 	<?php endif; ?>
 
-	<?php if ($useOrga): ?>
+	<?php if ($useOrga && !$guest): ?>
         <div class="yajem_label"><?php echo JText::_('COM_YAJEM_ORGANIZER_LABEL'); ?></div>
-        <div class="yajem_output"><?php echo $this->event->organizerLink; ?></div>
+        <div class="yajem_output"><?php echo $this->event->organizer['name']; ?></div>
 	<?php endif; ?>
 
 	<?php if ($this->event->description): ?>

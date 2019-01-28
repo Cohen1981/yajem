@@ -216,20 +216,11 @@
 		</field>
 		<field
 				name="organizerId"
-				showon="useOrganizer:1"
-				type="modal_contact"
-				default=""
-				label="COM_YAJEM_EVENT_ORGANIZER_SELECT_LABEL"
-				description="COM_YAJEM_EVENT_ORGANIZER_SELECT_DESC" />
-	</fieldset>
-
-	<fieldset name="user_organizer">
-		<field
-				name="organizerId"
 				type="user"
-				label="COM_YAJEM_FIELD_ORGANIZER_SELECT_LABEL"
-				description="COM_YAJEM_FIELD_ORGANIZER_SELECT_DESC"
+				label="COM_YAJEM_EVENT_ORGANIZER_SELECT_LABEL"
+				description="COM_YAJEM_EVENT_ORGANIZER_SELECT_DESC"
 				required="false"
+				showon="useOrganizer:1"
 		/>
 	</fieldset>
 

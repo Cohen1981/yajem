@@ -23,16 +23,10 @@ $guest	= $user->guest;
 
     <?php
         // Which Avatar to use
-        if ($item->avatar) {
-            $avatar = '<img class="yajem_avatar yajem_img_round" src="' . $item->avatar . '"/>';
+        if ($this->userProfiles[$item->userId]['avatar']) {
+            $avatar = '<img class="yajem_avatar yajem_img_round" src="' . $this->userProfiles[$item->userId]['avatar'] . '"/>';
         } else {
             $avatar = '<img class="yajem_avatar" src="'. JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
-        }
-        //User Name
-        if ($item->clearName) {
-            $userName = $item->clearName;
-        } else {
-            $userName = $item->attendee;
         }
 	?>
 
@@ -41,7 +35,7 @@ $guest	= $user->guest;
 		    <?php echo $avatar ?>
 
                 <div class="yajem_uname ">
-                    <?php echo $userName ?> <br/>
+                    <?php echo $this->userProfiles[$item->userId]['name'] ?> <br/>
                     <?php
                         $timestamp = new DateTime($item->timestamp);
                         echo $timestamp->format('d.m.Y H:i')

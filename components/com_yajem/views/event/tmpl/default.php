@@ -88,7 +88,7 @@ if ($useOrg)
 				</h2>
             </div>
             <div class="yajem_inline-block">
-				<?php if ($userId == $this->event->organizer->user_id): ?>
+				<?php if ($userId == $this->event->organizerId): ?>
                     <form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>"  name="eventForm" class="yajem-no-margin" id="eventForm" method="post">
                         <div class="yajem_flex_row" id="eventStatus">
 							<?php

@@ -14,7 +14,6 @@ JHtml::_('stylesheet', JUri::root() . 'media/com_yajem/css/style.css');
 
 use Joomla\CMS\MVC\Model\ItemModel;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\Event\Dispatcher;
 
 /**
  * @package     Yajem
@@ -94,21 +93,6 @@ class YajemModelEvent extends ItemModel
 			$this->_item->modified_by_name = JFactory::getUser($this->_item->modified_by)->name;
 		}
 
-		if (isset($this->_item->organizerId))
-		{
-			$db = JFactory::getDbo();
-			$conQuery = $db->getQuery(true);
-			$conQuery->select('cd.name as name, cd.user_id as user_id, u.email as email')
-				->from('#__contact_details AS cd')
-				->where('cd.id = ' . $this->_item->organizerId)
-				->join('left', '#__users as u on u.id = cd.user_id');
-			$db->setQuery($conQuery);
-			$this->_item->organizer = $db->loadObject();
-			$this->_item->organizerLink = "<a href='index.php?option=com_contact&view=contact&id=" .
-				$this->_item->organizerId .
-				"'>" . $this->_item->organizer->name . "</a>";
-		}
-
 		if (isset($this->_item->hostId))
 		{
 			$db = JFactory::getDbo();
@@ -186,7 +170,7 @@ class YajemModelEvent extends ItemModel
 			$attendees = $modelAttendees->getAttendees( (int) $event->id );
 			if (count($attendees)>0) {
 				foreach ($attendees as $attendee) {
-					if (!$attendee->userId == $event->organizer->userId) {
+					if (!$attendee->userId == $event->organizerId) {
 						$kb_attendees[]='ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN="'
 							. $attendee->attendee
 							. '":Mailto:' . $attendee->mail;
@@ -195,7 +179,8 @@ class YajemModelEvent extends ItemModel
 			}
 
 			if ($event->organizerId) {
-				$kb_organizer = 'ORGANIZER;CN="'. $event->organizer->name .'":Mailto:' . $event->organizer->email;
+				$organizer = YajemHelperAdmin::getUser($event->organizerId);
+				$kb_organizer = 'ORGANIZER;CN="'. $event->organizer->name .'":Mailto:' . $organizer->email;
 			}
 
 			if ((bool) $event->allDayEvent) {

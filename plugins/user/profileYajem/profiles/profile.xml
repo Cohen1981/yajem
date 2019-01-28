@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<form>
+    <fields name="profileYajem">
+        <fieldset name="profileYajem"
+                  label="PLG_USER_PRFILEYAJEM_SLIDER_LABEL"
+        >
+
+            <field
+                    name="avatar"
+                    type="media"
+                    description="PLG_USER_PROFILEYAJEM_FIELD_AVATAR_DESC"
+                    label="PLG_USER_PROFILEYAJEM_FIELD_AVATAR_LABEL"
+                    preview="tooltip"
+            />
+
+        </fieldset>
+    </fields>
+</form>
