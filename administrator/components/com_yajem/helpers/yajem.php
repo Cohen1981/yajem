@@ -118,6 +118,7 @@ class YajemHelperAdmin
 		$document = Factory::getDocument();
 		$document->addScript(JUri::root() . 'media/com_yajem/js/event.js');
 		$document->addStyleSheet(JUri::root() . 'media/com_yajem/css/style.css');
+		$document->setHtml5(true);
 	}
 }
 /**

@@ -32,12 +32,12 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
     });
 
     Joomla.submitbutton = function (task) {
-        if (task == 'event.cancel') {
+        if (task == 'editevent.cancel') {
             Joomla.submitform(task, document.getElementById('item-form'));
         }
         else {
 
-            if (task != 'event.cancel' && document.formvalidator.isValid(document.id('item-form'))) {
+            if (task != 'editevent.cancel' && document.formvalidator.isValid(document.id('item-form'))) {
 
                 Joomla.submitform(task, document.getElementById('item-form'));
             }

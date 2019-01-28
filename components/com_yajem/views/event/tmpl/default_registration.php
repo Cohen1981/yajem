@@ -69,19 +69,19 @@ $unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" f
 			switch ($item->status)
 			{
 				case 0:
-					$user_status = '<div class="yajem_ustatus yajem_status_open"><i class="fas fa-question-circle" aria-hidden="true">
+					$user_status = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_open"><i class="fas fa-question-circle" aria-hidden="true">
                     </i> ' . JText::_("COM_YAJEM_NOT_DECIDED") . '</div>';
 					break;
 				case 1:
-					$user_status = '<div class="yajem_ustatus yajem_status_attending"><i class="far fa-thumbs-up" aria-hidden="true">
+					$user_status = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_attending"><i class="far fa-thumbs-up" aria-hidden="true">
                     </i> ' . JText::_("COM_YAJEM_ATTENDING") . '</div>';
 					break;
 				case 2:
-					$user_status = '<div class="yajem_ustatus yajem_status_declined"><i class="far fa-thumbs-down" aria-hidden="true">
+					$user_status = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_declined"><i class="far fa-thumbs-down" aria-hidden="true">
                     </i> ' . JText::_("COM_YAJEM_NOT_ATTENDING") . '</div>';
 					break;
 				case 3:
-					$user_status = '<div class="yajem_ustatus yajem_status_waiting"><i class="far fa-clock" aria-hidden="true">
+					$user_status = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_waiting"><i class="far fa-clock" aria-hidden="true">
                     </i> ' . JText::_("COM_YAJEM_ON_WAITINGLIST") . '</div>';
 					break;
 			}
