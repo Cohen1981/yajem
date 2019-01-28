@@ -68,6 +68,8 @@ class YajemViewEvents extends HtmlView
 		$this->filterForm = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 
+		YajemHelperAdmin::setDocument();
+
 		parent::display($tpl);
 	}
 }

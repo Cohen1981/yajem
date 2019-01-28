@@ -110,7 +110,12 @@ $currentDate 	= Factory::getDate('now', 'UTC');
 	<div class="yajem_section_container">
 		<div class="yajem_flex_row">
 			<div class="yajem_cell">
-				<i class="far fa-calendar-alt" aria-hidden="true"></i>
+				<a onclick="getIcs(<?php echo $item->id; ?>)"
+                   class="hasPopover"
+                   data-content="<?php echo Text::_('COM_YAJEM_ICS_DOWNLOAD_DESC'); ?>"
+                   data-original-title="<?php echo Text::_('COM_YAJEM_ICS_DOWNLOAD'); ?>">
+                    <i class="far fa-calendar-alt" aria-hidden="true"></i>
+                </a>
 				<?php
 				if ((bool) $item->allDayEvent)
 				{

@@ -63,7 +63,7 @@
 				type="text"
 				label="COM_YAJEM_FIELD_EVENT_URL_LABEL"
 				description="COM_YAJEM_FIELD_URL_DESC"
-				class="input-xxlarge input-large-text"
+				class="input-xlarge input-large-text"
 				size="200"
 				required="false"
 		/>

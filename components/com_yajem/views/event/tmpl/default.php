@@ -54,12 +54,12 @@ if ($useOrg)
 <div id="yajem_container">
 
         <div class="yajem_section_container">
-            <button onclick="getIcs(<?php echo $this->event->id; ?>)"
+            <a onclick="getIcs(<?php echo $this->event->id; ?>)"
                     class="hasPopover"
                     data-content="<?php echo Text::_('COM_YAJEM_ICS_DOWNLOAD_DESC'); ?>"
                     data-original-title="<?php echo Text::_('COM_YAJEM_ICS_DOWNLOAD'); ?>">
                 <i class="fas fa-file-download" aria-hidden="true"></i>
-            </button>
+            </a>
 	        <?php if ($canEdit) : ?>
                 <div class="yajem_inline-block">
                     <a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editevent.edit&id=') . $this->event->id; ?>">
