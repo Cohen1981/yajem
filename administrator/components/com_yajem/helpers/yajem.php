@@ -58,62 +58,6 @@ class YajemHelperAdmin
 		);
 	}
 
-	public function getUserList() {
-		$db     = Factory::getDbo();
-		$query  = $db->getQuery(true);
-
-		$query->select('id')->from('#__users');
-
-		$userIds = $db->setQuery($query)->loadColumn();
-
-		foreach ($userIds as $userId) {
-			$profiles[$userId] = YajemHelperAdmin::getUser($userId);
-		}
-
-		return $profiles;
-	}
-
-	/**
-	 * @param $userId
-	 *
-	 * @return mixed
-	 *
-	 * @since 1.2.0
-	 */
-	public function getUser($userId) {
-
-		$PROFILEKEYS = array("id", "name", "username", "email", "avatar");
-
-		$user = (array) Factory::getUser( $userId );
-		foreach ($user as $k => $v) {
-			if (in_array($k, $PROFILEKEYS, true))
-			{
-				$profile[$k] = $user[$k] = $v;
-			}
-		}
-
-		$userProfile = (array) UserHelper::getProfile( $userId );
-		foreach ($userProfile['profile'] as $k => $v) {
-			if (in_array($k, $PROFILEKEYS, true))
-			{
-				$profile[$k] = $userProfile['profile'][$k] = $v;
-			}
-		}
-
-		foreach ($userProfile['profileYajem'] as $k => $v) {
-			if (in_array($k, $PROFILEKEYS, true))
-			{
-				$profile[$k] = $userProfile['profileYajem'][$k] = $v;
-			}
-		}
-
-		if (!$profile['name']) {
-			$profile['name'] = $profile['username'];
-		}
-
-		return $profile;
-	}
-
 	/**
 	 * Get a list of Actions that can be performed
 	 *

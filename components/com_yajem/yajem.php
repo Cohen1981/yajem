@@ -15,6 +15,7 @@ defined('_JEXEC') or die;
 
 // Require the helpers
 require_once (JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/yajem.php');
+require_once (JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/yajemUser.php');
 require_once (JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/tableHelper.php');
 require_once (JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/defines.php');
 

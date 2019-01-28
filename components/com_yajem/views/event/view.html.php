@@ -56,7 +56,7 @@ class YajemViewEvent extends HtmlView
 		}
 
 		if ($this->event->organizerId) {
-			$this->event->organizer = YajemHelperAdmin::getUser($this->event->organizerId);
+			$this->event->organizer = YajemUserHelper::getUser($this->event->organizerId);
 		}
 
 		$this->attendees = $this->getModel('Attendees')->getAttendees($this->event->id);
@@ -75,7 +75,7 @@ class YajemViewEvent extends HtmlView
 		$this->comments = $this->getModel('Comments')->getComments($this->event->id);
 		$this->commentCount = $this->getModel('Comments')->getCommentCount($this->event->id);
 
-		$this->userProfiles = YajemHelperAdmin::getUserList();
+		$this->userProfiles = YajemUserHelper::getUserList();
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

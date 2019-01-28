@@ -43,7 +43,7 @@ class YajemModelAttendees extends ListModel
 		$attendees = $db->loadObjectList();
 
 		foreach ($attendees as $attendee) {
-				$attendee->attendee = YajemHelperAdmin::getUser($attendee->userId);
+				$attendee->attendee = YajemUserHelper::getUser($attendee->userId);
 		}
 
 		return (object) $attendees;

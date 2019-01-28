@@ -179,7 +179,7 @@ class YajemModelEvent extends ItemModel
 			}
 
 			if ($event->organizerId) {
-				$organizer = YajemHelperAdmin::getUser($event->organizerId);
+				$organizer = YajemUserHelper::getUser($event->organizerId);
 				$kb_organizer = 'ORGANIZER;CN="'. $event->organizer->name .'":Mailto:' . $organizer->email;
 			}
 
