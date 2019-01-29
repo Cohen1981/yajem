@@ -10,12 +10,6 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
-
-$user	= Factory::getUser();
-$userId = $user->get('id');
-$guest	= $user->guest;
-
 ?>
 
 <div id="comments" class="yajem_grid_section">

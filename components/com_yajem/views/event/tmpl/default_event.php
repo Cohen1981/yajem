@@ -11,30 +11,6 @@
 defined('_JEXEC') or die;
 
 use Joomla\Registry\Registry;
-use Joomla\CMS\Factory;
-
-$user       = Factory::getUser();
-$guest		= $user->guest;
-$userId     = $user->get('id');
-$allDay = (bool) $this->event->allDayEvent;
-$useHost = (bool) JComponentHelper::getParams('com_yajem')->get('use_host');
-if ($useHost)
-{
-	$useHost = (bool) $this->event->useOrganizer;
-}
-$useOrga = (bool) JComponentHelper::getParams('com_yajem')->get('use_organizer');
-if ($useOrga)
-{
-	$useOrga = (bool) $this->event->useOrganizer;
-}
-
-if ($useOrga)
-{
-	$symbolConfirmed = '<i class="far fa-thumbs-up" aria-hidden="true" title="' . JText::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
-	$symbolCanceled = '<i class="far fa-thumbs-down" aria-hidden="true" title="' . JText::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
-	$linkConfirm = '<label id="yajem_confirm" class="yajem_css_switch yajem_rounded" for="eConfirm">' . $symbolConfirmed . '</label>';
-	$linkCancel = '<label id="yajem_canc" class="yajem_css_switch yajem_rounded" for="eCancel">' . $symbolCanceled . '</label>';
-}
 ?>
 
 <div class="yajem_image">
@@ -56,7 +32,7 @@ if ($useOrga)
 	</div>
 	<div class="yajem_output">
 		<?php
-		if ($allDay)
+		if ($this->eventParams->allDay)
 		{
 			echo date('d.m.Y', strtotime($this->event->startDate));
 		}
@@ -72,7 +48,7 @@ if ($useOrga)
 	</div>
 	<div class="yajem_output">
 		<?php
-		if ($allDay)
+		if ($this->eventParams->allDay)
 		{
 			echo date('d.m.Y', strtotime($this->event->endDate));
 		}
@@ -83,7 +59,7 @@ if ($useOrga)
 		?>
 	</div>
 
-	<?php if ($useHost): ?>
+	<?php if ($this->eventParams->useHost): ?>
 		<div class="yajem_label">
 			<?php echo JText::_('COM_YAJEM_EVENT_HOST_LABEL'); ?>
 		</div>
@@ -92,7 +68,7 @@ if ($useOrga)
 		</div>
 	<?php endif; ?>
 
-	<?php if ($useOrga && !$guest): ?>
+	<?php if ( $this->eventParams->useOrg && !$this->eventParams->guest ): ?>
         <div class="yajem_label"><?php echo JText::_('COM_YAJEM_ORGANIZER_LABEL'); ?></div>
         <div class="yajem_output"><?php echo $this->event->organizer['name']; ?></div>
 	<?php endif; ?>

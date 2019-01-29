@@ -264,7 +264,7 @@ class PlgYajemMailer extends CMSPlugin
 		$db = JFactory::getDbo();
 		$conQuery = $db->getQuery(true);
 		$conQuery->select('name')
-			->from('#__jusers')
+			->from('#__users')
 			->where('id = ' . (int) $organizerID);
 		$db->setQuery($conQuery);
 		$organizerName = $db->loadResult();

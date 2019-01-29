@@ -11,6 +11,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView;
+use Yajem\Administrator\Helpers\YajemHtmlHelper;
 
 /**
  * @package     Yajem
@@ -41,9 +42,17 @@ class YajemViewEvent extends HtmlView
 	 */
 	public function display($tpl = null)
 	{
+		require_once (JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/YajemHtmlHelper.php');
+
 		$this->state = $this->get('State');
 
 		$this->event = $this->get('Data', 'Event');
+
+		$yajemHtmlHelper = new YajemHtmlHelper($this->event);
+
+		$this->eventParams  = $yajemHtmlHelper->params;
+		$this->eventSymbols = $yajemHtmlHelper->symbols;
+		$this->eventLinks   = $yajemHtmlHelper->links;
 
 		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
 		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');

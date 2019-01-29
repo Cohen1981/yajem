@@ -10,41 +10,20 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-
-$user       = Factory::getUser();
-$guest		= $user->guest;
-$userId     = $user->get('id');
-$useReg = (bool) $this->event->useRegistration;
-$googleApiKey = (string) JComponentHelper::getParams('com_yajem')->get('global_googleapi');
-$canCreate  = $user->authorise('core.create', 'com_yajem');
-$canEdit    = $user->authorise('core.edit.state', 'com_yajem');
-$useOrgG = (bool) JComponentHelper::getParams('com_yajem')->get('use_organizer');
-$useComments = (bool) JComponentHelper::getParams('com_yajem')->get('use_comments');
-if ($useOrgG)
-{
-	$useOrg = (bool) $this->event->useOrganizer;
-}
 
 if ($useOrg)
 {
-	$symbolOpen = '<i class="fas fa-question-circle" aria-hidden="true" title="' . JText::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
-	$symbolConfirmed = '<i class="far fa-thumbs-up" aria-hidden="true" title="' . JText::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
-	$symbolCanceled = '<i class="far fa-thumbs-down" aria-hidden="true" title="' . JText::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
-	$linkConfirm = '<label id="yajem_confirm" class="green" for="eConfirm">' . $symbolConfirmed . '</label>';
-	$linkCancel = '<label id="yajem_canc" class="crimson" for="eCancel">' . $symbolCanceled . '</label>';
-
 	switch ($this->event->eventStatus)
 	{
 		case 0:
-			$eventStatus = $symbolOpen;
+			$eventStatus = $this->eventSymbols->open;
 			break;
 		case 1:
-			$eventStatus = $symbolConfirmed;
+			$eventStatus = $this->eventSymbols->confirmed;
 			break;
 		case 2:
-			$eventStatus = $symbolCanceled;
+			$eventStatus = $this->eventSymbols->canceled;
 			break;
 	}
 }
@@ -81,7 +60,7 @@ if ($useOrg)
                     } else {
 	                    echo $this->event->title . '&nbsp;&nbsp;';
                     }
-                    if ($useOrg && !$guest) {
+                    if ($this->eventParams->useOrg && !$this->eventParams->guest) {
                         echo $eventStatus;
                     }
                     ?>
@@ -95,14 +74,14 @@ if ($useOrg)
 							switch ($this->event->eventStatus)
 							{
 								case 0:
-									echo $linkConfirm;
-									echo $linkCancel;
+									echo $this->eventLinks->confirm;
+									echo $this->eventLinks->cancel;
 									break;
 								case 1:
-									echo $linkCancel;
+									echo $this->eventLinks->cancel;
 									break;
 								case 2:
-									echo $linkConfirm;
+									echo $this->eventLinks->confirm;
 									break;
 							}
 							?>
@@ -153,7 +132,7 @@ if ($useOrg)
 	</div>
 
 	<!-- Google Map if API-Key provided -->
-	<?php if ($googleApiKey): ?>
+	<?php if ($this->eventParams->googleApiKey): ?>
 		<div class="yajem_switch_container">
 			<div class="yajem_section_header yajem_bottom-rounded">
 				<div class="yajem_inline-block">
@@ -172,7 +151,7 @@ if ($useOrg)
 				?>
 				<iframe id="google_map"
 						frameborder="0" style="border:0"
-						src="https://www.google.com/maps/embed/v1/place?key=<?php echo $googleApiKey; ?>&q=<?php echo $googleAddress ?>"
+						src="https://www.google.com/maps/embed/v1/place?key=<?php echo $this->eventParams->googleApiKey; ?>&q=<?php echo $googleAddress ?>"
 						allowfullscreen>
 				</iframe>
 			</div>
@@ -180,7 +159,7 @@ if ($useOrg)
 	<?php endif; ?>
 
 	<!-- Registration if used -->
-	<?php if ($useReg): ?>
+	<?php if ($this->eventParams->useReg): ?>
 		<div class="yajem_switch_container">
 			<div class="yajem_section_header yajem_bottom-rounded">
 				<div class="yajem_inline-block">
@@ -189,7 +168,7 @@ if ($useOrg)
 						<?php echo ('<i class="fas fa-users" aria-hidden="true"></i>&nbsp;' . $this->attendeeNumber); ?>
 					</h2>
 				</div>
-				<?php if (!$guest):?>
+				<?php if (!$this->eventParams->guest):?>
 				<label id="registration-section-button" class="yajem_switch" for="yajem_switch_reg">
 					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 				</label>
@@ -205,7 +184,7 @@ if ($useOrg)
 	<?php endif; ?>
 
     <!-- Comments if used and registered user -->
-	<?php if (!$guest && $useComments): ?>
+	<?php if (!$this->eventParams->guest && $this->eventParams->useComments): ?>
         <div class="yajem_switch_container">
             <div class="yajem_section_header yajem_bottom-rounded">
                 <div class="yajem_inline-block">

@@ -12,15 +12,12 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 
-$user	= Factory::getUser();
-$userId = $user->get('id');
-$guest	= $user->guest;
 $waitingList = (!$this->attendeeNumber < $this->event->registrationLimit && (bool) $this->event->useWaitingList);
 
 $regPossible = false;
 
 // Only logged in Users should be able to register for an event
-if (!$guest)
+if (!$this->eventParams->guest)
 {
 	$regUntil = Factory::getDate($this->event->registerUntil, 'UTC');
 	$currentDate = Factory::getDate('now', 'UTC');
@@ -143,7 +140,7 @@ $unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" f
 		<input type="radio" class="yajem_hidden" id="regw" name="register" value="regw" onchange="adminForm.submit()" />
 		<input type="radio" class="yajem_hidden" id="unreg" name="register" value="unreg" onchange="adminForm.submit()" />
 		<input type="hidden" name="id" value="<?php echo $this->attendees[$userId]->id; ?>">
-		<input type="hidden" name="userId" value="<?php echo $userId; ?>" />
+		<input type="hidden" name="userId" value="<?php echo $this->eventParams->userId; ?>" />
 		<input type="hidden" name="eventId" value="<?php echo $this->event->id; ?>" />
 		<input type="hidden" name="task" value="event.changeAttendingStatus" />
 		<?php echo JHtml::_( 'form.token' ); ?>
