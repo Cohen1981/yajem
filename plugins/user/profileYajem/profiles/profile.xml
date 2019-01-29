@@ -14,6 +14,15 @@
                     preview="tooltip"
             />
 
+            <field
+                    name="items"
+                    type="subform"
+                    formsource="plugins/user/profileYajem/profiles/form.xml"
+                    multiple="true" layout="joomla.form.field.subform.repeatable-table"
+                    groupByFieldset="true" label="Subform Field"
+                    description="Subform Field Description"
+            />
+
         </fieldset>
     </fields>
 </form>

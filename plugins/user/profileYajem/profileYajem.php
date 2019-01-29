@@ -14,21 +14,23 @@ use Joomla\Utilities\ArrayHelper;
  *
  * @package		Joomla.Plugins
  * @subpackage	user.profile
- * @version		1.6
+ *
+ * @since 1.2.0
  */
 class plgUserProfileYajem extends JPlugin
 {
 	/**
-	 * @param	string	The context for the data
-	 * @param	int		The user id
-	 * @param	object
+	 * @param	string $context	The context for the data
+	 * @param	int	   $data	The user id
+	 *
 	 * @return	boolean
-	 * @since	1.6
+	 * @since	1.2.0
 	 */
-	function onContentPrepareData($context, $data)
+	public function onContentPrepareData($context, $data)
 	{
 		// Check we are manipulating a valid form.
-		if (!in_array($context, array('com_users.profile','com_users.registration','com_users.user','com_admin.profile'))){
+		if (!in_array($context, array('com_users.profile','com_users.registration','com_users.user','com_admin.profile')))
+		{
 			return true;
 		}
 
@@ -38,7 +40,7 @@ class plgUserProfileYajem extends JPlugin
 		$db = JFactory::getDbo();
 		$db->setQuery(
 			'SELECT profile_key, profile_value FROM #__user_profiles' .
-			' WHERE user_id = '.(int) $userId .
+			' WHERE user_id = ' . (int) $userId .
 			' AND profile_key LIKE \'profileYajem.%\'' .
 			' ORDER BY ordering'
 		);
@@ -46,7 +48,9 @@ class plgUserProfileYajem extends JPlugin
 
 		// Merge the profile data.
 		$data->profileYajem = array();
-		foreach ($results as $v) {
+
+		foreach ($results as $v)
+		{
 			$k = str_replace('profileYajem.', '', $v[0]);
 			$data->profileYajem[$k] = json_decode($v[1], true);
 		}
@@ -55,56 +59,77 @@ class plgUserProfileYajem extends JPlugin
 	}
 
 	/**
-	 * @param	JForm	The form to be altered.
-	 * @param	array	The associated data for the form.
+	 * @param	JForm	$form The form to be altered.
+	 * @param	array	$data The associated data for the form.
 	 * @return	boolean
-	 * @since	1.6
+	 * @since	1.2.0
 	 */
-	function onContentPrepareForm($form, $data)
+	public function onContentPrepareForm($form, $data)
 	{
 		// Load user_profile plugin language
 		$lang = JFactory::getLanguage();
 		$lang->load('plg_user_profileYajem', JPATH_ADMINISTRATOR);
 
-		if (!($form instanceof JForm)) {
+		if (!($form instanceof JForm))
+		{
 			$this->_subject->setError('JERROR_NOT_A_FORM');
+
 			return false;
 		}
+
 		// Check we are manipulating a valid form.
-		if (!in_array($form->getName(), array('com_users.profile', 'com_users.registration','com_users.user','com_admin.profile'))) {
+		if (!in_array($form->getName(), array('com_users.profile', 'com_users.registration','com_users.user','com_admin.profile')))
+		{
 			return true;
 		}
-		if ($form->getName()=='com_users.profile')
+
+		if ($form->getName() == 'com_users.profile')
 		{
 			// Add the profile fields to the form.
-			JForm::addFormPath(dirname(__FILE__).'/profiles');
+			JForm::addFormPath(dirname(__FILE__) . '/profiles');
 			$form->loadFile('profile', false);
 
 			// Toggle whether the something field is required.
-			if ($this->params->get('profile-require_something', 1) > 0) {
+			if ($this->params->get('profile-require_something', 1) > 0)
+			{
 				$form->setFieldAttribute('something', 'required', $this->params->get('profile-require_something') == 2, 'profileYajem');
-			} else {
+			}
+			else
+			{
 				$form->removeField('something', 'profileYajem');
 			}
 		}
 
-		//In this example, we treat the frontend registration and the back end user create or edit as the same. 
-		elseif ($form->getName()=='com_users.registration' || $form->getName()=='com_users.user' )
+		// In this example, we treat the frontend registration and the back end user create or edit as the same.
+		elseif ($form->getName() == 'com_users.registration' || $form->getName() == 'com_users.user')
 		{
 			// Add the registration fields to the form.
-			JForm::addFormPath(dirname(__FILE__).'/profiles');
+			JForm::addFormPath(dirname(__FILE__) . '/profiles');
 			$form->loadFile('profile', false);
 
 			// Toggle whether the something field is required.
-			if ($this->params->get('register-require_something', 1) > 0) {
+			if ($this->params->get('register-require_something', 1) > 0)
+			{
 				$form->setFieldAttribute('something', 'required', $this->params->get('register-require_something') == 2, 'profileYajem');
-			} else {
+			}
+			else
+			{
 				$form->removeField('something', 'profileYajem');
 			}
 		}
 	}
 
-	function onUserAfterSave($data, $isNew, $result, $error)
+	/**
+	 * @param   array       $data   The form data
+	 * @param   boolean     $isNew  New entry
+	 * @param   boolean     $result Boolean
+	 * @param   \Exception  $error  Not used
+	 *
+	 * @return boolean
+	 *
+	 * @since version
+	 */
+	public function onUserAfterSave($data, $isNew, $result, $error)
 	{
 		$userId	= ArrayHelper::getValue($data, 'id', 0, 'int');
 
@@ -113,24 +138,34 @@ class plgUserProfileYajem extends JPlugin
 			try
 			{
 				$db = JFactory::getDbo();
-				$db->setQuery('DELETE FROM #__user_profiles WHERE user_id = '.$userId.' AND profile_key LIKE \'profileYajem.%\'');
-				if (!$db->execute()) {
-					throw new Exception();
+				$db->setQuery('DELETE FROM #__user_profiles WHERE user_id = ' . $userId . ' AND profile_key LIKE \'profileYajem.%\'');
+
+				if (!$db->execute())
+				{
+					throw new Exception;
 				}
 
 				$tuples = array();
 				$order	= 1;
-				foreach ($data['profileYajem'] as $k => $v) {
-					$tuples[] = '('.$userId.', '.$db->quote('profileYajem.'.$k).', '.$db->quote(json_encode($v)).', '.$order++.')';
+
+				foreach ($data['profileYajem'] as $k => $v)
+				{
+					$tuples[] = '(' . $userId . ', ' . $db->quote('profileYajem.' . $k) .
+						', ' . $db->quote(json_encode($v)) . ', ' . ($order++) . ')';
 				}
 
-				$db->setQuery('INSERT INTO #__user_profiles VALUES '.implode(', ', $tuples));
-				if (!$db->execute()) {
-					throw new Exception();
+				$db->setQuery('INSERT INTO #__user_profiles VALUES ' . implode(', ', $tuples));
+
+				if (!$db->execute())
+				{
+					throw new Exception;
 				}
 			}
-			catch (Exception $e) {
+
+			catch (Exception $e)
+			{
 				$this->_subject->setError($e->getMessage());
+
 				return false;
 			}
 		}
@@ -146,10 +181,15 @@ class plgUserProfileYajem extends JPlugin
 	 * @param	array		$user		Holds the user data
 	 * @param	boolean		$success	True if user was succesfully stored in the database
 	 * @param	string		$msg		Message
+	 *
+	 * @return boolean
+	 *
+	 * @since 1.2.0
 	 */
-	function onUserAfterDelete($user, $success, $msg)
+	public function onUserAfterDelete($user, $success, $msg)
 	{
-		if (!$success) {
+		if (!$success)
+		{
 			return false;
 		}
 
@@ -161,17 +201,19 @@ class plgUserProfileYajem extends JPlugin
 			{
 				$db = JFactory::getDbo();
 				$db->setQuery(
-					'DELETE FROM #__user_profiles WHERE user_id = '.$userId .
+					'DELETE FROM #__user_profiles WHERE user_id = ' . $userId .
 					" AND profile_key LIKE 'profileYajem.%'"
 				);
 
-				if (!$db->execute()) {
-					throw new Exception();
+				if (!$db->execute())
+				{
+					throw new Exception;
 				}
 			}
 			catch (Exception $e)
 			{
 				$this->_subject->setError($e->getMessage());
+
 				return false;
 			}
 		}

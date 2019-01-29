@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset name="sub_items" label="PLG_USER_PROFILEYAJEM_FIELD_SUBFIELDS_LABEL">
+        <field
+                name="subchild_key"
+                type="text"
+                default=""
+                label="Key"
+        />
+        <field
+                name="subchild_value"
+                type="text"
+                default=""
+                label="Value"
+        />
+    </fieldset>
+</form>
