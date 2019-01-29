@@ -14,8 +14,8 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 
-require_once ("attendee.php");
-require_once ("attachments.php");
+require_once "attendee.php";
+require_once "attachments.php";
 
 /**
  * @package     Yajem
@@ -66,10 +66,10 @@ class YajemModelEvent extends AdminModel
 	 * @param   string  $prefix   A prefix for the table class name. Optional.
 	 * @param   array   $options  Configuration array for model. Optional.
 	 *
-	 * @return JTable A database object
+	 * @return \JTable A database object
 	 *
 	 * @since 1.0
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	public function getTable($name = 'Event', $prefix = 'YajemTable', $options = array())
 	{

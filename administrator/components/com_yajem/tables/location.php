@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
-use com_yajem\administrator\helpers\tableHelper;
+use Yajem\Administrator\Helpers\tableHelper;
 use Joomla\Filesystem\Folder;
 
 /**
@@ -22,6 +22,126 @@ use Joomla\Filesystem\Folder;
  */
 class YajemTableLocation extends Table
 {
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $id = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $catid = null;
+
+	/**
+	 * @var		int|bool|null
+	 * @since	version
+	 */
+	public $published = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $ordering = null;
+
+	/**
+	 * @var		DateTime|null
+	 * @since	version
+	 */
+	public $created = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $createdBy = null;
+
+	/**
+	 * @var		DateTime|null
+	 * @since	version
+	 */
+	public $modified = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $modifiedBy = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $title = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $alias = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $description = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $url = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $street = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $postalCode = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $city = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $stateAddress = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $country = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $latlng = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $contactid = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $image = null;
+
 	/**
 	 * YajemTableLocation constructor.
 	 *
@@ -100,9 +220,9 @@ class YajemTableLocation extends Table
 	 * Overloaded delete function for enforcing data integrity
 	 * Should also work when called from Frontend
 	 *
-	 * @param null $pk
+	 * @param   null $pk PK
 	 *
-	 * @return bool
+	 * @return boolean
 	 *
 	 * @since 1.0
 	 */
@@ -112,16 +232,18 @@ class YajemTableLocation extends Table
 
 		if ($return)
 		{
-			$tableHelper = new tableHelper();
+			$tableHelper = new tableHelper;
 
 			$tableHelper->deleteForeignTable('#__yajem_events', 'Event', 'locationId', $pk);
 
 			$tableHelper->deleteForeignTable('#__yajem_attachments', 'Attachment', 'locationId', $pk);
 		}
 
-		if (JFolder::exists(YAJEM_UPLOADS . DIRECTORY_SEPARATOR . 'location' . $pk)) {
+		if (JFolder::exists(YAJEM_UPLOADS . DIRECTORY_SEPARATOR . 'location' . $pk))
+		{
 			Folder::delete(YAJEM_UPLOADS . DIRECTORY_SEPARATOR . 'location' . $pk);
 		}
+
 		return $return;
 	}
 }

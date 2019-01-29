@@ -8,6 +8,8 @@
  * @since       1.0
  */
 
+namespace Yajem\Site\Models;
+
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\ItemModel;

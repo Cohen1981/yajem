@@ -17,7 +17,7 @@ $waitingList = (!$this->attendeeNumber < $this->event->registrationLimit && (boo
 $regPossible = false;
 
 // Only logged in Users should be able to register for an event
-if (!$this->eventParams->guest)
+if (!$this->eventParams->isGuest)
 {
 	$regUntil = Factory::getDate($this->event->registerUntil, 'UTC');
 	$currentDate = Factory::getDate('now', 'UTC');
@@ -113,7 +113,7 @@ $unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" f
 
 			if ($this->attendees)
 			{
-				switch ($this->attendees[$userId]->status)
+				switch ($this->attendees[$this->eventParams->userId]->status)
 				{
 					case 0:
 						echo $regButton;
@@ -139,7 +139,7 @@ $unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" f
 		<input type="radio" class="yajem_hidden" id="reg" name="register" value="reg" onchange="adminForm.submit()" />
 		<input type="radio" class="yajem_hidden" id="regw" name="register" value="regw" onchange="adminForm.submit()" />
 		<input type="radio" class="yajem_hidden" id="unreg" name="register" value="unreg" onchange="adminForm.submit()" />
-		<input type="hidden" name="id" value="<?php echo $this->attendees[$userId]->id; ?>">
+		<input type="hidden" name="id" value="<?php echo $this->attendees[$this->eventParams->userId]->id; ?>">
 		<input type="hidden" name="userId" value="<?php echo $this->eventParams->userId; ?>" />
 		<input type="hidden" name="eventId" value="<?php echo $this->event->id; ?>" />
 		<input type="hidden" name="task" value="event.changeAttendingStatus" />

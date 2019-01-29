@@ -10,7 +10,7 @@
 
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
-use com_yajem\administrator\helpers\tableHelper;
+use Yajem\Administrator\Helpers\tableHelper;
 use Joomla\Filesystem\Folder;
 
 defined('_JEXEC') or die;
@@ -22,6 +22,186 @@ defined('_JEXEC') or die;
  */
 class YajemTableEvent extends Table
 {
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $id = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $catid = null;
+
+	/**
+	 * @var		int|bool|null
+	 * @since	version
+	 */
+	public $published = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $ordering = null;
+
+	/**
+	 * @var		DateTime|null
+	 * @since	version
+	 */
+	public $created = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $createdBy = null;
+
+	/**
+	 * @var		DateTime|null
+	 * @since	version
+	 */
+	public $modified = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $modifiedBy = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $title = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $alias = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $description = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $url = null;
+
+	/**
+	 * @var		String|null
+	 * @since	version
+	 */
+	public $image = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $locationId = null;
+
+	/**
+	 * @var		int|bool|null
+	 * @since	version
+	 */
+	public $useHost = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $hostId = null;
+
+	/**
+	 * @var		int|bool|null
+	 * @since	version
+	 */
+	public $useOrganizer = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $organizerId = null;
+
+	/**
+	 * @var		DateTime|null
+	 * @since	version
+	 */
+	public $startDateTime = null;
+
+	/**
+	 * @var		DateTime|null
+	 * @since	version
+	 */
+	public $endDateTime = null;
+
+	/**
+	 * @var		DateTime|null
+	 * @since	version
+	 */
+	public $startDate = null;
+
+	/**
+	 * @var		DateTime|null
+	 * @since	version
+	 */
+	public $endDate = null;
+
+	/**
+	 * @var		int|bool|null
+	 * @since	version
+	 */
+	public $allDayEvent = null;
+
+	/**
+	 * @var		int|bool|null
+	 * @since	version
+	 */
+	public $useRegistration = null;
+
+	/**
+	 * @var		DateTime|null
+	 * @since	version
+	 */
+	public $registerUntil = null;
+
+	/**
+	 * @var		int|null
+	 * @since	version
+	 */
+	public $registrationLimit = null;
+
+	/**
+	 * @var		int|bool|null
+	 * @since	version
+	 */
+	public $useWaitingList = null;
+
+	/**
+	 * @var		int|bool|null
+	 * @since	version
+	 */
+	public $useInvitation = null;
+
+	/**
+	 * @var		int|bool|null
+	 * @since	version
+	 */
+	public $eventStatus = null;
+
+	/**
+	 * @var		int|bool|null
+	 * @since	version
+	 */
+	public $useRegisterUntil = null;
+
 	/**
 	 * YajemTableEvent constructor.
 	 *
@@ -77,10 +257,12 @@ class YajemTableEvent extends Table
 
 		if ((bool) $this->allDayEvent)
 		{
-			$this->startDateTime =	$this->startDate;
+			$this->startDateTime = $this->startDate;
 			$this->endDateTime = $this->endDate;
-		} else {
-			$this->startDate =	$this->startDateTime;
+		}
+		else
+		{
+			$this->startDate = $this->startDateTime;
 			$this->endDate = $this->endDateTime;
 		}
 
@@ -114,9 +296,9 @@ class YajemTableEvent extends Table
 	 * Overloaded delete function for enforcing data integrity
 	 * Should also work when called from Frontend
 	 *
-	 * @param null $pk
+	 * @param   null $pk Primär Key
 	 *
-	 * @return bool
+	 * @return boolean
 	 *
 	 * @since 1.0
 	 */
@@ -126,7 +308,7 @@ class YajemTableEvent extends Table
 
 		if ($return)
 		{
-			$tableHelper = new tableHelper();
+			$tableHelper = new tableHelper;
 
 			$tableHelper->deleteForeignTable('#__yajem_attendees', 'Attendee', 'eventId', $pk);
 
@@ -135,7 +317,8 @@ class YajemTableEvent extends Table
 			$tableHelper->deleteForeignTable('#__yajem_attachments', 'Attachment', 'eventId', $pk);
 		}
 
-		if (JFolder::exists(YAJEM_UPLOADS . DIRECTORY_SEPARATOR . 'event' . $pk)) {
+		if (JFolder::exists(YAJEM_UPLOADS . DIRECTORY_SEPARATOR . 'event' . $pk))
+		{
 			Folder::delete(YAJEM_UPLOADS . DIRECTORY_SEPARATOR . 'event' . $pk);
 		}
 

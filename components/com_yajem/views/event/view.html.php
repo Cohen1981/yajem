@@ -42,7 +42,7 @@ class YajemViewEvent extends HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		require_once (JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/YajemHtmlHelper.php');
+		require_once JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/YajemHtmlHelper.php';
 
 		$this->state = $this->get('State');
 
@@ -56,12 +56,12 @@ class YajemViewEvent extends HtmlView
 
 		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
 		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');
-		$this->event->attachments = $modelAttachments->getAttachments( (int) $this->event->id, 'event' );
+		$this->event->attachments = $modelAttachments->getAttachments((int) $this->event->id, 'event');
 
 		if ($this->event->locationId)
 		{
 			$this->location = $this->getModel('Locations')->getLocation($this->event->locationId);
-			$this->location->attachments = $modelAttachments->getAttachments( (int) $this->location->id, 'location' );
+			$this->location->attachments = $modelAttachments->getAttachments((int) $this->location->id, 'location');
 		}
 
 		if ($this->event->organizerId) {

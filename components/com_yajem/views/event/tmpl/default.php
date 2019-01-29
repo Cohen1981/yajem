@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Language\Text;
 
-if ($useOrg)
+if ($this->eventParams->useOrg)
 {
 	switch ($this->event->eventStatus)
 	{
@@ -60,7 +60,7 @@ if ($useOrg)
                     } else {
 	                    echo $this->event->title . '&nbsp;&nbsp;';
                     }
-                    if ($this->eventParams->useOrg && !$this->eventParams->guest) {
+                    if ($this->eventParams->useOrg && !$this->eventParams->isGuest) {
                         echo $eventStatus;
                     }
                     ?>
@@ -168,7 +168,7 @@ if ($useOrg)
 						<?php echo ('<i class="fas fa-users" aria-hidden="true"></i>&nbsp;' . $this->attendeeNumber); ?>
 					</h2>
 				</div>
-				<?php if (!$this->eventParams->guest):?>
+				<?php if (!$this->eventParams->isGuest):?>
 				<label id="registration-section-button" class="yajem_switch" for="yajem_switch_reg">
 					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 				</label>
@@ -184,7 +184,7 @@ if ($useOrg)
 	<?php endif; ?>
 
     <!-- Comments if used and registered user -->
-	<?php if (!$this->eventParams->guest && $this->eventParams->useComments): ?>
+	<?php if (!$this->eventParams->isGuest && $this->eventParams->useComments): ?>
         <div class="yajem_switch_container">
             <div class="yajem_section_header yajem_bottom-rounded">
                 <div class="yajem_inline-block">
