@@ -53,53 +53,67 @@ $unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" f
 
 	<!-- Guest will only see number of attending persons -->
 	<?php if (!$guest): ?>
+        <?php if (count($this->attendees)>0) : ?>
 	    <?php foreach ($this->attendees as $i => $item) : ?>
 
-            <?php
+		<?php
+		if ($this->eventParams->useUserProfile)
+		{
 			// Which Avatar to use
-			if ($item->attendee['avatar']) {
-				$avatar = '<img class="yajem_avatar yajem_img_round" src="' . $item->attendee['avatar'] . '"/>';
-			} else {
-				$avatar = '<img class="yajem_avatar" src="'. JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
-			}
-
-			switch ($item->status)
+			if ($item->attendee['avatar'])
 			{
-				case 0:
-					$user_status = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_open"><i class="fas fa-question-circle" aria-hidden="true">
-                    </i> ' . JText::_("COM_YAJEM_NOT_DECIDED") . '</div>';
-					break;
-				case 1:
-					$user_status = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_attending"><i class="far fa-thumbs-up" aria-hidden="true">
-                    </i> ' . JText::_("COM_YAJEM_ATTENDING") . '</div>';
-					break;
-				case 2:
-					$user_status = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_declined"><i class="far fa-thumbs-down" aria-hidden="true">
-                    </i> ' . JText::_("COM_YAJEM_NOT_ATTENDING") . '</div>';
-					break;
-				case 3:
-					$user_status = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_waiting"><i class="far fa-clock" aria-hidden="true">
-                    </i> ' . JText::_("COM_YAJEM_ON_WAITINGLIST") . '</div>';
-					break;
+				$avatar = '<img class="yajem_avatar yajem_img_round" src="' . $item->attendee['avatar'] . '"/>';
 			}
-            ?>
+			else
+			{
+				$avatar = '<img class="yajem_avatar" src="' . JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
+			}
+		}
+
+		switch ($item->status)
+		{
+			case 0:
+				$userStatus = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_open">
+					<i class="fas fa-question-circle" aria-hidden="true">
+                    </i> ' . JText::_("COM_YAJEM_NOT_DECIDED") . '</div>';
+				break;
+			case 1:
+				$userStatus = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_attending">
+					<i class="far fa-thumbs-up" aria-hidden="true">
+                    </i> ' . JText::_("COM_YAJEM_ATTENDING") . '</div>';
+				break;
+			case 2:
+				$userStatus = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_declined">
+					<i class="far fa-thumbs-down" aria-hidden="true">
+					</i> ' . JText::_("COM_YAJEM_NOT_ATTENDING") . '</div>';
+				break;
+			case 3:
+				$userStatus = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_waiting">
+					<i class="far fa-clock" aria-hidden="true">
+                    </i> ' . JText::_("COM_YAJEM_ON_WAITINGLIST") . '</div>';
+				break;
+		}
+		?>
 
             <div class="yajem_attendee">
-                <div class="yajem_avatar_container">
-                    <?php echo $avatar ?>
-                </div>
+				<?php if ($this->eventParams->useUserProfile): ?>
+				<div class="yajem_avatar_container">
+				    <?php echo $avatar ?>
+				</div>
+				<?php endif; ?>
 
                 <!--<div class="yajem_output">-->
                 <div class="yajem_att_status">
 
                     <div class="yajem_uname"> <?php echo $item->attendee['name'] ?> </div>
 
-                    <?php echo $user_status ?>
+                    <?php echo $userStatus ?>
 
                 </div>
                 <!--</div>-->
             </div>
 		<?php endforeach; ?>
+        <?php endif; ?>
 	<?php endif; ?>
 </div>
 

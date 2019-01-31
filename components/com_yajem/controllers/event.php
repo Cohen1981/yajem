@@ -108,7 +108,36 @@ class YajemControllerEvent extends BaseController
 		Factory::getApplication()->redirect(JRoute::_('index.php?option=com_yajem&task=event.view&id=' . $input['eventId']), false);
 	}
 
-	public function saveComment() {
+	/**
+	 * @return boolean
+	 *
+	 * @since version
+	 * @throws Exception
+	 */
+	public function deleteComment()
+	{
+		$id = Factory::getApplication()->input->get('id');
+		require_once JPATH_ADMINISTRATOR . '/components/com_yajem/models/comment.php';
+
+		// JModelLegacy::addIncludePath(JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components/com_yajem/models');
+		$modelComment = new YajemModelComment;
+
+		// JModelLegacy::getInstance('Comment', 'YajemModel');
+		$modelComment->delete($id);
+
+		return true;
+	}
+
+	/**
+	 * Non Ajax function
+	 * @see See event.raw.php for Ajax function
+	 *
+	 * @return void
+	 * @since version
+	 * @throws Exception
+	 */
+	public function saveComment()
+	{
 		$input = Factory::getApplication()->input->post->getArray();
 
 		if ($todo = $input['commit_comment'])

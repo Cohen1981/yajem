@@ -15,7 +15,7 @@
             />
 
             <field
-                    name="items"
+                    name="equipment"
                     type="subform"
                     formsource="plugins/user/profileYajem/profiles/form.xml"
                     multiple="true" layout="joomla.form.field.subform.repeatable-table"

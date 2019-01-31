@@ -12,51 +12,73 @@ defined('_JEXEC') or die;
 
 ?>
 
-<div id="comments" class="yajem_grid_section">
+<div id="yajem_comments">
+    <?php if($this->eventParams->useUserProfile) : ?>
+    <div id ="yajem_comment_grid" class="yajem_comment_grid">
+    <?php endif; ?>
 	<?php foreach ($this->comments as $i => $item) : ?>
 
-    <?php
-        // Which Avatar to use
-        if ($this->userProfiles[$item->userId]['avatar']) {
-            $avatar = '<img class="yajem_avatar yajem_img_round" src="' . $this->userProfiles[$item->userId]['avatar'] . '"/>';
-        } else {
-            $avatar = '<img class="yajem_avatar" src="'. JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
-        }
+	<?php
+	// Which Avatar to use
+	if ($this->userProfiles[$item->userId]['avatar'])
+	{
+		$avatar = '<img id="avatar_' . $item->id . '" class="yajem_comment_avatar yajem_img_round" src="' . $this->userProfiles[$item->userId]['avatar'] . '"/>';
+	}
+	else
+	{
+		$avatar = '<img class="yajem_comment_avatar" src="' . JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
+	}
 	?>
 
-    <div class="yajem_label">
-        <div class="yajem_avatar_container">
-		    <?php echo $avatar ?>
+	<?php
+	if ($this->eventParams->useUserProfile)
+	{
+		echo $avatar;
+	}
+	?>
 
-                <div class="yajem_uname ">
-                    <?php echo $this->userProfiles[$item->userId]['name'] ?> <br/>
-                    <?php
-                        $timestamp = new DateTime($item->timestamp);
-                        echo $timestamp->format('d.m.Y H:i')
-                    ?>
-                </div>
+	<div id="output_<?php echo $item->id; ?>" class="yajem_comment_output">
+		<div class="yajem_uname">
+			<div class="yajem_pull_right">
+				<?php if($item->userId == $this->eventParams->userId): ?>
+					<a onclick="delComment(<?php echo $item->id; ?>)">
+						<i class="fas fa-trash-alt" aria-hidden="true"></i>
+					</a>
+				<?php endif; ?>
+			</div>
+			<?php echo $this->userProfiles[$item->userId]['name'] ?>&nbsp;
+			<?php
+			$timestamp = new DateTime($item->timestamp);
+			echo $timestamp->format('d.m.Y H:i')
+			?>
+		</div>
+		<div class="yajem_comment"><?php echo nl2br($item->comment); ?></div>
+	</div>
 
-        </div>
-    </div>
-    <div class="yajem_output">
-        <?php echo nl2br($item->comment); ?>
-    </div>
-
-    <div class="yajem_full_grid_row"><div class="yajem_line"></div></div>
-
-    <?php endforeach; ?>
+	<?php endforeach; ?>
+	<?php if($this->eventParams->useUserProfile) : ?>
+	</div>
+    <?php endif; ?>
 </div>
 
 <form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>"  name="commentForm" id="commentForm" method="post">
 
-    <div class="yajem_flex_row yajem-button-group">
-        <textarea form="commentForm" id="comment" wrap="soft" name="comment"><?php echo JText::_('COM_YAJEM_COMMENT_AREA') ?></textarea>
-        <label id="yajem_comment" class="yajem_css_switch yajem_rounded" for="commit_comment"><?php echo JText::_('COM_YAJEM_SUBMIT_COMMENT') ?></label>
-    </div>
+	<div class="yajem_flex_row yajem-button-group">
+		<textarea form="commentForm" id="comment" wrap="soft" name="comment"><?php echo JText::_('COM_YAJEM_COMMENT_AREA') ?></textarea>
+		<?php if ($this->eventParams->useAjaxCalls) : ?>
+			<label id="yajem_comment" class="yajem_css_switch yajem_rounded" onclick="comment()">
+				<?php echo JText::_('COM_YAJEM_SUBMIT_COMMENT') ?>
+			</label>
+		<?php else: ?>
+			<label id="yajem_comment" class="yajem_css_switch yajem_rounded" for="commit_comment">
+				<?php echo JText::_('COM_YAJEM_SUBMIT_COMMENT') ?>
+			</label>
+		<?php endif; ?>
+	</div>
 
-    <input type="radio" class="yajem_hidden" id="commit_comment" name="commit_comment" value="commit" onchange="commentForm.submit()" />
-    <input type="hidden" name="userId" value="<?php echo $userId; ?>" />
-    <input type="hidden" name="eventId" value="<?php echo $this->event->id; ?>" />
-    <input type="hidden" name="task" value="event.saveComment" />
-    <?php echo JHtml::_( 'form.token' ); ?>
+	<input type="radio" class="yajem_hidden" id="commit_comment" name="commit_comment" value="commit" onchange="commentForm.submit()" />
+	<input id = "comment_userId" type="hidden" name="userId" value="<?php echo $this->eventParams->userId; ?>"/>
+	<input id = "comment_eventId "type="hidden" name="eventId" value="<?php echo $this->event->id; ?>"/>
+	<input id = "comment_task" type="hidden" name="task" value="event.saveComment"/>
+	<?php echo JHtml::_('form.token'); ?>
 </form>

@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
+use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
 
 require_once "attendee.php";
 require_once "attachments.php";
@@ -42,7 +43,7 @@ class YajemModelEvent extends AdminModel
 	 *
 	 * @param   null $pk The primary key
 	 *
-	 * @return boolean|JObject
+	 * @return boolean|YajemEvent
 	 *
 	 * @since 1.0
 	 */
@@ -82,7 +83,7 @@ class YajemModelEvent extends AdminModel
 	 * @param   array    $data      Data for the form.
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return boolean|JForm  A JForm object on success, false on failure
+	 * @return boolean|\JForm  A JForm object on success, false on failure
 	 *
 	 * @since 1.0
 	 */
@@ -105,10 +106,10 @@ class YajemModelEvent extends AdminModel
 	/**
 	 * Loading the form data
 	 *
-	 * @return array|boolean|JObject|mixed|null
+	 * @return array|boolean|\JObject|mixed|null
 	 *
 	 * @since 1.0
-	 * @throws Exception
+	 * @throws \Exception
 	 */
 	protected function loadFormData()
 	{
@@ -128,7 +129,7 @@ class YajemModelEvent extends AdminModel
 	}
 
 	/**
-	 * @param   JTable $table The Table
+	 * @param   \JTable $table The Table
 	 *
 	 * @return void
 	 * @since 1.0
@@ -149,46 +150,43 @@ class YajemModelEvent extends AdminModel
 	}
 
 	/**
-	 * @param array $data
+	 * @param   array $data The event data
 	 *
-	 * @return bool
+	 * @return boolean
 	 *
 	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function save($data)
 	{
-		$new = (bool)empty($data['id']);
-
 		$saved = parent::save($data);
 
 		if ($saved)
 		{
-
 			$eventId = ($this->getState('event.id') != null ? $this->getState('event.id') : $this->getState('editevent.id'));
 
 			if ($data['invited_users'])
 			{
-
 				foreach ($data['invited_users'] as $user)
 				{
-					$modelAttendee = new YajemModelAttendee();
-					$invited       = ['eventId' => $eventId, 'userId' => $user, 'status' => 0, 'comment' => ''];
+					$modelAttendee = new YajemModelAttendee;
+					$invited = array('eventId' => $eventId, 'userId' => $user, 'status' => 0, 'comment' => '');
 					$modelAttendee->save($invited);
 				}
 			}
 
-			// getting the list of files to attach
+			// Getting the list of files to attach
 			$jinput = Factory::getApplication()->input;
 			$attachmentsList = $jinput->files->get('jform');
 
 			foreach ($attachmentsList as $attachments)
 			{
-				$modelAttachments = new YajemModelAttachments();
+				$modelAttachments = new YajemModelAttachments;
 
 				$modelAttachments->saveAttachments($attachments, 'event', $eventId);
 			}
 		}
+
 		return $saved;
 	}
 }

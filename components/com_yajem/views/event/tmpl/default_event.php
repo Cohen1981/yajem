@@ -70,7 +70,7 @@ use Joomla\Registry\Registry;
 
 	<?php if ( $this->eventParams->useOrg && !$this->eventParams->isGuest ): ?>
         <div class="yajem_label"><?php echo JText::_('COM_YAJEM_ORGANIZER_LABEL'); ?></div>
-        <div class="yajem_output"><?php echo $this->event->organizer['name']; ?></div>
+        <div class="yajem_output"><?php echo $this->organizer['name']; ?></div>
 	<?php endif; ?>
 
 	<?php if ($this->event->description): ?>
@@ -91,7 +91,8 @@ use Joomla\Registry\Registry;
                 <?php
                     $src = JURI::root() . $attachment->file;
                 ?>
-                <a href="<?php echo $src ?>" target="_blank"><i class="fas fa-paperclip" aria-hidden="true">&nbsp;</i><?php echo $attachment->title ?></a>
+                <a href="<?php echo $src ?>" target="_blank"><i class="fas fa-paperclip" aria-hidden="true">&nbsp;</i>
+                    <?php echo $attachment->title ?></a>
             </div>
         </div>
 	    <?php endforeach; ?>

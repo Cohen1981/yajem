@@ -33,14 +33,30 @@
                     <option value="1">JOPTION_OPTIONAL</option>
                     <option value="0">JDISABLED</option>
                 </field>
+                <field name="register-require-equipment" type="list"
+                       description="PLG_USER_PROFILEYAJEM_FIELD_EQUIPMENT_DESC"
+                       label="PLG_USER_PROFILEYAJEM_FIELD_EQUIPMENT_LABEL"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
 
                 <field name="profile-require-user" type="spacer"
                        label="PLG_USER_PROFILEYAJEM_FIELD_NAME_PROFILE_REQUIRE_USER"
                 />
 
-                <field name="profile-require_something" type="list"
+                <field name="profile-require_avatar" type="list"
                        description="PLG_USER_PROFILEYAJEM_FIELD_AVATAR_DESC"
                        label="PLG_USER_PROFILEYAJEM_FIELD_AVATAR_LABEL"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+                <field name="profile-require-equipment" type="list"
+                       description="PLG_USER_PROFILEYAJEM_FIELD_EQUIPMENT_DESC"
+                       label="PLG_USER_PROFILEYAJEM_FIELD_EQUIPMENT_LABEL"
                 >
                     <option value="2">JOPTION_REQUIRED</option>
                     <option value="1">JOPTION_OPTIONAL</option>

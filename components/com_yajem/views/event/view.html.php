@@ -11,7 +11,9 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView;
-use Yajem\Administrator\Helpers\YajemHtmlHelper;
+use Joomla\Component\Yajem\Administrator\Helpers\YajemHtmlHelper;
+use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
+use Joomla\Component\Yajem\Administrator\Classes\YajemLocation;
 
 /**
  * @package     Yajem
@@ -27,10 +29,16 @@ class YajemViewEvent extends HtmlView
 	protected $state;
 
 	/**
-	 * @var event
+	 * @var YajemEvent $event
 	 * @since 1.0
 	 */
 	protected $event;
+
+	/**
+	 * @var YajemLocation $location
+	 * @since version
+	 */
+	protected $location;
 
 	/**
 	 * @param   null $tpl Template to load
@@ -64,8 +72,9 @@ class YajemViewEvent extends HtmlView
 			$this->location->attachments = $modelAttachments->getAttachments((int) $this->location->id, 'location');
 		}
 
-		if ($this->event->organizerId) {
-			$this->event->organizer = YajemUserHelper::getUser($this->event->organizerId);
+		if ($this->event->organizerId)
+		{
+			$this->organizer = YajemUserHelper::getUser($this->event->organizerId);
 		}
 
 		$this->attendees = $this->getModel('Attendees')->getAttendees($this->event->id);
@@ -92,7 +101,7 @@ class YajemViewEvent extends HtmlView
 			throw new Exception(implode("\n", $errors));
 		}
 
-		YajemHelperAdmin::setDocument();
 		parent::display($tpl);
+		YajemHelperAdmin::setDocument();
 	}
 }

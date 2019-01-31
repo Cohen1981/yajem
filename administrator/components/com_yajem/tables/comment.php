@@ -60,16 +60,4 @@ class YajemTableComment extends Table
 	{
 		parent::__construct('#__yajem_comments', 'id', $db);
 	}
-
-	/**
-	 * @param   boolean $updateNulls Update nulls or not
-	 *
-	 * @return boolean
-	 *
-	 * @since 1.0
-	 */
-	public function store($updateNulls = false)
-	{
-		return parent::store($updateNulls);
-	}
 }

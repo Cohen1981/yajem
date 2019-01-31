@@ -22,9 +22,23 @@ use Joomla\CMS\Language\Text;
  */
 class PlgYajemMailer extends CMSPlugin
 {
-	private $_SiteName = '';
-	private $_MailFrom = '';
-	private $_FromName = '';
+	/**
+	 * @var mixed|string
+	 * @since version
+	 */
+	private $siteName = '';
+
+	/**
+	 * @var mixed|string
+	 * @since version
+	 */
+	private $mailFrom = '';
+
+	/**
+	 * @var mixed|string
+	 * @since version
+	 */
+	private $fromName = '';
 
 	/**
 	 * Constructor
@@ -42,15 +56,17 @@ class PlgYajemMailer extends CMSPlugin
 
 		$app = Factory::getApplication();
 
-		$this->_SiteName     = $app->get('sitename');
-		$this->_MailFrom     = $app->get('mailfrom');
-		$this->_FromName     = $app->get('fromname');
+		$this->siteName = $app->get('sitename');
+		$this->mailFrom = $app->get('mailfrom');
+		$this->fromName = $app->get('fromname');
 	}
 
 	/**
-	 * @param   int     $eventId
-	 * @param   boolean $isNew
-	 * @param   boolean $isBackend
+	 * @param   int     $eventId    The event ID
+	 * @param   boolean $isNew      Event new
+	 * @param   boolean $isBackend  Back or Frontend
+	 *
+	 * @return void
 	 *
 	 * @since   1.0
 	 * @throws  \Exception
@@ -61,105 +77,132 @@ class PlgYajemMailer extends CMSPlugin
 		$data = $input->post->getArray();
 		$event = $data['jform'];
 
-		//load model for recieving additional event information
-		if ( $isBackend ) {
+		// Load model for recieving additional event information
+		if ($isBackend)
+		{
 			$modelLocation = JModelLegacy::getInstance('location', 'YajemModel');
-			$location = $modelLocation->getItem( (int) $event['locationId'] );
-		} else {
+			$location = $modelLocation->getItem((int) $event['locationId']);
+		}
+		else
+		{
 			JModelLegacy::addIncludePath(JPATH_SITE . DS . 'components' . DS . 'com_yajem' . DS . 'models');
-			//get the location
+
+			// Get the location
 			$modelLocation = JModelLegacy::getInstance('locations', 'YajemModel');
-			$location = $modelLocation->getLocation( (int) $event['locationId'] );
+			$location = $modelLocation->getLocation((int) $event['locationId']);
 		}
 
-		// check for new or edtited event
-		if ( $isNew )
+		// Check for new or edtited event
+		if ($isNew)
 		{
-			// mailing enabled for new event ?
-			if ( (bool) $this->params['mail_new_event'] )
+			// Mailing enabled for new event ?
+			if ((bool) $this->params['mail_new_event'])
 			{
-				// if there are invited users, then we should only send a mail to them
+				// If there are invited users, then we should only send a mail to them
 				if ($event['invited_users'] == null)
 				{
 					$recipients = $this->getRecipientsMails(false);
-				} else {
-					$recipients = $this->getRecipientsMails( true, $eventId );
 				}
+				else
+				{
+					$recipients = $this->getRecipientsMails(true, $eventId);
+				}
+
 				$subject = Text::_('PLG_YAJEM_EVENT_CREATED');
 
 			}
-		} else {
-			//mailing enabled for edited event ?
-			if ( (bool) $this->params['mail_edit_event'] )
+		}
+		else
+		{
+			// Mailing enabled for edited event ?
+			if ((bool) $this->params['mail_edit_event'])
 			{
-				$recipients = $this->getRecipientsMails( (bool) $this->params['mail_event_editAttendees'], $eventId );
+				$recipients = $this->getRecipientsMails((bool) $this->params['mail_event_editAttendees'], $eventId);
 				$subject = Text::_('PLG_YAJEM_EVENT_CHANGED');
 			}
 		}
+
 		$subject = $subject . ": " . $event['title'];
-		if ( $event['allDayEvent'] )
+
+		if ($event['allDayEvent'])
 		{
 			$subject = $subject . " : " . $event['startDate'] . " -> " . $event['endDate'];
-		} else {
+		}
+		else
+		{
 			$subject = $subject . " : " . $event['startDateTime'] . " -> " . $event['endDateTime'];
 		}
-		$body="";
-		if ( !empty($event['description']) )
+
+		$body = "";
+
+		if (!empty($event['description']))
 		{
 			$body = Text::_('PLG_YAJEM_EVENT_DESC') . "\n" . $event['description'] . "\n\n";
 		}
-		if ( (bool) $event['useOrganizer'] )
+
+		if ((bool) $event['useOrganizer'])
 		{
 			$body = $this->addOrganizerToBody($event['organizerId'], $body);
 		}
-		if ( (bool) $event['useRegisterUntil'] )
+
+		if ((bool) $event['useRegisterUntil'])
 		{
 			$body = $body . Text::_('PLG_YAJEM_EVENT_REGUNTIL') . "\n" . $event['registerUntil'] . "\n\n";
 		}
+
 		$body = $this->addLocationToBody($location, $body);
 
 		$this->sendMail($recipients, $subject, $body);
 	}
 
 	/**
-	 * @param   int     $eventId
-	 * @param   string  $status
+	 * @param   int     $eventId    The event Id
+	 * @param   string  $status     Status of the event
 	 *
+	 * @return void
 	 *
 	 * @since   1.0
 	 * @throws  \Exception
 	 */
 	public function onChangeEventState($eventId, $status)
 	{
-		if ( (bool) $this->params['mail_event_state'] )
+		if ((bool) $this->params['mail_event_state'])
 		{
-			//load model for recieving additional event information
+			// Load model for recieving additional event information
 			JModelLegacy::addIncludePath(JPATH_SITE . DS . 'components' . DS . 'com_yajem' . DS . 'models');
 
-			//get the Event
+			// Get the Event
 			$modelEvent = JModelLegacy::getInstance('event', 'YajemModel');
 			$event = $modelEvent->getData($eventId);
 
-			//get the location
+			// Get the location
 			$modelLocation = JModelLegacy::getInstance('locations', 'YajemModel');
-			$location = $modelLocation->getLocation( (int) $event->locationId );
+			$location = $modelLocation->getLocation((int) $event->locationId);
 
-			//get the recipients
-			$recipients = $this->getRecipientsMails( (bool) $this->params['mail_event_stateAttendees'], $eventId );
-			//build the subject
-			if ( $status == 'confirmed' )
+			// Get the recipients
+			$recipients = $this->getRecipientsMails((bool) $this->params['mail_event_stateAttendees'], $eventId);
+
+			// Build the subject
+			if ($status == 'confirmed')
 			{
 				$subject = Text::_('PLG_YAJEM_EVENT_STATE_CONFIRMED');
-			} else {
+			}
+			else
+			{
 				$subject = Text::_('PLG_YAJEM_EVENT_STATE_CANCELLED');
 			}
+
 			$subject = $subject . " => " . $event->title;
-			if ( (bool) $event->allDayEvent )
+
+			if ((bool) $event->allDayEvent)
 			{
 				$body = Text::_('PLG_YAJEM_EVENT_TIME') . " : " . $event->startDate . " -> " . $event->endDate . "\n\n";
-			} else {
+			}
+			else
+			{
 				$body = Text::_('PLG_YAJEM_EVENT_TIME') . " : " . $event->startDateTime . " -> " . $event->endDateTime . "\n\n";
 			}
+
 			$body = $this->addLocationToBody($location, $body);
 
 			$this->sendMail($recipients, $subject, $body);
@@ -168,8 +211,8 @@ class PlgYajemMailer extends CMSPlugin
 
 	/**
 	 *
-	 * @param boolean   $attendees   true if only event attendees should be used
-	 * @param int       $eventId     id for the event -> default null if new event
+	 * @param   boolean   $attendees   True if only event attendees should be used
+	 * @param   int       $eventId     Id for the event -> default null if new event
 	 *
 	 * @return array    array holding all recipients email
 	 *
@@ -187,42 +230,49 @@ class PlgYajemMailer extends CMSPlugin
 		$data = $input->post->getArray();
 		$event = $data['jform'];
 
-		// if there are attendees ore invited users we only mail to them
+		// If there are attendees ore invited users we only mail to them
 		if ($attendees || $event['invited_users'] != null)
 		{
-			// select attendees
-			$query->innerJoin( '#__yajem_attendees AS a ON a.userId = u.id' );
-			$query->where('a.eventId = ' . (int) $eventId );
-		} else {
-			// if mail should be send only to a specified user_group
-			if ( !(bool) $this->params['mail_to_all'])
+			// Select attendees
+			$query->innerJoin('#__yajem_attendees AS a ON a.userId = u.id');
+			$query->where('a.eventId = ' . (int) $eventId);
+		}
+		else
+		{
+			// If mail should be send only to a specified user_group
+			if (!(bool) $this->params['mail_to_all'])
 			{
-				$query->innerJoin( '#__user_usergroup_map AS ug ON ug.user_id = u.id' );
-				$query->where( 'ug.group_id = ' . (int) $this->params['mail_to_group'] );
+				$query->innerJoin('#__user_usergroup_map AS ug ON ug.user_id = u.id');
+				$query->where('ug.group_id = ' . (int) $this->params['mail_to_group']);
 			}
 		}
+
 		$db->setQuery($query);
+
 		return $db->loadColumn();
 	}
 
 	/**
-	 * @param   array       $recipients
-	 * @param   string      $subject
-	 * @param   string      $body
+	 * @param   array       $recipients Recipients
+	 * @param   string      $subject    Subject
+	 * @param   string      $body       Mail Body
+	 *
+	 * @return void
 	 *
 	 * @since   1.0
 	 * @throws  Exception
 	 */
 	private function sendMail($recipients, $subject, $body)
 	{
-		if ( !empty($recipients) && !empty($subject) && !empty($body) )
+		if (!empty($recipients) && !empty($subject) && !empty($body))
 		{
 			$mailer = Factory::getMailer();
-			$mailer->setSender(array($this->_MailFrom, $this->_FromName));
+			$mailer->setSender(array($this->mailFrom, $this->fromName));
 			$mailer->setSubject($subject);
 			$mailer->setBody($body);
 			$mailer->addBcc($recipients);
 			$send = $mailer->Send();
+
 			if ($send !== true)
 			{
 				Factory::getApplication()->enqueueMessage(Text::_('PLG_YAJEM_MAIL_SEND_ERROR'), 'error');
@@ -235,8 +285,8 @@ class PlgYajemMailer extends CMSPlugin
 	}
 
 	/**
-	 * @param JModelLegacy    $location
-	 * @param string $body
+	 * @param   JModelLegacy    $location   The location
+	 * @param   string          $body       Mail body
 	 *
 	 * @return string
 	 *
@@ -248,12 +298,13 @@ class PlgYajemMailer extends CMSPlugin
 			$location->title . "\n" .
 			$location->street . "\n" .
 			$location->postalCode . " " . $location->city;
+
 		return $body;
 	}
 
 	/**
-	 * @param int    $organizerID
-	 * @param string $body
+	 * @param   int    $organizerID   The Organizer Id
+	 * @param   string $body          The body
 	 *
 	 * @return string
 	 *

@@ -58,6 +58,32 @@
 
     </fieldset>
 
+    <fieldset label="COM_YAJEM_CONFIG_INTEGRATION" name="yajem_integration">
+
+        <field name="use_user_profile"
+               type="radio"
+               label="COM_YAJEM_PARAM_USER_PROFILE_LABEL"
+               description="COM_YAJEM_PARAM_USER_PROFILE_DESC"
+               class="btn-group btn-group-yesno"
+               default="0"
+        >
+            <option value="1">COM_YAJEM_PARAM_YES</option>
+            <option value="0">COM_YAJEM_PARAM_NO</option>
+        </field>
+
+        <field name="use_ajax_calls"
+               type="radio"
+               label="COM_YAJEM_PARAM_USE_AJAX_LABEL"
+               description="COM_YAJEM_PARAM_USE_AJAX_DESC"
+               class="btn-group btn-group-yesno"
+               default="0"
+        >
+            <option value="1">COM_YAJEM_PARAM_YES</option>
+            <option value="0">COM_YAJEM_PARAM_NO</option>
+        </field>
+
+    </fieldset>
+
     <fieldset label="COM_YAJEM_CONFIG_LOCATION" name="yajem_location">
 
         <field name="use_location_contact"

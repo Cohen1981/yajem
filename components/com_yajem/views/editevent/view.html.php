@@ -40,6 +40,8 @@ class YajemViewEditevent extends HtmlView
 	/**
 	 * @param   null $tpl Template to be used
 	 *
+	 * @return void
+	 *
 	 * @throws Exception
 	 *
 	 * @since 1.0
@@ -55,6 +57,7 @@ class YajemViewEditevent extends HtmlView
 		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
 		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');
 		$this->event->attachments = array();
+
 		if ($this->event->id)
 		{
 			$this->event->attachments = $modelAttachments->getAttachments((int) $this->event->id, 'event');

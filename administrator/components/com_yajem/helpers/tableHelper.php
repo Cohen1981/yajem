@@ -7,7 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Yajem\Administrator\Helpers;
+namespace Joomla\Component\Yajem\Administrator\Helpers;
 
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;

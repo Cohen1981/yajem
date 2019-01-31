@@ -10,7 +10,7 @@
 
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
-use Yajem\Administrator\Helpers\tableHelper;
+use Joomla\Component\Yajem\Administrator\Helpers\tableHelper;
 use Joomla\Filesystem\Folder;
 
 defined('_JEXEC') or die;

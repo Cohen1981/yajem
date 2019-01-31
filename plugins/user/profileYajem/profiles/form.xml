@@ -2,16 +2,16 @@
 <form>
     <fieldset name="sub_items" label="PLG_USER_PROFILEYAJEM_FIELD_SUBFIELDS_LABEL">
         <field
-                name="subchild_key"
+                name="key"
                 type="text"
                 default=""
-                label="Key"
+                label="PLG_USER_PROFILEYAJEM_FIELD_TYPE_LABEL"
         />
         <field
-                name="subchild_value"
+                name="value"
                 type="text"
                 default=""
-                label="Value"
+                label="PLG_USER_PROFILEYAJEM_FIELD_DETAILS_LABEL"
         />
     </fieldset>
 </form>

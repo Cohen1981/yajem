@@ -7,11 +7,13 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Yajem\Administrator\Helpers;
+namespace Joomla\Component\Yajem\Administrator\Helpers;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
-use Yajem\Administrator\Models\YajemModelEvent;
+use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
+
+require_once JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/YajemParams.php';
 
 /**
  * @package     Yajem\Administrator\Helpers
@@ -81,9 +83,22 @@ class YajemEventParams
 	public $useHost = null;
 
 	/**
+	 * @var bool|null
+	 * @since 1.2.0
+	 */
+	public $useUserProfile;
+
+	/**
+	 * @var bool|null
+	 * @since 1.2.0
+	 */
+	public $useAjaxCalls = null;
+
+	/**
 	 * YajemEventParams constructor.
 	 *
-	 * @param   null|YajemModelEvent $event   Event Object
+	 * @param   null|YajemEvent $event Event Object
+	 *
 	 * @since 1.2.0
 	 */
 	public function __construct($event = null)
@@ -91,14 +106,15 @@ class YajemEventParams
 		if ($event)
 		{
 			$user         = Factory::getUser();
-			$this->guest  = (bool) $user->guest;
+			$this->isGuest  = (bool) $user->guest;
 			$this->userId = $user->get('id');
 
-			$useOrgG  = (bool) ComponentHelper::getParams('com_yajem')->get('use_organizer');
-			$useHostG = (bool) ComponentHelper::getParams('com_yajem')->get('use_host');
+			$params = new YajemParams;
 
-			$this->useComments  = (bool) ComponentHelper::getParams('com_yajem')->get('use_comments');
-			$this->googleApiKey = (string) ComponentHelper::getParams('com_yajem')->get('global_googleapi');
+			$this->useComments  = $params->useComments;
+			$this->googleApiKey = $params->googleApiKey;
+			$this->useUserProfile = $params->useUserProfile;
+			$this->useAjaxCalls = $params->useAjaxCalls;
 
 			$this->canCreate = $user->authorise('core.create', 'com_yajem');
 			$this->canEdit   = $user->authorise('core.edit.state', 'com_yajem');
@@ -106,12 +122,12 @@ class YajemEventParams
 			$this->useReg = (bool) $event->useRegistration;
 			$this->allDay = (bool) $event->allDayEvent;
 
-			if ($useOrgG)
+			if ($params->useHost)
 			{
 				$this->useOrg = (bool) $event->useOrganizer;
 			}
 
-			if ($useHostG)
+			if ($params->useOrg)
 			{
 				$this->useHost = (bool) $event->useHost;
 			}

@@ -214,13 +214,14 @@
 			<option value="1">COM_YAJEM_PARAM_YES</option>
 			<option value="0">COM_YAJEM_PARAM_NO</option>
 		</field>
-		<field
-				name="organizerId"
-				type="user"
-				label="COM_YAJEM_EVENT_ORGANIZER_SELECT_LABEL"
-				description="COM_YAJEM_EVENT_ORGANIZER_SELECT_DESC"
-				required="false"
-				showon="useOrganizer:1"
+		<field name="organizerId" type="sql" label="COM_YAJEM_EVENT_ORGANIZER_SELECT_LABEL"
+			   sql_select="id,name"
+			   sql_from="#__users"
+			   value_field="name"
+			   key_field="id"
+			   description="COM_YAJEM_EVENT_ORGANIZER_SELECT_DESC"
+			   header="COM_YAJEM_EVENT_ORGANIZER_DROP_DOWN_HEADER"
+			   required="false"
 		/>
 	</fieldset>
 
@@ -314,11 +315,14 @@
 				filter="user_utc"
 		/>
 
-		<field
-				name="createdBy"
-				type="user"
-				label="COM_YAJEM_FIELD_CREATED_BY_LABEL"
-				description="COM_YAJEM_FIELD_CREATED_BY_DESC"
+		<field name="createdBy" type="sql" label="COM_YAJEM_FIELD_CREATED_BY_LABEL"
+			   sql_select="id,name"
+			   sql_from="#__users"
+			   value_field="name"
+			   key_field="id"
+			   description="COM_YAJEM_FIELD_CREATED_BY_DESC"
+			   header="COM_YAJEM_CREATED_BY_DROP_DOWN_HEADER"
+			   required="false"
 		/>
 
 		<field
