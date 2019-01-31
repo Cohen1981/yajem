@@ -20,6 +20,14 @@ use Joomla\Utilities\ArrayHelper;
 class plgUserProfileYajem extends JPlugin
 {
 	/**
+	 * Load the language file on instantiation.
+	 *
+	 * @var    boolean
+	 * @since  3.1
+	 */
+	protected $autoloadLanguage = true;
+
+	/**
 	 * @param	string $context	The context for the data
 	 * @param	int	   $data	The user id
 	 *
@@ -68,7 +76,7 @@ class plgUserProfileYajem extends JPlugin
 	{
 		// Load user_profile plugin language
 		$lang = JFactory::getLanguage();
-		$lang->load('plg_user_profileYajem', JPATH_ADMINISTRATOR);
+		$lang->load('plg_user_profileYajem', __DIR__);
 
 		if (!($form instanceof JForm))
 		{

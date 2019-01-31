@@ -14,6 +14,7 @@ use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Document\Document;
+use Yajem\Site\Models\YajemModelAttendee;
 
 /**
  * @package     Yajem
@@ -55,7 +56,8 @@ class YajemControllerEvent extends BaseController
 
 		if ($todo = $input['register'])
 		{
-			$model = $this->getModel('Attendee');
+			require_once JPATH_SITE . "/components/com_yajem/models/attendee.php";
+			$model = new YajemModelAttendee;
 
 			switch ($todo)
 			{
