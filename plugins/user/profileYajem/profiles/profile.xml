@@ -19,8 +19,8 @@
                     type="subform"
                     formsource="plugins/user/profileYajem/profiles/form.xml"
                     multiple="true" layout="joomla.form.field.subform.repeatable-table"
-                    groupByFieldset="true" label="Subform Field"
-                    description="Subform Field Description"
+                    groupByFieldset="true" label="PLG_USER_PROFILEYAJEM_FIELD_EQUIPMENT_LABEL"
+                    description="PLG_USER_PROFILEYAJEM_FIELD_EQUIPMENT_DESC"
             />
 
         </fieldset>
