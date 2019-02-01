@@ -64,7 +64,7 @@ defined('_JEXEC') or die;
 <form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>"  name="commentForm" id="commentForm" method="post">
 
 	<div class="yajem_flex_row yajem-button-group">
-		<textarea form="commentForm" id="comment" wrap="soft" name="comment"><?php echo JText::_('COM_YAJEM_COMMENT_AREA') ?></textarea>
+		<textarea form="commentForm" id="comment" wrap="soft" name="comment"></textarea>
 		<?php if ($this->eventParams->useAjaxCalls) : ?>
 			<label id="yajem_comment" class="yajem_css_switch yajem_rounded" onclick="comment()">
 				<?php echo JText::_('COM_YAJEM_SUBMIT_COMMENT') ?>

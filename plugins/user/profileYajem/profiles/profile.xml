@@ -11,7 +11,7 @@
                     type="media"
                     description="PLG_USER_PROFILEYAJEM_FIELD_AVATAR_DESC"
                     label="PLG_USER_PROFILEYAJEM_FIELD_AVATAR_LABEL"
-                    preview="tooltip"
+                    preview="true"
             />
 
             <field
