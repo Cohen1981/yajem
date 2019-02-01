@@ -11,6 +11,7 @@ namespace Joomla\Component\Yajem\Administrator\Helpers;
 
 use Joomla\CMS\Language\Text;
 use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
+use YajemUserHelperAdmin;
 
 require_once JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/YajemEventParams.php';
 
@@ -55,7 +56,7 @@ class YajemHtmlHelper
 	public function __construct($event = null)
 	{
 		$this->yajemParams  = new YajemParams;
-		$this->params       = new YajemEventParams($event);
+		$this->eventParams  = new YajemEventParams($event);
 		$this->symbols      = new \stdClass;
 		$this->links        = new \stdClass;
 

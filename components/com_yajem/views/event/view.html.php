@@ -14,6 +14,7 @@ use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\Component\Yajem\Administrator\Helpers\YajemHtmlHelper;
 use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
 use Joomla\Component\Yajem\Administrator\Classes\YajemLocation;
+use Joomla\Component\Yajem\Administrator\Classes\YajemUserProfiles;
 
 /**
  * @package     Yajem
@@ -58,7 +59,7 @@ class YajemViewEvent extends HtmlView
 
 		$yajemHtmlHelper = new YajemHtmlHelper($this->event);
 
-		$this->eventParams  = $yajemHtmlHelper->params;
+		$this->eventParams  = $yajemHtmlHelper->eventParams;
 		$this->eventSymbols = $yajemHtmlHelper->symbols;
 		$this->eventLinks   = $yajemHtmlHelper->links;
 
@@ -94,6 +95,9 @@ class YajemViewEvent extends HtmlView
 		$this->commentCount = $this->getModel('Comments')->getCommentCount($this->event->id);
 
 		$this->userProfiles = YajemUserHelper::getUserList();
+		require_once JPATH_SITE . "/administrator/components/com_yajem/Classes/YajemUserProfiles.php";
+		$test = new YajemUserProfiles;
+		$this->test = $test->getProfiles();
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))
