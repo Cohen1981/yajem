@@ -118,6 +118,7 @@ use Joomla\CMS\Language\Text;
 	</div>
 
 	<!-- Location -->
+    <?php if($this->location) : ?>
 	<div class="yajem_switch_container">
 		<div class="yajem_section_header yajem_bottom-rounded">
 			<div class="yajem_inline-block">
@@ -169,6 +170,7 @@ use Joomla\CMS\Language\Text;
 			</div>
 		</div>
 	<?php endif; ?>
+    <?php endif; ?>
 
 	<!-- Registration if used -->
 	<?php if ($this->eventParams->useReg): ?>
