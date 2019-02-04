@@ -12,6 +12,7 @@ use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
 use Joomla\Component\Yajem\Administrator\Helpers\tableHelper;
 use Joomla\Filesystem\Folder;
+use Joomla\CMS\Language\Text;
 
 defined('_JEXEC') or die;
 

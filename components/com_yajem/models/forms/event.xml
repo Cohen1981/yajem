@@ -222,6 +222,7 @@
 			   description="COM_YAJEM_EVENT_ORGANIZER_SELECT_DESC"
 			   header="COM_YAJEM_EVENT_ORGANIZER_DROP_DOWN_HEADER"
 			   required="false"
+			   showon="useOrganizer:1"
 		/>
 	</fieldset>
 
@@ -244,7 +245,7 @@
 				label="COM_YAJEM_FIELD_USEREGISTRATIONUNTIL_LABEL"
 				description="COM_YAJEM_FIELD_REGISTRATION_DESC"
 				class="btn-group btn-group-yesno"
-				default="1"
+				default="0"
 		>
 			<option value="1">COM_YAJEM_PARAM_YES</option>
 			<option value="0">COM_YAJEM_PARAM_NO</option>
@@ -292,7 +293,7 @@
 			   type="modal_location"
 			   label="COM_YAJEM_EVENT_LOCATION_SELECT_LABEL"
 			   description="COM_YAJEM_EVENT_LOCATION_SELECT_DESC"
-			   required="true" />
+			   required="false" />
 	</fieldset>
 
 	<fieldset name="location_list" addfieldpath="/administrator/components/com_yajem/models/fields">
@@ -300,7 +301,7 @@
 			   type="locations"
 			   label="COM_YAJEM_EVENT_LOCATION_SELECT_LABEL"
 			   description="COM_YAJEM_EVENT_LOCATION_SELECT_DESC"
-			   required="true" />
+			   required="false" />
 	</fieldset>
 
 	<fieldset name="publish" label="COM_YAJEM_GROUP_LABEL_PUBLISHING_DETAILS">

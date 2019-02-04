@@ -14,6 +14,7 @@ use Joomla\CMS\MVC\Model\AdminModel;
 use Joomla\CMS\Factory;
 use Joomla\Registry\Registry;
 use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
+use Joomla\CMS\Language\Text;
 
 require_once "attendee.php";
 require_once "attachments.php";
@@ -129,7 +130,7 @@ class YajemModelEvent extends AdminModel
 	}
 
 	/**
-	 * @param   \JTable $table The Table
+	 * @param   \YajemTableEvent $table The Table
 	 *
 	 * @return void
 	 * @since 1.0

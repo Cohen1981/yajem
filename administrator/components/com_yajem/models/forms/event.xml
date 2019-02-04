@@ -291,7 +291,7 @@
 			   type="modal_location"
 			   label="COM_YAJEM_EVENT_LOCATION_SELECT_LABEL"
 			   description="COM_YAJEM_EVENT_LOCATION_SELECT_DESC"
-			   required="true" />
+			   required="false" />
 	</fieldset>
 
 	<fieldset name="location_list" addfieldpath="/administrator/components/com_yajem/models/fields">
@@ -299,7 +299,7 @@
 			   type="locations"
 			   label="COM_YAJEM_EVENT_LOCATION_SELECT_LABEL"
 			   description="COM_YAJEM_EVENT_LOCATION_SELECT_DESC"
-			   required="true" />
+			   required="false" />
 	</fieldset>
 
     <fieldset name="publish" label="COM_YAJEM_GROUP_LABEL_PUBLISHING_DETAILS">

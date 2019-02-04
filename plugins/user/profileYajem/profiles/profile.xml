@@ -15,6 +15,97 @@
             />
 
             <field
+                    name="address1"
+                    type="text"
+                    label="PLG_USER_PROFILE_FIELD_ADDRESS1_LABEL"
+                    description="PLG_USER_PROFILE_FIELD_ADDRESS1_DESC"
+                    id="address1"
+                    filter="string"
+                    size="30"
+            />
+
+            <field
+                    name="address2"
+                    type="text"
+                    label="PLG_USER_PROFILE_FIELD_ADDRESS2_LABEL"
+                    description="PLG_USER_PROFILE_FIELD_ADDRESS2_DESC"
+                    id="address2"
+                    filter="string"
+                    size="30"
+            />
+
+            <field
+                    name="city"
+                    type="text"
+                    label="PLG_USER_PROFILE_FIELD_CITY_LABEL"
+                    description="PLG_USER_PROFILE_FIELD_CITY_DESC"
+                    id="city"
+                    filter="string"
+                    size="30"
+            />
+
+            <field
+                    name="region"
+                    type="text"
+                    label="PLG_USER_PROFILE_FIELD_REGION_LABEL"
+                    description="PLG_USER_PROFILE_FIELD_REGION_DESC"
+                    id="region"
+                    filter="string"
+                    size="30"
+            />
+
+            <field
+                    name="country"
+                    type="text"
+                    label="PLG_USER_PROFILE_FIELD_COUNTRY_LABEL"
+                    description="PLG_USER_PROFILE_FIELD_COUNTRY_DESC"
+                    id="country"
+                    filter="string"
+                    size="30"
+            />
+
+            <field
+                    name="postal_code"
+                    type="text"
+                    label="PLG_USER_PROFILE_FIELD_POSTAL_CODE_LABEL"
+                    description="PLG_USER_PROFILE_FIELD_POSTAL_CODE_DESC"
+                    id="postal_code"
+                    filter="string"
+                    size="30"
+            />
+
+            <field
+                    name="phone"
+                    type="tel"
+                    label="PLG_USER_PROFILE_FIELD_PHONE_LABEL"
+                    description="PLG_USER_PROFILE_FIELD_PHONE_DESC"
+                    id="phone"
+                    filter="string"
+                    size="30"
+            />
+
+            <field
+                    name="mobil"
+                    type="tel"
+                    label="PLG_USER_PROFILE_FIELD_MOBIL_LABEL"
+                    description="PLG_USER_PROFILE_FIELD_MOBIL_DESC"
+                    id="mbil"
+                    filter="string"
+                    size="30"
+            />
+
+            <field
+                    name="dob"
+                    type="dob"
+                    label="PLG_USER_PROFILE_FIELD_DOB_LABEL"
+                    description="PLG_USER_PROFILE_FIELD_DOB_DESC"
+                    info="PLG_USER_PROFILE_SPACER_DOB"
+                    translateformat="true"
+                    showtime="false"
+                    filter="server_utc"
+            />
+
+            <field
                     name="equipment"
                     type="subform"
                     formsource="plugins/user/profileYajem/profiles/form.xml"

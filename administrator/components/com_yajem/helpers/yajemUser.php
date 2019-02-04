@@ -65,19 +65,25 @@ class YajemUserHelperAdmin
 
 		$userProfile = (array) UserHelper::getProfile($userId);
 
-		foreach ($userProfile['profile'] as $k => $v)
+		if ($userProfile['profile'])
 		{
-			if (in_array($k, $PROFILEKEYS, true))
+			foreach ($userProfile['profile'] as $k => $v)
 			{
-				$profile[$k] = $userProfile['profile'][$k] = $v;
+				if (in_array($k, $PROFILEKEYS, true))
+				{
+					$profile[$k] = $userProfile['profile'][$k] = $v;
+				}
 			}
 		}
 
-		foreach ($userProfile['profileYajem'] as $k => $v)
+		if ($userProfile['profileYajem'])
 		{
-			if (in_array($k, $PROFILEKEYS, true))
+			foreach ($userProfile['profileYajem'] as $k => $v)
 			{
-				$profile[$k] = $userProfile['profileYajem'][$k] = $v;
+				if (in_array($k, $PROFILEKEYS, true))
+				{
+					$profile[$k] = $userProfile['profileYajem'][$k] = $v;
+				}
 			}
 		}
 

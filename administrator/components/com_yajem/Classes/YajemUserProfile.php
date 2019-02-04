@@ -52,13 +52,6 @@ class YajemUserProfile
 	public $avatar = null;
 
 	/**
-	 * Array of attended Events. Key is eventID
-	 * @var array
-	 * @since 1.2.0
-	 */
-	public $attendants = array();
-
-	/**
 	 * YajemUserProfile constructor.
 	 *
 	 * @param   int $userId User id
@@ -81,19 +74,22 @@ class YajemUserProfile
 
 		$userProfile = (array) UserHelper::getProfile($userId);
 
-		foreach ($userProfile['profile'] as $k => $v)
+		if ($userProfile['profile'])
 		{
-			if (in_array($k, $profileKeys, true))
+			foreach ($userProfile['profile'] as $k => $v)
 			{
-				$this->$k = $userProfile['profile'][$k] = $v;
+				if (in_array($k, $profileKeys, true))
+				{
+					$profile[$k] = $userProfile['profile'][$k] = $v;
+				}
 			}
 		}
 
-		foreach ($userProfile['profileYajem'] as $k => $v)
+		if ($userProfile['profileYajem'])
 		{
-			if (in_array($k, $profileKeys, true))
+			foreach ($userProfile['profileYajem'] as $k => $v)
 			{
-				$this->$k = $userProfile['profileYajem'][$k] = $v;
+				$profile[$k] = $userProfile['profileYajem'][$k] = $v;
 			}
 		}
 
@@ -106,14 +102,23 @@ class YajemUserProfile
 		{
 			$this->avatar = "/media/com_yajem/images/user-image-blanco.png";
 		}
+	}
 
+	/**
+	 * @return array
+	 * @since 1.2.0
+	 */
+	public function getAttendants(): array
+	{
 		$modelAttendees = JModelLegacy::getInstance('Attendees', 'YajemModel');
 		$events = $modelAttendees->getAllEventsForUser($this->id);
 
 		foreach ($events as $event)
 		{
-			$this->attendants[$event->eventId] = $event;
+			$attendants[$event->eventId] = $event;
 		}
+
+		return $attendants;
 	}
 
 }
