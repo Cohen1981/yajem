@@ -46,10 +46,26 @@ if ($saveOrder)
 	<?php endif; ?>
 
 		<!-- Loading Filters and Sort Options -->
-		<?php
-		// Search tools bar
-		echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this));
-		?>
+		<?php if (!(bool) $user->guest) : ?>
+	        <?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
+            <div class="btn-toolbar">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('editlocation.add')">
+                        <i class="icon-new"></i> <?php echo JText::_('JNEW') ?>
+                    </button>
+                    <?php if(!$this->state->get('filter.published') == -2): ?>
+                    <button type="button" class="btn" onclick="Joomla.submitbutton('editlocations.trash')">
+                        <i class="icon-trash"></i> <?php echo JText::_('JTRASH') ?>
+                    </button>
+                    <?php endif; ?>
+                    <?php if($this->state->get('filter.published') == -2): ?>
+                    <button type="button" class="btn" onclick="Joomla.submitbutton('editlocations.delete')">
+                        <i class="icon-delete"></i> <?php echo JText::_('JACTION_DELETE') ?>
+                    </button>
+                    <?php endif; ?>
+                </div>
+            </div>
+		<?php endif; ?>
 
 		<div class="clearfix"></div>
 
@@ -104,7 +120,7 @@ if ($saveOrder)
 				$item->img = new Registry;
 				$item->img->loadString($item->image);
 
-				$link 		= 'index.php?option=com_yajem&amp;task=location.edit&amp;id=' . (int) $item->id;
+				$link 		= 'index.php?option=com_yajem&amp;task=editlocation.edit&amp;id=' . (int) $item->id;
 				$published 	= HtmlHelper::_('jgrid.published', $item->published, $i, 'locations.', $canChange, 'cb');
 				?>
 				<tr class="row<?php echo $i % 2; ?>">
@@ -138,8 +154,8 @@ if ($saveOrder)
 								if ($canChange)
 								{
 									// Create dropdown items
-									HtmlHelper::_('actionsdropdown.' . ((int) $item->published === 2 ? 'un' : '') . 'archive', 'cb' . $i, 'locations');
-									HtmlHelper::_('actionsdropdown.' . ((int) $item->published === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'locations');
+									HtmlHelper::_('actionsdropdown.' . ((int) $item->published === 2 ? 'un' : '') . 'archive', 'cb' . $i, 'editlocations');
+									HtmlHelper::_('actionsdropdown.' . ((int) $item->published === -2 ? 'un' : '') . 'trash', 'cb' . $i, 'editlocations');
 
 									// Render dropdown list
 									echo HtmlHelper::_('actionsdropdown.render', $this->escape($item->title));

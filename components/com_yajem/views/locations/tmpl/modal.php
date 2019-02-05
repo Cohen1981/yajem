@@ -48,7 +48,7 @@ if (!empty($editor))
 ?>
 <div class="container-popup">
 
-	<form action="<?php echo JRoute::_('index.php?option=com_yajem&view=locations&layout=modal&tmpl=component&function=' . $function . '&' . JSession::getFormToken() . '=1'); ?>" method="post" name="adminForm" id="adminForm" class="form-inline">
+	<form action="<?php echo 'index.php?option=com_yajem&view=locations&layout=modal&tmpl=component&function=' . $function . '&' . JSession::getFormToken() . '=1'; ?>" method="post" name="adminForm" id="adminForm" class="form-inline">
 
 		<?php echo JLayoutHelper::render('joomla.searchtools.default', array('view' => $this)); ?>
 

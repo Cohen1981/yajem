@@ -1,24 +1,23 @@
 <?php
 /**
- * @package     Yajem.Site
- * @subpackage  Yajem
+ * @package     ${NAMESPACE}
+ * @subpackage
  *
- * @copyright   2018 Alexander Bahlo
- * @license     GNU General Public License version 2 or later; see LICENSE.txt
- * @since       1.0
+ * @copyright   A copyright
+ * @license     A "Slug" license name e.g. GPL2
  */
 
 defined('_JEXEC') or die;
 
 // Base this Controller on the backend version.
-JLoader::register('YajemControllerLocation', JPATH_ADMINISTRATOR . '/components/com_yajem/controllers/location.php');
+JLoader::register('YajemControllerLocations', JPATH_ADMINISTRATOR . '/components/com_yajem/controllers/locations.php');
 
 /**
  * @package     Yajem
  *
  * @since       version
  */
-class YajemControllerEditlocation extends YajemControllerLocation
+class YajemControllerEditlocations extends YajemControllerLocations
 {
 	/**
 	 * The URL view item variable.
