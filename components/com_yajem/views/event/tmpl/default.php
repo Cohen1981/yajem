@@ -105,11 +105,14 @@ use Joomla\CMS\Language\Text;
 					</form>
 				<?php endif; ?>
 			</div>
-			<label id="basic-section-button" class="yajem_switch" for="yajem_switch_basic">
-				<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
+
+			<label id="basic-section-button" class="yajem_switch" for="yajem_switch_basic"
+                   onclick="switchClass('basic-section-button')">
+                <i class="far fa-minus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 			</label>
+
 		</div>
-		<input type="checkbox" id="yajem_switch_basic" class="yajem_hidden" checked="checked"/>
+		<input type="checkbox" id="yajem_switch_basic" class="yajem_hidden yajem_switch_checkbox" checked="checked"/>
 		<div class="yajem_section_container yajem_switchable">
 
 			<?php echo $this->loadTemplate('event'); ?>
@@ -132,8 +135,9 @@ use Joomla\CMS\Language\Text;
 					?>
 				</h2>
 			</div>
-			<label id="location-section-button" class="yajem_switch" for="yajem_switch_location">
-				<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
+			<label id="location-section-button" class="yajem_switch" for="yajem_switch_location"
+                   onclick="switchClass('location-section-button')">
+				<i class="far fa-minus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 			</label>
 		</div>
 		<input type="checkbox" id="yajem_switch_location" class="yajem_hidden" checked="checked"/>
@@ -153,7 +157,8 @@ use Joomla\CMS\Language\Text;
 						<?php echo JText::_('COM_YAJEM_MAP_TITLE'); ?>
 					</h2>
 				</div>
-				<label id="map-section-button" class="yajem_switch" for="yajem_switch_map">
+				<label id="map-section-button" class="yajem_switch" for="yajem_switch_map"
+                       onclick="switchClass('map-section-button')">
 					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 				</label>
 			</div>
@@ -183,7 +188,8 @@ use Joomla\CMS\Language\Text;
 					</h2>
 				</div>
 				<?php if (!$this->eventParams->isGuest):?>
-				<label id="registration-section-button" class="yajem_switch" for="yajem_switch_reg">
+				<label id="registration-section-button" class="yajem_switch" for="yajem_switch_reg"
+                       onclick="switchClass('registration-section-button')">
 					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 				</label>
 				<?php endif; ?>
@@ -208,7 +214,8 @@ use Joomla\CMS\Language\Text;
 							$this->commentCount) . '</span>'; ?>
 					</h2>
 				</div>
-				<label id="comment-section-button" class="yajem_switch" for="yajem_switch_comment">
+				<label id="comment-section-button" class="yajem_switch" for="yajem_switch_comment"
+                       onclick="switchClass('comment-section-button')">
 					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 				</label>
 			</div>

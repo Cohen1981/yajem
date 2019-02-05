@@ -100,3 +100,12 @@ function switchEventStatus(status) {
 	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
 	xhttp.send(params);
 }
+
+function switchClass(labelId) {
+	var iconClass = document.getElementById(labelId).firstElementChild.getAttribute('class');
+	if (iconClass === 'far fa-minus-square') {
+		document.getElementById(labelId).firstElementChild.setAttribute('class', 'far fa-plus-square');
+	} else {
+		document.getElementById(labelId).firstElementChild.setAttribute('class', 'far fa-minus-square');
+	}
+}
