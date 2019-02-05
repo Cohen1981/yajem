@@ -105,6 +105,7 @@ $currentDate 	= Factory::getDate('now', 'UTC');
 	</div>
 
 	<?php foreach ($this->items as $i => $item) : ?>
+
 	<?php $start = (bool) $item->allDayEvent ? Factory::getDate($item->startDate, 'UTC') : Factory::getDate($item->startDateTime, 'UTC');?>
 	<?php if ($currentDate <= $start || $pastEvents): ?>
 	<div class="yajem_section_container">

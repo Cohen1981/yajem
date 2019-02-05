@@ -10,6 +10,7 @@
 namespace Joomla\Component\Yajem\Administrator\Classes;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Access\Access;
 use Joomla\CMS\User\UserHelper;
 use Joomla\Component\Yajem\Administrator\Helpers\YajemParams;
 use JModelLegacy;
@@ -50,6 +51,12 @@ class YajemUserProfile
 	 * @since 1.2.0
 	 */
 	public $avatar = null;
+
+	/**
+	 * @var array|null
+	 * @since 1.2.0
+	 */
+	public $accessLevels = null;
 
 	/**
 	 * YajemUserProfile constructor.
@@ -102,6 +109,8 @@ class YajemUserProfile
 		{
 			$this->avatar = "/media/com_yajem/images/user-image-blanco.png";
 		}
+
+		$this->accessLevels = Access::getAuthorisedViewLevels($this->id);
 	}
 
 	/**

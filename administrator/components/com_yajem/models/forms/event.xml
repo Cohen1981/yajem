@@ -23,6 +23,14 @@
                 default=""
         />
 
+		<field
+				name="access"
+				type="accesslevel"
+				label="JFIELD_ACCESS_LABEL"
+				description="JFIELD_ACCESS_DESC"
+				size="1"
+		/>
+
         <field
                 name="published"
                 type="list"

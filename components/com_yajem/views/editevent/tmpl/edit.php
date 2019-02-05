@@ -80,6 +80,7 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
                     <input type="hidden" name="jform[ordering]" value="<?php echo $this->item->ordering; ?>"/>
 
 					<?php echo $this->form->renderField('catid'); ?>
+	                <?php echo $this->form->renderField('access'); ?>
 					<?php echo $this->form->renderField('url'); ?>
 
 					<?php echo $this->form->renderField('allDayEvent'); ?>
@@ -156,12 +157,6 @@ $useModalLocation	= (bool) JComponentHelper::getParams('com_yajem')->get('use_mo
                 </fieldset>
             </div>
         </div>
-		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
-
-		<?php echo HtmlHelper::_('bootstrap.addTab', 'myTab', 'publishing', JText::_('COM_YAJEM_TITLE_PUBLISHING', true)); ?>
-		<?php echo $this->form->renderField('published'); ?>
-		<?php echo $this->form->renderField('createdBy'); ?>
-		<?php echo $this->form->renderField('modifiedBy'); ?>
 		<?php echo HtmlHelper::_('bootstrap.endTab'); ?>
 
 		<?php echo HtmlHelper::_('bootstrap.endTabSet'); ?>
