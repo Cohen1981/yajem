@@ -19,21 +19,10 @@ defined('_JEXEC') or die;
 	<?php foreach ($this->comments as $i => $item) : ?>
 
 	<?php
-	// Which Avatar to use
-	if ($this->userProfiles[$item->userId]['avatar'])
-	{
-		$avatar = '<img id="avatar_' . $item->id . '" class="yajem_comment_avatar yajem_img_round" src="' . $this->userProfiles[$item->userId]['avatar'] . '"/>';
-	}
-	else
-	{
-		$avatar = '<img class="yajem_comment_avatar" src="' . JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
-	}
-	?>
-
-	<?php
 	if ($this->eventParams->useUserProfile)
 	{
-		echo $avatar;
+		echo '<img id="avatar_' . $item->id . '" class="yajem_comment_avatar yajem_img_round" src="' .
+            $this->userProfiles[$item->userId]->avatar . '"/>';
 	}
 	?>
 
@@ -46,7 +35,7 @@ defined('_JEXEC') or die;
 					</a>
 				<?php endif; ?>
 			</div>
-			<?php echo $this->userProfiles[$item->userId]['name'] ?>&nbsp;
+			<?php echo $this->userProfiles[$item->userId]->name ?>&nbsp;
 			<?php
 			$timestamp = new DateTime($item->timestamp);
 			echo $timestamp->format('d.m.Y H:i')

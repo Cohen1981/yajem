@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Access\Access;
 use Joomla\CMS\User\UserHelper;
 use Joomla\Component\Yajem\Administrator\Helpers\YajemParams;
+use Joomla\CMS\Uri\Uri;
 use JModelLegacy;
 
 /**
@@ -20,7 +21,7 @@ use JModelLegacy;
  *
  * @since       1.2.0
  */
-class YajemUserProfile
+class YajemUserProfile extends \stdClass
 {
 	/**
 	 * @var int|null
@@ -87,7 +88,7 @@ class YajemUserProfile
 			{
 				if (in_array($k, $profileKeys, true))
 				{
-					$profile[$k] = $userProfile['profile'][$k] = $v;
+					$this->$k = $userProfile['profile'][$k] = $v;
 				}
 			}
 		}
@@ -96,7 +97,7 @@ class YajemUserProfile
 		{
 			foreach ($userProfile['profileYajem'] as $k => $v)
 			{
-				$profile[$k] = $userProfile['profileYajem'][$k] = $v;
+				$this->$k = $userProfile['profileYajem'][$k] = $v;
 			}
 		}
 
@@ -107,7 +108,7 @@ class YajemUserProfile
 
 		if (!$this->avatar)
 		{
-			$this->avatar = "/media/com_yajem/images/user-image-blanco.png";
+			$this->avatar = URI::root() . "media/com_yajem/images/user-image-blanco.png";
 		}
 
 		$this->accessLevels = Access::getAuthorisedViewLevels($this->id);
@@ -128,6 +129,20 @@ class YajemUserProfile
 		}
 
 		return $attendants;
+	}
+
+	/**
+	 * @param   int $eventId The Event Id
+	 *
+	 * @return integer Status
+	 *
+	 * @since 1.2.1
+	 */
+	public function getEventAttendingStatus($eventId)
+	{
+		$attendants = $this->getAttendants();
+
+		return $attendants[$eventId]->status;
 	}
 
 }

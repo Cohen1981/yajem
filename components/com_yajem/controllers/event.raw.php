@@ -12,6 +12,10 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
+use Joomla\Component\Yajem\Administrator\Classes\YajemUserProfile;
+use Yajem\Site\Models\YajemModelAttendee;
+
+jimport('joomla.application.component.model');
 
 /**
  * @package     Yajem
@@ -122,6 +126,76 @@ class YajemControllerEvent extends JControllerLegacy
 		if ($view = $this->getView('Event', 'raw'))
 		{
 			$view->setModel($model);
+			$eventModel = $this->getModel('Event', 'YajemModel');
+			$eventModel->setState('item.id', $input['eventId']);
+			$view->setModel($eventModel);
+			$view->document = JFactory::getDocument();
+
+			$view->display();
+		}
+	}
+
+	/**
+	 * Method to change the attending status of a user for one event
+	 *
+	 * @return void
+	 *
+	 * @throws Exception
+	 *
+	 * @since 1.0
+	 */
+	public function changeAttendingStatus()
+	{
+		$input = Factory::getApplication()->input->post->getArray();
+
+		if ($input['register'] && $input['eventId'])
+		{
+			require_once JPATH_ROOT . "/components/com_yajem/models/attendee.php";
+			$model = new YajemModelAttendee;
+			$model->set('name', 'attendee');
+			$todo = $input['register'];
+
+			switch ($todo)
+			{
+				case 'reg':
+					$model->registration($input['id'], $input['eventId'], 1);
+					break;
+				case 'regw':
+					$model->registration($input['id'], $input['eventId'], 3);
+					break;
+				case 'unreg':
+					$model->registration($input['id'], $input['eventId'], 2);
+					break;
+			}
+		}
+
+		if ($view = $this->getView('Event', 'raw'))
+		{
+			$eventModel = $this->getModel('Event', 'YajemModel');
+			$eventModel->setState('item.id', $input['eventId']);
+			$view->setModel($eventModel);
+			$view->setModel($model);
+			$view->document = JFactory::getDocument();
+
+			$view->display();
+		}
+	}
+
+	/**
+	 *
+	 * @return void
+	 * @throws Exception
+	 * @since version
+	 */
+	public function getRegButtons()
+	{
+		$input = Factory::getApplication()->input->post->getArray();
+
+		if ($view = $this->getView('Event', 'raw'))
+		{
+			$eventModel = $this->getModel('Event', 'YajemModel');
+			$eventModel->setState('item.id', $input['eventId']);
+			$view->setModel($eventModel);
 			$view->document = JFactory::getDocument();
 
 			$view->display();

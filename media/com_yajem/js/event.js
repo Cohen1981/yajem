@@ -76,6 +76,42 @@ function comment() {
 	xhttp.send(formData);
 }
 
+function changeAttending(task) {
+	document.getElementById('reg_buttons').innerHTML = "";
+	var eventId = document.getElementById('attendees_eventId').value;
+	var attendeesId = document.getElementById('attendees_id').value;
+	var userId = document.getElementById('attendees_userId').value;
+	var params = 'task=event.changeAttendingStatus&eventId=' + eventId + '&register=' + task + '&id=' + attendeesId;
+	var params2 = 'task=event.getRegButtons&eventId=' + eventId + '&userId=' + userId;
+	var xhttp = new XMLHttpRequest();
+	var xhttp2 = new XMLHttpRequest();
+	xhttp.onload = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			var html = xhttp.response;
+
+			if (document.getElementById('attendee_' + userId))
+			{
+				document.getElementById('attendee_' + userId).remove();
+			}
+
+			document.getElementById('yajem_attendees').insertAdjacentHTML('beforeend', html);
+		}
+
+		xhttp2.onload = function () {
+			if (this.readyState === 4 && this.status === 200) {
+				var html = xhttp2.response;
+				document.getElementById('reg_buttons').innerHTML = html;
+			}
+		}
+		xhttp2.open("POST", 'index.php?format=raw&option=com_yajem&task=event.getRegButtons', true);
+		xhttp2.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+		xhttp2.send(params2);
+	};
+	xhttp.open("POST", 'index.php?format=raw&option=com_yajem&task=event.changeAttendingStatus', true);
+	xhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+	xhttp.send(params);
+}
+
 function switchEventStatus(status) {
 	var xhttp = new XMLHttpRequest();
 	var params = 'task=event.changeEventStatus&eStatus=' + status + '&eventId=' + document.getElementById('YajemEventId').value;

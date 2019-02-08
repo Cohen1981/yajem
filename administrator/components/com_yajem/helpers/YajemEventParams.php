@@ -41,12 +41,6 @@ class YajemEventParams
 	public $useComments = null;
 
 	/**
-	 * @var string|null
-	 * @since version
-	 */
-	public $googleApiKey = null;
-
-	/**
 	 * @var bool|null
 	 * @since version
 	 */
@@ -95,6 +89,18 @@ class YajemEventParams
 	public $useAjaxCalls = null;
 
 	/**
+	 * @var int|null
+	 * @since 1.2.1
+	 */
+	public $registrationLimit = null;
+
+	/**
+	 * @var bool|null
+	 * @since 1.2.1
+	 */
+	public $useWaitingList = null;
+
+	/**
 	 * YajemEventParams constructor.
 	 *
 	 * @param   null|YajemEvent $event Event Object
@@ -112,7 +118,6 @@ class YajemEventParams
 			$params = new YajemParams;
 
 			$this->useComments  = $params->useComments;
-			$this->googleApiKey = $params->googleApiKey;
 			$this->useUserProfile = $params->useUserProfile;
 			$this->useAjaxCalls = $params->useAjaxCalls;
 
@@ -124,13 +129,16 @@ class YajemEventParams
 
 			if ($params->useHost)
 			{
-				$this->useOrg = (bool) $event->useOrganizer;
+				$this->useHost = (bool) $event->useOrganizer;
 			}
 
 			if ($params->useOrg)
 			{
-				$this->useHost = (bool) $event->useHost;
+				$this->useOrg = (bool) $event->useHost;
 			}
+
+			$this->registrationLimit = $event->registrationLimit;
+			$this->useWaitingList = (bool) $event->useWaitingList;
 		}
 	}
 

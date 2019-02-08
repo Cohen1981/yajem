@@ -91,6 +91,11 @@ class YajemModelAttendee extends ItemModel
 			}
 		}
 
-		return $table->store(true);
+		$return = $table->store(true);
+
+		$this->setState('id', $table->id);
+		$this->__state_set = true;
+
+		return $return;
 	}
 }

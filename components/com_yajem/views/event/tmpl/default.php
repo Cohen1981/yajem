@@ -149,7 +149,7 @@ use Joomla\CMS\Language\Text;
 	</div>
 
 	<!-- Google Map if API-Key provided -->
-	<?php if ($this->eventParams->googleApiKey): ?>
+	<?php if ($this->yajemHtmlHelper->yajemParams->googleApiKey): ?>
 		<div class="yajem_switch_container">
 			<div class="yajem_section_header yajem_bottom-rounded">
 				<div class="yajem_inline-block">
@@ -169,7 +169,8 @@ use Joomla\CMS\Language\Text;
 				?>
 				<iframe id="google_map"
 						frameborder="0" style="border:0"
-						src="https://www.google.com/maps/embed/v1/place?key=<?php echo $this->eventParams->googleApiKey; ?>&q=<?php echo $googleAddress ?>"
+						src="https://www.google.com/maps/embed/v1/place?key=<?php echo $this->yajemHtmlHelper->yajemParams->googleApiKey; ?>
+						    &q=<?php echo $googleAddress ?>"
 						allowfullscreen>
 				</iframe>
 			</div>

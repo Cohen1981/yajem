@@ -11,7 +11,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView;
-use Joomla\Component\Yajem\Administrator\Helpers\YajemHtmlHelper;
+use Joomla\Component\Yajem\Administrator\Helpers\EventHtmlHelper;
 use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
 use Joomla\Component\Yajem\Administrator\Classes\YajemLocation;
 use Joomla\Component\Yajem\Administrator\Classes\YajemUserProfiles;
@@ -41,6 +41,8 @@ class YajemViewEvent extends HtmlView
 	 */
 	protected $location;
 
+	protected $yajemHtmlHelper;
+
 	/**
 	 * @param   null $tpl Template to load
 	 *
@@ -51,17 +53,17 @@ class YajemViewEvent extends HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		require_once JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/YajemHtmlHelper.php';
+		require_once JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/EventHtmlHelper.php';
 
 		$this->state = $this->get('State');
 
 		$this->event = $this->get('Data', 'Event');
 
-		$yajemHtmlHelper = new YajemHtmlHelper($this->event);
+		$this->yajemHtmlHelper = new EventHtmlHelper($this->event);
 
-		$this->eventParams  = $yajemHtmlHelper->eventParams;
-		$this->eventSymbols = $yajemHtmlHelper->symbols;
-		$this->eventLinks   = $yajemHtmlHelper->links;
+		$this->eventParams  = $this->yajemHtmlHelper->eventParams;
+		$this->eventSymbols = $this->yajemHtmlHelper->symbols;
+		$this->eventLinks   = $this->yajemHtmlHelper->links;
 
 		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
 		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');
@@ -96,8 +98,8 @@ class YajemViewEvent extends HtmlView
 
 		$this->userProfiles = YajemUserHelper::getUserList();
 		require_once JPATH_SITE . "/administrator/components/com_yajem/Classes/YajemUserProfiles.php";
-		$test = new YajemUserProfiles;
-		$this->test = $test->getProfiles();
+		$yajemUserProfiles = new YajemUserProfiles;
+		$this->userProfiles = $yajemUserProfiles->getProfiles();
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

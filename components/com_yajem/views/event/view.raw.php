@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Joomla\Component\Yajem\Administrator\Helpers\YajemParams;
 use Joomla\Component\Yajem\Administrator\Helpers\YajemHtmlHelper;
+use Joomla\Component\Yajem\Administrator\Helpers\EventHtmlHelper;
 
 /**
  * @package     Yajem
@@ -36,7 +37,7 @@ class YajemViewEvent extends JViewLegacy
 	/**
 	 * @param   null $tpl Template to load
 	 *
-	 * @return mixed
+	 * @return void
 	 *
 	 * @since 1.0
 	 * @throws Exception
@@ -57,6 +58,12 @@ class YajemViewEvent extends JViewLegacy
 					break;
 				case 'event.changeEventStatus':
 					$this->changeEventStatus($input);
+					break;
+				case 'event.changeAttendingStatus':
+					$this->changeAttendingStatus($input);
+					break;
+				case 'event.getRegButtons':
+					$this->getRegButtons();
 					break;
 				default:
 					break;
@@ -186,5 +193,72 @@ class YajemViewEvent extends JViewLegacy
 		}
 
 		echo $html;
+	}
+
+	/**
+	 * @param   array $input Request input
+	 *
+	 * @return void
+	 * @since 1.2.1
+	 * @throws Exception
+	 */
+	private function changeAttendingStatus($input)
+	{
+		$document = JFactory::getDocument();
+		$document->setMimeEncoding('text/html; charset=utf-8');
+		Factory::getApplication()->setHeader('Content-Type', 'text/html; charset=utf-8', true);
+
+		// $input['register'] && $input['id'] && $input['eventId']
+		$this->event = $this->get('Data', 'Event');
+
+		if (!$input['id'])
+		{
+			$attendeeModel = $this->getModel('Attendee');
+			$attendeeId    = $attendeeModel->getState('id');
+		}
+		else
+		{
+			$attendeeId = $input['id'];
+		}
+
+		$user = Factory::getUser();
+
+		include_once JPATH_SITE . "/administrator/components/com_yajem/helpers/EventHtmlHelper.php";
+		$helper = new EventHtmlHelper($this->event);
+
+		switch ($input['register'])
+		{
+			case 'reg':
+				$status = 1;
+				break;
+			case 'regw':
+				$status = 3;
+				break;
+			case 'unreg':
+				$status = 2;
+				break;
+		}
+
+		echo $helper->getAttendingHtml($user->id, $status, $attendeeId);
+	}
+
+	/**
+	 *
+	 * @return void
+	 * @since 1.2.1
+	 * @throws Exception
+	 */
+	private function getRegButtons()
+	{
+		$document = JFactory::getDocument();
+		$document->setMimeEncoding('text/html; charset=utf-8');
+		Factory::getApplication()->setHeader('Content-Type', 'text/html; charset=utf-8', true);
+
+		$input = Factory::getApplication()->input->post->getArray();
+		$this->event = $this->get('Data', 'Event');
+
+		include_once JPATH_SITE . "/administrator/components/com_yajem/helpers/EventHtmlHelper.php";
+		$helper = new EventHtmlHelper($this->event);
+		echo $helper->getRegLinksAttendee($input['userId']);
 	}
 }

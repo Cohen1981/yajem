@@ -149,6 +149,8 @@ class YajemModelEvent extends ItemModel
 			throw new Exception("No eventId");
 		}
 
+		$this->setState('item.id', $eventId);
+
 		return $table->store(true);
 	}
 
@@ -279,5 +281,19 @@ class YajemModelEvent extends ItemModel
 		}
 
 		return false;
+	}
+
+	/**
+	 * @param   string $property    Property to set
+	 * @param   null   $value       Value for Property
+	 *
+	 * @return mixed|void
+	 *
+	 * @since version
+	 */
+	public function setState($property, $value = null)
+	{
+		parent::setState($property, $value);
+		$this->__state_set = true;
 	}
 }

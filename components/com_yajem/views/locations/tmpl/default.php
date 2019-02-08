@@ -76,15 +76,17 @@ if ($saveOrder)
 					<?php echo HtmlHelper::_('searchtools.sort', '', 'a.ordering',
 						$listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
 				</th>
+				<?php if (!(bool) $user->guest) : ?>
 				<th width="1%" class="hidden-phone">
 					<input type="checkbox" name="checkall-toggle" value=""
 						   title="<?php echo JText::_('JGLOBAL_CHECK_ALL'); ?>" onclick="Joomla.checkAll(this)"/>
 				</th>
-				<?php if (isset($this->items[0]->published)): ?>
-					<th width="1%" class="nowrap center">
-						<?php echo HtmlHelper::_('searchtools.sort', 'JSTATUS', 'a.published', $listDirn, $listOrder); ?>
-					</th>
-				<?php endif; ?>
+                    <?php if (isset($this->items[0]->published)): ?>
+                        <th width="1%" class="nowrap center">
+                            <?php echo HtmlHelper::_('searchtools.sort', 'JSTATUS', 'a.published', $listDirn, $listOrder); ?>
+                        </th>
+                    <?php endif; ?>
+                <?php endif; ?>
 
 				<th class='left'>
 					<?php echo HtmlHelper::_('searchtools.sort', 'COM_YAJEM_ID', 'a.id', $listDirn, $listOrder); ?>
@@ -143,6 +145,7 @@ if ($saveOrder)
 							<input type="text" style="display:none" name="order[]" size="5" value="<?php echo $item->ordering; ?>" class="width-20 text-area-order" />
 					</td>
 					<?php endif; ?>
+					<?php if (!(bool) $user->guest) : ?>
 					<td class="hidden-phone">
 						<?php echo HtmlHelper::_('grid.id', $i, $item->id); ?>
 					</td>
@@ -163,6 +166,7 @@ if ($saveOrder)
 								?>
 							</div>
 						</td>
+					<?php endif; ?>
 					<?php endif; ?>
 
 					<td>

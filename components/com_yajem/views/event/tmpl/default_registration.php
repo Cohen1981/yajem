@@ -16,6 +16,8 @@ $waitingList = (!$this->attendeeNumber < $this->event->registrationLimit && (boo
 
 $regPossible = false;
 
+$user = Factory::getUser();
+
 // Only logged in Users should be able to register for an event
 if (!$this->eventParams->isGuest)
 {
@@ -31,90 +33,31 @@ if (!$this->eventParams->isGuest)
 	}
 }
 
-// Normal registration or waiting list
-if ($waitingList) {
-	$regButton = '<label id="yajem_reg" class="yajem_css_switch yajem_rounded" for="regw">' . JText::_('COM_YAJEM_REGW') . '</label>';
-}
-else {
-	$regButton = '<label id="yajem_reg" class="yajem_css_switch yajem_rounded" for="reg">' . JText::_('COM_YAJEM_REG') . '</label>';
-}
-$unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" for="unreg">' . JText::_('COM_YAJEM_UNREG') . '</label>';
-
 ?>
 
 <?php if ((bool) $this->event->useRegisterUntil): ?>
 <div id="organizer" class="yajem_grid_section">
-    <div class="yajem_label"><?php echo JText::_('COM_YAJEM_REGISTER_UNTIL'); ?></div>
-    <div class="yajem_output"><?php echo $this->event->registerUntil; ?></div>
+	<div class="yajem_label"><?php echo JText::_('COM_YAJEM_REGISTER_UNTIL'); ?></div>
+	<div class="yajem_output"><?php echo $this->event->registerUntil; ?></div>
 </div>
 <?php endif; ?>
 
 <div id="yajem_attendees" class="yajem_flex_row">
 
-	<!-- Guest will only see number of attending persons -->
-	<?php if (!$guest): ?>
-        <?php if (count($this->attendees)>0) : ?>
-	    <?php foreach ($this->attendees as $i => $item) : ?>
-
-		<?php
-		if ($this->eventParams->useUserProfile)
+<!-- Guest will only see number of attending persons -->
+<?php
+if (!$guest)
+{
+	if (count($this->attendees) > 0)
+	{
+		foreach ($this->attendees as $i => $item)
 		{
-			// Which Avatar to use
-			if ($item->attendee['avatar'])
-			{
-				$avatar = '<img class="yajem_avatar yajem_img_round" src="' . $item->attendee['avatar'] . '"/>';
-			}
-			else
-			{
-				$avatar = '<img class="yajem_avatar" src="' . JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
-			}
+			echo $this->yajemHtmlHelper->getAttendingHtml($item->attendee['id'], $item->status, $item->id);
 		}
+	}
+}
+?>
 
-		switch ($item->status)
-		{
-			case 0:
-				$userStatus = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_open">
-					<i class="fas fa-question-circle" aria-hidden="true">
-                    </i> ' . JText::_("COM_YAJEM_NOT_DECIDED") . '</div>';
-				break;
-			case 1:
-				$userStatus = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_attending">
-					<i class="far fa-thumbs-up" aria-hidden="true">
-                    </i> ' . JText::_("COM_YAJEM_ATTENDING") . '</div>';
-				break;
-			case 2:
-				$userStatus = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_declined">
-					<i class="far fa-thumbs-down" aria-hidden="true">
-					</i> ' . JText::_("COM_YAJEM_NOT_ATTENDING") . '</div>';
-				break;
-			case 3:
-				$userStatus = '<div id="status_' . $item->attendee['id'] . '" class="yajem_ustatus yajem_status_waiting">
-					<i class="far fa-clock" aria-hidden="true">
-                    </i> ' . JText::_("COM_YAJEM_ON_WAITINGLIST") . '</div>';
-				break;
-		}
-		?>
-
-            <div class="yajem_attendee">
-				<?php if ($this->eventParams->useUserProfile): ?>
-				<div class="yajem_avatar_container">
-				    <?php echo $avatar ?>
-				</div>
-				<?php endif; ?>
-
-                <!--<div class="yajem_output">-->
-                <div class="yajem_att_status">
-
-                    <div class="yajem_uname"> <?php echo $item->attendee['name'] ?> </div>
-
-                    <?php echo $userStatus ?>
-
-                </div>
-                <!--</div>-->
-            </div>
-		<?php endforeach; ?>
-        <?php endif; ?>
-	<?php endif; ?>
 </div>
 
 <div class="yajem_line"></div>
@@ -122,40 +65,16 @@ $unregButton = '<label id="yajem_unreg" class="yajem_css_switch yajem_rounded" f
 <?php if ($regPossible): ?>
 
 	<form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>"  name="adminForm" id="adminForm" method="post">
-		<div class="yajem_flex_row yajem-button-group">
-			<?php
-
-			if ($this->attendees)
-			{
-				switch ($this->attendees[$this->eventParams->userId]->status)
-				{
-					case 0:
-						echo $regButton;
-						echo $unregButton;
-						break;
-					case 1:
-						echo $unregButton;
-						break;
-					case 2:
-						echo $regButton;
-						break;
-					case 3:
-						echo $unregButton;
-						break;
-				}
-			} else {
-				echo $regButton;
-				echo $unregButton;
-            }
-			?>
+		<div id="reg_buttons" class="yajem_flex_row yajem-button-group">
+			<?php echo $this->yajemHtmlHelper->getRegLinksAttendee($user->id); ?>
 		</div>
 
 		<input type="radio" class="yajem_hidden" id="reg" name="register" value="reg" onchange="adminForm.submit()" />
 		<input type="radio" class="yajem_hidden" id="regw" name="register" value="regw" onchange="adminForm.submit()" />
 		<input type="radio" class="yajem_hidden" id="unreg" name="register" value="unreg" onchange="adminForm.submit()" />
-		<input type="hidden" name="id" value="<?php echo $this->attendees[$this->eventParams->userId]->id; ?>">
-		<input type="hidden" name="userId" value="<?php echo $this->eventParams->userId; ?>" />
-		<input type="hidden" name="eventId" value="<?php echo $this->event->id; ?>" />
+		<input type="hidden" id="attendees_id" name="id" value="<?php echo $this->attendees[$this->eventParams->userId]->id; ?>">
+		<input type="hidden" id="attendees_userId" name="userId" value="<?php echo $this->eventParams->userId; ?>" />
+		<input type="hidden" id="attendees_eventId" name="eventId" value="<?php echo $this->event->id; ?>" />
 		<input type="hidden" name="task" value="event.changeAttendingStatus" />
 		<?php echo JHtml::_( 'form.token' ); ?>
 	</form>

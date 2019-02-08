@@ -32,8 +32,11 @@ class YajemControllerEvent extends BaseController
 	 */
 	public function view()
 	{
+		$id = Factory::getApplication()->input->request->get('id');
 		$view = $this->getView('Event', 'html');
-		$view->setModel($this->getModel('Event'));
+		$eventModel = $this->getModel('Event');
+		$eventModel->setState('item.id',$id);
+		$view->setModel($eventModel);
 		$view->setModel($this->getModel('Attendees'));
 		$view->setModel($this->getModel('Locations'));
 		$view->setModel($this->getModel('Comments'));
