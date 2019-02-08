@@ -70,7 +70,7 @@ use Joomla\Registry\Registry;
 
 	<?php if ( $this->eventParams->useOrg && !$this->eventParams->isGuest ): ?>
         <div class="yajem_label"><?php echo JText::_('COM_YAJEM_ORGANIZER_LABEL'); ?></div>
-        <div class="yajem_output"><?php echo $this->organizer['name']; ?></div>
+        <div class="yajem_output"><?php echo $this->organizer->name; ?></div>
 	<?php endif; ?>
 
 	<?php if ($this->event->description): ?>

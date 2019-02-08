@@ -41,7 +41,31 @@ class YajemViewEvent extends HtmlView
 	 */
 	protected $location;
 
+	/**
+	 * @var EventHtmlHelper
+	 * @since 1.2.1
+	 */
 	protected $yajemHtmlHelper;
+
+	/**
+	 * @var YajemUserProfiles
+	 * @since 1.2.1
+	 */
+	protected $userProfiles;
+
+	protected $eventParams;
+
+	protected $eventSymbols;
+
+	protected $eventLinks;
+
+	protected $organizer;
+
+	/**
+	 * @var
+	 * @since version
+	 */
+	protected $attendees;
 
 	/**
 	 * @param   null $tpl Template to load
@@ -53,31 +77,38 @@ class YajemViewEvent extends HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		require_once JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/EventHtmlHelper.php';
-
+		$this->event = $this->get('Data', 'Event');
 		$this->state = $this->get('State');
 
-		$this->event = $this->get('Data', 'Event');
-
+		require_once JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/EventHtmlHelper.php';
 		$this->yajemHtmlHelper = new EventHtmlHelper($this->event);
 
+		// For shorter access
 		$this->eventParams  = $this->yajemHtmlHelper->eventParams;
 		$this->eventSymbols = $this->yajemHtmlHelper->symbols;
 		$this->eventLinks   = $this->yajemHtmlHelper->links;
 
+		// Get userProfiles
+		require_once JPATH_SITE . "/administrator/components/com_yajem/Classes/YajemUserProfiles.php";
+		$yajemUserProfiles = new YajemUserProfiles;
+		$this->userProfiles = $yajemUserProfiles->getProfiles();
+
+		// Getting event attachments
 		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
 		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');
 		$this->event->attachments = $modelAttachments->getAttachments((int) $this->event->id, 'event');
 
+		// If we have a location for the event get it
 		if ($this->event->locationId)
 		{
 			$this->location = $this->getModel('Locations')->getLocation($this->event->locationId);
 			$this->location->attachments = $modelAttachments->getAttachments((int) $this->location->id, 'location');
 		}
 
+		// If we have an organizer get the profile as shortcut
 		if ($this->event->organizerId)
 		{
-			$this->organizer = YajemUserHelper::getUser($this->event->organizerId);
+			$this->organizer = $yajemUserProfiles->getProfile($this->event->organizerId);
 		}
 
 		$this->attendees = $this->getModel('Attendees')->getAttendees($this->event->id);
@@ -93,13 +124,9 @@ class YajemViewEvent extends HtmlView
 			$this->attendees = $attArray;
 		}
 
+		// Get the comments
 		$this->comments = $this->getModel('Comments')->getComments($this->event->id);
 		$this->commentCount = $this->getModel('Comments')->getCommentCount($this->event->id);
-
-		$this->userProfiles = YajemUserHelper::getUserList();
-		require_once JPATH_SITE . "/administrator/components/com_yajem/Classes/YajemUserProfiles.php";
-		$yajemUserProfiles = new YajemUserProfiles;
-		$this->userProfiles = $yajemUserProfiles->getProfiles();
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors')))

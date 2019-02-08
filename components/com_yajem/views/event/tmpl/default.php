@@ -40,32 +40,48 @@ use Joomla\CMS\Language\Text;
 			<div class="yajem_inline-block">
 				<h2>
 					<?php
-					if ($this->event->url) {
-						echo '<a href="'. $this->event->url. '" target="_blank">' . $this->event->title . '</a>&nbsp;&nbsp;';
-					} else {
+
+					if ($this->event->url)
+					{
+						echo '<a href="' . $this->event->url . '" target="_blank">' . $this->event->title . '</a>&nbsp;&nbsp;';
+					}
+					else
+					{
 						echo $this->event->title . '&nbsp;&nbsp;';
 					}
+
 					if ($this->eventParams->useOrg && !$this->eventParams->isGuest)
 					{
 						echo "<span id='eventStatus'>";
+
 						switch ($this->event->eventStatus)
 						{
 							case 0:
-								echo '<i id="statusPending" class="fas fa-question-circle" aria-hidden="true" title="' . Text::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
-								echo '<i id="statusConfirmed" class="far fa-thumbs-up yajem_hidden" aria-hidden="true" title="' . Text::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
-								echo '<i id="statusCanceled" class="far fa-thumbs-down yajem_hidden" aria-hidden="true" title="' . Text::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
+								echo '<i id="statusPending" class="fas fa-question-circle" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
+								echo '<i id="statusConfirmed" class="far fa-thumbs-up yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
+								echo '<i id="statusCanceled" class="far fa-thumbs-down yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
 								break;
 							case 1:
-								echo '<i id="statusPending" class="fas fa-question-circle yajem_hidden" aria-hidden="true" title="' . Text::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
-								echo '<i id="statusConfirmed" class="far fa-thumbs-up" aria-hidden="true" title="' . Text::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
-								echo '<i id="statusCanceled" class="far fa-thumbs-down yajem_hidden" aria-hidden="true" title="' . Text::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
+								echo '<i id="statusPending" class="fas fa-question-circle yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
+								echo '<i id="statusConfirmed" class="far fa-thumbs-up" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
+								echo '<i id="statusCanceled" class="far fa-thumbs-down yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
 								break;
 							case 2:
-								echo '<i id="statusPending" class="fas fa-question-circle yajem_hidden" aria-hidden="true" title="' . Text::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
-								echo '<i id="statusConfirmed" class="far fa-thumbs-up yajem_hidden" aria-hidden="true" title="' . Text::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
-								echo '<i id="statusCanceled" class="far fa-thumbs-down" aria-hidden="true" title="' . Text::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
+								echo '<i id="statusPending" class="fas fa-question-circle yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
+								echo '<i id="statusConfirmed" class="far fa-thumbs-up yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
+								echo '<i id="statusCanceled" class="far fa-thumbs-down" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
 								break;
 						}
+
 						echo "</span>";
 					}
 					?>
@@ -107,8 +123,8 @@ use Joomla\CMS\Language\Text;
 			</div>
 
 			<label id="basic-section-button" class="yajem_switch" for="yajem_switch_basic"
-                   onclick="switchClass('basic-section-button')">
-                <i class="far fa-minus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
+				   onclick="switchClass('basic-section-button')">
+				<i class="far fa-minus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 			</label>
 
 		</div>
@@ -121,7 +137,7 @@ use Joomla\CMS\Language\Text;
 	</div>
 
 	<!-- Location -->
-    <?php if($this->location) : ?>
+	<?php if($this->location) : ?>
 	<div class="yajem_switch_container">
 		<div class="yajem_section_header yajem_bottom-rounded">
 			<div class="yajem_inline-block">
@@ -136,7 +152,7 @@ use Joomla\CMS\Language\Text;
 				</h2>
 			</div>
 			<label id="location-section-button" class="yajem_switch" for="yajem_switch_location"
-                   onclick="switchClass('location-section-button')">
+				   onclick="switchClass('location-section-button')">
 				<i class="far fa-minus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 			</label>
 		</div>
@@ -158,7 +174,7 @@ use Joomla\CMS\Language\Text;
 					</h2>
 				</div>
 				<label id="map-section-button" class="yajem_switch" for="yajem_switch_map"
-                       onclick="switchClass('map-section-button')">
+					   onclick="switchClass('map-section-button')">
 					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 				</label>
 			</div>
@@ -170,13 +186,13 @@ use Joomla\CMS\Language\Text;
 				<iframe id="google_map"
 						frameborder="0" style="border:0"
 						src="https://www.google.com/maps/embed/v1/place?key=<?php echo $this->yajemHtmlHelper->yajemParams->googleApiKey; ?>
-						    &q=<?php echo $googleAddress ?>"
+							&q=<?php echo $googleAddress ?>"
 						allowfullscreen>
 				</iframe>
 			</div>
 		</div>
 	<?php endif; ?>
-    <?php endif; ?>
+	<?php endif; ?>
 
 	<!-- Registration if used -->
 	<?php if ($this->eventParams->useReg): ?>
@@ -190,7 +206,7 @@ use Joomla\CMS\Language\Text;
 				</div>
 				<?php if (!$this->eventParams->isGuest):?>
 				<label id="registration-section-button" class="yajem_switch" for="yajem_switch_reg"
-                       onclick="switchClass('registration-section-button')">
+					   onclick="switchClass('registration-section-button')">
 					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 				</label>
 				<?php endif; ?>
@@ -216,7 +232,7 @@ use Joomla\CMS\Language\Text;
 					</h2>
 				</div>
 				<label id="comment-section-button" class="yajem_switch" for="yajem_switch_comment"
-                       onclick="switchClass('comment-section-button')">
+					   onclick="switchClass('comment-section-button')">
 					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 				</label>
 			</div>

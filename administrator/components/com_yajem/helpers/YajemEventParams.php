@@ -29,6 +29,7 @@ class YajemEventParams
 	public $isGuest = null;
 
 	/**
+	 * Current logged in User
 	 * @var int|null
 	 * @since version
 	 */

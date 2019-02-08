@@ -16,8 +16,6 @@ $waitingList = (!$this->attendeeNumber < $this->event->registrationLimit && (boo
 
 $regPossible = false;
 
-$user = Factory::getUser();
-
 // Only logged in Users should be able to register for an event
 if (!$this->eventParams->isGuest)
 {
@@ -66,7 +64,7 @@ if (!$guest)
 
 	<form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>"  name="adminForm" id="adminForm" method="post">
 		<div id="reg_buttons" class="yajem_flex_row yajem-button-group">
-			<?php echo $this->yajemHtmlHelper->getRegLinksAttendee($user->id); ?>
+			<?php echo $this->yajemHtmlHelper->getRegLinksAttendee($this->eventParams->userId); ?>
 		</div>
 
 		<input type="radio" class="yajem_hidden" id="reg" name="register" value="reg" onchange="adminForm.submit()" />

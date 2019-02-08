@@ -31,7 +31,7 @@ class YajemModelAttendees extends ListModel
 	 */
 	public function getAttendees($eventId)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		$query = $db->getQuery(true);
 
@@ -60,7 +60,7 @@ class YajemModelAttendees extends ListModel
 	 */
 	public function getAttendeeNumber($eventId)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		$query = $db->getQuery(true);
 
