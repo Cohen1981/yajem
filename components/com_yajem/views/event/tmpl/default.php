@@ -201,7 +201,8 @@ use Joomla\CMS\Language\Text;
 				<div class="yajem_inline-block">
 					<h2>
 						<?php echo JText::_('COM_YAJEM_TITLE_ATTENDEES') . "&nbsp;"; ?>
-						<?php echo ('<i class="fas fa-users" aria-hidden="true"></i>&nbsp;' . $this->attendeeNumber); ?>
+						<?php echo ('<i class="fas fa-users" aria-hidden="true"></i>&nbsp;<span id="attendeeCount">' .
+                            $this->attendeeNumber . '</span>'); ?>
 					</h2>
 				</div>
 				<?php if (!$this->eventParams->isGuest):?>

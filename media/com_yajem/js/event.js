@@ -77,6 +77,17 @@ function comment() {
 }
 
 function changeAttending(task) {
+	let attendeeCount = parseInt(document.getElementById('attendeeCount').innerText);
+
+	if (document.getElementById('yajem_unreg'))
+	{
+		attendeeCount = attendeeCount - 1;
+	}
+	else
+	{
+		attendeeCount = attendeeCount + 1;
+	}
+
 	document.getElementById('reg_buttons').innerHTML = "";
 	var eventId = document.getElementById('attendees_eventId').value;
 	var attendeesId = document.getElementById('attendees_id').value;
@@ -95,6 +106,7 @@ function changeAttending(task) {
 			}
 
 			document.getElementById('yajem_attendees').insertAdjacentHTML('beforeend', html);
+			document.getElementById('attendeeCount').innerText = attendeeCount;
 		}
 
 		xhttp2.onload = function () {
