@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="component" version="3.9" method="upgrade">
+	<name>COM_PROFILEYAJEM</name>
+	<creationDate>03.12.2018</creationDate>
+	<author>Alexander Bahlo</author>
+	<authorEmail>abahlo@hotmail.de</authorEmail>
+	<copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<version>1.0.0</version>
+	<description>COM_PROFILEYAJEM_XML_DESCRIPTION</description>
+
+	<!-- Scripts to run on installation -->
+	<scriptfile>script.php</scriptfile>
+
+	<!-- Runs on install -->
+	<install>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/install/mysql/mysql.sql</file>
+		</sql>
+	</install>
+
+	<!-- Runs on uninstall -->
+	<uninstall>
+		<sql>
+			<file driver="mysql" charset="utf8">sql/uninstall/mysql/mysql.sql</file>
+		</sql>
+	</uninstall>
+
+	<!-- Runs on update -->
+	<update>
+		<schemas>
+			<schemapath type="mysql">sql/updates/mysql</schemapath>
+		</schemas>
+	</update>
+
+	<!-- Media files -->
+	<!--
+	<media folder="media/com_yajem" destination="com_yajem">
+		<folder>css</folder>
+		<folder>images</folder>
+		<folder>js</folder>
+		<folder>webfonts</folder>
+	</media>
+	-->
+
+	<!-- Front-end files -->
+	<files folder="components/com_profileYajem">
+		<filename>profileYajem.php</filename>
+		<filename>controller.php</filename>
+		<folder>controllers</folder>
+		<folder>language</folder>
+		<folder>models</folder>
+		<folder>views</folder>
+	</files>
+
+	<!-- Back-end files -->
+	<administration>
+
+		<!-- Menu entries -->
+		<!--
+		<menu>COM_YAJEMPROFILE</menu>
+		<submenu>
+		-->
+			<!--
+				Note that all & must be escaped to &amp; for the file to be valid
+				XML and be parsed by the installer
+			-->
+		<!--
+			<menu link="option=com_yajem&amp;view=events"
+				  alt="Yajem List/Events">COM_YAJEM_SUBMENU_EVENTS</menu>
+			<menu link="option=com_yajem&amp;view=locations"
+				  alt="Yajem List/Locations">COM_YAJEM_SUBMENU_LOCATIONS</menu>
+			<menu link="option=com_yajem&amp;view=attendees"
+				  alt="Yajem List/Attendees">COM_YAJEM_SUBMENU_ATTENDEES</menu>
+			<menu link="option=com_categories&amp;extension=com_yajem"
+				  view="categories" alt="Locations/Categories">COM_YAJEM_SUBMENU_LOCATIONS_CATEGORY</menu>
+		</submenu>
+		-->
+
+		<!-- Core files -->
+		<files folder="administrator/components/com_profileYajem">
+			<filename>profileYajem.php</filename>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
+			<filename>controller.php</filename>
+			<filename>LICENSE.txt</filename>11
+			<folder>controllers</folder>
+			<folder>helpers</folder>
+			<folder>language</folder>
+			<folder>models</folder>
+			<folder>sql</folder>
+			<folder>tables</folder>
+			<folder>views</folder>
+		</files>
+	</administration>
+
+	<!-- Update servers
+	<updateservers>
+		<server type="extension" priority="1" name="yajem">https://www.example.com/yajem.xml</server>
+	</updateservers>
+	 -->
+</extension>
