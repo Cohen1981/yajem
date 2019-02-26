@@ -10,7 +10,7 @@
 
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
-use Joomla\Component\Yajem\Administrator\Helpers\tableHelper;
+use Yajem\Table\TableHelper;
 use Joomla\Filesystem\Folder;
 use Joomla\CMS\Language\Text;
 
@@ -309,7 +309,7 @@ class YajemTableEvent extends Table
 
 		if ($return)
 		{
-			$tableHelper = new tableHelper;
+			$tableHelper = new TableHelper;
 
 			$tableHelper->deleteForeignTable('#__yajem_attendees', 'Attendee', 'eventId', $pk);
 

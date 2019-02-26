@@ -10,6 +10,7 @@
 namespace Yajem\User;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\ListModel;
 
 /**
  * @package     Joomla\Component\Yajem\Administrator\Classes

@@ -19,6 +19,7 @@
         <delete dir="${dist.dir}" includeemptydirs="true"/>
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.dir}/com_yajem"/>
+        <mkdir dir="${build.dir}/com_profileYajem"/>
         <mkdir dir="${build.dir}/plg_yajem_mailer"/>
         <mkdir dir="${dist.dir}"/>
         <mkdir dir="${dist.dir}/packages"/>
@@ -40,11 +41,12 @@
             </fileset>
         </copy>
 
+        <!-- Packaging com_yajem -->
         <copy todir="${build.dir}/com_yajem">
             <fileset dir="${project.basedir}">
                 <include name="**/LICENSE"/>
-                <include name="administrator/**"/>
-                <include name="components/**"/>
+                <include name="administrator/components/com_yajem/**"/>
+                <include name="components/com_yajem/**"/>
                 <include name="media/**"/>
                 <exclude name="administartor/components/com_yajem/yajem.xml"/>
                 <exclude name="administartor/components/com_yajem/script.php"/>
@@ -88,8 +90,8 @@
                 <include name="**/**"/>
             </fileset>
         </zip>
-        <zip destfile="${dist.dir}/packages/plg_user_profileYajem.zip" includeemptydirs="true">
-            <fileset dir="${build.dir}/plg_user_profileYajem">
+        <zip destfile="${dist.dir}/packages/tpl_survivants.zip" includeemptydirs="true">
+            <fileset dir="${project.basedir}/templates">
                 <include name="**/**"/>
             </fileset>
         </zip>

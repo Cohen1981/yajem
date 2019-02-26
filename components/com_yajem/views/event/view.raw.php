@@ -11,7 +11,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\Component\Yajem\Administrator\Helpers\YajemParams;
+use Yajem\Helpers\YajemParams;
 use Joomla\Component\Yajem\Administrator\Helpers\YajemHtmlHelper;
 use Joomla\Component\Yajem\Administrator\Helpers\EventHtmlHelper;
 
@@ -133,7 +133,6 @@ class YajemViewEvent extends JViewLegacy
 	{
 		$html = "";
 
-		include_once JPATH_ADMINISTRATOR . "/components/com_yajem/helpers/YajemParams.php";
 		$yajemParams = new YajemParams;
 
 		if ($yajemParams->useUserProfile)

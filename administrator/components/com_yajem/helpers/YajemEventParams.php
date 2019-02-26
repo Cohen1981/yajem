@@ -12,8 +12,7 @@ namespace Joomla\Component\Yajem\Administrator\Helpers;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
-
-require_once JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/YajemParams.php';
+use Yajem\Helpers\YajemParams;
 
 /**
  * @package     Yajem\Administrator\Helpers

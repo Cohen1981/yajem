@@ -12,7 +12,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
-use Joomla\Component\Yajem\Administrator\Helpers\tableHelper;
+use Yajem\Table\TableHelper;
 use Joomla\Filesystem\Folder;
 
 /**
@@ -232,7 +232,7 @@ class YajemTableLocation extends Table
 
 		if ($return)
 		{
-			$tableHelper = new tableHelper;
+			$tableHelper = new TableHelper;
 
 			$tableHelper->deleteForeignTable('#__yajem_events', 'Event', 'locationId', $pk);
 

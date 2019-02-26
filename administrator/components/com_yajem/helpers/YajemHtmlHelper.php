@@ -12,8 +12,7 @@ namespace Joomla\Component\Yajem\Administrator\Helpers;
 use Joomla\CMS\Language\Text;
 use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
 use YajemUserHelperAdmin;
-
-require_once JPATH_ADMINISTRATOR . '/components/com_yajem/helpers/YajemEventParams.php';
+use Yajem\Helpers\YajemParams;
 
 /**
  * @package     Yajem\Administrator\Helpers

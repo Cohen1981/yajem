@@ -14,7 +14,7 @@ use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\Component\Yajem\Administrator\Helpers\EventHtmlHelper;
 use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
 use Joomla\Component\Yajem\Administrator\Classes\YajemLocation;
-use Joomla\Component\Yajem\Administrator\Classes\YajemUserProfiles;
+use Yajem\User\YajemUserProfiles;
 
 /**
  * @package     Yajem
@@ -89,7 +89,6 @@ class YajemViewEvent extends HtmlView
 		$this->eventLinks   = $this->yajemHtmlHelper->links;
 
 		// Get userProfiles
-		require_once JPATH_SITE . "/administrator/components/com_yajem/Classes/YajemUserProfiles.php";
 		$yajemUserProfiles = new YajemUserProfiles;
 		$this->userProfiles = $yajemUserProfiles->getProfiles();
 

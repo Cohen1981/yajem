@@ -17,6 +17,7 @@
         <file type="component" id="com_yajem">com_yajem.zip</file>
         <file type="plugin" id="mailer" group="yajem">plg_yajem_mailer.zip</file>
         <file type="plugin" id="profileYajem" group="user">plg_user_profileYajem.zip</file>
+        <file type="template" id="tpl_survivants">tpl_survivants.zip</file>
     </files>
 
     <languages folder="language">

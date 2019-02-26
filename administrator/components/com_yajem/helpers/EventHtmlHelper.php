@@ -11,11 +11,11 @@ namespace Joomla\Component\Yajem\Administrator\Helpers;
 
 use Joomla\CMS\Language\Text;
 use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
-use Joomla\Component\Yajem\Administrator\Classes\YajemUserProfile;
-use Joomla\Component\Yajem\Administrator\Classes\YajemUserProfiles;
+use Yajem\User\YajemUserProfile;
+use Yajem\User\YajemUserProfiles;
+use Yajem\Helpers\YajemParams;
 
 require_once JPATH_SITE . '/administrator/components/com_yajem/helpers/YajemEventParams.php';
-require_once JPATH_SITE . '/administrator/components/com_yajem/Classes/YajemUserProfiles.php';
 require_once JPATH_SITE . '/components/com_yajem/models/attendees.php';
 
 /**
