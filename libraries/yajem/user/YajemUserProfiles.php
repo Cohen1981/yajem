@@ -7,28 +7,25 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Joomla\Component\Yajem\Administrator\Classes;
+namespace Yajem\User;
 
 use Joomla\CMS\Factory;
-use Joomla\Component\Yajem\Administrator\Classes\YajemUserProfile;
-
-require_once JPATH_SITE . "/administrator/components/com_yajem/Classes/YajemUserProfile.php";
 
 /**
  * @package     Joomla\Component\Yajem\Administrator\Classes
  *
- * @since       1.2.0
+ * @since       1.0.0
  */
 class YajemUserProfiles
 {
 	/**
 	 * @var array
-	 * @since 1.2.0
+	 * @since 1.0.0
 	 */
 	private $profiles;
 	/**
 	 * YajemUserProfiles constructor.
-	 * @since 1.2.0
+	 * @since 1.0.0
 	 */
 	public function __construct()
 	{
@@ -49,7 +46,7 @@ class YajemUserProfiles
 	 *
 	 * @return mixed
 	 *
-	 * @since 1.2.0
+	 * @since 1.0.0
 	 */
 	public function getProfiles()
 	{

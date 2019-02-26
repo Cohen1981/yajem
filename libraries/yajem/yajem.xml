@@ -11,6 +11,7 @@
     <description>Tools you need to scratch the itches you have</description>
 
     <files>
-        <folder>tools</folder>
+        <folder>user</folder>
+        <folder>table</folder>
     </files>
 </extension>

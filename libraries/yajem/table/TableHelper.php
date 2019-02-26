@@ -15,9 +15,9 @@ use Joomla\CMS\Factory;
 /**
  * Class holding functions for enforcing data sanity
  *
- * @since       1.1
+ * @since       1.0
  */
-class tableHelper
+class TableHelper
 {
 	/**
 	 * Checks for rows referencing the given id and deletes them
@@ -29,7 +29,7 @@ class tableHelper
 	 *
 	 * @return   integer  number of deleted rows
 	 *
-	 * @since 1.1
+	 * @since 1.0
 	 */
 	public function deleteForeignTable($tableName, $jTableInstanceType, $foreignKeyName, $id)
 	{
