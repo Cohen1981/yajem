@@ -129,12 +129,12 @@ class YajemEventParams
 
 			if ($params->useHost)
 			{
-				$this->useHost = (bool) $event->useOrganizer;
+				$this->useHost = (bool) $event->useHost;
 			}
 
 			if ($params->useOrg)
 			{
-				$this->useOrg = (bool) $event->useHost;
+				$this->useOrg = (bool) $event->useOrganizer;
 			}
 
 			$this->registrationLimit = $event->registrationLimit;

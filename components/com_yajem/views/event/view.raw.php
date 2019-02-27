@@ -179,8 +179,9 @@ class YajemViewEvent extends JViewLegacy
 		$document = JFactory::getDocument();
 		$document->setMimeEncoding('text/html; charset=utf-8');
 		Factory::getApplication()->setHeader('Content-Type', 'text/html; charset=utf-8', true);
-		include_once JPATH_SITE . "/administrator/components/com_yajem/helpers/YajemHtmlHelper.php";
-		$helper = new YajemHtmlHelper;
+		include_once JPATH_SITE . "/administrator/components/com_yajem/helpers/EventHtmlHelper.php";
+		$this->event = $this->get('Data', 'Event');
+		$helper = new EventHtmlHelper($this->event);
 
 		if ($input['eStatus'] == 'confirm')
 		{
