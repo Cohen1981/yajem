@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 
 use Yajem\User\YajemUserProfile;
 use Joomla\CMS\Language\Text;
+use Yajem\Models\EquipmentItem;
 
 ?>
 
@@ -45,7 +46,16 @@ use Joomla\CMS\Language\Text;
 				<?php echo $profile->plzCity; ?>
 			</div>
 			<div class="yajem_cell">
-
+				<?php
+				if ($profile->equipmentItems)
+				{
+					foreach ($profile->equipmentItems as $equipmentItem)
+					{
+						$item = EquipmentItem::cast($equipmentItem);
+						echo $item->type . " " . $item->length . " x " . $item->width . "<br/>" . $item->detail . "<br/><br/>";
+					}
+				}
+				?>
 			</div>
 
 	        <?php endforeach; ?>

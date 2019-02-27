@@ -290,3 +290,9 @@ label {
 	height: 150px;
 	width: 150px;
 }
+.yajem_checkbox{
+	margin: 0px 5px 0px 0px !important;
+}
+.yajem_equipment{
+	padding-top: 10px;
+}

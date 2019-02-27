@@ -14,6 +14,7 @@ use Joomla\CMS\Access\Access;
 use Joomla\CMS\User\UserHelper;
 use Joomla\CMS\Uri\Uri;
 use Yajem\Models\Attendees;
+use Yajem\Models\EquipmentItem;
 
 /**
  * @package     Joomla\Component\Yajem\Administrator\Classes
@@ -83,6 +84,12 @@ class YajemUserProfile extends \stdClass
 	public $accessLevels = null;
 
 	/**
+	 * @var array|null
+	 * @since 1.0.0
+	 */
+	public $equipmentItems = null;
+
+	/**
 	 * YajemUserProfile constructor.
 	 *
 	 * @param   int $userId User id
@@ -92,7 +99,7 @@ class YajemUserProfile extends \stdClass
 	public function __construct($userId)
 	{
 		$profileKeys = array("id", "name", "username", "email", "avatar", "address1", "address2", "postal_code",
-							"city", "phone", "mobil");
+							"city", "phone", "mobil", "dob", "equipment");
 
 		$user = (array) Factory::getUser($userId);
 
@@ -139,6 +146,23 @@ class YajemUserProfile extends \stdClass
 		}
 
 		$this->accessLevels = Access::getAuthorisedViewLevels($this->id);
+
+		if ($this->equipment)
+		{
+			$i = 0;
+
+			foreach ($this->equipment as $equipment)
+			{
+				$this->equipmentItems[$i] = new EquipmentItem(
+					$equipment['key'],
+					$equipment['value'],
+					$equipment['length'],
+					$equipment['width']
+				);
+				$i++;
+			}
+		}
+
 	}
 
 	/**

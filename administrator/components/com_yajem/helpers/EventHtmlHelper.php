@@ -14,6 +14,7 @@ use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
 use Yajem\User\YajemUserProfile;
 use Yajem\User\YajemUserProfiles;
 use Yajem\Helpers\YajemParams;
+use Yajem\Models\EquipmentItem;
 
 require_once JPATH_SITE . '/administrator/components/com_yajem/helpers/YajemEventParams.php';
 require_once JPATH_SITE . '/components/com_yajem/models/attendees.php';
@@ -164,6 +165,8 @@ class EventHtmlHelper
 	}
 
 	/**
+	 * Get the HTML to render an attendee.
+	 *
 	 * @param   int $userId         User Id
 	 * @param   int $status         Status
 	 * @param   int $attendingId    id of attendees table row
@@ -218,6 +221,8 @@ class EventHtmlHelper
 	}
 
 	/**
+	 * Get the registration/ unregistration buttons for the given user and this event.
+	 *
 	 * @param   integer $userId User id
 	 *
 	 * @since 1.2.1
@@ -247,5 +252,40 @@ class EventHtmlHelper
 
 		/** @var string $html */
 		return $html;
+	}
+
+	/**
+	 * @param   int $userId The user id
+	 *
+	 * @return string HTML
+	 *
+	 * @since 1.3.0
+	 */
+	public function getEquipmentHtml($userId) : string
+	{
+		$user = YajemUserProfile::cast($this->userProfiles->getProfile($userId));
+		$html = "<div class='yajem_equipment'>";
+
+		if ($user->equipmentItems)
+		{
+			foreach ($user->equipmentItems as $equipmentItem)
+			{
+				$item = EquipmentItem::cast($equipmentItem);
+				$html = $html .
+					"<label>
+						<input type='checkbox' class='yajem_checkbox' name='equipment' value='" . $item->type . "'>" .
+						$item->type . " " . $item->length . " x " . $item->width .
+					"</label>";
+			}
+		}
+
+		$html = $html . "</div>";
+
+		return $html;
+	}
+
+	public static function cast(EventHtmlHelper $helper) : EventHtmlHelper
+	{
+		return $helper;
 	}
 }

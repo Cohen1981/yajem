@@ -7,11 +7,11 @@
     <copyright>Copyright (C) 2019</copyright>
     <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
     <authorEmail>abahlo@hotmail.de</authorEmail>
-    <version>1.0</version>
+    <version>1.0.0</version>
     <description>Tools you need to scratch the itches you have</description>
 
     <files>
-        <folder>helpers</folder>
+        <folder>Helpers</folder>
         <folder>models</folder>
         <folder>user</folder>
         <folder>table</folder>

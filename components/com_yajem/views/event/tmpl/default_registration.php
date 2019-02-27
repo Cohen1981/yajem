@@ -11,6 +11,7 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+$this->yajemHtmlHelper = \Joomla\Component\Yajem\Administrator\Helpers\EventHtmlHelper::cast($this->yajemHtmlHelper);
 
 $waitingList = (!$this->attendeeNumber < $this->event->registrationLimit && (bool) $this->event->useWaitingList);
 
@@ -63,9 +64,12 @@ if (!$guest)
 <?php if ($regPossible): ?>
 
 	<form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>"  name="adminForm" id="adminForm" method="post">
-		<div id="reg_buttons" class="yajem_flex_row yajem-button-group">
-			<?php echo $this->yajemHtmlHelper->getRegLinksAttendee($this->eventParams->userId); ?>
-		</div>
+		<!--<div class="yajem_grid_section">-->
+			<div id="reg_buttons" class="yajem_flex_row yajem-button-group">
+				<?php echo $this->yajemHtmlHelper->getRegLinksAttendee($this->eventParams->userId); ?>
+			</div>
+			<!--<?php echo $this->yajemHtmlHelper->getEquipmentHtml($this->eventParams->userId); ?>
+		</div>-->
 
 		<input type="radio" class="yajem_hidden" id="reg" name="register" value="reg" onchange="adminForm.submit()" />
 		<input type="radio" class="yajem_hidden" id="regw" name="register" value="regw" onchange="adminForm.submit()" />
