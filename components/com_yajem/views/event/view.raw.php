@@ -12,7 +12,6 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Yajem\Helpers\YajemParams;
-use Joomla\Component\Yajem\Administrator\Helpers\YajemHtmlHelper;
 use Joomla\Component\Yajem\Administrator\Helpers\EventHtmlHelper;
 
 /**
