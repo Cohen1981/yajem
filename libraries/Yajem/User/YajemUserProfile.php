@@ -166,27 +166,20 @@ class YajemUserProfile extends \stdClass
 	}
 
 	/**
-	 * @return array|null
+	 * @return array
 	 * @since 1.0.0
 	 */
-	public function getAttendants()
+	public function getAttendants(): array
 	{
 		$modelAttendees = new Attendees;
 		$events = $modelAttendees->getAllEventsForUser($this->id);
 
-		if (count($events) > 0)
+		foreach ($events as $event)
 		{
-			foreach ($events as $event)
-			{
-				$attendants[$event->eventId] = $event;
-			}
+			$attendants[$event->eventId] = $event;
+		}
 
-			return $attendants;
-		}
-		else
-		{
-			return null;
-		}
+		return $attendants;
 	}
 
 	/**
@@ -200,14 +193,7 @@ class YajemUserProfile extends \stdClass
 	{
 		$attendants = $this->getAttendants();
 
-		if ($attendants === null)
-		{
-			return 0;
-		}
-		else
-		{
-			return $attendants[$eventId]->status;
-		}
+		return $attendants[$eventId]->status;
 	}
 
 	/**
