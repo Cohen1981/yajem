@@ -63,7 +63,7 @@ class YajemViewProfiles extends HtmlView
 		$this->params     = new YajemParams;
 
 		$document = Factory::getDocument();
-		$document->addStyleSheet(JUri::root() . 'media/com_yajem/css/style.css');
+		$document->addStyleSheet(JUri::root() . 'media/com_yajem/css/style.css', array(), array());
 		$document->setHtml5(true);
 
 		parent::display($tpl);

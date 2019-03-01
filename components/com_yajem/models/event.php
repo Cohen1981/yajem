@@ -14,6 +14,7 @@ JHtml::_('stylesheet', JUri::root() . 'media/com_yajem/css/style.css');
 
 use Joomla\CMS\MVC\Model\ItemModel;
 use Joomla\Utilities\ArrayHelper;
+use Yajem\User\YajemUserProfile;
 
 /**
  * @package     Yajem
@@ -196,7 +197,7 @@ class YajemModelEvent extends ItemModel
 
 			if ($event->organizerId)
 			{
-				$organizer = YajemUserHelper::getUser($event->organizerId);
+				$organizer = new YajemUserProfile($event->organizerId);
 				$kbOrganizer = 'ORGANIZER;CN="' . $event->organizer->name . '":Mailto:' . $organizer->email;
 			}
 

@@ -24,7 +24,7 @@ class plgSystemYajemLib extends JPlugin
 	public function onAfterInitialise()
 	{
 		JLoader::registerNamespace('Yajem',
-			JPATH_SITE . '/libraries/yajem',
+			JPATH_SITE . '/libraries/Yajem',
 			false,
 			false,
 			'psr4'

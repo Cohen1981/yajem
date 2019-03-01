@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="library" method="upgrade" version="1.0.0">
     <name>YajemTools</name>
-    <libraryname>yajem</libraryname>
+    <libraryname>Yajem</libraryname>
     <author>Alexander Bahlo</author>
     <creationDate>February 2019</creationDate>
     <copyright>Copyright (C) 2019</copyright>
@@ -12,8 +12,8 @@
 
     <files>
         <folder>Helpers</folder>
-        <folder>models</folder>
-        <folder>user</folder>
-        <folder>table</folder>
+        <folder>Models</folder>
+        <folder>User</folder>
+        <folder>Table</folder>
     </files>
 </extension>

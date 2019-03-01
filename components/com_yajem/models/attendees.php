@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Factory;
+use Yajem\User\YajemUserProfile;
 
 /**
  * @package     Yajem
@@ -44,7 +45,7 @@ class YajemModelAttendees extends ListModel
 		$attendees = $db->loadObjectList();
 
 		foreach ($attendees as $attendee) {
-				$attendee->attendee = YajemUserHelper::getUser($attendee->userId);
+				$attendee->attendee = new YajemUserProfile($attendee->userId);
 		}
 
 		return (object) $attendees;

@@ -101,16 +101,18 @@ $userId = $user->get('id');
 		<div>
 			<b><?php echo Text::_('COM_YAJEM_EQUIPMENT_AREA'); ?></b>
         </div>
-		<?php foreach ($profile->equipmentItems as $item) : ?>
-		<?php $item = EquipmentItem::cast($item); ?>
-			<div>
-				<?php echo $item->type; ?><br/>
-				<?php echo $item->detail; ?>
-			</div>
-			<div>
-				<?php echo $item->length . " x " . $item->width; ?>
-			</div>
-		<?php endforeach; ?>
+        <?php if($profile->equipmentItems): ?>
+            <?php foreach ($profile->equipmentItems as $item) : ?>
+            <?php $item = EquipmentItem::cast($item); ?>
+                <div>
+                    <?php echo $item->type; ?><br/>
+                    <?php echo $item->detail; ?>
+                </div>
+                <div>
+                    <?php echo $item->length . " x " . $item->width; ?>
+                </div>
+            <?php endforeach; ?>
+        <?php endif; ?>
 	</div>
 
 </div>

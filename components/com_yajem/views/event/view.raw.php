@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Factory;
 use Yajem\Helpers\YajemParams;
 use Joomla\Component\Yajem\Administrator\Helpers\EventHtmlHelper;
+use Yajem\User\YajemUserProfile;
 
 /**
  * @package     Yajem
@@ -113,16 +114,16 @@ class YajemViewEvent extends JViewLegacy
 
 		$commentId = $this->getModel('Comment')->getState('comment.id');
 		$timestamp = $this->getModel('Comment')->getState('timestampSave');
-		$userProfile = YajemUserHelper::getUser($input['userId']);
+		$userProfile = new YajemUserProfile($input['userId']);
 		$return = $this->getCommentHtml($commentId, $userProfile, $timestamp, $input['comment']);
 		echo $return;
 	}
 
 	/**
-	 * @param   int         $commentId      The new Comment ID
-	 * @param   array       $userProfile    The userProfile
-	 * @param   string      $timestamp      Timestamp the comment was created
-	 * @param   string      $comment        The comment
+	 * @param   int                 $commentId      The new Comment ID
+	 * @param   YajemUserProfile    $userProfile    The userProfile
+	 * @param   string              $timestamp      Timestamp the comment was created
+	 * @param   string              $comment        The comment
 	 *
 	 * @return string
 	 *
@@ -137,10 +138,10 @@ class YajemViewEvent extends JViewLegacy
 		if ($yajemParams->useUserProfile)
 		{
 			// Which Avatar to use
-			if ($userProfile['avatar'])
+			if ($userProfile->avatar)
 			{
 				$avatar = '<img id="avatar_' . $commentId . '" class="yajem_comment_avatar yajem_img_round" src="' .
-					$userProfile['avatar'] . '"/>';
+					$userProfile->avatar . '"/>';
 			}
 			else
 			{
@@ -157,7 +158,7 @@ class YajemViewEvent extends JViewLegacy
 		$html = $html . "<a onclick=\"delComment(" . $commentId . ")\">";
 		$html = $html . "<i class=\"fas fa-trash-alt\" aria-hidden=\"true\"></i>";
 		$html = $html . "</a></div>";
-		$html = $html . $userProfile['name'] . " " . $timestamp;
+		$html = $html . $userProfile->name . " " . $timestamp;
 		$html = $html . "</div><div class=\"yajem_comment\">" . nl2br($comment) . "</div></div>";
 
 		return $html;

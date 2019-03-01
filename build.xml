@@ -106,7 +106,7 @@
             </fileset>
         </zip>
         <zip destfile="${dist.dir}/packages/lib_yajem.zip" includeemptydirs="true">
-            <fileset dir="${project.basedir}/libraries/yajem">
+            <fileset dir="${project.basedir}/libraries/Yajem">
                 <include name="**/**"/>
             </fileset>
         </zip>

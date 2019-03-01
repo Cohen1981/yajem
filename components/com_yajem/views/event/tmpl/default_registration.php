@@ -11,6 +11,8 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Yajem\User\YajemUserProfile;
+
 $this->yajemHtmlHelper = \Joomla\Component\Yajem\Administrator\Helpers\EventHtmlHelper::cast($this->yajemHtmlHelper);
 
 $waitingList = (!$this->attendeeNumber < $this->event->registrationLimit && (bool) $this->event->useWaitingList);
@@ -51,7 +53,7 @@ if (!$guest)
 	{
 		foreach ($this->attendees as $i => $item)
 		{
-			echo $this->yajemHtmlHelper->getAttendingHtml($item->attendee['id'], $item->status, $item->id);
+			echo $this->yajemHtmlHelper->getAttendingHtml($item->attendee->id, $item->status, $item->id);
 		}
 	}
 }
