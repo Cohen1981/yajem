@@ -165,7 +165,9 @@ class YajemModelEvent extends ItemModel
 	 */
 	public function makeIcs()
 	{
-		if ($eventId = $this->getState('item.id'))
+		$eventId = ($this->getState('item.id')) ? $this->getState('item.id') : $this->getState('id');
+
+		if ($eventId)
 		{
 			JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_yajem/models');
 

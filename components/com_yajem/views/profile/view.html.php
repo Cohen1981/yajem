@@ -47,6 +47,7 @@ class YajemViewProfile extends HtmlView
 
 		$document = Factory::getDocument();
 		$document->addStyleSheet(JUri::root() . 'media/com_yajem/css/style.css');
+		$document->addScript(JUri::root() . 'media/com_yajem/js/ical.js');
 		$document->setHtml5(true);
 
 		parent::display($tpl);

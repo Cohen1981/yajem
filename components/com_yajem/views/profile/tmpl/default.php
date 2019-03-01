@@ -143,9 +143,15 @@ $userId = $user->get('id');
 						break;
 				}
 
-				echo "<div><a href=\"" .
+				echo "<div>";
+				echo "<a href=\"" .
 					JRoute::_('index.php?option=com_yajem&task=event.view&id=' . (int) $attendet->eventId) . "\">" .
-					$attendet->event . "</a></div>";
+					$attendet->event . "</a>";
+				echo "<a onclick=\"getIcs(" . $attendet->eventId . ")\" class=\"hasPopover\"
+					data-content=\"" . Text::_('COM_YAJEM_ICS_DOWNLOAD_DESC') . "\"
+					data-original-title=\"" . Text::_('COM_YAJEM_ICS_DOWNLOAD') . "\">
+				    <i class=\"fas fa-file-download\" aria-hidden=\"true\"></i></a>";
+                echo "</div>";
 				echo $userStatus;
 			}
 		}

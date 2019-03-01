@@ -86,9 +86,14 @@ class YajemControllerEvent extends JControllerLegacy
 	 */
 	public function getIcs()
 	{
+		$input = Factory::getApplication()->input->getArray();
+		$id = ($input['id']) ? $input['id'] : $input['Itemid'];
+
 		if ($view = $this->getView('Event', 'raw'))
 		{
-			$view->setModel($this->getModel('Event'));
+			$event = $this->getModel('Event');
+			$event->setState('id', $id);
+			$view->setModel($event);
 			$view->setModel($this->getModel('Locations'));
 
 			$view->document = JFactory::getDocument();
