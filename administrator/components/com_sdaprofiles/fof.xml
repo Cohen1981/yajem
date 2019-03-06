@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fof>
+
+    <common>
+
+        <container>
+            <!-- Set up the The Factory class which will be used by FOF to determine how much "magic" you want FOF to apply to your component.-->
+            <option name="factoryClass"><![CDATA[FOF30\Factory\SwitchFactory]]></option>
+
+            <!-- Use componentNamespace option to configure more unique namespaces, recommened to use something like CompanyName\ComponentName -->
+            <option name="componentNamespace"><![CDATA[Sda\Profiles]]></option>
+
+        </container>
+
+    </common>
+
+</fof>
