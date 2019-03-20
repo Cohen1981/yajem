@@ -48,6 +48,12 @@
 
 	</files>
 
+	<!-- Front end translation files -->
+	<languages folder="language/frontend">
+		<language tag="en-GB">en-GB/en-GB.com_sdaprofiles.ini</language>
+		<language tag="de-DE">de-DE/de-DE.com_sdaprofiles.ini</language>
+	</languages>
+
 	<!-- Back-end files -->
 	<administration>
 		<!-- Menu entries -->
@@ -78,6 +84,14 @@
 			<folder>Toolbar</folder>
 			<folder>View</folder>
 		</files>
+
+		<!-- Back-end translation files -->
+		<languages folder="language/backend">
+			<language tag="en-GB">en-GB/en-GB.com_sdaprofiles.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_sdaprofiles.sys.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_sdaprofiles.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_sdaprofiles.sys.ini</language>
+		</languages>
 	</administration>
 
 	<!-- Update servers

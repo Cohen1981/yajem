@@ -10,7 +10,7 @@
 			<!-- Use componentNamespace option to configure more unique namespaces, recommened to use something like CompanyName\ComponentName -->
 			<option name="componentNamespace"><![CDATA[Sda\Profiles]]></option>
 			<option name="scaffolding">1</option>
-			<option name="saveScaffolding">0</option>
+			<option name="saveScaffolding">1</option>
 
 		</container>
 
@@ -19,7 +19,7 @@
 		</dispatcher>
 
 		<model name="*">
-			<behaviors>Filters</behaviors>
+			<behaviors merge="1">Filters</behaviors>
 		</model>
 
 	</common>
