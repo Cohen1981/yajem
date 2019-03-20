@@ -1,4 +1,11 @@
 <?php
+/**
+ * @package     Sda\Profiles
+ *
+ * @copyright   2019 Alexander Bahlo
+ * @license     A "Slug" license name e.g. GPL2
+ */
+
 use FOF30\Container\Container;
 
 defined('_JEXEC') or die();

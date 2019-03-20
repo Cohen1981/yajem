@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Sda\Profiles\Admin\Model
+ * @package     Sda\Profiles\Model
  * @subpackage
  *
  * @copyright   A copyright
@@ -13,23 +13,46 @@ use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 
 /**
- * @package     Sda\Profiles\Admin\Model
+ * @package     Sda\Profiles\Model
  *
  * @since       0.0.1
  */
 class Fitting extends DataModel
 {
+	public $fittingId;
+	public $sdaprofilesProfileId;
+	public $type;
+	public $detail;
+	public $length;
+	public $width;
 	/**
 	 * Fitting constructor.
 	 *
-	 * @param   Container $container    Container
-	 * @param   array     $config       Configuration array
+	 * @param   Container $container    The container
+	 * @param   array     $config       The Config array
 	 * @since 0.0.1
 	 */
 	public function __construct(Container $container, array $config = array())
 	{
+		$defaultConfig = array(
+			'tableName'   => '#__sdaprofiles_fittings',
+			'idFieldName' => 'fittingId',
+		);
+
+		if (!is_array($config) || empty($config))
+		{
+			$config = array();
+		}
+
+		$config = array_merge($defaultConfig, $config);
+
 		parent::__construct($container, $config);
 
-		$this->belongsTo('profile', 'Profile', 'sdaprofiles_profile_id', 'sdaprofiles_profile_id');
+		$this->belongsTo('profile',
+			'Profile',
+			'sdaprofilesProfileId',
+			'profileId'
+		);
 	}
+
 }

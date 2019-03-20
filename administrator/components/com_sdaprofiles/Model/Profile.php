@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Sda\Profiles\Admin\Model
+ * @package     Sda\Profiles\Model
  * @subpackage
  *
  * @copyright   A copyright
@@ -11,33 +11,103 @@ namespace Sda\Profiles\Admin\Model;
 
 use FOF30\Container\Container;
 use FOF30\Model\DataModel;
+use DateTime;
 
 /**
- * @package     Sda\Profiles\Admin\Model
+ * @package     Sda\Profiles\Model
  *
  * @since       0.0.1
  */
 class Profile extends DataModel
 {
-	public $sdaprofiles_profile_id;
-	public $users_user_id;
-	public $avatar;
-	public $address1;
-	public $address2;
-	public $city;
+	/**
+	 * @var		int|null
+	 * @since	0.0.1
+	 */
+	public $profileId = null;
+
+	/**
+	 * @var		int|null
+	 * @since	0.0.1
+	 */
+	public $usersUserId = null;
+
+	/**
+	 * @var		String|null
+	 * @since	0.0.1
+	 */
+	public $avatar = null;
+
+	/**
+	 * @var		String|null
+	 * @since	0.0.1
+	 */
+	public $address1 = null;
+
+	/**
+	 * @var		String|null
+	 * @since	0.0.1
+	 */
+	public $address2 = null;
+
+	/**
+	 * @var		String|null
+	 * @since	0.0.1
+	 */
+	public $city = null;
+
+	/**
+	 * @var		int|null
+	 * @since	0.0.1
+	 */
+	public $postal = null;
+
+	/**
+	 * @var		String|null
+	 * @since	0.0.1
+	 */
+	public $phone = null;
+
+	/**
+	 * @var		String|null
+	 * @since	0.0.1
+	 */
+	public $mobil = null;
+
+	/**
+	 * @var		DateTime|null
+	 * @since	0.0.1
+	 */
+	public $dob = null;
+
 	/**
 	 * Profile constructor.
 	 *
-	 * @param   Container $container    Container
-	 * @param   array     $config       Configuration Array
+	 * @param   Container $container    The container
+	 * @param   array     $config       The Config array
 	 * @since 0.0.1
 	 */
 	public function __construct(Container $container, array $config = array())
 	{
+		$defaultConfig = array(
+			'tableName'   => '#__sdaprofiles_profiles',
+			'idFieldName' => 'profileId',
+		);
+
+		if (!is_array($config) || empty($config))
+		{
+			$config = array();
+		}
+
+		$config = array_merge($defaultConfig, $config);
+
 		parent::__construct($container, $config);
 
-		$this->hasOne('user', 'profile@com_users', 'users_user_id', 'id');
-		$this->hasMany('fittings', 'Profile', 'sdaprofiles_profile_id', 'sdaprofiles_profile_id');
+		$this->hasMany('fittings',
+			'Fitting',
+			'profileId',
+			'sdaprofilesProfileId'
+		);
 	}
 
 }

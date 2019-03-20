@@ -1,17 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <fof>
 
-    <common>
+	<common>
 
-        <container>
-            <!-- Set up the The Factory class which will be used by FOF to determine how much "magic" you want FOF to apply to your component.-->
-            <option name="factoryClass"><![CDATA[FOF30\Factory\SwitchFactory]]></option>
+		<container>
+			<!-- Set up the The Factory class which will be used by FOF to determine how much "magic" you want FOF to apply to your component.-->
+			<option name="factoryClass"><![CDATA[FOF30\Factory\MagicFactory]]></option>
 
-            <!-- Use componentNamespace option to configure more unique namespaces, recommened to use something like CompanyName\ComponentName -->
-            <option name="componentNamespace"><![CDATA[Sda\Profiles]]></option>
+			<!-- Use componentNamespace option to configure more unique namespaces, recommened to use something like CompanyName\ComponentName -->
+			<option name="componentNamespace"><![CDATA[Sda\Profiles]]></option>
+			<option name="scaffolding">1</option>
+			<option name="saveScaffolding">0</option>
 
-        </container>
+		</container>
 
-    </common>
+		<dispatcher>
+			<option name="defaultView">Profiles</option>
+		</dispatcher>
+
+		<model name="*">
+			<behaviors>Filters</behaviors>
+		</model>
+
+	</common>
+
+	<!-- Component backend options -->
+	<backend>
+		<!-- The same options as Common Settings apply here, too -->
+	</backend>
+
+	<!-- Component frontend options -->
+	<frontend>
+		<!-- The same options as Common Settings apply here, too -->
+	</frontend>
 
 </fof>
