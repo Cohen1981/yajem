@@ -8,14 +8,14 @@
 			<option name="factoryClass"><![CDATA[FOF30\Factory\MagicFactory]]></option>
 
 			<!-- Use componentNamespace option to configure more unique namespaces, recommened to use something like CompanyName\ComponentName -->
-			<option name="componentNamespace"><![CDATA[Sda\Profiles]]></option>
+			<option name="componentNamespace"><![CDATA[Sda\Jem]]></option>
 			<option name="scaffolding">1</option>
 			<option name="saveScaffolding">1</option>
 
 		</container>
 
 		<dispatcher>
-			<option name="defaultView">Profiles</option>
+			<option name="defaultView">Events</option>
 		</dispatcher>
 
 		<model name="*">
@@ -33,7 +33,7 @@
 	<frontend>
 		<!-- The same options as Common Settings apply here, too -->
 		<!-- Controller, View and Toolbar setup. One tag per view. -->
-		<view name="Profiles">
+		<view name="Events">
 
 			<!-- Controller and View options -->
 			<config>
@@ -42,49 +42,24 @@
 			</config>
 
 			<!-- Toolbar configuration -->
-			<toolbar title="COM_SDAPROFILES_TITLE_PROFILES_BROWSE" task="browse">
-			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_PROFILES_READ" task="read">
-				<button type="back" />
-			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_PROFILES_EDIT" task="edit">
-				<button type="apply" />
-				<button type="save" />
-				<button type="cancel" />
-			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_PROFILES_EDIT" task="add">
-				<button type="apply" />
-				<button type="save" />
-				<button type="cancel" />
-			</toolbar>
-		</view>
-
-		<view name="Fittings">
-
-			<!-- Controller and View options -->
-			<config>
-				<option name="useConfigurationFile">1</option>
-				<option name="renderFrontendButtons">1</option>
-			</config>
-
-			<!-- Toolbar configuration -->
-			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_BROWSE" task="browse">
+			<toolbar title="COM_SDAPROFILES_TITLE_EVENTS_BROWSE" task="browse">
 				<button type="new" />
 			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_READ" task="read">
+			<toolbar title="COM_SDAPROFILES_TITLE_EVENTS_READ" task="read">
 				<button type="back" />
 			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_EDIT" task="edit">
+			<toolbar title="COM_SDAPROFILES_TITLE_EVENTS_EDIT" task="edit">
 				<button type="apply" />
 				<button type="save" />
 				<button type="cancel" />
 			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_EDIT" task="add">
+			<toolbar title="COM_SDAPROFILES_TITLE_EVENTS_EDIT" task="add">
 				<button type="apply" />
 				<button type="save" />
 				<button type="cancel" />
 			</toolbar>
 		</view>
+
 	</frontend>
 
 </fof>

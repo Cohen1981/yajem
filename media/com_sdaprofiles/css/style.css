@@ -1,0 +1,41 @@
+@import "fontawesome-all.min.css";
+
+.sda_section_container{
+	display: block;
+	padding-bottom: 10px;
+	padding-top: 10px;
+	border-bottom: darkgrey solid 1px;
+	clear: both;
+	overflow: auto;
+}
+.sda_grid_section {
+	display: grid;
+	grid-template-columns: minmax(100px, 200px) auto;
+	grid-gap: 10px;
+}
+.sdaprofiles_flex_row {
+	display: flex;
+	flex-wrap: wrap;
+}
+.sdaprofiles_cell {
+	margin-right: 10px;
+	margin-bottom: 10px;
+}
+.sdaprofiles_avatar {
+	height: 60px;
+	width: 60px;
+	border-bottom-left-radius: 50%;
+	border-bottom-right-radius: 50%;
+	border: solid 1px;
+}
+.sdaprofiles_fittings_grid {
+	display: grid;
+	grid-template-columns: auto auto auto auto;
+}
+.float-right {
+	float: right;
+	margin-left: 5px;
+}
+.float-left {
+	float: left;
+}

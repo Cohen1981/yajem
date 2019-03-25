@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_profiles`
 (
   `sdaprofiles_profile_id` int unsigned auto_increment,
   `users_user_id` int unsigned comment 'foreign key to joomla user #__users',
+  `userName` varchar(255) null,
   `avatar` varchar(255) null,
   `address1` varchar(255) null,
   `address2` varchar(255) null,

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form type="browse" show_header="1" show_filters="1" show_pagination="1" norows_placeholder="COM_SDAPROFILES_COMMON_NORECORDS">
+  <headerset>
+    <header name="sdaprofiles_profile_id" type="RowSelect" label="COM_SDAPROFILES_PROFILE_SDAPROFILES_PROFILE_ID_LABEL" sortable="true" tdwidth="20"/>
+    <header name="users_user_id" type="Searchable" label="COM_SDAPROFILES_PROFILE_USERS_USER_ID_LABEL" sortable="true"/>
+    <header name="avatar" type="Searchable" label="COM_SDAPROFILES_PROFILE_AVATAR_LABEL" sortable="true"/>
+    <header name="address1" type="Searchable" label="COM_SDAPROFILES_PROFILE_ADDRESS1_LABEL" sortable="true"/>
+    <header name="address2" type="Searchable" label="COM_SDAPROFILES_PROFILE_ADDRESS2_LABEL" sortable="true"/>
+    <header name="city" type="Searchable" label="COM_SDAPROFILES_PROFILE_CITY_LABEL" sortable="true"/>
+    <header name="postal" type="Searchable" label="COM_SDAPROFILES_PROFILE_POSTAL_LABEL" sortable="true"/>
+    <header name="phone" type="Searchable" label="COM_SDAPROFILES_PROFILE_PHONE_LABEL" sortable="true"/>
+    <header name="mobil" type="Searchable" label="COM_SDAPROFILES_PROFILE_MOBIL_LABEL" sortable="true"/>
+    <header name="dob" type="Date" label="COM_SDAPROFILES_PROFILE_DOB_LABEL" sortable="true"/>
+    <header name="enabled" type="Published" label="COM_SDAPROFILES_PROFILE_ENABLED_LABEL" sortable="true"/>
+  </headerset>
+  <fieldset name="items">
+    <field name="sdaprofiles_profile_id" type="SelectRow"/>
+    <field name="users_user_id" type="Number"/>
+    <field name="avatar"
+           type="Image"
+           width="50"
+           height="50"
+    />
+    <field name="address1" type="Text"/>
+    <field name="address2" type="Text"/>
+    <field name="city" type="Text"/>
+    <field name="postal" type="Number"/>
+    <field name="phone" type="Tel"/>
+    <field name="mobil" type="Text"/>
+    <field name="dob"
+           type="Calendar"
+           format="%Y-%m-%d"
+    />
+    <field name="enabled" type="Actions"/>
+  </fieldset>
+</form>
