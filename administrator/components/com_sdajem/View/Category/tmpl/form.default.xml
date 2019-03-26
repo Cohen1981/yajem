@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form type="browse" show_header="1" show_filters="1" show_pagination="1" norows_placeholder="COM_SDAJEM_COMMON_NORECORDS">
+  <headerset>
+    <header name="sdajem_category_id" type="RowSelect" label="COM_SDAJEM_CATEGORY_SDAJEM_CATEGORY_ID_LABEL" sortable="true" tdwidth="20"/>
+    <header name="title" type="Searchable" label="COM_SDAJEM_CATEGORY_TITLE_LABEL"/>
+    <header name="type" type="Searchable" label="COM_SDAJEM_CATEGORY_TYPE_LABEL" sortable="true"/>
+  </headerset>
+  <fieldset name="items">
+    <field name="sdajem_category_id" type="SelectRow"/>
+    <field name="title" type="Sortable" url="index.php?option=com_sdajem&amp;view=Category&amp;id=[ITEM:ID]&amp;[TOKEN]=1"/>
+    <field name="type" type="Text"/>
+  </fieldset>
+</form>

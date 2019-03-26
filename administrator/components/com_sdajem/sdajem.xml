@@ -34,7 +34,7 @@
 	</update>
 
 	<!-- Media files -->
-	<media folder="media/com_yajem" destination="com_sdajem">
+	<media folder="media/com_sdajem" destination="com_sdajem">
 		<folder>css</folder>
 		<folder>images</folder>
 		<folder>js</folder>
@@ -42,26 +42,28 @@
 	</media>
 
 	<!-- Front-end files -->
-	<files folder="components/com_yajem">
+	<files folder="components/com_sdajem">
 	</files>
 
 	<!-- Back-end files -->
 	<administration>
 		<!-- Menu entries -->
-		<menu>COM_YAJEM</menu>
+		<menu>COM_SDAJEM</menu>
 		<submenu>
 			<!--
 				Note that all & must be escaped to &amp; for the file to be valid
 				XML and be parsed by the installer
 			-->
-			<menu link="option=com_sdaprofiles&amp;view=profiles"
-			      alt="Profiles List/Profiles">COM_SDAPROFILES_SUBMENU_PROFILES</menu>
-			<menu link="option=com_sdaprofiles&amp;view=fittings"
-			      alt="Fittings List/Fittings">COM_SDAPROFILES_SUBMENU_FITTINGS</menu>
+			<menu link="option=com_sdajem&amp;view=events"
+			      alt="Profiles List/Profiles">COM_SDAJEM_SUBMENU_EVENTS</menu>
+			<menu link="option=com_sdajem&amp;view=locations"
+			      alt="Fittings List/Fittings">COM_SDAJEM_SUBMENU_LOCATIONS</menu>
+			<menu link="option=com_sdajem&amp;view=categories"
+			      alt="Fittings List/Fittings">COM_SDAJEM_SUBMENU_CATEGORIES</menu>
 		</submenu>
 
 		<!-- Core files -->
-		<files folder="administrator/components/com_yajem">
+		<files folder="administrator/components/com_sdajem">
 			<filename>sdajem.php</filename>
 			<filename>sdajem.xml</filename>
 			<filename>config.xml</filename>

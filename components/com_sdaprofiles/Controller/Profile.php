@@ -27,6 +27,7 @@ class Profile extends AdminProfile
 	 */
 	public function onBeforeAdd()
 	{
+		parent::onBeforeAdd();
 		$this->defaultsForAdd['users_user_id'] = Factory::getUser()->id;
 		$this->defaultsForAdd['userName'] = Factory::getUser()->username;
 	}
@@ -38,6 +39,7 @@ class Profile extends AdminProfile
 	 */
 	public function onBeforeSave()
 	{
+		parent::onBeforeSave();
 		$this->input->set('users_user_id', Factory::getUser()->id);
 		$this->input->set('userName', Factory::getUser()->username);
 	}

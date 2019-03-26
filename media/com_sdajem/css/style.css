@@ -1,0 +1,47 @@
+@import "fontawesome-all.min.css";
+
+.sdajem_flex_row {
+	display: flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+}
+.sdajem_cell {
+	display: block;
+	width: auto;
+	padding: 10px 10px 10px 0px;
+}
+.sdajem_head {
+	font-weight: bold;
+}
+
+.sdajem_event_grid {
+	display: grid;
+	grid-template-columns: minmax(100px, 200px) auto;
+	grid-row-gap: 10px;
+}
+
+.sdajem_avatar {
+	height: 60px;
+	width: 60px;
+	border-bottom-left-radius: 50%;
+	border-bottom-right-radius: 50%;
+	border: solid 1px;
+}
+
+.sdajem_comment_row {
+	display: grid;
+	grid-template-columns: 80px auto 20px;
+	border-bottom: grey solid 1px;
+	margin-bottom: 10px;
+}
+.sdajem_comment_user {
+	margin-right: 10px;
+}
+.sdajem_comment_text {
+}
+#comment {
+	display: inline-block;
+	width: 98%;
+	height: 100px;
+	margin-bottom: 10px;
+}

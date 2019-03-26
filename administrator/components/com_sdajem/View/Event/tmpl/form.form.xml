@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form validate="true">
+  <fieldset name="scaffolding" label="COM_SDAJEM_EVENT_GROUP_BASIC">
+    <field name="sdajem_categorie_id"
+           type="Model"
+           model="categories"
+           key_field="sdajem_category_id"
+           value_field="title"
+           label="COM_SDAJEM_EVENT_SDAJEM_CATEGORIE_ID_LABEL"
+           description="COM_SDAJEM_EVENT_SDAJEM_CATEGORIE_ID_DESC">
+      <state key="type">Event</state>
+    </field>
+    <field name="title" type="Text" label="COM_SDAJEM_EVENT_TITLE_LABEL" description="COM_SDAJEM_EVENT_TITLE_DESC"/>
+    <field name="slug" type="Text" label="COM_SDAJEM_EVENT_SLUG_LABEL" description="COM_SDAJEM_EVENT_SLUG_DESC"/>
+    <field name="description" type="Editor" label="COM_SDAJEM_EVENT_DESCRIPTION_LABEL" description="COM_SDAJEM_EVENT_DESCRIPTION_DESC"/>
+    <field name="url" type="Url" label="COM_SDAJEM_EVENT_URL_LABEL" description="COM_SDAJEM_EVENT_URL_DESC"/>
+    <field name="image" type="Media" label="COM_SDAJEM_EVENT_IMAGE_LABEL" description="COM_SDAJEM_EVENT_IMAGE_DESC"/>
+    <field name="sdajem_location_id" type="Model" model="locations" key_field="sdajem_location_id" value_field="title" label="COM_SDAJEM_EVENT_SDAJEM_LOCATION_ID_LABEL" description="COM_SDAJEM_EVENT_SDAJEM_LOCATION_ID_DESC"/>
+    <field name="hostId"
+           type="Model"
+           model="contacts"
+           key_field="id"
+           value_field="name"
+           label="COM_SDAJEM_EVENT_HOSTID_LABEL"
+           description="COM_SDAJEM_EVENT_HOSTID_DESC"
+    />
+    <field name="organizerId"
+           type="User"
+           label="COM_SDAJEM_EVENT_ORGANIZERID_LABEL"
+           description="COM_SDAJEM_EVENT_ORGANIZERID_DESC"/>
+    <field name="startDateTime" type="Calendar" label="COM_SDAJEM_EVENT_STARTDATETIME_LABEL" description="COM_SDAJEM_EVENT_STARTDATETIME_DESC"/>
+    <field name="endDateTime" type="Calendar" label="COM_SDAJEM_EVENT_ENDDATETIME_LABEL" description="COM_SDAJEM_EVENT_ENDDATETIME_DESC"/>
+    <field name="allDayEvent" type="Boolean" label="COM_SDAJEM_EVENT_ALLDAYEVENT_LABEL" description="COM_SDAJEM_EVENT_ALLDAYEVENT_DESC"/>
+    <field name="useRegistration" type="Boolean" label="COM_SDAJEM_EVENT_USEREGISTRATION_LABEL" description="COM_SDAJEM_EVENT_USEREGISTRATION_DESC"/>
+    <field name="registerUntil" type="Calendar" label="COM_SDAJEM_EVENT_REGISTERUNTIL_LABEL" description="COM_SDAJEM_EVENT_REGISTERUNTIL_DESC"/>
+    <field name="registrationLimit" type="Number" label="COM_SDAJEM_EVENT_REGISTRATIONLIMIT_LABEL" description="COM_SDAJEM_EVENT_REGISTRATIONLIMIT_DESC"/>
+    <field name="useWaitingList" type="Boolean" label="COM_SDAJEM_EVENT_USEWAITINGLIST_LABEL" description="COM_SDAJEM_EVENT_USEWAITINGLIST_DESC"/>
+    <field name="eventStatus" type="list" default="" label="COM_SDAJEM_EVENT_EVENTSTATUS_LABEL" description="COM_SDAJEM_EVENT_EVENTSTATUS_DESC">
+      <option value="0">Open</option>
+      <option value="1">Bestätigt</option>
+      <option value="2">Abgesagt</option>
+    </field>
+    <field name="access" type="AccessLevel" label="COM_SDAJEM_EVENT_ACCESS_LABEL" description="COM_SDAJEM_EVENT_ACCESS_DESC"/>
+    <field name="enabled" type="Published" label="COM_SDAJEM_EVENT_ENABLED_LABEL" description="COM_SDAJEM_EVENT_ENABLED_DESC"/>
+    <field name="hits" type="Number" label="COM_SDAJEM_EVENT_HITS_LABEL" description="COM_SDAJEM_EVENT_HITS_DESC"/>
+  </fieldset>
+</form>
