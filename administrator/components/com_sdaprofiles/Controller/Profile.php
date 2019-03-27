@@ -10,7 +10,6 @@
 namespace Sda\Profiles\Admin\Controller;
 
 use FOF30\Controller\DataController;
-use Joomla\CMS\Factory;
 
 class Profile extends DataController
 {

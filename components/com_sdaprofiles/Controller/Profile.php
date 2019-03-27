@@ -10,6 +10,8 @@
 namespace Sda\Profiles\Site\Controller;
 
 use Sda\Profiles\Admin\Controller\Profile as AdminProfile;
+use FOF30\Container\Container;
+use Sda\Profiles\Site\Model\User;
 use Joomla\CMS\Factory;
 
 /**
@@ -27,9 +29,30 @@ class Profile extends AdminProfile
 	 */
 	public function onBeforeAdd()
 	{
-		parent::onBeforeAdd();
-		$this->defaultsForAdd['users_user_id'] = Factory::getUser()->id;
-		$this->defaultsForAdd['userName'] = Factory::getUser()->username;
+		$currentUser = Factory::getUser()->id;
+
+		$container = Container::getInstance('com_sdaprofiles');
+
+		/** @var User $user */
+		$user = $container->factory->model('User');
+
+		$user->load((int) $currentUser);
+
+		if ($user->profile)
+		{
+			$this->setRedirect('index.php?option=com_sdaprofiles&task=edit&id=' . $user->profile->sdaprofiles_profile_id);
+		}
+		else
+		{
+			/** @var \Sda\Profiles\Site\Model\Profile $profile */
+			$profile = $container->factory->model('Profile');
+			$profile->users_user_id = Factory::getUser()->id;
+			$profile->userName = Factory::getUser()->username;
+			$profile->save();
+			$this->setRedirect('index.php?option=com_sdaprofiles&task=edit&id=' . $profile->sdaprofiles_profile_id);
+		}
+
+		$this->redirect();
 	}
 
 	/**
@@ -42,5 +65,27 @@ class Profile extends AdminProfile
 		parent::onBeforeSave();
 		$this->input->set('users_user_id', Factory::getUser()->id);
 		$this->input->set('userName', Factory::getUser()->username);
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function addFittingAjax()
+	{
+		$input = $this->input->post->getArray();
+
+		/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
+		$fitting = Container::getInstance('com_sdaprofiles')->factory->model('fitting');
+		$fitting->sdaprofiles_profile_id = $input['profileId'];
+		$fitting->type = $input['type'];
+		$fitting->detail = $input['detail'];
+		$fitting->length = $input['length'];
+		$fitting->width = $input['width'];
+		$fitting->save();
+
+		$this->setRedirect('index.php?option=com_sdaprofiles&format=json&view=Fitting&task=read&id=' . $fitting->sdaprofiles_fitting_id);
+		$this->redirect;
 	}
 }

@@ -20,81 +20,85 @@ $items = $this->getItems();
 $guest = Factory::getUser()->guest;
 
 ?>
+<form action="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>" method="post"
+      name="adminForm" id="adminForm">
 
-<div class="sdajem_flex_row">
-	<div class="sdajem_cell sdajem_head">
-		<i class="far fa-calendar-alt" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_DATE') ?>"></i>
-	</div>
-	<div class="sdajem_cell sdajem_head">
-		<i class="far fa-bookmark" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
-	</div>
-	<div class="sdajem_cell sdajem_head">
-		<i class="fas fa-map-marker-alt" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_MAP') ?>">&nbsp;</i>
-	</div>
-	<div class="sdajem_cell sdajem_head">
-		<i class="far fa-flag" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
-	</div>
-	<div class="sdajem_cell sdajem_head">
-		<i class="fas fa-users" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_USERS') ?>"></i>
-	</div>
-
-	<?php if (!$guest):	?>
+	<div class="sdajem_flex_row">
 		<div class="sdajem_cell sdajem_head">
-			<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_STATUS') ?>">&nbsp;</i>
-			<?php echo JText::_('COM_SDAJEM_EVENT_STATUS'); ?>
+			<i class="far fa-calendar-alt" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_DATE') ?>"></i>
 		</div>
-	<?php endif; ?>
+		<div class="sdajem_cell sdajem_head">
+			<i class="far fa-bookmark" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
+		</div>
+		<div class="sdajem_cell sdajem_head">
+			<i class="fas fa-map-marker-alt" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_MAP') ?>">&nbsp;</i>
+		</div>
+		<div class="sdajem_cell sdajem_head">
+			<i class="far fa-flag" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
+		</div>
+		<div class="sdajem_cell sdajem_head">
+			<i class="fas fa-users" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_USERS') ?>"></i>
+		</div>
 
-</div>
+		<?php if (!$guest):	?>
+			<div class="sdajem_cell sdajem_head">
+				<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_STATUS') ?>">&nbsp;</i>
+				<?php echo JText::_('COM_SDAJEM_EVENT_STATUS'); ?>
+			</div>
+		<?php endif; ?>
 
-<?php foreach ($items as $event): ?>
-
-<div class="sdajem_flex_row">
-
-	<div class="sdajem_cell">
-		<i class="far fa-calendar-alt" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_DATE') ?>"></i>
-		<?php
-		$startDate = new Date($event->startDateTime);
-		$endDate = new Date($event->endDateTime);
-
-		if ((bool) $event->allDayEvent)
-		{
-			echo $startDate->format('d.m.Y') . " - ";
-			echo $endDate->format('d.m.Y');
-		}
-		else
-		{
-			echo $startDate->format('d.m.Y H:i') . " - ";
-			echo $endDate->format('d.m.Y H:i');
-		}
-		?>
-	</div>
-	<div class="sdajem_cell">
-		<i class="far fa-bookmark" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
-		<a href="<?php echo Route::_('index.php?option=com_sdajem&task=read&id=' . $event->sdajem_event_id) ?>">
-			<?php echo $event->title; ?>
-		</a>
-	</div>
-	<div class="sdajem_cell">
-		<i class="fas fa-map-marker-alt" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_MAP') ?>">&nbsp;</i>
-		<?php echo $event->location->title; ?>
-	</div>
-	<div class="sdajem_cell">
-		<i class="far fa-flag" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
-		<?php echo $event->category->title; ?>
-	</div>
-	<div class="sdajem_cell">
-		<i class="fas fa-users" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_USERS') ?>"></i>
-		<?php echo $event->attendees->count(); ?>
 	</div>
 
-	<?php if (!$guest):	?>
+	<?php foreach ($items as $event): ?>
+
+	<div class="sdajem_flex_row">
+
 		<div class="sdajem_cell">
-			<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_STATUS') ?>">&nbsp;</i>
-			<?php echo $event->eventStatus; ?>
+			<i class="far fa-calendar-alt" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_DATE') ?>"></i>
+			<?php
+			$startDate = new Date($event->startDateTime);
+			$endDate = new Date($event->endDateTime);
+
+			if ((bool) $event->allDayEvent)
+			{
+				echo $startDate->format('d.m.Y') . " - ";
+				echo $endDate->format('d.m.Y');
+			}
+			else
+			{
+				echo $startDate->format('d.m.Y H:i') . " - ";
+				echo $endDate->format('d.m.Y H:i');
+			}
+			?>
 		</div>
-	<?php endif; ?>
+		<div class="sdajem_cell">
+			<i class="far fa-bookmark" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
+			<a href="<?php echo Route::_('index.php?option=com_sdajem&task=read&id=' . $event->sdajem_event_id) ?>">
+				<?php echo $event->title; ?>
+			</a>
+		</div>
+		<div class="sdajem_cell">
+			<i class="fas fa-map-marker-alt" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_MAP') ?>">&nbsp;</i>
+			<?php echo $event->location->title; ?>
+		</div>
+		<div class="sdajem_cell">
+			<i class="far fa-flag" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
+			<?php echo $event->category->title; ?>
+		</div>
+		<div class="sdajem_cell">
+			<i class="fas fa-users" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_USERS') ?>"></i>
+			<?php echo $event->attendees->count(); ?>
+		</div>
 
-</div>
+		<?php if (!$guest):	?>
+			<div class="sdajem_cell">
+				<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_STATUS') ?>">&nbsp;</i>
+				<?php echo $event->eventStatus; ?>
+			</div>
+		<?php endif; ?>
 
-<?php endforeach; ?>
+	</div>
+
+	<?php endforeach; ?>
+
+</form>

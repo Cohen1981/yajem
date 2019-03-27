@@ -26,6 +26,8 @@ $endDate = new Date($event->endDateTime);
 $guest = Factory::getUser()->guest;
 ?>
 
+<div class="sdajem_content_container">
+
 <div class="sdajem_event_grid">
 
 	<div class="sdajem_label">
@@ -150,12 +152,15 @@ $guest = Factory::getUser()->guest;
 		</h2>
 	</div>
 	<div class="buttonsContainer">
-		<!--<a class="btn btn-small button-new btn-success"
-		   href="index.php?option=com_sdaprofiles&view=fittings&task=add&profileId=<?php //echo $profile->sdaprofiles_profile_id ?>"
-		>
-			<i class="icon-new icon-white"></i>
-			<?php //echo Text::_('JNEW'); ?>
-		</a>-->
+		<?php if (!$guest): ?>
+		<form action="<?php echo JRoute::_('index.php?option=com_sdajem&task=registerAttendee'); ?>" method="post"
+		      name="attendeeForm" id="attendeeForm">
+
+			<?php echo $event->getRegisterHtml(); ?>
+
+			<input type="hidden" name="eventId" value="<?php echo $event->sdajem_event_id ?>"/>
+		</form>
+		<?php endif; ?>
 	</div>
 </div>
 
@@ -184,10 +189,10 @@ $guest = Factory::getUser()->guest;
 			</h2>
 		</div>
 		<div class="buttonsContainer">
-			<input type="submit"
+			<button type="submit"
 			       value="<?php echo Text::_('SDAJEM_NEW_COMMENT'); ?>"
 			       form="commentForm"
-			/>
+			><?php echo Text::_('SDAJEM_NEW_COMMENT'); ?></button>
 		</div>
 	</div>
 
@@ -206,3 +211,5 @@ $guest = Factory::getUser()->guest;
 	<input type="hidden" name="eventId" value="<?php echo $event->sdajem_event_id ?>"/>
 </form>
 <?php endif; ?>
+
+</div>

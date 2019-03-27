@@ -48,6 +48,8 @@ class User extends DataModel
 		$config['idFieldName'] = 'id';
 		parent::__construct($container, $config);
 
+		$this->hasMany('attendees', 'Attendee', 'id', 'users_user_id');
+
 		if (ComponentHelper::isEnabled('com_sdaprofiles'))
 		{
 			$this->hasOne('profile', 'Profile@com_sdaprofiles', 'id', 'users_user_id');

@@ -11,6 +11,7 @@ namespace Sda\Profiles\Admin\Model;
 
 use FOF30\Container\Container;
 use FOF30\Model\DataModel;
+use Sda\Profiles\Admin\Model\Profile;
 
 /**
  * @package     Sda\Profiles\Admin\Model
@@ -25,6 +26,11 @@ use FOF30\Model\DataModel;
  * @property  string    $name
  * @property  string    $username
  * @property  string    $email
+ *
+ * Relations:
+ *
+ * @property  Profile $profile
+ *
  */
 class User extends DataModel
 {
@@ -41,5 +47,6 @@ class User extends DataModel
 		$config['tableName'] = '#__users';
 		$config['idFieldName'] = 'id';
 		parent::__construct($container, $config);
+		$this->hasOne('profile', 'Profile', 'id', 'users_user_id');
 	}
 }

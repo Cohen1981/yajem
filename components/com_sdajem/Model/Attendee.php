@@ -18,5 +18,4 @@ use Sda\Jem\Admin\Model\Attendee as AdminAttendee;
  */
 class Attendee extends AdminAttendee
 {
-
 }

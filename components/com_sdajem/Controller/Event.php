@@ -11,6 +11,7 @@ namespace Sda\Jem\Site\Controller;
 
 use FOF30\Controller\DataController;
 use Joomla\CMS\Factory;
+use Sda\Jem\Site\Model\Attendee;
 use Sda\Jem\Site\Model\Comment;
 use FOF30\Date\Date;
 use Joomla\CMS\Language\Text;
@@ -75,6 +76,36 @@ class Event extends DataController
 		else
 		{
 			Factory::getApplication()->enqueueMessage(Text::_('SOME_ERROR_OCCURRED'), 'error');
+		}
+
+		$this->setRedirect($referer);
+	}
+
+	public function registerAttendee()
+	{
+		$referer = $this->input->server->getString('HTTP_REFERER');
+
+		$input = $this->input->request->post->getArray();
+
+		if ($input['eventId'] && $input['action'])
+		{
+			/** @var \Sda\Jem\Site\Model\Event $event */
+			$event = $this->getModel('Event');
+			$event->load((int) $input['eventId']);
+
+			/** @var Attendee $attendee */
+			$attendee = $event->getNew('attendees');
+
+			if ($input['attendeeId'])
+			{
+				$attendee->sdajem_attendee_id = $input['attendeeId'];
+			}
+
+			$attendee->users_user_id = Factory::getUser()->id;
+			$attendee->event = (int) $input['eventId'];
+			$attendee->status = (int) $input['action'];
+
+			$attendee->save();
 		}
 
 		$this->setRedirect($referer);

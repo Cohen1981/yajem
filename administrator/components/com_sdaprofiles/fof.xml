@@ -26,7 +26,7 @@
 
 	<!-- Component backend options -->
 	<backend>
-		<!-- The same options as Common Settings apply here, too -->
+
 	</backend>
 
 	<!-- Component frontend options -->
@@ -43,6 +43,7 @@
 
 			<!-- Toolbar configuration -->
 			<toolbar title="COM_SDAPROFILES_TITLE_PROFILES_BROWSE" task="browse">
+				<button type="new" />
 			</toolbar>
 			<toolbar title="COM_SDAPROFILES_TITLE_PROFILES_READ" task="read">
 				<button type="back" />

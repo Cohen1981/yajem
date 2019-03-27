@@ -38,7 +38,7 @@ class Attendee extends DataModel
 	 * @var array
 	 * @since 0.0.1
 	 */
-	protected $fillable = array('status');
+	protected $fillable = array('status', 'sdajem_event_id', 'users_user_id');
 
 	/**
 	 * Attendee constructor.

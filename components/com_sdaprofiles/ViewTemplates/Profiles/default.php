@@ -22,12 +22,6 @@ $items = $this->getItems();
 
 	<div id="sdaprofiles_container">
 
-		<div class="sdaprofiles_section_container">
-			<div class="sdaprofiles_flex_row">
-
-			</div>
-		</div>
-
 		<?php foreach ($this->items as $profile) : ?>
 
 		<div class="sdaprofiles_section_container">
