@@ -13,7 +13,7 @@
 	grid-template-columns: minmax(100px, 200px) auto;
 	grid-gap: 10px;
 }
-.sdaprofiles_flex_row {
+.sdaprofiles_flex_row, .sdaprofiles_fitting_input {
 	display: flex;
 	flex-wrap: wrap;
 }
@@ -38,4 +38,8 @@
 }
 .float-left {
 	float: left;
+}
+.sdaprofiles_profile_grid {
+	display: grid;
+	grid-template-columns: minmax(100px, 200px) auto;
 }

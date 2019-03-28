@@ -9,57 +9,52 @@
 
 use Joomla\CMS\Language\Text;
 
-/** @var \Sda\Profiles\Site\View\Profile\Html $this */
-/** @var \Sda\Profiles\Site\Model\Profile $profile */
-/** @var  \Sda\Profiles\Site\Model\Fitting $fitting */
-
-echo $this->getRenderedForm();
+/** @var \Sda\Profiles\Site\View\Profile\Html   $this       */
+/** @var \Sda\Profiles\Site\Model\Profile       $profile    */
+/** @var \Sda\Profiles\Site\Model\Fitting       $fitting    */
 
 $this->addCssFile('media://com_sdaprofiles/css/style.css');
 $this->addJavascriptFile('media://com_sdaprofiles/js/profile.js');
-
 $profile = $this->getItem();
+echo $this->getRenderedForm();
+
 ?>
 
-<form name="fittingForm" id="fittingForm">
+<div class="sdaprofiles_fitting_container">
 
-	<div class="well">
-		<div class="titleContainer">
-			<h1 class="page-title">
-				<span class="icon-generic" aria-hidden="true"></span>
-				<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTING_BASIC'); ?>
-			</h1>
+	<form name="fittingForm" id="fittingForm">
+		<div class="well">
+			<div class="titleContainer">
+				<h2 class="page-title">
+					<span class="icon-generic" aria-hidden="true"></span>
+					<?php echo Text::_('COM_SDAProfiles_TITLE_FITTINGS_BASIC'); ?>
+				</h2>
+			</div>
+			<div class="buttonsContainer">
+				<button type="button" onclick="addFitting()"><?php echo Text::_('SDAPROFILES_FITTING_NEW') ?></button>
+			</div>
 		</div>
-		<div class="buttonsContainer">
-			<button type="button" form="fittingForm" name="fitting" onclick="addFitting()">
-				<?php echo Text::_('SDAJEM_ADD_FITTING') ?>
-			</button>
-		</div>
-	</div>
 
-	<div class="sdajem_fitting_input">
-		<label for="type">Type</label>
-		<input type="text" id="type" name="type" value=""/>
-		<label for="detail">Detail</label>
-		<input type="text" id="detail" name="detail" value=""/>
-		<label for="length">Length</label>
-		<input type="number" id="length" name="length" value=""/>
-		<label for="width">Width</label>
-		<input type="number" id="width" name="width" value=""/>
-	</div>
+		<input type="text" name="type" value="" />
+		<input type="text" name="detail" value="" />
+		<input type="number" name="length" value="" />
+		<input type="number" name="width" value="" />
+
+		<input type="hidden" name="profileId" value="<?php echo $profile->sdaprofiles_profile_id; ?>" />
+		<?php echo JHtml::_('form.token'); ?>
+	</form>
 
 	<div id="fitting_area">
-	<?php
-	if ($profile->fittings)
-	{
-		foreach ($profile->fittings as $fitting)
-		{
-			echo $fitting->getHtml();
-		}
-	}
-	?>
+		<?php if ($profile->fittings) : ?>
+		<?php foreach ($profile->fittings as $fitting) : ?>
+			<div id="sdaprofiles_fitting_<?php echo $fitting->sdaprofiles_fitting_id; ?>" class="sdaprofiles_flex_row">
+				<div class="sdaprofiles_cell"><?php echo $fitting->type ?></div>
+				<div class="sdaprofiles_cell"><?php echo $fitting->detail ?></div>
+				<div class="sdaprofiles_cell"><?php echo $fitting->length ?></div>
+				<div class="sdaprofiles_cell"><?php echo $fitting->width ?></div>
+			</div>
+		<?php endforeach; ?>
+		<?php endif; ?>
 	</div>
-	<?php echo JHtml::_('form.token'); ?>
-	<input type="hidden" name="profileId" value="<?php echo $profile->sdaprofiles_profile_id; ?>" />
 
-</form>
+</div>

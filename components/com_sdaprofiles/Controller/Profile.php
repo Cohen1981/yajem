@@ -13,6 +13,7 @@ use Sda\Profiles\Admin\Controller\Profile as AdminProfile;
 use FOF30\Container\Container;
 use Sda\Profiles\Site\Model\User;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 
 /**
  * @package     Sda\Profiles\Site\Controller
@@ -48,6 +49,7 @@ class Profile extends AdminProfile
 			$profile = $container->factory->model('Profile');
 			$profile->users_user_id = Factory::getUser()->id;
 			$profile->userName = Factory::getUser()->username;
+			$profile->avatar = 'media/com_sdaprofiles/images/user-image-blanco.png';
 			$profile->save();
 			$this->setRedirect('index.php?option=com_sdaprofiles&task=edit&id=' . $profile->sdaprofiles_profile_id);
 		}
@@ -76,16 +78,24 @@ class Profile extends AdminProfile
 	{
 		$input = $this->input->post->getArray();
 
-		/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
-		$fitting = Container::getInstance('com_sdaprofiles')->factory->model('fitting');
-		$fitting->sdaprofiles_profile_id = $input['profileId'];
-		$fitting->type = $input['type'];
-		$fitting->detail = $input['detail'];
-		$fitting->length = $input['length'];
-		$fitting->width = $input['width'];
-		$fitting->save();
+		if ($input['type'] && $input['detail'])
+		{
+			/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
+			$fitting                         = Container::getInstance('com_sdaprofiles')->factory->model('fitting');
+			$fitting->sdaprofiles_profile_id = $input['profileId'];
+			$fitting->type                   = $input['type'];
+			$fitting->detail                 = $input['detail'];
+			$fitting->length                 = $input['length'];
+			$fitting->width                  = $input['width'];
+			$fitting->save();
 
-		$this->setRedirect('index.php?option=com_sdaprofiles&format=json&view=Fitting&task=read&id=' . $fitting->sdaprofiles_fitting_id);
+			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=fittingAjax&id=' . $fitting->sdaprofiles_fitting_id);
+		}
+		else
+		{
+			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=error');
+		}
+
 		$this->redirect;
 	}
 }

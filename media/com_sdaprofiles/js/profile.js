@@ -7,10 +7,17 @@ function addFitting() {
 	xhttp.onload = function () {
 		if (this.readyState === 4 && this.status === 200) {
 			var html = xhttp.response;
-			document.getElementById('fitting_area').innerHTML = html + document.getElementById('fitting_area').innerHTML;
+			if (html.toString() === "error")
+			{
+				alert('An Error occured');
+			}
+			else
+			{
+				document.getElementById('fitting_area').innerHTML = html + document.getElementById('fitting_area').innerHTML;
+			}
 		}
 	};
 
-	xhttp.open("POST", "index.php?option=com_sdaprofiles&view=Profiles&format=raw&task=addFittingAjax");
+	xhttp.open("POST", "index.php?option=com_sdaprofiles&view=Profiles&task=addFittingAjax");
 	xhttp.send(formData);
 }

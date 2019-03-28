@@ -101,4 +101,6 @@ $guest = Factory::getUser()->guest;
 
 	<?php endforeach; ?>
 
+	<input type="hidden" name="task" value=""/>
+	<?php echo JHtml::_('form.token'); ?>
 </form>
