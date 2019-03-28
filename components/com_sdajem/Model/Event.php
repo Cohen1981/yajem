@@ -32,25 +32,25 @@ class Event extends AdminEvent
 			if ($attendee->users_user_id == $currentUser)
 			{
 				$status = $attendee->status;
-				$html = $html . "<input type=\"hidden\" name=\"attendeeId\" value=\"" . $attendee->sdajem_attendee_id . "\"/>";
+				$html = $html . "<input id=\"attendeeId\" type=\"hidden\" name=\"attendeeId\" value=\"" . $attendee->sdajem_attendee_id . "\"/>";
 			}
 		}
 
 		switch ($status)
 		{
 			case 0:
-				$buttons = "<button type=\"submit\" form=\"attendeeForm\" name=\"action\" value=\"1\">" .
+				$buttons = "<button type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"1\" onclick=\"registerAjax(1)\">" .
 					Text::_('SDAJEM_REGISTER') . "</button>";
 				$buttons = $buttons .
-					"<button type=\"submit\" form=\"attendeeForm\" name=\"action\" value=\"2\">" .
+					"<button type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"2\" onclick=\"registerAjax(2)\">" .
 					Text::_('SDAJEM_UNREGISTER') . "</button>";
 				break;
 			case 1:
-				$buttons = "<button type=\"submit\" form=\"attendeeForm\" name=\"action\" value=\"2\">" .
+				$buttons = "<button type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"2\" onclick=\"registerAjax(2)\">" .
 					Text::_('SDAJEM_UNREGISTER') . "</button>";
 				break;
 			case 2:
-				$buttons = "<button type=\"submit\" form=\"attendeeForm\" name=\"action\" value=\"1\">" .
+				$buttons = "<button type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"1\" onclick=\"registerAjax(1)\">" .
 					Text::_('SDAJEM_REGISTER') . "</button>";
 				break;
 		}

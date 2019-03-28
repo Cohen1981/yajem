@@ -19,13 +19,22 @@
 	grid-template-columns: minmax(100px, 200px) auto;
 	grid-row-gap: 10px;
 }
-
+.sdajem_profile_container {
+	margin-right: 10px;
+	margin-bottom: 10px;
+	border: grey solid 1px;
+	border-radius: 5px;
+	width: 100px;
+}
 .sdajem_avatar {
+	display: block;
 	height: 60px;
 	width: 60px;
 	border-bottom-left-radius: 50%;
 	border-bottom-right-radius: 50%;
 	border: solid 1px;
+	margin-right: auto;
+	margin-left: auto;
 }
 
 .sdajem_comment_row {
@@ -53,4 +62,25 @@
 	cursor: pointer;
 	-webkit-border-radius: 5px;
 	border-radius: 5px;
+}
+.sdajem_profile_details {
+	text-align: center;
+}
+.sdajem_status_label {
+	margin-right: auto;
+	margin-left: auto;
+	border-right: grey solid 1px;
+	border-radius: 5px;
+	padding: 5px;
+	color: white;
+	text-align: center;
+}
+.sdajem_grey {
+	background-color: grey;
+}
+.sdajem_green {
+	background-color: #51a351;
+}
+.sdajem_red {
+	background-color: #9d261d;
 }

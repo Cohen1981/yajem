@@ -177,7 +177,7 @@ $guest = Factory::getUser()->guest;
 	</div>
 
 	<?php if (!$guest): ?>
-	<div class="sdajem_flex_row">
+	<div id="sdajem_attendee_area" class="sdajem_flex_row">
 
 		<?php
 		foreach ($event->attendees as $attendee)
