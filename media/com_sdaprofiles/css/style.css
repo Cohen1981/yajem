@@ -43,3 +43,15 @@
 	display: grid;
 	grid-template-columns: minmax(100px, 200px) auto;
 }
+
+.sdaprofiles_fitting_cell {
+	width: 100px;
+	float: left;
+	padding: 5px;
+}
+#fitting_area .control-label, #profile_area .control-label {
+	padding: 0px;
+}
+#fitting_area .control-group {
+	border-bottom: grey solid 1px;
+}

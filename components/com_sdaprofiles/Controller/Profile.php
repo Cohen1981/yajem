@@ -68,34 +68,4 @@ class Profile extends AdminProfile
 		$this->input->set('users_user_id', Factory::getUser()->id);
 		$this->input->set('userName', Factory::getUser()->username);
 	}
-
-	/**
-	 * @return void
-	 *
-	 * @since 0.0.1
-	 */
-	public function addFittingAjax()
-	{
-		$input = $this->input->post->getArray();
-
-		if ($input['type'] && $input['detail'])
-		{
-			/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
-			$fitting                         = Container::getInstance('com_sdaprofiles')->factory->model('fitting');
-			$fitting->sdaprofiles_profile_id = $input['profileId'];
-			$fitting->type                   = $input['type'];
-			$fitting->detail                 = $input['detail'];
-			$fitting->length                 = $input['length'];
-			$fitting->width                  = $input['width'];
-			$fitting->save();
-
-			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=fittingAjax&id=' . $fitting->sdaprofiles_fitting_id);
-		}
-		else
-		{
-			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=error');
-		}
-
-		$this->redirect;
-	}
 }

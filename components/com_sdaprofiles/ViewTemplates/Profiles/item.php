@@ -13,12 +13,74 @@ use Joomla\CMS\Language\Text;
 /** @var \Sda\Profiles\Site\Model\Profile $profile */
 
 $this->addCssFile('media://com_sdaprofiles/css/style.css');
-$items = $this->getItems();
-echo $this->getRenderedForm();
+$profile = $this->getItem();
 
 ?>
 
-<?php if ($profile->fittings):?>
+<div id="profile_area" class="form-horizontal">
+
+	<div class="control-group ">
+		<label class="control-label">
+			<?php echo Text::_('COM_SDAPROFILES_PROFILE_USERS_USER_ID_LABEL'); ?>
+		</label>
+		<div class="controls">
+			<span>
+				<?php echo $profile->user->username; ?>
+			</span>
+		</div>
+	</div>
+	<div class="control-group ">
+		<label class="control-label">
+			<?php echo Text::_('COM_SDAPROFILES_PROFILE_AVATAR_LABEL'); ?>
+		</label>
+		<div class="controls">
+			<span>
+				<img src="<?php echo $profile->avatar; ?>" class="sdaprofiles_avatar"/>
+			</span>
+		</div>
+	</div>
+	<div class="control-group ">
+		<label class="control-label">
+			<?php echo Text::_('COM_SDAPROFILES_PROFILE_ADDRESS_LABEL'); ?>
+		</label>
+		<div class="controls">
+			<span>
+				<?php
+				echo $profile->address1 . "<br/>";
+				echo $profile->address2 . "<br/>";
+				echo $profile->postal . " " . $profile->city;
+				?>
+			</span>
+		</div>
+	</div>
+	<div class="control-group ">
+		<label class="control-label">
+			<?php echo Text::_('COM_SDAPROFILES_PROFILE_CONTACT_LABEL'); ?>
+		</label>
+		<div class="controls">
+			<span>
+				<?php
+				echo $profile->phone . "<br/>";
+				echo $profile->mobil;
+				?>
+			</span>
+		</div>
+	</div>
+	<div class="control-group ">
+		<label class="control-label">
+			<?php echo Text::_('COM_SDAPROFILES_PROFILE_DOB_LABEL'); ?>
+		</label>
+		<div class="controls">
+			<span>
+				<?php
+				$dob = new \FOF30\Date\Date($profile->dob);
+				echo $dob->format('d.m.Y');
+				?>
+			</span>
+		</div>
+	</div>
+
+</div>
 
 <div class="well">
 	<div class="titleContainer">
@@ -29,36 +91,29 @@ echo $this->getRenderedForm();
 	</div>
 </div>
 
-<div class="sdaprofiles_fittings_grid">
-	<div></div>
-	<div class="sdaprofiles_cell">
-		<?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_LABEL'); ?>
-	</div>
-	<div class="sdaprofiles_cell">
-		<?php echo Text::_('COM_SDAPROFILES_FITTING_DETAIL_LABEL'); ?>
-	</div>
-	<div class="sdaprofiles_cell">
-		<?php echo Text::_('COM_SDAPROFILES_FITTING_LW_LABEL'); ?>
-	</div>
-
-
-	<?php foreach ($profile->fittings as $fitting): ?>
-
-		<div></div>
-		<div class="sdaprofiles_cell">
-			<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&view=fittings&task=edit&id=' . $fitting->sdaprofiles_fitting_id);?>">
-				<?php echo $fitting->type;?>
-			</a>
+<div id="fitting_area" class="form-horizontal">
+	<div id="sdaprofiles_fitting" class="control-group">
+		<label class="control-label">
+		</label>
+		<div class="controls">
+			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_LABEL'); ?></span>
+			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_DETAIL_LABEL'); ?></span>
+			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_LENGHT_LABEL'); ?></span>
+			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_WIDTH_LABEL'); ?></span>
 		</div>
-		<div class="sdaprofiles_cell">
-			<?php echo $fitting->detail; ?>
-		</div>
-		<div class="sdaprofiles_cell">
-			<?php echo $fitting->length . " x " . $fitting->width; ?>
-		</div>
-
-	<?php endforeach;?>
-
+	</div>
+	<?php if ($profile->fittings) : ?>
+		<?php foreach ($profile->fittings as $fitting) : ?>
+			<div id="sdaprofiles_fitting_<?php echo $fitting->sdaprofiles_fitting_id; ?>" class="control-group">
+				<label class="control-label">
+				</label>
+				<div class="controls">
+					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->type ?></span>
+					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->detail ?></span>
+					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->length ?></span>
+					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->width ?></span>
+				</div>
+			</div>
+		<?php endforeach; ?>
+	<?php endif; ?>
 </div>
-
-<?php endif;?>

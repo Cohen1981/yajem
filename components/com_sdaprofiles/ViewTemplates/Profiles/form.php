@@ -22,7 +22,7 @@ echo $this->getRenderedForm();
 
 <div class="sdaprofiles_fitting_container">
 
-	<form name="fittingForm" id="fittingForm">
+	<form name="fittingForm" id="fittingForm" class="form-horizontal">
 		<div class="well">
 			<div class="titleContainer">
 				<h2 class="page-title">
@@ -31,27 +31,97 @@ echo $this->getRenderedForm();
 				</h2>
 			</div>
 			<div class="buttonsContainer">
-				<button type="button" onclick="addFitting()"><?php echo Text::_('SDAPROFILES_FITTING_NEW') ?></button>
+				<button id="sdaprofiles_fitting_add" type="button" onclick="addFittingAjax()">
+					<?php echo Text::_('SDAPROFILES_FITTING_NEW') ?>
+				</button>
 			</div>
 		</div>
 
-		<input type="text" name="type" value="" />
-		<input type="text" name="detail" value="" />
-		<input type="number" name="length" value="" />
-		<input type="number" name="width" value="" />
+		<div class="control-group ">
+			<label class="control-label " for="sdaprofiles_input_type">
+				<?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_LABEL'); ?>
+			</label>
+			<div class="controls">
+				<input id="sdaprofiles_input_type" type="text" name="type" value="" />
+				<span class="help-block">
+					<?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_DESC'); ?>
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group ">
+			<label class="control-label " for="sdaprofiles_input_type">
+				<?php echo Text::_('COM_SDAPROFILES_FITTING_DETAIL_LABEL'); ?>
+			</label>
+			<div class="controls">
+				<input id="sdaprofiles_input_detail" type="text" name="detail" value="" />
+				<span class="help-block">
+					<?php echo Text::_('COM_SDAPROFILES_FITTING_DETAIL_DESC'); ?>
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group ">
+			<label class="control-label " for="sdaprofiles_input_type">
+				<?php echo Text::_('COM_SDAPROFILES_FITTING_LENGHT_LABEL'); ?>
+			</label>
+			<div class="controls">
+				<input id="sdaprofiles_input_length" type="number" name="length" value="" />
+				<span class="help-block">
+					<?php echo Text::_('COM_SDAPROFILES_FITTING_LENGHT_DESC'); ?>
+				</span>
+			</div>
+		</div>
+
+		<div class="control-group ">
+			<label class="control-label " for="sdaprofiles_input_type">
+				<?php echo Text::_('COM_SDAPROFILES_FITTING_WIDTH_LABEL'); ?>
+			</label>
+			<div class="controls">
+				<input id="sdaprofiles_input_width" type="number" name="width" value="" />
+				<span class="help-block">
+					<?php echo Text::_('COM_SDAPROFILES_FITTING_WIDTH_DESC'); ?>
+				</span>
+			</div>
+		</div>
 
 		<input type="hidden" name="profileId" value="<?php echo $profile->sdaprofiles_profile_id; ?>" />
 		<?php echo JHtml::_('form.token'); ?>
 	</form>
 
-	<div id="fitting_area">
+	<div class="well">
+		<div class="titleContainer">
+			<h2 class="page-title">
+				<span class="icon-generic" aria-hidden="true"></span>
+				<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTINGS_STOCK'); ?>
+			</h2>
+		</div>
+	</div>
+	<div id="fitting_area" class="form-horizontal">
+		<div id="sdaprofiles_fitting" class="control-group">
+			<label class="control-label">
+			</label>
+			<div class="controls">
+				<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_LABEL'); ?></span>
+				<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_DETAIL_LABEL'); ?></span>
+				<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_LENGHT_LABEL'); ?></span>
+				<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_WIDTH_LABEL'); ?></span>
+			</div>
+		</div>
 		<?php if ($profile->fittings) : ?>
 		<?php foreach ($profile->fittings as $fitting) : ?>
-			<div id="sdaprofiles_fitting_<?php echo $fitting->sdaprofiles_fitting_id; ?>" class="sdaprofiles_flex_row">
-				<div class="sdaprofiles_cell"><?php echo $fitting->type ?></div>
-				<div class="sdaprofiles_cell"><?php echo $fitting->detail ?></div>
-				<div class="sdaprofiles_cell"><?php echo $fitting->length ?></div>
-				<div class="sdaprofiles_cell"><?php echo $fitting->width ?></div>
+			<div id="sdaprofiles_fitting_<?php echo $fitting->sdaprofiles_fitting_id; ?>" class="control-group">
+				<label class="control-label">
+					<button type="button" onclick="deleteFittingAjax(<?php echo $fitting->sdaprofiles_fitting_id; ?>)">
+						<i class="fas fa-trash" aria-hidden="true" title="<?php echo JText::_('COM_SDAPROFILES_ICON_DELETE') ?>"></i>
+					</button>
+				</label>
+				<div class="controls">
+					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->type ?></span>
+					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->detail ?></span>
+					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->length ?></span>
+					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->width ?></span>
+				</div>
 			</div>
 		<?php endforeach; ?>
 		<?php endif; ?>

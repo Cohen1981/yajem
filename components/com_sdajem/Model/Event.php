@@ -12,7 +12,6 @@ namespace Sda\Jem\Site\Model;
 use Sda\Jem\Admin\Model\Event as AdminEvent;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
-use FOF30\Container\Container;
 
 /**
  * @package     Sda\Jem\Site\Model

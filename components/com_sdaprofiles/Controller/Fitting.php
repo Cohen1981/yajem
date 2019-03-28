@@ -11,6 +11,8 @@ namespace Sda\Profiles\Site\Controller;
 
 use FOF30\Controller\DataController;
 use Joomla\CMS\Factory;
+use FOF30\Container\Container;
+use Joomla\CMS\Language\Text;
 
 /**
  * @package     Sda\Profiles\Site\Controller
@@ -126,6 +128,63 @@ class Fitting extends DataController
 		catch (\Exception $e)
 		{
 		}
+	}
+
+	/**
+	 * Adds an Equipment Item to a Profile
+	 *
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function addFittingAjax()
+	{
+		$input = $this->input->post->getArray();
+
+		if ($input['type'] && $input['detail'])
+		{
+			/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
+			$fitting                         = Container::getInstance('com_sdaprofiles')->factory->model('fitting');
+			$fitting->sdaprofiles_profile_id = $input['profileId'];
+			$fitting->type                   = $input['type'];
+			$fitting->detail                 = $input['detail'];
+			$fitting->length                 = $input['length'];
+			$fitting->width                  = $input['width'];
+			$fitting->save();
+
+			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=fittingAjax&id=' . $fitting->sdaprofiles_fitting_id);
+		}
+		else
+		{
+			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=error');
+		}
+
+		$this->redirect;
+	}
+
+	/**
+	 * Deletes an Equipment Item
+	 *
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function deleteFittingAjax()
+	{
+		$input = $this->input->post->getArray();
+
+		if ($input['id'])
+		{
+			/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
+			$fitting                         = Container::getInstance('com_sdaprofiles')->factory->model('fitting');
+			$fitting->forceDelete($input['id']);
+		}
+		else
+		{
+			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=error');
+		}
+
+		$this->redirect;
 	}
 
 }

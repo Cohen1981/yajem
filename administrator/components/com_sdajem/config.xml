@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
+	<fieldset name="general"
+	          label="COM_SDAJEM_GLOBAL_CONFIG_LABEL"
+	          description="COM_SDAJEM_GLOBAL_CONFIG_DESC"
+	          >
+	</fieldset>
 	<fieldset
 			name="permissions"
 			label="JCONFIG_PERMISSIONS_LABEL"

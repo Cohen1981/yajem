@@ -13,15 +13,16 @@ $input = $this->input->request->getArray();
 $fitting = $this->getModel('Fitting');
 $fitting->load($input['id]']);
 ?>
-
-<div id="sdaprofiles_fitting_<?php echo $fitting->sdaprofiles_fitting_id; ?>" class="sdaprofiles_flex_row">
-	<div class="sdaprofiles_cell">
+<div id="sdaprofiles_fitting_<?php echo $fitting->sdaprofiles_fitting_id; ?>" class="control-group">
+	<label class="control-label">
 		<button type="button" onclick="deleteFittingAjax(<?php echo $fitting->sdaprofiles_fitting_id; ?>)">
-			<i class="far fa-bookmark" aria-hidden="true" title="<?php echo JText::_('COM_SDAPROFILES_ICON_DELETE') ?>">&nbsp;</i>
+			<i class="fas fa-trash" aria-hidden="true" title="<?php echo JText::_('COM_SDAPROFILES_ICON_DELETE') ?>"></i>
 		</button>
+	</label>
+	<div class="controls">
+		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->type ?></span>
+		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->detail ?></span>
+		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->length ?></span>
+		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->width ?></span>
 	</div>
-	<div class="sdaprofiles_cell"><?php echo $fitting->type ?></div>
-	<div class="sdaprofiles_cell"><?php echo $fitting->detail ?></div>
-	<div class="sdaprofiles_cell"><?php echo $fitting->length ?></div>
-	<div class="sdaprofiles_cell"><?php echo $fitting->width ?></div>
 </div>

@@ -15,6 +15,7 @@ use Sda\Jem\Site\Model\Attendee;
 use Sda\Jem\Site\Model\Comment;
 use FOF30\Date\Date;
 use Joomla\CMS\Language\Text;
+use Sda\Jem\Admin\Helper\RefererHelper;
 
 /**
  * @package     Sda\Jem\Site\Controller
@@ -81,6 +82,11 @@ class Event extends DataController
 		$this->setRedirect($referer);
 	}
 
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
 	public function registerAttendee()
 	{
 		$referer = $this->input->server->getString('HTTP_REFERER');
@@ -109,5 +115,25 @@ class Event extends DataController
 		}
 
 		$this->setRedirect($referer);
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function onBeforeEdit()
+	{
+		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function onAfterSave()
+	{
+		$this->setRedirect(RefererHelper::getReferer());
 	}
 }

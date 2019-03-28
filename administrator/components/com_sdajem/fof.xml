@@ -26,7 +26,16 @@
 
 	<!-- Component backend options -->
 	<backend>
+
+		<config>
+			<option name="useConfigurationFile">1</option>
+		</config>
 		<!-- The same options as Common Settings apply here, too -->
+		<view name="Events">
+			<toolbar title="COM_SDAJEM_TITLE_EVENTS_BROWSE" task="browse">
+				<button type="preferences" component="com_todo" />
+			</toolbar>
+		</view>
 	</backend>
 
 	<!-- Component frontend options -->
@@ -42,18 +51,34 @@
 			</config>
 
 			<!-- Toolbar configuration -->
-			<toolbar title="COM_SDAPROFILES_TITLE_EVENTS_BROWSE" task="browse">
+			<toolbar title="COM_SDAJEM_TITLE_EVENTS_BROWSE" task="browse">
 				<button type="new" />
 			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_EVENTS_READ" task="read">
+			<toolbar title="COM_SDAJEM_TITLE_EVENTS_READ" task="read">
+				<button type="custom" task="edit" alt="JGLOBAL_EDIT" list_select="false" icon="edit"/>
 				<button type="back" />
 			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_EVENTS_EDIT" task="edit">
+			<toolbar title="COM_SDAJEM_TITLE_EVENTS_EDIT" task="edit">
 				<button type="apply" />
 				<button type="save" />
 				<button type="cancel" />
 			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_EVENTS_EDIT" task="add">
+			<toolbar title="COM_SDAJEM_TITLE_EVENTS_EDIT" task="add">
+				<button type="apply" />
+				<button type="save" />
+				<button type="cancel" />
+			</toolbar>
+		</view>
+
+		<view name="Locations">
+			<!-- Controller and View options -->
+			<config>
+				<option name="useConfigurationFile">1</option>
+				<option name="renderFrontendButtons">1</option>
+			</config>
+
+			<!-- Toolbar configuration -->
+			<toolbar title="COM_SDAJEM_TITLE_LOCATIONS_EDIT" task="edit">
 				<button type="apply" />
 				<button type="save" />
 				<button type="cancel" />

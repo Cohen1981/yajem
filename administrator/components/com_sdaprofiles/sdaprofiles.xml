@@ -34,19 +34,19 @@
 		</schemas>
 	</update>
 
-	<!-- Media files
-	<media folder="media/com_yajem" destination="com_yajem">
+	<!-- Media files -->
+	<media folder="media/com_sdaprofiles" destination="com_sdaprofiles">
 		<folder>css</folder>
 		<folder>images</folder>
 		<folder>js</folder>
 		<folder>webfonts</folder>
 	</media>
-	-->
 
 	<!-- Front-end files -->
 	<files folder="components/com_sdaprofiles">
 		<filename>sdaprofiles.php</filename>
 		<folder>Controller</folder>
+		<folder>language</folder>
 		<folder>Model</folder>
 		<folder>View</folder>
 		<folder>views</folder>
@@ -81,10 +81,10 @@
 			<filename>config.xml</filename>
 			<filename>fof.xml</filename>
 			<folder>Controller</folder>
+			<folder>language</folder>
 			<folder>Model</folder>
 			<folder>sql</folder>
 			<folder>View</folder>
-			<folder>ViewTemplates</folder>
 		</files>
 
 		<!-- Back-end translation files -->
