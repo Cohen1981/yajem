@@ -18,7 +18,6 @@ use Joomla\CMS\Language\Text;
 /** @var \Sda\Jem\Site\Model\Comment    $comment    */
 
 $this->addCssFile('media://com_sdajem/css/style.css');
-$this->addJavascriptFile('media://com_sdajem/js/event.js');
 $event = $this->getItem();
 
 $startDate = new Date($event->startDateTime);
@@ -38,11 +37,25 @@ $guest = Factory::getUser()->guest;
 <div class="sdajem_event_grid">
 
 	<div class="sdajem_label">
-		<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL'); ?>
+		<h3>
+			<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL'); ?>
+		</h3>
 	</div>
 	<div class="sdajem_value">
-		<?php echo $event->title; ?>
+		<h3>
+			<?php echo $event->title; ?>
+		</h3>
 	</div>
+
+	<div class="sdajem_label">
+		<h3>
+			<?php echo Text::_('COM_SDAJEM_EVENT_EVENTSTATUS_LABEL'); ?>
+		</h3>
+	</div>
+	<div id="eventStatus" class="sdajem_value">
+		<?php echo $this->loadAnyTemplate('site:com_sdajem/Event/eventStatus'); ?>
+	</div>
+
 	<div class="sdajem_label">
 		<?php echo Text::_('COM_SDAJEM_EVENT_STARTDATETIME_LABEL'); ?>
 	</div>
@@ -89,151 +102,25 @@ $guest = Factory::getUser()->guest;
 </div>
 
 <!-- Location Block -->
-
-<form action="<?php echo JRoute::_('index.php?option=com_sdajem&view=Location&task=edit'); ?>" method="post"
-	      name="locationForm" id="locationForm">
-<div class="well">
-	<div class="titleContainer">
-		<h2 class="page-title">
-			<span class="icon-generic" aria-hidden="true"></span>
-			<?php echo Text::_('COM_SDAJEM_TITLE_LOCATION_BASIC'); ?>
-		</h2>
-	</div>
-	<div class="buttonsContainer">
-		<button type="submit"
-		        value="<?php echo $event->location->sdajem_location_id; ?>"
-		        form="locationForm"
-		>
-			<i class="icon-edit" aria-hidden="true"></i>
-			<?php echo Text::_('JGLOBAL_EDIT'); ?>
-		</button>
-	</div>
-</div>
-	<input type="hidden" name="id" value="<?php echo $event->location->sdajem_location_id; ?>"/>
-</form>
-
-<div class="sdajem_event_grid">
-
-	<div class="sdajem_label">
-		<?php echo Text::_('COM_SDAJEM_LOCATION_TITLE_LABEL'); ?>
-	</div>
-	<div class="sdajem_value">
-		<?php echo $event->location->title; ?>
-	</div>
-	<div class="sdajem_label">
-		<?php echo Text::_('COM_SDAJEM_LOCATION_URL_LABEL'); ?>
-	</div>
-	<div class="sdajem_value">
-		<?php echo $event->location->url; ?>
-	</div>
-	<div class="sdajem_label">
-		<?php echo Text::_('COM_SDAJEM_LOCATION_ADDRESS_LABEL'); ?>
-	</div>
-	<div class="sdajem_value">
-		<?php echo $event->location->street . "<br/>"; ?>
-		<?php echo $event->location->postalCode . " "; ?>
-		<?php echo $event->location->city; ?>
-	</div>
-	<div class="sdajem_label">
-		<?php echo Text::_('COM_SDAJEM_LOCATION_DESCRIPTION_LABEL'); ?>
-	</div>
-	<div class="sdajem_value">
-		<?php echo $event->location->description; ?>
-	</div>
-	<div class="sdajem_label">
-		<?php echo Text::_('COM_SDAJEM_LOCATION_CONTACT_LABEL'); ?>
-	</div>
-	<div class="sdajem_value">
-		<?php echo $event->location->contact->name; ?>
-	</div>
-
-</div>
+<?php
+$this->setModel('Location', $event->location);
+echo $this->loadAnyTemplate('site:com_sdajem/Locations/location');
+?>
 
 <!-- Attendee Block -->
-<?php if ((bool) $event->useRegistration): ?>
-	<div class="well">
-		<div class="titleContainer">
-			<h2 class="page-title">
-				<span class="icon-generic" aria-hidden="true"></span>
-				<?php echo Text::_('COM_SDAJEM_TITLE_ATTENDEES_BASIC'); ?>
-				<span>&nbsp;</span>
-				<i class="fas fa-users" aria-hidden="true"></i>
-				<?php
-					echo $event->attendees->count();
-				?>
-			</h2>
-		</div>
-		<div class="buttonsContainer">
-			<?php if (!$guest): ?>
-			<form action="<?php echo JRoute::_('index.php?option=com_sdajem&task=registerAttendee'); ?>" method="post"
-			      name="attendeeForm" id="attendeeForm">
-
-				<?php echo $event->getRegisterHtml(); ?>
-
-				<input type="hidden" name="eventId" value="<?php echo $event->sdajem_event_id ?>"/>
-			</form>
-			<?php endif; ?>
-		</div>
-	</div>
-
-	<?php if (!$guest): ?>
-	<div id="sdajem_attendee_area" class="sdajem_flex_row">
-
-		<?php
-		foreach ($event->attendees as $attendee)
-		{
-				echo $attendee->getAttendingHtml();
-		}
-		?>
-
-	</div>
-	<?php endif; ?>
-<?php endif; ?>
+<?php
+if ((bool) $event->useRegistration)
+{
+	echo $this->loadAnyTemplate('site:com_sdajem/Events/attendees');
+}
+?>
 
 <!-- Comment Block -->
-<?php if (!$guest): ?>
-<form action="<?php echo JRoute::_('index.php?option=com_sdajem&task=comment'); ?>" method="post"
-      name="commentForm" id="commentForm">
-	<div class="well">
-		<div class="titleContainer">
-			<h2 class="page-title">
-				<span class="icon-generic" aria-hidden="true"></span>
-				<?php echo Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
-			</h2>
-		</div>
-		<div class="buttonsContainer">
-			<!--
-			<button type="submit"
-			       value="<?php //echo Text::_('SDAJEM_NEW_COMMENT'); ?>"
-			       form="commentForm"
-			>
-				<?php //echo Text::_('SDAJEM_NEW_COMMENT'); ?>
-			</button>
-			-->
-			<button id="sdajem_comment_button"
-					type="button"
-			        onclick="addCommentAjax()"
-			        form="commentForm"
-			>
-				<i class="fas fa-comments" aria-hidden="true"></i>
-				<?php echo Text::_('SDAJEM_NEW_COMMENT'); ?></button>
-		</div>
-	</div>
-
-	<textarea form="commentForm" id="comment" wrap="soft" name="comment"></textarea>
-
-	<div id="sdajem_comment_area" class="sdajem_comment_container">
-
-		<?php
-		foreach ($event->comments->sortByDesc('timestamp') as $comment)
-		{
-			echo $comment->getCommentHtml();
-		}
-		?>
-
-	</div>
-	<input type="hidden" name="eventId" value="<?php echo $event->sdajem_event_id ?>"/>
-</form>
-<?php endif; ?>
+<?php
+if (!$guest)
+{
+	echo $this->loadAnyTemplate('site:com_sdajem/Events/comments');
+}
+?>
 
 </div>

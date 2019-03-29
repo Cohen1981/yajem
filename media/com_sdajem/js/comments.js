@@ -47,30 +47,3 @@ function deleteCommentAjax(id) {
 	xhttp.open("POST", "index.php?option=com_sdajem&view=Comment&task=deleteCommentAjax");
 	xhttp.send(formData);
 }
-
-function registerAjax(toDo) {
-	var formElement = document.querySelector("#attendeeForm");
-	var formData = new FormData(formElement);
-	formData.append('action', toDo);
-	var attendeeId=document.getElementById('attendeeId').value;
-
-	var xhttp = new XMLHttpRequest();
-	xhttp.onload = function () {
-		if (this.readyState === 4 && this.status === 200) {
-			var html = xhttp.response;
-			if (html.toString() === "error")
-			{
-				alert('An Error occured');
-			}
-			else
-			{
-				if (document.getElementById('attendee'+attendeeId))
-					document.getElementById('attendee'+attendeeId).remove();
-				document.getElementById('sdajem_attendee_area').innerHTML = html + document.getElementById('sdajem_attendee_area').innerHTML;
-			}
-		}
-	};
-
-	xhttp.open("POST", "index.php?option=com_sdajem&view=Attendees&task=registerAttendeeAjax");
-	xhttp.send(formData);
-}

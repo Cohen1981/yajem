@@ -122,6 +122,64 @@ class Event extends DataController
 	 *
 	 * @since 0.0.1
 	 */
+	public function getRegisterHtmlAjax()
+	{
+		$input = $this->input->request->post->getArray();
+
+		if ($input['eventId'])
+		{
+			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Events&task=getRegisterHtml&id=' . $input['eventId']);
+		}
+		else
+		{
+			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Event&task=error');
+		}
+		$this->redirect();
+	}
+
+	public function changeEventStatusAjax()
+	{
+		$input = $this->input->request->post->getArray();
+
+		if ($input['id'] && $input['status'])
+		{
+			/** @var \Sda\Jem\Site\Model\Event $event */
+			$event = $this->getModel();
+			$event->load($input['id']);
+			$event->eventStatus = $input['status'];
+			$event->save();
+
+			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Events&task=changeEventStatus&id=' . $input['id']);
+		}
+		else
+		{
+			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Event&task=error');
+		}
+		$this->redirect();
+	}
+
+	public function addNewLocation()
+	{
+		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
+		$this->setRedirect('index.php?option=com_sdajem&view=Location&task=add');
+		$this->redirect();
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function onBeforeRead()
+	{
+		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
 	public function onBeforeEdit()
 	{
 		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
@@ -132,7 +190,27 @@ class Event extends DataController
 	 *
 	 * @since 0.0.1
 	 */
+	public function onBeforeAdd()
+	{
+		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
 	public function onAfterSave()
+	{
+		$this->setRedirect(RefererHelper::getReferer());
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function onAfterCancel()
 	{
 		$this->setRedirect(RefererHelper::getReferer());
 	}

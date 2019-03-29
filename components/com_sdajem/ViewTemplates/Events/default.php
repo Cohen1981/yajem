@@ -26,24 +26,29 @@ $guest = Factory::getUser()->guest;
 	<div class="sdajem_flex_row">
 		<div class="sdajem_cell sdajem_head">
 			<i class="far fa-calendar-alt" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_DATE') ?>"></i>
+			<?php echo JText::_('COM_SDAJEM_EVENT_DATE_LABEL'); ?>
 		</div>
 		<div class="sdajem_cell sdajem_head">
 			<i class="far fa-bookmark" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
+			<?php echo JText::_('COM_SDAJEM_EVENT_TITLE_LABEL'); ?>
 		</div>
 		<div class="sdajem_cell sdajem_head">
 			<i class="fas fa-map-marker-alt" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_MAP') ?>">&nbsp;</i>
+			<?php echo JText::_('COM_SDAJEM_EVENT_SDAJEM_LOCATION_ID_LABEL'); ?>
 		</div>
 		<div class="sdajem_cell sdajem_head">
 			<i class="far fa-flag" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
+			<?php echo JText::_('COM_SDAJEM_EVENT_SDAJEM_CATEGORIE_ID_LABEL'); ?>
 		</div>
 		<div class="sdajem_cell sdajem_head">
 			<i class="fas fa-users" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_USERS') ?>"></i>
+			<?php echo JText::_('COM_SDAJEM_EVENT_ATTENDEES'); ?>
 		</div>
 
 		<?php if (!$guest):	?>
 			<div class="sdajem_cell sdajem_head">
 				<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_STATUS') ?>">&nbsp;</i>
-				<?php echo JText::_('COM_SDAJEM_EVENT_STATUS'); ?>
+				<?php echo JText::_('COM_SDAJEM_EVENT_EVENTSTATUS_LABEL'); ?>
 			</div>
 		<?php endif; ?>
 
@@ -87,13 +92,31 @@ $guest = Factory::getUser()->guest;
 		</div>
 		<div class="sdajem_cell">
 			<i class="fas fa-users" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_USERS') ?>"></i>
-			<?php echo $event->attendees->count(); ?>
+			<?php
+			if ((bool) $event->useRegistration)
+			{
+				echo $event->getAttendingCount();
+			}
+			?>
 		</div>
 
 		<?php if (!$guest):	?>
 			<div class="sdajem_cell">
 				<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo JText::_('COM_SDAJEM_ICON_STATUS') ?>">&nbsp;</i>
-				<?php echo $event->eventStatus; ?>
+				<?php
+				switch ($event->eventStatus)
+				{
+					case 0:
+						echo "<i class=\"fas fa-question-circle\"></i>";
+						break;
+					case 1:
+						echo "<i class=\"fas fa-thumbs-up\" style=\"color: #51a351;\"></i>";
+						break;
+					case 2:
+						echo "<i class=\"fas fa-thumbs-down\" style=\"color: #ff6b6b;\"></i>";
+						break;
+				}
+				?>
 			</div>
 		<?php endif; ?>
 

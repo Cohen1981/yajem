@@ -20,43 +20,4 @@ use Joomla\CMS\Factory;
  */
 class Event extends AdminEvent
 {
-	public function getRegisterHtml() : string
-	{
-		$currentUser = Factory::getUser()->id;
-		$status = 0;
-		$html = "";
-
-		/** @var Attendee $attendee */
-		foreach ($this->attendees as $attendee)
-		{
-			if ($attendee->users_user_id == $currentUser)
-			{
-				$status = $attendee->status;
-				$html = $html . "<input id=\"attendeeId\" type=\"hidden\" name=\"attendeeId\" value=\"" . $attendee->sdajem_attendee_id . "\"/>";
-			}
-		}
-
-		switch ($status)
-		{
-			case 0:
-				$buttons = "<button type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"1\" onclick=\"registerAjax(1)\">" .
-					Text::_('SDAJEM_REGISTER') . "</button>";
-				$buttons = $buttons .
-					"<button type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"2\" onclick=\"registerAjax(2)\">" .
-					Text::_('SDAJEM_UNREGISTER') . "</button>";
-				break;
-			case 1:
-				$buttons = "<button type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"2\" onclick=\"registerAjax(2)\">" .
-					Text::_('SDAJEM_UNREGISTER') . "</button>";
-				break;
-			case 2:
-				$buttons = "<button type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"1\" onclick=\"registerAjax(1)\">" .
-					Text::_('SDAJEM_REGISTER') . "</button>";
-				break;
-		}
-
-		$html = $html . $buttons;
-
-		return $html;
-	}
 }

@@ -12,8 +12,10 @@ namespace Sda\Profiles\Admin\Model;
 use FOF30\Container\Container;
 use FOF30\Date\Date;
 use FOF30\Model\DataModel;
+use Sda\Jem\Admin\Model\Attendee;
 use Sda\Profiles\Admin\Model\User as UserAlias;
 use Sda\Profiles\Admin\Model\Fitting;
+use Joomla\CMS\Component\ComponentHelper;
 
 /**
  * @package     Sda\Profiles\Admin\Model
@@ -52,6 +54,7 @@ use Sda\Profiles\Admin\Model\Fitting;
  *
  * @property  UserAlias $user
  * @property  Fitting   $fittings
+ * @property  Attendee  $attendees  Only if sdajem is installed and active
  *
  */
 class Profile extends DataModel
@@ -70,5 +73,10 @@ class Profile extends DataModel
 		$this->addBehaviour('Filters');
 		$this->hasOne('user', 'User', 'users_user_id', 'id');
 		$this->hasMany('fittings', 'Fitting');
+
+		if (ComponentHelper::isEnabled('com_sdaprofiles'))
+		{
+			$this->hasMany('attendees', 'Attendee@com_sdajem', 'users_user_id', 'users_user_id');
+		}
 	}
 }

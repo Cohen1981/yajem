@@ -7,13 +7,13 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Sda\Jem\Site\View\Attendee;
+namespace Sda\Jem\Site\View\Event;
 
 use FOF30\View\DataView\Raw as BaseRaw;
-use Sda\Jem\Site\Model\Attendee;
+use Sda\Jem\Site\Model\Event;
 
 /**
- * @package     Sda\Profiles\Site\View\Attendee
+ * @package     Sda\Profiles\Site\View\Event
  *
  * @since       0.0.1
  */
@@ -31,11 +31,17 @@ class Raw extends BaseRaw
 
 		switch ($input['task'])
 		{
-			case "registerAjax":
-				/** @var Attendee $attendee */
-				$attendee = $this->getModel();
-				$attendee->load($input['id]']);
-				$this->setLayout('attendee');
+			case "getRegisterHtml":
+				/** @var Event $event */
+				$event = $this->getModel();
+				$event->load($input['id]']);
+				$this->setLayout('register');
+				break;
+			case "changeEventStatus":
+				/** @var Event $event */
+				$event = $this->getModel();
+				$event->load($input['id]']);
+				$this->setLayout('eventStatus');
 				break;
 			case "error":
 				$this->setLayout('error');

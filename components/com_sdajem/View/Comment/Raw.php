@@ -10,6 +10,7 @@
 namespace Sda\Jem\Site\View\Comment;
 
 use FOF30\View\DataView\Raw as BaseRaw;
+use Sda\Jem\Site\Model\Comment;
 
 /**
  * @package     Sda\Profiles\Site\View\Comment
@@ -31,6 +32,9 @@ class Raw extends BaseRaw
 		switch ($input['task'])
 		{
 			case "commentAjax":
+				/** @var Comment $comment */
+				$comment = $this->getModel();
+				$comment->load($input['id]']);
 				$this->setLayout('comment');
 				break;
 			case "error":

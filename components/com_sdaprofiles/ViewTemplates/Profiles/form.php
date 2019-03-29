@@ -127,4 +127,11 @@ echo $this->getRenderedForm();
 		<?php endif; ?>
 	</div>
 
+	<?php
+	if ($profile->attendees)
+	{
+		echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendings');
+	}
+	?>
+
 </div>

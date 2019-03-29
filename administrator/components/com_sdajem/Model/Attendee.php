@@ -56,50 +56,21 @@ class Attendee extends DataModel
 	}
 
 	/**
+	 * @param   int $userId     User Id
+	 * @param   int $eventId    Event Id
 	 *
-	 * @return string Ready to show Html for the attendee
+	 * @return void
 	 *
 	 * @since 0.0.1
 	 */
-	public function getAttendingHtml() : string
+	public function getAttendeeForEventAndUser(int $userId, int $eventId)
 	{
-		switch ($this->status)
-		{
-			case 0:
-				$status = "<div class=\"sdajem_status_label sdajem_grey\">" . Text::_('COM_SDAJEM_UNDECIDED') . "</div>";
-				break;
-			case 1:
-				$status = "<div class=\"sdajem_status_label sdajem_green\">" . Text::_('COM_SDAJEM_ATTENDING') . "</div>";
-				break;
-			case 2:
-				$status = "<div class=\"sdajem_status_label sdajem_red\">" . Text::_('COM_SDAJEM_NATTENDING') . "</div>";
-				break;
-		}
-
-		$html = '';
-
-		if ($this->user->profile)
-		{
-			$html = $html .
-				"<div id=\"attendee" . $this->sdajem_attendee_id . "\" class=\"sdajem_profile_container\">" .
-				"<div class='sdajem_avatar_container'>" .
-				"<img class=\"sdajem_avatar\" src=\"" . $this->user->profile->avatar . "\"/>" .
-				"</div>" .
-				"<div class='sdajem_profile_details'>" .
-				$this->user->profile->userName . "<br/>" . $status .
-				"</div>" .
-				"</div>";
-		}
-		else
-		{
-			$html = $html .
-				"<div id=\"attendee" . $this->sdajem_attendee_id . "\" class=\"sdajem_profile_container\">" .
-				"<div class='sdajem_profile_details'>" .
-				$this->user->username . "<br/>" . $status .
-				"</div>" .
-				"</div>";
-		}
-
-		return $html;
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('sdajem_attendee_id')
+			->from('#__sdajem_attendees')
+			->where(array('sdajem_event_id=' . $eventId, 'users_user_id=' . $userId));
+		$db->setQuery($query);
+		$this->load($db->loadResult());
 	}
 }

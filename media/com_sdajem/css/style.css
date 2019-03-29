@@ -84,3 +84,11 @@
 .sdajem_red {
 	background-color: #9d261d;
 }
+.sdajem_attending_cell {
+	width: 100px;
+	float: left;
+	padding: 5px;
+}
+.sdajem_event_grid h3{
+	margin: 0px 0px 10px 0px;
+}

@@ -25,7 +25,10 @@
            description="COM_SDAJEM_EVENT_HOSTID_DESC"
     />
     <field name="organizerId"
-           type="User"
+           type="Model"
+           model="users"
+           key_field="id"
+           value_field="username"
            label="COM_SDAJEM_EVENT_ORGANIZERID_LABEL"
            description="COM_SDAJEM_EVENT_ORGANIZERID_DESC"/>
     <field name="startDateTime" type="Calendar" label="COM_SDAJEM_EVENT_STARTDATETIME_LABEL" description="COM_SDAJEM_EVENT_STARTDATETIME_DESC"/>
@@ -41,7 +44,5 @@
       <option value="2">Abgesagt</option>
     </field>
     <field name="access" type="AccessLevel" label="COM_SDAJEM_EVENT_ACCESS_LABEL" description="COM_SDAJEM_EVENT_ACCESS_DESC"/>
-    <field name="enabled" type="Published" label="COM_SDAJEM_EVENT_ENABLED_LABEL" description="COM_SDAJEM_EVENT_ENABLED_DESC"/>
-    <field name="hits" type="Number" label="COM_SDAJEM_EVENT_HITS_LABEL" description="COM_SDAJEM_EVENT_HITS_DESC"/>
   </fieldset>
 </form>

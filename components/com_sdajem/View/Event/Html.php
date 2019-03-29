@@ -18,5 +18,4 @@ use FOF30\View\DataView\Html as BaseHtml;
  */
 class Html extends BaseHtml
 {
-
 }

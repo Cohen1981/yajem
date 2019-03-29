@@ -13,6 +13,7 @@ use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use FOF30\Date\Date;
 use FOF30\Utils\Collection;
+use Sda\Jem\Admin\Model\Attendees;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -59,7 +60,7 @@ use FOF30\Utils\Collection;
  * @property  Category      $category
  * @property  Location      $location
  * @property  Collection    $comments
- * @property  Collection    $attendees
+ * @property  Attendees     $attendees
  */
 class Event extends DataModel
 {
@@ -80,6 +81,26 @@ class Event extends DataModel
 		$this->hasOne('category', 'Category');
 		$this->hasOne('location', 'Location', 'sdajem_location_id', 'sdajem_location_id');
 		$this->hasMany('comments', 'Comment');
-		$this->hasMany('attendees', 'Attendee');
+		$this->hasMany('attendees', 'Attendee', 'sdajem_event_id', 'sdajem_event_id');
+	}
+
+	/**
+	 * @param   int $eventId The Id of the event
+	 *
+	 * @return integer
+	 *
+	 * @since 0.0.1
+	 */
+	public function getAttendingCount() : int
+	{
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('count(*)')
+			->from('#__sdajem_attendees')
+			->where(array('sdajem_event_id=' . $this->sdajem_event_id, 'status=1'));
+		$db->setQuery($query);
+		$count = $db->loadResult();
+
+		return $count;
 	}
 }
