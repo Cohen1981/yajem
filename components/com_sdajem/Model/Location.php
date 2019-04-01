@@ -18,5 +18,15 @@ use Sda\Jem\Admin\Model\Location as AdminLocation;
  */
 class Location extends AdminLocation
 {
-
+	/**
+	 * Set the enabled state, which is not accessible in Frontend.
+	 *
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	protected function onBeforeSave()
+	{
+		$this->enabled = 1;
+	}
 }

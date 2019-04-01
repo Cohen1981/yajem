@@ -13,6 +13,7 @@ use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use FOF30\Date\Date;
 use FOF30\Utils\Collection;
+use ParagonIE\Sodium\File;
 use Sda\Jem\Admin\Model\Attendees;
 
 /**
@@ -60,7 +61,7 @@ use Sda\Jem\Admin\Model\Attendees;
  * @property  Category      $category
  * @property  Location      $location
  * @property  Collection    $comments
- * @property  Attendees     $attendees
+ * @property  Collection    $attendees
  */
 class Event extends DataModel
 {
@@ -74,8 +75,8 @@ class Event extends DataModel
 	 */
 	public function __construct(Container $container, array $config = array())
 	{
+		$config['behaviours'] = array('Filters', 'Access');
 		parent::__construct($container, $config);
-		$this->addBehaviour('Filters');
 		$this->hasOne('host', 'Contact', 'hostId', 'id');
 		$this->hasOne('organizer', 'User', 'organizerId', 'id');
 		$this->hasOne('category', 'Category');
@@ -85,9 +86,9 @@ class Event extends DataModel
 	}
 
 	/**
-	 * @param   int $eventId The Id of the event
+	 * Returns the number of attending users.
 	 *
-	 * @return integer
+	 * @return integer Number of attending Users. "Status = 1"
 	 *
 	 * @since 0.0.1
 	 */
@@ -102,5 +103,31 @@ class Event extends DataModel
 		$count = $db->loadResult();
 
 		return $count;
+	}
+
+	/**
+	 * Checks for useRegistration and waiting list status as well as register until.
+	 *
+	 * @return boolean true if User can attend
+	 *
+	 * @since 0.0.1
+	 */
+	public function isRegistrationPossible() : bool
+	{
+		$regPossible = false;
+
+		if ((bool) $this->useRegistration && (!(bool) $this->useWaitingList || $this->getAttendingCount() < $this->registrationLimit ))
+		{
+			$regPossible = true;
+		}
+
+		if ($this->registerUntil)
+		{
+			$regUntil = new Date($this->registerUntil);
+			$currentDate = new Date;
+			$regPossible = ($currentDate <= $regUntil) ? true : false;
+		}
+
+		return $regPossible;
 	}
 }

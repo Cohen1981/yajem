@@ -10,6 +10,7 @@
 namespace Sda\Jem\Admin\Model;
 
 use FOF30\Model\DataModel;
+use Joomla\CMS\Filesystem\File;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -29,5 +30,8 @@ use FOF30\Model\DataModel;
 */
 class Attachment extends DataModel
 {
-
+	public function uploadFile(string $file)
+	{
+		File::upload(File::makeSafe($file),'media/com_sdajem');
+	}
 }

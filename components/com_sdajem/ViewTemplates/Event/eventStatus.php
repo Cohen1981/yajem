@@ -16,12 +16,24 @@ $event = $this->getModel('Event');
 $this->addCssFile('media://com_sdajem/css/style.css');
 $this->addJavascriptFile('media://com_sdajem/js/status.js');
 
+switch ($event->eventStatus)
+{
+	case 0:
+		echo "<h3><i class=\"fas fa-question-circle\"></i> " . Text::_('SDAJEM_EVENT_STATUS_OPEN') . "</h3>";
+		break;
+	case 1:
+		echo "<h3><i class=\"fas fa-thumbs-up\" style=\"color: #51a351;\"></i> " . Text::_('SDAJEM_EVENT_STATUS_CONFIRMED') . "</h3>";
+		break;
+	case 2:
+		echo "<h3><i class=\"fas fa-thumbs-down\" style=\"color: #ff6b6b;\"></i> " . Text::_('SDAJEM_EVENT_STATUS_CANCELED') . "</h3>";
+		break;
+}
+
 if ($event->organizerId == Factory::getUser()->id)
 {
 	switch ($event->eventStatus)
 	{
 		case 0:
-			echo "<h3><i class=\"fas fa-question-circle\"></i> " . Text::_('SDAJEM_EVENT_STATUS_OPEN') . "</h3>";
 			echo "<button id=\"confirmButton\" type=\"button\" onclick=\"changeEventStatus(1)\" name=\"confirmButton\">";
 			echo "<i class=\"fas fa-thumbs-up\" style=\"color: #51a351;\"></i>";
 			echo "</button>";
@@ -30,13 +42,11 @@ if ($event->organizerId == Factory::getUser()->id)
 			echo "</button>";
 			break;
 		case 1:
-			echo "<h3><i class=\"fas fa-thumbs-up\" style=\"color: #51a351;\"></i> " . Text::_('SDAJEM_EVENT_STATUS_CONFIRMED') . "</h3>";
 			echo "<button id=\"cancelButton\" type=\"button\" onclick=\"changeEventStatus(2)\" name=\"cancelButton\">";
 			echo "<i class=\"fas fa-thumbs-down\" style=\"color: #ff6b6b;\"></i>";
 			echo "</button>";
 			break;
 		case 2:
-			echo "<h3><i class=\"fas fa-thumbs-down\" style=\"color: #ff6b6b;\"></i> " . Text::_('SDAJEM_EVENT_STATUS_CANCELED') . "</h3>";
 			echo "<button id=\"confirmButton\" type=\"button\" onclick=\"changeEventStatus(1)\" name=\"confirmButton\">";
 			echo "<i class=\"fas fa-thumbs-up\" style=\"color: #51a351;\"></i>";
 			echo "</button>";

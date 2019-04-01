@@ -12,8 +12,7 @@
   "require": {
     "phing/phing": "2.16.1",
     "components/font-awesome": "5.4.2",
-    "squizlabs/php_codesniffer": "2.9.2",
-    "akeeba/fof": "3.4.2"
+    "squizlabs/php_codesniffer": "2.9.2"
   },
   "require-dev": {
     "joomla/coding-standards": "2.0.0-rc2"

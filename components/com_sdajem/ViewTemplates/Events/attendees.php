@@ -31,7 +31,7 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 		</h2>
 	</div>
 	<div class="buttonsContainer">
-		<?php if (!Factory::getUser()->guest): ?>
+		<?php if (!Factory::getUser()->guest && $event->isRegistrationPossible()): ?>
 
 				<div id="registerButtons">
 					<?php echo $this->loadAnyTemplate('site:com_sdajem/Event/register'); ?>

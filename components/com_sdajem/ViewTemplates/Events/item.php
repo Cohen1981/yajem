@@ -47,6 +47,8 @@ $guest = Factory::getUser()->guest;
 		</h3>
 	</div>
 
+	<?php if ($event->organizerId != 0) : ?>
+
 	<div class="sdajem_label">
 		<h3>
 			<?php echo Text::_('COM_SDAJEM_EVENT_EVENTSTATUS_LABEL'); ?>
@@ -55,6 +57,8 @@ $guest = Factory::getUser()->guest;
 	<div id="eventStatus" class="sdajem_value">
 		<?php echo $this->loadAnyTemplate('site:com_sdajem/Event/eventStatus'); ?>
 	</div>
+
+	<?php endif; ?>
 
 	<div class="sdajem_label">
 		<?php echo Text::_('COM_SDAJEM_EVENT_STARTDATETIME_LABEL'); ?>

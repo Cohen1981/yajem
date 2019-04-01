@@ -14,7 +14,7 @@ use Joomla\CMS\Factory;
 /** @var \Sda\Jem\Site\Model\Location $location */
 $location = $this->getModel('Location');
 $this->addCssFile('media://com_sdajem/css/style.css');
-$this->addJavascriptFile('media://com_sdajem/js/attendees.js');
+$this->addJavascriptFile('media://com_sdajem/js/location.js');
 
 ?>
 
@@ -78,3 +78,4 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 	</div>
 
 </div>
+<div id="map"></div>

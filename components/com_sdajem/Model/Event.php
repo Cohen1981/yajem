@@ -20,4 +20,15 @@ use Joomla\CMS\Factory;
  */
 class Event extends AdminEvent
 {
+	/**
+	 * Set the enabled state, which is not accessible in Frontend.
+	 *
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	protected function onBeforeSave()
+	{
+		$this->enabled = 1;
+	}
 }

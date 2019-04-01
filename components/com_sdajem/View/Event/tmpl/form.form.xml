@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form validate="true">
+<form validate="true" enctype="multipart/form-data">
   <fieldset name="scaffolding" label="COM_SDAJEM_EVENT_GROUP_BASIC">
     <field name="sdajem_categorie_id"
            type="Model"
@@ -21,6 +21,7 @@
            model="contacts"
            key_field="id"
            value_field="name"
+           none="COM_SDAJEM_NONE_SELECTED"
            label="COM_SDAJEM_EVENT_HOSTID_LABEL"
            description="COM_SDAJEM_EVENT_HOSTID_DESC"
     />
@@ -29,6 +30,7 @@
            model="users"
            key_field="id"
            value_field="username"
+           none="COM_SDAJEM_NONE_SELECTED"
            label="COM_SDAJEM_EVENT_ORGANIZERID_LABEL"
            description="COM_SDAJEM_EVENT_ORGANIZERID_DESC"/>
     <field name="startDateTime" type="Calendar" label="COM_SDAJEM_EVENT_STARTDATETIME_LABEL" description="COM_SDAJEM_EVENT_STARTDATETIME_DESC"/>
@@ -39,9 +41,9 @@
     <field name="registrationLimit" type="Number" label="COM_SDAJEM_EVENT_REGISTRATIONLIMIT_LABEL" description="COM_SDAJEM_EVENT_REGISTRATIONLIMIT_DESC"/>
     <field name="useWaitingList" type="Boolean" label="COM_SDAJEM_EVENT_USEWAITINGLIST_LABEL" description="COM_SDAJEM_EVENT_USEWAITINGLIST_DESC"/>
     <field name="eventStatus" type="list" default="" label="COM_SDAJEM_EVENT_EVENTSTATUS_LABEL" description="COM_SDAJEM_EVENT_EVENTSTATUS_DESC">
-      <option value="0">Open</option>
-      <option value="1">Bestätigt</option>
-      <option value="2">Abgesagt</option>
+      <option value="0">SDAJEM_EVENT_STATUS_OPEN</option>
+      <option value="1">SDAJEM_EVENT_STATUS_CONFIRMED</option>
+      <option value="2">SDAJEM_EVENT_STATUS_CANCELED</option>
     </field>
     <field name="access" type="AccessLevel" label="COM_SDAJEM_EVENT_ACCESS_LABEL" description="COM_SDAJEM_EVENT_ACCESS_DESC"/>
   </fieldset>

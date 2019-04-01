@@ -11,6 +11,11 @@ namespace Sda\Jem\Admin\Helper;
 
 use Joomla\CMS\Factory;
 
+/**
+ * @package     Sda\Jem\Admin\Helper
+ *
+ * @since       0.0.1
+ */
 class RefererHelper
 {
 	/**
@@ -33,6 +38,8 @@ class RefererHelper
 
 	/**
 	 * Stores the URL of the calling page in the User Session
+	 *
+	 * @param   string $referer The referer URL
 	 *
 	 * @return void
 	 * @since 0.0.1

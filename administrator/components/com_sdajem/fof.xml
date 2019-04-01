@@ -19,7 +19,7 @@
 		</dispatcher>
 
 		<model name="*">
-			<behaviors merge="1">Filters</behaviors>
+			<behaviors merge="1">Filters, Access</behaviors>
 		</model>
 
 	</common>
@@ -43,6 +43,11 @@
 		<!-- The same options as Common Settings apply here, too -->
 		<!-- Controller, View and Toolbar setup. One tag per view. -->
 		<view name="Events">
+
+			<!-- Controller and View options -->
+			<config>
+				<option name="autoRouting">3</option>
+			</config>
 
 			<!-- Controller and View options -->
 			<config>
