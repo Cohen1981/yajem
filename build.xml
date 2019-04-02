@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="Yajem Extension Build" default="build">
+<project name="SDA Jem" default="build">
 
     <property name="build.version" value="0.0.1"/>
 
-    <property name="build.dir" value="${project.basedir}/build"/>
+    <property name="build.dir" value="${project.basedir}/build/com_sdajem"/>
     <property name="dist.dir" value="${project.basedir}/target"/>
-    <property name="admin.src.dir" value="${project.basedir}/administrator/components"/>
-    <property name="site.src.dir" value="${project.basedir}/components"/>
-    <property name="media.src.dir" value="${project.basedir}/media"/>
-    <property name="plg.scr.dir" value="${project.basedir}/plugins"/>
-    <property name="lib.scr.dir" value="${project.basedir}/libraries"/>
+    <property name="admin.src.dir" value="${project.basedir}/administrator/components/com_sdajem"/>
+    <property name="site.src.dir" value="${project.basedir}/components/com_sdajem"/>
+    <property name="media.src.dir" value="${project.basedir}/media/com_sdajem"/>
     <property name="vendor.src.dir" value="${project.basedir}/vendor"/>
 
     <tstamp>
@@ -18,12 +16,15 @@
     <property name="creation.date" value="${TODAY}"/>
 
     <target name="prepare" description="prepare for packaging">
+        <echo>${build.dir}</echo>
+        <echo>${dist.dir}</echo>
+        <echo>${admin.src.dir}</echo>
+        <echo>${site.src.dir}</echo>
+        <echo>${media.src.dir}</echo>
+        <echo>${vendor.src.dir}</echo>
         <delete dir="${dist.dir}" includeemptydirs="true"/>
-        <mkdir dir="${build.dir}"/>
-        <mkdir dir="${build.dir}/com_sdaprofiles"/>
-        <mkdir dir="${build.dir}/com_sdajem"/>
         <mkdir dir="${dist.dir}"/>
-        <mkdir dir="${dist.dir}/packages"/>
+        <mkdir dir="${build.dir}"/>
     </target>
 
     <target name="cleanup" description="cleaning after build">
@@ -32,18 +33,36 @@
 
     <target name="copyFiles" description="copy main files for packaging">
 
+        <!-- Copy the font-awesome dependencies -->
+        <copy todir="${media.src.dir}/css">
+            <filelist dir="vendor/components/font-awesome/css" files="fontawesome-all.min.css"/>
+        </copy>
+        <copy todir="${media.src.dir}/webfonts">
+            <fileset dir="vendor/components/font-awesome/webfonts">
+                <include name="**.**"/>
+            </fileset>
+        </copy>
+
+        <!-- Packaging com_sdajem -->
+        <copy todir="${build.dir}" overwrite="true">
+            <fileset dir="${admin.src.dir}" includes="**/**"/>
+            <fileset dir="${site.src.dir}" includes="**/**" />
+        </copy>
+        <copy todir="${build.dir}">
+            <fileset dir="${project.basedir}">
+                <include name="${admin.src.dir}/**"/>
+                <include name="${site.src.dir}/**"/>
+                <include name="${media.src.dir}/**"/>
+            </fileset>
+        </copy>
+
     </target>
 
     <target name="zip" description="package the archive" depends="copyFiles">
-        <!-- FOF -->
-        <zip destfile="${dist.dir}/packages/lib_fof30-3.4.1.zip" includeemptydirs="true">
-            <fileset dir="${lib.scr.dir}/fof">
-                <include name="**/**"/>
-            </fileset>
-        </zip>
+
     </target>
 
     <target name="build" description="packaging all"
-            depends="prepare, zip, cleanup"/>
+            depends="prepare, zip"/>
 
 </project>
