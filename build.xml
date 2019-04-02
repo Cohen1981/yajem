@@ -10,6 +10,7 @@
     <property name="media.src.dir" value="${project.basedir}/media"/>
     <property name="plg.scr.dir" value="${project.basedir}/plugins"/>
     <property name="lib.scr.dir" value="${project.basedir}/libraries"/>
+    <property name="vendor.src.dir" value="${project.basedir}/vendor"/>
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
@@ -20,6 +21,7 @@
         <delete dir="${dist.dir}" includeemptydirs="true"/>
         <mkdir dir="${build.dir}"/>
         <mkdir dir="${build.dir}/com_sdaprofiles"/>
+        <mkdir dir="${build.dir}/com_sdajem"/>
         <mkdir dir="${dist.dir}"/>
         <mkdir dir="${dist.dir}/packages"/>
     </target>

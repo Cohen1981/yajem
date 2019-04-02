@@ -2,14 +2,14 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_categories` (
   `sdajem_category_id` int unsigned not null auto_increment,
   `title` varchar(255) not null,
   `type` varchar(255) null,
-  primary key (`sdajem_categorie_id`)
+  primary key (`sdajem_category_id`)
 )
   ENGINE=InnoDB
   DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
 
 CREATE TABLE IF NOT EXISTS `#__sdajem_locations` (
   `sdajem_location_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `sdajem_categorie_id` INT NOT NULL COMMENT 'Foreign key to #__categories',
+  `sdajem_category_id` INT NOT NULL COMMENT 'Foreign key to #__categories',
   `title` VARCHAR(255) NOT NULL COMMENT 'the location title',
   `slug` VARCHAR(255) NULL COMMENT 'Joomla standard: alias field',
   `description` MEDIUMTEXT NULL COMMENT 'Optional description of the location',
@@ -33,7 +33,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_locations` (
   `modified_on` DATETIME NULL COMMENT 'Joomla standard: holds the timestamp of the last modification',
   `modified_by` INT NULL COMMENT 'Joomla standard: holds the modifier of the item. Foreign key to #__users',
   PRIMARY KEY (`sdajem_location_id`),
-  INDEX `idx_loc_catid` (sdajem_categorie_id ASC),
+  INDEX `idx_loc_catid` (sdajem_category_id ASC),
   INDEX `idx_loc_conid` (contactId ASC))
   ENGINE=InnoDB
   DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
@@ -55,7 +55,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
   `useRegistration` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'Use regitration for this event. 1=true, 0=false',
   `registerUntil` DATE NULL COMMENT 'Date until a registration is allowed',
   `registrationLimit` INT NULL COMMENT 'Limit of available accommodations. 0=No Limit',
-  `useWaitingList` TINYINT(1) NULL COMMENT 'use of waiting List in case of limitation. 0=false, 1=true',
+  `useWaitingList` TINYINT(1) NULL DEFAULT 0 COMMENT 'use of waiting List in case of limitation. 0=false, 1=true',
   `eventStatus` TINYINT(1) NULL DEFAULT 0 COMMENT  'Optional status of event. 0=open,1=confirmed,2=cancelled',
   `access` INT(10) NULL,
   `enabled` TINYINT(4) NOT NULL COMMENT 'like state or published',

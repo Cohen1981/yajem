@@ -79,6 +79,12 @@
 				<button type="save" />
 				<button type="cancel" />
 			</toolbar>
+
+			<toolbar title="COM_SDAJEM_TITLE_LOCATIONS_ADD" task="add">
+				<button type="apply" />
+				<button type="save" />
+				<button type="cancel" />
+			</toolbar>
 		</view>
 
 	</frontend>

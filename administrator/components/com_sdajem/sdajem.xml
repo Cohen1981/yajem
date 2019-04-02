@@ -54,8 +54,8 @@
 
 	<!-- Front end translation files -->
 	<languages folder="language/frontend">
-		<language tag="en-GB">en-GB/en-GB.com_sdaprofiles.ini</language>
-		<language tag="de-DE">de-DE/de-DE.com_sdaprofiles.ini</language>
+		<language tag="en-GB">en-GB/en-GB.com_sdajem.ini</language>
+		<language tag="de-DE">de-DE/de-DE.com_sdajem.ini</language>
 	</languages>
 
 	<!-- Back-end files -->
@@ -91,10 +91,10 @@
 
 		<!-- Back-end translation files -->
 		<languages folder="language/backend">
-			<language tag="en-GB">en-GB/en-GB.com_sdaprofiles.ini</language>
-			<language tag="en-GB">en-GB/en-GB.com_sdaprofiles.sys.ini</language>
-			<language tag="de-DE">de-DE/de-DE.com_sdaprofiles.ini</language>
-			<language tag="de-DE">de-DE/de-DE.com_sdaprofiles.sys.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_sdajem.ini</language>
+			<language tag="en-GB">en-GB/en-GB.com_sdajem.sys.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_sdajem.ini</language>
+			<language tag="de-DE">de-DE/de-DE.com_sdajem.sys.ini</language>
 		</languages>
 
 	</administration>

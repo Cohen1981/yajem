@@ -23,7 +23,7 @@ use FOF30\Date\Date;
  * Fields:
  *
  * @property   int			$sdajem_location_id
- * @property   int			$sdajem_categorie_id
+ * @property   int			$sdajem_category_id
  * @property   string		$title
  * @property   string		$slug
  * @property   string		$description
@@ -65,7 +65,7 @@ class Location extends DataModel
 	public function __construct(Container $container, array $config = array())
 	{
 		parent::__construct($container, $config);
-		$this->hasOne('category', 'Category');
+		$this->hasOne('category', 'Category', 'sdajem_category_id', 'sdajem_category_id');
 		$this->hasOne('contact', 'Contact', 'contactId', 'id');
 		$this->belongsTo('event', 'Event');
 	}
@@ -92,5 +92,24 @@ class Location extends DataModel
 			}
 
 		}
+	}
+
+	/**
+	 * Make sure to store a valid URL
+	 *
+	 * @param   string $value The input vaue
+	 *
+	 * @return string
+	 *
+	 * @since 0.0.1
+	 */
+	protected function setUrlAttribute($value)
+	{
+		if (substr($value, 0, 4) != "http" && $value != "")
+		{
+			$value = "http://" . $value;
+		}
+
+		return $value;
 	}
 }

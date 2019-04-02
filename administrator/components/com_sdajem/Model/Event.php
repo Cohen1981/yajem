@@ -13,8 +13,6 @@ use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use FOF30\Date\Date;
 use FOF30\Utils\Collection;
-use ParagonIE\Sodium\File;
-use Sda\Jem\Admin\Model\Attendees;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -145,7 +143,69 @@ class Event extends DataModel
 			{
 				$this->sdajem_location_id = null;
 			}
+
+			if ($input['registrationLimit'] == "" || $input['registrationLimit'] == 0)
+			{
+				$this->registrationLimit = null;
+			}
 		}
+	}
+
+	/**
+	 * Make sure to store a valid URL
+	 *
+	 * @param   string $value The input vaue
+	 *
+	 * @return string
+	 *
+	 * @since 0.0.1
+	 */
+	protected function setUrlAttribute($value)
+	{
+		if (substr($value, 0, 4) != "http" && $value != "")
+		{
+			$value = "http://" . $value;
+		}
+
+		return $value;
+	}
+
+	/**
+	 * @param   string $value The date and time as string
+	 *
+	 * @return Date
+	 *
+	 * @since 0.0.1
+	 */
+	protected function getStartDateTimeAttribute($value)
+	{
+		// Make sure it's not a JRegistry already
+		if (is_object($value) && ($value instanceof \FOF30\Date\Date))
+		{
+			return $value;
+		}
+
+		// Return the data transformed to a JRegistry object
+		return new Date($value);
+	}
+
+	/**
+	 * @param   string $value The date and time as string
+	 *
+	 * @return Date
+	 *
+	 * @since 0.0.1
+	 */
+	protected function getEndDateTimeAttribute($value)
+	{
+		// Make sure it's not a JRegistry already
+		if (is_object($value) && ($value instanceof \FOF30\Date\Date))
+		{
+			return $value;
+		}
+
+		// Return the data transformed to a JRegistry object
+		return new Date($value);
 	}
 
 	/**
@@ -181,7 +241,7 @@ class Event extends DataModel
 			$regPossible = true;
 		}
 
-		if ($this->registerUntil)
+		if ($this->registerUntil != '0000-00-00')
 		{
 			$regUntil = new Date($this->registerUntil);
 			$currentDate = new Date;

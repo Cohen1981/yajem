@@ -3,7 +3,7 @@
   <headerset>
     <header name="ordering" type="Ordering" label="COM_SDAJEM_EVENT_ORDERING_LABEL" sortable="true" tdwidth="1%"/>
     <header name="sdajem_event_id" type="RowSelect" label="COM_SDAJEM_EVENT_SDAJEM_EVENT_ID_LABEL" sortable="true" tdwidth="20"/>
-    <header name="sdajem_categorie_id" type="Model" model="categories" key_field="sdajem_category_id" value_field="title" label="COM_SDAJEM_EVENT_SDAJEM_CATEGORIE_ID_LABEL" sortable="true"/>
+    <header name="sdajem_category_id" type="Model" model="categories" key_field="sdajem_category_id" value_field="title" label="COM_SDAJEM_EVENT_SDAJEM_CATEGORY_ID_LABEL" sortable="true"/>
     <header name="title" type="Searchable" label="COM_SDAJEM_EVENT_TITLE_LABEL"/>
     <header name="slug" type="Searchable" label="COM_SDAJEM_EVENT_ALIAS_LABEL" sortable="true"/>
     <header name="description" type="Searchable" label="COM_SDAJEM_EVENT_DESCRIPTION_LABEL" sortable="true"/>
@@ -27,7 +27,7 @@
   <fieldset name="items">
     <field name="ordering" type="Ordering" class="input-mini input-sm"/>
     <field name="sdajem_event_id" type="SelectRow"/>
-    <field name="sdajem_categorie_id" type="Model" model="categories" key_field="sdajem_category_id" value_field="title"/>
+    <field name="sdajem_category_id" type="Model" model="categories" key_field="sdajem_category_id" value_field="title"/>
     <field name="title" type="Sortable" url="index.php?option=com_sdajem&amp;view=Event&amp;id=[ITEM:ID]&amp;[TOKEN]=1"/>
     <field name="slug" type="Text"/>
     <field name="description" type="Editor"/>

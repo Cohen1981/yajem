@@ -8,10 +8,12 @@
  */
 
 use Joomla\CMS\Language\Text;
+use FOF30\Date\Date;
 
 /** @var \Sda\Profiles\Site\Model\Profile $profile */
 /** @var \Joomla\Input\Input $input */
 /** @var \Sda\Jem\Site\Model\Attendee $attendee */
+/** @var \Sda\Jem\Site\View\Attendee\Raw $this */
 
 $this->addCssFile('media://com_sdajem/css/style.css');
 
@@ -44,7 +46,18 @@ if ($input['option'] == 'com_sdaprofiles' && $input['task'] == 'edit')
 		<?php foreach ($profile->attendees as $attendee) : ?>
 			<div id="sdajem_attending<?php echo $attendee->sdajem_attendee_id; ?>" class="control-group">
 				<label class="control-label">
-
+					<?php
+					if ((bool) $attendee->event->allDayEvent)
+					{
+						echo $attendee->event->startDateTime->format('d.m.Y') . " - ";
+						echo $attendee->event->endDateTime->format('d.m.Y');
+					}
+					else
+					{
+						echo $attendee->event->startDateTime->format('d.m.Y H:i') . " - ";
+						echo $attendee->event->endDateTime->format('d.m.Y H:i');
+					}
+					?>
 				</label>
 				<div class="controls">
 					<?php

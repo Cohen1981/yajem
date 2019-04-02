@@ -88,7 +88,7 @@ $guest = Factory::getUser()->guest;
 		<?php echo Text::_('COM_SDAJEM_EVENT_URL_LABEL'); ?>
 	</div>
 	<div class="sdajem_value">
-		<?php echo $event->url; ?>
+		<a href="<?php echo $event->url; ?>" target="_blank"><?php echo $event->url; ?></a>
 	</div>
 	<div class="sdajem_label">
 		<?php echo Text::_('COM_SDAJEM_EVENT_DESCRIPTION_LABEL'); ?>

@@ -54,7 +54,7 @@ $this->addJavascriptFile('media://com_sdajem/js/location.js');
 		<?php echo Text::_('COM_SDAJEM_LOCATION_URL_LABEL'); ?>
 	</div>
 	<div class="sdajem_value">
-		<?php echo $location->url; ?>
+		<a href="<?php echo $location->url; ?>" target="_blank"><?php echo $location->url; ?></a>
 	</div>
 	<div class="sdajem_label">
 		<?php echo Text::_('COM_SDAJEM_LOCATION_ADDRESS_LABEL'); ?>

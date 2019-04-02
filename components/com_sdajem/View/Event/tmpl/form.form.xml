@@ -6,8 +6,8 @@
            model="categories"
            key_field="sdajem_category_id"
            value_field="title"
-           label="COM_SDAJEM_EVENT_SDAJEM_CATEGORIE_ID_LABEL"
-           description="COM_SDAJEM_EVENT_SDAJEM_CATEGORIE_ID_DESC">
+           label="COM_SDAJEM_EVENT_SDAJEM_CATEGORY_ID_LABEL"
+           description="COM_SDAJEM_EVENT_SDAJEM_CATEGORY_ID_DESC">
       <state key="type">Event</state>
     </field>
     <field name="title" type="Text" label="COM_SDAJEM_EVENT_TITLE_LABEL" description="COM_SDAJEM_EVENT_TITLE_DESC"/>

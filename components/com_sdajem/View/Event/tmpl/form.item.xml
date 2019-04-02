@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form validate="true" type="read">
   <fieldset name="scaffolding" label="COM_SDAJEM_EVENT_GROUP_BASIC">
-    <field name="sdajem_categorie_id" type="Model" model="categories" key_field="sdajem_category_id" value_field="title" label="COM_SDAJEM_EVENT_SDAJEM_CATEGORIE_ID_LABEL"/>
+    <field name="sdajem_category_id" type="Model" model="categories" key_field="sdajem_category_id" value_field="title" label="COM_SDAJEM_EVENT_SDAJEM_CATEGORY_ID_LABEL"/>
     <field name="title" type="Text" label="COM_SDAJEM_EVENT_TITLE_LABEL"/>
     <field name="slug" type="Text" label="COM_SDAJEM_EVENT_SLUG_LABEL"/>
     <field name="description" type="Editor" label="COM_SDAJEM_EVENT_DESCRIPTION_LABEL"/>
