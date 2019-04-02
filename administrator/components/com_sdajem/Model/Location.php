@@ -69,4 +69,28 @@ class Location extends DataModel
 		$this->hasOne('contact', 'Contact', 'contactId', 'id');
 		$this->belongsTo('event', 'Event');
 	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	protected function onBeforeSave()
+	{
+		$input = $this->input->post->getArray();
+
+		if ($input['task'] == "save")
+		{
+			if ($input['image'] == "")
+			{
+				$this->image = null;
+			}
+
+			if ($input['contactId'] == "")
+			{
+				$this->contactId = null;
+			}
+
+		}
+	}
 }

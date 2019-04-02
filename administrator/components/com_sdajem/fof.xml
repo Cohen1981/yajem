@@ -54,13 +54,12 @@
 				<option name="useConfigurationFile">1</option>
 				<option name="renderFrontendButtons">1</option>
 			</config>
-
 			<toolbar title="COM_SDAJEM_TITLE_EVENTS_EDIT" task="edit">
 				<button type="apply" />
 				<button type="save" />
 				<button type="cancel" />
 			</toolbar>
-			<toolbar title="COM_SDAJEM_TITLE_EVENTS_EDIT" task="add">
+			<toolbar title="COM_SDAJEM_TITLE_EVENTS_ADD" task="add">
 				<button type="apply" />
 				<button type="save" />
 				<button type="cancel" />

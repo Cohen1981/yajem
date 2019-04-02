@@ -18,6 +18,7 @@
 	display: grid;
 	grid-template-columns: minmax(100px, 200px) auto;
 	grid-row-gap: 10px;
+	margin-bottom: 10px;
 }
 .sdajem_profile_container {
 	margin-right: 10px;
@@ -91,4 +92,13 @@
 }
 .sdajem_event_grid h3{
 	margin: 0px 0px 10px 0px;
+}
+.sdajem_image_container{
+	float: right;
+	width: 250px;
+}
+@media (max-width: 550px) {
+	.sdajem_image_container{
+		display: none;
+	}
 }

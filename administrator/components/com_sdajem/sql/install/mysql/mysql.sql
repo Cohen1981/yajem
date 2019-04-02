@@ -52,7 +52,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
   `startDateTime` DATETIME NULL COMMENT 'Starting date of the event',
   `endDateTime` DATETIME NULL COMMENT 'End date of the event',
   `allDayEvent` TINYINT(1) UNSIGNED NULL COMMENT 'Optional: Flag for all day event. 0=uses start and end time\n1=all day event.',
-  `useRegistration` TINYINT(1) UNSIGNED NOT NULL DEFAULT 0 COMMENT 'Use regitration for this event. 1=true, 0=false',
+  `useRegistration` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'Use regitration for this event. 1=true, 0=false',
   `registerUntil` DATE NULL COMMENT 'Date until a registration is allowed',
   `registrationLimit` INT NULL COMMENT 'Limit of available accommodations. 0=No Limit',
   `useWaitingList` TINYINT(1) NULL COMMENT 'use of waiting List in case of limitation. 0=false, 1=true',

@@ -10,9 +10,11 @@
 namespace Sda\Jem\Site\Toolbar;
 
 use FOF30\Toolbar\Toolbar as BaseToolbar;
+use FOF30\Container\Container;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
+use Sda\Jem\Site\Model\Event;
 
 /**
  * @package     Sda\Jem\Site\Toolbar
@@ -28,14 +30,18 @@ class Toolbar extends BaseToolbar
 	 */
 	public function onEventsRead()
 	{
-		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_EVENTS_READ'));
+		/** @var Event $event */
+		$event = Container::getInstance('com_sdajem')->factory->model('Event');
+		$event->load();
+
+		ToolbarHelper::title(' ' . $event->title, 'calendar');
 
 		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
 		{
 			ToolbarHelper::custom('edit', 'edit', '', 'JGLOBAL_EDIT', false);
 		}
 
-		ToolbarHelper::custom('cancel', 'back', '', 'COM_SDAJEM_BACK', false);
+		ToolbarHelper::custom('cancel', 'backward-2', '', 'COM_SDAJEM_BACK', false);
 	}
 
 	/**

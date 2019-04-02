@@ -22,7 +22,7 @@ $this->addJavascriptFile('media://com_sdajem/js/comments.js');
 	<div class="well">
 		<div class="titleContainer">
 			<h2 class="page-title">
-				<span class="icon-generic" aria-hidden="true"></span>
+				<span class="icon-comments-2" aria-hidden="true"></span>
 				<?php echo Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
 			</h2>
 		</div>

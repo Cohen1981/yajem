@@ -9,7 +9,6 @@
 
 use Joomla\CMS\Factory;
 use FOF30\Date\Date;
-use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
 
 /** @var \Sda\Jem\Site\View\Event\Html  $this       */
@@ -34,18 +33,13 @@ $guest = Factory::getUser()->guest;
 
 <div class="sdajem_content_container">
 
-<div class="sdajem_event_grid">
+	<?php if ($event->image) :?>
+		<div class="sdajem_image_container">
+			<img src="<?php echo $event->image ?>" />
+		</div>
+	<?php endif; ?>
 
-	<div class="sdajem_label">
-		<h3>
-			<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL'); ?>
-		</h3>
-	</div>
-	<div class="sdajem_value">
-		<h3>
-			<?php echo $event->title; ?>
-		</h3>
-	</div>
+<div class="sdajem_event_grid">
 
 	<?php if ($event->organizerId != 0) : ?>
 

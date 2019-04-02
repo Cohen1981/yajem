@@ -23,8 +23,8 @@ $this->addJavascriptFile('media://com_sdajem/js/location.js');
 <div class="well">
 	<div class="titleContainer">
 		<h2 class="page-title">
-			<span class="icon-generic" aria-hidden="true"></span>
-			<?php echo Text::_('COM_SDAJEM_TITLE_LOCATION_BASIC'); ?>
+			<span class="icon-compass" aria-hidden="true"></span>
+			<?php echo $location->title; ?>
 		</h2>
 	</div>
 	<?php if (!Factory::getUser()->guest): ?>
@@ -42,14 +42,14 @@ $this->addJavascriptFile('media://com_sdajem/js/location.js');
 	<input type="hidden" name="id" value="<?php echo $location->sdajem_location_id; ?>"/>
 </form>
 
+<?php if ($location->image) :?>
+	<div class="sdajem_image_container">
+		<img src="<?php echo $location->image ?>" />
+	</div>
+<?php endif; ?>
+
 <div class="sdajem_event_grid">
 
-	<div class="sdajem_label">
-		<?php echo Text::_('COM_SDAJEM_LOCATION_TITLE_LABEL'); ?>
-	</div>
-	<div class="sdajem_value">
-		<?php echo $location->title; ?>
-	</div>
 	<div class="sdajem_label">
 		<?php echo Text::_('COM_SDAJEM_LOCATION_URL_LABEL'); ?>
 	</div>

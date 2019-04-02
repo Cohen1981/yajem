@@ -26,7 +26,7 @@ use Sda\Jem\Admin\Model\Attendees;
  * Fields:
  *
  * @property   int			$sdajem_event_id
- * @property   int			$sdajem_categorie_id
+ * @property   int			$sdajem_category_id
  * @property   string		$title
  * @property   string		$slug
  * @property   string		$description

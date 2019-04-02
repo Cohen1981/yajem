@@ -17,6 +17,7 @@
            model="contacts"
            key_field="id"
            value_field="name"
+           none="COM_SDAJEM_NONE_SELECTED"
            label="COM_SDAJEM_LOCATION_CONTACTID_LABEL"
            description="COM_SDAJEM_LOCATION_CONTACTID_DESC"/>
     <field name="image" type="Media" label="COM_SDAJEM_LOCATION_IMAGE_LABEL" description="COM_SDAJEM_LOCATION_IMAGE_DESC"/>
