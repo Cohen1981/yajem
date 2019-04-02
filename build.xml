@@ -4,11 +4,12 @@
     <property name="build.version" value="0.0.1"/>
 
     <property name="build.dir" value="${project.basedir}/build/com_sdajem"/>
-    <property name="dist.dir" value="${project.basedir}/target"/>
+    <property name="dist.dir" value="${project.basedir}/target/packages"/>
     <property name="admin.src.dir" value="${project.basedir}/administrator/components/com_sdajem"/>
     <property name="site.src.dir" value="${project.basedir}/components/com_sdajem"/>
     <property name="media.src.dir" value="${project.basedir}/media/com_sdajem"/>
     <property name="vendor.src.dir" value="${project.basedir}/vendor"/>
+    <property name="lib.src.dir" value="${project.basedir}/libraries"/>
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
@@ -34,32 +35,28 @@
     <target name="copyFiles" description="copy main files for packaging">
 
         <!-- Copy the font-awesome dependencies -->
-        <copy todir="${media.src.dir}/css">
-            <filelist dir="vendor/components/font-awesome/css" files="fontawesome-all.min.css"/>
-        </copy>
-        <copy todir="${media.src.dir}/webfonts">
-            <fileset dir="vendor/components/font-awesome/webfonts">
-                <include name="**.**"/>
-            </fileset>
+        <copy file="${vendor.src.dir}/components/font-awesome/css/fontawesome-all.min.css" todir="${media.src.dir}/css" overwrite="true" />
+        <copy todir="${media.src.dir}/webfonts" overwrite="true">
+            <fileset dir="${vendor.src.dir}/components/font-awesome/webfonts" includes="**.**"/>
         </copy>
 
         <!-- Packaging com_sdajem -->
-        <copy todir="${build.dir}" overwrite="true">
-            <fileset dir="${admin.src.dir}" includes="**/**"/>
+        <copy todir="${build.dir}/administrator" overwrite="true">
+            <fileset dir="${admin.src.dir}" includes="**/**" excludes="sdajem.xml"/>
+        </copy>
+        <copy file="${admin.src.dir}/sdajem.xml" todir="${build.dir}" overwrite="true" />
+        <copy todir="${build.dir}/components" overwrite="true">
             <fileset dir="${site.src.dir}" includes="**/**" />
         </copy>
-        <copy todir="${build.dir}">
-            <fileset dir="${project.basedir}">
-                <include name="${admin.src.dir}/**"/>
-                <include name="${site.src.dir}/**"/>
-                <include name="${media.src.dir}/**"/>
-            </fileset>
+        <copy todir="${build.dir}/media" overwrite="true">
+            <fileset dir="${media.src.dir}" includes="**/**" />
         </copy>
 
     </target>
 
     <target name="zip" description="package the archive" depends="copyFiles">
-
+        <zip destfile="${dist.dir}/com_sdajem.zip" includeemptydirs="true" basedir="${build.dir}" />
+        <copy file="${lib.src.dir}/lib_fof30-3.4.2.zip" todir="${dist.dir}" overwrite="true" />
     </target>
 
     <target name="build" description="packaging all"
