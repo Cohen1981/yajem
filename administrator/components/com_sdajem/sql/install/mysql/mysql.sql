@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_locations` (
 
 CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
   `sdajem_event_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id of the Event',
-  `sdajem_categorie_id` INT UNSIGNED NOT NULL COMMENT 'Foreign key to com_categories',
+  sdajem_category_id INT UNSIGNED NOT NULL COMMENT 'Foreign key to com_categories',
   `title` VARCHAR(255) NOT NULL COMMENT 'The event title',
   `slug` VARCHAR(255) NOT NULL COMMENT 'Joomla standard: alias field',
   `description` MEDIUMTEXT NULL COMMENT 'Optional description of the event',
@@ -68,7 +68,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
   `modified_on` DATETIME NULL COMMENT 'Joomla standard: holds the timestamp of the last modification',
   `modified_by` INT NULL COMMENT 'Joomla standard: holds the modifier of the item. Foreign key to #__users',
   PRIMARY KEY (`sdajem_event_id`),
-  INDEX `idx_event_catid` (`sdajem_categorie_id` ASC),
+  INDEX `idx_event_catid` (sdajem_category_id ASC),
   INDEX `idx_event_locid` (`sdajem_location_id` ASC),
   INDEX `idx_event_hostid` (`hostId` ASC),
   INDEX `idx_event_orgid` (`organizerId` ASC))

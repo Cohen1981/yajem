@@ -79,7 +79,7 @@ class Event extends DataModel
 		parent::__construct($container, $config);
 		$this->hasOne('host', 'Contact', 'hostId', 'id');
 		$this->hasOne('organizer', 'User', 'organizerId', 'id');
-		$this->hasOne('category', 'Category');
+		$this->hasOne('category', 'Category', 'sdajem_category_id', 'sdajem_category_id');
 		$this->hasOne('location', 'Location', 'sdajem_location_id', 'sdajem_location_id');
 		$this->hasMany('comments', 'Comment');
 		$this->hasMany('attendees', 'Attendee', 'sdajem_event_id', 'sdajem_event_id');
@@ -103,6 +103,66 @@ class Event extends DataModel
 		$count = $db->loadResult();
 
 		return $count;
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	protected function onBeforeSave()
+	{
+		$input = $this->input->post->getArray();
+
+		if ($input['task'] == "save")
+		{
+			if ($input['registerUntil'] == "")
+			{
+				$this->registerUntil = null;
+			}
+
+			if ($input['hostId'] == "")
+			{
+				$this->hostId = null;
+			}
+
+			if ($input['organizerId'] == "")
+			{
+				$this->organizerId = null;
+			}
+
+			if ($input['url'] == "")
+			{
+				$this->url = null;
+			}
+
+			if ($input['image'] == "")
+			{
+				$this->image = null;
+			}
+
+			if ($input['sdajem_location_id'] == "")
+			{
+				$this->sdajem_location_id = null;
+			}
+		}
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	protected function onBeforeDelete()
+	{
+		if ($this->attendees)
+		{
+			/** @var Attendee $attendee */
+			foreach ($this->attendees as $attendee)
+			{
+				$attendee->forceDelete();
+			}
+		}
 	}
 
 	/**

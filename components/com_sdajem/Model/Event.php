@@ -29,6 +29,7 @@ class Event extends AdminEvent
 	 */
 	protected function onBeforeSave()
 	{
+		parent::onBeforeSave();
 		$this->enabled = 1;
 	}
 }

@@ -15,7 +15,14 @@
     <field name="description" type="Editor" label="COM_SDAJEM_EVENT_DESCRIPTION_LABEL" description="COM_SDAJEM_EVENT_DESCRIPTION_DESC"/>
     <field name="url" type="Url" label="COM_SDAJEM_EVENT_URL_LABEL" description="COM_SDAJEM_EVENT_URL_DESC"/>
     <field name="image" type="Media" label="COM_SDAJEM_EVENT_IMAGE_LABEL" description="COM_SDAJEM_EVENT_IMAGE_DESC"/>
-    <field name="sdajem_location_id" type="Model" model="locations" key_field="sdajem_location_id" value_field="title" label="COM_SDAJEM_EVENT_SDAJEM_LOCATION_ID_LABEL" description="COM_SDAJEM_EVENT_SDAJEM_LOCATION_ID_DESC"/>
+    <field name="sdajem_location_id"
+           type="Model"
+           model="locations"
+           key_field="sdajem_location_id"
+           value_field="title"
+           none="COM_SDAJEM_NONE_SELECTED"
+           label="COM_SDAJEM_EVENT_SDAJEM_LOCATION_ID_LABEL"
+           description="COM_SDAJEM_EVENT_SDAJEM_LOCATION_ID_DESC"/>
     <field name="hostId"
            type="Model"
            model="contacts"

@@ -10,6 +10,7 @@
 use Joomla\CMS\Factory;
 use FOF30\Date\Date;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Access\Access;
 
 /** @var \Sda\Jem\Site\View\Event\Html $this */
 /** @var \Sda\Jem\Site\Model\Event $event */
@@ -18,6 +19,7 @@ $this->addCssFile('media://com_sdajem/css/style.css');
 $items = $this->getItems();
 
 $guest = Factory::getUser()->guest;
+$authorised = Access::getAuthorisedViewLevels(JFactory::getUser()->get('id'));
 
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>" method="post"
@@ -55,6 +57,7 @@ $guest = Factory::getUser()->guest;
 	</div>
 
 	<?php foreach ($items as $event): ?>
+	<?php if (in_array($event->access, $authorised)) : ?>
 
 	<div class="sdajem_flex_row">
 
@@ -122,6 +125,7 @@ $guest = Factory::getUser()->guest;
 
 	</div>
 
+	<?php endif; ?>
 	<?php endforeach; ?>
 
 	<input type="hidden" name="task" value=""/>

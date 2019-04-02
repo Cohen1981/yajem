@@ -107,8 +107,11 @@ $guest = Factory::getUser()->guest;
 
 <!-- Location Block -->
 <?php
-$this->setModel('Location', $event->location);
-echo $this->loadAnyTemplate('site:com_sdajem/Locations/location');
+if ($event->location)
+{
+	$this->setModel('Location', $event->location);
+	echo $this->loadAnyTemplate('site:com_sdajem/Locations/location');
+}
 ?>
 
 <!-- Attendee Block -->
