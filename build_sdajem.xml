@@ -3,11 +3,11 @@
 
     <property name="build.version" value="0.0.1"/>
 
-    <property name="build.dir" value="${project.basedir}/build/com_sdajem"/>
-    <property name="dist.dir" value="${project.basedir}/target/packages"/>
-    <property name="admin.src.dir" value="${project.basedir}/administrator/components/com_sdajem"/>
-    <property name="site.src.dir" value="${project.basedir}/components/com_sdajem"/>
-    <property name="media.src.dir" value="${project.basedir}/media/com_sdajem"/>
+    <property name="jem.build.dir" value="${project.basedir}/build/com_sdajem"/>
+    <property name="jem.dist.dir" value="${project.basedir}/target/packages"/>
+    <property name="jem.admin.src.dir" value="${project.basedir}/administrator/components/com_sdajem"/>
+    <property name="jem.site.src.dir" value="${project.basedir}/components/com_sdajem"/>
+    <property name="jem.media.src.dir" value="${project.basedir}/media/com_sdajem"/>
     <property name="vendor.src.dir" value="${project.basedir}/vendor"/>
     <property name="lib.src.dir" value="${project.basedir}/libraries"/>
 
@@ -23,40 +23,40 @@
         <echo>${site.src.dir}</echo>
         <echo>${media.src.dir}</echo>
         <echo>${vendor.src.dir}</echo>
-        <delete dir="${dist.dir}" includeemptydirs="true"/>
-        <mkdir dir="${dist.dir}"/>
-        <mkdir dir="${build.dir}"/>
+        <delete dir="${jem.dist.dir}" includeemptydirs="true"/>
+        <mkdir dir="${jem.dist.dir}"/>
+        <mkdir dir="${jem.build.dir}"/>
     </target>
 
     <target name="cleanup" description="cleaning after build" hidden="true">
-        <delete dir="${build.dir}" includeemptydirs="true"/>
+        <delete dir="${jem.build.dir}" includeemptydirs="true"/>
     </target>
 
     <target name="copyFiles" description="copy main files for packaging" hidden="true">
 
         <!-- Copy the font-awesome dependencies -->
-        <copy file="${vendor.src.dir}/components/font-awesome/css/fontawesome-all.min.css" todir="${media.src.dir}/css" overwrite="true" />
-        <copy todir="${media.src.dir}/webfonts" overwrite="true">
+        <copy file="${vendor.src.dir}/components/font-awesome/css/fontawesome-all.min.css" todir="${jem.media.src.dir}/css" overwrite="true" />
+        <copy todir="${jem.media.src.dir}/webfonts" overwrite="true">
             <fileset dir="${vendor.src.dir}/components/font-awesome/webfonts" includes="**.**"/>
         </copy>
 
         <!-- Copy com_sdajem to build for packaging -->
-        <copy todir="${build.dir}/administrator" overwrite="true">
-            <fileset dir="${admin.src.dir}" includes="**/**" excludes="sdajem.xml"/>
+        <copy todir="${jem.build.dir}/administrator/components/com_sdajem" overwrite="true">
+            <fileset dir="${jem.admin.src.dir}" includes="**/**" excludes="sdajem.xml"/>
         </copy>
-        <copy file="${admin.src.dir}/sdajem.xml" todir="${build.dir}" overwrite="true" />
-        <copy todir="${build.dir}/components" overwrite="true">
-            <fileset dir="${site.src.dir}" includes="**/**" />
+        <copy file="${jem.admin.src.dir}/sdajem.xml" todir="${jem.build.dir}" overwrite="true" />
+        <copy todir="${jem.build.dir}/components/com_sdajem" overwrite="true">
+            <fileset dir="${jem.site.src.dir}" includes="**/**" />
         </copy>
-        <copy todir="${build.dir}/media" overwrite="true">
-            <fileset dir="${media.src.dir}" includes="**/**" />
+        <copy todir="${jem.build.dir}/media/com_sdajem" overwrite="true">
+            <fileset dir="${jem.media.src.dir}" includes="**/**" />
         </copy>
 
     </target>
 
     <target name="zip" description="package the archive" depends="copyFiles" hidden="true">
-        <zip destfile="${dist.dir}/com_sdajem.zip" includeemptydirs="true" basedir="${build.dir}" />
-        <copy file="${lib.src.dir}/lib_fof30-3.4.2.zip" todir="${dist.dir}" overwrite="true" />
+        <zip destfile="${jem.dist.dir}/com_sdajem.zip" includeemptydirs="true" basedir="${jem.build.dir}" />
+        <copy file="${lib.src.dir}/lib_fof30-3.4.2.zip" todir="${jem.dist.dir}" overwrite="true" />
     </target>
 
     <target name="build_sdajem" description="packaging all"

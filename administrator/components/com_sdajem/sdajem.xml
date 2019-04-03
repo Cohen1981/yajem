@@ -38,7 +38,6 @@
 	<!-- Media files -->
 	<media folder="media/com_sdajem" destination="com_sdajem">
 		<folder>css</folder>
-		<folder>attachments</folder>
 		<folder>js</folder>
 		<folder>webfonts</folder>
 	</media>
@@ -55,11 +54,12 @@
 		<folder>ViewTemplates</folder>
 	</files>
 
-	<!-- Front end translation files -->
+	<!-- Front end translation files
 	<languages folder="language/frontend">
 		<language tag="en-GB">en-GB/en-GB.com_sdajem.ini</language>
 		<language tag="de-DE">de-DE/de-DE.com_sdajem.ini</language>
 	</languages>
+	-->
 
 	<!-- Back-end files -->
 	<administration>
@@ -81,7 +81,6 @@
 		<!-- Core files -->
 		<files folder="administrator/components/com_sdajem">
 			<filename>sdajem.php</filename>
-			<filename>sdajem.xml</filename>
 			<filename>config.xml</filename>
 			<filename>access.xml</filename>
 			<filename>fof.xml</filename>
@@ -92,13 +91,14 @@
 			<folder>View</folder>
 		</files>
 
-		<!-- Back-end translation files -->
+		<!-- Back-end translation files
 		<languages folder="language/backend">
 			<language tag="en-GB">en-GB/en-GB.com_sdajem.ini</language>
 			<language tag="en-GB">en-GB/en-GB.com_sdajem.sys.ini</language>
 			<language tag="de-DE">de-DE/de-DE.com_sdajem.ini</language>
 			<language tag="de-DE">de-DE/de-DE.com_sdajem.sys.ini</language>
 		</languages>
+		-->
 
 	</administration>
 
