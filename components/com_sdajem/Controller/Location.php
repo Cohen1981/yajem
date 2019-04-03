@@ -69,7 +69,7 @@ class Location extends DataController
 			$referer = 'index.php?option=com_sdajem&view=Locations&task=edit&id='.$input['sdajem_location_id'];
 		}
 		RefererHelper::setReferer($referer);
-		$this->setRedirect('index.php?option=com_sdajem&view=Categories&task=add');
+		$this->setRedirect('index.php?option=com_sdajem&view=Categories&task=add&type=0');
 		$this->redirect();
 	}
 }

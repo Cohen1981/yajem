@@ -7,7 +7,7 @@
 	<copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
 	<version>0.0.1</version>
-	<description>COM_YAJEM_XML_DESCRIPTION</description>
+	<description>COM_SDAPROFILES_XML_DESCRIPTION</description>
 
 	<!-- Scripts to run on installation
 	<scriptfile>script.php</scriptfile>
@@ -27,12 +27,13 @@
 		</sql>
 	</uninstall>
 
-	<!-- Runs on update -->
+	<!-- Runs on update
 	<update>
 		<schemas>
 			<schemapath type="mysql">sql/updates/mysql</schemapath>
 		</schemas>
 	</update>
+	 -->
 
 	<!-- Media files -->
 	<media folder="media/com_sdaprofiles" destination="com_sdaprofiles">
@@ -75,7 +76,7 @@
 		</submenu>
 
 		<!-- Core files -->
-		<files folder="administrator/components/com_yajem">
+		<files folder="administrator/components/com_sdaprofiles">
 			<filename>sdaprofiles.php</filename>
 			<filename>access.xml</filename>
 			<filename>config.xml</filename>

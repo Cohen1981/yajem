@@ -73,7 +73,8 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 
-		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_Category_NEW', false);
+		ToolbarHelper::custom('addNewLocation', 'new', '', 'COM_SDAJEM_LOCATION_NEW', false);
+		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_CATEGORY_NEW', false);
 	}
 
 	/**
@@ -89,7 +90,7 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 
-		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_Category_NEW', false);
+		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_CATEGORY_NEW', false);
 	}
 
 	/**
@@ -105,7 +106,7 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 
-		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_Category_NEW', false);
+		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_CATEGORY_NEW', false);
 	}
 
 	/**
@@ -121,7 +122,7 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 
-		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_Category_NEW', false);
+		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_CATEGORY_NEW', false);
 	}
 
 	/**

@@ -24,6 +24,18 @@ class Category extends DataController
 	 *
 	 * @since 0.0.1
 	 */
+	protected function onBeforeAdd()
+	{
+		if ($_REQUEST['type'])
+		{
+			$this->defaultsForAdd['type'] = $_REQUEST['type'];
+		}
+	}
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
 	public function onAfterSave() : void
 	{
 		$this->setRedirect(RefererHelper::getReferer());
