@@ -1,25 +1,21 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <extension type="package" version="3.9" method="upgrade">
-    <name>pkg_yajem</name>
-    <packagename>yajem</packagename>
+    <name>pkg_sda</name>
+    <packagename>SDA</packagename>
     <creationDate>17.12.2018</creationDate>
     <author>Alexander Bahlo</author>
     <authorEmail>abahlo@hotmail.de</authorEmail>
     <copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>1.2.2</version>
-    <description>PKG_YAJEM_INSTALLATION_DESCRIPTION</description>
+    <version>0.0.1</version>
+    <description>PKG_SDA_INSTALLATION_DESCRIPTION</description>
     <packager>Alexander Bahlo</packager>
 
     <scriptfile>pkg_install.php</scriptfile>
 
     <files folder="packages">
-        <file type="component" id="com_yajem">com_yajem.zip</file>
-        <file type="plugin" id="mailer" group="yajem">plg_yajem_mailer.zip</file>
-        <file type="plugin" id="profileYajem" group="user">plg_user_profileYajem.zip</file>
-        <file type="plugin" id="yajemLib" group="system">plg_system_yajemLib.zip</file>
-        <file type="library" id="yajem">lib_yajem.zip</file>
-        <file type="template" id="tpl_survivants">tpl_survivants.zip</file>
+        <file type="file" id="lib_fof3">lib_fof30-3.4.2.zip</file>
+        <file type="component" id="sdajem" group="sda">com_sdajem.zip</file>
     </files>
 
     <languages folder="language">

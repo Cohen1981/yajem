@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="SDA Jem" default="build">
+<project name="sda_jem" default="build_sdajem">
 
     <property name="build.version" value="0.0.1"/>
 
@@ -16,7 +16,7 @@
     </tstamp>
     <property name="creation.date" value="${TODAY}"/>
 
-    <target name="prepare" description="prepare for packaging">
+    <target name="prepare" description="prepare for packaging" hidden="true">
         <echo>${build.dir}</echo>
         <echo>${dist.dir}</echo>
         <echo>${admin.src.dir}</echo>
@@ -28,11 +28,11 @@
         <mkdir dir="${build.dir}"/>
     </target>
 
-    <target name="cleanup" description="cleaning after build">
+    <target name="cleanup" description="cleaning after build" hidden="true">
         <delete dir="${build.dir}" includeemptydirs="true"/>
     </target>
 
-    <target name="copyFiles" description="copy main files for packaging">
+    <target name="copyFiles" description="copy main files for packaging" hidden="true">
 
         <!-- Copy the font-awesome dependencies -->
         <copy file="${vendor.src.dir}/components/font-awesome/css/fontawesome-all.min.css" todir="${media.src.dir}/css" overwrite="true" />
@@ -40,7 +40,7 @@
             <fileset dir="${vendor.src.dir}/components/font-awesome/webfonts" includes="**.**"/>
         </copy>
 
-        <!-- Packaging com_sdajem -->
+        <!-- Copy com_sdajem to build for packaging -->
         <copy todir="${build.dir}/administrator" overwrite="true">
             <fileset dir="${admin.src.dir}" includes="**/**" excludes="sdajem.xml"/>
         </copy>
@@ -54,12 +54,12 @@
 
     </target>
 
-    <target name="zip" description="package the archive" depends="copyFiles">
+    <target name="zip" description="package the archive" depends="copyFiles" hidden="true">
         <zip destfile="${dist.dir}/com_sdajem.zip" includeemptydirs="true" basedir="${build.dir}" />
         <copy file="${lib.src.dir}/lib_fof30-3.4.2.zip" todir="${dist.dir}" overwrite="true" />
     </target>
 
-    <target name="build" description="packaging all"
-            depends="prepare, zip"/>
+    <target name="build_sdajem" description="packaging all"
+            depends="prepare, zip, cleanup"/>
 
 </project>
