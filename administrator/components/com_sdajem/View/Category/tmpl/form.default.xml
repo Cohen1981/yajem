@@ -8,6 +8,6 @@
   <fieldset name="items">
     <field name="sdajem_category_id" type="SelectRow"/>
     <field name="title" type="Sortable" url="index.php?option=com_sdajem&amp;view=Category&amp;id=[ITEM:ID]&amp;[TOKEN]=1"/>
-    <field name="type" type="Text"/>
+    <field name="type" type="Callback" source_class="Sda\Jem\Admin\Model\Category" source_method="getCatType"/>
   </fieldset>
 </form>

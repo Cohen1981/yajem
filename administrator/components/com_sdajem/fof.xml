@@ -5,12 +5,12 @@
 
 		<container>
 			<!-- Set up the The Factory class which will be used by FOF to determine how much "magic" you want FOF to apply to your component.-->
-			<option name="factoryClass"><![CDATA[FOF30\Factory\MagicFactory]]></option>
+			<option name="factoryClass"><![CDATA[FOF30\Factory\MagicSwitchFactory]]></option>
 
 			<!-- Use componentNamespace option to configure more unique namespaces, recommened to use something like CompanyName\ComponentName -->
 			<option name="componentNamespace"><![CDATA[Sda\Jem]]></option>
-			<option name="scaffolding">1</option>
-			<option name="saveScaffolding">1</option>
+			<option name="scaffolding">0</option>
+			<option name="saveScaffolding">0</option>
 
 		</container>
 
@@ -54,16 +54,7 @@
 				<option name="useConfigurationFile">1</option>
 				<option name="renderFrontendButtons">1</option>
 			</config>
-			<toolbar title="COM_SDAJEM_TITLE_EVENTS_EDIT" task="edit">
-				<button type="apply" />
-				<button type="save" />
-				<button type="cancel" />
-			</toolbar>
-			<toolbar title="COM_SDAJEM_TITLE_EVENTS_ADD" task="add">
-				<button type="apply" />
-				<button type="save" />
-				<button type="cancel" />
-			</toolbar>
+
 		</view>
 
 		<view name="Locations">
@@ -73,18 +64,15 @@
 				<option name="renderFrontendButtons">1</option>
 			</config>
 
-			<!-- Toolbar configuration -->
-			<toolbar title="COM_SDAJEM_TITLE_LOCATIONS_EDIT" task="edit">
-				<button type="apply" />
-				<button type="save" />
-				<button type="cancel" />
-			</toolbar>
+		</view>
 
-			<toolbar title="COM_SDAJEM_TITLE_LOCATIONS_ADD" task="add">
-				<button type="apply" />
-				<button type="save" />
-				<button type="cancel" />
-			</toolbar>
+		<view name="Categories">
+			<!-- Controller and View options -->
+			<config>
+				<option name="useConfigurationFile">1</option>
+				<option name="renderFrontendButtons">1</option>
+			</config>
+
 		</view>
 
 	</frontend>

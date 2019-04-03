@@ -19,9 +19,6 @@ use Joomla\CMS\Language\Text;
 $this->addCssFile('media://com_sdajem/css/style.css');
 $event = $this->getItem();
 
-$startDate = new Date($event->startDateTime);
-$endDate = new Date($event->endDateTime);
-
 $guest = Factory::getUser()->guest;
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>" method="post"
@@ -55,35 +52,34 @@ $guest = Factory::getUser()->guest;
 	<?php endif; ?>
 
 	<div class="sdajem_label">
-		<?php echo Text::_('COM_SDAJEM_EVENT_STARTDATETIME_LABEL'); ?>
+		<?php echo Text::_('COM_SDAJEM_EVENT_CATEGORY_LABEL'); ?>
 	</div>
 	<div class="sdajem_value">
-		<?php
-		if ((bool) $event->allDayEvent)
-		{
-			echo $startDate->format('d.m.Y');
-		}
-		else
-		{
-			echo $startDate->format('d.m.Y H:i');
-		}
-		?>
+		<?php echo $event->category->title; ?>
+	</div>
+
+
+	<div class="sdajem_label">
+		<b>
+			<?php echo Text::_('COM_SDAJEM_EVENT_STARTDATETIME_LABEL'); ?>
+		</b>
+	</div>
+	<div class="sdajem_value">
+		<b>
+			<?php echo $event->getFormattedStartDate(); ?>
+		</b>
 	</div>
 	<div class="sdajem_label">
-		<?php echo Text::_('COM_SDAJEM_EVENT_ENDDATETIME_LABEL'); ?>
+		<b>
+			<?php echo Text::_('COM_SDAJEM_EVENT_ENDDATETIME_LABEL'); ?>
+		</b>
 	</div>
 	<div class="sdajem_value">
-		<?php
-		if ((bool) $event->allDayEvent)
-		{
-			echo $endDate->format('d.m.Y');
-		}
-		else
-		{
-			echo $endDate->format('d.m.Y H:i');
-		}
-		?>
+		<b>
+			<?php echo $event->getFormattedEndDate(); ?>
+		</b>
 	</div>
+
 	<div class="sdajem_label">
 		<?php echo Text::_('COM_SDAJEM_EVENT_URL_LABEL'); ?>
 	</div>

@@ -11,6 +11,7 @@ namespace Sda\Jem\Site\Controller;
 
 use FOF30\Controller\DataController;
 use Joomla\CMS\Factory;
+use Sda\Jem\Admin\Helper\RefererHelper;
 
 /**
  * @package     Sda\Jem\Site\Controller
@@ -26,7 +27,7 @@ class Location extends DataController
 	 */
 	public function onBeforeEdit() : void
 	{
-		$this->setReferer();
+		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
 	}
 
 	/**
@@ -36,7 +37,7 @@ class Location extends DataController
 	 */
 	public function onAfterSave() : void
 	{
-		$this->setRedirect($this->getReferer());
+		$this->setRedirect(RefererHelper::getReferer());
 	}
 
 	/**
@@ -46,43 +47,29 @@ class Location extends DataController
 	 */
 	public function onAfterCancel()
 	{
-		$this->setRedirect($this->getReferer());
+		$this->setRedirect(RefererHelper::getReferer());
 	}
 
 	/**
-	 *
-	 * @return string The URL to redirect to
-	 *
-	 * @since 0.0.1
-	 */
-	private function getReferer() : string
-	{
-		try
-		{
-			return Factory::getApplication()->getUserState('referer');
-		}
-		catch (\Exception $e)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 * Stores the URL of the calling page in the User Session
+	 * Redirect to add a category
 	 *
 	 * @return void
+	 *
 	 * @since 0.0.1
 	 */
-	private function setReferer()
+	public function addNewCategory()
 	{
-		$referer = $this->input->server->getString('HTTP_REFERER');
-
-		try
+		$input = $this->input->getArray();
+		if ($input['sdajem_location_id'] == '')
 		{
-			Factory::getApplication()->setUserState('referer', $referer);
+			$referer = 'index.php?option=com_sdajem&view=Locations&task=add';
 		}
-		catch (\Exception $e)
+		else
 		{
+			$referer = 'index.php?option=com_sdajem&view=Locations&task=edit&id='.$input['sdajem_location_id'];
 		}
+		RefererHelper::setReferer($referer);
+		$this->setRedirect('index.php?option=com_sdajem&view=Categories&task=add');
+		$this->redirect();
 	}
 }

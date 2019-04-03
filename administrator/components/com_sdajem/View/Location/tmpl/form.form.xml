@@ -8,7 +8,7 @@
            value_field="title"
            label="COM_SDAJEM_LOCATION_SDAJEM_CATEGORY_ID_LABEL"
            description="COM_SDAJEM_LOCATION_SDAJEM_CATEGORY_ID_DESC">
-      <state key="type">Location</state>
+      <state key="type">0</state>
     </field>
     <field name="title" type="Text" label="COM_SDAJEM_LOCATION_TITLE_LABEL" description="COM_SDAJEM_LOCATION_TITLE_DESC"/>
     <field name="slug" type="Text" label="COM_SDAJEM_LOCATION_SLUG_LABEL" description="COM_SDAJEM_LOCATION_SLUG_DESC"/>

@@ -171,6 +171,44 @@ class Event extends DataModel
 	}
 
 	/**
+	 * Returns the formatted start date considering the allDayEvent State
+	 *
+	 * @return string
+	 *
+	 * @since 0.0.1
+	 */
+	public function getFormattedStartDate() : string
+	{
+		if ((bool) $this->allDayEvent)
+		{
+			return $this->startDateTime->format('d.m.Y');
+		}
+		else
+		{
+			return $this->startDateTime->format('d.m.Y H:i');
+		}
+	}
+
+	/**
+	 * Returns the formatted end date considering the allDayEvent State
+	 *
+	 * @return string
+	 *
+	 * @since 0.0.1
+	 */
+	public function getFormattedEndDate() : string
+	{
+		if ((bool) $this->allDayEvent)
+		{
+			return $this->endDateTime->format('d.m.Y');
+		}
+		else
+		{
+			return $this->endDateTime->format('d.m.Y H:i');
+		}
+	}
+
+	/**
 	 * @param   string $value The date and time as string
 	 *
 	 * @return Date
@@ -179,14 +217,48 @@ class Event extends DataModel
 	 */
 	protected function getStartDateTimeAttribute($value)
 	{
-		// Make sure it's not a JRegistry already
+		// Make sure it's not a Date already
 		if (is_object($value) && ($value instanceof \FOF30\Date\Date))
 		{
 			return $value;
 		}
 
-		// Return the data transformed to a JRegistry object
+		// Return the data transformed to a Date object
 		return new Date($value);
+	}
+
+	/**
+	 * @param   Date $value The date and time as Date
+	 *
+	 * @return string
+	 *
+	 * @since 0.0.1
+	 */
+	protected function setStartDateTimeAttribute($value)
+	{
+		if ($value instanceof Date)
+		{
+			return $value->toSql();
+		}
+
+		return $value;
+	}
+
+	/**
+	 * @param   Date $value The date and time as Date
+	 *
+	 * @return string
+	 *
+	 * @since 0.0.1
+	 */
+	protected function setEndDateTimeAttribute($value)
+	{
+		if ($value instanceof Date)
+		{
+			return $value->toSql();
+		}
+
+		return $value;
 	}
 
 	/**
@@ -198,13 +270,13 @@ class Event extends DataModel
 	 */
 	protected function getEndDateTimeAttribute($value)
 	{
-		// Make sure it's not a JRegistry already
+		// Make sure it's not a Date already
 		if (is_object($value) && ($value instanceof \FOF30\Date\Date))
 		{
 			return $value;
 		}
 
-		// Return the data transformed to a JRegistry object
+		// Return the data transformed to a Date object
 		return new Date($value);
 	}
 

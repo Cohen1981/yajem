@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `#__sdajem_categories` (
   `sdajem_category_id` int unsigned not null auto_increment,
   `title` varchar(255) not null,
-  `type` varchar(255) null,
+  `type` int(1) null COMMENT '0 = Location, 1 = Event',
   primary key (`sdajem_category_id`)
 )
   ENGINE=InnoDB

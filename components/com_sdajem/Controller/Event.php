@@ -137,6 +137,13 @@ class Event extends DataController
 		$this->redirect();
 	}
 
+	/**
+	 * Changes the event Status
+	 *
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
 	public function changeEventStatusAjax()
 	{
 		$input = $this->input->request->post->getArray();
@@ -158,10 +165,40 @@ class Event extends DataController
 		$this->redirect();
 	}
 
+	/**
+	 * Redirect to add a location
+	 *
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
 	public function addNewLocation()
 	{
 		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
 		$this->setRedirect('index.php?option=com_sdajem&view=Location&task=add');
+		$this->redirect();
+	}
+
+	/**
+	 * Redirect to add a category
+	 *
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function addNewCategory()
+	{
+		$input = $this->input->getArray();
+		if ($input['sdajem_event_id'] == '')
+		{
+			$referer = 'index.php?option=com_sdajem&view=Events&task=add';
+		}
+		else
+		{
+			$referer = 'index.php?option=com_sdajem&view=Events&task=edit&id='.$input['sdajem_event_id'];
+		}
+		RefererHelper::setReferer($referer);
+		$this->setRedirect('index.php?option=com_sdajem&view=Categories&task=add');
 		$this->redirect();
 	}
 

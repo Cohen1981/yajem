@@ -59,4 +59,82 @@ class Toolbar extends BaseToolbar
 			ToolbarHelper::custom('addNewLocation', 'new', '', 'COM_SDAJEM_LOCATION_NEW', false);
 		}
 	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function onEventsAdd()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_EVENTS_ADD'));
+
+		ToolbarHelper::apply();
+		ToolbarHelper::save();
+		ToolbarHelper::cancel();
+
+		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_Category_NEW', false);
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function onEventsEdit()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_EVENTS_EDIT'));
+
+		ToolbarHelper::apply();
+		ToolbarHelper::save();
+		ToolbarHelper::cancel();
+
+		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_Category_NEW', false);
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function onLocationsAdd()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_LOCATIONS_ADD'));
+
+		ToolbarHelper::apply();
+		ToolbarHelper::save();
+		ToolbarHelper::cancel();
+
+		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_Category_NEW', false);
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function onLocationsEdit()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_LOCATIONS_EDIT'));
+
+		ToolbarHelper::apply();
+		ToolbarHelper::save();
+		ToolbarHelper::cancel();
+
+		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_Category_NEW', false);
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function onCategoriesAdd()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_CATEGORY_ADD'));
+
+		ToolbarHelper::apply();
+		ToolbarHelper::save();
+		ToolbarHelper::cancel();
+	}
 }

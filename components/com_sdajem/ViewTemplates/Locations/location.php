@@ -51,6 +51,12 @@ $this->addJavascriptFile('media://com_sdajem/js/location.js');
 <div class="sdajem_event_grid">
 
 	<div class="sdajem_label">
+		<?php echo Text::_('COM_SDAJEM_LOCATION_CATEGORY_LABEL'); ?>
+	</div>
+	<div class="sdajem_value">
+		<?php echo $location->category->title; ?>
+	</div>
+	<div class="sdajem_label">
 		<?php echo Text::_('COM_SDAJEM_LOCATION_URL_LABEL'); ?>
 	</div>
 	<div class="sdajem_value">

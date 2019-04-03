@@ -10,6 +10,7 @@
 namespace Sda\Jem\Admin\Helper;
 
 use Joomla\CMS\Factory;
+use FOF30\Utils\ArrayHelper;
 
 /**
  * @package     Sda\Jem\Admin\Helper
@@ -26,14 +27,24 @@ class RefererHelper
 	 */
 	public static function getReferer() : string
 	{
+		$referer = null;
+
 		try
 		{
-			return Factory::getApplication()->getUserState('referer');
+			$refererArray = Factory::getApplication()->getUserState('referer');
+
+			if ($refererArray)
+			{
+				$referer = array_pop($refererArray);
+				Factory::getApplication()->setUserState('referer', $refererArray);
+			}
 		}
 		catch (\Exception $e)
 		{
 			return null;
 		}
+
+		return $referer;
 	}
 
 	/**
@@ -46,9 +57,27 @@ class RefererHelper
 	 */
 	public static function setReferer(string $referer)
 	{
+		/** @var array $refererArray */
 		try
 		{
-			Factory::getApplication()->setUserState('referer', $referer);
+			$refererArray = Factory::getApplication()->getUserState('referer');
+		}
+		catch (\Exception $e)
+		{
+		}
+
+		if ($refererArray && is_array($refererArray))
+		{
+			array_push($refererArray, $referer);
+		}
+		else
+		{
+			$refererArray = array($referer);
+		}
+
+		try
+		{
+			Factory::getApplication()->setUserState('referer', $refererArray);
 		}
 		catch (\Exception $e)
 		{
