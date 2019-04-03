@@ -15,7 +15,7 @@
 
     <files folder="packages">
         <file type="file" id="lib_fof3">lib_fof30-3.4.2.zip</file>
-        <file type="component" id="sdajem" group="sda">com_sdajem.zip</file>
+        <file type="component" id="com_sdajem" group="sda">com_sdajem.zip</file>
     </files>
 
     <languages folder="language">

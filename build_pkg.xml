@@ -10,18 +10,19 @@
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
     </tstamp>
     <property name="creation.date" value="${TODAY}"/>
+    <delete dir="${pkg.dist.dir}" includeemptydirs="true" />
 
     <import file="${project.basedir}/build_sdajem.xml" />
 
     <target name="packaging" description="package the archive" hidden="true">
-        <copy file="${project.basedir}/pkg_install.php" todir="${dist.dir}" overwrite="true"/>
-        <copy file="${project.basedir}/pkg_sda.xml" todir="${dist.dir}" overwrite="true"/>
-        <copy todir="${pkg.src.dir}/language" overwrite="true">
+        <copy file="${project.basedir}/pkg_install.php" todir="${pkg.dist.dir}" overwrite="true"/>
+        <copy file="${project.basedir}/pkg_sda.xml" todir="${pkg.dist.dir}" overwrite="true"/>
+        <copy todir="${pkg.dist.dir}/language" overwrite="true">
             <fileset dir="${project.basedir}/language" includes="**/**" />
         </copy>
-        <zip destfile="${pkg.dist.dir}/pkg_sda.zip" includeemptydirs="true" basedir="${pkg.src.dir}" />
-        <delete file="${dist.dir}/pkg_install.php" />
-        <delete file="${dist.dir}/pkg_sda.xml" />
+        <zip destfile="${pkg.dist.dir}/pkg_sda.zip" includeemptydirs="true" basedir="${pkg.dist.dir}" />
+        <delete file="${pkg.dist.dir}/pkg_install.php" />
+        <delete file="${pkg.dist.dir}/pkg_sda.xml" />
     </target>
 
     <target name="package" description="packaging all"
