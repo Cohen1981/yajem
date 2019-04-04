@@ -11,7 +11,10 @@
 /** @var \Sda\Profiles\Site\Model\Fitting       $fitting    */
 $input = $this->input->request->getArray();
 $fitting = $this->getModel('Fitting');
-$fitting->load($input['id]']);
+if ($fitting->sdaprofiles_fitting_id == '')
+{
+	$fitting->load($input['id]']);
+}
 ?>
 <div id="sdaprofiles_fitting_<?php echo $fitting->sdaprofiles_fitting_id; ?>" class="control-group">
 	<label class="control-label">

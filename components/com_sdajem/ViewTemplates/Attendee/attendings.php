@@ -47,16 +47,8 @@ if ($input['option'] == 'com_sdaprofiles' && $input['task'] == 'edit')
 			<div id="sdajem_attending<?php echo $attendee->sdajem_attendee_id; ?>" class="control-group">
 				<label class="control-label">
 					<?php
-					if ((bool) $attendee->event->allDayEvent)
-					{
-						echo $attendee->event->startDateTime->format('d.m.Y') . " - ";
-						echo $attendee->event->endDateTime->format('d.m.Y');
-					}
-					else
-					{
-						echo $attendee->event->startDateTime->format('d.m.Y H:i') . " - ";
-						echo $attendee->event->endDateTime->format('d.m.Y H:i');
-					}
+					echo $attendee->event->getFormattedStartDate() . " - ";
+					echo $attendee->event->getFormattedEndDate();
 					?>
 				</label>
 				<div class="controls">
@@ -75,6 +67,10 @@ if ($input['option'] == 'com_sdaprofiles' && $input['task'] == 'edit')
 						case 1:
 							echo $eventTitle;
 							echo "<span class=\"sdajem_status_label sdajem_green\">" . Text::_('COM_SDAJEM_ATTENDING') . "</span>";
+							break;
+						case 2:
+							echo $eventTitle;
+							echo "<span class=\"sdajem_status_label sdajem_red\">" . Text::_('COM_SDAJEM_NATTENDING') . "</span>";
 							break;
 					}
 					?>

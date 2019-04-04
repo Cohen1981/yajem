@@ -12,6 +12,7 @@ namespace Sda\Jem\Admin\Model;
 use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use Joomla\CMS\Language\Text;
+use Sda\Profiles\Site\Model\Fitting;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -26,6 +27,7 @@ use Joomla\CMS\Language\Text;
  * @property   int			$sdajem_event_id
  * @property   int			$users_user_id
  * @property   int			$status
+ * @property   array        $sdaprofilesFittingIds
  *
  * Relations:
  *
@@ -72,5 +74,54 @@ class Attendee extends DataModel
 			->where(array('sdajem_event_id=' . $eventId, 'users_user_id=' . $userId));
 		$db->setQuery($query);
 		$this->load($db->loadResult());
+	}
+
+	/**
+	 *
+	 * @return integer
+	 *
+	 * @since 0.0.1
+	 */
+	public function getSpaceReuirementForEvent() : int
+	{
+		$spaceRequired = 0;
+
+		if ($this->sdaprofilesFittingIds)
+		{
+			/** @var Fitting $fitting */
+			$fitting = Container::getInstance('com_sdaprofiles')->factory->model('Fitting');
+
+			foreach ($this->sdaprofilesFittingIds as $id)
+			{
+				$fitting->load($id);
+				$spaceRequired = $spaceRequired + $fitting->getRequiredSpace();
+			}
+		}
+
+		return $spaceRequired;
+	}
+
+	/**
+	 * @param   array $value The date and time as Date
+	 *
+	 * @return string
+	 *
+	 * @since 0.0.1
+	 */
+	protected function setSdaprofilesFittingIdsAttribute($value)
+	{
+		return json_encode($value);
+	}
+
+	/**
+	 * @param   string $value The date and time as string
+	 *
+	 * @return array | null
+	 *
+	 * @since 0.0.1
+	 */
+	protected function getSdaprofilesFittingIdsAttribute($value)
+	{
+		return json_decode($value);
 	}
 }

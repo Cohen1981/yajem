@@ -8,8 +8,7 @@
     <property name="jem.admin.src.dir" value="${project.basedir}/administrator/components/com_sdajem"/>
     <property name="jem.site.src.dir" value="${project.basedir}/components/com_sdajem"/>
     <property name="jem.media.src.dir" value="${project.basedir}/media/com_sdajem"/>
-    <property name="vendor.src.dir" value="${project.basedir}/vendor"/>
-    <property name="lib.src.dir" value="${project.basedir}/libraries"/>
+    <property name="jem.vendor.src.dir" value="${project.basedir}/vendor"/>
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
@@ -22,7 +21,7 @@
         <echo>${jem.admin.src.dir}</echo>
         <echo>${jem.site.src.dir}</echo>
         <echo>${jem.media.src.dir}</echo>
-        <echo>${vendor.src.dir}</echo>
+        <echo>${jem.vendor.src.dir}</echo>
         <mkdir dir="${jem.build.dir}"/>
     </target>
 
@@ -33,9 +32,9 @@
     <target name="copyFiles_sdajem" description="copy main files for packaging" hidden="true">
 
         <!-- Copy the font-awesome dependencies -->
-        <copy file="${vendor.src.dir}/components/font-awesome/css/fontawesome-all.min.css" todir="${jem.media.src.dir}/css" overwrite="true" />
+        <copy file="${jem.vendor.src.dir}/components/font-awesome/css/fontawesome-all.min.css" todir="${jem.media.src.dir}/css" overwrite="true" />
         <copy todir="${jem.media.src.dir}/webfonts" overwrite="true">
-            <fileset dir="${vendor.src.dir}/components/font-awesome/webfonts" includes="**.**"/>
+            <fileset dir="${jem.vendor.src.dir}/components/font-awesome/webfonts" includes="**.**"/>
         </copy>
 
         <!-- Copy com_sdajem to build for packaging -->
@@ -54,10 +53,9 @@
 
     <target name="zip_sdajem" description="package the archive" depends="copyFiles_sdajem" hidden="true">
         <zip destfile="${jem.dist.dir}/com_sdajem.zip" includeemptydirs="true" basedir="${jem.build.dir}/" />
-        <copy file="${lib.src.dir}/lib_fof30-3.4.2.zip" todir="${jem.dist.dir}" overwrite="true" />
     </target>
 
-    <target name="build_sdajem" description="packaging all"
+    <target name="build_sdajem" description="Make a zip"
             depends="prepare_sdajem, zip_sdajem, cleanup_sdajem"/>
 
 </project>

@@ -13,6 +13,7 @@ use FOF30\Controller\DataController;
 use Joomla\CMS\Factory;
 use FOF30\Container\Container;
 use Joomla\CMS\Language\Text;
+use Sda\Profiles\Admin\Helper\RefererHelper;
 
 /**
  * @package     Sda\Profiles\Site\Controller
@@ -29,7 +30,7 @@ class Fitting extends DataController
 	public function onBeforeAdd()
 	{
 		$this->defaultsForAdd['sdaprofiles_profile_id'] = $this->input->get('profileId');
-		$this->setReferer();
+		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
 	}
 
 	/**
@@ -40,7 +41,7 @@ class Fitting extends DataController
 	public function onBeforeSave()
 	{
 		$this->defaultsForAdd['sdaprofiles_profile_id'] = $this->input->get('profileId');
-		$this->setRedirect($this->getReferer());
+		$this->setRedirect(RefererHelper::getReferer());
 	}
 
 	/**
@@ -50,7 +51,7 @@ class Fitting extends DataController
 	 */
 	public function onAfterSave()
 	{
-		$this->setRedirect($this->getReferer());
+		$this->setRedirect(RefererHelper::getReferer());
 	}
 
 	/**
@@ -60,7 +61,7 @@ class Fitting extends DataController
 	 */
 	public function onBeforeRemove()
 	{
-		$this->setReferer();
+		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
 	}
 
 	/**
@@ -70,7 +71,7 @@ class Fitting extends DataController
 	 */
 	public function onAfterRemove()
 	{
-		$this->setRedirect($this->getReferer());
+		$this->setRedirect(RefererHelper::getReferer());
 	}
 
 	/**
@@ -80,7 +81,7 @@ class Fitting extends DataController
 	 */
 	public function onBeforeEdit()
 	{
-		$this->setReferer();
+		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
 	}
 
 	/**
@@ -90,44 +91,7 @@ class Fitting extends DataController
 	 */
 	public function onAfterCancel()
 	{
-		$this->setRedirect($this->getReferer());
-	}
-
-	/**
-	 *
-	 * @return string The URL to redirect to
-	 *
-	 * @since 0.0.1
-	 */
-	private function getReferer() : string
-	{
-		try
-		{
-			return Factory::getApplication()->getUserState('referer');
-		}
-		catch (\Exception $e)
-		{
-			return null;
-		}
-	}
-
-	/**
-	 * Stores the URL of the calling page in the User Session
-	 *
-	 * @return void
-	 * @since 0.0.1
-	 */
-	private function setReferer()
-	{
-		$referer = $this->input->server->getString('HTTP_REFERER');
-
-		try
-		{
-			Factory::getApplication()->setUserState('referer', $referer);
-		}
-		catch (\Exception $e)
-		{
-		}
+		$this->setRedirect(RefererHelper::getReferer());
 	}
 
 	/**

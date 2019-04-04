@@ -8,8 +8,7 @@
     <property name="profiles.admin.src.dir" value="${project.basedir}/administrator/components/com_sdaprofiles"/>
     <property name="profiles.site.src.dir" value="${project.basedir}/components/com_sdaprofiles"/>
     <property name="profiles.media.src.dir" value="${project.basedir}/media/com_sdaprofiles"/>
-    <property name="vendor.src.dir" value="${project.basedir}/vendor"/>
-    <property name="lib.src.dir" value="${project.basedir}/libraries"/>
+    <property name="profiles.vendor.src.dir" value="${project.basedir}/vendor"/>
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
@@ -22,7 +21,7 @@
         <echo>${profiles.admin.src.dir}</echo>
         <echo>${profiles.site.src.dir}</echo>
         <echo>${profiles.media.src.dir}</echo>
-        <echo>${vendor.src.dir}</echo>
+        <echo>${profiles.vendor.src.dir}</echo>
         <mkdir dir="${profiles.build.dir}" />
     </target>
 
@@ -33,9 +32,9 @@
     <target name="copyFiles_sdaprofiles" description="copy main files for packaging" hidden="true">
 
         <!-- Copy the font-awesome dependencies -->
-        <copy file="${vendor.src.dir}/components/font-awesome/css/fontawesome-all.min.css" todir="${profiles.media.src.dir}/css" overwrite="true" />
+        <copy file="${profiles.vendor.src.dir}/components/font-awesome/css/fontawesome-all.min.css" todir="${profiles.media.src.dir}/css" overwrite="true" />
         <copy todir="${profiles.media.src.dir}/webfonts" overwrite="true">
-            <fileset dir="${vendor.src.dir}/components/font-awesome/webfonts" includes="**.**"/>
+            <fileset dir="${profiles.vendor.src.dir}/components/font-awesome/webfonts" includes="**.**"/>
         </copy>
 
         <!-- Copy com_sdaprofiles to build for packaging -->
@@ -56,7 +55,6 @@
         <zip destfile="${profiles.dist.dir}/com_profiles.zip"
              includeemptydirs="true"
              basedir="${profiles.build.dir}/" />
-        <copy file="${lib.src.dir}/lib_fof30-3.4.2.zip" todir="${profiles.dist.dir}" overwrite="true" />
     </target>
 
     <target name="build_sdaprofiles" description="packaging all"

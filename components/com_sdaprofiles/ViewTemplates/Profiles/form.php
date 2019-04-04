@@ -14,7 +14,6 @@ use Joomla\CMS\Language\Text;
 /** @var \Sda\Profiles\Site\Model\Fitting       $fitting    */
 
 $this->addCssFile('media://com_sdaprofiles/css/style.css');
-$this->addJavascriptFile('media://com_sdaprofiles/js/profile.js');
 $profile = $this->getItem();
 echo $this->getRenderedForm();
 
@@ -89,48 +88,24 @@ echo $this->getRenderedForm();
 		<?php echo JHtml::_('form.token'); ?>
 	</form>
 
-	<div class="well">
-		<div class="titleContainer">
-			<h2 class="page-title">
-				<span class="icon-generic" aria-hidden="true"></span>
-				<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTINGS_STOCK'); ?>
-			</h2>
-		</div>
-	</div>
-	<div id="fitting_area" class="form-horizontal">
-		<div id="sdaprofiles_fitting" class="control-group">
-			<label class="control-label">
-			</label>
-			<div class="controls">
-				<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_LABEL'); ?></span>
-				<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_DETAIL_LABEL'); ?></span>
-				<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_LENGHT_LABEL'); ?></span>
-				<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_WIDTH_LABEL'); ?></span>
-			</div>
-		</div>
-		<?php if ($profile->fittings) : ?>
-		<?php foreach ($profile->fittings as $fitting) : ?>
-			<div id="sdaprofiles_fitting_<?php echo $fitting->sdaprofiles_fitting_id; ?>" class="control-group">
-				<label class="control-label">
-					<button type="button" onclick="deleteFittingAjax(<?php echo $fitting->sdaprofiles_fitting_id; ?>)">
-						<i class="fas fa-trash" aria-hidden="true" title="<?php echo JText::_('COM_SDAPROFILES_ICON_DELETE') ?>"></i>
-					</button>
-				</label>
-				<div class="controls">
-					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->type ?></span>
-					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->detail ?></span>
-					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->length ?></span>
-					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->width ?></span>
-				</div>
-			</div>
-		<?php endforeach; ?>
-		<?php endif; ?>
-	</div>
+	<?php
+	if ($profile->fittings)
+	{
+		echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/fittings');
+	}
+	?>
 
 	<?php
 	if ($profile->attendees)
 	{
 		echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendings');
+	}
+	?>
+
+	<?php
+	if ($profile->organizing)
+	{
+		echo $this->loadAnyTemplate('site:com_sdajem/Events/organized');
 	}
 	?>
 

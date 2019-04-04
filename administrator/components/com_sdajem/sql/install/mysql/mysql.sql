@@ -79,6 +79,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_attendees` (
   `sdajem_attendee_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
   `sdajem_event_id` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__yajame_events',
   `users_user_id` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__users',
+  `sdaprofilesFittingIds` varchar(255) DEFAULT NULL NULL,
   `status` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Status: 0=no reply, 2=attending, 3=not attending',
   PRIMARY KEY (`sdajem_attendee_id`),
   INDEX `idx_att_event` (`sdajem_event_id` ASC),

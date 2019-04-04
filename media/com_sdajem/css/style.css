@@ -102,3 +102,26 @@
 		display: none;
 	}
 }
+
+input[type=checkbox]:checked ~ .sdajem_switchable {
+	display: block;
+	overflow: auto;
+}
+.sdajem_switchable {
+	display: none;
+	overflow: hidden;
+}
+.sdajem_switch {
+	margin: 5px;
+}
+.equipment {
+	margin: 5px;
+}
+#fitting_block {
+	display: grid;
+	grid-template-columns: 20px auto;
+	margin-top: 5px;
+}
+#fitting_block label {
+	margin-top: 3px;
+}

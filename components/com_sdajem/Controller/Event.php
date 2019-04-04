@@ -201,7 +201,6 @@ class Event extends DataController
 		$this->setRedirect('index.php?option=com_sdajem&view=Categories&task=add&type=1');
 		$this->redirect();
 	}
-
 	/**
 	 * @return void
 	 *

@@ -5,7 +5,7 @@
 
 		<container>
 			<!-- Set up the The Factory class which will be used by FOF to determine how much "magic" you want FOF to apply to your component.-->
-			<option name="factoryClass"><![CDATA[FOF30\Factory\MagicSwitchFactory]]></option>
+			<option name="factoryClass"><![CDATA[FOF30\Factory\MagicFactory]]></option>
 
 			<!-- Use componentNamespace option to configure more unique namespaces, recommened to use something like CompanyName\ComponentName -->
 			<option name="componentNamespace"><![CDATA[Sda\Jem]]></option>

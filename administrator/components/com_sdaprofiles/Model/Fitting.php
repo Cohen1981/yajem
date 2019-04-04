@@ -58,4 +58,22 @@ class Fitting extends DataModel
 		$this->addBehaviour('Filters');
 		$this->belongsTo('profile', 'Profile');
 	}
+
+	/**
+	 *
+	 * @return integer
+	 *
+	 * @since 0.0.1
+	 */
+	public function getRequiredSpace() : int
+	{
+		if ($this->length && $this->width)
+		{
+			return $this->length * $this->width;
+		}
+		else
+		{
+			return 0;
+		}
+	}
 }

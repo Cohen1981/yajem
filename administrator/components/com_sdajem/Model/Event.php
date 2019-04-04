@@ -104,6 +104,28 @@ class Event extends DataModel
 	}
 
 	/**
+	 *
+	 * @return integer
+	 *
+	 * @since 0.0.1
+	 */
+	public function getRequiredSpaceForEvent() : int
+	{
+		$spaceRequired = 0;
+
+		if ($this->attendees)
+		{
+			/** @var Attendee $attendee */
+			foreach ($this->attendees as $attendee)
+			{
+				$spaceRequired = $spaceRequired + $attendee->getSpaceReuirementForEvent();
+			}
+		}
+
+		return $spaceRequired;
+	}
+
+	/**
 	 * @return void
 	 *
 	 * @since 0.0.1
