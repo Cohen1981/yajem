@@ -49,6 +49,7 @@
 		<folder>Controller</folder>
 		<folder>language</folder>
 		<folder>Model</folder>
+		<folder>Toolbar</folder>
 		<folder>View</folder>
 		<folder>views</folder>
 		<folder>ViewTemplates</folder>
@@ -82,6 +83,7 @@
 			<filename>config.xml</filename>
 			<filename>fof.xml</filename>
 			<folder>Controller</folder>
+			<folder>Helper</folder>
 			<folder>language</folder>
 			<folder>Model</folder>
 			<folder>sql</folder>

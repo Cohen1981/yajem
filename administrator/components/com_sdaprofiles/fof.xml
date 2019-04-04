@@ -42,22 +42,6 @@
 			</config>
 
 			<!-- Toolbar configuration -->
-			<toolbar title="COM_SDAPROFILES_TITLE_PROFILES_BROWSE" task="browse">
-				<button type="new" />
-			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_PROFILES_READ" task="read">
-				<button type="back" />
-			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_PROFILES_EDIT" task="edit">
-				<button type="apply" />
-				<button type="save" />
-				<button type="cancel" />
-			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_PROFILES_EDIT" task="add">
-				<button type="apply" />
-				<button type="save" />
-				<button type="cancel" />
-			</toolbar>
 		</view>
 
 		<view name="Fittings">

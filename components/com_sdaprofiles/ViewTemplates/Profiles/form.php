@@ -26,7 +26,7 @@ echo $this->getRenderedForm();
 			<div class="titleContainer">
 				<h2 class="page-title">
 					<span class="icon-generic" aria-hidden="true"></span>
-					<?php echo Text::_('COM_SDAProfiles_TITLE_FITTINGS_BASIC'); ?>
+					<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTINGS_BASIC'); ?>
 				</h2>
 			</div>
 			<div class="buttonsContainer">
