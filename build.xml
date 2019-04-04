@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="sda_pkg" default="build_pkg">
+<project name="sda_pkg" default="main">
 
     <property name="pkg.build.version" value="0.0.1"/>
 
@@ -26,9 +26,7 @@
         <delete file="${pkg.dist.dir}/pkg_sda.xml" />
     </target>
 
-    <target name="build_pkg" description="packaging all">
-        <phingcall target="sda_profiles.build_sdaprofiles" />
-        <phingcall target="sda_jem.build_sdajem" />
+    <target name="main" description="packaging all" depends="zip_sdaprofiles, zip_sdajem">
         <phingcall target="zip_pkg" />
     </target>
 

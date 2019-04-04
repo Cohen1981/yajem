@@ -53,7 +53,7 @@
     </target>
 
     <target name="zip_sdajem" description="package the archive" depends="copyFiles_sdajem" hidden="true">
-        <zip destfile="${jem.dist.dir}/com_sdajem.zip" includeemptydirs="true" basedir="${jem.build.dir}" />
+        <zip destfile="${jem.dist.dir}/com_sdajem.zip" includeemptydirs="true" basedir="${jem.build.dir}/" />
         <copy file="${lib.src.dir}/lib_fof30-3.4.2.zip" todir="${jem.dist.dir}" overwrite="true" />
     </target>
 
