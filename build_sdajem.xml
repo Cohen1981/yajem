@@ -23,6 +23,7 @@
         <echo>${jem.media.src.dir}</echo>
         <echo>${jem.vendor.src.dir}</echo>
         <mkdir dir="${jem.build.dir}"/>
+        <mkdir dir="${jem.dist.dir}" />
     </target>
 
     <target name="cleanup_sdajem" description="cleaning after build" hidden="true">

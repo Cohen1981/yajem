@@ -52,7 +52,6 @@
 
     <field id="registerUntil" name="registerUntil" type="Calendar" label="COM_SDAJEM_EVENT_REGISTERUNTIL_LABEL" description="COM_SDAJEM_EVENT_REGISTERUNTIL_DESC"/>
     <field id="registrationLimit" name="registrationLimit" type="Number" label="COM_SDAJEM_EVENT_REGISTRATIONLIMIT_LABEL" description="COM_SDAJEM_EVENT_REGISTRATIONLIMIT_DESC"/>
-    <field id="useWaitingList" name="useWaitingList" type="Boolean" label="COM_SDAJEM_EVENT_USEWAITINGLIST_LABEL" description="COM_SDAJEM_EVENT_USEWAITINGLIST_DESC"/>
 
     <field name="eventStatus" type="list" default="" label="COM_SDAJEM_EVENT_EVENTSTATUS_LABEL" description="COM_SDAJEM_EVENT_EVENTSTATUS_DESC">
       <option value="0">SDAJEM_EVENT_STATUS_OPEN</option>

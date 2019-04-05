@@ -27,6 +27,7 @@ class Location extends AdminLocation
 	 */
 	protected function onBeforeSave()
 	{
+		parent::onBeforeSave();
 		$this->enabled = 1;
 	}
 }

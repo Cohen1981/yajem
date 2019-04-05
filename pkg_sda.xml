@@ -15,6 +15,7 @@
 
     <files folder="packages">
         <file type="file" id="lib_fof3">lib_fof30-3.4.2.zip</file>
+        <file type="component" id="com_sdaprofiles" group="sda">com_sdaprofiles.zip</file>
         <file type="component" id="com_sdajem" group="sda">com_sdajem.zip</file>
     </files>
 

@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fittings`
   `sdaprofiles_profile_id` int unsigned not null comment 'foreign key to #__sdaprofiles_profiles',
   `type` varchar(255) null,
   `detail` varchar(255) null,
-  `lenght` int null,
+  `length` int null,
   `width` int null,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` bigint(20) NOT NULL DEFAULT '0',

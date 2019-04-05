@@ -66,7 +66,7 @@ class RefererHelper
 		{
 		}
 
-		if ($refererArray && is_array($refererArray))
+		if ($refererArray && is_array($refererArray) && end($refererArray) != $referer)
 		{
 			array_push($refererArray, $referer);
 		}

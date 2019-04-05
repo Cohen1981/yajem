@@ -93,13 +93,21 @@
 .sdajem_event_grid h3{
 	margin: 0px 0px 10px 0px;
 }
-.sdajem_image_container{
-	float: right;
-	width: 250px;
+.sdajem_event_table {
+	display: grid;
+	grid-template-columns: auto 250px;
 }
-@media (max-width: 550px) {
-	.sdajem_image_container{
-		display: none;
+.sdajem_image_container {
+	margin-bottom: 10px;
+}
+
+@media (max-width: 650px) {
+	.sdajem_event_table {
+		grid-template-columns: auto;
+		grid-template-rows: auto auto;
+	}
+	.sdajem_image_container {
+		max-width: 400px;
 	}
 }
 
@@ -124,4 +132,12 @@ input[type=checkbox]:checked ~ .sdajem_switchable {
 }
 #fitting_block label {
 	margin-top: 3px;
+}
+
+#map {
+	height: 400px;
+	margin-bottom: 10px;
+}
+.sdajem_row {
+	margin-bottom: 10px;
 }

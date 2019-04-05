@@ -21,10 +21,11 @@
     <field name="phone" type="Tel" label="COM_SDAPROFILES_PROFILE_PHONE_LABEL" description="COM_SDAPROFILES_PROFILE_PHONE_DESC"/>
     <field name="mobil" type="Tel" label="COM_SDAPROFILES_PROFILE_MOBIL_LABEL" description="COM_SDAPROFILES_PROFILE_MOBIL_DESC"/>
     <field name="dob"
-           type="Calendar"
+           type="calendar"
+           showtime="false"
            label="COM_SDAPROFILES_PROFILE_DOB_LABEL"
            description="COM_SDAPROFILES_PROFILE_DOB_DESC"
-           format="%Y-%m-%d"
+           format="%d.%m.%Y"
     />
   </fieldset>
 </form>

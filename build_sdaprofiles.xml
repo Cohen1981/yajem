@@ -23,6 +23,7 @@
         <echo>${profiles.media.src.dir}</echo>
         <echo>${profiles.vendor.src.dir}</echo>
         <mkdir dir="${profiles.build.dir}" />
+        <mkdir dir="${profiles.dist.dir}" />
     </target>
 
     <target name="cleanup_sdaprofiles" description="cleaning after build" hidden="true">

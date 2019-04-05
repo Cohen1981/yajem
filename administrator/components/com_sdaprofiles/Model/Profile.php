@@ -82,4 +82,40 @@ class Profile extends DataModel
 			$this->hasMany('organizing', 'Event@com_sdajem', 'users_user_id', 'organizerId');
 		}
 	}
+
+	/**
+	 * @param   string $value The date and time as string
+	 *
+	 * @return Date
+	 *
+	 * @since 0.0.1
+	 */
+	protected function getDobAttribute($value)
+	{
+		// Make sure it's not a Date already
+		if (is_object($value) && ($value instanceof \FOF30\Date\Date))
+		{
+			return $value;
+		}
+
+		// Return the data transformed to a Date object
+		return new Date($value);
+	}
+
+	/**
+	 * @param   Date $value The date and time as Date
+	 *
+	 * @return string
+	 *
+	 * @since 0.0.1
+	 */
+	protected function setDobAttribute($value)
+	{
+		if ($value instanceof Date)
+		{
+			return $value->toSql();
+		}
+
+		return $value;
+	}
 }

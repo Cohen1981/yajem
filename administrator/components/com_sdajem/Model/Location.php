@@ -79,7 +79,7 @@ class Location extends DataModel
 	{
 		$input = $this->input->post->getArray();
 
-		if ($input['task'] == "save")
+		if ($input['task'] == "save" || $input['task'] == "apply")
 		{
 			if ($input['image'] == "")
 			{
@@ -92,6 +92,7 @@ class Location extends DataModel
 			}
 
 		}
+
 	}
 
 	/**
