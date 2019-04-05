@@ -249,7 +249,7 @@ class Event extends DataController
 	 *
 	 * @since 0.0.1
 	 */
-	public function onAfterCancel()
+	public function onBeforeCancel()
 	{
 		$this->setRedirect(RefererHelper::getReferer());
 	}

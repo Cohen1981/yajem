@@ -141,3 +141,6 @@ input[type=checkbox]:checked ~ .sdajem_switchable {
 .sdajem_row {
 	margin-bottom: 10px;
 }
+.sdajem_head {
+	color: #bd2a2a;
+}

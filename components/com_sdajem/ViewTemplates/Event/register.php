@@ -27,7 +27,7 @@ echo "<div id=\"registerButtons\">";
 
 if ($attendee->sdajem_attendee_id)
 {
-	$status = $attendee->status;
+	$status = (int) $attendee->status;
 	$html = $html . "<input id=\"attendeeId\" type=\"hidden\" name=\"attendeeId\" value=\"" . $attendee->sdajem_attendee_id . "\"/>";
 }
 

@@ -115,7 +115,9 @@ spn   Zoom (mit anderer Syntax, nur gültig wenn Parameter z nicht angegeben).
 			<?php echo Text::_('COM_SDAJEM_LOCATION_CONTACT_LABEL'); ?>
 		</div>
 		<div class="sdajem_value">
-			<?php echo $location->contact->name; ?>
+			<a href="index.php?option=com_contact&view=contact&id=<?php echo $event->host->id; ?>">
+				<?php echo $location->contact->name; ?>
+			</a>
 		</div>
 
 	</div>
