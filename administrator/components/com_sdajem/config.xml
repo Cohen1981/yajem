@@ -4,6 +4,16 @@
 	          label="COM_SDAJEM_GLOBAL_CONFIG_LABEL"
 	          description="COM_SDAJEM_GLOBAL_CONFIG_DESC"
 	          >
+		<field name="use_sdacontacts"
+		       type="radio"
+		       label="COM_SDAJEM_SDACONTACTS_LABEL"
+		       description="COM_SDAJEM_SDACONTACTS_DESC"
+		       class="btn-group btn-group-yesno"
+		       default="1"
+		>
+			<option value="1">COM_YAJEM_PARAM_YES</option>
+			<option value="0">COM_YAJEM_PARAM_NO</option>
+		</field>
 	</fieldset>
 	<fieldset
 			name="permissions"

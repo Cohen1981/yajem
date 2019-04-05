@@ -13,6 +13,7 @@ use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use FOF30\Date\Date;
 use FOF30\Utils\Collection;
+use Joomla\CMS\Component\ComponentHelper;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -75,6 +76,7 @@ class Event extends DataModel
 	{
 		$config['behaviours'] = array('Filters', 'Access');
 		parent::__construct($container, $config);
+
 		$this->hasOne('host', 'Contact', 'hostId', 'id');
 		$this->hasOne('organizer', 'User', 'organizerId', 'id');
 		$this->hasOne('category', 'Category', 'sdajem_category_id', 'sdajem_category_id');

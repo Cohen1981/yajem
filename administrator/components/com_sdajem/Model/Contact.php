@@ -11,6 +11,8 @@ namespace Sda\Jem\Admin\Model;
 
 use FOF30\Model\DataModel;
 use FOF30\Container\Container;
+use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -27,6 +29,12 @@ use FOF30\Container\Container;
 class Contact extends DataModel
 {
 	/**
+	 * @var boolean
+	 * @since 0.0.1
+	 */
+	private $sdacontacts=false;
+
+	/**
 	 * Contact constructor.
 	 *
 	 * @param   Container $container    The Container
@@ -36,8 +44,40 @@ class Contact extends DataModel
 	 */
 	public function __construct(Container $container, array $config = array())
 	{
-		$config['tableName'] = '#__contact_details';
-		$config['idFieldName'] = 'id';
+		$sdajemParams = ComponentHelper::getParams('com_sdajem');
+
+		if ((bool) $sdajemParams->get('use_sdacontacts') && ComponentHelper::isEnabled('com_sdacontacts'))
+		{
+			$this->sdacontacts = true;
+			$config['tableName'] = '#__sdacontacts_contacts';
+			$config['idFieldName'] = 'sdacontacts_contact_id';
+			$aliasFields = array();
+			array_add($aliasFields, 'id', 'sdacontacts_contact_id');
+			array_add($aliasFields, 'name', 'title');
+			$config['aliasFields'] = $aliasFields;
+		}
+		else
+		{
+			$config['tableName'] = '#__contact_details';
+			$config['idFieldName'] = 'id';
+		}
+
 		parent::__construct($container, $config);
+	}
+
+	public function getLinkToContact() : string
+	{
+		if ($this->sdacontacts)
+		{
+			$link = "<a href=\"index.php?option=com_sdacontacts&view=Contacts&task=read&id=" . $this->id . "\">" .
+				$this->title . "</a>";
+		}
+		else
+		{
+			$link = "<a href=\"index.php?option=com_contact&view=contact&id=" . $this->id . "\">" .
+					$this->name . "</a>";
+		}
+
+		return $link;
 	}
 }

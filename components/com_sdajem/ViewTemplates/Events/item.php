@@ -86,9 +86,7 @@ $guest = Factory::getUser()->guest;
 			<?php echo Text::_('COM_SDAJEM_EVENT_HOST'); ?>
 		</div>
 		<div class="sdajem_value">
-			<a href="index.php?option=com_contact&view=contact&id=<?php echo $event->host->id; ?>">
-				<?php echo $event->host->name; ?>
-			</a>
+			<?php echo $event->host->getLinkToContact(); ?>
 		</div>
 		<div class="sdajem_label">
 			<?php echo Text::_('COM_SDAJEM_EVENT_DESCRIPTION_LABEL'); ?>
