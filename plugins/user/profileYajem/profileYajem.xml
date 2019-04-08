@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- $Id:  -->
+<extension version="3.1" type="plugin" group="user" method="upgrade">
+    <name>plg_user_profileYajem</name>
+    <creationDate>18.12.2018</creationDate>
+    <author>Alexander Bahlo</author>
+    <authorEmail>abahlo@hotmail.de</authorEmail>
+    <copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
+    <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+    <version>1.0.1</version>
+    <description>PLG_USER_PROFILEYAJEM_XML_DESCRIPTION</description>
+
+    <files>
+        <filename plugin="profileYajem">profileYajem.php</filename>
+        <filename>index.html</filename>
+        <folder>profiles</folder>
+        <folder>language</folder>
+    </files>
+
+    <config>
+        <fields name="params">
+
+            <fieldset name="basic">
+                <field name="register-require-user" type="spacer"
+                       label="PLG_USER_PROFILEYAJEM_FIELD_NAME_REGISTER_REQUIRE_USER"
+                />
+
+                <field name="register-require_avatar" type="list"
+                       description="PLG_USER_PROFILEYAJEM_FIELD_AVATAR_DESC"
+                       label="PLG_USER_PROFILEYAJEM_FIELD_AVATAR_LABEL"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="register-require_address1"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_ADDRESS1_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_ADDRESS1_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="register-require_address2"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_ADDRESS2_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_ADDRESS2_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="register-require_city"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_CITY_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_CITY_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="register-require_region"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_REGION_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_REGION_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="register-require_country"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_COUNTRY_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_COUNTRY_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="register-require_postal_code"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_POSTAL_CODE_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_POSTAL_CODE_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="register-require_phone"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_PHONE_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_PHONE_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="register-require_mobil"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_MOBIL_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_MOBIL_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="register-require_dob"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_DOB_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_DOB_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option	value="2">JOPTION_REQUIRED</option>
+                    <option	value="1">JOPTION_OPTIONAL</option>
+                    <option	value="0">JDISABLED</option>
+                </field>
+
+                <field name="register-require-equipment" type="list"
+                       description="PLG_USER_PROFILEYAJEM_FIELD_EQUIPMENT_DESC"
+                       label="PLG_USER_PROFILEYAJEM_FIELD_EQUIPMENT_LABEL"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field name="profile-require-user" type="spacer"
+                       label="PLG_USER_PROFILEYAJEM_FIELD_NAME_PROFILE_REQUIRE_USER"
+                />
+
+                <field name="profile-require_avatar" type="list"
+                       description="PLG_USER_PROFILEYAJEM_FIELD_AVATAR_DESC"
+                       label="PLG_USER_PROFILEYAJEM_FIELD_AVATAR_LABEL"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="profile-require_address1"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_ADDRESS1_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_ADDRESS1_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="profile-require_address2"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_ADDRESS2_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_ADDRESS2_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="profile-require_city"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_CITY_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_CITY_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="profile-require_region"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_REGION_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_REGION_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="profile-require_country"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_COUNTRY_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_COUNTRY_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="profile-require_postal_code"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_POSTAL_CODE_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_POSTAL_CODE_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="profile-require_phone"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_PHONE_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_PHONE_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="profile-require_mobil"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_MOBIL_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_MOBIL_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+                <field
+                        name="profile-require_dob"
+                        type="list"
+                        label="PLG_USER_PROFILE_FIELD_DOB_LABEL"
+                        description="PLG_USER_PROFILE_FIELD_DOB_DESC"
+                        default="1"
+                        filter="integer"
+                >
+                    <option	value="2">JOPTION_REQUIRED</option>
+                    <option	value="1">JOPTION_OPTIONAL</option>
+                    <option	value="0">JDISABLED</option>
+                </field>
+
+                <field name="profile-require-equipment" type="list"
+                       description="PLG_USER_PROFILEYAJEM_FIELD_EQUIPMENT_DESC"
+                       label="PLG_USER_PROFILEYAJEM_FIELD_EQUIPMENT_LABEL"
+                >
+                    <option value="2">JOPTION_REQUIRED</option>
+                    <option value="1">JOPTION_OPTIONAL</option>
+                    <option value="0">JDISABLED</option>
+                </field>
+
+            </fieldset>
+
+        </fields>
+    </config>
+</extension>

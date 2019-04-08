@@ -12,6 +12,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\HTML\HTMLHelper;
+use Yajem\User\YajemUserProfile;
 
 HTMLHelper::addIncludePath(JPATH_COMPONENT . '/helpers/');
 
@@ -53,6 +54,9 @@ class YajemViewEvents extends HtmlView
 	public function display($tpl = null)
 	{
 		$this->items      = $this->get('Items');
+		for ($i=0; $i<count($this->items);$i++){
+			$this->items[$i]->organizer = new YajemUserProfile($this->items[$i]->organizerId);
+		}
 		$this->pagination = $this->get('Pagination');
 		$this->state      = $this->get('State');
 

@@ -7,7 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace com_yajem\administrator\helpers;
+namespace Yajem\Table;
 
 use Joomla\CMS\Table\Table;
 use Joomla\CMS\Factory;
@@ -15,23 +15,21 @@ use Joomla\CMS\Factory;
 /**
  * Class holding functions for enforcing data sanity
  *
- * @package     com_yajem\administrator\helpers
- *
- * @since       1.1
+ * @since       1.0
  */
-class tableHelper
+class TableHelper
 {
 	/**
 	 * Checks for rows referencing the given id and deletes them
 	 *
-	 * @param string    $tableName          Name of the foreign table including '#__' example '#__yajem_attendees'
-	 * @param string    $jTableInstanceType Name of the Type example 'Attendee'
-	 * @param string    $foreignKeyName     Name of the foreign key in the foreign table
-	 * @param int       $id                 id to search for
+	 * @param   string    $tableName          Name of the foreign table including '#__' example '#__yajem_attendees'
+	 * @param   string    $jTableInstanceType Name of the Type example 'Attendee'
+	 * @param   string    $foreignKeyName     Name of the foreign key in the foreign table
+	 * @param   int       $id                 id to search for
 	 *
-	 * @return int  number of deleted rows
+	 * @return   integer  number of deleted rows
 	 *
-	 * @since 1.1
+	 * @since 1.0
 	 */
 	public function deleteForeignTable($tableName, $jTableInstanceType, $foreignKeyName, $id)
 	{
@@ -48,15 +46,18 @@ class tableHelper
 		$db->setQuery($query);
 		$ids = $db->loadColumn();
 
-		if (count($ids)>0) {
-			// deleting should be done through native table which should care for own dependencies.
+		if (count($ids) > 0)
+		{
+			// Deleting should be done through native table which should care for own dependencies.
 			Table::addIncludePath(JPATH_ADMINISTRATOR . DS . 'components' . DS . 'com_yajem' . DS . 'tables');
 			$foreignTable = Table::getInstance($jTableInstanceType, 'YajemTable');
+
 			foreach ($ids as $pk)
 			{
 				$foreignTable->delete($pk);
 			}
 		}
+
 		return (count($ids));
 	}
 }

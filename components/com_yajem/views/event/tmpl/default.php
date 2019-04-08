@@ -10,115 +10,125 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-
-$user       = Factory::getUser();
-$guest		= $user->guest;
-$userId     = $user->get('id');
-$useReg = (bool) $this->event->useRegistration;
-$googleApiKey = (string) JComponentHelper::getParams('com_yajem')->get('global_googleapi');
-$canCreate  = $user->authorise('core.create', 'com_yajem');
-$canEdit    = $user->authorise('core.edit.state', 'com_yajem');
-$useOrgG = (bool) JComponentHelper::getParams('com_yajem')->get('use_organizer');
-$useComments = (bool) JComponentHelper::getParams('com_yajem')->get('use_comments');
-if ($useOrgG)
-{
-	$useOrg = (bool) $this->event->useOrganizer;
-}
-
-if ($useOrg)
-{
-	$symbolOpen = '<i class="fas fa-question-circle" aria-hidden="true" title="' . JText::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
-	$symbolConfirmed = '<i class="far fa-thumbs-up" aria-hidden="true" title="' . JText::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
-	$symbolCanceled = '<i class="far fa-thumbs-down" aria-hidden="true" title="' . JText::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
-	$linkConfirm = '<label id="yajem_confirm" class="green" for="eConfirm">' . $symbolConfirmed . '</label>';
-	$linkCancel = '<label id="yajem_canc" class="crimson" for="eCancel">' . $symbolCanceled . '</label>';
-
-	switch ($this->event->eventStatus)
-	{
-		case 0:
-			$eventStatus = $symbolOpen;
-			break;
-		case 1:
-			$eventStatus = $symbolConfirmed;
-			break;
-		case 2:
-			$eventStatus = $symbolCanceled;
-			break;
-	}
-}
 
 ?>
 
+<input id="YajemEventId" type="hidden" name="eventId" value="<?php echo $this->event->id; ?>" />
 <div id="yajem_container">
 
-        <div class="yajem_section_container">
-            <a onclick="getIcs(<?php echo $this->event->id; ?>)"
-                    class="hasPopover"
-                    data-content="<?php echo Text::_('COM_YAJEM_ICS_DOWNLOAD_DESC'); ?>"
-                    data-original-title="<?php echo Text::_('COM_YAJEM_ICS_DOWNLOAD'); ?>">
-                <i class="fas fa-file-download" aria-hidden="true"></i>
-            </a>
-	        <?php if ($canEdit) : ?>
-                <div class="yajem_inline-block">
-                    <a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editevent.edit&id=') . $this->event->id; ?>">
-                        <i class="fas fa-edit" aria-hidden="true"></i>
-				        <?php echo Text::_('COM_YAJEM_EDIT_EVENT'); ?>
-                    </a>
-                </div>
-	        <?php endif; ?>
-        </div>
+		<div class="yajem_section_container">
+			<a onclick="getIcs(<?php echo $this->event->id; ?>)"
+					class="hasPopover"
+					data-content="<?php echo Text::_('COM_YAJEM_ICS_DOWNLOAD_DESC'); ?>"
+					data-original-title="<?php echo Text::_('COM_YAJEM_ICS_DOWNLOAD'); ?>">
+				<i class="fas fa-file-download" aria-hidden="true"></i>
+			</a>
+			<?php if ($this->eventParams->canEdit) : ?>
+				<div class="yajem_inline-block">
+					<a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editevent.edit&id=') . $this->event->id; ?>">
+						<i class="fas fa-edit" aria-hidden="true"></i>
+						<?php echo Text::_('COM_YAJEM_EDIT_EVENT'); ?>
+					</a>
+				</div>
+			<?php endif; ?>
+		</div>
 
 	<!-- Event Basics Section -->
 	<div class="yajem_switch_container">
 		<div class="yajem_section_header yajem_bottom-rounded">
 			<div class="yajem_inline-block">
 				<h2>
-                    <?php
-                    if ($this->event->url) {
-                        echo '<a href="'. $this->event->url. '" target="_blank">' . $this->event->title . '</a>&nbsp;&nbsp;';
-                    } else {
-	                    echo $this->event->title . '&nbsp;&nbsp;';
-                    }
-                    if ($useOrg && !$guest) {
-                        echo $eventStatus;
-                    }
-                    ?>
+					<?php
+
+					if ($this->event->url)
+					{
+						echo '<a href="' . $this->event->url . '" target="_blank">' . $this->event->title . '</a>&nbsp;&nbsp;';
+					}
+					else
+					{
+						echo $this->event->title . '&nbsp;&nbsp;';
+					}
+
+					if ($this->eventParams->useOrg && !$this->eventParams->isGuest)
+					{
+						echo "<span id='eventStatus'>";
+
+						switch ($this->event->eventStatus)
+						{
+							case 0:
+								echo '<i id="statusPending" class="fas fa-question-circle" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
+								echo '<i id="statusConfirmed" class="far fa-thumbs-up yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
+								echo '<i id="statusCanceled" class="far fa-thumbs-down yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
+								break;
+							case 1:
+								echo '<i id="statusPending" class="fas fa-question-circle yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
+								echo '<i id="statusConfirmed" class="far fa-thumbs-up" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
+								echo '<i id="statusCanceled" class="far fa-thumbs-down yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
+								break;
+							case 2:
+								echo '<i id="statusPending" class="fas fa-question-circle yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_OPEN") . '"></i>';
+								echo '<i id="statusConfirmed" class="far fa-thumbs-up yajem_hidden" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CONFIRMED") . '"></i>';
+								echo '<i id="statusCanceled" class="far fa-thumbs-down" aria-hidden="true" title="' .
+									Text::_("COM_YAJEM_EVENT_STATUS_CANCELED") . '"></i>';
+								break;
+						}
+
+						echo "</span>";
+					}
+					?>
 				</h2>
-            </div>
-            <div class="yajem_inline-block">
-				<?php if ($userId == $this->event->organizer->user_id): ?>
-                    <form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>"  name="eventForm" class="yajem-no-margin" id="eventForm" method="post">
-                        <div class="yajem_flex_row" id="eventStatus">
+			</div>
+			<div class="yajem_inline-block">
+				<?php if ($this->eventParams->userId == $this->event->organizerId): ?>
+
+					<form action="<?php echo JRoute::_('index.php?option=com_yajem&view=events'); ?>"
+						  name="eventForm"
+						  class="yajem-no-margin"
+						  id="eventForm"
+						  method="post"
+					>
+
+						<div class="yajem_flex_row" id="eventStatusLink">
 							<?php
 							switch ($this->event->eventStatus)
 							{
 								case 0:
-									echo $linkConfirm;
-									echo $linkCancel;
+									echo $this->eventLinks->confirm;
+									echo $this->eventLinks->cancel;
 									break;
 								case 1:
-									echo $linkCancel;
+									echo $this->eventLinks->cancel;
 									break;
 								case 2:
-									echo $linkConfirm;
+									echo $this->eventLinks->confirm;
 									break;
 							}
 							?>
-                            <input type="radio" class="yajem_hidden" id="eConfirm" name="eStatus" value="confirm" onchange="eventForm.submit()" />
-                            <input type="radio" class="yajem_hidden" id="eCancel" name="eStatus" value="cancel" onchange="eventForm.submit()" />
-                            <input type="hidden" name="eventId" value="<?php echo $this->event->id; ?>" />
-                            <input type="hidden" name="task" value="event.changeEventStatus" />
-                        </div>
-                    </form>
+							<input type="radio" class="yajem_hidden" id="eConfirm" name="eStatus" value="confirm" onchange="eventForm.submit()" />
+							<input type="radio" class="yajem_hidden" id="eCancel" name="eStatus" value="cancel" onchange="eventForm.submit()" />
+							<input type="hidden" name="eventId" value="<?php echo $this->event->id; ?>" />
+							<input type="hidden" name="task" value="event.changeEventStatus" />
+						</div>
+					</form>
 				<?php endif; ?>
 			</div>
-			<label id="basic-section-button" class="yajem_switch" for="yajem_switch_basic">
-				<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
+
+			<label id="basic-section-button" class="yajem_switch" for="yajem_switch_basic"
+				   onclick="switchClass('basic-section-button')">
+				<i class="far fa-minus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 			</label>
+
 		</div>
-		<input type="checkbox" id="yajem_switch_basic" class="yajem_hidden" checked="checked"/>
+		<input type="checkbox" id="yajem_switch_basic" class="yajem_hidden yajem_switch_checkbox" checked="checked"/>
 		<div class="yajem_section_container yajem_switchable">
 
 			<?php echo $this->loadTemplate('event'); ?>
@@ -127,21 +137,23 @@ if ($useOrg)
 	</div>
 
 	<!-- Location -->
+	<?php if($this->location) : ?>
 	<div class="yajem_switch_container">
 		<div class="yajem_section_header yajem_bottom-rounded">
 			<div class="yajem_inline-block">
 				<h2>
-                    <?php
-                    if ($this->location->url) {
-                        echo '<a href="'. $this->location->url. '" target="_blank">' . $this->location->title . '</a>&nbsp;&nbsp;';
-                    } else {
-	                    echo $this->location->title . '&nbsp;&nbsp;';
-                    }
-                    ?>
+					<?php
+					if ($this->location->url) {
+						echo '<a href="'. $this->location->url. '" target="_blank">' . $this->location->title . '</a>&nbsp;&nbsp;';
+					} else {
+						echo $this->location->title . '&nbsp;&nbsp;';
+					}
+					?>
 				</h2>
 			</div>
-			<label id="location-section-button" class="yajem_switch" for="yajem_switch_location">
-				<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
+			<label id="location-section-button" class="yajem_switch" for="yajem_switch_location"
+				   onclick="switchClass('location-section-button')">
+				<i class="far fa-minus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 			</label>
 		</div>
 		<input type="checkbox" id="yajem_switch_location" class="yajem_hidden" checked="checked"/>
@@ -153,7 +165,7 @@ if ($useOrg)
 	</div>
 
 	<!-- Google Map if API-Key provided -->
-	<?php if ($googleApiKey): ?>
+	<?php if ($this->yajemHtmlHelper->yajemParams->googleApiKey): ?>
 		<div class="yajem_switch_container">
 			<div class="yajem_section_header yajem_bottom-rounded">
 				<div class="yajem_inline-block">
@@ -161,7 +173,8 @@ if ($useOrg)
 						<?php echo JText::_('COM_YAJEM_MAP_TITLE'); ?>
 					</h2>
 				</div>
-				<label id="map-section-button" class="yajem_switch" for="yajem_switch_map">
+				<label id="map-section-button" class="yajem_switch" for="yajem_switch_map"
+					   onclick="switchClass('map-section-button')">
 					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 				</label>
 			</div>
@@ -172,25 +185,29 @@ if ($useOrg)
 				?>
 				<iframe id="google_map"
 						frameborder="0" style="border:0"
-						src="https://www.google.com/maps/embed/v1/place?key=<?php echo $googleApiKey; ?>&q=<?php echo $googleAddress ?>"
+						src="https://www.google.com/maps/embed/v1/place?key=<?php echo $this->yajemHtmlHelper->yajemParams->googleApiKey; ?>
+							&q=<?php echo $googleAddress ?>"
 						allowfullscreen>
 				</iframe>
 			</div>
 		</div>
 	<?php endif; ?>
+	<?php endif; ?>
 
 	<!-- Registration if used -->
-	<?php if ($useReg): ?>
+	<?php if ($this->eventParams->useReg): ?>
 		<div class="yajem_switch_container">
 			<div class="yajem_section_header yajem_bottom-rounded">
 				<div class="yajem_inline-block">
 					<h2>
 						<?php echo JText::_('COM_YAJEM_TITLE_ATTENDEES') . "&nbsp;"; ?>
-						<?php echo ('<i class="fas fa-users" aria-hidden="true"></i>&nbsp;' . $this->attendeeNumber); ?>
+						<?php echo ('<i class="fas fa-users" aria-hidden="true"></i>&nbsp;<span id="attendeeCount">' .
+                            $this->attendeeNumber . '</span>'); ?>
 					</h2>
 				</div>
-				<?php if (!$guest):?>
-				<label id="registration-section-button" class="yajem_switch" for="yajem_switch_reg">
+				<?php if (!$this->eventParams->isGuest):?>
+				<label id="registration-section-button" class="yajem_switch" for="yajem_switch_reg"
+					   onclick="switchClass('registration-section-button')">
 					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
 				</label>
 				<?php endif; ?>
@@ -204,27 +221,29 @@ if ($useOrg)
 		</div>
 	<?php endif; ?>
 
-    <!-- Comments if used and registered user -->
-	<?php if (!$guest && $useComments): ?>
-        <div class="yajem_switch_container">
-            <div class="yajem_section_header yajem_bottom-rounded">
-                <div class="yajem_inline-block">
-                    <h2>
+	<!-- Comments if used and registered user -->
+	<?php if (!$this->eventParams->isGuest && $this->eventParams->useComments): ?>
+		<div class="yajem_switch_container">
+			<div class="yajem_section_header yajem_bottom-rounded">
+				<div class="yajem_inline-block">
+					<h2>
 						<?php echo JText::_('COM_YAJEM_TITLE_COMMENTS') . "&nbsp;"; ?>
-						<?php echo ('<i class="fas fa-comment" aria-hidden="true"></i>&nbsp;' . $this->commentCount); ?>
-                    </h2>
-                </div>
-                <label id="comment-section-button" class="yajem_switch" for="yajem_switch_comment">
-                    <i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
-                </label>
-            </div>
-            <input type="checkbox" id="yajem_switch_comment" class="yajem_hidden"/>
-            <div class="yajem_section_container yajem_switchable">
+						<?php echo ('<i class="fas fa-comment" aria-hidden="true"></i>&nbsp;<span id="comment_count">' .
+							$this->commentCount) . '</span>'; ?>
+					</h2>
+				</div>
+				<label id="comment-section-button" class="yajem_switch" for="yajem_switch_comment"
+					   onclick="switchClass('comment-section-button')">
+					<i class="far fa-plus-square" aria-hidden="true" title="<?php echo JText::_('COM_YAJEM_TOGGLE') ?>"></i>
+				</label>
+			</div>
+			<input type="checkbox" id="yajem_switch_comment" class="yajem_hidden"/>
+			<div class="yajem_section_container yajem_switchable">
 
 				<?php echo $this->loadTemplate('comments'); ?>
 
-            </div>
-        </div>
+			</div>
+		</div>
 	<?php endif; ?>
 
 </div>

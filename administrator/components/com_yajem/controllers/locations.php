@@ -32,6 +32,7 @@ class YajemControllerLocations extends AdminController
 	 */
 	public function getModel($name = 'Location', $prefix = 'YajemModel', $config = array('ignore-request' => true))
 	{
+		JModelLegacy::addIncludePath(JPATH_SITE . '/administrator/components/com_yajem/models');
 		return parent::getModel($name, $prefix, $config);
 	}
 

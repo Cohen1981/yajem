@@ -12,6 +12,8 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Access\Access;
+use Joomla\Component\Yajem\Administrator\Classes\YajemUserProfile;
 
 /**
  * @package     Yajem
@@ -128,6 +130,10 @@ class YajemModelEvents extends ListModel
 		// Get all Events
 		$query->select('a.*	');
 		$query->from('`#__yajem_events` AS a');
+
+		$user = Factory::getUser();
+		$viewLevel = implode(',', Access::getAuthorisedViewLevels($user->id));
+		$query->where('a.access IN (' . $viewLevel . ')');
 
 		// Join for lacations title
 		$query->select('loc.title AS location');

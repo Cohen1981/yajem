@@ -14,6 +14,7 @@ use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Plugin\PluginHelper;
 use Joomla\CMS\Document\Document;
+use Yajem\Site\Models\YajemModelAttendee;
 
 /**
  * @package     Yajem
@@ -31,8 +32,11 @@ class YajemControllerEvent extends BaseController
 	 */
 	public function view()
 	{
+		$id = Factory::getApplication()->input->request->get('id');
 		$view = $this->getView('Event', 'html');
-		$view->setModel($this->getModel('Event'));
+		$eventModel = $this->getModel('Event');
+		$eventModel->setState('item.id',$id);
+		$view->setModel($eventModel);
 		$view->setModel($this->getModel('Attendees'));
 		$view->setModel($this->getModel('Locations'));
 		$view->setModel($this->getModel('Comments'));
@@ -55,7 +59,8 @@ class YajemControllerEvent extends BaseController
 
 		if ($todo = $input['register'])
 		{
-			$model = $this->getModel('Attendee');
+			require_once JPATH_SITE . "/components/com_yajem/models/attendee.php";
+			$model = new YajemModelAttendee;
 
 			switch ($todo)
 			{
@@ -108,7 +113,36 @@ class YajemControllerEvent extends BaseController
 		Factory::getApplication()->redirect(JRoute::_('index.php?option=com_yajem&task=event.view&id=' . $input['eventId']), false);
 	}
 
-	public function saveComment() {
+	/**
+	 * @return boolean
+	 *
+	 * @since version
+	 * @throws Exception
+	 */
+	public function deleteComment()
+	{
+		$id = Factory::getApplication()->input->get('id');
+		require_once JPATH_ADMINISTRATOR . '/components/com_yajem/models/comment.php';
+
+		// JModelLegacy::addIncludePath(JPATH_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'components/com_yajem/models');
+		$modelComment = new YajemModelComment;
+
+		// JModelLegacy::getInstance('Comment', 'YajemModel');
+		$modelComment->delete($id);
+
+		return true;
+	}
+
+	/**
+	 * Non Ajax function
+	 * @see See event.raw.php for Ajax function
+	 *
+	 * @return void
+	 * @since version
+	 * @throws Exception
+	 */
+	public function saveComment()
+	{
 		$input = Factory::getApplication()->input->post->getArray();
 
 		if ($todo = $input['commit_comment'])

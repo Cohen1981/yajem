@@ -13,6 +13,7 @@ defined('_JEXEC') or die;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\Component\Yajem\Administrator\Classes\YajemEvent;
 
 /**
  * @package     Yajem
@@ -28,7 +29,7 @@ class YajemViewEvent extends HtmlView
 	protected $state;
 
 	/**
-	 * @var event
+	 * @var YajemEvent event
 	 * @since 1.0
 	 */
 	protected $event;
@@ -41,6 +42,8 @@ class YajemViewEvent extends HtmlView
 
 	/**
 	 * @param   null $tpl Template to be used
+	 *
+	 * @return void
 	 *
 	 * @throws Exception
 	 *
@@ -57,6 +60,7 @@ class YajemViewEvent extends HtmlView
 		JModelLegacy::addIncludePath(JPATH_COMPONENT_ADMINISTRATOR . DIRECTORY_SEPARATOR . 'models');
 		$modelAttachments = JModelLegacy::getInstance('attachments', 'YajemModel');
 		$this->event->attachments = array();
+
 		if ($this->event->id)
 		{
 			$this->event->attachments = $modelAttachments->getAttachments((int) $this->event->id, 'event');

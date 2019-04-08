@@ -11,6 +11,8 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\CMS\Factory;
+use Yajem\User\YajemUserProfile;
 
 /**
  * @package     Yajem
@@ -30,7 +32,7 @@ class YajemModelAttendees extends ListModel
 	 */
 	public function getAttendees($eventId)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		$query = $db->getQuery(true);
 
@@ -38,23 +40,15 @@ class YajemModelAttendees extends ListModel
 		$query->from('#__yajem_attendees AS a');
 		$query->where('a.eventId = ' . (int) $eventId);
 
-		$query->select('u.name AS attendee, u.email AS mail');
-		$query->join('LEFT', '#__users AS u ON u.id = userId');
-
-		$query->select('cd.name AS clearName, cd.image AS avatar');
-		$query->join('LEFT', '#__contact_details AS cd on cd.user_id = userId');
-
 		$db->setQuery($query);
 
 		$attendees = $db->loadObjectList();
 
 		foreach ($attendees as $attendee) {
-			if ($attendee->clearName) {
-				$attendee->attendee = $attendee->clearName;
-			}
+				$attendee->attendee = new YajemUserProfile($attendee->userId);
 		}
 
-		return $attendees;
+		return (object) $attendees;
 	}
 
 	/**
@@ -67,7 +61,7 @@ class YajemModelAttendees extends ListModel
 	 */
 	public function getAttendeeNumber($eventId)
 	{
-		$db = JFactory::getDbo();
+		$db = Factory::getDbo();
 
 		$query = $db->getQuery(true);
 
@@ -78,5 +72,33 @@ class YajemModelAttendees extends ListModel
 		$db->setQuery($query);
 
 		return $db->loadResult();
+	}
+
+	/**
+	 * @param   int $userId User id
+	 *
+	 * @return mixed
+	 *
+	 * @since 1.2.0
+	 */
+	public function getAllEventsForUser($userId)
+	{
+		$db = Factory::getDbo();
+		$query = $db->getQuery(true);
+
+		$query->select($db->quoteName(array('a.id', 'a.eventId', 'a.status')));
+
+		$query->from('#__yajem_attendees AS a');
+
+		$query->select('e.title AS event');
+		$query->join('LEFT', '#__yajem_events AS e ON e.id = a.eventId');
+
+		$query->where("a.`userId` = '" . $db->escape($userId) . "'");
+
+		$db->setQuery($query);
+
+		$attendings = $db->loadObjectList();
+
+		return $attendings;
 	}
 }

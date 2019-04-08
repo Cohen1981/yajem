@@ -56,6 +56,8 @@ class YajemModelComment extends ItemModel
 	}
 
 	/**
+	 * Save the comment for an event
+	 *
 	 * @param   int         $userId     userId
 	 * @param   int         $eventId    EventId
 	 * @param   text        $comment    Comment

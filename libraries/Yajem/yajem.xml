@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension type="library" method="upgrade" version="1.0.0">
+    <name>YajemTools</name>
+    <libraryname>Yajem</libraryname>
+    <author>Alexander Bahlo</author>
+    <creationDate>February 2019</creationDate>
+    <copyright>Copyright (C) 2019</copyright>
+    <license>http://www.gnu.org/licenses/gpl-2.0.html GNU/GPL</license>
+    <authorEmail>abahlo@hotmail.de</authorEmail>
+    <version>1.0.0</version>
+    <description>Tools you need to scratch the itches you have</description>
+
+    <files>
+        <folder>Helpers</folder>
+        <folder>Models</folder>
+        <folder>User</folder>
+        <folder>Table</folder>
+    </files>
+</extension>

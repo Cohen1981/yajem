@@ -119,13 +119,6 @@ class YajemModelEvents extends ListModel
 			$query->join('LEFT', '#__contact_details AS h ON h.id = a.hostId');
 		}
 
-		// If no organizer is used, we don'even need to join
-		if ((bool) $params->get('use_organizer'))
-		{
-			$query->select('org.name AS organizer');
-			$query->join('LEFT', '#__contact_details AS org ON org.id = a.organizerId');
-		}
-
 		$published = $this->getState('filter.published');
 
 		if (is_numeric($published)) // Set Filter for State

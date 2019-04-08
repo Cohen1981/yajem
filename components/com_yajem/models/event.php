@@ -14,7 +14,7 @@ JHtml::_('stylesheet', JUri::root() . 'media/com_yajem/css/style.css');
 
 use Joomla\CMS\MVC\Model\ItemModel;
 use Joomla\Utilities\ArrayHelper;
-use Joomla\Event\Dispatcher;
+use Yajem\User\YajemUserProfile;
 
 /**
  * @package     Yajem
@@ -43,11 +43,11 @@ class YajemModelEvent extends ItemModel
 
 		// Load the parameters.
 		$params       = $app->getParams();
-		$params_array = $params->toArray();
+		$paramsArray = $params->toArray();
 
-		if (isset($params_array['item_id']))
+		if (isset($paramsArray['item_id']))
 		{
-			$this->setState('item.id', $params_array['item_id']);
+			$this->setState('item.id', $paramsArray['item_id']);
 		}
 
 		$this->setState('params', $params);
@@ -92,21 +92,6 @@ class YajemModelEvent extends ItemModel
 		if (isset($this->_item->modifiedBy))
 		{
 			$this->_item->modified_by_name = JFactory::getUser($this->_item->modified_by)->name;
-		}
-
-		if (isset($this->_item->organizerId))
-		{
-			$db = JFactory::getDbo();
-			$conQuery = $db->getQuery(true);
-			$conQuery->select('cd.name as name, cd.user_id as user_id, u.email as email')
-				->from('#__contact_details AS cd')
-				->where('cd.id = ' . $this->_item->organizerId)
-				->join('left', '#__users as u on u.id = cd.user_id');
-			$db->setQuery($conQuery);
-			$this->_item->organizer = $db->loadObject();
-			$this->_item->organizerLink = "<a href='index.php?option=com_contact&view=contact&id=" .
-				$this->_item->organizerId .
-				"'>" . $this->_item->organizer->name . "</a>";
 		}
 
 		if (isset($this->_item->hostId))
@@ -165,63 +150,88 @@ class YajemModelEvent extends ItemModel
 			throw new Exception("No eventId");
 		}
 
+		$this->setState('item.id', $eventId);
+
 		return $table->store(true);
 	}
 
-	public function makeIcs() {
-		if ($eventId = $this->getState('item.id'))
+	/**
+	 * Generates and returns the ics file for an event.
+	 *
+	 * @return null|string
+	 *
+	 * @since 1.1.0
+	 * @throws Exception
+	 */
+	public function makeIcs()
+	{
+		$eventId = ($this->getState('item.id')) ? $this->getState('item.id') : $this->getState('id');
+
+		if ($eventId)
 		{
 			JModelLegacy::addIncludePath(JPATH_SITE . '/components/com_yajem/models');
 
 			$event = $this->getData($eventId);
 
-			if ($event->locationId) {
-				//get the location
+			if ($event->locationId)
+			{
+				// Get the location
 				$modelLocation = JModelLegacy::getInstance('locations', 'YajemModel');
-				$location = $modelLocation->getLocation( (int) $event->locationId );
+				$location = $modelLocation->getLocation((int) $event->locationId);
 			}
 
-			//check for attendees
+			// Check for attendees
 			$modelAttendees = JModelLegacy::getInstance('attendees', 'YajemModel');
-			$attendees = $modelAttendees->getAttendees( (int) $event->id );
-			if (count($attendees)>0) {
-				foreach ($attendees as $attendee) {
-					if (!$attendee->userId == $event->organizer->userId) {
-						$kb_attendees[]='ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN="'
+			$attendees = $modelAttendees->getAttendees((int) $event->id);
+
+			if (count($attendees) > 0)
+			{
+				foreach ($attendees as $attendee)
+				{
+					if (!$attendee->userId == $event->organizerId)
+					{
+						$kbAttendees[] = 'ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN="'
 							. $attendee->attendee
 							. '":Mailto:' . $attendee->mail;
 					}
 				}
 			}
 
-			if ($event->organizerId) {
-				$kb_organizer = 'ORGANIZER;CN="'. $event->organizer->name .'":Mailto:' . $event->organizer->email;
+			if ($event->organizerId)
+			{
+				$organizer = new YajemUserProfile($event->organizerId);
+				$kbOrganizer = 'ORGANIZER;CN="' . $event->organizer->name . '":Mailto:' . $organizer->email;
 			}
 
-			if ((bool) $event->allDayEvent) {
-				$kb_start       = new DateTime($event->startDate);
-				$kb_start       = $kb_start->format('Ymd');
+			if ((bool) $event->allDayEvent)
+			{
+				$kbStart       = new DateTime($event->startDate);
+				$kbStart       = $kbStart->format('Ymd');
 
-				$kb_end         = new DateTime($event->endDate);
-				$kb_end         = $kb_end->format('Ymd');
-			} else {
-				$kb_start       = new DateTime($event->startDateTime);
-				$kb_start       = $kb_start->format('Ymd') . 'T' . $kb_start->format('Hms');
-
-				$kb_end         = new DateTime($event->endDateTime);
-				$kb_end         = $kb_end->format('Ymd') . 'T' . $kb_end->format('Hms');
+				$kbEnd         = new DateTime($event->endDate);
+				$kbEnd         = $kbEnd->format('Ymd');
 			}
-			$kb_current_time = new DateTime(now);
-			$kb_title        = html_entity_decode($event->title, ENT_COMPAT, 'UTF-8');
-			$kb_location     = html_entity_decode(
-				$location->street.", ".$location->postalCode." ".$location->city,
+			else
+			{
+				$kbStart       = new DateTime($event->startDateTime);
+				$kbStart       = $kbStart->format('Ymd') . 'T' . $kbStart->format('Hms');
+
+				$kbEnd         = new DateTime($event->endDateTime);
+				$kbEnd         = $kbEnd->format('Ymd') . 'T' . $kbEnd->format('Hms');
+			}
+
+			$kbCurrentTime = new DateTime(now);
+			$kbTitle        = html_entity_decode($event->title, ENT_COMPAT, 'UTF-8');
+			$kbLocation     = html_entity_decode(
+				$location->street . ", " . $location->postalCode . " " . $location->city,
 				ENT_COMPAT,
-				'UTF-8');
-			$kb_description  = html_entity_decode($event->description, ENT_COMPAT, 'UTF-8');
+				'UTF-8'
+			);
+			$kbDescription  = html_entity_decode($event->description, ENT_COMPAT, 'UTF-8');
 			$eol            = "\r\n";
 
-			$kb_ics_content =
-				'BEGIN:VCALENDAR' . $eol
+			$kbIcsContent
+				= 'BEGIN:VCALENDAR' . $eol
 				. 'VERSION:2.0' . $eol
 				. 'CALSCALE:GREGORIAN' . $eol
 				. 'PRODID:https://www.survivants-d-acre.de' . $eol
@@ -247,29 +257,46 @@ class YajemModelEvent extends ItemModel
 				. 'UID:{UID}' . $eol
 				. 'SEQUENCE:{Sequence}' . $eol
 				. 'STATUS:CONFIRMED' . $eol
-				. $kb_organizer . $eol;
-			/* TODO Man könnte später auch auf Rückmeldung durch Kalender reagieren.
-			if (count($kb_attendees)>0) {
-				foreach ($kb_attendees as $kbAttendee)
-				{
-					$kb_ics_content = $kb_ics_content . $kbAttendee . $eol;
-				}
-			}*/
-			$kb_ics_content = $kb_ics_content
-				. 'CLASS:PUBLIC' . $eol
-				. 'SUMMARY:' . $kb_title . $eol
-				. 'DTSTART;TZID=Europe/Berlin:' . $kb_start . $eol
-				. 'DTEND;TZID=Europe/Berlin:' . $kb_end . $eol
-				. 'DTSTAMP:' . $kb_current_time->format('Ymd') . 'T' . $kb_current_time->format('Hms') . $eol
-				. 'LAST-MODIFIED:' . $kb_current_time->format('Ymd') . 'T' . $kb_current_time->format('Hms') . $eol
-				. 'DESCRIPTION:' . $kb_description . $eol
-				. 'LOCATION:' . $kb_location . $eol
-				. 'END:VEVENT' . $eol
-				. 'END:VCALENDAR'
-			;
+				. $kbOrganizer . $eol;
 
-			return $kb_ics_content;
+			/*
+			TODO Man könnte später auch auf Rückmeldung durch Kalender reagieren.
+			if (count($kbAttendees)>0) {
+				foreach ($kbAttendees as $kbAttendee)
+				{
+					$kbIcsContent = $kbIcsContent . $kbAttendee . $eol;
+				}
+			}
+			*/
+			$kbIcsContent = $kbIcsContent
+				. 'CLASS:PUBLIC' . $eol
+				. 'SUMMARY:' . $kbTitle . $eol
+				. 'DTSTART;TZID=Europe/Berlin:' . $kbStart . $eol
+				. 'DTEND;TZID=Europe/Berlin:' . $kbEnd . $eol
+				. 'DTSTAMP:' . $kbCurrentTime->format('Ymd') . 'T' . $kbCurrentTime->format('Hms') . $eol
+				. 'LAST-MODIFIED:' . $kbCurrentTime->format('Ymd') . 'T' . $kbCurrentTime->format('Hms') . $eol
+				. 'DESCRIPTION:' . $kbDescription . $eol
+				. 'LOCATION:' . $kbLocation . $eol
+				. 'END:VEVENT' . $eol
+				. 'END:VCALENDAR';
+
+			return $kbIcsContent;
 		}
+
 		return false;
+	}
+
+	/**
+	 * @param   string $property    Property to set
+	 * @param   null   $value       Value for Property
+	 *
+	 * @return mixed|void
+	 *
+	 * @since version
+	 */
+	public function setState($property, $value = null)
+	{
+		parent::setState($property, $value);
+		$this->__state_set = true;
 	}
 }

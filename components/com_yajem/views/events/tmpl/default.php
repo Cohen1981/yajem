@@ -63,9 +63,9 @@ $currentDate 	= Factory::getDate('now', 'UTC');
 		    <i class="fas fa-calendar-plus" aria-hidden="true"></i>
 	        <?php echo Text::_('COM_YAJEM_NEW_EVENT'); ?>
         </a>&nbsp;
-        <a href="<?php echo JRoute::_('index.php?option=com_yajem&task=editlocation.add'); ?>">
+        <a href="<?php echo JRoute::_('index.php?option=com_yajem&view=locations'); ?>">
             <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
-	        <?php echo Text::_('COM_YAJEM_NEW_LOCATION'); ?>
+	        <?php echo Text::_('COM_YAJEM_MANAGE_LOCATIONS'); ?>
         </a>
     </div>
     <?php endif; ?>
@@ -105,6 +105,7 @@ $currentDate 	= Factory::getDate('now', 'UTC');
 	</div>
 
 	<?php foreach ($this->items as $i => $item) : ?>
+
 	<?php $start = (bool) $item->allDayEvent ? Factory::getDate($item->startDate, 'UTC') : Factory::getDate($item->startDateTime, 'UTC');?>
 	<?php if ($currentDate <= $start || $pastEvents): ?>
 	<div class="yajem_section_container">

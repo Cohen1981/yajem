@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form>
+    <fieldset name="sub_items" label="PLG_USER_PROFILEYAJEM_FIELD_SUBFIELDS_LABEL">
+        <field
+            name="key"
+            type="text"
+            default=""
+            label="PLG_USER_PROFILEYAJEM_FIELD_TYPE_LABEL"
+        />
+        <field
+            name="value"
+            type="text"
+            default=""
+            label="PLG_USER_PROFILEYAJEM_FIELD_DETAILS_LABEL"
+        />
+        <field
+            name="length"
+            type="text"
+            default=""
+            label="PLG_USER_PROFILEYAJEM_FIELD_LENGTH_LABEL"
+        />
+        <field
+            name="width"
+            type="text"
+            default=""
+            label="PLG_USER_PROFILEYAJEM_FIELD_WIDTH_LABEL"
+        />
+    </fieldset>
+</form>

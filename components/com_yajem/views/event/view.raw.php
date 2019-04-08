@@ -10,6 +10,10 @@
 
 defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Yajem\Helpers\YajemParams;
+use Joomla\Component\Yajem\Administrator\Helpers\EventHtmlHelper;
+use Yajem\User\YajemUserProfile;
 
 /**
  * @package     Yajem
@@ -33,12 +37,48 @@ class YajemViewEvent extends JViewLegacy
 	/**
 	 * @param   null $tpl Template to load
 	 *
-	 * @return mixed|void
+	 * @return void
 	 *
 	 * @since 1.0
 	 * @throws Exception
 	 */
 	public function display($tpl = null)
+	{
+		$input = Factory::getApplication()->input->post->getArray();
+
+		if (count($input))
+		{
+			switch ($input['task'])
+			{
+				case 'event.saveComment':
+					$this->afterComment($input);
+					break;
+				case 'event.getIcs':
+					$this->returnIcs();
+					break;
+				case 'event.changeEventStatus':
+					$this->changeEventStatus($input);
+					break;
+				case 'event.changeAttendingStatus':
+					$this->changeAttendingStatus($input);
+					break;
+				case 'event.getRegButtons':
+					$this->getRegButtons();
+					break;
+				default:
+					break;
+			}
+		}
+	}
+
+	/**
+	 * Returns the ical file
+	 *
+	 * @return void
+	 * @since version
+	 * @throws Exception
+	 */
+	private function returnIcs()
 	{
 		$this->state = $this->get('State');
 
@@ -52,11 +92,173 @@ class YajemViewEvent extends JViewLegacy
 				'attachment; filename="invite.ics"; creation-date="' . JFactory::getDate()->toRFC822() . '"',
 				true
 			)
-			->setHeader('Content-Type','text/calendar; charset=utf-8', true)
-			->setHeader('Content-Length',strlen($ics),true)
+			->setHeader('Content-Type', 'text/calendar; charset=utf-8', true)
+			->setHeader('Content-Length', strlen($ics), true)
 			->setHeader('Connection', 'close', true);
 
 		echo $ics;
 	}
 
+	/**
+	 * @param   array $input The input of the call
+	 *
+	 * @return void
+	 * @since version
+	 * @throws Exception
+	 */
+	private function afterComment(array $input)
+	{
+		$document = JFactory::getDocument();
+		$document->setMimeEncoding('text/html; charset=utf-8');
+		Factory::getApplication()->setHeader('Content-Type', 'text/html; charset=utf-8', true);
+
+		$commentId = $this->getModel('Comment')->getState('comment.id');
+		$timestamp = $this->getModel('Comment')->getState('timestampSave');
+		$userProfile = new YajemUserProfile($input['userId']);
+		$return = $this->getCommentHtml($commentId, $userProfile, $timestamp, $input['comment']);
+		echo $return;
+	}
+
+	/**
+	 * @param   int                 $commentId      The new Comment ID
+	 * @param   YajemUserProfile    $userProfile    The userProfile
+	 * @param   string              $timestamp      Timestamp the comment was created
+	 * @param   string              $comment        The comment
+	 *
+	 * @return string
+	 *
+	 * @since version
+	 */
+	private function getCommentHtml($commentId, $userProfile, $timestamp, $comment)
+	{
+		$html = "";
+
+		$yajemParams = new YajemParams;
+
+		if ($yajemParams->useUserProfile)
+		{
+			// Which Avatar to use
+			if ($userProfile->avatar)
+			{
+				$avatar = '<img id="avatar_' . $commentId . '" class="yajem_comment_avatar yajem_img_round" src="' .
+					$userProfile->avatar . '"/>';
+			}
+			else
+			{
+				$avatar = '<img id="avatar_' . $commentId . '" class="yajem_comment_avatar" src="' .
+					JURI::root() . '/media/com_yajem/images/user-image-blanco.png"/>';
+			}
+
+			$html = $avatar;
+		}
+
+		$html = $html . "<div id=\"output_" . $commentId . "\" class=\"yajem_comment_output\">";
+		$html = $html . "<div class=\"yajem_uname\">";
+		$html = $html . "<div class=\"yajem_pull_right\">";
+		$html = $html . "<a onclick=\"delComment(" . $commentId . ")\">";
+		$html = $html . "<i class=\"fas fa-trash-alt\" aria-hidden=\"true\"></i>";
+		$html = $html . "</a></div>";
+		$html = $html . $userProfile->name . " " . $timestamp;
+		$html = $html . "</div><div class=\"yajem_comment\">" . nl2br($comment) . "</div></div>";
+
+		return $html;
+	}
+
+	/**
+	 *
+	 * @param   array $input The Request input
+	 *
+	 * @return void
+	 *
+	 * @throws Exception
+	 * @since version
+	 */
+	private function changeEventStatus($input)
+	{
+		$html = "";
+		$document = JFactory::getDocument();
+		$document->setMimeEncoding('text/html; charset=utf-8');
+		Factory::getApplication()->setHeader('Content-Type', 'text/html; charset=utf-8', true);
+		include_once JPATH_SITE . "/administrator/components/com_yajem/helpers/EventHtmlHelper.php";
+		$this->event = $this->get('Data', 'Event');
+		$helper = new EventHtmlHelper($this->event);
+
+		if ($input['eStatus'] == 'confirm')
+		{
+			$html = $helper->links->cancel;
+		}
+		else
+		{
+			$html = $helper->links->confirm;
+		}
+
+		echo $html;
+	}
+
+	/**
+	 * @param   array $input Request input
+	 *
+	 * @return void
+	 * @since 1.2.1
+	 * @throws Exception
+	 */
+	private function changeAttendingStatus($input)
+	{
+		$document = JFactory::getDocument();
+		$document->setMimeEncoding('text/html; charset=utf-8');
+		Factory::getApplication()->setHeader('Content-Type', 'text/html; charset=utf-8', true);
+
+		// $input['register'] && $input['id'] && $input['eventId']
+		$this->event = $this->get('Data', 'Event');
+
+		if (!$input['id'])
+		{
+			$attendeeModel = $this->getModel('Attendee');
+			$attendeeId    = $attendeeModel->getState('id');
+		}
+		else
+		{
+			$attendeeId = $input['id'];
+		}
+
+		$user = Factory::getUser();
+
+		include_once JPATH_SITE . "/administrator/components/com_yajem/helpers/EventHtmlHelper.php";
+		$helper = new EventHtmlHelper($this->event);
+
+		switch ($input['register'])
+		{
+			case 'reg':
+				$status = 1;
+				break;
+			case 'regw':
+				$status = 3;
+				break;
+			case 'unreg':
+				$status = 2;
+				break;
+		}
+
+		echo $helper->getAttendingHtml($user->id, $status, $attendeeId);
+	}
+
+	/**
+	 *
+	 * @return void
+	 * @since 1.2.1
+	 * @throws Exception
+	 */
+	private function getRegButtons()
+	{
+		$document = JFactory::getDocument();
+		$document->setMimeEncoding('text/html; charset=utf-8');
+		Factory::getApplication()->setHeader('Content-Type', 'text/html; charset=utf-8', true);
+
+		$input = Factory::getApplication()->input->post->getArray();
+		$this->event = $this->get('Data', 'Event');
+
+		include_once JPATH_SITE . "/administrator/components/com_yajem/helpers/EventHtmlHelper.php";
+		$helper = new EventHtmlHelper($this->event);
+		echo $helper->getRegLinksAttendee($input['userId']);
+	}
 }

@@ -221,7 +221,7 @@ if ($saveOrder)
 						</td>
 					<?php endif; ?>
 					<td>
-						<?php echo $item->organizer; ?>
+						<?php echo $item->organizer->name; ?>
 					</td>
 
 				</tr>

@@ -99,17 +99,17 @@ class com_YajemInstallerScript
 	/**
 	 * Runs right after any installation action is preformed on the component.
 	 *
-	 * @param  string    $type   - Type of PostFlight action. Possible values are:
-	 *                           - * install
-	 *                           - * update
-	 *                           - * discover_install
-	 * @param  \stdClass $parent - Parent object calling object.
+	 * @param   string    $type   - Type of PostFlight action. Possible values are:
+	 *                            - * install
+	 *                            - * update
+	 *                            - * discover_install
+	 * @param   \stdClass $parent - Parent object calling object.
 	 *
 	 * @return void
 	 *
 	 * @since   1.0
 	 */
-	function postflight($type, $parent)
+	public function postflight($type, $parent)
 	{
 		// Setting default config params
 		if ($type == 'install')
@@ -117,7 +117,8 @@ class com_YajemInstallerScript
 			$db = Factory::getDBO();
 			$query = $db->getQuery(true);
 			$query->update($db->quoteName('#__extensions'));
-			$defaults = '{"use_modal_location":"1","use_location_contact":"0","use_host":"0","use_organizer":"1","show_pastEvents":"0","use_comments":"0"}';
+			$defaults = '{"use_modal_location":"1","use_location_contact":"0","use_host":"0",
+						"use_organizer":"1","show_pastEvents":"0","use_comments":"0","use_user_profile":"0","use_ajax_calls":"0"}';
 			$query->set($db->quoteName('params') . ' = ' . $db->quote($defaults));
 			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_yajem'));
 			$db->setQuery($query);

@@ -10,14 +10,15 @@
 
 defined('_JEXEC') or die;
 
-use Joomla\CMS\MVC\Controller\FormController;
+// Base this Controller on the backend version.
+JLoader::register('YajemControllerLocation', JPATH_ADMINISTRATOR . '/components/com_yajem/controllers/location.php');
 
 /**
  * @package     Yajem
  *
  * @since       version
  */
-class YajemControllerEditlocation extends FormController
+class YajemControllerEditlocation extends YajemControllerLocation
 {
 	/**
 	 * The URL view item variable.
@@ -33,6 +34,6 @@ class YajemControllerEditlocation extends FormController
 	 * @var    string
 	 * @since  1.6
 	 */
-	protected $view_list = 'events';
+	protected $view_list = 'locations';
 
 }

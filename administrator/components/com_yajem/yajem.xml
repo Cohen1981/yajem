@@ -6,7 +6,7 @@
 	<authorEmail>abahlo@hotmail.de</authorEmail>
 	<copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<version>1.1.0</version>
+	<version>1.2.5</version>
 	<description>COM_YAJEM_XML_DESCRIPTION</description>
 
 	<!-- Scripts to run on installation -->
@@ -78,6 +78,7 @@
 			<filename>config.xml</filename>
 			<filename>controller.php</filename>
 			<filename>LICENSE.txt</filename>
+			<folder>Classes</folder>
 			<folder>controllers</folder>
 			<folder>helpers</folder>
 			<folder>language</folder>

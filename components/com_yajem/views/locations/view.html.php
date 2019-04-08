@@ -71,70 +71,9 @@ class YajemViewLocations extends HtmlView
 
 		YajemHelperAdmin::addSubmenu('locations');
 
-		if ($this->getLayout() !== 'modal')
-		{
-			$this->addToolbar();
-		}
-
-		$this->sidebar = JHtmlSidebar::render();
+		$user = Factory::getUser();
 
 		return parent::display($tpl);
-	}
-
-	/**
-	 * Adding the toolbar
-	 *
-	 * @since 1.0
-	 *
-	 * @return void
-	 */
-	protected function addToolbar()
-	{
-		$state = $this->get('State');
-		$canDo = YajemHelperAdmin::getActions();
-
-		JToolBarHelper::title(JText::_('YAJEM'), 'items.png');
-
-		if ($canDo->get('core.create'))
-		{
-			JToolBarHelper::addNew('location.add', 'JTOOLBAR_NEW');
-		}
-
-		if (isset($this->items[0]))
-		{
-			if ($canDo->get('core.edit'))
-			{
-				JToolBarHelper::editList('location.edit', 'JTOOLBAR_EDIT');
-			}
-
-			if ($canDo->get('core.edit.state'))
-			{
-				JToolBarHelper::divider();
-				JToolbarHelper::publish('locations.publish', 'JTOOLBAR_PUBLISH', true);
-				JToolbarHelper::unpublish('locations.unpublish', 'JTOOLBAR_UNPUBLISH', true);
-
-				JToolBarHelper::divider();
-				JToolBarHelper::archiveList('locations.archive', 'JTOOLBAR_ARCHIVE');
-			}
-
-		}
-
-		if ($state->get('filter.published') == -2  && $canDo->get('core.delete'))
-		{
-			JToolBarHelper::deleteList('', 'locations.delete', 'JTOOLBAR_EMPTY_TRASH');
-			JToolBarHelper::divider();
-		}
-		elseif ($canDo->get('core.edit.state'))
-		{
-			JToolBarHelper::trash('locations.trash', 'JTOOLBAR_TRASH');
-			JToolBarHelper::divider();
-		}
-
-		if ($canDo->get('core.admin'))
-		{
-			JToolBarHelper::preferences('com_yajem');
-		}
-
 	}
 
 	/**

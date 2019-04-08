@@ -8,6 +8,8 @@
  * @since       1.0
  */
 
+namespace Yajem\Site\Models;
+
 defined('_JEXEC') or die;
 
 use Joomla\CMS\MVC\Model\ItemModel;
@@ -89,6 +91,11 @@ class YajemModelAttendee extends ItemModel
 			}
 		}
 
-		return $table->store(true);
+		$return = $table->store(true);
+
+		$this->setState('id', $table->id);
+		$this->__state_set = true;
+
+		return $return;
 	}
 }
