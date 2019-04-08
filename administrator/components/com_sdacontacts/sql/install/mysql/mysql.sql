@@ -1,7 +1,8 @@
 create table if not exists `#__sdacontacts_contacts`
 (
   `sdacontacts_contact_id` int auto_increment,
-  `title` VARCHAR(255) NOT NULL COMMENT 'the location title',
+  `title` VARCHAR(255) NOT NULL COMMENT 'the Contact title',
+  `contactPerson` VARCHAR(255) NULL Comment 'Name of Contact Person',
   `slug` VARCHAR(255) NULL COMMENT 'Joomla standard: alias field',
   `con_position` varchar(255) null,
   `address` text null,

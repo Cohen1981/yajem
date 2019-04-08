@@ -6,7 +6,7 @@
 	<authorEmail>abahlo@hotmail.de</authorEmail>
 	<copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<version>0.0.1</version>
+	<version>0.0.2</version>
 	<description>COM_SDACONTACTS_XML_DESCRIPTION</description>
 
 	<!-- Scripts to run on installation
@@ -27,13 +27,12 @@
 		</sql>
 	</uninstall>
 
-	<!-- Runs on update
+	<!-- Runs on update -->
 	<update>
 		<schemas>
 			<schemapath type="mysql">sql/updates/mysql</schemapath>
 		</schemas>
 	</update>
-	 -->
 
 	<!-- Media files -->
 	<media folder="media/com_sdacontacts" destination="com_sdacontacts">
@@ -44,6 +43,7 @@
 	<!-- Front-end files -->
 	<files folder="components/com_sdacontacts">
 		<filename>sdacontacts.php</filename>
+		<folder>Controller</folder>
 		<folder>Toolbar</folder>
 		<folder>View</folder>
 		<folder>views</folder>
@@ -65,6 +65,8 @@
 		<files folder="administrator/components/com_sdacontacts">
 			<filename>sdacontacts.php</filename>
 			<filename>fof.xml</filename>
+			<filename>access.xml</filename>
+			<filename>config.xml</filename>
 			<folder>language</folder>
 			<folder>Model</folder>
 			<folder>sql</folder>

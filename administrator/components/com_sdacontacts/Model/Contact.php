@@ -24,6 +24,7 @@ use FOF30\Date\Date;
  *
  * @property   int			    $sdacontacts_contact_id
  * @property   string			$title
+ * @property   string           $contactPerson
  * @property   string			$slug
  * @property   string			$con_position
  * @property   string			$address

@@ -51,10 +51,7 @@ class Contact extends DataModel
 			$this->sdacontacts = true;
 			$config['tableName'] = '#__sdacontacts_contacts';
 			$config['idFieldName'] = 'sdacontacts_contact_id';
-			$aliasFields = array();
-			array_add($aliasFields, 'id', 'sdacontacts_contact_id');
-			array_add($aliasFields, 'name', 'title');
-			$config['aliasFields'] = $aliasFields;
+			$config['aliasFields'] = array('id' => 'sdacontacts_contact_id', 'name' => 'title');
 		}
 		else
 		{

@@ -25,7 +25,7 @@
            description="COM_SDAJEM_EVENT_SDAJEM_LOCATION_ID_DESC"/>
     <field name="hostId"
            type="Model"
-           model="contacts"
+           model="Contacts"
            key_field="id"
            value_field="name"
            none="COM_SDAJEM_NONE_SELECTED"
