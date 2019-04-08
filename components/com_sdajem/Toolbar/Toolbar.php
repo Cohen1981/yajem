@@ -39,6 +39,7 @@ class Toolbar extends BaseToolbar
 		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
 		{
 			ToolbarHelper::custom('edit', 'edit', '', 'JGLOBAL_EDIT', false);
+			ToolbarHelper::custom('archiveEvent', 'archive', '', 'JTOOLBAR_ARCHIVE', false);
 		}
 
 		ToolbarHelper::custom('cancel', 'backward-2', '', 'COM_SDAJEM_BACK', false);

@@ -30,6 +30,10 @@ class Event extends AdminEvent
 	protected function onBeforeSave()
 	{
 		parent::onBeforeSave();
-		$this->enabled = 1;
+
+		if (!$this->input->get('task') == 'archiveEvent')
+		{
+			$this->enabled = 1;
+		}
 	}
 }

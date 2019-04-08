@@ -23,7 +23,9 @@ $currentDate = new Date;
 $model = $this->getModel();
 
 // Show only future events sorted ascending
-$items = $model->where('startDateTime', '>=', $currentDate->toSql())->orderBy('startDateTime')->get();
+$items = $model->where('startDateTime', '>=', $currentDate->toSql())
+	->where('enabled', '=', 1)
+	->orderBy('startDateTime')->get();
 
 $guest = Factory::getUser()->guest;
 

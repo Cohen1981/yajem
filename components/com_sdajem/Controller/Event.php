@@ -253,4 +253,18 @@ class Event extends DataController
 	{
 		$this->setRedirect(RefererHelper::getReferer());
 	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.8
+	 */
+	public function archiveEvent()
+	{
+		$input = $this->input->getArray();
+		$event = $this->getModel();
+		$event->load($input['id']);
+		$event->archive();
+		$this->setRedirect('index.php?option=com_sdajem&view=Events&task=browse');
+	}
 }
