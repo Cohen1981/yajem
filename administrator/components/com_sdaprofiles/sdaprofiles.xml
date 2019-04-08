@@ -6,7 +6,7 @@
 	<authorEmail>abahlo@hotmail.de</authorEmail>
 	<copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<version>0.0.3</version>
+	<version>0.0.4</version>
 	<description>COM_SDAPROFILES_XML_DESCRIPTION</description>
 
 	<!-- Scripts to run on installation
@@ -90,13 +90,6 @@
 			<folder>View</folder>
 		</files>
 
-		<!-- Back-end translation files -->
-		<languages folder="language/backend">
-			<language tag="en-GB">en-GB/en-GB.com_sdaprofiles.ini</language>
-			<language tag="en-GB">en-GB/en-GB.com_sdaprofiles.sys.ini</language>
-			<language tag="de-DE">de-DE/de-DE.com_sdaprofiles.ini</language>
-			<language tag="de-DE">de-DE/de-DE.com_sdaprofiles.sys.ini</language>
-		</languages>
 	</administration>
 
 	<!-- Update servers

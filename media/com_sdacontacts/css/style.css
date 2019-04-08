@@ -12,8 +12,8 @@
 	font-weight: bold;
 }
 .sdacontact_contact_image_preview {
-	max-width: 100px;
-	max-height: 100px;
+	max-width: 50px;
+	max-height: 50px;
 }
 .sdacontacts_contact_cell, .sdacontacts_address_cell {
 	display: grid;

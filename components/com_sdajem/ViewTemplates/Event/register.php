@@ -23,6 +23,10 @@ $event = $this->getModel('Event');
 $attendee = Container::getInstance('com_sdajem')->factory->model('attendee');
 $attendee->getAttendeeForEventAndUser($currentUser, $event->sdajem_event_id);
 
+/** @var \Sda\Jem\Site\Model\User $user */
+$user = Container::getInstance('com_sdajem')->factory->model('user');
+$user->load($currentUser);
+
 echo "<div id=\"registerButtons\">";
 
 if ($attendee->sdajem_attendee_id)
@@ -54,18 +58,23 @@ $html = $html . $buttons;
 
 echo $html;
 
-if ($attendee->user->profile)
+if ($user->profile)
 {
-	if ($attendee->user->profile->fittings && $status != 1)
+	if (($user->profile->fittings && $status != 1))
 	{
 		echo "<div id=\"fitting_block\">";
 
 		/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
-		foreach ($attendee->user->profile->fittings as $fitting)
+		foreach ($user->profile->fittings as $fitting)
 		{
 			$id = $fitting->sdaprofiles_fitting_id;
 			echo "<input type=\"checkbox\" id=\"fitting" . $id . "\" name=\"fittings[]\" value=\"" . $id . "\" />";
-			echo "<label for='fitting" . $id . "'>" . $fitting->type . "</label>";
+			echo "<label for='fitting" . $id . "'>" .
+				$fitting->type . " " .
+				$fitting->detail . " " .
+				$fitting->length . "x" .
+				$fitting->width .
+				"</label>";
 		}
 
 		echo "</div>";
