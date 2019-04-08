@@ -6,7 +6,7 @@
 	<authorEmail>abahlo@hotmail.de</authorEmail>
 	<copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<version>0.0.2</version>
+	<version>0.0.4</version>
 	<description>COM_SDACONTACTS_XML_DESCRIPTION</description>
 
 	<!-- Scripts to run on installation
@@ -38,6 +38,7 @@
 	<media folder="media/com_sdacontacts" destination="com_sdacontacts">
 		<folder>css</folder>
 		<folder>webfonts</folder>
+		<folder>images</folder>
 	</media>
 
 	<!-- Front-end files -->
@@ -49,12 +50,6 @@
 		<folder>views</folder>
 		<folder>ViewTemplates</folder>
 	</files>
-
-	<!-- Front end translation files -->
-	<languages folder="language/frontend">
-		<language tag="en-GB">en-GB/en-GB.com_sdacontacts.ini</language>
-		<language tag="de-DE">de-DE/de-DE.com_sdacontacts.ini</language>
-	</languages>
 
 	<!-- Back-end files -->
 	<administration>
@@ -73,13 +68,6 @@
 			<folder>View</folder>
 		</files>
 
-		<!-- Back-end translation files -->
-		<languages folder="language/backend">
-			<language tag="en-GB">en-GB/en-GB.com_sdacontacts.ini</language>
-			<language tag="en-GB">en-GB/en-GB.com_sdacontacts.sys.ini</language>
-			<language tag="de-DE">de-DE/de-DE.com_sdacontacts.ini</language>
-			<language tag="de-DE">de-DE/de-DE.com_sdacontacts.sys.ini</language>
-		</languages>
 	</administration>
 
 	<!-- Update servers

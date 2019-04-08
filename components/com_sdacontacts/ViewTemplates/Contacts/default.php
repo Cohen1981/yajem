@@ -43,7 +43,8 @@ $contacts = $this->getItems();
 			<div class="sdacontacts_cell">
 				<a href="index.php?option=com_sdacontacts&view=Contacts&task=read&id=<?php echo $contact->sdacontacts_contact_id; ?>">
 					<?php echo $contact->title; ?>
-				</a>
+				</a><br/>
+				<?php echo $contact->contactPerson; ?>
 			</div>
 			<div class="sdacontacts_cell">
 				<img src="<?php echo $contact->image; ?>" class="sdacontact_contact_image_preview" alt=""/>

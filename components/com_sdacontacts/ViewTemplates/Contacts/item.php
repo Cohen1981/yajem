@@ -29,6 +29,12 @@ $contact = $this->getItem();
 	<div class="sdacontacts_item_table">
 
 		<div class="sdacontacts_label">
+			<?php echo Text::_('COM_SDAONTACTS_CONTACT_CONTACTPERSON_LABEL'); ?>
+		</div>
+		<div class="sdacontacts_value">
+			<?php echo $contact->contactPerson; ?>
+		</div>
+		<div class="sdacontacts_label">
 			<?php echo Text::_('COM_SDACONTACTS_CONTACT_CON_POSITION_LABEL'); ?>
 		</div>
 		<div class="sdacontacts_value">

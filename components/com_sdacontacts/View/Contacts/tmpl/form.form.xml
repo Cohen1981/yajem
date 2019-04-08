@@ -2,10 +2,6 @@
 <form validate="true">
   <fieldset name="scaffolding" label="COM_SDACONTACTS_CONTACT_GROUP_BASIC">
     <field name="title" type="Text" label="COM_SDACONTACTS_CONTACT_TITLE_LABEL" description="COM_SDACONTACTS_CONTACT_TITLE_DESC"/>
-    <field name="contactPerson"
-           type="Text"
-           label="COM_SDAONTACTS_CONTACT_CONTACTPERSON_LABEL"
-           description="COM_SDACONTACTS_CONTACT_CONTACTPERSON_DESC" />
     <field name="slug" type="Text" label="COM_SDACONTACTS_CONTACT_SLUG_LABEL" description="COM_SDACONTACTS_CONTACT_SLUG_DESC"/>
     <field name="image"
            type="Media"
@@ -14,6 +10,10 @@
            preview_height="100"
            label="COM_SDACONTACTS_CONTACT_IMAGE_LABEL"
            description="COM_SDACONTACTS_CONTACT_IMAGE_DESC"/>
+    <field name="contactPerson"
+           type="Text"
+           label="COM_SDAONTACTS_CONTACT_CONTACTPERSON_LABEL"
+           description="COM_SDACONTACTS_CONTACT_CONTACTPERSON_DESC" />
     <field name="con_position" type="Text" label="COM_SDACONTACTS_CONTACT_CON_POSITION_LABEL" description="COM_SDACONTACTS_CONTACT_CON_POSITION_DESC"/>
     <field name="address" type="Text" label="COM_SDACONTACTS_CONTACT_ADDRESS_LABEL" description="COM_SDACONTACTS_CONTACT_ADDRESS_DESC"/>
     <field name="postcode" type="Text" label="COM_SDACONTACTS_CONTACT_POSTCODE_LABEL" description="COM_SDACONTACTS_CONTACT_POSTCODE_DESC"/>
