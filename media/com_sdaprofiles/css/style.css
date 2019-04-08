@@ -55,3 +55,29 @@
 #fitting_area .control-group {
 	border-bottom: grey solid 1px;
 }
+input[type=checkbox]:checked ~ .sdaprofiles_switchable {
+	display: block;
+	overflow: auto;
+	border: solid black 1px;
+	padding: 10px;
+}
+.sdaprofiles_switchable {
+	display: none;
+	overflow: hidden;
+}
+.sdaprofiles_tabs {
+	display: flex;
+	flex-wrap: wrap;
+}
+label.sdaprofile_tab {
+	border: solid black 1px;
+	padding: 10px;
+	margin-bottom: 0px;
+	border-bottom: 0px;
+	border-radius: 10px 10px 0px 0px;
+	background-color: lightgray;
+}
+.sda_active {
+	font-weight: bold;
+	background-color: white !important;
+}

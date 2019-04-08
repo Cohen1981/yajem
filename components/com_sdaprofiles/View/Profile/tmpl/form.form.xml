@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form validate="true">
-  <fieldset name="scaffolding" label="COM_SDAPROFILES_PROFILE_GROUP_BASIC">
+  <fieldset name="scaffolding">
     <field name="users_user_id"
            type="User"
            label="COM_SDAPROFILES_PROFILE_USERS_USER_ID_LABEL"

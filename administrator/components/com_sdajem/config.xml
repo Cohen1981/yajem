@@ -11,8 +11,28 @@
 		       class="btn-group btn-group-yesno"
 		       default="1"
 		>
-			<option value="1">COM_YAJEM_PARAM_YES</option>
-			<option value="0">COM_YAJEM_PARAM_NO</option>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field name="mail_on_new"
+		       type="radio"
+		       label="COM_SDAJEM_MAILONNEW_LABEL"
+		       description="COM_SDAJEM_MAILONNEW_DESC"
+		       class="btn-group btn-group-yesno"
+		       default="1"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field name="mail_on_edited"
+		       type="radio"
+		       label="COM_SDAJEM_MAILONEDITED_LABEL"
+		       description="COM_SDAJEM_MAILONEDITED_DESC"
+		       class="btn-group btn-group-yesno"
+		       default="0"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 	</fieldset>
 	<fieldset
