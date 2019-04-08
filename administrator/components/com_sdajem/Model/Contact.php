@@ -65,6 +65,12 @@ class Contact extends DataModel
 		parent::__construct($container, $config);
 	}
 
+	/**
+	 *
+	 * @return string
+	 *
+	 * @since 0.0.2
+	 */
 	public function getLinkToContact() : string
 	{
 		if ($this->sdacontacts)

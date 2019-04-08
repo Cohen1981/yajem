@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <config>
+	<fieldset name="general"
+	          label="COM_SDAPROFILES_GLOBAL_CONFIG_LABEL"
+	          description="COM_SDAPROFILES_GLOBAL_CONFIG_DESC"
+	>
+		<field name="show_attendings_all"
+		       type="radio"
+		       label="COM_SDAPROFILES_ATTENDINGS_LABEL"
+		       description="COM_SDAPROFILES_ATTENDINGS_DESC"
+		       class="btn-group btn-group-yesno"
+		       default="1"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field name="show_organizing_all"
+		       type="radio"
+		       label="COM_SDAPROFILES_ORGANIZING_LABEL"
+		       description="COM_SDAPROFILES_ORGANIZING_DESC"
+		       class="btn-group btn-group-yesno"
+		       default="1"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+	</fieldset>
 	<fieldset
 			name="permissions"
 			label="JCONFIG_PERMISSIONS_LABEL"

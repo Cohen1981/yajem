@@ -82,12 +82,16 @@ $guest = Factory::getUser()->guest;
 		<div class="sdajem_value">
 			<a href="<?php echo $event->url; ?>" target="_blank"><?php echo $event->url; ?></a>
 		</div>
+
+		<?php if ($event->host): ?>
 		<div class="sdajem_label">
 			<?php echo Text::_('COM_SDAJEM_EVENT_HOST'); ?>
 		</div>
 		<div class="sdajem_value">
 			<?php echo $event->host->getLinkToContact(); ?>
 		</div>
+		<?php endif; ?>
+
 		<div class="sdajem_label">
 			<?php echo Text::_('COM_SDAJEM_EVENT_DESCRIPTION_LABEL'); ?>
 		</div>

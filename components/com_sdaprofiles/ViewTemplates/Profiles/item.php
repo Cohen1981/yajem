@@ -8,12 +8,15 @@
  */
 
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Component\ComponentHelper;
 
 /** @var \Sda\Profiles\Site\View\Profile\Html $this */
 /** @var \Sda\Profiles\Site\Model\Profile $profile */
 
 $this->addCssFile('media://com_sdaprofiles/css/style.css');
 $profile = $this->getItem();
+
+$params = ComponentHelper::getParams('com_sdaprofiles');
 
 ?>
 
@@ -117,3 +120,17 @@ $profile = $this->getItem();
 		<?php endforeach; ?>
 	<?php endif; ?>
 </div>
+
+<?php
+if ($profile->attendees && (bool) $params->get('show_attendings_all'))
+{
+	echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendings');
+}
+?>
+
+<?php
+if ($profile->organizing && (bool) $params->get('show_organizing_all'))
+{
+	echo $this->loadAnyTemplate('site:com_sdajem/Events/organized');
+}
+?>

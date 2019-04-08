@@ -105,7 +105,7 @@ class Fitting extends DataController
 	{
 		$input = $this->input->post->getArray();
 
-		if ($input['type'] && $input['detail'])
+		if ($input['type'])
 		{
 			/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
 			$fitting                         = Container::getInstance('com_sdaprofiles')->factory->model('fitting');

@@ -18,7 +18,7 @@ use FOF30\Date\Date;
 $this->addCssFile('media://com_sdajem/css/style.css');
 
 $input = $this->input->getArray();
-if ($input['option'] == 'com_sdaprofiles' && $input['task'] == 'edit')
+if ($input['option'] == 'com_sdaprofiles')
 {
 	$profile = $this->getModel();
 }
