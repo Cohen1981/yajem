@@ -22,7 +22,7 @@ $status = 0;
 $event = $this->getModel('Event');
 $attendee = Container::getInstance('com_sdajem')->factory->model('attendee');
 $attendee->clearState();
-$attendee->getAttendeeForEventAndUser($currentUser, $event->sdajem_event_id);
+$attendee->getAttendeeForEventAndUser((int) $currentUser, (int) $event->sdajem_event_id);
 
 /** @var \Sda\Jem\Site\Model\User $user */
 $user = Container::getInstance('com_sdajem')->factory->model('user');

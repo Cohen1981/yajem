@@ -73,7 +73,13 @@ class Attendee extends DataModel
 			->from('#__sdajem_attendees')
 			->where(array('sdajem_event_id=' . $eventId, 'users_user_id=' . $userId));
 		$db->setQuery($query);
-		$this->load($db->loadResult());
+		$id = $db->loadResult();
+
+		// Calling load with null value gets a random row. So we don't even call load when null.
+		if ($id != null)
+		{
+			$this->load($db->loadResult());
+		}
 	}
 
 	/**
