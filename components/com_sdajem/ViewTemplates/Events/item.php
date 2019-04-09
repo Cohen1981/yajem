@@ -10,6 +10,7 @@
 use Joomla\CMS\Factory;
 use FOF30\Date\Date;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Component\ComponentHelper;
 
 /** @var \Sda\Jem\Site\View\Event\Html  $this       */
 /** @var \Sda\Jem\Site\Model\Event      $event      */
@@ -18,6 +19,7 @@ use Joomla\CMS\Language\Text;
 
 $this->addCssFile('media://com_sdajem/css/style.css');
 $this->addJavascriptFile('media://com_sdajem/js/eventItem.js');
+
 $event = $this->getItem();
 
 $guest = Factory::getUser()->guest;
@@ -26,15 +28,26 @@ $guest = Factory::getUser()->guest;
 	<label id="event_switch_label" class="sdajem_tab sda_active" for="event_switch">
 		<?php echo Text::_('COM_SDAJEM_TITLE_EVENT_BASIC') ?>
 	</label>
+	<?php if ($event->location) : ?>
 	<label id="location_switch_label" class="sdajem_tab" for="location_switch">
 		<?php echo Text::_('COM_SDAJEM_TITLE_LOCATION_BASIC') ?>
 	</label>
+	<?php endif; ?>
+	<?php if ((bool) $event->useRegistration && !$guest) : ?>
 	<label id="attendees_switch_label" class="sdajem_tab" for="attendees_switch">
 		<?php echo Text::_('COM_SDAJEM_TITLE_ATTENDEES_BASIC') ?>
 	</label>
+	<?php endif; ?>
+	<?php if (!$guest) : ?>
 	<label id="comments_switch_label" class="sdajem_tab" for="comments_switch">
 		<?php echo Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC') ?>
 	</label>
+	<?php endif; ?>
+	<?php if((bool) ComponentHelper::getParams('com_sdajem')->get('usePlaningTool')) : ?>
+	<!-- <label id="planing_switch_label" class="sdajem_tab" for="planing_switch">
+		<?php //echo Text::_('COM_SDAJEM_TITLE_PLANER_BASIC') ?>
+	</label> -->
+	<?php endif; ?>
 </div>
 
 <div class="sdajem_content_container">
@@ -186,5 +199,22 @@ $guest = Factory::getUser()->guest;
 		</div>
 	</div>
 	<?php endif; ?>
+
+	<!--
+	<?php if((bool) ComponentHelper::getParams('com_sdajem')->get('usePlaningTool')) : ?>
+	<div>
+		<input
+				type="checkbox"
+				id="planing_switch"
+				class="sdaprofiles_hidden"
+				hidden
+				onchange="switchCheckBox('planing_switch')"
+		/>
+		<div class="sdajem_switchable">
+
+		</div>
+	</div>
+	<?php endif; ?>
+	-->
 
 </div>

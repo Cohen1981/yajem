@@ -33,5 +33,13 @@ function switchCheckBox(id) {
 		else {
 			document.getElementById('comments_switch_label').classList.add('sda_active')
 		}
+
+		if (document.getElementById('planing_switch').id != el.id) {
+			document.getElementById('planing_switch').checked = false;
+			document.getElementById('planing_switch_label').classList.remove('sda_active')
+		}
+		else {
+			document.getElementById('planing_switch_label').classList.add('sda_active')
+		}
 	}
 }
