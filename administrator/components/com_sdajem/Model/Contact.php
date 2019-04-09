@@ -70,15 +70,22 @@ class Contact extends DataModel
 	 */
 	public function getLinkToContact() : string
 	{
-		if ($this->sdacontacts)
+		if (!Factory::getUser()->guest)
 		{
-			$link = "<a href=\"index.php?option=com_sdacontacts&view=Contacts&task=read&id=" . $this->id . "\">" .
-				$this->title . "</a>";
+			if ($this->sdacontacts)
+			{
+				$link = "<a href=\"index.php?option=com_sdacontacts&view=Contacts&task=read&id=" . $this->id . "\">" .
+					$this->title . "</a>";
+			}
+			else
+			{
+				$link = "<a href=\"index.php?option=com_contact&view=contact&id=" . $this->id . "\">" .
+						$this->name . "</a>";
+			}
 		}
 		else
 		{
-			$link = "<a href=\"index.php?option=com_contact&view=contact&id=" . $this->id . "\">" .
-					$this->name . "</a>";
+			$link = $this->name;
 		}
 
 		return $link;

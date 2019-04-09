@@ -13,6 +13,7 @@ use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use Joomla\CMS\Component\ComponentHelper;
 use Sda\Profiles\Admin\Model\Profile;
+use Joomla\CMS\Factory;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -65,14 +66,14 @@ class User extends DataModel
 	 */
 	public function getLinkToContact() : string
 	{
-		if ($this->profile)
+		if ($this->profile && !Factory::getUser()->guest)
 		{
 			$link = "<a href=\"index.php?option=com_sdaprofiles&view=Profiles&task=read&id=" . $this->profile->sdaprofiles_profile_id . "\">" .
 				$this->profile->userName . "</a>";
 		}
 		else
 		{
-			$link = $this->name;
+			$link = $this->username;
 		}
 
 		return $link;
