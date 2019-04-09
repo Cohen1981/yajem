@@ -151,3 +151,33 @@ input[type=checkbox]:checked ~ .sdajem_switchable {
 #attending_filter_buttons input{
 	margin: 2px 5px 0;
 }
+input[type=checkbox]:checked ~ .sdajem_switchable {
+	display: block;
+	overflow: auto;
+	border: solid black 1px;
+	padding: 10px;
+}
+.sdajem_switchable {
+	display: none;
+	overflow: hidden;
+}
+.sdajem_tabs {
+	display: flex;
+	flex-wrap: wrap;
+}
+label.sdajem_tab {
+	border: solid black 1px;
+	padding: 10px;
+	margin-bottom: 0px;
+	border-bottom: 0px;
+	border-radius: 10px 10px 0px 0px;
+	background-color: lightgray;
+}
+.sda_active {
+	font-weight: bold;
+	background-color: white !important;
+}
+.sdajem_content_container form {
+	padding: 0px;
+	margin: 0px;
+}

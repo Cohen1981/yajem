@@ -16,6 +16,21 @@ use Joomla\CMS\Component\ComponentHelper;
 
 $location = $this->getModel('Location');
 $this->addCssFile('media://com_sdajem/css/style.css');
+$lAddressString = urlencode($location->street) . "+" . urlencode($location->postalCode) . "+" . urlencode($location->city);
+$currentUser = Factory::getUser();
+if (ComponentHelper::isEnabled('com_sdaprofiles') && !$currentUser->guest)
+{
+	/** @var \Sda\Jem\Site\Model\User $userModel */
+	$userModel = $this->getContainer()->factory->model('User');
+	$userModel->load($currentUser->id);
+
+	if ($userModel->profile)
+	{
+		$uAdressString = urlencode($userModel->profile->address1) . "+" .
+			urlencode($userModel->profile->postal) . "+" .
+			urlencode($userModel->profile->city);
+	}
+}
 
 ?>
 

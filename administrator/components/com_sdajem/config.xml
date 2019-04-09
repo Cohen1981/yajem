@@ -34,6 +34,16 @@
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
+		<field name="usePlaningTool"
+		       type="radio"
+		       label="COM_SDAJEM_PLANINGTOOL_LABEL"
+		       description="COM_SDAJEM_PLANINGTOOL_DESC"
+		       class="btn-group btn-group-yesno"
+		       default="1"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
 	</fieldset>
 	<fieldset
 			name="permissions"

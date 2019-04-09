@@ -56,4 +56,25 @@ class User extends DataModel
 		}
 
 	}
+
+	/**
+	 *
+	 * @return string
+	 *
+	 * @since 0.0.2
+	 */
+	public function getLinkToContact() : string
+	{
+		if ($this->profile)
+		{
+			$link = "<a href=\"index.php?option=com_sdaprofiles&view=Profiles&task=read&id=" . $this->profile->sdaprofiles_profile_id . "\">" .
+				$this->profile->userName . "</a>";
+		}
+		else
+		{
+			$link = $this->name;
+		}
+
+		return $link;
+	}
 }
