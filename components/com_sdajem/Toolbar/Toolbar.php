@@ -39,7 +39,6 @@ class Toolbar extends BaseToolbar
 		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
 		{
 			ToolbarHelper::custom('edit', 'edit', '', 'JGLOBAL_EDIT', false);
-			ToolbarHelper::custom('archiveEvent', 'archive', '', 'JTOOLBAR_ARCHIVE', false);
 		}
 
 		ToolbarHelper::custom('cancel', 'backward-2', '', 'COM_SDAJEM_BACK', false);
@@ -92,6 +91,8 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::cancel();
 
 		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_CATEGORY_NEW', false);
+		ToolbarHelper::spacer('20');
+		ToolbarHelper::custom('archiveEvent', 'archive', '', 'JTOOLBAR_ARCHIVE', false);
 	}
 
 	/**

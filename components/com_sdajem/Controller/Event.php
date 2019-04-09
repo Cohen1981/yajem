@@ -263,7 +263,7 @@ class Event extends DataController
 	{
 		$input = $this->input->getArray();
 		$event = $this->getModel();
-		$event->load($input['id']);
+		$event->load($input['sdajem_event_id']);
 		$event->archive();
 		$this->setRedirect('index.php?option=com_sdajem&view=Events&task=browse');
 	}
