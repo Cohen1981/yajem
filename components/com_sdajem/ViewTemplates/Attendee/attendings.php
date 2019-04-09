@@ -62,6 +62,7 @@ $language->load($extension, $baseDir, $languageTag, true);
 	</div>
 	<?php if ($profile->attendees) : ?>
 		<?php foreach ($profile->attendees as $attendee) : ?>
+		<?php if ($attendee->event->enabled == 1) : ?>
 			<?php
 			$eventTitle = "<span class=\"sdajem_attending_cell\">" .
 				"<a href=\"index.php?option=com_sdajem&view=Events&task=read&id=" . $attendee->event->sdajem_event_id . "\">" .
@@ -104,7 +105,7 @@ $language->load($extension, $baseDir, $languageTag, true);
 				</div>
 
 			</div>
-
+		<?php endif; ?>
 		<?php endforeach; ?>
 	<?php endif; ?>
 </div>
