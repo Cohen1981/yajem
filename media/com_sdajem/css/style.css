@@ -144,3 +144,10 @@ input[type=checkbox]:checked ~ .sdajem_switchable {
 .sdajem_head {
 	color: #bd2a2a;
 }
+#attending_filter_buttons {
+	display: flex;
+	flex-wrap: wrap;
+}
+#attending_filter_buttons input{
+	margin: 2px 5px 0;
+}

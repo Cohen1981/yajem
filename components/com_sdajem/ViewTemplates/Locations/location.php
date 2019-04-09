@@ -16,43 +16,7 @@ use Joomla\CMS\Component\ComponentHelper;
 
 $location = $this->getModel('Location');
 $this->addCssFile('media://com_sdajem/css/style.css');
-$lAddressString = urlencode($location->street) . "+" . urlencode($location->postalCode) . "+" . urlencode($location->city);
-$currentUser = Factory::getUser();
-if (ComponentHelper::isEnabled('com_sdaprofiles') && !$currentUser->guest)
-{
-	/** @var \Sda\Jem\Site\Model\User $userModel */
-	$userModel = $this->getContainer()->factory->model('User');
-	$userModel->load($currentUser->id);
 
-	if ($userModel->profile)
-	{
-		$uAdressString = urlencode($userModel->profile->address1) . "+" .
-			urlencode($userModel->profile->postal) . "+" .
-			urlencode($userModel->profile->city);
-	}
-}
-
-/*http://maps.google.de/maps mit folgenden Parametern:
-
-q     Suchanfrage, z. B. "50.1183,8.663" oder "Eiffel Tower" oder
-		"Waldstr. 94, 63126 Dietzenbach, Germany" oder "http://...kml".
-Achtung: Leerzeichen müssen durch + ersetzt und Umlaute UTF8-codiert werden:
-		Ä = %C3%84; Ö = %C3%96; Ü = %C3%9C; ä = %C3%A4; ö = %C3%B6; ü = %C3%BC;
-		ß = %C3%9F; & = %26; % = %25; = = %3D; ? = %3F; # = %23.
-		Beispiel: "Waldstra%C3%9Fe+94,+63128+Dietzenbach,+Germany".
-saddr Start-Adresse für Routenplanung (Syntax wie q).
-		daddr Destination-Adresse für Routenplanung (Syntax wie q).
-		t     Ansicht (Default=Karte, k=Satellit, h=Hybrid).
-		z     Zoom (0=winzig, 12=Default=z.B. ganz Frankfurt, 21=z.B. Plattform des Eiffelturms).
-		om    Mini-Navigation rechts unten (1=Default=Eingeschaltet, 0=Ausgeschaltet).
-		ll    Position des Bildmittelpunkts, Latitude/Longitude in Grad Nord/Ost,
-		z.B. "40.6891,-74.0447" für Freiheitsstatue.
-spn   Zoom (mit anderer Syntax, nur gültig wenn Parameter z nicht angegeben).
-		hl    Sprache, in der das Google-Fenster angezeigt wird (de=Default).
-		ie    Zweck und Syntax unbekannt, wahrscheinlich Codierung der Suchanfrage (UTF8=Default).
-		f     Zweck und Syntax unbekannt (p=Default).
-		iwloc Zweck und Syntax unbekannt (A=Default).
-*/
 ?>
 
 <form action="<?php echo JRoute::_('index.php?option=com_sdajem&view=Location&task=edit'); ?>" method="post"
