@@ -14,7 +14,7 @@ use Joomla\CMS\Language\Text;
 $event = $this->getModel('Event');
 $this->addCssFile('media://com_sdajem/css/style.css');
 // $this->addJavascriptFile('media://com_sdajem/js/jquery-3.3.1.min.js');
-$this->addJavascriptFile('media://com_sdajem/js/draw.js');
+// $this->addJavascriptFile('media://com_sdajem/js/draw.js');
 
 ?>
 
@@ -30,14 +30,16 @@ $this->addJavascriptFile('media://com_sdajem/js/draw.js');
 		</div>
 	</div>
 
-	<svg id="drawingArea" width="100%" height="100%" viewBox="0 0 40 40" onload="svg()">
+	<a href="https://eur01.safelinks.protection.outlook.com/ap/x-59584e83/?url=https%3A%2F%2F1drv.ms%2Fx%2Fs!As42z7o54BYWhl0slLVRNZzoO49N&data=02%7C01%7C%7C67108194ea3148f41ec108d6bd902c54%7C84df9e7fe9f640afb435aaaaaaaaaaaa%7C1%7C0%7C636904824242023490&sdata=lu8llTe9%2BtqoDbBrOlLGdxtDXDzMgVapzPZX%2BNqJldE%3D&reserved=0"
+		target="_blank">
+		<i class="fas fa-external-link-alt" aria-hidden="true"></i>
+		<?php echo " " . Text::_('COM_SDAJEM_TITLE_PLANINGTOOL_BASIC'); ?>
+	</a>
 
-		<g id="base" class="draggable">
-			<rect width="9" height="7" rx="1" ry="1" fill="green" />
-			<circle class="knob" r="1" cy="6" cx="8" fill="#7CFC00" />
-		</g>
-
-	</svg>
+	<p></p>
+	<p>
+		Hier sollte vielleicht eine Anleitung für den Umgang mit Excel Online hin !
+	</p>
 
 </div>
 

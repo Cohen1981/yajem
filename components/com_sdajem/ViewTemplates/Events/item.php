@@ -44,9 +44,9 @@ $guest = Factory::getUser()->guest;
 	</label>
 	<?php endif; ?>
 	<?php if((bool) ComponentHelper::getParams('com_sdajem')->get('usePlaningTool')) : ?>
-	<!--<label id="planing_switch_label" class="sdajem_tab" for="planing_switch">
-		<?php //echo Text::_('COM_SDAJEM_TITLE_PLANER_BASIC') ?>
-	</label>-->
+	<label id="planing_switch_label" class="sdajem_tab" for="planing_switch">
+		<?php echo Text::_('COM_SDAJEM_TITLE_PLANER_BASIC') ?>
+	</label>
 	<?php endif; ?>
 </div>
 
@@ -201,7 +201,7 @@ $guest = Factory::getUser()->guest;
 	<?php endif; ?>
 
 	<?php if((bool) ComponentHelper::getParams('com_sdajem')->get('usePlaningTool')) : ?>
-	<!--<div>
+	<div>
 		<input
 				type="checkbox"
 				id="planing_switch"
@@ -211,10 +211,10 @@ $guest = Factory::getUser()->guest;
 		/>
 		<div class="sdajem_switchable">
 
-			<?php //echo $this->loadAnyTemplate('site:com_sdajem/Events/planingTool'); ?>
+			<?php echo $this->loadAnyTemplate('site:com_sdajem/Events/planingTool'); ?>
 
 		</div>
-	</div>-->
+	</div>
 	<?php endif; ?>
 
 </div>
