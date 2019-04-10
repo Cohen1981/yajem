@@ -138,11 +138,12 @@ class Event extends DataModel
 	{
 		$input = $this->input->post->getArray();
 
-		if ($input['task'] == "save")
+		if ($input['task'] == "save" || $input['task'] == 'apply')
 		{
-			if ($input['registerUntil'] == "")
+			if ($input['registerUntil'] == "" || $input['registerUntil'] == "0000-00-00 00:00:00")
 			{
 				$this->registerUntil = null;
+				$this->input->set('registerUntil', '');
 			}
 
 			if ($input['hostId'] == "")
@@ -326,14 +327,19 @@ class Event extends DataModel
 	/**
 	 * @param   string $value The date and time as string
 	 *
-	 * @return Date
+	 * @return Date | null
 	 *
 	 * @since 0.1.1
 	 */
 	protected function getRegisterUntilAttribute($value)
 	{
+		if ($value == null || $value == "0000-00-00")
+		{
+			return null;
+		}
+
 		// Make sure it's not a Date already
-		if ((is_object($value) && ($value instanceof Date)) || $value == null)
+		if (is_object($value) && ($value instanceof Date))
 		{
 			return $value;
 		}

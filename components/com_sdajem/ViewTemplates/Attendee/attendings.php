@@ -32,6 +32,8 @@ $extension   = 'com_sdajem';
 $languageTag = $language->getTag();
 $baseDir     = JPATH_ROOT . "/components/" . $extension;
 $language->load($extension, $baseDir, $languageTag, true);
+$baseDir     = JPATH_ROOT . "/administrator/components/" . $extension;
+$language->load($extension, $baseDir, $languageTag, true);
 ?>
 
 <div class="well">
@@ -55,10 +57,18 @@ $language->load($extension, $baseDir, $languageTag, true);
 <div id="attending_area" class="form-horizontal">
 	<div id="sdajem_attendings" class="control-group">
 		<label class="control-label">
+			<i class="far fa-calendar-alt" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_DATE') ?>"></i>
+			<?php echo Text::_('COM_SDAJEM_ATTENDINGS_DATE'); ?>
 		</label>
 		<div class="controls">
-			<span class="sdajem_attending_cell"><?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL'); ?></span>
-			<span class="sdajem_attending_cell"><?php echo Text::_('COM_SDAJEM_ATTENDEE_STATUS_LABEL'); ?></span>
+			<span class="sdajem_attending_cell">
+				<i class="far fa-bookmark" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
+				<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL'); ?>
+			</span>
+			<span class="sdajem_attending_cell">
+				<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_STATUS') ?>">&nbsp;</i>
+				<?php echo Text::_('COM_SDAJEM_ATTENDEE_STATUS_LABEL'); ?>
+			</span>
 		</div>
 	</div>
 	<?php if ($profile->attendees) : ?>
@@ -66,6 +76,7 @@ $language->load($extension, $baseDir, $languageTag, true);
 		<?php if ($attendee->event->enabled == 1) : ?>
 			<?php
 			$eventTitle = "<span class=\"sdajem_attending_cell\">" .
+				"<i class=\"far fa-bookmark\" aria-hidden=\"true\" title=\"<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>\">&nbsp;</i>" .
 				"<a href=\"index.php?option=com_sdajem&view=Events&task=read&id=" . $attendee->event->sdajem_event_id . "\">" .
 				$attendee->event->title .
 				"</a>" .

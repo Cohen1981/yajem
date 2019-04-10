@@ -1,15 +1,16 @@
 @import "fontawesome-all.min.css";
 
-@media (min-width: 500px) {
-	.sdacontacts_table {
-		display: grid;
-		grid-template-columns: auto auto auto auto;
-		grid-column-gap: 5px;
-		grid-row-gap: 10px;
-	}
+.sdacontacts_table {
+	display: grid;
+	grid-template-columns: 100%;
+	grid-gap: 5px;
+}
+#sdacontact_person {
+	margin-top: 20px;
 }
 .sdacontacts_header {
 	font-weight: bold;
+	border-bottom: #0e0e0e solid 1px;
 }
 .sdacontact_contact_image_preview {
 	max-width: 50px;
@@ -19,6 +20,10 @@
 	display: grid;
 	grid-template-columns: 20px auto;
 	grid-gap: 5px;
+}
+.sdacontacts_contact_cell {
+	padding-bottom: 5px;
+	border-bottom: #0e0e0e solid 1px;
 }
 .sdacontacts_contact_cell i.fas {
 	margin: auto;
@@ -32,4 +37,19 @@
 .sdacontacts_value{}
 .sdacontacts_item_image {
 	max-height: 200px;
+}
+@media (min-width: 500px) {
+	.sdacontacts_table {
+		display: grid;
+		grid-template-columns: auto auto auto auto;
+		grid-column-gap: 5px;
+		grid-row-gap: 10px;
+	}
+	#sdacontact_person {
+		margin-top: 0px;
+	}
+	.sdacontacts_contact_cell {
+		border: none;
+		padding-bottom: 0px;
+	}
 }

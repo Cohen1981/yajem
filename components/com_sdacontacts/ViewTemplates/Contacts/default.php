@@ -27,9 +27,11 @@ $contacts = $this->getItems();
 		<div class="sdacontacts_table">
 
 			<div class="sdacontacts_header">
+				<i class="fas fa-user" aria-hidden="true" title="COM_SDACONTACTS_ICON_NAME"> </i>
 				<?php echo Text::_('COM_SDAPROFILES_CONTACT_NAME_LABEL'); ?>
 			</div>
 			<div class="sdacontacts_header">
+				<i class="fas fa-image" aria-hidden="true" title="COM_SDACONTACTS_ICON_IMAGE"> </i>
 				<?php echo Text::_('COM_SDAPROFILES_CONTACT_IMAGE_LABEL'); ?>
 			</div>
 			<div class="sdacontacts_header">
@@ -40,13 +42,15 @@ $contacts = $this->getItems();
 			</div>
 
 			<?php foreach ($contacts as $contact): ?>
-			<div class="sdacontacts_cell">
+			<div id="sdacontact_person" class="sdacontacts_cell">
+				<i class="fas fa-user" aria-hidden="true" title="COM_SDACONTACTS_ICON_NAME"> </i>
 				<a href="index.php?option=com_sdacontacts&view=Contacts&task=read&id=<?php echo $contact->sdacontacts_contact_id; ?>">
 					<?php echo $contact->title; ?>
 				</a><br/>
 				<?php echo $contact->contactPerson; ?>
 			</div>
 			<div class="sdacontacts_cell">
+				<i class="fas fa-image" aria-hidden="true" title="COM_SDACONTACTS_ICON_IMAGE"> </i>
 				<img src="<?php echo $contact->image; ?>" class="sdacontact_contact_image_preview" alt=""/>
 			</div>
 			<div class="sdacontacts_address_cell">
