@@ -294,4 +294,5 @@ class Event extends DataController
 		$mailingModel->save();
 		$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Events&task=subscribe&id=' . $eventId);
 	}
+
 }

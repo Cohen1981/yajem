@@ -18,6 +18,7 @@ use Joomla\CMS\Factory;
 
 $this->addCssFile('media://com_sdajem/css/style.css');
 $this->addJavascriptFile('media://com_sdajem/js/attendings.js');
+$this->addJavascriptFile('media://com_sdajem/js/ics.js');
 
 $input = $this->input->getArray();
 if ($input['option'] == 'com_sdaprofiles')
@@ -93,9 +94,11 @@ $language->load($extension, $baseDir, $languageTag, true);
 			<div id="sdajem_attending<?php echo $attendee->sdajem_attendee_id; ?>" <?php echo $hidden;?>
 			     class="sdajem_attendings control-group <?php echo $class; ?>">
 
-				<label class="control-label">
+				<label class="control-label" onclick="getIcs(<?php echo $attendee->event->sdajem_event_id; ?>)">
+					<i class="fas fa-file-download" aria-hidden="true"></i>
+
 					<?php
-					echo $attendee->event->getFormatedStartDate() . " - ";
+					echo " " . $attendee->event->getFormatedStartDate() . " - ";
 					echo $attendee->event->getFormatedEndDate();
 					?>
 				</label>

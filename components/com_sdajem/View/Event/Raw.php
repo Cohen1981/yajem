@@ -11,6 +11,7 @@ namespace Sda\Jem\Site\View\Event;
 
 use FOF30\View\DataView\Raw as BaseRaw;
 use Sda\Jem\Site\Model\Event;
+use Joomla\CMS\Factory;
 
 /**
  * @package     Sda\Profiles\Site\View\Event
@@ -48,6 +49,12 @@ class Raw extends BaseRaw
 				$event = $this->getModel();
 				$event->load($input['id]']);
 				$this->setLayout('subscription');
+				break;
+			case "getIcsAjax":
+				/** @var Event $event */
+				$event = $this->getModel();
+				$event->load($input['id']);
+				$this->setLayout('ics');
 				break;
 			case "error":
 				$this->setLayout('error');
