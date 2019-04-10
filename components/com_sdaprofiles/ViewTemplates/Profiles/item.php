@@ -85,7 +85,8 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 			<span>
 				<?php
 				echo $profile->phone . "<br/>";
-				echo $profile->mobil;
+				echo $profile->mobil . "<br/>";
+				echo $profile->user->email;
 				?>
 			</span>
 		</div>

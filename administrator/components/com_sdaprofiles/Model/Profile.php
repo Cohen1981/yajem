@@ -27,17 +27,19 @@ use Joomla\CMS\Component\ComponentHelper;
  *
  * Fields:
  *
- * @property  int       $sdaprofiles_profile_id
- * @property  int       $users_user_id
- * @property  string    $userName
- * @property  string    $avatar
- * @property  string    $address1
- * @property  string    $address2
- * @property  string    $city
- * @property  int       $postal
- * @property  string    $phone
- * @property  string    $mobil
- * @property  string    $dob
+ * @property  int           $sdaprofiles_profile_id
+ * @property  int           $users_user_id
+ * @property  string        $userName
+ * @property  string        $avatar
+ * @property  string        $address1
+ * @property  string        $address2
+ * @property  string        $city
+ * @property  int           $postal
+ * @property  string        $phone
+ * @property  string        $mobil
+ * @property  string        $dob
+ * @property  int           $mailOnNew
+ * @property  int           $mailOnEdited
  *
  * Filters:
  *
@@ -53,10 +55,10 @@ use Joomla\CMS\Component\ComponentHelper;
  *
  * Relations:
  *
- * @property  UserAlias $user
- * @property  Fitting   $fittings
- * @property  Attendee  $attendees  Only if sdajem is installed and active
- * @property  DataModel\Collection     $organizing Only if sdajem is installed and active
+ * @property  UserAlias                 $user
+ * @property  Fitting                   $fittings
+ * @property  Attendee                  $attendees  Only if sdajem is installed and active
+ * @property  DataModel\Collection      $organizing Only if sdajem is installed and active
  *
  */
 class Profile extends DataModel

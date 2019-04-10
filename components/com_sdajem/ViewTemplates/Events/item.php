@@ -94,7 +94,7 @@ $guest = Factory::getUser()->guest;
 				</div>
 				<div class="sdajem_value">
 					<b>
-						<?php echo $event->getFormattedStartDate(); ?>
+						<?php echo $event->getFormatedStartDate(); ?>
 					</b>
 				</div>
 				<div class="sdajem_label">
@@ -104,7 +104,7 @@ $guest = Factory::getUser()->guest;
 				</div>
 				<div class="sdajem_value">
 					<b>
-						<?php echo $event->getFormattedEndDate(); ?>
+						<?php echo $event->getFormatedEndDate(); ?>
 					</b>
 				</div>
 

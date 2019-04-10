@@ -16,6 +16,8 @@ use Sda\Jem\Site\Model\Comment;
 use FOF30\Date\Date;
 use Joomla\CMS\Language\Text;
 use Sda\Jem\Admin\Helper\RefererHelper;
+use Sda\Jem\Admin\Model\Mailing;
+use FOF30\Container\Container;
 
 /**
  * @package     Sda\Jem\Site\Controller
@@ -266,5 +268,30 @@ class Event extends DataController
 		$event->load($input['sdajem_event_id']);
 		$event->archive();
 		$this->setRedirect('index.php?option=com_sdajem&view=Events&task=browse');
+	}
+
+	/**
+	 *
+	 * @return void
+	 *
+	 * @since 0.1.1
+	 */
+	public function subscribeAjax()
+	{
+		$userId = Factory::getUser()->id;
+		$eventId = $this->input->getInt('eventId');
+		/** @var Mailing $mailingModel */
+		$mailingModel = Container::getInstance('com_sdajem')->factory->model('Mailing');
+		$mailingModel->getSubscriptionForUserAndEvent($eventId, $userId);
+
+		if (!$mailingModel->sdajem_mailing_id)
+		{
+			$mailingModel->users_user_id = $userId;
+			$mailingModel->sdajem_event_id = $eventId;
+		}
+
+		$mailingModel->subscribed = $this->input->get('subscribed');
+		$mailingModel->save();
+		$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Events&task=subscribe&id=' . $eventId);
 	}
 }

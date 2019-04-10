@@ -43,6 +43,12 @@ class Raw extends BaseRaw
 				$event->load($input['id]']);
 				$this->setLayout('eventStatus');
 				break;
+			case "subscribe":
+				/** @var Event $event */
+				$event = $this->getModel();
+				$event->load($input['id]']);
+				$this->setLayout('subscription');
+				break;
 			case "error":
 				$this->setLayout('error');
 				break;

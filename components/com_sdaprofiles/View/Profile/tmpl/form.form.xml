@@ -27,5 +27,17 @@
            description="COM_SDAPROFILES_PROFILE_DOB_DESC"
            format="%d.%m.%Y"
     />
+    <field name="mailOnNew"
+           type="Boolean"
+           seleted="1"
+           label="COM_SDAPROFILES_PROFILE_MAILONNEW_LABEL"
+           description="COM_SDAPROFILES_PROFILE_MAILONNEW_DESC"
+           />
+    <field name="mailOnEdited"
+           type="Boolean"
+           seleted="0"
+           label="COM_SDAPROFILES_PROFILE_MAILONEDITED_LABEL"
+           description="COM_SDAPROFILES_PROFILE_MAILONEDITED_DESC"
+    />
   </fieldset>
 </form>

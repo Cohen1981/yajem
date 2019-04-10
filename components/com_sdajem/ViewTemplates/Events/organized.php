@@ -47,8 +47,8 @@ if ($input['option'] == 'com_sdaprofiles')
 		<div id="sdajem_organized<?php echo $event->sdajem_event_id; ?>" class="control-group">
 			<label class="control-label">
 				<?php
-				echo $event->getFormattedStartDate() . " - ";
-				echo $event->getFormattedEndDate();
+				echo $event->getFormatedStartDate() . " - ";
+				echo $event->getFormatedEndDate();
 				?>
 			</label>
 			<div class="controls">

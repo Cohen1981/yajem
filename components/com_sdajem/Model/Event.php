@@ -31,7 +31,7 @@ class Event extends AdminEvent
 	{
 		parent::onBeforeSave();
 
-		if (!$this->input->get('task') == 'archiveEvent')
+		if ($this->input->get('task') != 'archiveEvent')
 		{
 			$this->enabled = 1;
 		}

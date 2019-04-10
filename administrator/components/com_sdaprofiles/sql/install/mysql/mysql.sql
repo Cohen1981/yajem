@@ -11,6 +11,8 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_profiles`
   `phone` varchar(20) null,
   `mobil` varchar(20) null,
   `dob` DATE null comment 'Date of birth',
+  `mailOnNew` tinyint null,
+  `mailOnEdited` tinyint null,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` bigint(20) NOT NULL DEFAULT '0',
   `created_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',

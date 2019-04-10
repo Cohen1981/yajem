@@ -61,6 +61,7 @@ use Joomla\CMS\Component\ComponentHelper;
  * @property  Location      $location
  * @property  Collection    $comments
  * @property  Collection    $attendees
+ * @property  Mailing       $subscriptions
  */
 class Event extends DataModel
 {
@@ -83,6 +84,7 @@ class Event extends DataModel
 		$this->hasOne('location', 'Location', 'sdajem_location_id', 'sdajem_location_id');
 		$this->hasMany('comments', 'Comment');
 		$this->hasMany('attendees', 'Attendee', 'sdajem_event_id', 'sdajem_event_id');
+		$this->hasMany('subscriptions', 'Mailing', 'sdajem_event_id', 'sdajem_event_id');
 	}
 
 	/**
@@ -201,7 +203,7 @@ class Event extends DataModel
 	 *
 	 * @since 0.0.1
 	 */
-	public function getFormattedStartDate() : string
+	public function getFormatedStartDate() : string
 	{
 		if ((bool) $this->allDayEvent)
 		{
@@ -220,7 +222,7 @@ class Event extends DataModel
 	 *
 	 * @since 0.0.1
 	 */
-	public function getFormattedEndDate() : string
+	public function getFormatedEndDate() : string
 	{
 		if ((bool) $this->allDayEvent)
 		{
@@ -242,7 +244,7 @@ class Event extends DataModel
 	protected function getStartDateTimeAttribute($value)
 	{
 		// Make sure it's not a Date already
-		if (is_object($value) && ($value instanceof \FOF30\Date\Date))
+		if (is_object($value) && ($value instanceof Date))
 		{
 			return $value;
 		}
@@ -295,7 +297,43 @@ class Event extends DataModel
 	protected function getEndDateTimeAttribute($value)
 	{
 		// Make sure it's not a Date already
-		if (is_object($value) && ($value instanceof \FOF30\Date\Date))
+		if (is_object($value) && ($value instanceof Date))
+		{
+			return $value;
+		}
+
+		// Return the data transformed to a Date object
+		return new Date($value);
+	}
+
+	/**
+	 * @param   Date $value The date and time as Date
+	 *
+	 * @return string
+	 *
+	 * @since 0.1.1
+	 */
+	protected function setRegisterUntilAttribute($value)
+	{
+		if ($value instanceof Date)
+		{
+			return $value->toSql();
+		}
+
+		return $value;
+	}
+
+	/**
+	 * @param   string $value The date and time as string
+	 *
+	 * @return Date
+	 *
+	 * @since 0.1.1
+	 */
+	protected function getRegisterUntilAttribute($value)
+	{
+		// Make sure it's not a Date already
+		if ((is_object($value) && ($value instanceof Date)) || $value == null)
 		{
 			return $value;
 		}

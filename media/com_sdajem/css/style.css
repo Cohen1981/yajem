@@ -181,9 +181,6 @@ label.sdajem_tab {
 	padding: 0px;
 	margin: 0px;
 }
-.knob:hover {
-	cursor: pointer;
-}
-.draggable {
-	cursor: move;
+#registerButtons, #subscribeButtons {
+	display: inline-block;
 }

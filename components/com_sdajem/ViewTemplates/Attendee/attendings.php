@@ -95,8 +95,8 @@ $language->load($extension, $baseDir, $languageTag, true);
 
 				<label class="control-label">
 					<?php
-					echo $attendee->event->getFormattedStartDate() . " - ";
-					echo $attendee->event->getFormattedEndDate();
+					echo $attendee->event->getFormatedStartDate() . " - ";
+					echo $attendee->event->getFormatedEndDate();
 					?>
 				</label>
 				<div class="controls">

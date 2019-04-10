@@ -78,7 +78,7 @@ class Attendee extends DataModel
 		// Calling load with null value gets a random row. So we don't even call load when null.
 		if ($id != null)
 		{
-			$this->load($db->loadResult());
+			$this->load($id);
 		}
 	}
 

@@ -22,6 +22,8 @@ use Joomla\CMS\Factory;
  *
  * Model Sda\Jem\Admin\Model\User
  *
+ * Adapter to Joomlas user Table. Enriching the User Model with SDA Profile if active
+ *
  * Fields:
  *
  * @property  int       $id
@@ -32,6 +34,7 @@ use Joomla\CMS\Factory;
  * Relations:
  *
  * @property  Profile   $profile
+ * @property  Mailing   $subscriptions
  */
 class User extends DataModel
 {
@@ -50,6 +53,7 @@ class User extends DataModel
 		parent::__construct($container, $config);
 
 		$this->hasMany('attendees', 'Attendee', 'id', 'users_user_id');
+		$this->hasMany('subscriptions', 'Mailing', 'id', 'users_user_id');
 
 		if (ComponentHelper::isEnabled('com_sdaprofiles'))
 		{

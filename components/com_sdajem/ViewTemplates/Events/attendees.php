@@ -34,11 +34,22 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 		</div>
 
 		<div class="buttonsContainer">
-		<?php if (!Factory::getUser()->guest && $event->isRegistrationPossible()): ?>
+			<?php if (!Factory::getUser()->guest && $event->isRegistrationPossible()): ?>
 
 			<?php echo $this->loadAnyTemplate('site:com_sdajem/Event/register'); ?>
+
+			<?php endif; ?>
+
+			<?php if (!Factory::getUser()->guest) : ?>
+
 			<input type="hidden" name="eventId" value="<?php echo $event->sdajem_event_id ?>"/>
-		<?php endif; ?>
+
+			<div id="subscribeButtons">
+				<?php echo $this->loadAnyTemplate('site:com_sdajem/Event/subscription'); ?>
+			</div>
+
+			<?php endif; ?>
+
 		</div>
 
 	</div>
