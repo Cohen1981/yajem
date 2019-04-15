@@ -145,12 +145,26 @@ class Event extends DataController
 	 */
 	public function addNewLocation()
 	{
-		$referer = $this->input->server->getString('HTTP_REFERER');
+		$input = $this->input->getArray();
 
-		if ($referer != null)
+		if ($input['sdajem_event_id'] == '')
 		{
-			RefererHelper::setReferer($referer);
+			$referer = 'index.php?option=com_sdajem&view=Events&task=add';
 		}
+		else
+		{
+			$referer = 'index.php?option=com_sdajem&view=Events&task=edit&id='.$input['sdajem_event_id'];
+		}
+
+		try
+		{
+			Factory::getApplication()->setUserState('eventState', $input);
+		}
+		catch (\Exception $e)
+		{
+		}
+
+		RefererHelper::setReferer($referer);
 
 		$this->setRedirect('index.php?option=com_sdajem&view=Location&task=add');
 		$this->redirect();
@@ -174,6 +188,14 @@ class Event extends DataController
 		else
 		{
 			$referer = 'index.php?option=com_sdajem&view=Events&task=edit&id='.$input['sdajem_event_id'];
+		}
+
+		try
+		{
+			Factory::getApplication()->setUserState('eventState', $input);
+		}
+		catch (\Exception $e)
+		{
 		}
 
 		RefererHelper::setReferer($referer);
@@ -222,6 +244,21 @@ class Event extends DataController
 		if ($referer != null)
 		{
 			RefererHelper::setReferer($referer);
+		}
+
+		try
+		{
+			$eventState = Factory::getApplication()->getUserState('eventState');
+
+			if ($eventState)
+			{
+				$this->defaultsForAdd = $eventState;
+
+				Factory::getApplication()->setUserState('eventState', null);
+			}
+		}
+		catch (\Exception $e)
+		{
 		}
 	}
 

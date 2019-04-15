@@ -27,7 +27,12 @@ class Location extends DataController
 	 */
 	public function onBeforeEdit() : void
 	{
-		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
+		$referer = $this->input->server->getString('HTTP_REFERER');
+
+		if ($referer != null)
+		{
+			RefererHelper::setReferer($referer);
+		}
 	}
 
 	/**

@@ -3,12 +3,12 @@ function showRegistrationFields() {
 	if (reg === 0) {
 		upTo(document.getElementById('registerUntil'),'control-group').hidden = true;
 		upTo(document.getElementById('registrationLimit'),'control-group').hidden = true;
-		upTo(document.getElementById('useWaitingList'),'control-group').hidden = true;
+		//upTo(document.getElementById('useWaitingList'),'control-group').hidden = true;
 	}
 	else {
 		upTo(document.getElementById('registerUntil'),'control-group').hidden = false;
 		upTo(document.getElementById('registrationLimit'),'control-group').hidden = false;
-		upTo(document.getElementById('useWaitingList'),'control-group').hidden = false;
+		//upTo(document.getElementById('useWaitingList'),'control-group').hidden = false;
 	}
 }
 
