@@ -38,6 +38,29 @@ class Location extends DataController
 	/**
 	 * @return void
 	 *
+	 * @since 0.1.5
+	 */
+	public function onBeforeAdd()
+	{
+		try
+		{
+			$locationState = Factory::getApplication()->getUserState('locationState');
+
+			if ($locationState)
+			{
+				$this->defaultsForAdd = $locationState;
+
+				Factory::getApplication()->setUserState('locationState', null);
+			}
+		}
+		catch (\Exception $e)
+		{
+		}
+	}
+
+	/**
+	 * @return void
+	 *
 	 * @since 0.0.1
 	 */
 	public function onAfterSave() : void
@@ -65,6 +88,7 @@ class Location extends DataController
 	public function addNewCategory()
 	{
 		$input = $this->input->getArray();
+
 		if ($input['sdajem_location_id'] == '')
 		{
 			$referer = 'index.php?option=com_sdajem&view=Locations&task=add';
@@ -73,6 +97,15 @@ class Location extends DataController
 		{
 			$referer = 'index.php?option=com_sdajem&view=Locations&task=edit&id='.$input['sdajem_location_id'];
 		}
+
+		try
+		{
+			Factory::getApplication()->setUserState('locationState', $input);
+		}
+		catch (\Exception $e)
+		{
+		}
+
 		RefererHelper::setReferer($referer);
 		$this->setRedirect('index.php?option=com_sdajem&view=Categories&task=add&type=0');
 		$this->redirect();
