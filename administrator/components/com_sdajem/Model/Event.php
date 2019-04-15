@@ -13,7 +13,6 @@ use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use FOF30\Date\Date;
 use FOF30\Utils\Collection;
-use Joomla\CMS\Component\ComponentHelper;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -143,7 +142,6 @@ class Event extends DataModel
 			if ($input['registerUntil'] == "" || $input['registerUntil'] == "0000-00-00 00:00:00")
 			{
 				$this->registerUntil = null;
-				$this->input->set('registerUntil', '');
 			}
 
 			if ($input['hostId'] == "")
@@ -244,14 +242,7 @@ class Event extends DataModel
 	 */
 	protected function getStartDateTimeAttribute($value)
 	{
-		// Make sure it's not a Date already
-		if (is_object($value) && ($value instanceof Date))
-		{
-			return $value;
-		}
-
-		// Return the data transformed to a Date object
-		return new Date($value);
+		return $this->getDateValue($value);
 	}
 
 	/**
@@ -297,14 +288,7 @@ class Event extends DataModel
 	 */
 	protected function getEndDateTimeAttribute($value)
 	{
-		// Make sure it's not a Date already
-		if (is_object($value) && ($value instanceof Date))
-		{
-			return $value;
-		}
-
-		// Return the data transformed to a Date object
-		return new Date($value);
+		return $this->getDateValue($value);
 	}
 
 	/**
@@ -325,13 +309,25 @@ class Event extends DataModel
 	}
 
 	/**
-	 * @param   string $value The date and time as string
+	 * @param   mixed $value The date and time as string
 	 *
 	 * @return Date | null
 	 *
 	 * @since 0.1.1
 	 */
 	protected function getRegisterUntilAttribute($value)
+	{
+		return $this->getDateValue($value);
+	}
+
+	/**
+	 * @param   mixed $value The date and time as string
+	 *
+	 * @return Date | null
+	 *
+	 * @since 0.1.1
+	 */
+	private function getDateValue($value)
 	{
 		if ($value == null || $value == "0000-00-00")
 		{
@@ -398,7 +394,7 @@ class Event extends DataModel
 	 *
 	 * @since 0.1.3
 	 */
-	public function makeIcs()
+	public function getIcs()
 	{
 		/** @var Attendee $attendee */
 		foreach ($this->attendees as $attendee)

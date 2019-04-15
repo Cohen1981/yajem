@@ -164,6 +164,7 @@ class Event extends DataController
 		{
 			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Event&task=error');
 		}
+
 		$this->redirect();
 	}
 
@@ -176,7 +177,13 @@ class Event extends DataController
 	 */
 	public function addNewLocation()
 	{
-		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
+		$referer = $this->input->server->getString('HTTP_REFERER');
+
+		if ($referer != null)
+		{
+			RefererHelper::setReferer($referer);
+		}
+
 		$this->setRedirect('index.php?option=com_sdajem&view=Location&task=add');
 		$this->redirect();
 	}
@@ -191,6 +198,7 @@ class Event extends DataController
 	public function addNewCategory()
 	{
 		$input = $this->input->getArray();
+
 		if ($input['sdajem_event_id'] == '')
 		{
 			$referer = 'index.php?option=com_sdajem&view=Events&task=add';
@@ -199,6 +207,7 @@ class Event extends DataController
 		{
 			$referer = 'index.php?option=com_sdajem&view=Events&task=edit&id='.$input['sdajem_event_id'];
 		}
+
 		RefererHelper::setReferer($referer);
 		$this->setRedirect('index.php?option=com_sdajem&view=Categories&task=add&type=1');
 		$this->redirect();
@@ -210,7 +219,12 @@ class Event extends DataController
 	 */
 	public function onBeforeRead()
 	{
-		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
+		$referer = $this->input->server->getString('HTTP_REFERER');
+
+		if ($referer != null)
+		{
+			RefererHelper::setReferer($referer);
+		}
 	}
 
 	/**
@@ -220,7 +234,12 @@ class Event extends DataController
 	 */
 	public function onBeforeEdit()
 	{
-		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
+		$referer = $this->input->server->getString('HTTP_REFERER');
+
+		if ($referer != null)
+		{
+			RefererHelper::setReferer($referer);
+		}
 	}
 
 	/**
@@ -230,7 +249,12 @@ class Event extends DataController
 	 */
 	public function onBeforeAdd()
 	{
-		RefererHelper::setReferer($this->input->server->getString('HTTP_REFERER'));
+		$referer = $this->input->server->getString('HTTP_REFERER');
+
+		if ($referer != null)
+		{
+			RefererHelper::setReferer($referer);
+		}
 	}
 
 	/**

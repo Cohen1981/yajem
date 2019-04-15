@@ -13,7 +13,7 @@ use Joomla\CMS\Factory;
 /** @var \Sda\Jem\Site\Model\Event $event */
 $event = $this->getModel('Event');
 
-$ics = $event->makeIcs();
+$ics = $event->getIcs();
 $document = Factory::getDocument();
 $document->setMimeEncoding('text/calendar; charset=utf-8');
 Factory::getApplication()

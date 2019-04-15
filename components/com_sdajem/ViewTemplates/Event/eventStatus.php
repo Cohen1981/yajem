@@ -9,6 +9,7 @@
 
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
+use Sda\Jem\Admin\Helper\HtmlHelper;
 
 /** @var \Sda\Jem\Site\View\Event\Html $this */
 /** @var \Sda\Jem\Site\Model\Event $event */
@@ -19,19 +20,20 @@ $this->addJavascriptFile('media://com_sdajem/js/status.js');
 switch ($event->eventStatus)
 {
 	case 0:
-		echo "<h3><i class=\"fas fa-question-circle\" aria-hidden='true' title='" . Text::_('COM_SDAJEM_ICON_STATUS_OPEN') . "'></i> " .
+		echo "<h3>" . HtmlHelper::getOpenSymbol() .
 			Text::_('SDAJEM_EVENT_STATUS_OPEN') . "</h3>";
 		break;
 	case 1:
-		echo "<h3><i class=\"fas fa-thumbs-up\" style=\"color: #51a351;\" aria-hidden='true' title='" .
-			Text::_('COM_SDAJEM_ICON_STATUS_CONFIRMED') . "'></i> " .
+		echo "<h3>" . HtmlHelper::getConfirmedSymbol() .
 			Text::_('SDAJEM_EVENT_STATUS_CONFIRMED') . "</h3>";
 		break;
 	case 2:
-		echo "<h3><i class=\"fas fa-thumbs-down\" style=\"color: #ff6b6b;\" aria-hidden='true' title='" .
-			Text::_('COM_SDAJEM_ICON_STATUS_CANCELED') . "'></i> " .
+		echo "<h3>" . HtmlHelper::getCanceledSymbol() .
 			Text::_('SDAJEM_EVENT_STATUS_CANCELED') . "</h3>";
 		break;
+	case 3:
+		echo "<h3>" . HtmlHelper::getCheckedSymbol() .
+			Text::_('SDAJEM_EVENT_STATUS_CHECKED') . "</h3>";
 }
 
 if ($event->organizerId == Factory::getUser()->id)
@@ -39,25 +41,32 @@ if ($event->organizerId == Factory::getUser()->id)
 	switch ($event->eventStatus)
 	{
 		case 0:
+			echo "<button id=\"checkedButton\" type=\"button\" onclick=\"changeEventStatus(3)\" name=\"checkedButton\">";
+			echo HtmlHelper::getCheckedSymbol();
+			echo "</button>";
 			echo "<button id=\"confirmButton\" type=\"button\" onclick=\"changeEventStatus(1)\" name=\"confirmButton\">";
-			echo "<i class=\"fas fa-thumbs-up\" style=\"color: #51a351;\" aria-hidden='true' title='" .
-				Text::_('COM_SDAJEM_ICON_STATUS_CONFIRMED') . "'></i>";
+			echo HtmlHelper::getConfirmedSymbol();
 			echo "</button>";
 			echo "<button id=\"cancelButton\" type=\"button\" onclick=\"changeEventStatus(2)\" name=\"cancelButton\">";
-			echo "<i class=\"fas fa-thumbs-down\" style=\"color: #ff6b6b;\" aria-hidden='true' title='" .
-				Text::_('COM_SDAJEM_ICON_STATUS_CANCELED') . "'></i>";
+			echo HtmlHelper::getCanceledSymbol();
 			echo "</button>";
 			break;
 		case 1:
 			echo "<button id=\"cancelButton\" type=\"button\" onclick=\"changeEventStatus(2)\" name=\"cancelButton\">";
-			echo "<i class=\"fas fa-thumbs-down\" style=\"color: #ff6b6b;\" aria-hidden='true' title='" .
-				Text::_('COM_SDAJEM_ICON_STATUS_CANCELED') . "'></i>";
+			echo HtmlHelper::getCanceledSymbol();
 			echo "</button>";
 			break;
 		case 2:
 			echo "<button id=\"confirmButton\" type=\"button\" onclick=\"changeEventStatus(1)\" name=\"confirmButton\">";
-			echo "<i class=\"fas fa-thumbs-up\" style=\"color: #51a351;\" aria-hidden='true' title='" .
-				Text::_('COM_SDAJEM_ICON_STATUS_CONFIRMED') . "'></i>";
+			echo HtmlHelper::getConfirmedSymbol();
+			echo "</button>";
+			break;
+		case 3:
+			echo "<button id=\"confirmButton\" type=\"button\" onclick=\"changeEventStatus(1)\" name=\"confirmButton\">";
+			echo HtmlHelper::getConfirmedSymbol();
+			echo "</button>";
+			echo "<button id=\"cancelButton\" type=\"button\" onclick=\"changeEventStatus(2)\" name=\"cancelButton\">";
+			echo HtmlHelper::getCanceledSymbol();
 			echo "</button>";
 			break;
 	}

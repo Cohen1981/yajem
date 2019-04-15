@@ -80,11 +80,23 @@
 .sdajem_grey {
 	background-color: #b7b7b7;
 }
+.fa-check-circle {
+	color: #b7b7b7;
+}
+.fa-exclamation-circle {
+	color: #ff9c0a;
+}
 .sdajem_green {
 	background-color: #51a351;
 }
+.fa-check-circle {
+	color: #51a351;
+}
 .sdajem_red {
 	background-color: #9d261d;
+}
+.fa-times-circle {
+	color: #9d261d;
 }
 .sdajem_attending_cell {
 	width: 150px;

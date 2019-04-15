@@ -12,6 +12,7 @@ use FOF30\Date\Date;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Access\Access;
 use Joomla\CMS\Language\Text;
+use Sda\Jem\Admin\Helper\HtmlHelper;
 
 /** @var \Sda\Jem\Site\View\Event\Html $this */
 /** @var \Sda\Jem\Site\Model\Event $event */
@@ -115,20 +116,7 @@ $guest = Factory::getUser()->guest;
 			<div class="sdajem_cell">
 				<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_STATUS'); ?>">&nbsp;</i>
 				<?php
-				switch ($event->eventStatus)
-				{
-					case 0:
-						echo "<i class=\"fas fa-question-circle\" aria-hidden='true' title='" . Text::_('COM_SDAJEM_ICON_STATUS_OPEN') . "'></i>";
-						break;
-					case 1:
-						echo "<i class=\"fas fa-thumbs-up\" style=\"color: #51a351;\" aria-hidden='true' title='" .
-							Text::_('COM_SDAJEM_ICON_STATUS_CONFIRMED') . "'></i>";
-						break;
-					case 2:
-						echo "<i class=\"fas fa-thumbs-down\" style=\"color: #ff6b6b;\" aria-hidden='true' title='" .
-							Text::_('COM_SDAJEM_ICON_STATUS_CANCELED') . "'></i>";
-						break;
-				}
+					echo HtmlHelper::getSymbolByStatus($event->eventStatus);
 				?>
 			</div>
 		<?php endif; ?>
