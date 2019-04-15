@@ -89,41 +89,6 @@ class Event extends DataController
 	 *
 	 * @since 0.0.1
 	 */
-	public function registerAttendee()
-	{
-		$referer = $this->input->server->getString('HTTP_REFERER');
-
-		$input = $this->input->request->post->getArray();
-
-		if ($input['eventId'] && $input['action'])
-		{
-			/** @var \Sda\Jem\Site\Model\Event $event */
-			$event = $this->getModel('Event');
-			$event->load((int) $input['eventId']);
-
-			/** @var Attendee $attendee */
-			$attendee = $event->getNew('attendees');
-
-			if ($input['attendeeId'])
-			{
-				$attendee->sdajem_attendee_id = $input['attendeeId'];
-			}
-
-			$attendee->users_user_id = Factory::getUser()->id;
-			$attendee->event = (int) $input['eventId'];
-			$attendee->status = (int) $input['action'];
-
-			$attendee->save();
-		}
-
-		$this->setRedirect($referer);
-	}
-
-	/**
-	 * @return void
-	 *
-	 * @since 0.0.1
-	 */
 	public function getRegisterHtmlAjax()
 	{
 		$input = $this->input->request->post->getArray();
@@ -157,6 +122,9 @@ class Event extends DataController
 			$event->load($input['id']);
 			$event->eventStatus = $input['status'];
 			$event->save();
+
+			$eventName = 'onAfterStatusChanged';
+			$result = $this->triggerEvent($eventName, array($event));
 
 			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Events&task=changeEventStatus&id=' . $input['id']);
 		}
@@ -317,6 +285,42 @@ class Event extends DataController
 		$mailingModel->subscribed = $this->input->get('subscribed');
 		$mailingModel->save();
 		$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Events&task=subscribe&id=' . $eventId);
+	}
+
+	/**
+	 * Needed for Plugin triggering
+	 *
+	 * @return void
+	 *
+	 * @since 0.1.5
+	 */
+	public function apply()
+	{
+		parent::apply();
+	}
+
+	/**
+	 * Needed for Plugin triggering
+	 *
+	 * @return boolean true on success
+	 *
+	 * @since 0.1.5
+	 */
+	protected function applySave()
+	{
+		return parent::applySave();
+	}
+
+	/**
+	 * Needed for Plugin triggering
+	 *
+	 * @return void
+	 *
+	 * @since 0.1.5
+	 */
+	public function save()
+	{
+		parent::save();
 	}
 
 }

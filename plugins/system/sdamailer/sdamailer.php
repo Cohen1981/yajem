@@ -11,6 +11,8 @@ defined('_JEXEC') or die;
 use Joomla\CMS\Plugin\CMSPlugin;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Sda\Jem\Admin\Helper\EventStatusHelper;
+use Sda\Jem\Admin\Model\Attendee;
 use Sda\Jem\Admin\Model\Event;
 use FOF30\Container\Container;
 use Joomla\CMS\Component\ComponentHelper;
@@ -68,21 +70,50 @@ class plgSystemSdamailer extends CMSPlugin
 		}
 	}
 
+
 	/**
-	 * @param   Event $event The Event
+	 * @param   \Sda\Jem\Site\Controller\Event $controller The calling Controller
+	 *
+	 * @return boolean
+	 *
+	 * @throws Exception
+	 * @since 0.1.5
+	 */
+	public function onComSdajemControllerEventAfterApply(\Sda\Jem\Site\Controller\Event $controller)
+	{
+		return $this->buildMail($controller);
+	}
+
+	/**
+	 * @param   \Sda\Jem\Site\Controller\Event $controller The calling Controller
+	 *
+	 * @return boolean
+	 *
+	 * @throws Exception
+	 * @since 0.1.5
+	 */
+	public function onComSdajemControllerEventAfterSave(\Sda\Jem\Site\Controller\Event $controller)
+	{
+		return $this->buildMail($controller);
+	}
+
+	/**
+	 * @param   \Sda\Jem\Site\Controller\Event $controller The Controller
 	 *
 	 * @return boolean
 	 *
 	 * @throws Exception
 	 * @since   1.0
 	 */
-	public function onComSdajemModelEventAfterSave(Event $event)
+	private function buildMail(\Sda\Jem\Site\Controller\Event $controller)
 	{
-		$input = $array = Factory::getApplication()->input->post->getArray();
+		$input = Factory::getApplication()->input->getArray();
 
 		if ($input['task'] == 'save' || $input['task'] == 'apply')
 		{
-			$recipients = $array;
+			/** @var Event $event */
+			$event = $controller->getModel();
+			$recipients = array();
 			$subject = "";
 
 			if ($input['sdajem_event_id'] == "")
@@ -272,13 +303,14 @@ class plgSystemSdamailer extends CMSPlugin
 	 * @param   array       $recipients Recipients
 	 * @param   string      $subject    Subject
 	 * @param   string      $body       Mail Body
+	 * @param   string      $attachment Optional attachment
 	 *
 	 * @return void
 	 *
 	 * @since   1.0
 	 * @throws  Exception
 	 */
-	private function sendMail($recipients, $subject, $body)
+	private function sendMail($recipients, $subject, $body, $attachment = null)
 	{
 		if (!empty($recipients) && !empty($subject))
 		{
@@ -295,6 +327,11 @@ class plgSystemSdamailer extends CMSPlugin
 				$mailer->setBody($body);
 			}
 
+			if ($attachment)
+			{
+				$mailer->addAttachment($attachment);
+			}
+
 			$mailer->addBcc($recipients);
 			$send = $mailer->Send();
 
@@ -309,4 +346,62 @@ class plgSystemSdamailer extends CMSPlugin
 		}
 	}
 
+	/**
+	 * @param   \Sda\Jem\Site\Controller\Attendee $controller The Calling Controller
+	 *
+	 * @return void
+	 * @throws Exception
+	 * @since 1.0.1
+	 */
+	public function onComSdajemControllerAttendeeAfterRegisterAttendee(\Sda\Jem\Site\Controller\Attendee $controller)
+	{
+		/** @var Attendee $attendee */
+		$attendee = $controller->getModel();
+		$recipients = array();
+		$subject = "";
+		$body = "";
+		$ics = $attendee->sdajem_attendee_id . "_calendar.ics";
+
+		array_push($recipients, $attendee->user->email);
+
+		if ($attendee->status == 1)
+		{
+			$subject = $attendee->event->title . " => " . Text::_('PLG_SYSTEM_SDAMAILER_ATTENDING_CONFIRMED');
+			file_put_contents($ics, $attendee->event->getIcs());
+			$this->sendMail($recipients, $subject, $body, $ics);
+		}
+		else
+		{
+			$subject = $attendee->event->title . " => " . Text::_('PLG_SYSTEM_SDAMAILER_ATTENDING_CANCELLED');
+			$this->sendMail($recipients, $subject, $body);
+		}
+	}
+
+	/**
+	 * @param   \Sda\Jem\Site\Controller\Event $controller The calling Controller
+	 *
+	 * @return void
+	 * @throws Exception
+	 * @since 1.0.1
+	 */
+	public function onComSdajemControllerEventAfterStatusChanged(\Sda\Jem\Site\Controller\Event $controller)
+	{
+		/** @var Event $event */
+		$event = $controller->getModel();
+		$recipients = array();
+		$subject = "";
+		$body = "";
+
+		/** @var Attendee $attendee */
+		foreach ($event->attendees as $attendee)
+		{
+			if ($attendee->status == 1)
+			{
+				array_push($recipients, $attendee->user->email);
+			}
+		}
+
+		$subject = sprintf("%s => %s", $event->title, EventStatusHelper::getStatusTextByStatus($event->eventStatus));
+		$this->sendMail($recipients, $subject, $body);
+	}
 }

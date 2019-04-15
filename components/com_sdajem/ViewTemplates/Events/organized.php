@@ -9,7 +9,7 @@
 
 use Joomla\CMS\Language\Text;
 use FOF30\Date\Date;
-use Sda\Jem\Admin\Helper\HtmlHelper;
+use Sda\Jem\Admin\Helper\EventStatusHelper;
 
 /** @var \Sda\Profiles\Site\Model\Profile $profile */
 /** @var \Joomla\Input\Input $input */
@@ -62,7 +62,7 @@ if ($input['option'] == 'com_sdaprofiles')
 				echo $eventTitle;
 				echo "<span class=\"sdajem_attending_cell\">" . $event->getAttendingCount() . "</span>";
 				echo "<span class=\"sdajem_attending_cell\">" . $event->getRequiredSpaceForEvent() . "</span>";
-				echo HtmlHelper::getSymbolByStatus($event->eventStatus);
+				echo EventStatusHelper::getSymbolByStatus($event->eventStatus);
 				?>
 			</div>
 		</div>

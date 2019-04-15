@@ -17,7 +17,7 @@ use Joomla\CMS\Language\Text;
  *
  * @since       0.1.5
  */
-abstract class HtmlHelper
+abstract class EventStatusHelper
 {
 	/**
 	 *
@@ -85,6 +85,32 @@ abstract class HtmlHelper
 				break;
 			case 3:
 				return self::getCheckedSymbol();
+				break;
+		}
+	}
+
+	/**
+	 * @param   int $status The Status
+	 *
+	 * @return string
+	 *
+	 * @since 0.1.5
+	 */
+	public static function getStatusTextByStatus(int $status)
+	{
+		switch ($status)
+		{
+			case 0:
+				return Text::_('SDAJEM_EVENT_STATUS_OPEN');
+				break;
+			case 1:
+				return Text::_('SDAJEM_EVENT_STATUS_CONFIRMED');
+				break;
+			case 2:
+				return Text::_('SDAJEM_EVENT_STATUS_CANCELED');
+				break;
+			case 3:
+				return Text::_('COM_SDAJEM_EVENT_STATUS_CHECKED');
 				break;
 		}
 	}

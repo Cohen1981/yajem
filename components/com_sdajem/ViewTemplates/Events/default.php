@@ -12,7 +12,7 @@ use FOF30\Date\Date;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Access\Access;
 use Joomla\CMS\Language\Text;
-use Sda\Jem\Admin\Helper\HtmlHelper;
+use Sda\Jem\Admin\Helper\EventStatusHelper;
 
 /** @var \Sda\Jem\Site\View\Event\Html $this */
 /** @var \Sda\Jem\Site\Model\Event $event */
@@ -116,7 +116,7 @@ $guest = Factory::getUser()->guest;
 			<div class="sdajem_cell">
 				<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_STATUS'); ?>">&nbsp;</i>
 				<?php
-					echo HtmlHelper::getSymbolByStatus($event->eventStatus);
+					echo EventStatusHelper::getSymbolByStatus($event->eventStatus);
 				?>
 			</div>
 		<?php endif; ?>

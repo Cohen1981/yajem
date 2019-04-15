@@ -12,8 +12,18 @@ namespace Sda\Jem\Site\Controller;
 use FOF30\Controller\DataController;
 use Joomla\CMS\Factory;
 
+/**
+ * @package     Sda\Jem\Site\Controller
+ *
+ * @since       0.0.5
+ */
 class Attendee extends DataController
 {
+	/**
+	 *
+	 * @return void
+	 * @since 0.0.5
+	 */
 	public function registerAttendeeAjax()
 	{
 		$input = $this->input->request->post->getArray();
@@ -34,6 +44,9 @@ class Attendee extends DataController
 			$attendee->sdaprofilesFittingIds = $input['fittings'];
 
 			$attendee->save();
+
+			$eventName = 'onAfterRegisterAttendee';
+			$result = $this->triggerEvent($eventName, array($attendee));
 
 			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Attendee&task=registerAjax&id=' . $attendee->sdajem_attendee_id);
 		}
