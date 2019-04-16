@@ -9,7 +9,7 @@
 
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
-use FOF30\Container\Container;
+use Joomla\CMS\Component\ComponentHelper;
 
 /** @var \Sda\Jem\Site\View\Event\Html      $this       */
 /** @var \Sda\Jem\Site\Model\Event          $event      */
@@ -32,6 +32,9 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 				</span>
 			</h2>
 		</div>
+		<div id="attendee_registerUntil">
+			<?php echo Text::_('COM_SDAJEM_EVENT_REGISTERUNTIL_LABEL') . ": " . $event->registerUntil->format('d.m.Y'); ?>
+		</div>
 
 		<div class="buttonsContainer">
 			<?php if (!Factory::getUser()->guest && $event->isRegistrationPossible()): ?>
@@ -40,15 +43,15 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 
 			<?php endif; ?>
 
-			<?php if (!Factory::getUser()->guest) : ?>
-
-			<input type="hidden" name="eventId" value="<?php echo $event->sdajem_event_id ?>"/>
+			<?php if (!Factory::getUser()->guest && JPluginHelper::isEnabled('system', 'sdamailer')) : ?>
 
 			<div id="subscribeButtons">
 				<?php echo $this->loadAnyTemplate('site:com_sdajem/Event/subscription'); ?>
 			</div>
 
 			<?php endif; ?>
+
+			<input type="hidden" name="eventId" value="<?php echo $event->sdajem_event_id ?>"/>
 
 		</div>
 

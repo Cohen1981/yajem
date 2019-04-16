@@ -204,3 +204,12 @@ label.sdajem_tab {
 .buttonsContainer button {
 	margin: 0px 5px 5px 0px;
 }
+#attendee_registerUntil {
+	font-weight: bold;
+	padding-bottom: 5px;
+}
+#comment_button {
+	border-bottom: solid #b7b7b7 1px;
+	padding-bottom: 5px;
+	margin-bottom: 10px;
+}

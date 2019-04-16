@@ -1,3 +1,30 @@
+$(
+	function () {
+		showRegistrationFields();
+		switchCalendar();
+	}
+)
+
+function switchCalendar() {
+	if (parseInt(document.getElementById('allDayEvent').value) === 1) {
+		document.getElementById('startDateTime_btn').setAttribute('data-show-time', '0');
+		document.getElementById('startDateTime_btn').setAttribute('data-dayformat', '%d.%m.%Y');
+		JoomlaCalendar.init(upTo(document.getElementById('startDateTime'), 'field-calendar'));
+		document.getElementById('endDateTime_btn').setAttribute('data-show-time', '0');
+		document.getElementById('endDateTime_btn').setAttribute('data-dayformat', '%d.%m.%Y');
+		JoomlaCalendar.init(upTo(document.getElementById('endDateTime'), 'field-calendar'));
+	}
+	else
+	{
+		document.getElementById('startDateTime_btn').setAttribute('data-show-time', '1');
+		document.getElementById('startDateTime_btn').setAttribute('data-dayformat', '%d.%m.%Y %H:%M');
+		JoomlaCalendar.init(upTo(document.getElementById('startDateTime'), 'field-calendar'));
+		document.getElementById('endDateTime_btn').setAttribute('data-show-time', '1');
+		document.getElementById('endDateTime_btn').setAttribute('data-dayformat', '%d.%m.%Y %H:%M');
+		JoomlaCalendar.init(upTo(document.getElementById('endDateTime'), 'field-calendar'));
+	}
+}
+
 function showRegistrationFields() {
 	var reg = parseInt(document.getElementById('useRegistration').value);
 	if (reg === 0) {

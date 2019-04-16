@@ -26,18 +26,19 @@ $this->addJavascriptFile('media://com_sdajem/js/comments.js');
 				<?php echo Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
 			</h2>
 		</div>
-		<div class="buttonsContainer">
-			<button id="sdajem_comment_button"
-					type="button"
-			        onclick="addCommentAjax()"
-			        form="commentForm"
-			>
-				<i class="fas fa-comments" aria-hidden="true"></i>
-				<?php echo Text::_('SDAJEM_NEW_COMMENT'); ?></button>
-		</div>
 	</div>
 
 	<textarea form="commentForm" id="comment" wrap="soft" name="comment"></textarea>
+
+	<div id="comment_button" class="buttonsContainer">
+		<button id="sdajem_comment_button"
+		        type="button"
+		        onclick="addCommentAjax()"
+		        form="commentForm"
+		>
+			<i class="fas fa-comments" aria-hidden="true"></i>
+			<?php echo Text::_('SDAJEM_NEW_COMMENT'); ?></button>
+	</div>
 
 	<div id="sdajem_comment_area" class="sdajem_comment_container">
 

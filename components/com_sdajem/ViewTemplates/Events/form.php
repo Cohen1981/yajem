@@ -10,6 +10,7 @@
 /** @var \Sda\Jem\Site\View\Event\Html   $this       */
 
 $this->addCssFile('media://com_sdajem/css/style.css');
+$this->addJavascriptFile('media://com_sdajem/js/jquery-3.3.1.min.js');
 $this->addJavascriptFile('media://com_sdajem/js/eventForm.js');
 
 echo $this->getRenderedForm();

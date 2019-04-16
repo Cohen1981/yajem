@@ -10,6 +10,8 @@
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use FOF30\Container\Container;
+use Joomla\CMS\Component\ComponentHelper;
+use Sda\Jem\Admin\Model\User;
 
 $currentUser = Factory::getUser()->id;
 
@@ -26,6 +28,28 @@ $subscribed = false;
 $mailing = Container::getInstance('com_sdajem')->factory->model('Mailing');
 $mailing->getSubscriptionForUserAndEvent($event->sdajem_event_id, $currentUser);
 
+$plugin = JPluginHelper::getPlugin('system', 'sdamailer');
+
+// Get plugin params
+$pluginParams = new JRegistry($plugin->params);
+
+if ((bool) $pluginParams->get('mail_on_edited'))
+{
+	/** @var User $user */
+	$user = Container::getInstance('com_sdajem')->factory->model('User');
+	$user->load($currentUser);
+
+	if ($user->profile)
+	{
+		$subscribed = (bool) $user->profile->mailOnEdited;
+	}
+	else
+	{
+		$subscribed = true;
+	}
+}
+
+// User has a subscription for this event.
 if ($mailing)
 {
 	$subscribed = (bool) $mailing->subscribed;

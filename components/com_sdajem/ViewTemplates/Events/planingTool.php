@@ -22,7 +22,6 @@ $this->addCssFile('media://com_sdajem/css/style.css');
 	<div class="well">
 		<div class="titleContainer">
 			<h2 class="page-title">
-				<span class="icon-comments-2" aria-hidden="true"></span>
 				<?php echo Text::_('COM_SDAJEM_TITLE_PLANINGTOOL_BASIC'); ?>
 			</h2>
 		</div>

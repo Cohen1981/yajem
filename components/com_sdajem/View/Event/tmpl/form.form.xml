@@ -40,13 +40,25 @@
            none="COM_SDAJEM_NONE_SELECTED"
            label="COM_SDAJEM_EVENT_ORGANIZERID_LABEL"
            description="COM_SDAJEM_EVENT_ORGANIZERID_DESC"/>
-    <field name="allDayEvent" type="Boolean" label="COM_SDAJEM_EVENT_ALLDAYEVENT_LABEL" description="COM_SDAJEM_EVENT_ALLDAYEVENT_DESC"/>
+    <field name="allDayEvent"
+           type="Boolean"
+           onchange="switchCalendar()"
+           label="COM_SDAJEM_EVENT_ALLDAYEVENT_LABEL"
+           description="COM_SDAJEM_EVENT_ALLDAYEVENT_DESC"/>
+
     <field name="startDateTime"
            type="Calendar"
            label="COM_SDAJEM_EVENT_STARTDATETIME_LABEL"
            description="COM_SDAJEM_EVENT_STARTDATETIME_DESC"
+           format="%d.%m.%Y %H:%M"
     />
-    <field name="endDateTime" type="Calendar" label="COM_SDAJEM_EVENT_ENDDATETIME_LABEL" description="COM_SDAJEM_EVENT_ENDDATETIME_DESC"/>
+
+    <field name="endDateTime"
+           type="Calendar"
+           format="%d.%m.%Y %H:%M"
+           label="COM_SDAJEM_EVENT_ENDDATETIME_LABEL"
+           description="COM_SDAJEM_EVENT_ENDDATETIME_DESC"/>
+
     <field name="useRegistration"
            type="Boolean"
            seleted="1"
@@ -57,8 +69,10 @@
     <field id="registerUntil"
            name="registerUntil"
            type="Calendar"
+           showtime="false"
            label="COM_SDAJEM_EVENT_REGISTERUNTIL_LABEL"
            description="COM_SDAJEM_EVENT_REGISTERUNTIL_DESC"
+           format="%d.%m.%Y"
     />
     <field id="registrationLimit" name="registrationLimit" type="Number" label="COM_SDAJEM_EVENT_REGISTRATIONLIMIT_LABEL" description="COM_SDAJEM_EVENT_REGISTRATIONLIMIT_DESC"/>
 

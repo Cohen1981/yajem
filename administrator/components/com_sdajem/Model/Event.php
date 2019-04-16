@@ -75,6 +75,7 @@ class Event extends DataModel
 	public function __construct(Container $container, array $config = array())
 	{
 		$config['behaviours'] = array('Filters', 'Access');
+		$config['aliasFields'] = array('startDate' => 'startDateTime', 'endDate' => 'endDateTime');
 		parent::__construct($container, $config);
 
 		$this->hasOne('host', 'Contact', 'hostId', 'id');
@@ -172,6 +173,12 @@ class Event extends DataModel
 			if ($input['registrationLimit'] == "" || $input['registrationLimit'] == 0)
 			{
 				$this->registrationLimit = null;
+			}
+
+			if ($input['useRegistration'] == 0)
+			{
+				$this->registerUntil = null;
+				$this->registrationLimit = 0;
 			}
 		}
 	}
