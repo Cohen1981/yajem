@@ -32,9 +32,12 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 				</span>
 			</h2>
 		</div>
+
+		<?php if($event->registerUntil) : ?>
 		<div id="attendee_registerUntil">
 			<?php echo Text::_('COM_SDAJEM_EVENT_REGISTERUNTIL_LABEL') . ": " . $event->registerUntil->format('d.m.Y'); ?>
 		</div>
+		<?php endif; ?>
 
 		<div class="buttonsContainer">
 			<?php if (!Factory::getUser()->guest && $event->isRegistrationPossible()): ?>
