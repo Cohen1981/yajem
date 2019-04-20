@@ -76,4 +76,16 @@ class Fitting extends DataModel
 			return 0;
 		}
 	}
+
+	/**
+	 * Enforcing data sanity
+	 *
+	 * @return void
+	 *
+	 * @since 0.1.1
+	 */
+	protected function onBeforeDelete()
+	{
+		// ToDo delete attendees fittingIds
+	}
 }

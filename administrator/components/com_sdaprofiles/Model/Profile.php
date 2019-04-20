@@ -120,4 +120,23 @@ class Profile extends DataModel
 
 		return $value;
 	}
+
+	/**
+	 * Enforcing data sanity
+	 *
+	 * @return void
+	 *
+	 * @since 0.1.1
+	 */
+	protected function onBeforeDelete()
+	{
+		if ($this->fittings)
+		{
+			/** @var Fitting $fitting */
+			foreach ($this->fittings as $fitting)
+			{
+				$fitting->forceDelete();
+			}
+		}
+	}
 }

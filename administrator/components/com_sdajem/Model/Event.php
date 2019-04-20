@@ -352,6 +352,8 @@ class Event extends DataModel
 	}
 
 	/**
+	 * Enforcing data sanity
+	 *
 	 * @return void
 	 *
 	 * @since 0.0.1
@@ -364,6 +366,14 @@ class Event extends DataModel
 			foreach ($this->attendees as $attendee)
 			{
 				$attendee->forceDelete();
+			}
+		}
+		if ($this->comments)
+		{
+			/** @var Comment $comment */
+			foreach ($this->comments as $comment)
+			{
+				$comment->forceDelete();
 			}
 		}
 	}
