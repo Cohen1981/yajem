@@ -59,7 +59,8 @@ $this->addJavascriptFile('media://com_sdajem/js/draw.js');
 							$bx . "' y='" . $by .
 							"' width='" . $fitting->length .
 							"' height='" . $fitting->width . "'/>";
-						echo "<circle class='rotate' fill='red' cx='" . ($fitting->length / 2 + $bx) . "' cy='" . ($fitting->width + 2 + $by) .
+						echo "<circle name='handle' class='rotate' fill='red' cx='" .
+							($fitting->length / 2 + $bx) . "' cy='" . ($fitting->width + 2 + $by) .
 							"' r='0.5'/>";
 						echo "</g>";
 

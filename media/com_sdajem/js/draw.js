@@ -2,18 +2,37 @@
 function makeDraggable(evt) {
 	var svg = evt.target;
 
-	svg.addEventListener('mousedown', startDrag);
-	svg.addEventListener('mousemove', drag);
-	svg.addEventListener('mouseup', endDrag);
-	svg.addEventListener('mouseleave', endDrag);
-	svg.addEventListener('touchstart', startDrag);
-	svg.addEventListener('touchmove', drag);
-	svg.addEventListener('touchend', endDrag);
-	svg.addEventListener('touchleave', endDrag);
-	svg.addEventListener('touchcancel', endDrag);
+	var images = document.getElementsByName('fitting');
+	images.forEach(
+		function (img, index) {
+			img.addEventListener('mousedown', startDrag);
+			img.addEventListener('mousemove', drag);
+			img.addEventListener('mouseup', endDrag);
+			img.addEventListener('mouseleave', endDrag);
+			img.addEventListener('touchstart', startDrag);
+			img.addEventListener('touchmove', drag);
+			img.addEventListener('touchend', endDrag);
+			img.addEventListener('touchleave', endDrag);
+			img.addEventListener('touchcancel', endDrag);
+		}
+	);
+	var handle = document.getElementsByName('handle');
+	handle.forEach(
+		function (handle, index) {
+			handle.addEventListener('mousedown', startRotate);
+			handle.addEventListener('mousemove', rotate);
+			handle.addEventListener('mouseup', endRotate);
+			handle.addEventListener('mouseleave', endRotate);
+			handle.addEventListener('touchstart', startRotate);
+			handle.addEventListener('touchmove', rotate);
+			handle.addEventListener('touchend', endRotate);
+			handle.addEventListener('touchleave', endRotate);
+			handle.addEventListener('touchcancel', endRotate);
+		}
+	);
 
 	var selectedElement, offset, transform,
-		bbox, minX, maxX, minY, maxY, confined;
+		bbox, minX, maxX, minY, maxY, confined, elToRotate;
 
 	var boundaryX1 = 0;
 	var boundaryX2 = 50;
@@ -58,20 +77,24 @@ function makeDraggable(evt) {
 				maxY = boundaryY2 - bbox.y - bbox.height;
 			}
 		}
+	}
 
+	function startRotate(evt) {
 		if (evt.target.classList.contains('rotate')) {
+			offset = getMousePosition(evt);
 			selectedElement = evt.target;
-			var elToRotate = selectedElement.parentNode.childNodes.item(0);
-			var box = elToRotate.getBBox();
-			var transforms = elToRotate.transform.baseVal;
+			var elForCenter = selectedElement.parentNode.childNodes.item(0);
+			bbox = elForCenter.getBBox();
+			var transforms = elForCenter.transform.baseVal;
+
 			if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
 				// Create an transform that translates by (0, 0)
 				var translate = svg.createSVGTransform();
-				translate.setRotate(0, box.width/2, box.height/2);
-				elToRotate.transform.baseVal.insertItemBefore(translate, 0);
+				translate.setRotate(0, bbox.width/2, bbox.height/2);
+				elForCenter.transform.baseVal.insertItemBefore(translate, 0);
 			}
+
 			transform = transforms.getItem(0);
-			transform.setRotate(10, (box.x+box.width/2), (box.y+box.height/2));
 		}
 	}
 
@@ -94,7 +117,18 @@ function makeDraggable(evt) {
 		}
 	}
 
+	function rotate(evt) {
+		if (selectedElement) {
+			evt.preventDefault();
+			transform.setRotate(10, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
+		}
+	}
+
 	function endDrag(evt) {
+		selectedElement = false;
+	}
+
+	function endRotate(evt) {
 		selectedElement = false;
 	}
 }
