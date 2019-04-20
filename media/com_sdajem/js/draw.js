@@ -120,7 +120,14 @@ function makeDraggable(evt) {
 	function rotate(evt) {
 		if (selectedElement) {
 			evt.preventDefault();
-			transform.setRotate(10, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
+			if (selectedElement.classList.contains('left'))
+			{
+				transform.setRotate(5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
+			}
+			else
+			{
+				transform.setRotate(-5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
+			}
 		}
 	}
 

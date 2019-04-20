@@ -9,6 +9,8 @@
 
 /** @var \Sda\Profiles\Site\View\Fitting\Raw    $this       */
 /** @var \Sda\Profiles\Site\Model\Fitting       $fitting    */
+$this->addJavascriptFile('media://com_sdaprofiles/js/fittings.js');
+
 $input = $this->input->request->getArray();
 $fitting = $this->getModel('Fitting');
 if ($fitting->sdaprofiles_fitting_id == '')

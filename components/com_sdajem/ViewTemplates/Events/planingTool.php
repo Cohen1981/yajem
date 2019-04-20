@@ -30,8 +30,12 @@ $this->addJavascriptFile('media://com_sdajem/js/draw.js');
 		</div>
 	</div>
 
+	<p>
+		Rote und grüne Punkte klicken zum Rotieren um 5°.
+	</p>
+
 	<svg xmlns="http://www.w3.org/2000/svg"
-	     viewBox="0 0 50 50"
+	     viewBox="0 0 40 40"
 	     onload="makeDraggable(evt)">
 
 		<?php
@@ -59,8 +63,11 @@ $this->addJavascriptFile('media://com_sdajem/js/draw.js');
 							$bx . "' y='" . $by .
 							"' width='" . $fitting->length .
 							"' height='" . $fitting->width . "'/>";
-						echo "<circle name='handle' class='rotate' fill='red' cx='" .
-							($fitting->length / 2 + $bx) . "' cy='" . ($fitting->width + 2 + $by) .
+						echo "<circle name='handle' class='rotate left' fill='red' cx='" .
+							($fitting->length / 2 + $bx - 1) . "' cy='" . ($fitting->width + 2 + $by) .
+							"' r='0.5'/>";
+						echo "<circle name='handle' class='rotate right' fill='green' cx='" .
+							($fitting->length / 2 + $bx + 1) . "' cy='" . ($fitting->width + 2 + $by) .
 							"' r='0.5'/>";
 						echo "</g>";
 
@@ -77,12 +84,6 @@ $this->addJavascriptFile('media://com_sdajem/js/draw.js');
 		}
 		?>
 
-
-
-
 	</svg>
-	<p>
-		Hier sollte vielleicht eine Anleitung für den Umgang mit Excel Online hin !
-	</p>
 
 </div>
