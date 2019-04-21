@@ -14,7 +14,7 @@ use FOF30\Container\Container;
 /** @var \Sda\Jem\Site\Model\Event $event */
 $event = $this->getModel('Event');
 $this->addCssFile('media://com_sdajem/css/style.css');
-// $this->addJavascriptFile('media://com_sdajem/js/jquery-3.3.1.min.js');
+$this->addJavascriptFile('media://com_sdajem/js/jquery-3.3.1.min.js');
 $this->addJavascriptFile('media://com_sdajem/js/draw.js');
 
 ?>
@@ -63,10 +63,10 @@ $this->addJavascriptFile('media://com_sdajem/js/draw.js');
 							$bx . "' y='" . $by .
 							"' width='" . $fitting->length .
 							"' height='" . $fitting->width . "'/>";
-						echo "<circle name='handle' class='rotate left' fill='red' cx='" .
+						echo "<circle name='handle' class='rotate left handle' fill='red' cx='" .
 							($fitting->length / 2 + $bx - 1) . "' cy='" . ($fitting->width + 2 + $by) .
 							"' r='0.5'/>";
-						echo "<circle name='handle' class='rotate right' fill='green' cx='" .
+						echo "<circle name='handle' class='rotate right handle' fill='green' cx='" .
 							($fitting->length / 2 + $bx + 1) . "' cy='" . ($fitting->width + 2 + $by) .
 							"' r='0.5'/>";
 						echo "</g>";

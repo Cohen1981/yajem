@@ -2,34 +2,33 @@
 function makeDraggable(evt) {
 	var svg = evt.target;
 
-	var images = document.getElementsByName('fitting');
-	images.forEach(
-		function (img, index) {
-			img.addEventListener('mousedown', startDrag);
-			img.addEventListener('mousemove', drag);
-			img.addEventListener('mouseup', endDrag);
-			img.addEventListener('mouseleave', endDrag);
-			img.addEventListener('touchstart', startDrag);
-			img.addEventListener('touchmove', drag);
-			img.addEventListener('touchend', endDrag);
-			img.addEventListener('touchleave', endDrag);
-			img.addEventListener('touchcancel', endDrag);
-		}
-	);
-	var handle = document.getElementsByName('handle');
-	handle.forEach(
-		function (handle, index) {
-			handle.addEventListener('mousedown', startRotate);
-			handle.addEventListener('mousemove', rotate);
-			handle.addEventListener('mouseup', endRotate);
-			handle.addEventListener('mouseleave', endRotate);
-			handle.addEventListener('touchstart', startRotate);
-			handle.addEventListener('touchmove', rotate);
-			handle.addEventListener('touchend', endRotate);
-			handle.addEventListener('touchleave', endRotate);
-			handle.addEventListener('touchcancel', endRotate);
-		}
-	);
+	// Register drag event to all images
+	var images = $(".draggable");
+	for (var i = 0; i < images.length; i++)
+	{
+		images[i].addEventListener('mousedown', startDrag);
+		images[i].addEventListener('mousemove', drag);
+		images[i].addEventListener('mouseup', endDrag);
+		images[i].addEventListener('mouseleave', endDrag);
+		images[i].addEventListener('touchstart', startDrag);
+		images[i].addEventListener('touchmove', drag);
+		images[i].addEventListener('touchend', endDrag);
+		images[i].addEventListener('touchleave', endDrag);
+		images[i].addEventListener('touchcancel', endDrag);
+	}
+
+	// Register Rotate event to all circles
+	var handle = $(".handle");
+	for (var i = 0; i < handle.length; i++)
+	{
+		handle[i].addEventListener('mousedown', startRotate);
+		handle[i].addEventListener('mouseup', endRotate);
+		handle[i].addEventListener('mouseleave', endRotate);
+		handle[i].addEventListener('touchstart', startRotate);
+		handle[i].addEventListener('touchend', endRotate);
+		handle[i].addEventListener('touchleave', endRotate);
+		handle[i].addEventListener('touchcancel', endRotate);
+	}
 
 	var selectedElement, offset, transform,
 		bbox, minX, maxX, minY, maxY, confined, elToRotate;
@@ -95,6 +94,15 @@ function makeDraggable(evt) {
 			}
 
 			transform = transforms.getItem(0);
+			evt.preventDefault();
+			if (selectedElement.classList.contains('left'))
+			{
+				transform.setRotate(5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
+			}
+			else
+			{
+				transform.setRotate(-5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
+			}
 		}
 	}
 
@@ -114,20 +122,6 @@ function makeDraggable(evt) {
 			}
 
 			transform.setTranslate(dx, dy);
-		}
-	}
-
-	function rotate(evt) {
-		if (selectedElement) {
-			evt.preventDefault();
-			if (selectedElement.classList.contains('left'))
-			{
-				transform.setRotate(5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
-			}
-			else
-			{
-				transform.setRotate(-5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
-			}
 		}
 	}
 
