@@ -11,6 +11,7 @@ namespace Sda\Profiles\Admin\Model;
 
 use FOF30\Container\Container;
 use FOF30\Model\DataModel;
+use Sda\Jem\Admin\Model\Attendee;
 
 /**
  * @package     Sda\Profiles\Admin\Model
@@ -86,6 +87,23 @@ class Fitting extends DataModel
 	 */
 	protected function onBeforeDelete()
 	{
-		// ToDo delete attendees fittingIds
+		if ($this->profile->attendees)
+		{
+			$id = $this->input->get('id');
+			$attendees = $this->profile->attendees;
+			/** @var Attendee $attendee */
+			foreach ($attendees as $attendee)
+			{
+				$key = array_search($id, $attendee->sdaprofilesFittingIds);
+
+				if ($key !== false)
+				{
+					$equipment = $attendee->sdaprofilesFittingIds;
+					unset($equipment[$key]);
+					$attendee->sdaprofilesFittingIds = $equipment;
+					$attendee->save();
+				}
+			}
+		}
 	}
 }

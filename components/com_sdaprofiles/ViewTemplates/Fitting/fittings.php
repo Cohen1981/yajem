@@ -31,7 +31,13 @@ if ($input['option'] == 'com_sdaprofiles' && $input['task'] == 'edit')
 			<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTINGS_STOCK'); ?>
 		</h2>
 	</div>
+	<div class="buttonsContainer">
+		<button id="sdaprofiles_fitting_new" type="button" onclick="newEquipment()">
+			<?php echo Text::_('SDAPROFILES_FITTING_NEW') ?>
+		</button>
+	</div>
 </div>
+
 <div id="fitting_area" class="form-horizontal">
 	<div id="sdaprofiles_fitting" class="control-group">
 		<label class="control-label">
@@ -43,10 +49,14 @@ if ($input['option'] == 'com_sdaprofiles' && $input['task'] == 'edit')
 			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_WIDTH_LABEL'); ?></span>
 		</div>
 	</div>
-	<?php foreach ($profile->fittings as $fitting)
+	<?php
+	if ($profile->fittings)
 	{
-		$this->setModel('Fitting', $fitting);
-		echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/fitting');
+		foreach ($profile->fittings as $fitting)
+		{
+			$this->setModel('Fitting', $fitting);
+			echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/fitting');
+		}
 	}
 	?>
 </div>

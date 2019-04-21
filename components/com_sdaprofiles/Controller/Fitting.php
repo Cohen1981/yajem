@@ -108,8 +108,21 @@ class Fitting extends DataController
 		if ($input['type'])
 		{
 			/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
-			$fitting                         = Container::getInstance('com_sdaprofiles')->factory->model('fitting');
-			$fitting->sdaprofiles_profile_id = $input['profileId'];
+			$fitting = Container::getInstance('com_sdaprofiles')->factory->model('fitting');
+
+			if ($input['sdaprofiles_profile_id'] == '')
+			{
+				/** @var \Sda\Profiles\Admin\Model\User $user */
+				$user = Container::getInstance('com_sdaprofiles')->factory->model('user');
+				$user->load(Factory::getUser()->id);
+				$fitting->sdaprofiles_profile_id = $user->profile->sdaprofiles_profile_id;
+			}
+			else
+			{
+				$fitting->sdaprofiles_profile_id = $input['sdaprofiles_profile_id'];
+			}
+
+			$fitting->sdaprofiles_fitting_id = ($input['sdaprofiles_fitting_id'] != '') ? $user->load($input['sdaprofiles_fitting_id']) : null;
 			$fitting->type                   = $input['type'];
 			$fitting->detail                 = $input['detail'];
 			$fitting->length                 = $input['length'];
