@@ -81,3 +81,18 @@ label.sdaprofile_tab {
 	font-weight: bold;
 	background-color: white !important;
 }
+.img-label {
+	max-width: 100px;
+}
+.sdaprofiles_equipment_images {
+	display: flex;
+	flex-wrap: wrap;
+}
+.sdaprofiles_equipment_cell {
+	width: 100px;
+	margin-right: 20px;
+}
+.image_smallest {
+	max-width: 50px;
+	margin-right: 20px;
+}

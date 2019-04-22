@@ -20,11 +20,11 @@ class RefererHelper
 {
 	/**
 	 *
-	 * @return string The URL to redirect to
+	 * @return string|null The URL to redirect to
 	 *
 	 * @since 0.0.1
 	 */
-	public static function getReferer() : string
+	public static function getReferer()
 	{
 		$referer = null;
 

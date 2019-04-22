@@ -34,9 +34,9 @@ function makeDraggable(evt) {
 		bbox, minX, maxX, minY, maxY, confined, elToRotate;
 
 	var boundaryX1 = 0;
-	var boundaryX2 = 50;
+	var boundaryX2 = document.getElementById('boxX').value;
 	var boundaryY1 = 0;
-	var boundaryY2 = 50;
+	var boundaryY2 = document.getElementById('boxY').value;
 
 	function getMousePosition(evt) {
 		var CTM = svg.getScreenCTM();

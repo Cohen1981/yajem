@@ -7,6 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use FOF30\Date\Date;
 
@@ -19,7 +20,7 @@ $this->addCssFile('media://com_sdaprofiles/css/style.css');
 $this->addJavascriptFile('media://com_sdaprofiles/js/fittings.js');
 
 $input = $this->input->getArray();
-if ($input['option'] == 'com_sdaprofiles' && $input['task'] == 'edit')
+if ($input['option'] == 'com_sdaprofiles' && ($input['task'] == 'edit' || $input['task'] == 'read'))
 {
 	$profile = $this->getModel();
 }
@@ -32,9 +33,11 @@ if ($input['option'] == 'com_sdaprofiles' && $input['task'] == 'edit')
 		</h2>
 	</div>
 	<div class="buttonsContainer">
+		<?php if ($profile->users_user_id == Factory::getUser()->id) : ?>
 		<button id="sdaprofiles_fitting_new" type="button" onclick="newEquipment()">
 			<?php echo Text::_('SDAPROFILES_FITTING_NEW') ?>
 		</button>
+		<?php endif; ?>
 	</div>
 </div>
 

@@ -112,41 +112,9 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 <div>
 <input type="checkbox" id="fitting_switch" class="sdaprofiles_hidden" hidden onchange="switchCheckBox('fitting_switch')"/>
 <div class="sdaprofiles_switchable">
-<div class="well">
-	<div class="titleContainer">
-		<h1 class="page-title">
-			<span class="icon-generic" aria-hidden="true"></span>
-			<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTING_BASIC'); ?>
-		</h1>
-	</div>
-</div>
-
-<div id="fitting_area" class="form-horizontal">
-	<div id="sdaprofiles_fitting" class="control-group">
-		<label class="control-label">
-		</label>
-		<div class="controls">
-			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_LABEL'); ?></span>
-			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_DETAIL_LABEL'); ?></span>
-			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_LENGHT_LABEL'); ?></span>
-			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_WIDTH_LABEL'); ?></span>
-		</div>
-	</div>
-	<?php if ($profile->fittings) : ?>
-		<?php foreach ($profile->fittings as $fitting) : ?>
-			<div id="sdaprofiles_fitting_<?php echo $fitting->sdaprofiles_fitting_id; ?>" class="control-group">
-				<label class="control-label">
-				</label>
-				<div class="controls">
-					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->type ?></span>
-					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->detail ?></span>
-					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->length ?></span>
-					<span class="sdaprofiles_fitting_cell"><?php echo $fitting->width ?></span>
-				</div>
-			</div>
-		<?php endforeach; ?>
-	<?php endif; ?>
-</div>
+	<?php
+	echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/fittings');
+	?>
 </div>
 </div>
 

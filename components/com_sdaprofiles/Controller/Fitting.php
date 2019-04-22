@@ -122,11 +122,12 @@ class Fitting extends DataController
 				$fitting->sdaprofiles_profile_id = $input['sdaprofiles_profile_id'];
 			}
 
-			$fitting->sdaprofiles_fitting_id = ($input['sdaprofiles_fitting_id'] != '') ? $user->load($input['sdaprofiles_fitting_id']) : null;
+			$fitting->sdaprofiles_fitting_id = ($input['sdaprofiles_fitting_id'] != '') ? $input['sdaprofiles_fitting_id'] : null;
 			$fitting->type                   = $input['type'];
 			$fitting->detail                 = $input['detail'];
 			$fitting->length                 = $input['length'];
 			$fitting->width                  = $input['width'];
+			$fitting->image                  = $input['image'];
 			$fitting->save();
 
 			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=fittingAjax&id=' . $fitting->sdaprofiles_fitting_id);

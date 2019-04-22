@@ -214,7 +214,7 @@ label.sdajem_tab {
 	margin-bottom: 10px;
 }
 
-.svg {
+svg {
 	border: #333333 solid 1px;
 }
 .draggable {
@@ -223,16 +223,18 @@ label.sdajem_tab {
 .rotate {
 	cursor: grabbing;
 }
-
 circle {
 	fill-opacity: 0.3;
 }
 circle:hover {
 	fill-opacity: 1;
 }
-line {
+line.background {
 	stroke: blue;
-	stroke-dasharray: 0.5;
-	stroke-width: 0.2;
-	stroke-opacity: 0.3;
+	stroke-width: 0.1;
+	stroke-opacity: 0.1;
+}
+rect {
+	fill: green;
+	fill-opacity: 0.5;
 }

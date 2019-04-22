@@ -61,7 +61,7 @@ switch ($attendee->status)
 		{
 			$fitting->load($id);
 			$requiredSpace = $requiredSpace + $fitting->getRequiredSpace();
-			echo "<div class='equipment'>" . $fitting->type . " " . $fitting->length . "x" . $fitting->width . "</div>";
+			echo "<div class='equipment'>" . $fitting->getTypeString() . " " . $fitting->length . "x" . $fitting->width . "</div>";
 		}
 
 		echo "</div>";

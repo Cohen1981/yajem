@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fittings`
   `sdaprofiles_fitting_id` int unsigned auto_increment comment 'Primary Key',
   `sdaprofiles_profile_id` int unsigned not null comment 'foreign key to #__sdaprofiles_profiles',
   `type` varchar(255) null,
+  `image` varchar(255) null,
   `detail` varchar(255) null,
   `length` int null,
   `width` int null,

@@ -12,6 +12,7 @@ namespace Sda\Profiles\Admin\Model;
 use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use Sda\Jem\Admin\Model\Attendee;
+use Joomla\CMS\Language\Text;
 
 /**
  * @package     Sda\Profiles\Admin\Model
@@ -24,7 +25,8 @@ use Sda\Jem\Admin\Model\Attendee;
  *
  * @property  int       $sdaprofiles_fitting_id
  * @property  int       $sdaprofiles_profile_id
- * @property  string    $type
+ * @property  int       $type
+ * @property  string    $image
  * @property  string    $detail
  * @property  int       $length
  * @property  int       $width
@@ -104,6 +106,29 @@ class Fitting extends DataModel
 					$attendee->save();
 				}
 			}
+		}
+	}
+
+	/**
+	 * Returns the Fitting Type as readable String
+	 *
+	 * @return string
+	 *
+	 * @since 0.1.2
+	 */
+	public function getTypeString()
+	{
+		switch ($this->type)
+		{
+			case 1:
+				return Text::_('COM_SDAPROFIES_FITTING_TYPE_TENT');
+				break;
+			case 2:
+				return Text::_('COM_SDAPROFIES_FITTING_TYPE_SUNSAIL');
+				break;
+			case 3:
+				return Text::_('COM_SDAPROFIES_FITTING_TYPE_MISC');
+				break;
 		}
 	}
 }

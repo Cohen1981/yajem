@@ -17,6 +17,7 @@ use Sda\Jem\Site\Model\Event;
 use Sda\Profiles\Admin\Model\User as UserAlias;
 use Sda\Profiles\Admin\Model\Fitting;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 
 /**
  * @package     Sda\Profiles\Admin\Model
@@ -138,5 +139,26 @@ class Profile extends DataModel
 				$fitting->forceDelete();
 			}
 		}
+	}
+
+	/**
+	 * @param   int|null $userId UserId, if null current logged in User is used.
+	 *
+	 * @return integer
+	 *
+	 * @since 0.1.2
+	 */
+	public static function getProfileIdForUserId(int $userId = null) : int
+	{
+		$userId = ($userId) ? $userId : Factory::getUser()->id;
+
+		$dbo = Factory::getDbo();
+		$query = $dbo->getQuery(true);
+		$query->select('sdaprofiles_profile_id')
+			->from('#__sdaprofiles_profiles')
+			->where('users_user_id='.$userId);
+		$dbo->setQuery($query);
+
+		return $dbo->loadResult();
 	}
 }

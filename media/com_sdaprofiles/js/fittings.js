@@ -17,7 +17,12 @@ function addFittingAjax() {
 					document.getElementById('sdaprofiles_input_length').value = "";
 					document.getElementById('sdaprofiles_input_width').value = "";
 					document.getElementById('fittingForm').hidden = true;
+					if (document.getElementById('formTask').value === "edit") {
+						document.getElementById('sdaprofiles_fitting_'+document.getElementById('sdaprofiles_fitting_id').value).remove();
+					}
 					document.getElementById('fitting_area').innerHTML = document.getElementById('fitting_area').innerHTML + html;
+					document.getElementById('formTask').value = '';
+					document.getElementById('sdaprofiles_fitting_id').value = "";
 				}
 				document.getElementById('sdaprofiles_fitting_add').hidden = false;
 			}
@@ -56,6 +61,13 @@ function deleteFittingAjax(id) {
 }
 
 function newEquipment() {
+	document.getElementById('sdaprofiles_input_type').value = "";
+	document.getElementById('sdaprofiles_input_detail').value = "";
+	document.getElementById('sdaprofiles_input_length').value = "";
+	document.getElementById('sdaprofiles_input_width').value = "";
+	document.getElementById('sdaprofiles_fitting_id').value = "";
+	$('[name="image"]').removeAttr('checked');
+	document.getElementById('formTask').value = 'new';
 	document.getElementById('fittingForm').hidden = false;
 }
 
@@ -74,10 +86,16 @@ function editFittingAjax(id) {
 			else
 			{
 				var equipment = JSON.parse(xhttp.response);
+				$('#sdaprofiles_input_type').val(equipment.type).change;
+				$("input:radio[name='image'][value='"+equipment.image+"']").attr('checked', 'checked');
+				document.getElementById('fitting_tent_image').hidden = !(parseInt(equipment.type) === 1);
+				document.getElementById('fitting_length').hidden = (parseInt(equipment.type) === 3);
+				document.getElementById('fitting_width').hidden = (parseInt(equipment.type) === 3);
 				document.getElementById('sdaprofiles_input_detail').value = equipment.detail;
 				document.getElementById('sdaprofiles_input_length').value = equipment.length;
 				document.getElementById('sdaprofiles_input_width').value = equipment.width;
 				document.getElementById('sdaprofiles_fitting_id').value = equipment.sdaprofiles_fitting_id;
+				document.getElementById('formTask').value = 'edit';
 				document.getElementById('fittingForm').hidden = false;
 			}
 		}
@@ -85,4 +103,10 @@ function editFittingAjax(id) {
 
 	xhttp.open("POST", "index.php?option=com_sdaprofiles&format=json&view=Fittings&task=read");
 	xhttp.send(formData);
+}
+
+function checkType(type) {
+	document.getElementById('fitting_tent_image').hidden = !(parseInt(type.value) === 1);
+	document.getElementById('fitting_length').hidden = (parseInt(type.value) === 3);
+	document.getElementById('fitting_width').hidden = (parseInt(type.value) === 3);
 }

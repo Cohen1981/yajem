@@ -72,7 +72,7 @@ if ($user->profile)
 			$id = $fitting->sdaprofiles_fitting_id;
 			echo "<input type=\"checkbox\" id=\"fitting" . $id . "\" name=\"fittings[]\" value=\"" . $id . "\" />";
 			echo "<label for='fitting" . $id . "'>" .
-				$fitting->type . " " .
+				$fitting->getTypeString() . " " .
 				$fitting->detail . " " .
 				$fitting->length . "x" .
 				$fitting->width .
