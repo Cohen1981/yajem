@@ -18,6 +18,7 @@ use Joomla\CMS\Language\Text;
 use Sda\Jem\Admin\Helper\RefererHelper;
 use Sda\Jem\Admin\Model\Mailing;
 use FOF30\Container\Container;
+use Sda\Profiles\Admin\Model\Fitting;
 
 /**
  * @package     Sda\Jem\Site\Controller
@@ -269,6 +270,43 @@ class Event extends DataController
 	 */
 	public function onAfterSave()
 	{
+		/** @var \Sda\Jem\Admin\Model\Event $event */
+		$event = $this->getModel();
+
+		if ((bool) $event->useFittings)
+		{
+			$inArray = false;
+
+			if ($event->attendees)
+			{
+				/** @var Attendee $attendee */
+				foreach ($event->attendees as $attendee)
+				{
+					$inArray = ($attendee->sdaprofiles_profile_id == $event->fittingProfile);
+				}
+			}
+
+			if($inArray == false)
+			{
+				/** @var Attendee $attendee */
+				$attendee = $this->container->factory->model('Attendee');
+				$attendee->sdaprofiles_profile_id = $event->fittingProfile;
+				$attendee->sdajem_event_id = $event->sdajem_event_id;
+				$attendee->status = 1;
+
+				$equipment = array();
+
+				/** @var Fitting $fitting */
+				foreach ($event->fProfile->fittings as $fitting)
+				{
+					array_push($equipment, $fitting->sdaprofiles_fitting_id);
+				}
+
+				$attendee->sdaprofilesFittingIds = $equipment;
+				$attendee->save();
+			}
+		}
+
 		$this->setRedirect(RefererHelper::getReferer());
 
 		// It is possible that we would be redirected to a Category add but we want to go to brose view after save

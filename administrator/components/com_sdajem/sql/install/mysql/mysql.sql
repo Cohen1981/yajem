@@ -40,7 +40,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_locations` (
 
 CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
   `sdajem_event_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Id of the Event',
-  sdajem_category_id INT UNSIGNED NOT NULL COMMENT 'Foreign key to com_categories',
+  `sdajem_category_id` INT UNSIGNED NOT NULL COMMENT 'Foreign key to com_categories',
   `title` VARCHAR(255) NOT NULL COMMENT 'The event title',
   `slug` VARCHAR(255) NOT NULL COMMENT 'Joomla standard: alias field',
   `description` MEDIUMTEXT NULL COMMENT 'Optional description of the event',
@@ -53,6 +53,8 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
   `endDateTime` DATETIME NULL COMMENT 'End date of the event',
   `allDayEvent` TINYINT(1) UNSIGNED NULL COMMENT 'Optional: Flag for all day event. 0=uses start and end time\n1=all day event.',
   `useRegistration` TINYINT(1) UNSIGNED NOT NULL DEFAULT 1 COMMENT 'Use regitration for this event. 1=true, 0=false',
+  `useFittings` TINYINT(1) UNSIGNED NULL DEFAULT 0,
+  `fittingProfile` int unsigned null,
   `registerUntil` DATE NULL COMMENT 'Date until a registration is allowed',
   `registrationLimit` INT NULL COMMENT 'Limit of available accommodations. 0=No Limit',
   `useWaitingList` TINYINT(1) NULL DEFAULT 0 COMMENT 'use of waiting List in case of limitation. 0=false, 1=true',
@@ -78,7 +80,8 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
 CREATE TABLE IF NOT EXISTS `#__sdajem_attendees` (
   `sdajem_attendee_id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
   `sdajem_event_id` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__yajame_events',
-  `users_user_id` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__users',
+  `users_user_id` INT UNSIGNED NULL COMMENT 'Foreign Key to #__users',
+  `sdaprofiles_profile_id` INT UNSIGNED NULL,
   `sdaprofilesFittingIds` varchar(255) DEFAULT NULL NULL,
   `status` TINYINT(1) NOT NULL DEFAULT 0 COMMENT 'Status: 0=no reply, 2=attending, 3=not attending',
   PRIMARY KEY (`sdajem_attendee_id`),

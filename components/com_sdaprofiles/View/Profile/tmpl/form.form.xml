@@ -7,6 +7,17 @@
            description="COM_SDAPROFILES_PROFILE_USERS_USER_ID_DESC"
            readonly="true"
     />
+    <field name="groupProfile"
+           type="Boolean"
+           default="0"
+           label="COM_SDAPROFILES_PROFILE_GROUPPROFILE_LABEL"
+           description="COM_SDAPROFILES_PROFILE_GROUPPROFILE_DESC"
+           onchange="showHideGroup()"
+    />
+    <field name="userName"
+           type="Text"
+           label="COM_SDAPROFILES_PROFILE_GROUPNAME_LABEL"
+           description="COM_SDAPROFILES_PROFILE_GROUPNAME_DESC" />
     <field name="avatar"
            type="Image"
            preview="true"

@@ -11,6 +11,7 @@ namespace Sda\Jem\Admin\Model;
 
 use FOF30\Container\Container;
 use FOF30\Model\DataModel;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Text;
 use Sda\Profiles\Site\Model\Fitting;
 
@@ -26,6 +27,7 @@ use Sda\Profiles\Site\Model\Fitting;
  * @property   int			$sdajem_attendee_id
  * @property   int			$sdajem_event_id
  * @property   int			$users_user_id
+ * @property   int          $sdaprofiles_profile_id
  * @property   int			$status
  * @property   array        $sdaprofilesFittingIds
  *
@@ -40,7 +42,7 @@ class Attendee extends DataModel
 	 * @var array
 	 * @since 0.0.1
 	 */
-	protected $fillable = array('status', 'sdajem_event_id', 'users_user_id');
+	protected $fillable = array('status', 'sdajem_event_id', 'users_user_id', 'sdaprofiles_profile_id');
 
 	/**
 	 * Attendee constructor.
@@ -52,9 +54,15 @@ class Attendee extends DataModel
 	 */
 	public function __construct(Container $container, array $config = array())
 	{
+		$config['behaviours'] = array('Filters');
 		parent::__construct($container, $config);
 		$this->belongsTo('event', 'Event');
 		$this->hasOne('user', 'User', 'users_user_id', 'id');
+
+		if (ComponentHelper::isEnabled('com_sdaprofiles'))
+		{
+			$this->hasOne('aProfile', 'Profile@com_sdaprofiles', 'sdaprofiles_profile_id', 'sdaprofiles_profile_id');
+		}
 	}
 
 	/**

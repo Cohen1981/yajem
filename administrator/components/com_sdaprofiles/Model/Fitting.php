@@ -26,7 +26,7 @@ use Joomla\CMS\Language\Text;
  * @property  int       $sdaprofiles_fitting_id
  * @property  int       $sdaprofiles_profile_id
  * @property  int       $type
- * @property  string    $image
+ * @property  int       $sdaprofiles_fittimg_image_id
  * @property  string    $detail
  * @property  int       $length
  * @property  int       $width
@@ -44,7 +44,8 @@ use Joomla\CMS\Language\Text;
  *
  * Relations:
  *
- * @property  Profile $profile
+ * @property  FittingImage  $image
+ * @property  Profile       $profile
  */
 class Fitting extends DataModel
 {
@@ -60,6 +61,8 @@ class Fitting extends DataModel
 		parent::__construct($container, $config);
 		$this->addBehaviour('Filters');
 		$this->belongsTo('profile', 'Profile');
+		$this->hasOne('image', 'FittingImage', 'sdaprofiles_fitting_image_id', 'sdaprofiles_fitting_image_id');
+		$this->hasOne('typeModel', 'FittingType', 'type', 'sdaprofiles_fitting_type_id');
 	}
 
 	/**

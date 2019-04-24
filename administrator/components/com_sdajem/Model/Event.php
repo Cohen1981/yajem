@@ -13,6 +13,8 @@ use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use FOF30\Date\Date;
 use FOF30\Utils\Collection;
+use Joomla\CMS\Component\ComponentHelper;
+use Sda\Profiles\Admin\Model\Profile;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -37,6 +39,8 @@ use FOF30\Utils\Collection;
  * @property   Date			$endDateTime
  * @property   int			$allDayEvent
  * @property   int			$useRegistration
+ * @property   int          $useFittings
+ * @property   int          $fittingProfile
  * @property   Date			$registerUntil
  * @property   int			$registrationLimit
  * @property   int			$useWaitingList
@@ -61,6 +65,7 @@ use FOF30\Utils\Collection;
  * @property  Collection    $comments
  * @property  Collection    $attendees
  * @property  Mailing       $subscriptions
+ * @property  Profile       $fProfile
  */
 class Event extends DataModel
 {
@@ -85,6 +90,11 @@ class Event extends DataModel
 		$this->hasMany('comments', 'Comment');
 		$this->hasMany('attendees', 'Attendee', 'sdajem_event_id', 'sdajem_event_id');
 		$this->hasMany('subscriptions', 'Mailing', 'sdajem_event_id', 'sdajem_event_id');
+
+		if (ComponentHelper::isEnabled('com_sdaprofiles'))
+		{
+			$this->hasOne('fProfile', 'Profile@com_sdaprofiles', 'fittingProfile', 'sdaprofiles_profile_id');
+		}
 	}
 
 	/**
@@ -100,7 +110,7 @@ class Event extends DataModel
 		$query = $db->getQuery(true);
 		$query->select('count(*)')
 			->from('#__sdajem_attendees')
-			->where(array('sdajem_event_id=' . $this->sdajem_event_id, 'status=1'));
+			->where(array('sdajem_event_id=' . $this->sdajem_event_id, 'status=1', 'sdaprofiles_profile_id is null'));
 		$db->setQuery($query);
 		$count = $db->loadResult();
 

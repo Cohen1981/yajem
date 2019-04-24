@@ -9,8 +9,8 @@
 
 			<!-- Use componentNamespace option to configure more unique namespaces, recommened to use something like CompanyName\ComponentName -->
 			<option name="componentNamespace"><![CDATA[Sda\Profiles]]></option>
-			<option name="scaffolding">0</option>
-			<option name="saveScaffolding">0</option>
+			<option name="scaffolding">1</option>
+			<option name="saveScaffolding">1</option>
 
 		</container>
 
@@ -68,6 +68,29 @@
 				<button type="apply" />
 				<button type="save" />
 				<button type="cancel" />
+			</toolbar>
+		</view>
+
+		<view name="FittingImages">
+			<config>
+				<option name="useConfigurationFile">1</option>
+				<option name="renderFrontendButtons">1</option>
+			</config>
+			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGIMAGES_BROWSE" task="browse">
+				<button type="new" />
+				<button type="edit" />
+				<button type="delete" />
+			</toolbar>
+		</view>
+		<view name="FittingTypes">
+			<config>
+				<option name="useConfigurationFile">1</option>
+				<option name="renderFrontendButtons">1</option>
+			</config>
+			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGTYPES_BROWSE" task="browse">
+				<button type="new" />
+				<button type="edit" />
+				<button type="delete" />
 			</toolbar>
 		</view>
 	</frontend>

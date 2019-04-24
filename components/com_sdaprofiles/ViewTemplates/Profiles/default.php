@@ -40,17 +40,18 @@ $items = $this->getItems();
 					?>
 				</div>
 				<div class="sdaprofiles_cell">
-					<?php if ($profile->user->id == Factory::getUser()->id) : ?>
+					<?php if ($profile->user->id == Factory::getUser()->id || ($profile->users_user_id == null && !Factory::getUser()->guest)) : ?>
 					<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=edit&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
-						<?php echo $profile->user->name; ?>
+						<?php echo $profile->userName; ?>
 					</a>
 					<?php else: ?>
 					<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=read&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
-						<?php echo $profile->user->name; ?>
+						<?php echo $profile->userName; ?>
 					</a>
 					<?php endif; ?>
 				</div>
 				<div class="sdaprofiles_cell">
+					<?php  if (!(bool) $profile->groupProfile) : ?>
 					<i class="fas fa-home" aria-hidden="true"></i>
 					<div class="float-right">
 					<?php
@@ -58,8 +59,10 @@ $items = $this->getItems();
 						echo $profile->postal . " " . $profile->city;
 					?>
 					</div>
+					<?php endif; ?>
 				</div>
 				<div class="sdaprofiles_cell">
+					<?php  if (!(bool) $profile->groupProfile) : ?>
 					<i class="fas fa-mobile-alt" aria-hidden="true"></i>
 					<div class="float-right">
 					<?php
@@ -67,8 +70,10 @@ $items = $this->getItems();
 						echo $profile->mobil;
 					?>
 					</div>
+					<?php endif; ?>
 				</div>
 				<div class="sdaprofiles_cell">
+					<?php if (!(bool) $profile->groupProfile) : ?>
 					<i class="fas fa-birthday-cake" aria-hidden="true"></i>
 					<div class="float-right">
 					<?php
@@ -76,6 +81,7 @@ $items = $this->getItems();
 						echo $date->format('d.m.Y');
 					?>
 					</div>
+					<?php endif; ?>
 				</div>
 			</div>
 		</div>

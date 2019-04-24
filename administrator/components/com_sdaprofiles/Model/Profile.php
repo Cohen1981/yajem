@@ -30,6 +30,7 @@ use Joomla\CMS\Factory;
  *
  * @property  int           $sdaprofiles_profile_id
  * @property  int           $users_user_id
+ * @property  int           $groupProfile
  * @property  string        $userName
  * @property  string        $avatar
  * @property  string        $address1
@@ -161,4 +162,5 @@ class Profile extends DataModel
 
 		return $dbo->loadResult();
 	}
+
 }

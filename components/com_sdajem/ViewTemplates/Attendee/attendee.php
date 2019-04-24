@@ -39,13 +39,26 @@ switch ($attendee->status)
 <div id="attendee<?php echo $attendee->sdajem_attendee_id; ?>" class="sdajem_profile_container">
 
 <!-- Are we using profiles -->
-<?php if ($attendee->user->profile) : ?>
+<?php if ($attendee->user->profile || $attendee->sdaprofiles_profile_id) : ?>
+
+	<?php
+	/** @var \Sda\Profiles\Site\Model\Profile $profile */
+	if ($attendee->user->profile)
+	{
+		$profile = $attendee->user->profile;
+	}
+	else
+	{
+		$profile = Container::getInstance('com_sdaprofiles')->factory->model('Profile');
+		$profile->load($attendee->sdaprofiles_profile_id);
+	}
+	?>
 
 	<div class="sdajem_avatar_container">
-		<img class="sdajem_avatar" src="<?php echo $attendee->user->profile->avatar; ?>" />
+		<img class="sdajem_avatar" src="<?php echo $profile->avatar; ?>" />
 	</div>
 	<div class="sdajem_profile_details">
-		<?php echo $attendee->user->profile->userName . "<br/>" . $status; ?>
+		<?php echo $profile->userName . "<br/>" . $status; ?>
 	</div>
 
 	<?php

@@ -61,7 +61,7 @@
 
     <field name="useRegistration"
            type="Boolean"
-           seleted="1"
+           default="1"
            onchange="showRegistrationFields()"
            label="COM_SDAJEM_EVENT_USEREGISTRATION_LABEL"
            description="COM_SDAJEM_EVENT_USEREGISTRATION_DESC"/>

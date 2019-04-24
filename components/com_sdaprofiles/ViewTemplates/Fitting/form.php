@@ -8,12 +8,26 @@
  */
 
 use Joomla\CMS\Language\Text;
+use FOF30\Container\Container;
+use Sda\Profiles\Admin\Model\FittingImage;
+use Sda\Profiles\Site\Model\FittingType;
 
 /** @var FOF30\View\DataView\Raw $this */
+/** @var FittingType type */
+/** @var FittingImage $image */
+/** @var FittingImage $fImageModel */
+/** @var FittingType $fTypeModel */
 
 $this->addCssFile('media://com_sdaprofiles/css/style.css');
+$this->addJavascriptFile('media://jui/js/jquery.min.js');
 $this->addJavascriptFile('media://com_sdaprofiles/js/fittings.js');
 $input = $this->input->getArray();
+
+$profile = $this->getModel();
+$fImageModel = $this->getContainer()->factory->model('FittingImage');
+$fTypeModel = $this->getContainer()->factory->model('FittingType');
+$fTypes = $fTypeModel->getItemsArray();
+
 ?>
 
 <form name="fittingForm" id="fittingForm" class="form-horizontal" hidden>
@@ -37,11 +51,15 @@ $input = $this->input->getArray();
 				<?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_LABEL') . "*"; ?>
 			</label>
 			<div class="controls">
-				<select id="sdaprofiles_input_type" name="type" required="required" onchange="checkType(this)">
-					<option id="0" value="0" ><?php echo Text::_('COM_SDAPROFIES_FITTING_TYPE_SELECT'); ?></option>
-					<option id="1" value="1"><?php echo Text::_('COM_SDAPROFIES_FITTING_TYPE_TENT'); ?></option>
-					<!-- <option id="2" value="2"><?php // echo Text::_('COM_SDAPROFIES_FITTING_TYPE_SUNSAIL'); ?></option> -->
-					<option id="3" value="3"><?php echo Text::_('COM_SDAPROFIES_FITTING_TYPE_MISC'); ?></option>
+				<select id="sdaprofiles_input_type" name="type" required="required" onchange="checkType()">
+					<?php
+					/** @var FittingType $type */
+					foreach ($fTypes as $type)
+					{
+						echo "<option id=\"$type->sdaprofiles_fitting_type_id\" 
+							value=\"$type->sdaprofiles_fitting_type_id\" >$type->title</option>";
+					}
+					?>
 				</select>
 				<span class="help-block">
 					<?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_DESC'); ?>
@@ -55,50 +73,35 @@ $input = $this->input->getArray();
 		       value="<?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_ERROR') ?>"
 		/>
 
-		<div id="fitting_tent_image" class="control-group" hidden>
+		<?php foreach ($fTypes as $type) : ?>
+		<input type="hidden" id="ft_<?php echo $type->sdaprofiles_fitting_type_id; ?>" name="fittingTypes" value="<?php echo $type->needSpace; ?>" />
+		<?php $images = $fImageModel->where('type', '=', (int) $type->sdaprofiles_fitting_type_id)->get(); ?>
+		<?php if (count($images) > 0) : ?>
+		<div id="fitting_images_<?php echo $type->sdaprofiles_fitting_type_id ?>" class="control-group">
 			<label class="control-label " for="sdaprofiles_input_image">
 				<?php echo Text::_('COM_SDAPROFILES_FITTING_IMAGE_LABEL'); ?>
 			</label>
 			<div class="controls">
 				<div id="chooseFittingImage" class="sdaprofiles_equipment_images">
-					<div class="sdaprofiles_equipment_cell">
-						<input type="radio" id="alexb" name="image" value="media/com_sdaprofiles/images/alexb.png">
-						<label for="alexb"><img src="media/com_sdaprofiles/images/alexb.png" class="img-label" /></label>
-					</div>
-					<div class="sdaprofiles_equipment_cell">
-						<input type="radio" id="alexe" name="image" value="media/com_sdaprofiles/images/AlexE.png">
-						<label for="alexe"><img src="media/com_sdaprofiles/images/AlexE.png" class="img-label" /></label>
-					</div>
-					<div class="sdaprofiles_equipment_cell">
-						<input type="radio" id="arne" name="image" value="media/com_sdaprofiles/images/Arne.png">
-						<label for="arne"><img src="media/com_sdaprofiles/images/Arne.png" class="img-label" /></label>
-					</div>
-					<div class="sdaprofiles_equipment_cell">
-						<input type="radio" id="kaig" name="image" value="media/com_sdaprofiles/images/kaiG.png">
-						<label for="kaig"><img src="media/com_sdaprofiles/images/kaiG.png" class="img-label" /></label>
-					</div>
-					<div class="sdaprofiles_equipment_cell">
-						<input type="radio" id="kerstin" name="image" value="media/com_sdaprofiles/images/Kerstin.png">
-						<label for="kerstin"><img src="media/com_sdaprofiles/images/Kerstin.png" class="img-label" /></label>
-					</div>
-					<div class="sdaprofiles_equipment_cell">
-						<input type="radio" id="soeren" name="image" value="media/com_sdaprofiles/images/Soeren.png">
-						<label for="soeren"><img src="media/com_sdaprofiles/images/Soeren.png" class="img-label" /></label>
-					</div>
-					<div class="sdaprofiles_equipment_cell">
-						<input type="radio" id="winnie" name="image" value="media/com_sdaprofiles/images/Winnie.png">
-						<label for="winnie"><img src="media/com_sdaprofiles/images/Winnie.png" class="img-label" /></label>
-					</div>
-					<div class="sdaprofiles_equipment_cell">
-						<input type="radio" id="sonnensegel" name="image" value="media/com_sdaprofiles/images/Sonnensegel.png">
-						<label for="sonnensegel"><img src="media/com_sdaprofiles/images/Sonnensegel.png" class="img-label" /></label>
-					</div>
+					<?php
+					foreach ($images as $image)
+					{
+						echo "<div class=\"sdaprofiles_equipment_cell\">";
+						echo "<input type=\"radio\" id=\"fi_$image->sdaprofiles_fitting_image_id\" 
+								name=\"image\" value=\"$image->sdaprofiles_fitting_image_id\">";
+						echo "<label for=\"fi_$image->sdaprofiles_fitting_image_id\">
+								<img src=\"$image->image\" class=\"img-label\" /></label>";
+						echo "</div>";
+					}
+					?>
 				</div>
 				<span class="help-block">
 					<?php echo Text::_('COM_SDAPROFILES_FITTING_IMAGE_DESC'); ?>
 				</span>
 			</div>
 		</div>
+		<?php endif; ?>
+		<?php endforeach; ?>
 
 		<div class="control-group ">
 			<label class="control-label " for="sdaprofiles_input_detail">

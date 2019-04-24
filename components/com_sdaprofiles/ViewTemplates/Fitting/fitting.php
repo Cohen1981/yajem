@@ -29,9 +29,10 @@ if ($fitting->sdaprofiles_fitting_id == '')
 <div id="sdaprofiles_fitting_<?php echo $fitting->sdaprofiles_fitting_id; ?>" class="control-group">
 	<label class="control-label">
 		<?php if ($fitting->image) : ?>
-			<img src="<?php echo $fitting->image ?>" class="image_smallest" />
+			<img src="<?php echo $fitting->image->image; ?>" class="image_smallest" />
 		<?php endif; ?>
-		<?php if ($fitting->sdaprofiles_profile_id == Profile::getProfileIdForUserId(Factory::getUser()->id)) : ?>
+		<?php if ($fitting->profile->users_user_id == Factory::getUser()->id  ||
+			($fitting->profile->users_user_id == null && !Factory::getUser()->guest)) : ?>
 		<button type="button" onclick="editFittingAjax(<?php echo $fitting->sdaprofiles_fitting_id; ?>)">
 			<i class="fas fa-edit" aria-hidden="true" title="<?php echo JText::_('COM_SDAPROFILES_ICON_EDIT') ?>"></i>
 		</button>

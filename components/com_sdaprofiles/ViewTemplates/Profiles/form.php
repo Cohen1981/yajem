@@ -15,6 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 /** @var \Sda\Profiles\Site\Model\Fitting       $fitting    */
 
 $this->addCssFile('media://com_sdaprofiles/css/style.css');
+$this->addJavascriptFile('media://jui/js/jquery.min.js');
 $this->addJavascriptFile('media://com_sdaprofiles/js/profile.js');
 $profile = $this->getItem();
 $params = ComponentHelper::getParams('com_sdaprofiles');

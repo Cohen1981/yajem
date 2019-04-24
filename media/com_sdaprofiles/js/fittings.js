@@ -38,7 +38,8 @@ function addFittingAjax() {
 }
 
 function deleteFittingAjax(id) {
-	var formData = new FormData();
+	var formElement = document.querySelector("#fittingForm");
+	var formData = new FormData(formElement);
 	formData.append('id', id);
 
 	var xhttp = new XMLHttpRequest();
@@ -88,9 +89,6 @@ function editFittingAjax(id) {
 				var equipment = JSON.parse(xhttp.response);
 				$('#sdaprofiles_input_type').val(equipment.type).change;
 				$("input:radio[name='image'][value='"+equipment.image+"']").attr('checked', 'checked');
-				document.getElementById('fitting_tent_image').hidden = !(parseInt(equipment.type) === 1);
-				document.getElementById('fitting_length').hidden = (parseInt(equipment.type) === 3);
-				document.getElementById('fitting_width').hidden = (parseInt(equipment.type) === 3);
 				document.getElementById('sdaprofiles_input_detail').value = equipment.detail;
 				document.getElementById('sdaprofiles_input_length').value = equipment.length;
 				document.getElementById('sdaprofiles_input_width').value = equipment.width;
@@ -105,8 +103,24 @@ function editFittingAjax(id) {
 	xhttp.send(formData);
 }
 
-function checkType(type) {
-	document.getElementById('fitting_tent_image').hidden = !(parseInt(type.value) === 1);
-	document.getElementById('fitting_length').hidden = (parseInt(type.value) === 3);
-	document.getElementById('fitting_width').hidden = (parseInt(type.value) === 3);
+function checkType() {
+	var id = 'ft_' + document.getElementById('sdaprofiles_input_type').value;
+	var needSpace = parseInt(document.getElementById(id).value);
+	$("[id^=fitting_images_]").hide();
+
+	var el = $('#fitting_images_'+document.getElementById('sdaprofiles_input_type').value);
+
+	if (el) {
+		if (needSpace === 1)
+			el.show();
+		else
+			el.hide();
+	}
+
+	document.getElementById('fitting_length').hidden = !(needSpace === 1);
+	document.getElementById('fitting_width').hidden = !(needSpace === 1);
 }
+
+$(function () {
+	checkType();
+});

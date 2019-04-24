@@ -65,7 +65,18 @@ class Profile extends AdminProfile
 	public function onBeforeSave()
 	{
 		parent::onBeforeSave();
-		$this->input->set('users_user_id', Factory::getUser()->id);
-		$this->input->set('userName', Factory::getUser()->username);
+
+		if (!(bool) $this->input->get('groupProfile', 0))
+		{
+			$this->input->set('users_user_id', Factory::getUser()->id);
+			$this->input->set('userName', Factory::getUser()->username);
+		}
+		else
+		{
+			$this->input->set('sdaprofiles_profile_id', null);
+			$this->input->set('users_user_id', null);
+			$this->input->set('userName', $this->input->get('userName'));
+		}
+
 	}
 }

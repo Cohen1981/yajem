@@ -2,8 +2,18 @@ $(
 	function () {
 		showRegistrationFields();
 		switchCalendar();
+		var form = document.getElementById('adminForm');
+		var uf = upTo(document.getElementById('useFittings'), 'control-group');
+		var fp = upTo(document.getElementById('fittingProfile'), 'control-group');
+
+		if (uf) {
+			upTo(document.getElementById('useFittings'), 'control-group').remove();
+			upTo(document.getElementById('fittingProfile'), 'control-group').remove();
+			form.appendChild(uf);
+			form.appendChild(fp);
+		}
 	}
-)
+);
 
 function switchCalendar() {
 	if (parseInt(document.getElementById('allDayEvent').value) === 1) {
@@ -27,14 +37,33 @@ function switchCalendar() {
 
 function showRegistrationFields() {
 	var reg = parseInt(document.getElementById('useRegistration').value);
+	var uf = document.getElementById('useFittings');
+	var fp = document.getElementById('fittingProfile');
 	if (reg === 0) {
 		upTo(document.getElementById('registerUntil'),'control-group').hidden = true;
 		upTo(document.getElementById('registrationLimit'),'control-group').hidden = true;
+
+		if (uf) {
+			upTo(uf,'control-group').hidden = true;
+		}
+
+		if (fp) {
+			upTo(fp,'control-group').hidden = true;
+		}
+
 		//upTo(document.getElementById('useWaitingList'),'control-group').hidden = true;
 	}
 	else {
 		upTo(document.getElementById('registerUntil'),'control-group').hidden = false;
 		upTo(document.getElementById('registrationLimit'),'control-group').hidden = false;
+		if (uf) {
+			upTo(uf,'control-group').hidden = false;
+		}
+
+		if (fp) {
+			upTo(fp,'control-group').hidden = false;
+		}
+
 		//upTo(document.getElementById('useWaitingList'),'control-group').hidden = false;
 	}
 }

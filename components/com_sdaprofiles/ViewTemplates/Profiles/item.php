@@ -49,7 +49,7 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 		</label>
 		<div class="controls">
 			<span>
-				<?php echo $profile->user->username; ?>
+				<?php echo $profile->username; ?>
 			</span>
 		</div>
 	</div>

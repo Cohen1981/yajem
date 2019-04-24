@@ -110,7 +110,7 @@ class Fitting extends DataController
 			/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
 			$fitting = Container::getInstance('com_sdaprofiles')->factory->model('fitting');
 
-			if ($input['sdaprofiles_profile_id'] == '')
+			if ($input['profileId'] == '')
 			{
 				/** @var \Sda\Profiles\Admin\Model\User $user */
 				$user = Container::getInstance('com_sdaprofiles')->factory->model('user');
@@ -119,15 +119,15 @@ class Fitting extends DataController
 			}
 			else
 			{
-				$fitting->sdaprofiles_profile_id = $input['sdaprofiles_profile_id'];
+				$fitting->sdaprofiles_profile_id = $input['profileId'];
 			}
 
-			$fitting->sdaprofiles_fitting_id = ($input['sdaprofiles_fitting_id'] != '') ? $input['sdaprofiles_fitting_id'] : null;
-			$fitting->type                   = $input['type'];
-			$fitting->detail                 = $input['detail'];
-			$fitting->length                 = $input['length'];
-			$fitting->width                  = $input['width'];
-			$fitting->image                  = $input['image'];
+			$fitting->sdaprofiles_fitting_id        = ($input['sdaprofiles_fitting_id'] != '') ? $input['sdaprofiles_fitting_id'] : null;
+			$fitting->type                          = $input['type'];
+			$fitting->detail                        = $input['detail'];
+			$fitting->length                        = $input['length'];
+			$fitting->width                         = $input['width'];
+			$fitting->sdaprofiles_fitting_image_id  = $input['image'];
 			$fitting->save();
 
 			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=fittingAjax&id=' . $fitting->sdaprofiles_fitting_id);

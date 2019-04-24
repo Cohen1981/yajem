@@ -66,8 +66,11 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 	<?php
 	foreach ($event->attendees as $attendee)
 	{
-		$this->setModel('Attendee', $attendee);
-		echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendee');
+		if ($attendee->users_user_id)
+		{
+			$this->setModel('Attendee', $attendee);
+			echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendee');
+		}
 	}
 	?>
 

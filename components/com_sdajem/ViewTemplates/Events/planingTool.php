@@ -80,10 +80,16 @@ $boxY = 30;
 
 						if ($fitting->type != 3)
 						{
+							if ($by + $fitting->width > $boxY)
+							{
+								$by = 0;
+								$bx = $wx + 1;
+							}
 							echo "<g>";
+
 							if ($fitting->image)
 							{
-								echo "<image xlink:href='" . $fitting->image . "' name='fitting' class='draggable confine' x='" .
+								echo "<image xlink:href='" . $fitting->image->image . "' name='fitting' class='draggable confine' x='" .
 									$bx . "' y='" . $by .
 									"' width='" . $fitting->length .
 									"' height='" . $fitting->width . "'/>";
@@ -110,11 +116,6 @@ $boxY = 30;
 
 							$wx = ($wx < $fitting->width) ? $fitting->width : $wx;
 							$by = $by + $fitting->width + 2;
-							if ($by > $boxY)
-							{
-								$by = 0;
-								$bx = $wx + 1;
-							}
 						}
 					}
 				}
