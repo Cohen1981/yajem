@@ -94,6 +94,13 @@ class Location extends DataModel
 		}
 	}
 
+	/**
+	 * @param   string $value The input value
+	 *
+	 * @return string | null
+	 *
+	 * @since 0.2.7
+	 */
 	protected function setLatlngAttribute($value)
 	{
 		return str_replace(" ", "", $value);

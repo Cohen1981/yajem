@@ -15,6 +15,7 @@ use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
 use Sda\Jem\Site\Model\Event;
+use Sda\Jem\Site\Model\Location;
 
 /**
  * @package     Sda\Jem\Site\Toolbar
@@ -57,6 +58,20 @@ class Toolbar extends BaseToolbar
 		{
 			ToolbarHelper::addNew();
 			ToolbarHelper::custom('addNewLocation', 'new', '', 'COM_SDAJEM_LOCATION_NEW', false);
+		}
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.2.8
+	 */
+	public function onLocationsBrowse()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_LOCATIONS_BROWSE'));
+		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
+		{
+			ToolbarHelper::addNew();
 		}
 	}
 
@@ -125,6 +140,16 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::cancel();
 
 		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_CATEGORY_NEW', false);
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.2.8
+	 */
+	public function onLocationsRead()
+	{
+		ToolbarHelper::back();
 	}
 
 	/**
