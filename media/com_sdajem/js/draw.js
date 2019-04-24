@@ -2,13 +2,15 @@
 function makeDraggable(evt) {
 	var svg = evt.target;
 
+	document.getElementById('toPng').addEventListener('click',saveSvg());
+
 	// Register drag event to all images
 	var images = $(".draggable");
 	for (var i = 0; i < images.length; i++)
 	{
 		images[i].addEventListener('click', evaluateDrag);
 		images[i].addEventListener('mousemove', drag);
-		//images[i].addEventListener('touchstart', startDrag);
+		images[i].addEventListener('touchstart', evaluateDrag);
 		images[i].addEventListener('touchmove', drag);
 		images[i].addEventListener('touchend', endDrag);
 		images[i].addEventListener('touchleave', endDrag);
@@ -145,5 +147,9 @@ function makeDraggable(evt) {
 
 	function endRotate(evt) {
 		selectedElement = false;
+	}
+
+	function saveSvg() {
+
 	}
 }

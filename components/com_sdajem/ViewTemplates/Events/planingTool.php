@@ -16,7 +16,7 @@ $event = $this->getModel('Event');
 $this->addCssFile('media://com_sdajem/css/style.css');
 $this->addJavascriptFile('media://com_sdajem/js/jquery-3.3.1.min.js');
 $this->addJavascriptFile('media://com_sdajem/js/draw.js');
-$boxX = 30;
+$boxX = 40;
 $boxY = 30;
 
 ?>
@@ -29,6 +29,7 @@ $boxY = 30;
 			</h2>
 		</div>
 		<div class="buttonsContainer">
+			<button id="toPng">save</button>
 		</div>
 	</div>
 
