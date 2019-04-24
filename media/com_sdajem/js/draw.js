@@ -96,15 +96,7 @@ function makeDraggable(evt) {
 			}
 
 			transform = transforms.getItem(0);
-			evt.preventDefault();
-			if (selectedElement.classList.contains('left'))
-			{
-				transform.setRotate(5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
-			}
-			else
-			{
-				transform.setRotate(-5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
-			}
+			rotate();
 		}
 	}
 
@@ -129,6 +121,20 @@ function makeDraggable(evt) {
 
 	function endDrag(evt) {
 		selectedElement = false;
+	}
+
+	function rotate() {
+		if (selectedElement) {
+			evt.preventDefault();
+			if (selectedElement.classList.contains('left'))
+			{
+				transform.setRotate(5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
+			}
+			else
+			{
+				transform.setRotate(-5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
+			}
+		}
 	}
 
 	function endRotate(evt) {
