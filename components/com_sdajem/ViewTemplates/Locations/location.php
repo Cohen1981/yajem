@@ -16,7 +16,16 @@ use Joomla\CMS\Component\ComponentHelper;
 
 $location = $this->getModel('Location');
 $this->addCssFile('media://com_sdajem/css/style.css');
-$lAddressString = urlencode($location->street) . "+" . urlencode($location->postalCode) . "+" . urlencode($location->city);
+
+if ($location->latlng)
+{
+	$lAddressString = urlencode($location->latlng);
+}
+else
+{
+	$lAddressString = urlencode($location->street) . "+" . urlencode($location->postalCode) . "+" . urlencode($location->city);
+}
+
 $currentUser = Factory::getUser();
 if (ComponentHelper::isEnabled('com_sdaprofiles') && !$currentUser->guest)
 {
@@ -83,6 +92,7 @@ if (ComponentHelper::isEnabled('com_sdaprofiles') && !$currentUser->guest)
 			<?php echo $location->street . "<br/>"; ?>
 			<?php echo $location->postalCode . " "; ?>
 			<?php echo $location->city; ?>
+			<?php if ($location->latlng) {echo "<br/><br/>" . $location->latlng; } ?>
 		</div>
 		<div class="sdajem_label">
 			<?php echo Text::_('COM_SDAJEM_LOCATION_DESCRIPTION_LABEL'); ?>

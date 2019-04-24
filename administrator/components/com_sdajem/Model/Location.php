@@ -92,7 +92,11 @@ class Location extends DataModel
 			}
 
 		}
+	}
 
+	protected function setLatlngAttribute($value)
+	{
+		return str_replace(" ", "", $value);
 	}
 
 	/**
