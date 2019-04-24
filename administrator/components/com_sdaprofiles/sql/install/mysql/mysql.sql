@@ -21,6 +21,7 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_profiles`
   `modified_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `locked_by` bigint(20) NOT NULL DEFAULT '0',
   `locked_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `access` int(10) null,
   PRIMARY KEY (`sdaprofiles_profile_id`)
 )
   ENGINE=InnoDB

@@ -49,7 +49,7 @@ echo $this->getRenderedForm();
 			<?php
 			/** @var Profile $profileModel */
 			$profileModel = Container::getInstance('com_sdaprofiles')->factory->model('Profile');
-			$profiles = $profileModel->where('users_user_id', '=', null)->get();
+			$profiles = $profileModel->where('groupProfile', '=', '1')->get();
 
 			if (count($profiles) > 0)
 			{

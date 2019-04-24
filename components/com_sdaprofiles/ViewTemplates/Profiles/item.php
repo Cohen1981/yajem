@@ -20,6 +20,10 @@ $profile = $this->getItem();
 $params = ComponentHelper::getParams('com_sdaprofiles');
 
 ?>
+<form id="adminForm" name="adminForm">
+	<input type="hidden" name="task" value=""/>
+	<input type="hidden" name="profileId" value="<?php echo $profile->sdaprofiles_profile_id; ?>"/>
+</form>
 
 <div class="sdaprofiles_tabs">
 	<label id="basic_switch_label" class="sdaprofile_tab sda_active" for="basic_switch">
@@ -28,9 +32,11 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 	<label id="fitting_switch_label" class="sdaprofile_tab" for="fitting_switch">
 		<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTING_BASIC') ?>
 	</label>
+	<?php if ($profile->users_user_id) : ?>
 	<label id="events_switch_label" class="sdaprofile_tab" for="events_switch">
 		<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL') ?>
 	</label>
+	<?php endif; ?>
 	<?php if ((bool) $params->get('use_preferences')) : ?>
 		<label id="preferences_switch_label" class="sdaprofile_tab" for="preferences_switch">
 			<?php echo Text::_('') ?>
@@ -49,7 +55,7 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 		</label>
 		<div class="controls">
 			<span>
-				<?php echo $profile->username; ?>
+				<?php echo $profile->userName; ?>
 			</span>
 		</div>
 	</div>
@@ -63,47 +69,49 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 			</span>
 		</div>
 	</div>
-	<div class="control-group ">
-		<label class="control-label">
-			<?php echo Text::_('COM_SDAPROFILES_PROFILE_ADDRESS_LABEL'); ?>
-		</label>
-		<div class="controls">
-			<span>
-				<?php
-				echo $profile->address1 . "<br/>";
-				echo $profile->address2 . "<br/>";
-				echo $profile->postal . " " . $profile->city;
-				?>
-			</span>
+	<?php if ($profile->users_user_id) : ?>
+		<div class="control-group ">
+			<label class="control-label">
+				<?php echo Text::_('COM_SDAPROFILES_PROFILE_ADDRESS_LABEL'); ?>
+			</label>
+			<div class="controls">
+				<span>
+					<?php
+					echo $profile->address1 . "<br/>";
+					echo $profile->address2 . "<br/>";
+					echo $profile->postal . " " . $profile->city;
+					?>
+				</span>
+			</div>
 		</div>
-	</div>
-	<div class="control-group ">
-		<label class="control-label">
-			<?php echo Text::_('COM_SDAPROFILES_PROFILE_CONTACT_LABEL'); ?>
-		</label>
-		<div class="controls">
-			<span>
-				<?php
-				echo $profile->phone . "<br/>";
-				echo $profile->mobil . "<br/>";
-				echo $profile->user->email;
-				?>
-			</span>
+		<div class="control-group ">
+			<label class="control-label">
+				<?php echo Text::_('COM_SDAPROFILES_PROFILE_CONTACT_LABEL'); ?>
+			</label>
+			<div class="controls">
+				<span>
+					<?php
+					echo $profile->phone . "<br/>";
+					echo $profile->mobil . "<br/>";
+					echo $profile->user->email;
+					?>
+				</span>
+			</div>
 		</div>
-	</div>
-	<div class="control-group ">
-		<label class="control-label">
-			<?php echo Text::_('COM_SDAPROFILES_PROFILE_DOB_LABEL'); ?>
-		</label>
-		<div class="controls">
-			<span>
-				<?php
-				$dob = new \FOF30\Date\Date($profile->dob);
-				echo $dob->format('d.m.Y');
-				?>
-			</span>
+		<div class="control-group ">
+			<label class="control-label">
+				<?php echo Text::_('COM_SDAPROFILES_PROFILE_DOB_LABEL'); ?>
+			</label>
+			<div class="controls">
+				<span>
+					<?php
+					$dob = new \FOF30\Date\Date($profile->dob);
+					echo $dob->format('d.m.Y');
+					?>
+				</span>
+			</div>
 		</div>
-	</div>
+	<?php endif; ?>
 
 </div>
 </div>
@@ -118,6 +126,7 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 </div>
 </div>
 
+<?php if ($profile->users_user_id) : ?>
 <div>
 	<input type="checkbox" id="events_switch" class="sdaprofiles_hidden" hidden onchange="switchCheckBox('events_switch')"/>
 	<div class="sdaprofiles_switchable">
@@ -136,3 +145,4 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 	?>
 	</div>
 </div>
+<?php endif; ?>

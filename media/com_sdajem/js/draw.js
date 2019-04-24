@@ -50,6 +50,8 @@ function makeDraggable(evt) {
 	function startDrag(evt) {
 		if (evt.target.classList.contains('draggable')) {
 			selectedElement = evt.target.parentNode;
+			svg.removeChild(selectedElement);
+			svg.insertBefore(selectedElement, svg.lastChild);
 			offset = getMousePosition(evt);
 
 			// Make sure the first transform on the element is a translate transform

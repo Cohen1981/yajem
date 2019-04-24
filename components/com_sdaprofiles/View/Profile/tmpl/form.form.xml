@@ -13,6 +13,7 @@
            label="COM_SDAPROFILES_PROFILE_GROUPPROFILE_LABEL"
            description="COM_SDAPROFILES_PROFILE_GROUPPROFILE_DESC"
            onchange="showHideGroup()"
+           readonly="true"
     />
     <field name="userName"
            type="Text"

@@ -45,6 +45,10 @@ $(function () {
 function showHideGroup() {
 	var bool = parseInt(document.getElementById('groupProfile').value) === 1;
 	upTo(document.getElementById('userName'), 'control-group').hidden = !bool;
+
+	// Delete following line if you want to set groupProfile manually
+	upTo(document.getElementById('groupProfile'), 'control-group').hidden = true;
+	upTo(document.getElementById('users_user_id'), 'control-group').hidden = bool;
 	upTo(document.getElementById('address1'), 'control-group').hidden = bool;
 	upTo(document.getElementById('address2'), 'control-group').hidden = bool;
 	upTo(document.getElementById('city'), 'control-group').hidden = bool;

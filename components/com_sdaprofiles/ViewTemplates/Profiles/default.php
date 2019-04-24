@@ -40,7 +40,7 @@ $items = $this->getItems();
 					?>
 				</div>
 				<div class="sdaprofiles_cell">
-					<?php if ($profile->user->id == Factory::getUser()->id || ($profile->users_user_id == null && !Factory::getUser()->guest)) : ?>
+					<?php if ($profile->user->id == Factory::getUser()->id) : ?>
 					<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=edit&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
 						<?php echo $profile->userName; ?>
 					</a>

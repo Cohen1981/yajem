@@ -36,6 +36,10 @@ class Toolbar extends BaseToolbar
 		{
 			ToolbarHelper::addNew();
 		}
+		if (Factory::getUser()->authorise('core.edit', 'groupprofile'))
+		{
+			ToolbarHelper::custom('newGroup', 'new', '', 'COM_SDAPROFILES_NEW_GROUPPROFILE', false);
+		}
 	}
 
 	/**
@@ -64,8 +68,6 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
-
-		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_CATEGORY_NEW', false);
 	}
 
 	/**
@@ -76,6 +78,11 @@ class Toolbar extends BaseToolbar
 	public function onProfilesRead()
 	{
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_PROFILES_READ'));
+
+		if (Factory::getUser()->authorise('core.edit', 'groupprofile'))
+		{
+			ToolbarHelper::custom('editGroup', 'edit', '', 'COM_SDAPROFILES_EDIT_PROFILE', false);
+		}
 
 		ToolbarHelper::back();
 	}
