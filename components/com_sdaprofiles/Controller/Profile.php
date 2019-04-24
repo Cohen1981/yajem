@@ -32,7 +32,7 @@ class Profile extends AdminProfile
 	 */
 	public function onBeforeAdd(bool $newGroup = false)
 	{
-		if (!$this->defaultsForAdd['groupProfile'] == 1)
+		if (!((int) $this->defaultsForAdd['groupProfile'] === 1))
 		{
 			$currentUser = Factory::getUser()->id;
 
@@ -72,7 +72,7 @@ class Profile extends AdminProfile
 	{
 		parent::onBeforeSave();
 
-		if (!(bool) $this->input->get('groupProfile', 0))
+		if (!(bool) $this->input->get('groupProfile'))
 		{
 			$this->input->set('users_user_id', Factory::getUser()->id);
 			$this->input->set('userName', Factory::getUser()->username);
@@ -80,7 +80,6 @@ class Profile extends AdminProfile
 		}
 		else
 		{
-			$this->input->set('sdaprofiles_profile_id', null);
 			$this->input->set('users_user_id', null);
 			$this->input->set('userName', $this->input->get('userName'));
 			$this->input->set('groupProfile', 1);
@@ -95,7 +94,10 @@ class Profile extends AdminProfile
 	 */
 	public function newGroup()
 	{
+		$this->defaultsForAdd['users_user_id'] = '';
 		$this->defaultsForAdd['groupProfile'] = 1;
+		$this->defaultsForAdd['mailOnNew'] = 0;
+		$this->defaultsForAdd['mailOnEdited'] = 0;
 		$this->execute('add');
 	}
 

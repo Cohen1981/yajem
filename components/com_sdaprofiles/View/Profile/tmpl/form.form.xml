@@ -9,7 +9,6 @@
     />
     <field name="groupProfile"
            type="Boolean"
-           default="0"
            label="COM_SDAPROFILES_PROFILE_GROUPPROFILE_LABEL"
            description="COM_SDAPROFILES_PROFILE_GROUPPROFILE_DESC"
            onchange="showHideGroup()"
