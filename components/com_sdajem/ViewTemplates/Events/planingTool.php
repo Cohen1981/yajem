@@ -33,6 +33,9 @@ $boxY = 30;
 	</div>
 
 	<p>
+		Element anklicken zum verschieben. Erneut klicken zum loslassen.
+	</p>
+	<p>
 		Rote und grüne Punkte klicken zum Rotieren um 5°.
 	</p>
 
@@ -85,7 +88,7 @@ $boxY = 30;
 								$by = 0;
 								$bx = $wx + 1;
 							}
-							echo "<g>";
+							echo "<g class='draggme'>";
 
 							if ($fitting->image)
 							{

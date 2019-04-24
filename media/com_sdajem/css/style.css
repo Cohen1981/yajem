@@ -217,11 +217,19 @@ label.sdajem_tab {
 svg {
 	border: #333333 solid 1px;
 }
-.draggable {
-	cursor: move;
+.draggme {
+	cursor: grab;
 }
-.rotate.right {
+.draggme.dragged {
 	cursor: grabbing;
+}
+
+.draggme.dragged image {
+	opacity: 0.6;
+}
+
+.rotate {
+	cursor: crosshair;
 }
 circle {
 	fill-opacity: 0.0;

@@ -6,11 +6,9 @@ function makeDraggable(evt) {
 	var images = $(".draggable");
 	for (var i = 0; i < images.length; i++)
 	{
-		images[i].addEventListener('mousedown', startDrag);
+		images[i].addEventListener('click', evaluateDrag);
 		images[i].addEventListener('mousemove', drag);
-		images[i].addEventListener('mouseup', endDrag);
-		images[i].addEventListener('mouseleave', endDrag);
-		images[i].addEventListener('touchstart', startDrag);
+		//images[i].addEventListener('touchstart', startDrag);
 		images[i].addEventListener('touchmove', drag);
 		images[i].addEventListener('touchend', endDrag);
 		images[i].addEventListener('touchleave', endDrag);
@@ -47,36 +45,44 @@ function makeDraggable(evt) {
 		};
 	}
 
-	function startDrag(evt) {
-		if (evt.target.classList.contains('draggable')) {
-			selectedElement = evt.target.parentNode;
-			svg.removeChild(selectedElement);
-			svg.insertBefore(selectedElement, svg.lastChild);
-			offset = getMousePosition(evt);
+	function evaluateDrag(evt) {
+		if (selectedElement) {
+			selectedElement.classList.remove('dragged');
+			selectedElement = false;
+		}
+		else {
+			if (evt.target.classList.contains('draggable')) {
+				selectedElement = evt.target.parentNode;
+				svg.removeChild(selectedElement);
+				svg.insertBefore(selectedElement, svg.lastChild);
+				offset = getMousePosition(evt);
+				selectedElement.classList.add('dragged');
 
-			// Make sure the first transform on the element is a translate transform
-			var transforms = selectedElement.transform.baseVal;
+				// Make sure the first transform on the element is a translate transform
+				var transforms = selectedElement.transform.baseVal;
 
-			if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
-				// Create an transform that translates by (0, 0)
-				var translate = svg.createSVGTransform();
-				translate.setTranslate(0, 0);
-				selectedElement.transform.baseVal.insertItemBefore(translate, 0);
+				if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
+					// Create an transform that translates by (0, 0)
+					var translate = svg.createSVGTransform();
+					translate.setTranslate(0, 0);
+					selectedElement.transform.baseVal.insertItemBefore(translate, 0);
+				}
+
+				// Get initial translation
+				transform = transforms.getItem(0);
+				offset.x -= transform.matrix.e;
+				offset.y -= transform.matrix.f;
+
+				confined = evt.target.classList.contains('confine');
+				if (confined) {
+					bbox = selectedElement.getBBox();
+					minX = boundaryX1 - bbox.x;
+					maxX = boundaryX2 - bbox.x - bbox.width;
+					minY = boundaryY1 - bbox.y;
+					maxY = boundaryY2 - bbox.y - bbox.height;
+				}
 			}
-
-			// Get initial translation
-			transform = transforms.getItem(0);
-			offset.x -= transform.matrix.e;
-			offset.y -= transform.matrix.f;
-
-			confined = evt.target.classList.contains('confine');
-			if (confined) {
-				bbox = selectedElement.getBBox();
-				minX = boundaryX1 - bbox.x;
-				maxX = boundaryX2 - bbox.x - bbox.width;
-				minY = boundaryY1 - bbox.y;
-				maxY = boundaryY2 - bbox.y - bbox.height;
-			}
+			drag(evt);
 		}
 	}
 
