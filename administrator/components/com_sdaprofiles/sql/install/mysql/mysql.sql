@@ -52,6 +52,7 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fitting_images`
 (
   `sdaprofiles_fitting_image_id` int unsigned auto_increment comment 'Primary Key',
   `image` varchar(255) null,
+  `description` VARCHAR(1024) null,
   `type`  int unsigned null,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` bigint(20) NOT NULL DEFAULT '0',

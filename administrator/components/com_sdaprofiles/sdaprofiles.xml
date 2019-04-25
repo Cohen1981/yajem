@@ -9,9 +9,8 @@
 	<version>0.1.5</version>
 	<description>COM_SDAPROFILES_XML_DESCRIPTION</description>
 
-	<!-- Scripts to run on installation
+	<!-- Scripts to run on installation -->
 	<scriptfile>script.php</scriptfile>
-	-->
 
 	<!-- Runs on install -->
 	<install>

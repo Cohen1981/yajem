@@ -85,7 +85,7 @@ class Toolbar extends BaseToolbar
 	{
 		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_EVENTS_ADD'));
 
-		ToolbarHelper::apply();
+		// ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 
@@ -102,7 +102,7 @@ class Toolbar extends BaseToolbar
 	{
 		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_EVENTS_EDIT'));
 
-		ToolbarHelper::apply();
+		// ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 
@@ -121,7 +121,7 @@ class Toolbar extends BaseToolbar
 		$this->renderFrontendButtons = true;
 		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_LOCATIONS_ADD'));
 
-		ToolbarHelper::apply();
+		// ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 
@@ -138,7 +138,7 @@ class Toolbar extends BaseToolbar
 		$this->renderFrontendButtons = true;
 		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_LOCATIONS_EDIT'));
 
-		ToolbarHelper::apply();
+		// ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 
@@ -164,7 +164,7 @@ class Toolbar extends BaseToolbar
 	{
 		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_CATEGORY_ADD'));
 
-		ToolbarHelper::apply();
+		// ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 	}

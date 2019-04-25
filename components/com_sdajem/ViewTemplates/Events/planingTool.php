@@ -29,8 +29,9 @@ $boxY = 30;
 			</h2>
 		</div>
 		<div class="buttonsContainer">
-			<!-- TODO save SVG
-			<button id="toPng">save</button>
+			<!--
+			<button id="toSvg"><?php //echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
+			<button id="toPng"><?php //echo Text::_('COM_SDAJEM_TO_PNG') ?></button>
 			-->
 		</div>
 	</div>
@@ -42,7 +43,8 @@ $boxY = 30;
 		Rote und grüne Punkte klicken zum Rotieren um 5°.
 	</p>
 
-	<svg xmlns="http://www.w3.org/2000/svg"
+	<svg id="main_svg"
+	     xmlns="http://www.w3.org/2000/svg"
 	     viewBox="0 0 <?php echo $boxX . " " . $boxY; ?>"
 	     onload="makeDraggable(evt)">
 

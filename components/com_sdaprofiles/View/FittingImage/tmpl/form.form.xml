@@ -9,7 +9,18 @@
            label="COM_SDAPROFILES_FITTING_TYPE_LABEL"
            description="COM_SDAPROFILES_FITTING_TYPE_DESC">
     </field>
-    <field name="image" type="Media" label="COM_SDAPROFILES_FITTINGIMAGE_IMAGE_LABEL" description="COM_SDAPROFILES_FITTINGIMAGE_IMAGE_DESC"/>
+    <field name="description"
+           type="text"
+           label="COM_SDAPROFILES_FITTINGIMAGE_DESC_LABEL"
+           description="COM_SDAPROFILES_FITTINGIMAGE_DESC_DESC"
+           />
+    <field  name="image"
+            type="Media"
+            directory="Ausruestung/"
+            label="COM_SDAPROFILES_FITTINGIMAGE_IMAGE_LABEL"
+            description="COM_SDAPROFILES_FITTINGIMAGE_IMAGE_DESC"
+            preview="true"
+    />
     <field name="enabled" type="Published" label="COM_SDAPROFILES_FITTINGIMAGE_ENABLED_LABEL" description="COM_SDAPROFILES_FITTINGIMAGE_ENABLED_DESC"/>
   </fieldset>
 </form>

@@ -52,7 +52,7 @@ class Toolbar extends BaseToolbar
 	{
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_PROFILES_EDIT'));
 
-		ToolbarHelper::apply();
+		// ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 	}
@@ -66,7 +66,7 @@ class Toolbar extends BaseToolbar
 	{
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_PROFILES_EDIT'));
 
-		ToolbarHelper::apply();
+		// ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 	}
@@ -117,7 +117,7 @@ class Toolbar extends BaseToolbar
 	public function onFittingTypesAdd()
 	{
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGTYPES_EDIT'));
-		ToolbarHelper::apply();
+		// ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::save2new();
 		ToolbarHelper::cancel();
@@ -131,7 +131,7 @@ class Toolbar extends BaseToolbar
 	public function onFittingTypesEdit()
 	{
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGTYPES_EDIT'));
-		ToolbarHelper::apply();
+		// ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::save2new();
 		ToolbarHelper::cancel();

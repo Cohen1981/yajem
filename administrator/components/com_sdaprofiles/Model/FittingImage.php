@@ -22,6 +22,7 @@ use FOF30\Model\DataModel;
  * Fields:
  *
  * @property  int       $sdaprofiles_fitting_image_id
+ * @property  string    $description
  * @property  string    $image
  *
  * Relations:

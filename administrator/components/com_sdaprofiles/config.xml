@@ -9,7 +9,7 @@
 		       label="COM_SDAPROFILES_ATTENDINGS_LABEL"
 		       description="COM_SDAPROFILES_ATTENDINGS_DESC"
 		       class="btn-group btn-group-yesno"
-		       default="1"
+		       default="0"
 		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
@@ -19,7 +19,7 @@
 		       label="COM_SDAPROFILES_ORGANIZING_LABEL"
 		       description="COM_SDAPROFILES_ORGANIZING_DESC"
 		       class="btn-group btn-group-yesno"
-		       default="1"
+		       default="0"
 		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>

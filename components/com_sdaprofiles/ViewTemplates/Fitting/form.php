@@ -90,7 +90,7 @@ $fTypes = $fTypeModel->getItemsArray();
 						echo "<input type=\"radio\" id=\"fi_$image->sdaprofiles_fitting_image_id\" 
 								name=\"image\" value=\"$image->sdaprofiles_fitting_image_id\">";
 						echo "<label for=\"fi_$image->sdaprofiles_fitting_image_id\">
-								<img src=\"$image->image\" class=\"img-label\" /></label>";
+								$image->description <img src=\"$image->image\" class=\"img-label\" /></label>";
 						echo "</div>";
 					}
 					?>

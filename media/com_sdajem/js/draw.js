@@ -1,8 +1,9 @@
 // EventListener hinzufügen
 function makeDraggable(evt) {
-	var svg = evt.target;
+	var svg = document.getElementById('main_svg'); // evt.target;
 
-	document.getElementById('toPng').addEventListener('click',saveSvg());
+	// document.getElementById('toSvg').addEventListener('click', exportSVG);
+	// document.getElementById('toPng').addEventListener('click', downloadSvg);
 
 	// Register drag event to all images
 	var images = $(".draggable");
@@ -149,7 +150,21 @@ function makeDraggable(evt) {
 		selectedElement = false;
 	}
 
-	function saveSvg() {
+	function generateLink(fileName, data) {
+		var link = document.createElement('a'); // Create a element.
+		link.download = fileName; // Set value as the file name of download file.
+		link.href = data; // Set value as the file content of download file.
+		return link;
+	}
 
+	function exportSVG() {
+		var svgString;
+		if (window.ActiveXObject) {
+			svgString = svg.xml;
+		} else {
+			var oSerializer = new XMLSerializer();
+			svgString = oSerializer.serializeToString(svg);
+		}
+		generateLink('planing.svg', 'data:image/svg+xml;utf8,' + svgString).click();
 	}
 }
