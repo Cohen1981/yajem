@@ -40,9 +40,13 @@
 
         <!-- Copy com_sdajem to build for packaging -->
         <copy todir="${jem.build.dir}/administrator/components/com_sdajem" overwrite="true">
-            <fileset dir="${jem.admin.src.dir}" includes="**/**" excludes="sdajem.xml"/>
+            <fileset dir="${jem.admin.src.dir}" includes="**/**">
+                <exclude name="sdajem.xml" />
+                <exclude name="script.php" />
+            </fileset>
         </copy>
         <copy file="${jem.admin.src.dir}/sdajem.xml" todir="${jem.build.dir}" overwrite="true" />
+        <copy file="${jem.admin.src.dir}/script.php" todir="${jem.build.dir}" overwrite="true" />
         <copy todir="${jem.build.dir}/components/com_sdajem" overwrite="true">
             <fileset dir="${jem.site.src.dir}" includes="**/**" />
         </copy>

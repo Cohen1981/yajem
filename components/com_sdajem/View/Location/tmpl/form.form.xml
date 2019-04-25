@@ -28,6 +28,9 @@
            none="COM_SDAJEM_NONE_SELECTED"
            label="COM_SDAJEM_LOCATION_CONTACTID_LABEL"
            description="COM_SDAJEM_LOCATION_CONTACTID_DESC"/>
-    <field name="image" type="Media" label="COM_SDAJEM_LOCATION_IMAGE_LABEL" description="COM_SDAJEM_LOCATION_IMAGE_DESC"/>
+    <field name="image"
+           type="Media"
+           directory="sdajem/locations"
+           label="COM_SDAJEM_LOCATION_IMAGE_LABEL" description="COM_SDAJEM_LOCATION_IMAGE_DESC"/>
   </fieldset>
 </form>

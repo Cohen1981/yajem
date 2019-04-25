@@ -40,7 +40,10 @@
 
         <!-- Copy com_sdaprofiles to build for packaging -->
         <copy todir="${profiles.build.dir}/administrator/components/com_sdaprofiles" overwrite="true">
-            <fileset dir="${profiles.admin.src.dir}" includes="**/**" excludes="sdaprofiles.xml, script.php"/>
+            <fileset dir="${profiles.admin.src.dir}" includes="**/**">
+                <exclude name="sdaprofiles.xml" />
+                <exclude name="script.php" />
+            </fileset>
         </copy>
         <copy file="${profiles.admin.src.dir}/sdaprofiles.xml" todir="${profiles.build.dir}" overwrite="true" />
         <copy file="${profiles.admin.src.dir}/script.php" todir="${profiles.build.dir}" overwrite="true" />

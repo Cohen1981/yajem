@@ -8,7 +8,7 @@ defined('_JEXEC') or die('Restricted access');
  *
  * @since       0.1.5
  */
-class com_SdaprofilesInstallerScript
+class com_SdajemInstallerScript
 {
 	/**
 	 * This method is called after a component is installed.
@@ -88,26 +88,31 @@ class com_SdaprofilesInstallerScript
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
 			$query->update($db->quoteName('#__extensions'));
-			$defaults = '{"show_attendings_all":"0","show_organizing_all":"0"}';
+			$defaults = '{"use_sdacontacts":"1","usePlaningTool":"1"}';
 			$query->set($db->quoteName('params') . ' = ' . $db->quote($defaults));
-			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_sdaprofiles'));
+			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_sdajem'));
 			$db->setQuery($query);
 			$db->execute();
 		}
 
-		if (! JFolder::exists(JPATH_ROOT . '/images/Ausruestung'))
+		if (! JFolder::exists(JPATH_ROOT . '/images/sdajem'))
 		{
-			JFolder::create(JPATH_ROOT . '/images/Ausruestung', $mode = 0755);
+			JFolder::create(JPATH_ROOT . '/images/sdajem', $mode = 0755);
 		}
 
-		if (! JFolder::exists(JPATH_ROOT . '/images/Avatare'))
+		if (! JFolder::exists(JPATH_ROOT . '/images/sdajem/locations'))
 		{
-			JFolder::create(JPATH_ROOT . '/images/Avatare', $mode = 0755);
+			JFolder::create(JPATH_ROOT . '/images/sdajem/locations', $mode = 0755);
+		}
+
+		if (! JFolder::exists(JPATH_ROOT . '/images/sdajem/events'))
+		{
+			JFolder::create(JPATH_ROOT . '/images/sdajem/events', $mode = 0755);
 		}
 
 		if ($type == 'update')
 		{
-			echo '<p>' . JText::_('COM_SDAPROFILES_UPDATE_TEXT') . $parent->get('manifest')->version . '</p>';
+			echo '<p>' . JText::_('COM_SDAJEM_UPDATE_TEXT') . $parent->get('manifest')->version . '</p>';
 		}
 	}
 }

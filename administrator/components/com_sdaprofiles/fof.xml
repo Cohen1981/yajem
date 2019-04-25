@@ -60,12 +60,10 @@
 				<button type="back" />
 			</toolbar>
 			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_EDIT" task="edit">
-				<button type="apply" />
 				<button type="save" />
 				<button type="cancel" />
 			</toolbar>
 			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_EDIT" task="add">
-				<button type="apply" />
 				<button type="save" />
 				<button type="cancel" />
 			</toolbar>
@@ -76,11 +74,6 @@
 				<option name="useConfigurationFile">1</option>
 				<option name="renderFrontendButtons">1</option>
 			</config>
-			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGIMAGES_BROWSE" task="browse">
-				<button type="new" />
-				<button type="edit" />
-				<button type="delete" />
-			</toolbar>
 		</view>
 		<view name="FittingTypes">
 			<config>
