@@ -47,9 +47,7 @@ echo $this->getRenderedForm();
 		<select name="fittingProfile" id="fittingProfile">
 			<option value="" selected="selected"><?php echo Text::_('COM_SDAJEM_NONE_SELECTED'); ?></option>
 			<?php
-			/** @var Profile $profileModel */
-			$profileModel = Container::getInstance('com_sdaprofiles')->factory->model('Profile');
-			$profiles = $profileModel->where('groupProfile', '=', '1')->get();
+			$profiles = Profile::getGroupProfiles();
 
 			if (count($profiles) > 0)
 			{

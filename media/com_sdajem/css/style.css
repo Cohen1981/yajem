@@ -168,6 +168,7 @@ input[type=checkbox]:checked ~ .sdajem_switchable {
 	display: block;
 	overflow: auto;
 	border: solid black 1px;
+	border-radius: 0px 5px 5px 5px;
 	padding: 10px;
 }
 .sdajem_switchable {
@@ -229,23 +230,12 @@ svg {
 .rotate {
 	cursor: crosshair;
 }
-circle {
-	fill-opacity: 0.0;
-}
 svg g:hover circle {
 	fill-opacity: 1;
-}
-line.background {
-	stroke: blue;
-	stroke-width: 0.1;
-	stroke-opacity: 0.1;
 }
 rect {
 	fill: green;
 	fill-opacity: 0.5;
-}
-svg g text {
-	opacity: 0.0;
 }
 svg g:hover text {
 	opacity: 1.0;

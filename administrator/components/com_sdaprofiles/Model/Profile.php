@@ -163,4 +163,21 @@ class Profile extends DataModel
 		return $dbo->loadResult();
 	}
 
+	/**
+	 * @return array
+	 *
+	 * @since 0.1.7
+	 */
+	public static function getGroupProfiles()
+	{
+		$dbo = Factory::getDbo();
+		$query = $dbo->getQuery(true);
+		$query->select('*')
+			->from('#__sdaprofiles_profiles')
+			->where('groupProfile=1');
+		$dbo->setQuery($query);
+
+		return $dbo->loadObjectList();
+	}
+
 }

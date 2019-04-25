@@ -168,4 +168,17 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::save2new();
 		ToolbarHelper::cancel();
 	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.1.7
+	 */
+	public function onFittingImagesAdd()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGIMAGES_ADD'));
+		ToolbarHelper::save();
+		ToolbarHelper::save2new();
+		ToolbarHelper::cancel();
+	}
 }

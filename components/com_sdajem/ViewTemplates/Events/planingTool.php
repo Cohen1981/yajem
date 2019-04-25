@@ -29,10 +29,8 @@ $boxY = 30;
 			</h2>
 		</div>
 		<div class="buttonsContainer">
-			<!--
-			<button id="toSvg"><?php //echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
-			<button id="toPng"><?php //echo Text::_('COM_SDAJEM_TO_PNG') ?></button>
-			-->
+			<button id="toSvg"><?php echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
+			<button id="toPng"><?php echo Text::_('COM_SDAJEM_TO_PNG') ?></button>
 		</div>
 	</div>
 
@@ -46,22 +44,23 @@ $boxY = 30;
 	<svg id="main_svg"
 	     xmlns="http://www.w3.org/2000/svg"
 	     viewBox="0 0 <?php echo $boxX . " " . $boxY; ?>"
-	     onload="makeDraggable(evt)">
+	     onload="makeDraggable(evt)"
+		 fill="white">
 
 		<?php
 		// Set up draw area
 		for ($runX = 0; $runX <= $boxX; $runX++)
 		{
-			echo "<line class='background' x1=\"$runX\" y1=\"0\" x2=\"$runX\" y2=\"$boxY\" />";
+			echo "<line x1=\"$runX\" y1=\"0\" x2=\"$runX\" y2=\"$boxY\" stroke='blue' stroke-width='0.1' stroke-opacity='0.1' />";
 			echo "<line x1=\"$runX\" y1=\"0\" x2=\"$runX\" y2=\"1\" stroke='black' stroke-width='0.1' />";
-			echo "<text x='" . ($runX + 0.2) ."' y=\"0.8\" style='font-size:0.4pt;'>" . ($runX+1) . "</text>";
+			echo "<text x='" . ($runX + 0.2) ."' y=\"0.8\" style='font-size:0.4pt; fill:black'>" . ($runX+1) . "</text>";
 		}
 
 		for ($runY = 0; $runY <= $boxY; $runY++)
 		{
-			echo "<line class='background' x1=\"0\" y1=\"$runY\" x2=\"$boxX\" y2=\"$runY\" />";
+			echo "<line x1=\"0\" y1=\"$runY\" x2=\"$boxX\" y2=\"$runY\" stroke='blue' stroke-width='0.1' stroke-opacity='0.1' />";
 			echo "<line x1=\"0\" y1=\"$runY\" x2=\"1\" y2=\"$runY\" stroke='black' stroke-width='0.1' />";
-			echo "<text x='0.2' y='" . ($runY+0.8) . "' style='font-size:0.4pt;'>" . ($runY+1) . "</text>";
+			echo "<text x='0.2' y='" . ($runY+0.8) . "' style='font-size:0.4pt; fill:black'>" . ($runY+1) . "</text>";
 		}
 
 		// Do we have Attendees
@@ -97,7 +96,7 @@ $boxY = 30;
 
 							if ($fitting->image)
 							{
-								echo "<image xlink:href='" . $fitting->image->image . "' name='fitting' class='draggable confine' x='" .
+								echo "<image xlink:href='" . $fitting->image->getDataURI() . "' name='fitting' class='draggable confine' x='" .
 									$bx . "' y='" . $by .
 									"' width='" . $fitting->length .
 									"' height='" . $fitting->width . "'/>";
@@ -113,11 +112,11 @@ $boxY = 30;
 								($fitting->length / 2 + $bx - 1 ) .
 								"' y='" .
 								($fitting->width + 1 + $by) .
-								"' style='font-size:0.6pt;'>" . $attendee->user->username . "</text>";
-							echo "<circle name='handle' class='rotate left handle' fill='red' cx='" .
+								"' style='font-size:0.6pt;' opacity='0.0'>" . $attendee->user->username . "</text>";
+							echo "<circle name='handle' class='rotate left handle' fill-opacity='0.0' fill='red' cx='" .
 								($fitting->length / 2 + $bx - 1) . "' cy='" . ($fitting->width + 2 + $by) .
 								"' r='0.5'/>";
-							echo "<circle name='handle' class='rotate right handle' fill='green' cx='" .
+							echo "<circle name='handle' class='rotate right handle' fill-opacity='0.0' fill='green' cx='" .
 								($fitting->length / 2 + $bx + 1) . "' cy='" . ($fitting->width + 2 + $by) .
 								"' r='0.5'/>";
 							echo "</g>";

@@ -48,4 +48,48 @@ class FittingImage extends DataModel
 		$this->belongsTo('fitting', 'Fitting', 'sdaprofiles_fitting_image_id', 'sdaprofiles_fitting_image_id');
 		$this->hasOne('type', 'FittingType', 'type', 'sdaprofiles_fitting_type_id');
 	}
+
+	/**
+	 * Enforcing Data sanity
+	 *
+	 * @return void
+	 *
+	 * @since 0.1.7
+	 */
+	protected function onBeforeDelete()
+	{
+		/** @var Fitting $fittingModel */
+		$fittingModel = $this->container->factory->model('Fitting');
+		$fittings = $fittingModel->getItemsArray();
+
+		/** @var Fitting $fitting */
+		foreach ($fittings as $fitting)
+		{
+			if ((int) $fitting->sdaprofiles_fitting_image_id === (int) $this->sdaprofiles_fitting_image_id)
+			{
+				$fitting->forceDelete();
+			}
+		}
+	}
+
+	/**
+	 * @param   string $mime Optional set the needed MIME-TYPE
+	 *
+	 * @return string
+	 *
+	 * @since 0.1.7
+	 */
+	public function getDataURI($mime = '')
+	{
+		// A few settings
+		$image = $this->image;
+
+		// Read image path, convert to base64 encoding
+		$imageData = base64_encode(file_get_contents($image));
+
+		// Format the image SRC:  data:{mime};base64,{data};
+		$src = 'data: ' . mime_content_type($image) . ';base64,' . $imageData;
+
+		return $src;
+	}
 }

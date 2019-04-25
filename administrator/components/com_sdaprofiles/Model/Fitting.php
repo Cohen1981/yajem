@@ -26,7 +26,7 @@ use Joomla\CMS\Language\Text;
  * @property  int       $sdaprofiles_fitting_id
  * @property  int       $sdaprofiles_profile_id
  * @property  int       $type
- * @property  int       $sdaprofiles_fittimg_image_id
+ * @property  int       $sdaprofiles_fitting_image_id
  * @property  string    $detail
  * @property  int       $length
  * @property  int       $width

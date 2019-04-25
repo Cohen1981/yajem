@@ -83,6 +83,7 @@ class Profile extends AdminProfile
 			$this->input->set('users_user_id', null);
 			$this->input->set('userName', $this->input->get('userName'));
 			$this->input->set('groupProfile', 1);
+			$this->input->set('dob', null);
 		}
 
 	}
