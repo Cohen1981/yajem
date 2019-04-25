@@ -56,10 +56,22 @@ $task = $this->input->get('task');
 		<div class="sdaprofiles_switchable">
 
 			<?php
+			try
+			{
 				echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/fittings');
+			}
+			catch (Exception $e)
+			{
+			}
 			?>
 			<?php
+			try
+			{
 				echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/form');
+			}
+			catch (Exception $e)
+			{
+			}
 			?>
 
 		</div>
@@ -71,14 +83,26 @@ $task = $this->input->get('task');
 			<?php
 			if ($profile->attendees)
 			{
-				echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendings');
+				try
+				{
+					echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendings');
+				}
+				catch (Exception $e)
+				{
+				}
 			}
 			?>
 
 			<?php
 			if ($profile->organizing)
 			{
-				echo $this->loadAnyTemplate('site:com_sdajem/Events/organized');
+				try
+				{
+					echo $this->loadAnyTemplate('site:com_sdajem/Events/organized');
+				}
+				catch (Exception $e)
+				{
+				}
 			}
 			?>
 		</div>
@@ -88,7 +112,15 @@ $task = $this->input->get('task');
 		<div>
 			<input type="checkbox" id="preferences_switch" class="sdaprofiles_hidden" hidden onchange="switchCheckBox('preferences_switch')"/>
 			<div class="sdaprofiles_switchable">
-				<?php echo $this->loadAnyTemplate('site:com_sdaprofiles/Profiles/preferences'); ?>
+				<?php
+				try
+				{
+					echo $this->loadAnyTemplate('site:com_sdaprofiles/Profiles/preferences');
+				}
+				catch (Exception $e)
+				{
+				}
+				?>
 			</div>
 		</div>
 	<?php endif; ?>

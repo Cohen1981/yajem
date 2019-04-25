@@ -307,6 +307,8 @@ class Event extends DataController
 			}
 		}
 
+		$this->clearEventState();
+
 		$this->setRedirect(RefererHelper::getReferer());
 
 		// It is possible that we would be redirected to a Category add but we want to go to brose view after save
@@ -320,6 +322,8 @@ class Event extends DataController
 	 */
 	public function onBeforeCancel()
 	{
+		$this->clearEventState();
+
 		$this->setRedirect(RefererHelper::getReferer());
 	}
 
@@ -396,6 +400,29 @@ class Event extends DataController
 	public function save()
 	{
 		parent::save();
+	}
+
+	/**
+	 * Clear the saved event Data in the userState
+	 *
+	 * @return void
+	 *
+	 * @since 0.2.9
+	 */
+	private function clearEventState()
+	{
+		try
+		{
+			$eventState = Factory::getApplication()->getUserState('eventState');
+
+			if ($eventState)
+			{
+				Factory::getApplication()->setUserState('eventState', null);
+			}
+		}
+		catch (\Exception $e)
+		{
+		}
 	}
 
 }

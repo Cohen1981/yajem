@@ -58,7 +58,13 @@ if ($input['option'] == 'com_sdaprofiles' && ($input['task'] == 'edit' || $input
 		foreach ($profile->fittings as $fitting)
 		{
 			$this->setModel('Fitting', $fitting);
-			echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/fitting');
+			try
+			{
+				echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/fitting');
+			}
+			catch (Exception $e)
+			{
+			}
 		}
 	}
 	?>

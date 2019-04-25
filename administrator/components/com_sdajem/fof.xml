@@ -61,7 +61,7 @@
 			<!-- Controller and View options -->
 			<config>
 				<option name="useConfigurationFile">1</option>
-				<option name="renderFrontendButtons">1</option>
+				<option name="renderFrontendButtons">0</option>
 			</config>
 
 		</view>

@@ -121,7 +121,13 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 <input type="checkbox" id="fitting_switch" class="sdaprofiles_hidden" hidden onchange="switchCheckBox('fitting_switch')"/>
 <div class="sdaprofiles_switchable">
 	<?php
-	echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/fittings');
+	try
+	{
+		echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/fittings');
+	}
+	catch (Exception $e)
+	{
+	}
 	?>
 </div>
 </div>
@@ -133,14 +139,26 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 	<?php
 	if ($profile->attendees && (bool) $params->get('show_attendings_all'))
 	{
-	echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendings');
+		try
+		{
+			echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendings');
+		}
+		catch (Exception $e)
+		{
+		}
 	}
 	?>
 
 	<?php
 	if ($profile->organizing && (bool) $params->get('show_organizing_all'))
 	{
-		echo $this->loadAnyTemplate('site:com_sdajem/Events/organized');
+		try
+		{
+			echo $this->loadAnyTemplate('site:com_sdajem/Events/organized');
+		}
+		catch (Exception $e)
+		{
+		}
 	}
 	?>
 	</div>

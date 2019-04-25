@@ -68,6 +68,7 @@ class Toolbar extends BaseToolbar
 	 */
 	public function onLocationsBrowse()
 	{
+		$this->renderFrontendButtons = true;
 		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_LOCATIONS_BROWSE'));
 		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
 		{
@@ -117,6 +118,7 @@ class Toolbar extends BaseToolbar
 	 */
 	public function onLocationsAdd()
 	{
+		$this->renderFrontendButtons = true;
 		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_LOCATIONS_ADD'));
 
 		ToolbarHelper::apply();
@@ -133,6 +135,7 @@ class Toolbar extends BaseToolbar
 	 */
 	public function onLocationsEdit()
 	{
+		$this->renderFrontendButtons = true;
 		ToolbarHelper::title(Text::_('COM_SDAJEM_TITLE_LOCATIONS_EDIT'));
 
 		ToolbarHelper::apply();

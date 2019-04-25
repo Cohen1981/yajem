@@ -14,7 +14,7 @@ use FOF30\Container\Container;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
-use Sda\Jem\Site\Model\Event;
+use Sda\Profiles\Site\Model\Profile;
 
 /**
  * @package     Sda\Profiles\Site\Toolbar
@@ -36,6 +36,7 @@ class Toolbar extends BaseToolbar
 		{
 			ToolbarHelper::addNew();
 		}
+
 		if (Factory::getUser()->authorise('core.edit', 'groupprofile'))
 		{
 			ToolbarHelper::custom('newGroup', 'new', '', 'COM_SDAPROFILES_NEW_GROUPPROFILE', false);
@@ -77,13 +78,62 @@ class Toolbar extends BaseToolbar
 	 */
 	public function onProfilesRead()
 	{
+		$user = Factory::getUser();
+
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_PROFILES_READ'));
 
-		if (Factory::getUser()->authorise('core.edit', 'groupprofile'))
+		/** @var Profile $profile */
+		$profile = $this->container->factory->model('Profile');
+		$profile->load();
+
+		if ($user->authorise('core.edit', 'groupprofile') && ($user->id === $profile->users_user_id || $profile->users_user_id == ''))
 		{
 			ToolbarHelper::custom('editGroup', 'edit', '', 'COM_SDAPROFILES_EDIT_PROFILE', false);
 		}
 
 		ToolbarHelper::back();
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.1.5
+	 */
+	public function onFittingTypesBrowse()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGTYPES_BROWSE'));
+
+		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
+		{
+			ToolbarHelper::addNew();
+		}
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.1.5
+	 */
+	public function onFittingTypesAdd()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGTYPES_EDIT'));
+		ToolbarHelper::apply();
+		ToolbarHelper::save();
+		ToolbarHelper::save2new();
+		ToolbarHelper::cancel();
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.1.5
+	 */
+	public function onFittingTypesEdit()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGTYPES_EDIT'));
+		ToolbarHelper::apply();
+		ToolbarHelper::save();
+		ToolbarHelper::save2new();
+		ToolbarHelper::cancel();
 	}
 }

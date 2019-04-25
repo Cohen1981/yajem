@@ -87,11 +87,6 @@
 				<option name="useConfigurationFile">1</option>
 				<option name="renderFrontendButtons">1</option>
 			</config>
-			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGTYPES_BROWSE" task="browse">
-				<button type="new" />
-				<button type="edit" />
-				<button type="delete" />
-			</toolbar>
 		</view>
 	</frontend>
 

@@ -29,7 +29,9 @@ $boxY = 30;
 			</h2>
 		</div>
 		<div class="buttonsContainer">
+			<!-- TODO save SVG
 			<button id="toPng">save</button>
+			-->
 		</div>
 	</div>
 

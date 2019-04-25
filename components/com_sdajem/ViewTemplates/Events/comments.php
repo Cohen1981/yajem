@@ -28,6 +28,7 @@ $this->addJavascriptFile('media://com_sdajem/js/comments.js');
 		</div>
 	</div>
 
+	<label for="comment"></label>
 	<textarea form="commentForm" id="comment" wrap="soft" name="comment"></textarea>
 
 	<div id="comment_button" class="buttonsContainer">
@@ -46,7 +47,13 @@ $this->addJavascriptFile('media://com_sdajem/js/comments.js');
 		foreach ($event->comments->sortByDesc('timestamp') as $comment)
 		{
 			$this->setModel('Comment', $comment);
-			echo $this->loadAnyTemplate('site:com_sdajem/Comment/comment');
+			try
+			{
+				echo $this->loadAnyTemplate('site:com_sdajem/Comment/comment');
+			}
+			catch (Exception $e)
+			{
+			}
 		}
 		?>
 

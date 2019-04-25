@@ -42,14 +42,28 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 		<div class="buttonsContainer">
 			<?php if (!Factory::getUser()->guest && $event->isRegistrationPossible()): ?>
 
-			<?php echo $this->loadAnyTemplate('site:com_sdajem/Event/register'); ?>
+			<?php try
+				{
+					echo $this->loadAnyTemplate('site:com_sdajem/Event/register');
+				}
+				catch (Exception $e)
+				{
+				}
+			?>
 
 			<?php endif; ?>
 
 			<?php if (!Factory::getUser()->guest && JPluginHelper::isEnabled('system', 'sdamailer')) : ?>
 
 			<div id="subscribeButtons">
-				<?php echo $this->loadAnyTemplate('site:com_sdajem/Event/subscription'); ?>
+				<?php try
+				{
+					echo $this->loadAnyTemplate('site:com_sdajem/Event/subscription');
+				}
+				catch (Exception $e)
+				{
+				}
+			?>
 			</div>
 
 			<?php endif; ?>
@@ -69,7 +83,13 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 		if ($attendee->users_user_id)
 		{
 			$this->setModel('Attendee', $attendee);
-			echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendee');
+			try
+			{
+				echo $this->loadAnyTemplate('site:com_sdajem/Attendee/attendee');
+			}
+			catch (Exception $e)
+			{
+			}
 		}
 	}
 	?>

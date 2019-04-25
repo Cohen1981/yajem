@@ -74,7 +74,15 @@ $guest = Factory::getUser()->guest;
 					</h3>
 				</div>
 				<div id="eventStatus" class="sdajem_value">
-					<?php echo $this->loadAnyTemplate('site:com_sdajem/Event/eventStatus'); ?>
+					<?php
+					try
+					{
+						echo $this->loadAnyTemplate('site:com_sdajem/Event/eventStatus');
+					}
+					catch (Exception $e)
+					{
+					}
+					?>
 				</div>
 
 				<?php endif; ?>
@@ -163,7 +171,15 @@ $guest = Factory::getUser()->guest;
 		/>
 		<div class="sdajem_switchable">
 			<?php $this->setModel('Location', $event->location); ?>
-			<?php echo $this->loadAnyTemplate('site:com_sdajem/Locations/location'); ?>
+			<?php
+			try
+			{
+				echo $this->loadAnyTemplate('site:com_sdajem/Locations/location');
+			}
+			catch (Exception $e)
+			{
+			}
+			?>
 		</div>
 	</div>
 	<?php endif; ?>
@@ -179,7 +195,15 @@ $guest = Factory::getUser()->guest;
 				onchange="switchCheckBox('attendees_switch')"
 		/>
 		<div class="sdajem_switchable">
-			<?php echo $this->loadAnyTemplate('site:com_sdajem/Events/attendees'); ?>
+			<?php
+			try
+			{
+				echo $this->loadAnyTemplate('site:com_sdajem/Events/attendees');
+			}
+			catch (Exception $e)
+			{
+			}
+			?>
 		</div>
 	</div>
 	<?php endif; ?>
@@ -195,7 +219,15 @@ $guest = Factory::getUser()->guest;
 				onchange="switchCheckBox('comments_switch')"
 		/>
 		<div class="sdajem_switchable">
-			<?php echo $this->loadAnyTemplate('site:com_sdajem/Events/comments'); ?>
+			<?php
+			try
+			{
+				echo $this->loadAnyTemplate('site:com_sdajem/Events/comments');
+			}
+			catch (Exception $e)
+			{
+			}
+			?>
 		</div>
 	</div>
 	<?php endif; ?>
@@ -211,7 +243,15 @@ $guest = Factory::getUser()->guest;
 		/>
 		<div class="sdajem_switchable">
 
-			<?php echo $this->loadAnyTemplate('site:com_sdajem/Events/planingTool'); ?>
+			<?php
+			try
+			{
+				echo $this->loadAnyTemplate('site:com_sdajem/Events/planingTool');
+			}
+			catch (Exception $e)
+			{
+			}
+			?>
 
 		</div>
 	</div>

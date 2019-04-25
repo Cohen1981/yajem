@@ -46,6 +46,8 @@ class Location extends DataController
 		{
 			$locationState = Factory::getApplication()->getUserState('locationState');
 
+			$eventState = Factory::getApplication()->getUserState('eventState');
+
 			if ($locationState)
 			{
 				$this->defaultsForAdd = $locationState;
@@ -55,6 +57,16 @@ class Location extends DataController
 		}
 		catch (\Exception $e)
 		{
+		}
+
+		if (! $eventState)
+		{
+			$referer = $this->input->server->getString('HTTP_REFERER');
+
+			if ($referer != null)
+			{
+				RefererHelper::setReferer($referer);
+			}
 		}
 	}
 
