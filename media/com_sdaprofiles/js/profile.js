@@ -45,6 +45,7 @@ $(function () {
 function showHideGroup() {
 	var bool = parseInt(document.getElementById('groupProfile').value) === 1;
 	upTo(document.getElementById('userName'), 'control-group').hidden = !bool;
+	upTo(document.getElementById('defaultGroup'), 'control-group').hidden = !bool;
 
 	// Delete following line if you want to set groupProfile manually
 	upTo(document.getElementById('groupProfile'), 'control-group').hidden = true;

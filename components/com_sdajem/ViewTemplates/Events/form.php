@@ -45,7 +45,6 @@ echo $this->getRenderedForm();
 	<label class="control-label " for="fittingProfile"><?php echo Text::_('COM_SDAJEM_FITTINGPROIFLE_LABEL'); ?></label>
 	<div class="controls">
 		<select name="fittingProfile" id="fittingProfile">
-			<option value="" selected="selected"><?php echo Text::_('COM_SDAJEM_NONE_SELECTED'); ?></option>
 			<?php
 			$profiles = Profile::getGroupProfiles();
 
@@ -56,7 +55,7 @@ echo $this->getRenderedForm();
 				{
 					echo "<option value=\"$profile->sdaprofiles_profile_id\"";
 
-					if ($event->fittingProfile == $profile->sdaprofiles_profile_id)
+					if ($event->fittingProfile == $profile->sdaprofiles_profile_id || (! $event->fittingProfile && (bool) $profile->defaultGroup))
 					{
 						echo "selected=\"selected\"";
 					}

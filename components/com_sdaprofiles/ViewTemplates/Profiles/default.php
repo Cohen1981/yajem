@@ -9,6 +9,7 @@
 
 use Joomla\CMS\Factory;
 use FOF30\Date\Date;
+use Joomla\CMS\Language\Text;
 
 /** @var \Sda\Profiles\Site\View\Profile\Html $this */
 /** @var \Sda\Profiles\Site\Model\Profile $profile */
@@ -48,6 +49,14 @@ $items = $this->getItems();
 					<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=read&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
 						<?php echo $profile->userName; ?>
 					</a>
+					<?php endif; ?>
+
+					<?php if ((bool) $profile->defaultGroup) : ?>
+						<i id="defaultMarker"
+						   class="fas fa-star"
+						   aria-hidden="true"
+						   title="<?php echo Text::_('COM_SDAPROFILES_PROFILE_DEFAULTGROUP_LABEL') ?>">
+						</i>
 					<?php endif; ?>
 				</div>
 				<div class="sdaprofiles_cell">

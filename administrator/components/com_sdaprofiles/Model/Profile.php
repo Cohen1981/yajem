@@ -31,6 +31,7 @@ use Joomla\CMS\Factory;
  * @property  int           $sdaprofiles_profile_id
  * @property  int           $users_user_id
  * @property  int           $groupProfile
+ * @property  int           $defaultGroup
  * @property  string        $userName
  * @property  string        $avatar
  * @property  string        $address1
@@ -178,6 +179,38 @@ class Profile extends DataModel
 		$dbo->setQuery($query);
 
 		return $dbo->loadObjectList();
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.1.9
+	 */
+	public function onBeforeSave()
+	{
+		if ((bool) $this->input->get('defaultGroup'))
+		{
+			$this->standardGroup();
+		}
+	}
+
+	/**
+	 * Set default = 0 for all other Groups.
+	 *
+	 * @return void
+	 *
+	 * @since 0.1.9
+	 */
+	private function standardGroup()
+	{
+		$dbo = Factory::getDbo();
+		$query = $dbo->getQuery(true);
+		$query->update('#__sdaprofiles_profiles')
+			->set('defaultGroup=0')
+			->where(array('sdaprofiles_profile_id !=' . $this->sdaprofiles_profile_id, 'users_user_id is NULL'));
+		$dbo->setQuery($query);
+
+		$dbo->execute();
 	}
 
 }
