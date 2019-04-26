@@ -40,7 +40,7 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 		<?php endif; ?>
 
 		<div class="buttonsContainer">
-			<?php if (!Factory::getUser()->guest && $event->isRegistrationPossible()): ?>
+			<?php if (!Factory::getUser()->guest): ?>
 
 			<?php try
 				{

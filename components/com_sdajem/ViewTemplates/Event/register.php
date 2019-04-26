@@ -40,19 +40,25 @@ if ($attendee->sdajem_attendee_id)
 switch ($status)
 {
 	case 0:
-		$buttons = "<button id=\"register\" type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"1\" onclick=\"registerAjax(1)\">" .
-			Text::_('SDAJEM_REGISTER') . "</button>";
-		$buttons = $buttons .
-			"<button id=\"unregister\" type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"2\" onclick=\"registerAjax(2)\">" .
-			Text::_('SDAJEM_UNREGISTER') . "</button>";
+		if ($event->isRegistrationPossible())
+		{
+			$buttons = "<button id=\"register\" type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"1\" onclick=\"registerAjax(1)\">" .
+				Text::_('SDAJEM_REGISTER') . "</button>";
+			$buttons = $buttons .
+				"<button id=\"unregister\" type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"2\" onclick=\"registerAjax(2)\">" .
+				Text::_('SDAJEM_UNREGISTER') . "</button>";
+		}
 		break;
 	case 1:
 		$buttons = "<button id=\"unregister\" type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"2\" onclick=\"registerAjax(2)\">" .
 			Text::_('SDAJEM_UNREGISTER') . "</button>";
 		break;
 	case 2:
-		$buttons = "<button id=\"register\" type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"1\" onclick=\"registerAjax(1)\">" .
-			Text::_('SDAJEM_REGISTER') . "</button>";
+		if ($event->isRegistrationPossible())
+		{
+			$buttons = "<button id=\"register\" type=\"button\" form=\"attendeeForm\" name=\"action\" value=\"1\" onclick=\"registerAjax(1)\">" .
+				Text::_('SDAJEM_REGISTER') . "</button>";
+		}
 		break;
 }
 
