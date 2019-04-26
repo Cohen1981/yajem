@@ -241,12 +241,12 @@ $guest = Factory::getUser()->guest;
 				hidden
 				onchange="switchCheckBox('planing_switch')"
 		/>
-		<div class="sdajem_switchable">
+		<div id="planingTab" class="sdajem_switchable">
 
 			<?php
 			try
 			{
-				echo $this->loadAnyTemplate('site:com_sdajem/Events/planingTool');
+				echo $this->loadAnyTemplate('site:com_sdajem/Event/planingTool');
 			}
 			catch (Exception $e)
 			{

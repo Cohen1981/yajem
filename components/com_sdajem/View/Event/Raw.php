@@ -56,6 +56,12 @@ class Raw extends BaseRaw
 				$event->load($input['id']);
 				$this->setLayout('ics');
 				break;
+			case "reloadPlaning":
+				/** @var Event $event */
+				$event = $this->getModel();
+				$event->load($input['id']);
+				$this->setLayout('planingTool');
+				break;
 			case "error":
 				$this->setLayout('error');
 				break;

@@ -233,10 +233,7 @@ svg {
 svg g:hover circle {
 	fill-opacity: 1;
 }
-rect {
-	fill: green;
-	fill-opacity: 0.5;
-}
 svg g:hover text {
 	opacity: 1.0;
+	fill: black;
 }

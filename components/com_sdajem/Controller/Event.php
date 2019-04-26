@@ -425,4 +425,8 @@ class Event extends DataController
 		}
 	}
 
+	public function reloadPlaningAjax()
+	{
+		$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Events&task=reloadPlaning&id=' . $this->input->get('eventId'));
+	}
 }

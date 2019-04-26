@@ -106,7 +106,7 @@ $boxY = 30;
 								echo "<rect name='fitting' class='draggable confine' x='" .
 									$bx . "' y='" . $by .
 									"' width='" . $fitting->length .
-									"' height='" . $fitting->width . "'/>";
+									"' height='" . $fitting->width . "' fill='green' fill-opacity='0.5' />";
 							}
 							echo "<text x='" .
 								($fitting->length / 2 + $bx - 1 ) .
