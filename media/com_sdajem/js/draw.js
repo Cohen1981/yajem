@@ -153,10 +153,16 @@ function makeDraggable(evt) {
 	}
 
 	function generateLink(fileName, data) {
+		var evt = new MouseEvent("click", {
+			view: window,
+			bubbles: false,
+			cancelable: true
+		});
 		var link = document.createElement('a'); // Create a element.
 		link.download = fileName; // Set value as the file name of download file.
 		link.href = data; // Set value as the file content of download file.
-		return link;
+		link.setAttribute("target", '_blank');
+		link.dispatchEvent(evt);
 	}
 
 	function exportSVG() {
@@ -172,7 +178,7 @@ function makeDraggable(evt) {
 			svgString = oSerializer.serializeToString(newSvg);
 		}
 
-		generateLink('planing.svg', 'data:image/svg+xml;utf8,' + svgString).click();
+		generateLink('planing.svg', 'data:image/svg+xml;utf8,' + svgString);
 	}
 
 	function styles(dom) {
