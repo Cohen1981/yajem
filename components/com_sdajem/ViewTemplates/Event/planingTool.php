@@ -94,7 +94,7 @@ $boxY = 30;
 							}
 							echo "<g class='draggme'>";
 
-							if ($fitting->image)
+							if ($fitting->image->image)
 							{
 								echo "<image xlink:href='" . $fitting->image->getDataURI() . "' name='fitting' class='draggable confine' x='" .
 									$bx . "' y='" . $by .

@@ -50,6 +50,25 @@ class FittingImage extends DataModel
 	}
 
 	/**
+	 * @param   string $value The Value
+	 *
+	 * @return string|null
+	 *
+	 * @since 0.1.9
+	 */
+	protected function setImageAttribute($value)
+	{
+		if ($value = '')
+		{
+			return null;
+		}
+		else
+		{
+			return $value;
+		}
+	}
+
+	/**
 	 * Enforcing Data sanity
 	 *
 	 * @return void
