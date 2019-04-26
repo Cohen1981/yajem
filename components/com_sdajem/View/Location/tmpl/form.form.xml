@@ -12,7 +12,11 @@
     </field>
     <field name="title" type="Text" label="COM_SDAJEM_LOCATION_TITLE_LABEL" description="COM_SDAJEM_LOCATION_TITLE_DESC"/>
     <field name="slug" type="Text" label="COM_SDAJEM_LOCATION_SLUG_LABEL" description="COM_SDAJEM_LOCATION_SLUG_DESC"/>
-    <field name="description" type="Editor" label="COM_SDAJEM_LOCATION_DESCRIPTION_LABEL" description="COM_SDAJEM_LOCATION_DESCRIPTION_DESC"/>
+    <field name="image"
+           type="Media"
+           directory="sdajem/locations"
+           label="COM_SDAJEM_LOCATION_IMAGE_LABEL" description="COM_SDAJEM_LOCATION_IMAGE_DESC"
+    />
     <field name="url" type="Url" label="COM_SDAJEM_LOCATION_URL_LABEL" description="COM_SDAJEM_LOCATION_URL_DESC"/>
     <field name="street" type="Text" label="COM_SDAJEM_LOCATION_STREET_LABEL" description="COM_SDAJEM_LOCATION_STREET_DESC"/>
     <field name="postalCode" type="Text" label="COM_SDAJEM_LOCATION_POSTALCODE_LABEL" description="COM_SDAJEM_LOCATION_POSTALCODE_DESC"/>
@@ -27,10 +31,8 @@
            value_field="name"
            none="COM_SDAJEM_NONE_SELECTED"
            label="COM_SDAJEM_LOCATION_CONTACTID_LABEL"
-           description="COM_SDAJEM_LOCATION_CONTACTID_DESC"/>
-    <field name="image"
-           type="Media"
-           directory="sdajem/locations"
-           label="COM_SDAJEM_LOCATION_IMAGE_LABEL" description="COM_SDAJEM_LOCATION_IMAGE_DESC"/>
+           description="COM_SDAJEM_LOCATION_CONTACTID_DESC"
+    />
+    <field name="description" type="Editor" label="COM_SDAJEM_LOCATION_DESCRIPTION_LABEL" description="COM_SDAJEM_LOCATION_DESCRIPTION_DESC"/>
   </fieldset>
 </form>

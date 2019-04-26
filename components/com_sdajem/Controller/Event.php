@@ -28,7 +28,7 @@ use Sda\Profiles\Admin\Model\Fitting;
 class Event extends DataController
 {
 	/**
-	 * Saves the comment for the Event
+	 * Saves a comment for the Event
 	 *
 	 * @return void
 	 * @since 0.0.1
@@ -86,6 +86,8 @@ class Event extends DataController
 	}
 
 	/**
+	 * Method to get the Html for the Register Buttons via Ajax Call
+	 *
 	 * @return void
 	 *
 	 * @since 0.0.1
@@ -106,7 +108,7 @@ class Event extends DataController
 	}
 
 	/**
-	 * Changes the event Status
+	 * Changes the event Status and calls the raw View to render the new State and possibilitys
 	 *
 	 * @return void
 	 *
@@ -203,6 +205,7 @@ class Event extends DataController
 		$this->setRedirect('index.php?option=com_sdajem&view=Categories&task=add&type=1');
 		$this->redirect();
 	}
+
 	/**
 	 * @return void
 	 *
@@ -273,16 +276,24 @@ class Event extends DataController
 		/** @var \Sda\Jem\Admin\Model\Event $event */
 		$event = $this->getModel();
 
+		// Soll Ausrüstung bei Anmeldung berücksichtigt werden
 		if ((bool) $event->useFittings)
 		{
 			$inArray = false;
+			$groupsInArray = array();
 
+			// Haben wir bereits das StandardProfil als Teilnehmer
 			if ($event->attendees)
 			{
 				/** @var Attendee $attendee */
 				foreach ($event->attendees as $attendee)
 				{
 					$inArray = ($attendee->sdaprofiles_profile_id == $event->fittingProfile);
+
+					if ((bool) $attendee->profile->groupProfile)
+					{
+						array_push($groupsInArray, $attendee->sdajem_attendee_id);
+					}
 				}
 			}
 
@@ -290,6 +301,17 @@ class Event extends DataController
 			{
 				/** @var Attendee $attendee */
 				$attendee = $this->container->factory->model('Attendee');
+
+				// GroupProfile has changed
+				if (count($groupsInArray) > 0)
+				{
+					foreach ($groupsInArray as $id)
+					{
+						$attendee->forceDelete($id);
+					}
+				}
+
+				// Now we can save the new one
 				$attendee->sdaprofiles_profile_id = $event->fittingProfile;
 				$attendee->sdajem_event_id = $event->sdajem_event_id;
 				$attendee->status = 1;

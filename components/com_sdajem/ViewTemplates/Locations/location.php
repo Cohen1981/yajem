@@ -61,7 +61,6 @@ if (ComponentHelper::isEnabled('com_sdaprofiles') && !$currentUser->guest)
 			<i class="icon-edit" aria-hidden="true"></i>
 			<?php echo Text::_('JGLOBAL_EDIT'); ?>
 		</button>
-
 	</div>
 
 	<?php endif; ?>

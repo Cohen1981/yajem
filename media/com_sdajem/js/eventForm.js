@@ -2,15 +2,14 @@ $(
 	function () {
 		showRegistrationFields();
 		switchCalendar();
-		var form = document.getElementById('adminForm');
+		var form = document.getElementById('eventData');
 		var uf = upTo(document.getElementById('useFittings'), 'control-group');
 		var fp = upTo(document.getElementById('fittingProfile'), 'control-group');
+		var desc = upTo(document.getElementById('description'), 'control-group');
 
 		if (uf) {
-			upTo(document.getElementById('useFittings'), 'control-group').remove();
-			upTo(document.getElementById('fittingProfile'), 'control-group').remove();
-			form.appendChild(uf);
-			form.appendChild(fp);
+			form.insertBefore(uf, desc);
+			form.insertBefore(fp, desc);
 		}
 	}
 );
@@ -82,5 +81,5 @@ function upTo(el, tagName) {
 	// find the element they are searching for
 	// It would be OK to omit the following and just
 	// return undefined
-	return null;
+	return undefined;
 }

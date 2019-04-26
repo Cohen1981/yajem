@@ -45,6 +45,7 @@ echo $this->getRenderedForm();
 	<label class="control-label " for="fittingProfile"><?php echo Text::_('COM_SDAJEM_FITTINGPROIFLE_LABEL'); ?></label>
 	<div class="controls">
 		<select name="fittingProfile" id="fittingProfile">
+			<option value=""><?php echo Text::_('COM_SDAJEM_NONE_SELECTED'); ?></option>
 			<?php
 			$profiles = Profile::getGroupProfiles();
 

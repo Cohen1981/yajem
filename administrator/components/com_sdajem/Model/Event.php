@@ -338,6 +338,25 @@ class Event extends DataModel
 	}
 
 	/**
+	 * @param   string $value The Value to set
+	 *
+	 * @return string|null
+	 *
+	 * @since  0.3.4
+	 */
+	protected function setFittingProfileAttribute($value)
+	{
+		if ($value == '')
+		{
+			return null;
+		}
+		else
+		{
+			return $value;
+		}
+	}
+
+	/**
 	 * @param   mixed $value The date and time as string
 	 *
 	 * @return Date | null

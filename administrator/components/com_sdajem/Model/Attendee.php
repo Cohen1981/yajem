@@ -13,6 +13,7 @@ use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Language\Text;
+use Sda\Profiles\Admin\Model\Profile;
 use Sda\Profiles\Site\Model\Fitting;
 
 /**
@@ -35,6 +36,7 @@ use Sda\Profiles\Site\Model\Fitting;
  *
  * @property  User          $user
  * @property  Event         $event
+ * @property  Profile       $profile Only if com_sdaprofiles installed
  */
 class Attendee extends DataModel
 {
@@ -61,7 +63,7 @@ class Attendee extends DataModel
 
 		if (ComponentHelper::isEnabled('com_sdaprofiles'))
 		{
-			$this->hasOne('aProfile', 'Profile@com_sdaprofiles', 'sdaprofiles_profile_id', 'sdaprofiles_profile_id');
+			$this->hasOne('profile', 'Profile@com_sdaprofiles', 'sdaprofiles_profile_id', 'sdaprofiles_profile_id');
 		}
 	}
 

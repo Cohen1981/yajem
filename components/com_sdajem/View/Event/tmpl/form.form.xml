@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form validate="true" enctype="multipart/form-data">
-  <fieldset name="scaffolding" label="COM_SDAJEM_EVENT_GROUP_BASIC">
+  <fieldset name="eventData" label="COM_SDAJEM_EVENT_GROUP_BASIC">
     <field name="sdajem_category_id"
            type="Model"
            model="categories"
@@ -12,7 +12,6 @@
     </field>
     <field name="title" type="Text" label="COM_SDAJEM_EVENT_TITLE_LABEL" description="COM_SDAJEM_EVENT_TITLE_DESC"/>
     <field name="slug" type="Text" label="COM_SDAJEM_EVENT_SLUG_LABEL" description="COM_SDAJEM_EVENT_SLUG_DESC"/>
-    <field name="description" type="Editor" label="COM_SDAJEM_EVENT_DESCRIPTION_LABEL" description="COM_SDAJEM_EVENT_DESCRIPTION_DESC"/>
     <field name="url" type="Url" label="COM_SDAJEM_EVENT_URL_LABEL" description="COM_SDAJEM_EVENT_URL_DESC"/>
     <field name="image"
            type="Media"
@@ -84,6 +83,7 @@
       <option value="1">SDAJEM_EVENT_STATUS_CONFIRMED</option>
       <option value="2">SDAJEM_EVENT_STATUS_CANCELED</option>
     </field>
+    <field name="description" type="Editor" label="COM_SDAJEM_EVENT_DESCRIPTION_LABEL" description="COM_SDAJEM_EVENT_DESCRIPTION_DESC"/>
     <field name="access" type="AccessLevel" label="COM_SDAJEM_EVENT_ACCESS_LABEL" description="COM_SDAJEM_EVENT_ACCESS_DESC"/>
   </fieldset>
 </form>
