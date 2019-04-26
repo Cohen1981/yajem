@@ -408,7 +408,7 @@ class Event extends DataModel
 		{
 			$regUntil = new Date($this->registerUntil);
 			$currentDate = new Date;
-			$regPossible = ($currentDate <= $regUntil) ? true : false;
+			$regPossible = ($currentDate->format('Ymd') <= $regUntil->format('Ymd')) ? true : false;
 		}
 
 		return $regPossible;

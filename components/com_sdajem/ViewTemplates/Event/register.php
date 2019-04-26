@@ -68,7 +68,7 @@ echo $html;
 
 if ($user->profile)
 {
-	if (($user->profile->fittings && $status != 1 && $event->useFittings))
+	if (($user->profile->fittings && $status != 1 && $event->useFittings && $event->isRegistrationPossible()))
 	{
 		echo "<div id=\"fitting_block\">";
 
