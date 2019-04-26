@@ -93,16 +93,34 @@ class com_SdaprofilesInstallerScript
 			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_sdaprofiles'));
 			$db->setQuery($query);
 			$db->execute();
-		}
 
-		if (! JFolder::exists(JPATH_ROOT . '/images/Ausruestung'))
-		{
-			JFolder::create(JPATH_ROOT . '/images/Ausruestung', $mode = 0755);
-		}
+			if (! JFolder::exists(JPATH_ROOT . '/images/Ausruestung'))
+			{
+				JFolder::create(JPATH_ROOT . '/images/Ausruestung', $mode = 0755);
 
-		if (! JFolder::exists(JPATH_ROOT . '/images/Avatare'))
-		{
-			JFolder::create(JPATH_ROOT . '/images/Avatare', $mode = 0755);
+				/*
+				No Type hinting. So copied from joomla api
+				files(string $path,
+					string $filter = '.',
+					mixed $recurse = false,
+					boolean $full = false,
+					array $exclude = array('.svn', 'CVS', '.DS_Store', '__MACOSX'),
+					array $excludefilter = array('^\..*', '.*~'),
+					boolean $naturalSort = false) : array
+				*/
+				$images = JFolder::files(JPATH_ROOT . '/media/com_sdaprofiles/images/equipment', '', false, true);
+				$imageNames = JFolder::files(JPATH_ROOT . '/media/com_sdaprofiles/images/equipment', '', false, false);
+
+				for ($i = 0; $i < count($images); $i++)
+				{
+					JFile::copy($images[$i], JPATH_ROOT . '/images/Ausruestung/' . $imageNames[$i]);
+				}
+			}
+
+			if (! JFolder::exists(JPATH_ROOT . '/images/Avatare'))
+			{
+				JFolder::create(JPATH_ROOT . '/images/Avatare', $mode = 0755);
+			}
 		}
 
 		if ($type == 'update')

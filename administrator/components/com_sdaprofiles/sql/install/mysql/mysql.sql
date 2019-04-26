@@ -48,33 +48,6 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fittings`
   ENGINE=InnoDB
   DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
 
-CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fitting_images`
-(
-  `sdaprofiles_fitting_image_id` int unsigned auto_increment comment 'Primary Key',
-  `image` varchar(255) null,
-  `description` VARCHAR(1024) null,
-  `type`  int unsigned null,
-  `enabled` tinyint(1) NOT NULL DEFAULT '1',
-  `created_by` bigint(20) NOT NULL DEFAULT '0',
-  `created_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `modified_by` bigint(20) NOT NULL DEFAULT '0',
-  `modified_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `locked_by` bigint(20) NOT NULL DEFAULT '0',
-  `locked_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  PRIMARY KEY (`sdaprofiles_fitting_image_id`)
-)
-  ENGINE=InnoDB
-  DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
-
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/alexb.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/AlexE.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/Arne.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/kaiG.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/Kerstin.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/Soeren.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/Winnie.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/Sonnensegel.png');
-
 CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fitting_types`
 (
   `sdaprofiles_fitting_type_id` int unsigned auto_increment comment 'Primary Key',
@@ -92,6 +65,38 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fitting_types`
   ENGINE=InnoDB
   DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
 
-insert into `#__sdaprofiles_fitting_types` (`title`,`needSpace`) values ('Lagerplane/ Sonnensegel', 1);
+insert into `#__sdaprofiles_fitting_types` (`title`,`needSpace`) values ('Zelte', 1);
 insert into `#__sdaprofiles_fitting_types` (`title`,`needSpace`) values ('Lager Dekoration', 1);
 insert into `#__sdaprofiles_fitting_types` (`title`,`needSpace`) values ('Sonstiges', 0);
+
+CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fitting_images`
+(
+  `sdaprofiles_fitting_image_id` int unsigned auto_increment comment 'Primary Key',
+  `image` varchar(1024) null,
+  `description` VARCHAR(1024) null,
+  `type`  int unsigned null,
+  `enabled` tinyint(1) NOT NULL DEFAULT '1',
+  `created_by` bigint(20) NOT NULL DEFAULT '0',
+  `created_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `modified_by` bigint(20) NOT NULL DEFAULT '0',
+  `modified_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `locked_by` bigint(20) NOT NULL DEFAULT '0',
+  `locked_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`sdaprofiles_fitting_image_id`)
+)
+  ENGINE=InnoDB
+  DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
+
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Zelt-Rund-sw.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Zelt-Rund-Leinen.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Zelt-Rund-gross-weiss.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Zelt-Doppelmast-weiss.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Zelt-Doppelmast-Leinen.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Zelt-Doppelmast-bg.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Zelt-A-klein-weiss.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Waffenstaender.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Sonnensegel-5x5.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Feuerstelle.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Feuerloescher.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/ersteHilfe.png');
+insert into `#__sdaprofiles_fitting_images` (`image`) values ('images/Ausruestung/Altar.png');
