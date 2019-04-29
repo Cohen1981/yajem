@@ -443,14 +443,17 @@ class Event extends DataModel
 	 */
 	public function getIcs()
 	{
+		$kbAttendees = array();
 		/** @var Attendee $attendee */
 		foreach ($this->attendees as $attendee)
 		{
 			if ($attendee->status == 1)
 			{
-				$kbAttendees[] = 'ATTENDEE;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;CN="'
+				$attendeeString = 'CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;X-NUM-GUESTS=0;CN="'
 					. $attendee->user->name
-					. '":Mailto:' . $attendee->user->email;
+					. '":mailto:' . $attendee->user->email;
+
+				array_push($kbAttendees, $attendeeString);
 			}
 		}
 
@@ -466,8 +469,8 @@ class Event extends DataModel
 		}
 		else
 		{
-			$kbStart       = $this->startDateTime->format('Ymd') . 'T' . $this->startDateTime->format('Hms');
-			$kbEnd         = $this->endDateTime->format('Ymd') . 'T' . $this->endDateTime->format('Hms');
+			$kbStart       = $this->startDateTime->format('Ymd') . 'T' . $this->startDateTime->format('Hms') . 'Z';
+			$kbEnd         = $this->endDateTime->format('Ymd') . 'T' . $this->endDateTime->format('Hms') . 'Z';
 		}
 
 		$kbCurrentTime = new Date;
@@ -482,13 +485,16 @@ class Event extends DataModel
 			);
 		}
 
+		$kbCreated = new Date($this->created_on);
+		$kbModified = new Date($this->modified_on);
+
 		$kbDescription  = html_entity_decode($this->description, ENT_COMPAT, 'UTF-8');
 		$eol            = "\r\n";
 		$kbIcsContent
 			= 'BEGIN:VCALENDAR' . $eol
+			. 'PRODID:https://www.survivants-d-acre.de' . $eol
 			. 'VERSION:2.0' . $eol
 			. 'CALSCALE:GREGORIAN' . $eol
-			. 'PRODID:https://www.survivants-d-acre.de' . $eol
 			. 'METHOD:REQUEST' . $eol
 			. 'BEGIN:VTIMEZONE' . $eol
 			. 'TZID:Europe/Berlin' . $eol
@@ -506,31 +512,33 @@ class Event extends DataModel
 			. 'DTSTART:19701025T030000' . $eol
 			. 'RRULE:FREQ=YEARLY;INTERVAL=1;BYDAY=-1SU;BYMONTH=10' . $eol
 			. 'END:STANDARD' . $eol
-			. 'END:VTIMEZONE' . $eol
-			. 'BEGIN:VEVENT' . $eol
-			. 'UID:{UID}' . $eol
-			. 'SEQUENCE:{Sequence}' . $eol
-			. 'STATUS:CONFIRMED' . $eol
-			. $kbOrganizer . $eol;
+			. 'END:VTIMEZONE' . $eol;
 
-			/*
-			TODO Man könnte später auch auf Rückmeldung durch Kalender reagieren.
-			if (count($kbAttendees)>0) {
-				foreach ($kbAttendees as $kbAttendee)
-				{
-					$kbIcsContent = $kbIcsContent . $kbAttendee . $eol;
-				}
-			}
-			*/
 		$kbIcsContent = $kbIcsContent
-			. 'CLASS:PUBLIC' . $eol
-			. 'SUMMARY:' . $kbTitle . $eol
+			. 'BEGIN:VEVENT' . $eol
 			. 'DTSTART;TZID=Europe/Berlin:' . $kbStart . $eol
 			. 'DTEND;TZID=Europe/Berlin:' . $kbEnd . $eol
-			. 'DTSTAMP:' . $kbCurrentTime->format('Ymd') . 'T' . $kbCurrentTime->format('Hms') . $eol
-			. 'LAST-MODIFIED:' . $kbCurrentTime->format('Ymd') . 'T' . $kbCurrentTime->format('Hms') . $eol
+			. 'DTSTAMP:' . $kbCurrentTime->format('Ymd') . 'T' . $kbCurrentTime->format('Hms') . 'Z' . $eol
+			. $kbOrganizer . $eol
+			. 'UID:Event_' . $this->sdajem_event_id . '@survivants-d-acre.com' . $eol;
+
+		if (count($kbAttendees) > 0)
+		{
+			foreach ($kbAttendees as $kbAttendee)
+			{
+				$kbIcsContent = $kbIcsContent . $kbAttendee . $eol;
+			}
+		}
+
+		$kbIcsContent = $kbIcsContent
+			. 'CREATED:' . $kbCreated->format('Ymd') . 'T' . $kbCreated->format('Hms') . 'Z' . $eol
 			. 'DESCRIPTION:' . $kbDescription . $eol
+			. 'LAST-MODIFIED:' . $kbCurrentTime->format('Ymd') . 'T' . $kbCurrentTime->format('Hms') . $eol
 			. 'LOCATION:' . $kbLocation . $eol
+			. 'SEQUENCE:0' . $eol
+			. 'STATUS:CONFIRMED' . $eol
+			. 'SUMMARY:' . $kbTitle . $eol
+			. 'TRANSP:OPAQUE' . $eol
 			. 'END:VEVENT' . $eol
 			. 'END:VCALENDAR';
 

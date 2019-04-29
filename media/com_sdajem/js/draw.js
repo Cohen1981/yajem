@@ -298,13 +298,13 @@ function makeDraggable(evt) {
 				if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob)
 				{
 					var blob = canvas.msToBlob();
-					navigator.msSaveOrOpenBlob(blob, 'test.png');
+					navigator.msSaveOrOpenBlob(blob, 'planing.png');
 				}
 				else {
 					var imgURI = canvas
 						.toDataURL("image/png")
 						.replace("image/png", "image/octet-stream");
-					generateLink('test.png', imgURI);
+					generateLink('planing.png', imgURI);
 				}
 			};
 			img.src = url;

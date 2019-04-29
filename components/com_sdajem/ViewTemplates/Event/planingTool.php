@@ -31,7 +31,7 @@ $boxY = 30;
 		<div class="buttonsContainer">
 			<button id="toSvg"><?php echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
 			<button id="save"><?php echo Text::_('COM_SDAJEM_PLANING_SAVE') ?></button>
-			<button id="toPng"><?php echo Text::_('COM_SDAJEM_PLANING_TO_PNG') ?></button>
+			<button id="toPng"><?php echo Text::_('COM_SDAJEM_TO_PNG') ?></button>
 		</div>
 
 		<div id="messages">
