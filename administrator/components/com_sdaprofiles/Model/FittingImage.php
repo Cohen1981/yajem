@@ -58,7 +58,7 @@ class FittingImage extends DataModel
 	 */
 	protected function setImageAttribute($value)
 	{
-		if ($value = '')
+		if ($value == '')
 		{
 			return null;
 		}

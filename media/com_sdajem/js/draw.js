@@ -12,6 +12,7 @@ function makeDraggable(evt) {
 
 	document.getElementById('toSvg').addEventListener('click', exportSVG);
 	document.getElementById('save').addEventListener('click', exportSVG);
+	document.getElementById('toPng').addEventListener('click', exportSVG);
 	document.getElementById('messages').hidden = true;
 
 	// Register drag event to all images
@@ -273,6 +274,40 @@ function makeDraggable(evt) {
 
 			xhttp.open("POST", "index.php?option=com_sdajem&view=Events&task=savePlan");
 			xhttp.send(data);
+		}
+
+		if (this.id === 'toPng')
+		{
+			var copy = svg.cloneNode(true);
+			copy.setAttribute("height", "1024");
+			copy.setAttribute("width", "1024");
+			var canvas = document.createElement("canvas");
+			var bbox = svg.getBBox();
+			canvas.width = 1024;
+			canvas.height = 1024;
+			var ctx = canvas.getContext("2d");
+			ctx.clearRect(0, 0, 1024, 1024);
+			var bdata = (new XMLSerializer()).serializeToString(copy);
+			var DOMURL = window.URL || window.webkitURL || window;
+			var img = new Image();
+			var svgBlob = new Blob([bdata], {type: "image/svg+xml;charset=utf-8"});
+			var url = DOMURL.createObjectURL(svgBlob);
+			img.onload = function () {
+				ctx.drawImage(img, 0, 0);
+				DOMURL.revokeObjectURL(url);
+				if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob)
+				{
+					var blob = canvas.msToBlob();
+					navigator.msSaveOrOpenBlob(blob, 'test.png');
+				}
+				else {
+					var imgURI = canvas
+						.toDataURL("image/png")
+						.replace("image/png", "image/octet-stream");
+					generateLink('test.png', imgURI);
+				}
+			};
+			img.src = url;
 		}
 	}
 
