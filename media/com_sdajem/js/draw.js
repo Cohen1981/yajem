@@ -12,6 +12,7 @@ function makeDraggable(evt) {
 
 	document.getElementById('toSvg').addEventListener('click', exportSVG);
 	document.getElementById('save').addEventListener('click', exportSVG);
+	document.getElementById('messages').hidden = true;
 
 	// Register drag event to all images
 	var images = $(".draggable");
@@ -253,13 +254,20 @@ function makeDraggable(evt) {
 			xhttp.onload = function () {
 				if (this.readyState === 4 && this.status === 200) {
 					var html = xhttp.response;
-					if (html.toString() === "error")
-					{
-						alert('An Error occured');
+					var message = '';
+					if (html.toString() === "error") {
+						message = document.createElement('p');
+						message.innerHTML = 'An error occured';
+						document.getElementById('messages').classList.add('failed');
 					}
-					else
-					{
+					else {
+						message = document.createElement('p');
+						message.innerHTML = 'Erfolgreich gespeichert';
+						document.getElementById('messages').classList.add('ok');
 					}
+
+					document.getElementById('messages').insertAdjacentElement('afterbegin', message);
+					document.getElementById('messages').hidden = false;
 				}
 			};
 

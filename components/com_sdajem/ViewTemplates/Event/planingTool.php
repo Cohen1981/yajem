@@ -33,7 +33,12 @@ $boxY = 30;
 			<button id="toSvg"><?php echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
 			<button id="save"><?php echo Text::_('COM_SDAJEM_PLANING_SAVE') ?></button>
 		</div>
-		<div id="messages"></div>
+
+		<div id="messages">
+			<button id="message_close" onclick="document.getElementById('messages').hidden = true;">
+				<i class="fas fa-times" aria-hidden="true"></i>
+			</button>
+		</div>
 	</div>
 
 	<p>

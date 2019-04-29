@@ -237,3 +237,18 @@ svg g:hover text {
 	opacity: 1.0;
 	fill: black;
 }
+.ok {
+	background-color: #05bb0587;
+}
+.failed {
+	background-color: crimson;
+}
+#messages {
+	padding: 10px;
+}
+#messages p {
+	display: inline-block;
+}
+#message_close {
+	float: right;
+}

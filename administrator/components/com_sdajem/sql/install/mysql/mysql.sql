@@ -59,6 +59,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
   `registrationLimit` INT NULL COMMENT 'Limit of available accommodations. 0=No Limit',
   `useWaitingList` TINYINT(1) NULL DEFAULT 0 COMMENT 'use of waiting List in case of limitation. 0=false, 1=true',
   `eventStatus` TINYINT(1) NULL DEFAULT 0 COMMENT  'Optional status of event. 0=open,1=confirmed,2=cancelled',
+  `svg` BLOB NULL DEFAULT NULL,
   `access` INT(10) NULL,
   `enabled` TINYINT(4) NOT NULL COMMENT 'like state or published',
   `locked_by` INT(10) NULL COMMENT 'like checked_out',

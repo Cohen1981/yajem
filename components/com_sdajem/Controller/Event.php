@@ -459,7 +459,13 @@ class Event extends DataController
 		$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Events&task=reloadPlaning&id=' . $this->input->get('eventId'));
 	}
 
-	// TODO convert via php (imagick) Problem seems to be Imagick configuration.
+	/**
+	 * Saves a working state of the planingTool
+	 *
+	 * @return void
+	 *
+	 * @since 0.3.5
+	 */
 	public function savePlan()
 	{
 		$svg = $_POST['svg'];
