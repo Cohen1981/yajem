@@ -46,6 +46,7 @@ use Joomla\CMS\Language\Text;
  *
  * @property  FittingImage  $image
  * @property  Profile       $profile
+ * @property  FittingType   $typeModel
  */
 class Fitting extends DataModel
 {

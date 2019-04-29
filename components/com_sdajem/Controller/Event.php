@@ -447,8 +447,26 @@ class Event extends DataController
 		}
 	}
 
+	/**
+	 * Dispatches to Raw view to reload the planingTool after registering a new attendee
+	 *
+	 * @return void
+	 *
+	 * @since 0.3.3
+	 */
 	public function reloadPlaningAjax()
 	{
 		$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Events&task=reloadPlaning&id=' . $this->input->get('eventId'));
+	}
+
+	// TODO convert via php (imagick) Problem seems to be Imagick configuration.
+	public function savePlan()
+	{
+		$svg = $_POST['svg'];
+		/** @var \Sda\Jem\Admin\Model\Event $event */
+		$event = $this->getModel('Event');
+		$event->load($_POST['id']);
+		$event->svg = $svg;
+		$event->save();
 	}
 }

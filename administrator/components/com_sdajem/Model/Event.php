@@ -55,6 +55,7 @@ use Sda\Profiles\Admin\Model\Profile;
  * @property   int			$created_by
  * @property   Date			$modified_on
  * @property   int			$modified_by
+ * @property   string       $svg
  *
  * Relations:
  *

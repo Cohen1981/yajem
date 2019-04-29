@@ -1,11 +1,17 @@
-// EventListener hinzufügen
+/**
+ * @copyright: abahlo@hotmail.de
+ * @licence Gnu GPL
+ * Load the magic
+ *
+ * @param evt
+ */
 function makeDraggable(evt) {
 
 	// var svg = document.getElementById('main_svg');
 	var svg = evt.target;
 
 	document.getElementById('toSvg').addEventListener('click', exportSVG);
-	document.getElementById('toPng').addEventListener('click', downloadPng);
+	document.getElementById('save').addEventListener('click', exportSVG);
 
 	// Register drag event to all images
 	var images = $(".draggable");
@@ -44,12 +50,17 @@ function makeDraggable(evt) {
 	function getMousePosition(evt) {
 		var CTM = svg.getScreenCTM();
 		if (evt.touches) { evt = evt.touches[0]; }
+
 		return {
 			x: (evt.clientX - CTM.e) / CTM.a,
 			y: (evt.clientY - CTM.f) / CTM.d
 		};
 	}
 
+	/**
+	 *
+	 * @param evt
+	 */
 	function evaluateDrag(evt) {
 		if (selectedElement) {
 			selectedElement.classList.remove('dragged');
@@ -87,10 +98,16 @@ function makeDraggable(evt) {
 					maxY = boundaryY2 - bbox.y - bbox.height;
 				}
 			}
+
 			drag(evt);
 		}
 	}
 
+	/**
+	 * Needed for touch
+	 *
+	 * @param evt
+	 */
 	function startRotate(evt) {
 		if (evt.target.classList.contains('rotate')) {
 			offset = getMousePosition(evt);
@@ -111,6 +128,11 @@ function makeDraggable(evt) {
 		}
 	}
 
+	/**
+	 * The actual dragging
+	 *
+	 * @param evt
+	 */
 	function drag(evt) {
 		if (selectedElement) {
 			evt.preventDefault();
@@ -122,6 +144,7 @@ function makeDraggable(evt) {
 			if (confined) {
 				if (dx < minX) { dx = minX; }
 				else if (dx > maxX) { dx = maxX; }
+
 				if (dy < minY) { dy = minY; }
 				else if (dy > maxY) { dy = maxY; }
 			}
@@ -130,10 +153,18 @@ function makeDraggable(evt) {
 		}
 	}
 
+	/**
+	 * Needed for touch
+	 *
+	 * @param evt
+	 */
 	function endDrag(evt) {
 		selectedElement = false;
 	}
 
+	/**
+	 * rotate
+	 */
 	function rotate() {
 		if (selectedElement) {
 			evt.preventDefault();
@@ -148,16 +179,27 @@ function makeDraggable(evt) {
 		}
 	}
 
+	/**
+	 * End Rotation
+	 * @param evt
+	 */
 	function endRotate(evt) {
 		selectedElement = false;
 	}
 
+	/**
+	 * Generate a download link and click it
+	 *
+	 * @param fileName
+	 * @param data
+	 */
 	function generateLink(fileName, data) {
 		var evt = new MouseEvent("click", {
 			view: window,
 			bubbles: false,
 			cancelable: true
-		});
+			}
+		);
 		var link = document.createElement('a'); // Create a element.
 		link.download = fileName; // Set value as the file name of download file.
 		link.href = data; // Set value as the file content of download file.
@@ -165,8 +207,10 @@ function makeDraggable(evt) {
 		link.dispatchEvent(evt);
 	}
 
+	/**
+	 * Export the SVG
+	 */
 	function exportSVG() {
-		//var outer = outerHTML(svg);
 		styles(svg);
 		var newSvg = svg;
 		var svgString;
@@ -178,9 +222,56 @@ function makeDraggable(evt) {
 			svgString = oSerializer.serializeToString(newSvg);
 		}
 
-		generateLink('planing.svg', 'data:image/svg+xml;utf8,' + svgString);
+		// We want a svg file.
+		if (this.id === 'toSvg') {
+			generateLink('planing.svg', 'data:image/svg+xml;utf8,' + svgString);
+		}
+
+		// We want to save
+		if (this.id === 'save') {
+			var data = new FormData;
+			var elements = document.getElementsByClassName('draggme');
+
+			var elementString = ''
+
+			for (var i = 0; i < elements.length; i++)
+			{
+				if (window.ActiveXObject) {
+					svgString = newSvg.xml;
+					elementString = elementString + elements[i].xml;
+				}
+				else {
+					var serializer = new XMLSerializer();
+					elementString = elementString + serializer.serializeToString(elements[i]);
+				}
+
+			}
+
+			data.append('svg', elementString);
+			data.append('id', document.getElementById('eventId').value);
+			var xhttp = new XMLHttpRequest();
+			xhttp.onload = function () {
+				if (this.readyState === 4 && this.status === 200) {
+					var html = xhttp.response;
+					if (html.toString() === "error")
+					{
+						alert('An Error occured');
+					}
+					else
+					{
+					}
+				}
+			};
+
+			xhttp.open("POST", "index.php?option=com_sdajem&view=Events&task=savePlan");
+			xhttp.send(data);
+		}
 	}
 
+	/**
+	 * Include styles in the svg
+	 * @param dom
+	 */
 	function styles(dom) {
 		var used = "";
 		var sheets = document.styleSheets;
@@ -208,55 +299,5 @@ function makeDraggable(evt) {
 		var defs = document.createElement('defs');
 		defs.appendChild(s);
 		dom.insertBefore(defs, dom.firstChild);
-	}
-
-	function downloadPng() {
-		styles(svg);
-		downloadSvg('planing.png');
-	}
-
-	function triggerDownload (imgURI, fileName) {
-		var evt = new MouseEvent("click", {
-			view: window,
-			bubbles: false,
-			cancelable: true
-		});
-		var a = document.createElement("a");
-		a.setAttribute("download", fileName);
-		a.setAttribute("href", imgURI);
-		a.setAttribute("target", '_blank');
-		a.dispatchEvent(evt);
-	}
-
-	function downloadSvg(fileName) {
-		var copy = svg.cloneNode(true);
-		var canvas = document.createElement("canvas");
-		var bbox = svg.getBBox();
-		canvas.width = 800; // bbox.width;
-		canvas.height = 800; //bbox.height;
-		var ctx = canvas.getContext("2d");
-		ctx.clearRect(0, 0, bbox.width, bbox.height);
-		var data = (new XMLSerializer()).serializeToString(copy);
-		var DOMURL = window.URL || window.webkitURL || window;
-		var img = new Image();
-		var svgBlob = new Blob([data], {type: "image/svg+xml;charset=utf-8"});
-		var url = DOMURL.createObjectURL(svgBlob);
-		img.onload = function () {
-			ctx.drawImage(img, 0, 0);
-			DOMURL.revokeObjectURL(url);
-			if (typeof navigator !== "undefined" && navigator.msSaveOrOpenBlob)
-			{
-				var blob = canvas.msToBlob();
-				navigator.msSaveOrOpenBlob(blob, fileName);
-			}
-			else {
-				var imgURI = canvas
-					.toDataURL("image/png")
-					.replace("image/png", "image/octet-stream");
-				triggerDownload(imgURI, fileName);
-			}
-			document.removeChild(canvas);
-		};
-		img.src = url;
 	}
 }
