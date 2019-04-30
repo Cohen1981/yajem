@@ -447,7 +447,7 @@ class Event extends DataModel
 		/** @var Attendee $attendee */
 		foreach ($this->attendees as $attendee)
 		{
-			if ($attendee->status == 1)
+			if ($attendee->status == 1 && $attendee->users_user_id)
 			{
 				$attendeeString = 'CUTYPE=INDIVIDUAL;ROLE=REQ-PARTICIPANT;PARTSTAT=NEEDS-ACTION;RSVP=TRUE;X-NUM-GUESTS=0;CN="'
 					. $attendee->user->name

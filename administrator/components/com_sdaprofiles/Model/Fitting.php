@@ -112,27 +112,4 @@ class Fitting extends DataModel
 			}
 		}
 	}
-
-	/**
-	 * Returns the Fitting Type as readable String
-	 *
-	 * @return string
-	 *
-	 * @since 0.1.2
-	 */
-	public function getTypeString()
-	{
-		switch ($this->type)
-		{
-			case 1:
-				return Text::_('COM_SDAPROFIES_FITTING_TYPE_TENT');
-				break;
-			case 2:
-				return Text::_('COM_SDAPROFIES_FITTING_TYPE_SUNSAIL');
-				break;
-			case 3:
-				return Text::_('COM_SDAPROFIES_FITTING_TYPE_MISC');
-				break;
-		}
-	}
 }

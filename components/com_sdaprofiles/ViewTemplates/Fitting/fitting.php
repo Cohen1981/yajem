@@ -31,8 +31,7 @@ if ($fitting->sdaprofiles_fitting_id == '')
 		<?php if ($fitting->image) : ?>
 			<img src="<?php echo $fitting->image->image; ?>" class="image_smallest" />
 		<?php endif; ?>
-		<?php if ($fitting->profile->users_user_id == Factory::getUser()->id  ||
-			($fitting->profile->users_user_id == null && !Factory::getUser()->guest)) : ?>
+		<?php if ($fitting->profile->users_user_id == Factory::getUser()->id) : ?>
 		<button type="button" onclick="editFittingAjax(<?php echo $fitting->sdaprofiles_fitting_id; ?>)">
 			<i class="fas fa-edit" aria-hidden="true" title="<?php echo JText::_('COM_SDAPROFILES_ICON_EDIT') ?>"></i>
 		</button>
@@ -42,7 +41,7 @@ if ($fitting->sdaprofiles_fitting_id == '')
 		<?php endif; ?>
 	</label>
 	<div class="controls">
-		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->getTypeString() ?></span>
+		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->typeModel->title ?></span>
 		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->detail ?></span>
 		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->length ?></span>
 		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->width ?></span>

@@ -33,7 +33,7 @@ if ($input['option'] == 'com_sdaprofiles' && ($input['task'] == 'edit' || $input
 		</h2>
 	</div>
 	<div class="buttonsContainer">
-		<?php if ($profile->users_user_id == Factory::getUser()->id || ($profile->users_user_id == null && !Factory::getUser()->guest)) : ?>
+		<?php if ($profile->users_user_id == Factory::getUser()->id) : ?>
 		<button id="sdaprofiles_fitting_new" type="button" onclick="newEquipment()">
 			<?php echo Text::_('SDAPROFILES_FITTING_NEW') ?>
 		</button>
