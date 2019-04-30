@@ -453,6 +453,10 @@ class Event extends DataModel
 					. $attendee->user->name
 					. '":mailto:' . $attendee->user->email;
 
+				/*
+				$attendeeString = 'ATTENDEE;CN="' . $attendee->user->name . "';CUTYPE=INDIVIDUAL;PARTSTAT=NEEDS-ACTION;
+					ROLE=REQ-PARTICIPANT;RSVP=TRUE:mailto:" . $attendee->user->email;
+				*/
 				array_push($kbAttendees, $attendeeString);
 			}
 		}
