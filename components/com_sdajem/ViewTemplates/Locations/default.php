@@ -58,9 +58,12 @@ $locations = $model->where('enabled', '=', 1)->orderBy('sdajem_category_id', 'AS
 		</div>
 
 		<div class="sdajem_cell">
-			<i class="fas fa-map-marker-alt" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_MAP') ?>">&nbsp;</i>
 			<?php
+			if ($location->city || $location->street)
+			{
+				echo "<i class=\"fas fa-map-marker-alt\" aria-hidden=\"true\" title=\"<?php echo Text::_('COM_SDAJEM_ICON_MAP') ?>\">&nbsp;</i>";
 				echo "$location->street, $location->postalCode $location->city";
+			}
 			?>
 		</div>
 

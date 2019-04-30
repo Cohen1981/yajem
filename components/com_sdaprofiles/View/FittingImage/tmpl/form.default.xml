@@ -7,11 +7,11 @@
       cssfiles="media://com_sdaprofiles/css/style.css"
 >
   <headerset>
-    <header name="sdaprofiles_fitting_image_id" type="RowSelect" label="COM_SDAPROFILES_FITTINGIMAGE_SDAPROFILES_FITTING_IMAGE_ID_LABEL" tdwidth="20"/>
+    <header name="sdaprofiles_fitting_image_id" type="RowSelect" label="COM_SDAPROFILES_FITTINGIMAGE_SDAPROFILES_FITTING_IMAGE_ID_LABEL" sortable="false" tdwidth="20"/>
     <header name="type" type="Fiels" label="COM_SDAPROFILES_FITTING_TYPE_LABEL"/>
-    <header name="description" type="Field" label="COM_SDAPROFILES_FITTINGIMAGE_DESC_LABEL" />
-    <header name="image" tdwidth="150px" type="Field" label="COM_SDAPROFILES_FITTINGIMAGE_IMAGE_LABEL"/>
-    <header name="enabled" type="Published" label="COM_SDAPROFILES_FITTINGIMAGE_ENABLED_LABEL" />
+    <header name="description" type="Field" label="COM_SDAPROFILES_FITTINGIMAGE_DESC_LABEL" sortable="false" />
+    <header name="image" tdwidth="150px" type="Field" label="COM_SDAPROFILES_FITTINGIMAGE_IMAGE_LABEL" sortable="false"/>
+    <header name="enabled" type="Published" label="COM_SDAPROFILES_FITTINGIMAGE_ENABLED_LABEL" sortable="false" />
   </headerset>
   <fieldset name="items">
     <field name="sdaprofiles_fitting_image_id" type="SelectRow"/>

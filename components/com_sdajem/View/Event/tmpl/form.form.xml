@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form validate="true" enctype="multipart/form-data">
-  <fieldset name="eventData" label="COM_SDAJEM_EVENT_GROUP_BASIC">
+<form validate="false" enctype="multipart/form-data" tabbed="1">
+  <fieldset name="eventData" label="COM_SDAJEM_EVENT_GROUP_BASIC" class="tab-pane active">
     <field name="sdajem_category_id"
            type="Model"
            model="categories"
@@ -10,13 +10,12 @@
            description="COM_SDAJEM_EVENT_SDAJEM_CATEGORY_ID_DESC">
       <state key="type">1</state>
     </field>
-    <field name="title" type="Text" label="COM_SDAJEM_EVENT_TITLE_LABEL" description="COM_SDAJEM_EVENT_TITLE_DESC"/>
-    <field name="slug" type="Text" label="COM_SDAJEM_EVENT_SLUG_LABEL" description="COM_SDAJEM_EVENT_SLUG_DESC"/>
+    <field name="title"
+           type="Text"
+           required="true"
+           label="COM_SDAJEM_EVENT_TITLE_LABEL"
+           description="COM_SDAJEM_EVENT_TITLE_DESC"/>
     <field name="url" type="Url" label="COM_SDAJEM_EVENT_URL_LABEL" description="COM_SDAJEM_EVENT_URL_DESC"/>
-    <field name="image"
-           type="Media"
-           directory="sdajem/events/"
-           label="COM_SDAJEM_EVENT_IMAGE_LABEL" description="COM_SDAJEM_EVENT_IMAGE_DESC"/>
     <field name="sdajem_location_id"
            type="Model"
            model="locations"
@@ -59,8 +58,26 @@
            type="Calendar"
            format="%d.%m.%Y %H:%M"
            label="COM_SDAJEM_EVENT_ENDDATETIME_LABEL"
-           description="COM_SDAJEM_EVENT_ENDDATETIME_DESC"/>
+           description="COM_SDAJEM_EVENT_ENDDATETIME_DESC"
+    />
 
+    <field name="access" type="AccessLevel" label="COM_SDAJEM_EVENT_ACCESS_LABEL" description="COM_SDAJEM_EVENT_ACCESS_DESC"/>
+  </fieldset>
+
+  <fieldset name="description_tab" label="COM_SDAJEM_EVENT_DESC_TAB" class="tab-pane">
+    <field name="image"
+           type="Media"
+           directory="sdajem/events/"
+           label="COM_SDAJEM_EVENT_IMAGE_LABEL" description="COM_SDAJEM_EVENT_IMAGE_DESC"
+    />
+    <field name="description"
+           type="Editor"
+           label="COM_SDAJEM_EVENT_DESCRIPTION_LABEL"
+           description="COM_SDAJEM_EVENT_DESCRIPTION_DESC"
+    />
+  </fieldset>
+
+  <fieldset name="attending_config" label="COM_SDAJEM_EVENT_ATTENDING_TAB" class="tab-pane">
     <field name="useRegistration"
            type="Boolean"
            default="1"
@@ -83,7 +100,6 @@
       <option value="1">SDAJEM_EVENT_STATUS_CONFIRMED</option>
       <option value="2">SDAJEM_EVENT_STATUS_CANCELED</option>
     </field>
-    <field name="description" type="Editor" label="COM_SDAJEM_EVENT_DESCRIPTION_LABEL" description="COM_SDAJEM_EVENT_DESCRIPTION_DESC"/>
-    <field name="access" type="AccessLevel" label="COM_SDAJEM_EVENT_ACCESS_LABEL" description="COM_SDAJEM_EVENT_ACCESS_DESC"/>
   </fieldset>
+
 </form>

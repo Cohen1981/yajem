@@ -67,7 +67,6 @@ $fTypes = $fTypeModel->getItemsArray();
 			</div>
 		</div>
 
-		<!-- TODO Warum wird der Text nicht übersetzt -->
 		<input type="hidden"
 		       id="sdaprofilesTypeError"
 		       value="<?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_ERROR') ?>"

@@ -118,6 +118,7 @@ if (ComponentHelper::isEnabled('com_sdaprofiles') && !$currentUser->guest)
 
 </div>
 
+<?php if ($location->city || $location->street) : ?>
 <div class="sdajem_row">
 	<a href="https://www.google.de/maps?q=<?php echo $lAddressString; ?>"
 	   class="btn btn-default" target="_blank">
@@ -133,4 +134,4 @@ if (ComponentHelper::isEnabled('com_sdaprofiles') && !$currentUser->guest)
 		</a>
 	<?php endif; ?>
 </div>
-<!--<div id="map"></div>-->
+<?php endif; ?>

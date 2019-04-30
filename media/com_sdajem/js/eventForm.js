@@ -2,14 +2,14 @@ $(
 	function () {
 		showRegistrationFields();
 		switchCalendar();
-		var form = document.getElementById('eventData');
+		var target = document.getElementById('attending_config');
 		var uf = upTo(document.getElementById('useFittings'), 'control-group');
 		var fp = upTo(document.getElementById('fittingProfile'), 'control-group');
-		var desc = upTo(document.getElementById('description'), 'control-group');
+		var desc = upTo(document.getElementById('eventStatus'), 'control-group');
 
 		if (uf) {
-			form.insertBefore(uf, desc);
-			form.insertBefore(fp, desc);
+			target.insertBefore(uf, desc);
+			target.insertBefore(fp, desc);
 		}
 	}
 );

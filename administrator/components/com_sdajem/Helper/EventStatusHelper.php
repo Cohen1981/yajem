@@ -13,6 +13,8 @@ namespace Sda\Jem\Admin\Helper;
 use Joomla\CMS\Language\Text;
 
 /**
+ * Helper Class for event status. Getting the right symbol and text.
+ *
  * @package     Sda\Jem\Admin\Helper
  *
  * @since       0.1.5
@@ -20,6 +22,7 @@ use Joomla\CMS\Language\Text;
 abstract class EventStatusHelper
 {
 	/**
+	 * Get the Symbol for an open event. (gather interest)
 	 *
 	 * @return string
 	 *
@@ -31,6 +34,7 @@ abstract class EventStatusHelper
 	}
 
 	/**
+	 * Get the symbol for a registration request has been sended to the event hoster
 	 *
 	 * @return string
 	 *
@@ -42,6 +46,7 @@ abstract class EventStatusHelper
 	}
 
 	/**
+	 * Get the symbol for event is confirmed
 	 *
 	 * @return string
 	 *
@@ -53,6 +58,7 @@ abstract class EventStatusHelper
 	}
 
 	/**
+	 * Get the symbol for event is canceled
 	 *
 	 * @return string
 	 *
@@ -64,54 +70,66 @@ abstract class EventStatusHelper
 	}
 
 	/**
-	 * @param   int $status The Status
+	 * Get the status symbol by event->status
 	 *
-	 * @return string
+	 * @param   int $status The event status
+	 *
+	 * @return string Status symbol
 	 *
 	 * @since 0.1.5
 	 */
 	public static function getSymbolByStatus(int $status)
 	{
+		$symbol = '';
+
 		switch ($status)
 		{
 			case 0:
-				return self::getOpenSymbol();
+				$symbol = self::getOpenSymbol();
 				break;
 			case 1:
-				return self::getConfirmedSymbol();
+				$symbol = self::getConfirmedSymbol();
 				break;
 			case 2:
-				return self::getCanceledSymbol();
+				$symbol = self::getCanceledSymbol();
 				break;
 			case 3:
-				return self::getCheckedSymbol();
+				$symbol = self::getCheckedSymbol();
 				break;
 		}
+
+		return $symbol;
 	}
 
 	/**
-	 * @param   int $status The Status
+	 * Get the status text for an event->status
 	 *
-	 * @return string
+	 * @param   int $status The event status
+	 *
+	 * @return string Status text
 	 *
 	 * @since 0.1.5
 	 */
 	public static function getStatusTextByStatus(int $status)
 	{
+		$text = '';
+
 		switch ($status)
 		{
 			case 0:
-				return Text::_('SDAJEM_EVENT_STATUS_OPEN');
+				$text = Text::_('SDAJEM_EVENT_STATUS_OPEN');
 				break;
 			case 1:
-				return Text::_('SDAJEM_EVENT_STATUS_CONFIRMED');
+				$text = Text::_('SDAJEM_EVENT_STATUS_CONFIRMED');
 				break;
 			case 2:
-				return Text::_('SDAJEM_EVENT_STATUS_CANCELED');
+				$text = Text::_('SDAJEM_EVENT_STATUS_CANCELED');
 				break;
 			case 3:
-				return Text::_('COM_SDAJEM_EVENT_STATUS_CHECKED');
+				$text = Text::_('COM_SDAJEM_EVENT_STATUS_CHECKED');
 				break;
 		}
+
+		return $text;
 	}
 }

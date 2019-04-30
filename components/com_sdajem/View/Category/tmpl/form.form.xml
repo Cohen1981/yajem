@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form validate="true">
   <fieldset name="scaffolding" label="COM_SDAJEM_CATEGORY_GROUP_BASIC">
-    <field name="title" type="Text" label="COM_SDAJEM_CATEGORY_TITLE_LABEL" description="COM_SDAJEM_CATEGORY_TITLE_DESC"/>
+    <field name="title"
+           type="Text"
+           required="true"
+           label="COM_SDAJEM_CATEGORY_TITLE_LABEL"
+           description="COM_SDAJEM_CATEGORY_TITLE_DESC"/>
     <field
             name="type"
             type="List"

@@ -13,6 +13,8 @@ use Joomla\CMS\Factory;
 use FOF30\Utils\ArrayHelper;
 
 /**
+ * Helper Class for setting and getting Referers. Standard Joomla would throw back to Home
+ *
  * @package     Sda\Jem\Admin\Helper
  *
  * @since       0.0.1

@@ -167,9 +167,7 @@ input[type=checkbox]:checked ~ .sdajem_switchable {
 input[type=checkbox]:checked ~ .sdajem_switchable {
 	display: block;
 	overflow: auto;
-	border: solid black 1px;
-	border-radius: 0px 5px 5px 5px;
-	padding: 10px;
+	padding: 20px 0px;
 }
 .sdajem_switchable {
 	display: none;
@@ -178,18 +176,19 @@ input[type=checkbox]:checked ~ .sdajem_switchable {
 .sdajem_tabs {
 	display: flex;
 	flex-wrap: wrap;
+	border-bottom: solid darkgray 1px;
 }
 label.sdajem_tab {
-	border: solid black 1px;
+	border: solid darkgray 1px;
 	padding: 10px;
-	margin-bottom: 0px;
-	border-bottom: 0px;
+	margin-bottom: -1px;
 	border-radius: 10px 10px 0px 0px;
 	background-color: lightgray;
 }
-.sda_active {
+label.sdajem_tab.sda_active {
 	font-weight: bold;
 	background-color: white !important;
+	border-bottom: 0px;
 }
 .sdajem_content_container form {
 	padding: 0px;
@@ -251,4 +250,8 @@ svg g:hover text {
 }
 #message_close {
 	float: right;
+}
+input[type="text"].jem_required {
+	border: 1px solid #9d261d;
+	background: #f2dede;
 }
