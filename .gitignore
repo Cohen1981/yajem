@@ -1,11 +1,7 @@
 .idea
 .phpstorm.meta.php
 build
-target/packages
 target/language
 target/pkg_install.php
-target/pkg_yajem.xml
+target/pkg_sda.zip
 vendor
-media/com_yajem/css/fontawesome-all.min.css
-media/com_yajem/webfonts
-media/com_yajem/uploads
