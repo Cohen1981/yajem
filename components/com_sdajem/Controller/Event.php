@@ -257,7 +257,6 @@ class Event extends DataController
 			if ($eventState)
 			{
 				$this->defaultsForAdd = $eventState;
-
 				Factory::getApplication()->setUserState('eventState', null);
 			}
 		}
@@ -475,4 +474,45 @@ class Event extends DataController
 		$event->svg = $svg;
 		$event->save();
 	}
+
+	protected function onBeforeSave()
+	{
+		$this->checkFields();
+	}
+	protected function onBeforeApply()
+	{
+		$this->checkFields();
+	}
+
+	private function checkFields()
+	{
+		$input = $this->input->getArray();
+
+		if ($input['sdajem_event_id'] == '')
+		{
+			$referer = 'index.php?option=com_sdajem&view=Events&task=add';
+		}
+		else
+		{
+			$referer = 'index.php?option=com_sdajem&view=Events&task=edit&id=' . $input['sdajem_event_id'];
+		}
+
+		try
+		{
+			Factory::getApplication()->setUserState('eventState', $input);
+		}
+		catch (\Exception $e)
+		{
+		}
+
+		/** @var \Sda\Jem\Admin\Model\Event $model */
+		$model = $this->getModel();
+
+		if (!$model->checkFields())
+		{
+			$this->setRedirect($referer);
+			$this->redirect();
+		}
+	}
+
 }

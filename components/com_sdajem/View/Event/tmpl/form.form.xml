@@ -49,6 +49,7 @@
 
     <field name="startDateTime"
            type="Calendar"
+           required="true"
            label="COM_SDAJEM_EVENT_STARTDATETIME_LABEL"
            description="COM_SDAJEM_EVENT_STARTDATETIME_DESC"
            format="%d.%m.%Y %H:%M"

@@ -14,6 +14,8 @@ use FOF30\Model\DataModel;
 use FOF30\Date\Date;
 use FOF30\Utils\Collection;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Sda\Profiles\Admin\Model\Profile;
 
 /**
@@ -70,6 +72,11 @@ use Sda\Profiles\Admin\Model\Profile;
  */
 class Event extends DataModel
 {
+	/**
+	 * @var array
+	 * @since 0.4.1
+	 */
+	public $fieldErrors;
 	/**
 	 * Event constructor.
 	 *
@@ -222,13 +229,20 @@ class Event extends DataModel
 	 */
 	public function getFormatedStartDate() : string
 	{
-		if ((bool) $this->allDayEvent)
+		if ($this->startDateTime != null)
 		{
-			return $this->startDateTime->format('d.m.Y');
+			if ((bool) $this->allDayEvent)
+			{
+				return $this->startDateTime->format('d.m.Y');
+			}
+			else
+			{
+				return $this->startDateTime->format('d.m.Y H:i');
+			}
 		}
 		else
 		{
-			return $this->startDateTime->format('d.m.Y H:i');
+			return '';
 		}
 	}
 
@@ -241,13 +255,20 @@ class Event extends DataModel
 	 */
 	public function getFormatedEndDate() : string
 	{
-		if ((bool) $this->allDayEvent)
+		if ($this->endDateTime != null)
 		{
-			return $this->endDateTime->format('d.m.Y');
+			if ((bool) $this->allDayEvent)
+			{
+				return $this->endDateTime->format('d.m.Y');
+			}
+			else
+			{
+				return $this->endDateTime->format('d.m.Y H:i');
+			}
 		}
 		else
 		{
-			return $this->endDateTime->format('d.m.Y H:i');
+			return '';
 		}
 	}
 
@@ -306,6 +327,11 @@ class Event extends DataModel
 	 */
 	protected function getEndDateTimeAttribute($value)
 	{
+		if ($value == '')
+		{
+			return $this->getDateValue($this->startDateTime);
+		}
+
 		return $this->getDateValue($value);
 	}
 
@@ -549,4 +575,46 @@ class Event extends DataModel
 		return $kbIcsContent;
 	}
 
+	public function checkFields()
+	{
+		$errors = array();
+		$returnVal = true;
+
+		try
+		{
+			if ($this->input->get('title') == '')
+			{
+				array_push($errors, 'title');
+				Factory::getApplication()->enqueueMessage(Text::_('COM_SDAJEM_TITLE_MISSING'), 'error');
+				$returnVal = false;
+			}
+
+			if ($this->input->get('startDateTime') == '')
+			{
+				array_push($errors, 'startDateTime');
+				Factory::getApplication()->enqueueMessage(Text::_('COM_SDAJEM_STARTDATE_MISSING'), 'error');
+				$returnVal = false;
+			}
+
+			if ($this->input->get('endDateTime') == '' && $this->input->get('allDayEvent') != 1)
+			{
+				array_push($errors, 'endDateTime');
+				Factory::getApplication()->enqueueMessage(Text::_('COM_SDAJEM_ENDDATE_MISSING'), 'error');
+				$returnVal = false;
+			}
+		}
+		catch (\Exception $e)
+		{
+		}
+
+		try
+		{
+			Factory::getApplication()->setUserState('fieldErrors', $errors);
+		}
+		catch (\Exception $e)
+		{
+		}
+
+		return $returnVal;
+	}
 }

@@ -11,6 +11,15 @@ $(
 			target.insertBefore(uf, desc);
 			target.insertBefore(fp, desc);
 		}
+
+		var errors = document.getElementsByClassName('errors');
+		if (errors)
+		{
+			for (var i = 0; i < errors.length; i++)
+			{
+				document.getElementById(errors[i].value).classList.add('jem_required');
+			}
+		}
 	}
 );
 

@@ -7,6 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Component\ComponentHelper;
 use FOF30\Container\Container;
@@ -22,6 +23,24 @@ $this->addJavascriptFile('media://com_sdajem/js/eventForm.js');
 /** @var Event $event */
 $event = $this->getItem();
 echo $this->getRenderedForm();
+
+try
+{
+	$fieldErrors = Factory::getApplication()->getUserState('fieldErrors');
+
+	if (count($fieldErrors) > 0)
+	{
+		for ($i = 0; $i < count($fieldErrors); $i++)
+		{
+			echo "<input type=\"hidden\" name=\"error_$i\" class='errors' value=\"$fieldErrors[$i]\" />";
+		}
+	}
+
+	Factory::getApplication()->setUserState('eventState', null);
+}
+catch (Exception $e)
+{
+}
 
 ?>
 
