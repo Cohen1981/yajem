@@ -475,15 +475,31 @@ class Event extends DataController
 		$event->save();
 	}
 
+	/**
+	 * @return void
+	 *
+	 * @since 0.4.1
+	 */
 	protected function onBeforeSave()
 	{
 		$this->checkFields();
 	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.4.1
+	 */
 	protected function onBeforeApply()
 	{
 		$this->checkFields();
 	}
 
+	/**
+	 * @return void
+	 *
+	 * @since 0.4.1
+	 */
 	private function checkFields()
 	{
 		$input = $this->input->getArray();
