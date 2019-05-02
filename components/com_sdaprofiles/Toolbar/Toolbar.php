@@ -121,7 +121,7 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGTYPES_EDIT'));
 		// ToolbarHelper::apply();
 		ToolbarHelper::save();
-		ToolbarHelper::save2new();
+		ToolbarHelper::save2new('savenew');
 		ToolbarHelper::cancel();
 	}
 
@@ -135,7 +135,8 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGTYPES_EDIT'));
 		// ToolbarHelper::apply();
 		ToolbarHelper::save();
-		ToolbarHelper::save2new();
+		ToolbarHelper::save2new('savenew');
+
 		ToolbarHelper::cancel();
 	}
 
@@ -165,7 +166,7 @@ class Toolbar extends BaseToolbar
 	{
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGIMAGES_EDIT'));
 		ToolbarHelper::save();
-		ToolbarHelper::save2new();
+		ToolbarHelper::save2new('savenew');
 		ToolbarHelper::cancel();
 	}
 
@@ -178,7 +179,7 @@ class Toolbar extends BaseToolbar
 	{
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGIMAGES_ADD'));
 		ToolbarHelper::save();
-		ToolbarHelper::save2new();
+		ToolbarHelper::save2new('savenew');
 		ToolbarHelper::cancel();
 	}
 }
