@@ -2,7 +2,7 @@
 <form validate="true">
   <fieldset name="scaffolding" label="COM_SDAPROFILES_FITTINGTYPE_GROUP_BASIC">
     <field name="title" type="Text" label="COM_SDAPROFILES_FITTINGTYPE_TITLE_LABEL" description="COM_SDAPROFILES_FITTINGTYPE_TITLE_DESC"/>
-    <field name="needSpace" type="Checkbox" label="COM_SDAPROFILES_FITTINGTYPE_NEEDSPACE_LABEL" description="COM_SDAPROFILES_FITTINGTYPE_NEEDSPACE_DESC"/>
+    <field name="needSpace" type="Boolean" label="COM_SDAPROFILES_FITTINGTYPE_NEEDSPACE_LABEL" description="COM_SDAPROFILES_FITTINGTYPE_NEEDSPACE_DESC"/>
     <field name="enabled" type="Published" label="COM_SDAPROFILES_FITTINGTYPE_ENABLED_LABEL" description="COM_SDAPROFILES_FITTINGTYPE_ENABLED_DESC"/>
   </fieldset>
 </form>

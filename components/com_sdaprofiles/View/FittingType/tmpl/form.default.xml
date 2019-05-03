@@ -9,7 +9,7 @@
   <fieldset name="items">
     <field name="sdaprofiles_fitting_type_id" type="SelectRow"/>
     <field name="title" type="Sortable" url="index.php?option=com_sdaprofiles&amp;view=FittingType&amp;id=[ITEM:ID]&amp;[TOKEN]=1"/>
-    <field name="needSpace" type="Checkbox" readonly="true"/>
+    <field name="needSpace" type="Boolean" readonly="true"/>
     <field name="enabled" type="Actions"/>
   </fieldset>
 </form>
