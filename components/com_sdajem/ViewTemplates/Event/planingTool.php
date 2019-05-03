@@ -72,11 +72,17 @@ $boxY = 30;
 		echo "<text x='0.2' y='" . ($runY+0.8) . "' style='font-size:0.4pt; fill:black'>" . ($runY+1) . "</text>";
 	}
 
+	$svgString = '';
 	// Do we have a saved setup
-	if ($event->svg)
+	if (count($event->svg) > 0)
 	{
-		echo $event->svg;
+		foreach ($event->svg as $element)
+		{
+			echo $element;
+			$svgString = $svgString . $element;
+		}
 	}
+
 	// Do we have Attendees
 	if ($event->attendees)
 	{
@@ -107,9 +113,9 @@ $boxY = 30;
 							$bx = $wx + 1;
 						}
 
-						if (strpos($event->svg, 'img_' . $fitting->sdaprofiles_fitting_id) === false)
+						if (strpos($svgString, 'img_' . $fitting->sdaprofiles_fitting_id) === false)
 						{
-							echo "<g class='draggme'>";
+							echo "<g id=\"index_$fitting->sdaprofiles_fitting_id\" class='draggme'>";
 
 							if ($fitting->image->image)
 							{

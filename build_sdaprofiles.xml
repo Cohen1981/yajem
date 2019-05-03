@@ -57,7 +57,7 @@
     </target>
 
     <target name="zip_sdaprofiles" description="package the archive" depends="copyFiles_sdaprofiles" hidden="true">
-        <zip destfile="${profiles.dist.dir}/com_profiles.zip"
+        <zip destfile="${profiles.dist.dir}/com_sdaprofiles.zip"
              includeemptydirs="true"
              basedir="${profiles.build.dir}/" />
     </target>

@@ -35,7 +35,27 @@ class Attendee extends DataController
 
 			if ($input['attendeeId'])
 			{
-				$attendee->sdajem_attendee_id = $input['attendeeId'];
+				$attendee->load($input['attendeeId']);
+			}
+
+			/** @var \Sda\Jem\Admin\Model\Event $event */
+			$event = $this->container->factory->model('Event');
+
+			$event->load($input['eventId']);
+
+			if (count($event->svg) > 0 && (int) $input['action'] == 2 && $attendee->sdajem_attendee_id)
+			{
+				$fittings = $attendee->sdaprofilesFittingIds;
+				$svgElements = $event->svg;
+
+				foreach ($fittings as $fid)
+				{
+					//TODO funktioniert noch nicht !
+					array_forget($svgElements, (string) 'index_' . $fid);
+				}
+
+				$event->svg = $svgElements;
+				$event->store();
 			}
 
 			$attendee->users_user_id = Factory::getUser()->id;
@@ -46,7 +66,7 @@ class Attendee extends DataController
 			$attendee->save();
 
 			$eventName = 'onAfterRegisterAttendee';
-			$result = $this->triggerEvent($eventName, array($attendee));
+			$this->triggerEvent($eventName, array($attendee));
 
 			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Attendee&task=registerAjax&id=' . $attendee->sdajem_attendee_id);
 		}

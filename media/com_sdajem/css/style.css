@@ -236,6 +236,10 @@ svg g:hover text {
 	opacity: 1.0;
 	fill: black;
 }
+svg g text {
+	opacity: 0.0;
+	fill: none;
+}
 .ok {
 	background-color: #05bb0587;
 }

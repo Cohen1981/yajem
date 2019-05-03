@@ -57,7 +57,7 @@ use Sda\Profiles\Admin\Model\Profile;
  * @property   int			$created_by
  * @property   Date			$modified_on
  * @property   int			$modified_by
- * @property   string       $svg
+ * @property   array        $svg
  *
  * Relations:
  *
@@ -575,6 +575,12 @@ class Event extends DataModel
 		return $kbIcsContent;
 	}
 
+	/**
+	 *
+	 * @return boolean true on no Error
+	 *
+	 * @since 0.4.1
+	 */
 	public function checkFields()
 	{
 		$errors = array();
@@ -616,5 +622,51 @@ class Event extends DataModel
 		}
 
 		return $returnVal;
+	}
+
+	/**
+	 * @param   mixed $value The svg
+	 *
+	 * @return string
+	 *
+	 * @since 0.4.2
+	 */
+	protected function setSvgAttribute($value)
+	{
+		// Array passes the isJson check, so we need a seperate check.
+		if ($this->isJson($value) && !is_array($value))
+		{
+			return $value;
+		}
+		else
+		{
+			return json_encode($value);
+		}
+	}
+
+	/**
+	 * @param   string $value The svg
+	 *
+	 * @return array | null
+	 *
+	 * @since 0.4.2
+	 */
+	protected function getSvgAttribute($value)
+	{
+		return (array) json_decode($value);
+	}
+
+	/**
+	 * @param   string $string The string to check
+	 *
+	 * @return boolean
+	 *
+	 * @since 0.4.2
+	 */
+	private function isJson($string)
+	{
+		json_decode($string);
+
+		return (json_last_error() == JSON_ERROR_NONE);
 	}
 }

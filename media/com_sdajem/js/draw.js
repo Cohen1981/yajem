@@ -234,22 +234,22 @@ function makeDraggable(evt) {
 			var data = new FormData;
 			var elements = document.getElementsByClassName('draggme');
 
-			var elementString = ''
+			var elementArray = {};
 
 			for (var i = 0; i < elements.length; i++)
 			{
 				if (window.ActiveXObject) {
 					svgString = newSvg.xml;
-					elementString = elementString + elements[i].xml;
+					elementArray[elements[i].id] = elements[i].xml;
 				}
 				else {
 					var serializer = new XMLSerializer();
-					elementString = elementString + serializer.serializeToString(elements[i]);
+					elementArray[elements[i].id] = serializer.serializeToString(elements[i]);
 				}
 
 			}
 
-			data.append('svg', elementString);
+			data.append('svg', JSON.stringify(elementArray));
 			data.append('id', document.getElementById('eventId').value);
 			var xhttp = new XMLHttpRequest();
 			xhttp.onload = function () {
