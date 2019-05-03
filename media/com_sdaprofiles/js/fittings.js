@@ -111,10 +111,10 @@ function checkType() {
 	var el = $('#fitting_images_'+document.getElementById('sdaprofiles_input_type').value);
 
 	if (el) {
-		if (needSpace === 1)
+		//if (needSpace === 1)
 			el.show();
-		else
-			el.hide();
+		//else
+		//	el.hide();
 	}
 
 	document.getElementById('fitting_length').hidden = !(needSpace === 1);

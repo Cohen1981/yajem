@@ -49,11 +49,13 @@ $boxY = 30;
 	</p>
 
 	<?php
+	$listHtml = "";
 	// Set up draw area
 	echo "<svg id=\"main_svg\"
 	     xmlns=\"http://www.w3.org/2000/svg\"
          viewBox=\"0 0 $boxX $boxY\"
         onload=\"makeDraggable(evt)\"
+        width='99%'
 	    >";
 
 	echo "<rect x=\"0\" y=\"0\" width=\"$boxX\" height=\"$boxY\" fill=\"white\" />";
@@ -151,11 +153,32 @@ $boxY = 30;
 						$wx = ($wx < $fitting->width) ? $fitting->width : $wx;
 						$by = $by + $fitting->width + 2;
 					}
+					else
+					{
+						/** @var \Sda\Profiles\Admin\Model\FittingType $type */
+						$type = $fitting->typeModel;
+						/** @var \Sda\Profiles\Site\Model\Profile $profile */
+						$profile = $fitting->profile;
+						/** @var \Sda\Profiles\Site\Model\FittingImage $image */
+						$image = $fitting->image;
+
+						$listHtml = $listHtml . "<div class=\"sdajem_flex_row space_even\">";
+						$listHtml = $listHtml . "<div class=\"sdajem_cell\">$profile->userName</div>";
+						$listHtml = $listHtml . "<div class=\"sdajem_cell\">$fitting->detail</div>";
+						$listHtml = $listHtml . "<div class=\"sdajem_cell\"><img class=\"sdajem_thumbnail\" src=\"$image->image\" alt=\"\" /></div>";
+						$listHtml = $listHtml . "</div>";
+					}
 				}
 			}
 		}
 	}
 	echo "</svg>";
+	echo "<div class=\"sdajem_flex_row space_even\">";
+	echo "<div class=\"sdajem_head sdajem_cell\">" . Text::_('COM_SDAJEM_TITLE_ATTENDEES_BASIC') . "</div>";
+	echo "<div class=\"sdajem_head sdajem_cell\">" . Text::_('COM_SDAJEM_PROFILES_FITTING_DETAIL') . "</div>";
+	echo "<div class=\"sdajem_head sdajem_cell\">" . Text::_('COM_SDAJEM_PROFILES_FITTING_IMAGE') . "</div>";
+	echo "</div>";
+	echo $listHtml;
 	?>
 	<input type="hidden" id="boxX" value="<?php echo $boxX; ?>" />
 	<input type="hidden" id="boxY" value="<?php echo $boxY; ?>" />

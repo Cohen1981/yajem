@@ -259,3 +259,6 @@ input[type="text"].jem_required {
 	border: 1px solid #9d261d;
 	background: #f2dede;
 }
+.sdajem_thumbnail {
+	max-width: 20px;
+}
