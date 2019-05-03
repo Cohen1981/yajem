@@ -12,6 +12,7 @@ namespace Sda\Jem\Admin\Model;
 use FOF30\Container\Container;
 use FOF30\Model\DataModel;
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Sda\Profiles\Admin\Model\Profile;
 use Sda\Profiles\Site\Model\Fitting;
@@ -64,6 +65,22 @@ class Attendee extends DataModel
 		if (ComponentHelper::isEnabled('com_sdaprofiles'))
 		{
 			$this->hasOne('profile', 'Profile@com_sdaprofiles', 'sdaprofiles_profile_id', 'sdaprofiles_profile_id');
+		}
+	}
+
+	protected function setSdaprofilesprofileidAttribute($value)
+	{
+		if ($value == '' && ComponentHelper::isEnabled('com_sdaprofiles'))
+		{
+			/** @var Profile $profile */
+			$profile = Container::getInstance('com_sdaprofiles')->factory->model('Profile');
+			$id = Profile::getProfileIdForUserId(Factory::getUser()->id);
+
+			return $id;
+		}
+		else
+		{
+			return $value;
 		}
 	}
 
