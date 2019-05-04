@@ -68,6 +68,13 @@ class Attendee extends DataModel
 		}
 	}
 
+	/**
+	 * @param   mixed $value The input value
+	 *
+	 * @return integer
+	 *
+	 * @since 0.2.6
+	 */
 	protected function setSdaprofilesprofileidAttribute($value)
 	{
 		if ($value == '' && ComponentHelper::isEnabled('com_sdaprofiles'))

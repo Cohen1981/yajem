@@ -634,13 +634,17 @@ class Event extends DataModel
 	protected function setSvgAttribute($value)
 	{
 		// Array passes the isJson check, so we need a seperate check.
-		if ($this->isJson($value) && !is_array($value))
+		if (is_array($value))
+		{
+			return json_encode($value);
+		}
+		elseif ($this->isJson($value))
 		{
 			return $value;
 		}
 		else
 		{
-			return json_encode($value);
+			return null;
 		}
 	}
 

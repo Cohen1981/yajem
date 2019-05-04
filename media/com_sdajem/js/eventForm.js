@@ -20,6 +20,8 @@ $(
 				document.getElementById(errors[i].value).classList.add('jem_required');
 			}
 		}
+
+
 	}
 );
 
@@ -44,9 +46,12 @@ function switchCalendar() {
 }
 
 function showRegistrationFields() {
+	var usePlTool = parseInt(document.getElementById('usePlaningTool').value);
 	var reg = parseInt(document.getElementById('useRegistration').value);
 	var uf = document.getElementById('useFittings');
 	var fp = document.getElementById('fittingProfile');
+	upTo(uf,'control-group').hidden = true;
+	upTo(fp,'control-group').hidden = true;
 	if (reg === 0) {
 		upTo(document.getElementById('registerUntil'),'control-group').hidden = true;
 		upTo(document.getElementById('registrationLimit'),'control-group').hidden = true;
@@ -64,11 +69,11 @@ function showRegistrationFields() {
 	else {
 		upTo(document.getElementById('registerUntil'),'control-group').hidden = false;
 		upTo(document.getElementById('registrationLimit'),'control-group').hidden = false;
-		if (uf) {
+		if (uf && usePlTool === 1) {
 			upTo(uf,'control-group').hidden = false;
 		}
 
-		if (fp) {
+		if (fp && usePlTool === 1) {
 			upTo(fp,'control-group').hidden = false;
 		}
 

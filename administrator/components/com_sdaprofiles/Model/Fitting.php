@@ -28,8 +28,8 @@ use Joomla\CMS\Language\Text;
  * @property  int       $type
  * @property  int       $sdaprofiles_fitting_image_id
  * @property  string    $detail
- * @property  int       $length
- * @property  int       $width
+ * @property  double    $length
+ * @property  double    $width
  *
  * Filters:
  *

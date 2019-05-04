@@ -119,7 +119,7 @@ $fTypes = $fTypeModel->getItemsArray();
 				<?php echo Text::_('COM_SDAPROFILES_FITTING_LENGHT_LABEL'); ?>
 			</label>
 			<div class="controls">
-				<input id="sdaprofiles_input_length" type="number" name="length" value="" />
+				<input id="sdaprofiles_input_length" type="number" step="0.1" name="length" value="" />
 				<span class="help-block">
 					<?php echo Text::_('COM_SDAPROFILES_FITTING_LENGHT_DESC'); ?>
 				</span>
@@ -131,7 +131,7 @@ $fTypes = $fTypeModel->getItemsArray();
 				<?php echo Text::_('COM_SDAPROFILES_FITTING_WIDTH_LABEL'); ?>
 			</label>
 			<div class="controls">
-				<input id="sdaprofiles_input_width" type="number" name="width" value="" />
+				<input id="sdaprofiles_input_width" type="number" step="0.1" name="width" value="" />
 				<span class="help-block">
 					<?php echo Text::_('COM_SDAPROFILES_FITTING_WIDTH_DESC'); ?>
 				</span>

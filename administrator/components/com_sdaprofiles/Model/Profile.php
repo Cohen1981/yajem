@@ -186,7 +186,7 @@ class Profile extends DataModel
 	 *
 	 * @since 0.1.9
 	 */
-	public function onBeforeSave()
+	public function onAfterSave()
 	{
 		if ((bool) $this->input->get('defaultGroup'))
 		{

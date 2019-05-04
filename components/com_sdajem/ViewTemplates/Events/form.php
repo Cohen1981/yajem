@@ -42,6 +42,10 @@ catch (Exception $e)
 {
 }
 
+$plTool = ComponentHelper::getParams('com_sdajem')->get('usePlaningTool');
+
+echo "<input type=\"hidden\" id='usePlaningTool' name=\"usePlaningTool\" class='params' value=\"$plTool\" />";
+
 ?>
 
 <?php if (ComponentHelper::isEnabled('com_sdaprofiles')) : ?>
