@@ -37,6 +37,7 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fittings`
   `detail` varchar(255) null,
   `length` DECIMAL(10,2) null,
   `width` DECIMAL(10,2) null,
+  `standard` tinyint(1) null default 0,
   `enabled` tinyint(1) NOT NULL DEFAULT '1',
   `created_by` bigint(20) NOT NULL DEFAULT '0',
   `created_on` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',

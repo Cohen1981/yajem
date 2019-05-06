@@ -30,6 +30,7 @@ use Joomla\CMS\Language\Text;
  * @property  string    $detail
  * @property  double    $length
  * @property  double    $width
+ * @property  boolean   $standard
  *
  * Filters:
  *
@@ -68,11 +69,11 @@ class Fitting extends DataModel
 
 	/**
 	 *
-	 * @return integer
+	 * @return float
 	 *
 	 * @since 0.0.1
 	 */
-	public function getRequiredSpace() : int
+	public function getRequiredSpace() : float
 	{
 		if ($this->length && $this->width)
 		{
@@ -111,5 +112,29 @@ class Fitting extends DataModel
 				}
 			}
 		}
+	}
+
+	/**
+	 * @param   boolean $value Value
+	 *
+	 * @return integer
+	 *
+	 * @since 0.2.8
+	 */
+	protected function setStandardAttribute($value)
+	{
+		return ($value) ? 1 : 0;
+	}
+
+	/**
+	 * @param   int $value Value
+	 *
+	 * @return boolean
+	 *
+	 * @since 0.2.8
+	 */
+	protected function getStandardAttribute($value)
+	{
+		return ($value == 1) ? true : false;
 	}
 }

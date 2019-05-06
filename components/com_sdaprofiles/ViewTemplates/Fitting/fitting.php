@@ -8,6 +8,7 @@
  */
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Sda\Profiles\Admin\Model\Profile;
 
 /** @var \Sda\Profiles\Site\View\Fitting\Raw    $this       */
@@ -41,7 +42,16 @@ if ($fitting->sdaprofiles_fitting_id == '')
 		<?php endif; ?>
 	</label>
 	<div class="controls">
-		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->typeModel->title ?></span>
+		<span class="sdaprofiles_fitting_cell">
+		<?php
+		if ($fitting->standard)
+		{
+			echo "<i id=\"defaultMarker\" class=\"fas fa-star\" aria-hidden=\"true\" title=\"\">&nbsp;</i>";
+		}
+
+		echo $fitting->typeModel->title;
+		?>
+		</span>
 		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->detail ?></span>
 		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->length ?></span>
 		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->width ?></span>

@@ -64,6 +64,7 @@ $task = $this->input->get('task');
 			{
 			}
 			?>
+			<div id="fitting_form">
 			<?php
 			try
 			{
@@ -73,6 +74,7 @@ $task = $this->input->get('task');
 			{
 			}
 			?>
+			</div>
 
 		</div>
 	</div>

@@ -62,14 +62,25 @@ function deleteFittingAjax(id) {
 }
 
 function newEquipment() {
-	document.getElementById('sdaprofiles_input_type').value = "";
-	document.getElementById('sdaprofiles_input_detail').value = "";
-	document.getElementById('sdaprofiles_input_length').value = "";
-	document.getElementById('sdaprofiles_input_width').value = "";
-	document.getElementById('sdaprofiles_fitting_id').value = "";
-	$('[name="image"]').removeAttr('checked');
-	document.getElementById('formTask').value = 'new';
-	document.getElementById('fittingForm').hidden = false;
+	var xhttp = new XMLHttpRequest();
+	xhttp.onload = function () {
+		if (this.readyState === 4 && this.status === 200) {
+			var html = xhttp.response;
+			if (html.toString() === "error")
+			{
+				alert('An Error occured');
+			}
+			else
+			{
+				document.getElementById('fitting_form').innerHTML = html;
+				checkType();
+				document.getElementById('fittingForm').hidden = false;
+			}
+		}
+	};
+
+	xhttp.open("POST", "index.php?option=com_sdaprofiles&format=raw&view=Fittings&task=add");
+	xhttp.send();
 }
 
 function editFittingAjax(id) {
@@ -86,20 +97,14 @@ function editFittingAjax(id) {
 			}
 			else
 			{
-				var equipment = JSON.parse(xhttp.response);
-				$('#sdaprofiles_input_type').val(equipment.type).change;
-				$("input:radio[name='image'][value='"+equipment.image+"']").attr('checked', 'checked');
-				document.getElementById('sdaprofiles_input_detail').value = equipment.detail;
-				document.getElementById('sdaprofiles_input_length').value = equipment.length;
-				document.getElementById('sdaprofiles_input_width').value = equipment.width;
-				document.getElementById('sdaprofiles_fitting_id').value = equipment.sdaprofiles_fitting_id;
-				document.getElementById('formTask').value = 'edit';
+				document.getElementById('fitting_form').innerHTML = html;
+				checkType();
 				document.getElementById('fittingForm').hidden = false;
 			}
 		}
 	};
 
-	xhttp.open("POST", "index.php?option=com_sdaprofiles&format=json&view=Fittings&task=read");
+	xhttp.open("POST", "index.php?option=com_sdaprofiles&format=raw&view=Fittings&task=edit");
 	xhttp.send(formData);
 }
 

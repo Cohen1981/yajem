@@ -105,6 +105,7 @@ class Fitting extends DataController
 	{
 		$input = $this->input->post->getArray();
 
+		//TODO save standard field
 		if ($input['type'])
 		{
 			/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
@@ -128,6 +129,16 @@ class Fitting extends DataController
 			$fitting->length                        = $input['length'];
 			$fitting->width                         = $input['width'];
 			$fitting->sdaprofiles_fitting_image_id  = $input['image'];
+
+			if ($input['standard'])
+			{
+				$fitting->standard = true;
+			}
+			else
+			{
+				$fitting->standard = false;
+			}
+
 			$fitting->save();
 
 			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=fittingAjax&id=' . $fitting->sdaprofiles_fitting_id);

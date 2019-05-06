@@ -36,6 +36,12 @@ class Raw extends BaseRaw
 			case "error":
 				$this->setLayout('error');
 				break;
+			case "edit":
+				$this->setLayout('form');
+				break;
+			case "add":
+				$this->setLayout('form');
+				break;
 		}
 	}
 }

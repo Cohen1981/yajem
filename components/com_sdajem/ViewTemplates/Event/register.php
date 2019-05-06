@@ -76,7 +76,14 @@ if ($user->profile)
 		foreach ($user->profile->fittings as $fitting)
 		{
 			$id = $fitting->sdaprofiles_fitting_id;
-			echo "<input type=\"checkbox\" id=\"fitting" . $id . "\" name=\"fittings[]\" value=\"" . $id . "\" />";
+			$checked = '';
+
+			if ($fitting->standard)
+			{
+				$checked = "checked";
+			}
+
+			echo "<input type=\"checkbox\" id=\"fitting" . $id . "\" name=\"fittings[]\" value=\"" . $id . "\" $checked />";
 			echo "<label for='fitting" . $id . "'>" .
 				$fitting->typeModel->title . " " .
 				$fitting->detail . " " .
