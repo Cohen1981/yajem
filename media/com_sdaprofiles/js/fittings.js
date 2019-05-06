@@ -1,6 +1,7 @@
 function addFittingAjax() {
 	var formElement = document.querySelector("#fittingForm");
 	var formData = new FormData(formElement);
+	var formTask = document.getElementById('formTask').value;
 
 	if (parseInt(document.getElementById('sdaprofiles_input_type').value) !== 0) {
 		document.getElementById('sdaprofiles_fitting_add').hidden=true;
@@ -17,7 +18,7 @@ function addFittingAjax() {
 					document.getElementById('sdaprofiles_input_length').value = "";
 					document.getElementById('sdaprofiles_input_width').value = "";
 					document.getElementById('fittingForm').hidden = true;
-					if (document.getElementById('formTask').value === "edit") {
+					if (formTask === "edit") {
 						document.getElementById('sdaprofiles_fitting_'+document.getElementById('sdaprofiles_fitting_id').value).remove();
 					}
 					document.getElementById('fitting_area').innerHTML = document.getElementById('fitting_area').innerHTML + html;
@@ -75,6 +76,7 @@ function newEquipment() {
 				document.getElementById('fitting_form').innerHTML = html;
 				checkType();
 				document.getElementById('fittingForm').hidden = false;
+				document.getElementById('formTask').value = 'add';
 			}
 		}
 	};
@@ -100,6 +102,7 @@ function editFittingAjax(id) {
 				document.getElementById('fitting_form').innerHTML = html;
 				checkType();
 				document.getElementById('fittingForm').hidden = false;
+				document.getElementById('formTask').value = 'edit';
 			}
 		}
 	};

@@ -105,7 +105,6 @@ class Fitting extends DataController
 	{
 		$input = $this->input->post->getArray();
 
-		//TODO save standard field
 		if ($input['type'])
 		{
 			/** @var \Sda\Profiles\Site\Model\Fitting $fitting */

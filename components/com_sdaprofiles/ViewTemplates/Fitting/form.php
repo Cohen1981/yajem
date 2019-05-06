@@ -236,7 +236,16 @@ if($input['view'] == 'Fittings' && $input['task'] == 'edit')
 	</div>
 
 	<input type="hidden" name="profileId" value="<?php echo $profile->sdaprofiles_profile_id; ?>" />
-	<input type="hidden" id="sdaprofiles_fitting_id" name="sdaprofiles_fitting_id" value="" />
+	<?php
+	if ($fitting)
+	{
+		echo "<input type=\"hidden\" id=\"sdaprofiles_fitting_id\" name=\"sdaprofiles_fitting_id\" value=\"$fitting->sdaprofiles_fitting_id\" />";
+	}
+	else
+	{
+		echo "<input type=\"hidden\" id=\"sdaprofiles_fitting_id\" name=\"sdaprofiles_fitting_id\" value=\"\" />";
+	}
+	?>
 	<input type="hidden" id="formTask" name="formTask" value="" />
 	<?php echo JHtml::_('form.token'); ?>
 </form>
