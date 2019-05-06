@@ -50,7 +50,6 @@ class Attendee extends DataController
 
 				foreach ($fittings as $fid)
 				{
-					//TODO funktioniert noch nicht !
 					array_forget($svgElements, (string) 'index_' . $fid);
 				}
 

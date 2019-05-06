@@ -60,18 +60,28 @@ $boxY = 30;
 
 	echo "<rect x=\"0\" y=\"0\" width=\"$boxX\" height=\"$boxY\" fill=\"white\" />";
 
-	for ($runX = 0; $runX <= $boxX; $runX++)
+	echo "<text x='-0.5' y='1.2' style='font-size:0.4pt; fill:black' transform=\"rotate(-45)\">m/m</text>";
+
+	for ($runX = 1; $runX <= $boxX; $runX++)
 	{
 		echo "<line x1=\"$runX\" y1=\"0\" x2=\"$runX\" y2=\"$boxY\" stroke='blue' stroke-width='0.1' stroke-opacity='0.1' />";
-		echo "<line x1=\"$runX\" y1=\"0\" x2=\"$runX\" y2=\"1\" stroke='black' stroke-width='0.1' />";
-		echo "<text x='" . ($runX + 0.2) ."' y=\"0.8\" style='font-size:0.4pt; fill:black'>" . ($runX+1) . "</text>";
+
+		if ($runX > 1)
+		{
+			echo "<line x1=\"$runX\" y1=\"0\" x2=\"$runX\" y2=\"1\" stroke='black' stroke-width='0.1' />";
+			echo "<text x='" . ($runX + 0.2) . "' y=\"0.8\" style='font-size:0.4pt; fill:black'>" . ($runX + 1) . "</text>";
+		}
 	}
 
-	for ($runY = 0; $runY <= $boxY; $runY++)
+	for ($runY = 1; $runY <= $boxY; $runY++)
 	{
 		echo "<line x1=\"0\" y1=\"$runY\" x2=\"$boxX\" y2=\"$runY\" stroke='blue' stroke-width='0.1' stroke-opacity='0.1' />";
-		echo "<line x1=\"0\" y1=\"$runY\" x2=\"1\" y2=\"$runY\" stroke='black' stroke-width='0.1' />";
-		echo "<text x='0.2' y='" . ($runY+0.8) . "' style='font-size:0.4pt; fill:black'>" . ($runY+1) . "</text>";
+
+		if ($runY > 1)
+		{
+			echo "<line x1=\"0\" y1=\"$runY\" x2=\"1\" y2=\"$runY\" stroke='black' stroke-width='0.1' />";
+			echo "<text x='0.2' y='" . ($runY + 0.8) . "' style='font-size:0.4pt; fill:black'>" . ($runY + 1) . "</text>";
+		}
 	}
 
 	$svgString = '';

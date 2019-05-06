@@ -2,13 +2,11 @@
  * @copyright: abahlo@hotmail.de
  * @licence Gnu GPL
  * Load the magic
- *
- * @param evt
  */
-function makeDraggable(evt) {
+function makeDraggable() {
 
 	// var svg = document.getElementById('main_svg');
-	var svg = evt.target;
+	var svg = document.getElementById('main_svg');
 
 	document.getElementById('toSvg').addEventListener('click', exportSVG);
 	document.getElementById('save').addEventListener('click', exportSVG);
