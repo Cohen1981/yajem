@@ -67,7 +67,7 @@ class Attendee extends DataController
 			$eventName = 'onAfterRegisterAttendee';
 			$this->triggerEvent($eventName, array($attendee));
 
-			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Attendee&task=registerAjax&id=' . $attendee->sdajem_attendee_id);
+			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Events&task=registerAjax&id=' . $event->sdajem_event_id);
 		}
 		else
 		{

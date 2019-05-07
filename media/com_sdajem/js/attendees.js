@@ -16,35 +16,7 @@ function registerAjax(toDo) {
 			}
 			else
 			{
-				let count = parseInt(document.getElementById('attendeeCount').innerText);
-				if (document.getElementById('attendee' + attendeeId)) {
-					document.getElementById('attendee' + attendeeId).remove();
-				}
-
-				if (parseInt(toDo) === 1) {
-					document.getElementById('attendeeCount').innerText = count += 1;
-				}
-				else {
-					document.getElementById('attendeeCount').innerText = count -= 1;
-				}
-
-				document.getElementById('sdajem_attendee_area').innerHTML = html + document.getElementById('sdajem_attendee_area').innerHTML;
-
-				var xhttp2 = new XMLHttpRequest();
-				xhttp2.onload = function () {
-					if (this.readyState === 4 && this.status === 200) {
-						var html = xhttp2.response;
-						if (html.toString() === "error") {
-							alert('An Error occured');
-						}
-						else {
-							document.getElementById('registerButtons').innerHTML = html;
-							document.getElementById('registerButtons').hidden = false;
-						}
-					}
-				};
-				xhttp2.open("POST", "index.php?option=com_sdajem&view=Events&task=getRegisterHtmlAjax", true);
-				xhttp2.send(formData);
+				document.getElementById('attending_block').innerHTML = html;
 
 				var planingTool = document.getElementById('planingTab');
 				if (planingTool) {

@@ -118,7 +118,7 @@ class Event extends DataModel
 		$query = $db->getQuery(true);
 		$query->select('count(*)')
 			->from('#__sdajem_attendees')
-			->where(array('sdajem_event_id=' . $this->sdajem_event_id, 'status=1', 'sdaprofiles_profile_id is null'));
+			->where(array('sdajem_event_id=' . $this->sdajem_event_id, 'status=1', 'users_user_id is not null'));
 		$db->setQuery($query);
 		$count = $db->loadResult();
 

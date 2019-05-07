@@ -194,11 +194,11 @@ $guest = Factory::getUser()->guest;
 				hidden 
 				onchange="switchCheckBox('attendees_switch')"
 		/>
-		<div class="sdajem_switchable">
+		<div id="attending_block" class="sdajem_switchable">
 			<?php
 			try
 			{
-				echo $this->loadAnyTemplate('site:com_sdajem/Events/attendees');
+				echo $this->loadAnyTemplate('site:com_sdajem/Event/attendees');
 			}
 			catch (Exception $e)
 			{

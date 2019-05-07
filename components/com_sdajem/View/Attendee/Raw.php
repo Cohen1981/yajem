@@ -31,12 +31,6 @@ class Raw extends BaseRaw
 
 		switch ($input['task'])
 		{
-			case "registerAjax":
-				/** @var Attendee $attendee */
-				$attendee = $this->getModel();
-				$attendee->load($input['id]']);
-				$this->setLayout('attendee');
-				break;
 			case "error":
 				$this->setLayout('error');
 				break;

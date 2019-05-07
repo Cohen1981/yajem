@@ -62,6 +62,12 @@ class Raw extends BaseRaw
 				$event->load($input['id']);
 				$this->setLayout('planingTool');
 				break;
+			case "registerAjax":
+				/** @var Event $event */
+				$event = $this->getModel();
+				$event->load($input['id']);
+				$this->setLayout('attendees');
+				break;
 			case "error":
 				$this->setLayout('error');
 				break;
