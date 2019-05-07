@@ -30,7 +30,7 @@ function makeDraggable() {
 	var handle = $(".handle");
 	for (var i = 0; i < handle.length; i++)
 	{
-		handle[i].addEventListener('mousedown', startRotate);
+		handle[i].addEventListener('click', startRotate);
 		handle[i].addEventListener('mouseup', endRotate);
 		handle[i].addEventListener('mouseleave', endRotate);
 		handle[i].addEventListener('touchstart', startRotate);
@@ -124,7 +124,7 @@ function makeDraggable() {
 			}
 
 			transform = transforms.getItem(0);
-			rotate();
+			rotate(evt);
 		}
 	}
 
@@ -164,8 +164,10 @@ function makeDraggable() {
 
 	/**
 	 * rotate
+	 *
+	 * @param evt
 	 */
-	function rotate() {
+	function rotate(evt) {
 		if (selectedElement) {
 			evt.preventDefault();
 			if (selectedElement.classList.contains('left'))

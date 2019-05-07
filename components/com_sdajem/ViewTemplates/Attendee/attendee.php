@@ -73,8 +73,11 @@ switch ($attendee->status)
 		foreach ($attendee->sdaprofilesFittingIds as $id)
 		{
 			$fitting->load($id);
-			$requiredSpace = $requiredSpace + $fitting->getRequiredSpace();
-			echo "<div class='equipment'>" . $fitting->typeModel->title . " " . $fitting->length . "x" . $fitting->width . "</div>";
+			if ((bool) $fitting->typeModel->needSpace)
+			{
+				$requiredSpace = $requiredSpace + $fitting->getRequiredSpace();
+				echo "<div class='equipment'>" . $fitting->typeModel->title . " " . $fitting->length . "x" . $fitting->width . "</div>";
+			}
 		}
 
 		echo "</div>";
