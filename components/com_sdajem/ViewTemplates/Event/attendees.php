@@ -95,4 +95,18 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 	?>
 
 </div>
+<div id="fitting_list">
+	<?php
+	if ($event->attendees && !Factory::getUser()->guest)
+	{
+		try
+		{
+			echo $this->loadAnyTemplate('site:com_sdajem/Event/equipment_list');
+		}
+		catch (Exception $e)
+		{
+		}
+	}
+	?>
+</div>
 <?php endif; ?>
