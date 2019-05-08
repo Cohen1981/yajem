@@ -105,6 +105,7 @@ if($input['view'] == 'Fittings' && $input['task'] == 'edit')
 		       value="<?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_ERROR') ?>"
 		/>
 
+		<!-- Hidden fields for the JS. Used for checking if there should be images to show -->
 		<input type="hidden" id="ft_none" name="fittingTypes" value="0" />
 		<?php foreach ($fTypes as $type) : ?>
 		<input type="hidden" id="ft_<?php echo $type->sdaprofiles_fitting_type_id; ?>" name="fittingTypes" value="<?php echo $type->needSpace; ?>" />
@@ -119,6 +120,7 @@ if($input['view'] == 'Fittings' && $input['task'] == 'edit')
 				<div id="chooseFittingImage" class="sdaprofiles_equipment_images">
 					<?php
 					$imageId = null;
+					$hit = false;
 
 					if ($fitting)
 					{
@@ -127,20 +129,33 @@ if($input['view'] == 'Fittings' && $input['task'] == 'edit')
 
 					foreach ($images as $image)
 					{
-						$selected = '';
-
-						if ($image->sdaprofiles_fitting_image_id == $imageId)
+						if ($image->image != '')
 						{
-							$selected = 'checked';
-						}
+							$selected = '';
 
-						echo "<div class=\"sdaprofiles_equipment_cell\">";
-						echo "<input type=\"radio\" id=\"fi_$image->sdaprofiles_fitting_image_id\" 
+							if ($image->sdaprofiles_fitting_image_id == $imageId)
+							{
+								$selected = "checked";
+								$hit = true;
+							}
+
+							echo "<div class=\"sdaprofiles_equipment_cell\">";
+							echo "<input type=\"radio\" id=\"fi_$image->sdaprofiles_fitting_image_id\" 
 								name=\"image\" value=\"$image->sdaprofiles_fitting_image_id\" $selected>";
-						echo "<label for=\"fi_$image->sdaprofiles_fitting_image_id\">
-								$image->description <img src=\"$image->image\" class=\"img-label\" /></label>";
-						echo "</div>";
+							echo "<label for=\"fi_$image->sdaprofiles_fitting_image_id\">
+								 <img src=\"$image->image\" class=\"img-label\" />$image->description</label>";
+							echo "</div>";
+						}
 					}
+
+					$selected = ($hit) ? '' : 'checked';
+					echo "<div class=\"sdaprofiles_equipment_cell\">";
+					echo "<input type=\"radio\" id=\"fi_none\" 
+								name=\"image\" value=\"\" $selected>";
+					echo "<label for=\"fi_none\"><img src=\"media/com_sdaprofiles/images/no-image.png\" class=\"img-label\" />" .
+					Text::_('COM_SDAPROFILES_NO_IMAGE') . "</label>";
+					echo "</div>";
+
 					?>
 				</div>
 				<span class="help-block">

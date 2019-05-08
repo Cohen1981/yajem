@@ -87,6 +87,9 @@ label.sdaprofile_tab.sda_active {
 .sdaprofiles_equipment_images {
 	display: flex;
 	flex-wrap: wrap;
+	border-bottom: solid grey 1px;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
 }
 .sdaprofiles_equipment_cell {
 	width: 100px;
