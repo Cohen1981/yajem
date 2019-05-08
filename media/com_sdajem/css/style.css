@@ -10,6 +10,8 @@
 	display: block;
 	width: auto;
 	padding: 10px 10px 10px 0px;
+	flex-grow: 1;
+	flex-basis: 0;
 }
 .sdajem_head {
 	font-weight: bold;
@@ -261,4 +263,11 @@ input[type="text"].jem_required {
 }
 .sdajem_thumbnail {
 	max-width: 20px;
+}
+.sdajem_align_help i {
+	margin-right: 5px;
+}
+
+.sdajem_align_help {
+	display: inline-flex;
 }

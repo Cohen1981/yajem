@@ -97,7 +97,7 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 </div>
 <div id="fitting_list">
 	<?php
-	if ($event->attendees && !Factory::getUser()->guest)
+	if ($event->attendees && !Factory::getUser()->guest && $event->useFittings)
 	{
 		try
 		{
