@@ -67,8 +67,21 @@ class Toolbar extends BaseToolbar
 	{
 		ToolbarHelper::title(Text::_('COM_SDACONTACTS_TITLE_CONTACT_EDIT'));
 
-		ToolbarHelper::apply();
 		ToolbarHelper::save();
+		ToolbarHelper::cancel();
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.0.1
+	 */
+	public function onContactsAdd()
+	{
+		ToolbarHelper::title(Text::_('COM_SDACONTACTS_TITLE_CONTACT_EDIT'));
+
+		ToolbarHelper::save();
+		ToolbarHelper::save2new('savenew');
 		ToolbarHelper::cancel();
 	}
 }

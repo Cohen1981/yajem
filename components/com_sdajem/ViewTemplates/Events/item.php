@@ -11,6 +11,7 @@ use Joomla\CMS\Factory;
 use FOF30\Date\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Component\ComponentHelper;
+use Sda\Jem\Admin\Helper\IconHelper;
 
 /** @var \Sda\Jem\Site\View\Event\Html  $this       */
 /** @var \Sda\Jem\Site\Model\Event      $event      */
@@ -26,28 +27,28 @@ $guest = Factory::getUser()->guest;
 ?>
 <div class="sdajem_tabs">
 	<label id="event_switch_label" class="sdajem_tab sda_active" for="event_switch">
-		<?php echo Text::_('COM_SDAJEM_TITLE_EVENT_BASIC') ?>
+		<?php echo IconHelper::titleIcon() . " " . Text::_('COM_SDAJEM_TITLE_EVENT_BASIC') ?>
 	</label>
 	<?php if ($event->location) : ?>
 	<label id="location_switch_label" class="sdajem_tab" for="location_switch">
-		<?php echo Text::_('COM_SDAJEM_TITLE_LOCATION_BASIC') ?>
+		<?php echo IconHelper::locationIcon() . " " . Text::_('COM_SDAJEM_TITLE_LOCATION_BASIC') ?>
 	</label>
 	<?php endif; ?>
 	<?php if ((bool) $event->useRegistration && !$guest) : ?>
 	<label id="attendees_switch_label" class="sdajem_tab" for="attendees_switch">
-		<?php echo Text::_('COM_SDAJEM_TITLE_ATTENDEES_BASIC') ?>
-		<?php if ($event->getAttendingCount() > 0) { echo $event->getAttendingCount(); } ?>
+		<?php echo IconHelper::usersIcon() . " " . Text::_('COM_SDAJEM_TITLE_ATTENDEES_BASIC') ?>
+		<?php if ($event->getAttendingCount() > 0) { echo "(" . $event->getAttendingCount() . ")"; } ?>
 	</label>
 	<?php endif; ?>
 	<?php if (!$guest) : ?>
 	<label id="comments_switch_label" class="sdajem_tab" for="comments_switch">
-		<?php echo Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
-		<?php if ($event->comments->count() > 0) { echo " " . $event->comments->count(); } ?>
+		<?php echo IconHelper::commentsIcon() . " " . Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
+		<?php if ($event->comments->count() > 0) { echo " (" . $event->comments->count() . ")"; } ?>
 	</label>
 	<?php endif; ?>
 	<?php if((bool) ComponentHelper::getParams('com_sdajem')->get('usePlaningTool') && !$guest && (bool) $event->useFittings) : ?>
 	<label id="planing_switch_label" class="sdajem_tab" for="planing_switch">
-		<?php echo Text::_('COM_SDAJEM_TITLE_PLANER_BASIC') ?>
+		<?php echo IconHelper::planingIcon() . " " . Text::_('COM_SDAJEM_TITLE_PLANER_BASIC') ?>
 	</label>
 	<?php endif; ?>
 </div>

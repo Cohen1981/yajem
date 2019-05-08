@@ -13,6 +13,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Access\Access;
 use Joomla\CMS\Language\Text;
 use Sda\Jem\Admin\Helper\EventStatusHelper;
+use Sda\Jem\Admin\Helper\IconHelper;
 
 /** @var \Sda\Jem\Site\View\Event\Html $this */
 /** @var \Sda\Jem\Site\Model\Event $event */
@@ -37,31 +38,31 @@ $guest = Factory::getUser()->guest;
 	<div class="sdajem_flex_row">
 		<div class="sdajem_cell sdajem_head">
 			<div class="sdajem_align_help">
-				<i class="far fa-calendar-alt" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_DATE') ?>"></i>
+				<?php echo IconHelper::dateIcon(); ?>
 				<?php echo Text::_('COM_SDAJEM_EVENT_DATE_LABEL'); ?>
 			</div>
 		</div>
 		<div class="sdajem_cell sdajem_head">
 			<div class="sdajem_align_help">
-				<i class="far fa-bookmark" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
+				<?php echo IconHelper::titleIcon(); ?>
 				<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL'); ?>
 			</div>
 		</div>
 		<div class="sdajem_cell sdajem_head">
 			<div class="sdajem_align_help">
-				<i class="fas fa-map-marker-alt" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_MAP') ?>">&nbsp;</i>
+				<?php echo IconHelper::locationIcon(); ?>
 				<?php echo Text::_('COM_SDAJEM_EVENT_SDAJEM_LOCATION_ID_LABEL'); ?>
 			</div>
 		</div>
 		<div class="sdajem_cell sdajem_head">
 			<div class="sdajem_align_help">
-				<i class="far fa-flag" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
+				<?php echo IconHelper::categoryIcon(); ?>
 				<?php echo Text::_('COM_SDAJEM_EVENT_SDAJEM_CATEGORY_ID_LABEL'); ?>
 			</div>
 		</div>
 		<div class="sdajem_cell sdajem_head">
 			<div class="sdajem_align_help">
-				<i class="fas fa-users" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_USERS') ?>"></i>
+				<?php echo IconHelper::usersIcon(); ?>
 				<?php echo Text::_('COM_SDAJEM_EVENT_ATTENDEES'); ?>
 			</div>
 		</div>
@@ -69,7 +70,7 @@ $guest = Factory::getUser()->guest;
 		<?php if (!$guest):	?>
 			<div class="sdajem_cell sdajem_head">
 				<div class="sdajem_align_help">
-					<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_STATUS') ?>">&nbsp;</i>
+					<?php echo IconHelper::statusIcon(); ?>
 					<?php echo Text::_('COM_SDAJEM_EVENT_EVENTSTATUS_LABEL'); ?>
 				</div>
 			</div>
@@ -84,7 +85,7 @@ $guest = Factory::getUser()->guest;
 
 		<div class="sdajem_cell">
 			<div class="sdajem_align_help">
-				<i class="far fa-calendar-alt" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_DATE') ?>"></i>
+				<?php echo IconHelper::dateIcon(); ?>
 
 				<?php
 				$startDate = new Date($event->startDateTime);
@@ -105,7 +106,7 @@ $guest = Factory::getUser()->guest;
 		</div>
 		<div class="sdajem_cell">
 			<div class="sdajem_align_help">
-				<i class="far fa-bookmark" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
+				<?php echo IconHelper::titleIcon(); ?>
 				<a href="<?php echo Route::_('index.php?option=com_sdajem&task=read&id=' . $event->sdajem_event_id) ?>">
 					<?php echo $event->title; ?>
 				</a>
@@ -113,19 +114,19 @@ $guest = Factory::getUser()->guest;
 		</div>
 		<div class="sdajem_cell">
 			<div class="sdajem_align_help">
-				<i class="fas fa-map-marker-alt" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_MAP') ?>">&nbsp;</i>
+				<?php echo IconHelper::locationIcon(); ?>
 				<?php echo $event->location->title; ?>
 			</div>
 		</div>
 		<div class="sdajem_cell">
 			<div class="sdajem_align_help">
-				<i class="far fa-flag" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
+				<?php echo IconHelper::categoryIcon(); ?>
 				<?php echo $event->category->title; ?>
 			</div>
 		</div>
 		<div class="sdajem_cell">
 			<div class="sdajem_align_help">
-				<i class="fas fa-users" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_USERS') ?>"></i>
+				<?php echo IconHelper::usersIcon(); ?>
 				<?php
 				if ((bool) $event->useRegistration)
 				{
@@ -138,7 +139,7 @@ $guest = Factory::getUser()->guest;
 		<?php if (!$guest):	?>
 			<div class="sdajem_cell">
 				<div class="sdajem_align_help">
-					<i class="fas fa-info-circle" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_STATUS'); ?>">&nbsp;</i>
+					<?php echo IconHelper::statusIcon(); ?>
 					<?php
 						echo EventStatusHelper::getSymbolByStatus($event->eventStatus);
 					?>
