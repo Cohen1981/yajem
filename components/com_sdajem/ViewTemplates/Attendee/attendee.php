@@ -61,32 +61,6 @@ switch ($attendee->status)
 		<?php echo $profile->userName . "<br/>" . $status; ?>
 	</div>
 
-	<?php
-	// Has the user checked equipment
-	if ($attendee->sdaprofilesFittingIds)
-	{
-		$requiredSpace = 0;
-
-		echo "<input type=\"checkbox\" id=\"sdajem_switch_fitting" . $attendee->sdajem_attendee_id . "\" class=\"sdajem_hidden\" hidden/>";
-		echo "<div class=\"sdajem_section_container sdajem_switchable\">";
-
-		foreach ($attendee->sdaprofilesFittingIds as $id)
-		{
-			$fitting->load($id);
-			if ((bool) $fitting->typeModel->needSpace)
-			{
-				$requiredSpace = $requiredSpace + $fitting->getRequiredSpace();
-				echo "<div class='equipment'>" . $fitting->typeModel->title . " " . $fitting->length . "x" . $fitting->width . "</div>";
-			}
-		}
-
-		echo "</div>";
-		echo "<label id=\"fitting-section-button\" class=\"sdajem_switch\" for=\"sdajem_switch_fitting" . $attendee->sdajem_attendee_id . "\">";
-		echo Text::_('COM_SDAJEM_REQUIRED_SPACE') . ": " . $requiredSpace;
-		echo "</label>";
-	}
-	?>
-
 <?php else : ?>
 
 	<div class="sdajem_profile_details">
