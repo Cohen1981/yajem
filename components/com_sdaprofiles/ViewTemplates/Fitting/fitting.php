@@ -53,7 +53,7 @@ if ($fitting->sdaprofiles_fitting_id == '')
 		?>
 		</span>
 		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->detail ?></span>
-		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->length ?></span>
-		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->width ?></span>
+		<span class="sdaprofiles_fitting_cell"><?php if ((bool) $fitting->typeModel->needSpace) { echo $fitting->length; } ?></span>
+		<span class="sdaprofiles_fitting_cell"><?php if ((bool) $fitting->typeModel->needSpace) { echo $fitting->width; } ?></span>
 	</div>
 </div>

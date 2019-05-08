@@ -271,3 +271,6 @@ input[type="text"].jem_required {
 .sdajem_align_help {
 	display: inline-flex;
 }
+#sdajem_comment_area {
+	width: 99%;
+}

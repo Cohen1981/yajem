@@ -36,11 +36,13 @@ $guest = Factory::getUser()->guest;
 	<?php if ((bool) $event->useRegistration && !$guest) : ?>
 	<label id="attendees_switch_label" class="sdajem_tab" for="attendees_switch">
 		<?php echo Text::_('COM_SDAJEM_TITLE_ATTENDEES_BASIC') ?>
+		<?php if ($event->getAttendingCount() > 0) { echo $event->getAttendingCount(); } ?>
 	</label>
 	<?php endif; ?>
 	<?php if (!$guest) : ?>
 	<label id="comments_switch_label" class="sdajem_tab" for="comments_switch">
-		<?php echo Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC') ?>
+		<?php echo Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
+		<?php if ($event->comments->count() > 0) { echo " " . $event->comments->count(); } ?>
 	</label>
 	<?php endif; ?>
 	<?php if((bool) ComponentHelper::getParams('com_sdajem')->get('usePlaningTool') && !$guest && (bool) $event->useFittings) : ?>

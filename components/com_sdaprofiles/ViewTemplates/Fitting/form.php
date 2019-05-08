@@ -152,7 +152,7 @@ if($input['view'] == 'Fittings' && $input['task'] == 'edit')
 					echo "<div class=\"sdaprofiles_equipment_cell\">";
 					echo "<input type=\"radio\" id=\"fi_none\" 
 								name=\"image\" value=\"\" $selected>";
-					echo "<label for=\"fi_none\"><img src=\"media/com_sdaprofiles/images/no-image.png\" class=\"img-label\" />" .
+					echo "<label for=\"fi_none\">" .
 					Text::_('COM_SDAPROFILES_NO_IMAGE') . "</label>";
 					echo "</div>";
 

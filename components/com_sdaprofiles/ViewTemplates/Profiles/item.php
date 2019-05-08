@@ -13,6 +13,7 @@ use Joomla\CMS\Component\ComponentHelper;
 /** @var \Sda\Profiles\Site\View\Profile\Html $this */
 /** @var \Sda\Profiles\Site\Model\Profile $profile */
 
+$this->addJavascriptFile('media://com_sdaprofiles/js/switch.js');
 $this->addCssFile('media://com_sdaprofiles/css/style.css');
 $profile = $this->getItem();
 
