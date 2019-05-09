@@ -213,4 +213,28 @@ class Profile extends DataModel
 		$dbo->execute();
 	}
 
+	/**
+	 * @param   boolean $includeGroups include Group Profiles
+	 *
+	 * @return mixed
+	 *
+	 * @since 0.3.4
+	 */
+	public function getAllProfiles(bool $includeGroups)
+	{
+		$dbo = Factory::getDbo();
+		$query = $dbo->getQuery(true);
+		$query->select('*')
+			->from('#__sdaprofiles_profiles');
+
+		if (!$includeGroups)
+		{
+			$query->where('groupProfile=0');
+		}
+
+		$dbo->setQuery($query);
+
+		return $dbo->loadObjectList();
+	}
+
 }

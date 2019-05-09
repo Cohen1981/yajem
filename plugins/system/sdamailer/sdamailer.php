@@ -138,7 +138,7 @@ class plgSystemSdamailer extends CMSPlugin
 			else
 			{
 				// Mailing enabled for edited event ?
-				if ((bool) $this->params['mail_on_edited'])
+				if ((bool) $this->params['mail_on_edited'] || $input['important_change'])
 				{
 					$recipients = $this->getRecipientsMails($event, $isNew);
 					$subject = Text::_('PLG_SYSTEM_SDAMAILER_EVENT_CHANGED');
@@ -206,7 +206,7 @@ class plgSystemSdamailer extends CMSPlugin
 				/** @var ProfileAlias $profileModel */
 				$profileModel = Container::getInstance('com_sdaprofiles')->factory->model('Profile');
 				/** @var array $profileArray */
-				$profileArray = $profileModel->getItemsArray(0, 0, true);
+				$profileArray = $profileModel->getAllProfiles(false);
 
 				/** @var ProfileAlias $profile */
 				foreach ($profileArray as $profile)
@@ -214,7 +214,10 @@ class plgSystemSdamailer extends CMSPlugin
 					// Each User can decide if he wants to have an email on new Events
 					if ((bool) $profile->mailOnNew)
 					{
-						array_push($recipients, $profile->user->email);
+						/** @var User $userModel */
+						$userModel = Container::getInstance('com_sdajem')->factory->model('User');
+						$userModel->load($profile->users_user_id);
+						array_push($recipients, $userModel->email);
 					}
 				}
 			}
@@ -244,15 +247,18 @@ class plgSystemSdamailer extends CMSPlugin
 				/** @var ProfileAlias $profileModel */
 				$profileModel = Container::getInstance('com_sdaprofiles')->factory->model('Profile');
 				/** @var array $profileArray */
-				$profileArray = $profileModel->getItemsArray(0, 0, true);
+				$profileArray = $profileModel->getAllProfiles(false);
 
 				/** @var ProfileAlias $profile */
 				foreach ($profileArray as $profile)
 				{
 					// Each User can decide if he wants to have an email on edited Events
-					if ((bool) $profile->mailOnEdited)
+					if ((bool) $profile->mailOnEdited || Factory::getApplication()->input->get('important_change'))
 					{
-						array_push($recipients, $profile->user->email);
+						/** @var User $userModel */
+						$userModel = Container::getInstance('com_sdajem')->factory->model('User');
+						$userModel->load($profile->users_user_id);
+						array_push($recipients, $userModel->email);
 					}
 				}
 			}

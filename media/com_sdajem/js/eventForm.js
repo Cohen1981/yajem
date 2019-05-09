@@ -3,9 +3,17 @@ $(
 		showRegistrationFields();
 		switchCalendar();
 		var target = document.getElementById('attending_config');
+		var eventData = document.getElementById('eventData');
 		var uf = upTo(document.getElementById('useFittings'), 'control-group');
 		var fp = upTo(document.getElementById('fittingProfile'), 'control-group');
 		var desc = upTo(document.getElementById('eventStatus'), 'control-group');
+
+		var ic = upTo(document.getElementById('important_change'), 'control-group');
+
+		if (ic)
+		{
+			eventData.insertBefore(ic, upTo(document.getElementById('sdajem_category_id'), 'control-group'));
+		}
 
 		if (uf) {
 			target.insertBefore(uf, desc);
@@ -50,6 +58,7 @@ function showRegistrationFields() {
 	var reg = parseInt(document.getElementById('useRegistration').value);
 	var uf = document.getElementById('useFittings');
 	var fp = document.getElementById('fittingProfile');
+
 	upTo(uf,'control-group').hidden = true;
 	upTo(fp,'control-group').hidden = true;
 	if (reg === 0) {

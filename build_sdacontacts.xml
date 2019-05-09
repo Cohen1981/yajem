@@ -53,6 +53,7 @@
     </target>
 
     <target name="zip_sdacontacts" description="package the archive" depends="copyFiles_sdacontacts" hidden="true">
+        <delete file="${contacts.dist.dir}/com_sdacontacts.zip" />
         <zip destfile="${contacts.dist.dir}/com_sdacontacts.zip" includeemptydirs="true" basedir="${contacts.build.dir}/" />
     </target>
 
