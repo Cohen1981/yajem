@@ -92,7 +92,7 @@ echo "<input type=\"hidden\" id='usePlaningTool' name=\"usePlaningTool\" class='
 </div>
 <?php endif; ?>
 
-<?php if (JPluginHelper::isEnabled('system', 'sdamailer')) : ?>
+<?php if (JPluginHelper::isEnabled('system', 'sdamailer') && $this->task == 'edit') : ?>
 	<div class="control-group ">
 		<label class="control-label " for="important_change"><b><?php echo Text::_('COM_SDAJEM_IMPORTANT_CHANGE'); ?></b></label>
 		<div class="controls">

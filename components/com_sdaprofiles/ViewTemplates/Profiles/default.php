@@ -28,7 +28,7 @@ $items = $this->getItems();
 		<div class="sdaprofiles_section_container">
 			<div class="sdaprofiles_flex_row">
 
-				<div class="sdaprofiles_cell">
+				<div id="avatar_cell" class="sdaprofiles_cell">
 					<?php
 					if ($profile->avatar)
 					{
@@ -39,16 +39,14 @@ $items = $this->getItems();
 						echo "<img class=\"sdaprofiles_avatar\" src=\"media/com_sdaprofiles/images/user-image-blanco.png\"/>";
 					}
 					?>
-				</div>
-				<div class="sdaprofiles_cell">
 					<?php if ($profile->user->id == Factory::getUser()->id) : ?>
-					<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=edit&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
-						<?php echo $profile->userName; ?>
-					</a>
+						<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=edit&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
+							<?php echo $profile->userName; ?>
+						</a>
 					<?php else: ?>
-					<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=read&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
-						<?php echo $profile->userName; ?>
-					</a>
+						<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=read&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
+							<?php echo $profile->userName; ?>
+						</a>
 					<?php endif; ?>
 
 					<?php if ((bool) $profile->defaultGroup) : ?>

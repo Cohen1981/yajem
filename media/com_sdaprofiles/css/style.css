@@ -20,6 +20,9 @@
 .sdaprofiles_cell {
 	margin-right: 10px;
 	margin-bottom: 10px;
+	flex-basis: 0;
+	flex-grow: 1;
+	display: flex;
 }
 .sdaprofiles_avatar {
 	height: 60px;
@@ -104,4 +107,10 @@ label.sdaprofile_tab.sda_active {
 }
 #defaultMarker{
 	color: #ff9c0a;
+}
+#avatar_cell{
+	flex-basis: initial;
+}
+#avatar_cell img {
+	margin-right: 10px;
 }
