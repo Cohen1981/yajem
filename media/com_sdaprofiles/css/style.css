@@ -108,9 +108,9 @@ label.sdaprofile_tab.sda_active {
 #defaultMarker{
 	color: #ff9c0a;
 }
-#avatar_cell{
-	flex-basis: initial;
-}
 #avatar_cell img {
 	margin-right: 10px;
+}
+.fittings_table_header table th a {
+	color: #A62C40 !important;
 }
