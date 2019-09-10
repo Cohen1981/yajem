@@ -69,7 +69,7 @@ $guest = Factory::getUser()->guest;
 
 			<div class="sdajem_event_grid">
 
-				<?php if ($event->organizerId != 0) : ?>
+				<?php if ($event->organizerId != 0 && !$guest) : ?>
 
 				<div class="sdajem_label">
 					<h3>
@@ -119,12 +119,14 @@ $guest = Factory::getUser()->guest;
 					</b>
 				</div>
 
-				<div class="sdajem_label">
-					<?php echo Text::_('COM_SDAJEM_EVENT_URL_LABEL'); ?>
-				</div>
-				<div class="sdajem_value">
-					<a href="<?php echo $event->url; ?>" target="_blank"><?php echo $event->url; ?></a>
-				</div>
+				<?php if ($event->url): ?>
+					<div class="sdajem_label">
+						<?php echo Text::_('COM_SDAJEM_EVENT_URL_LABEL'); ?>
+					</div>
+					<div class="sdajem_value">
+						<a href="<?php echo $event->url; ?>" target="_blank"><?php echo $event->url; ?></a>
+					</div>
+				<?php endif; ?>
 
 				<?php if ($event->host): ?>
 				<div class="sdajem_label">
@@ -135,7 +137,7 @@ $guest = Factory::getUser()->guest;
 				</div>
 				<?php endif; ?>
 
-				<?php if ($event->organizer): ?>
+				<?php if ($event->organizer && !$guest): ?>
 					<div class="sdajem_label">
 						<?php echo Text::_('COM_SDAJEM_EVENT_ORGANIZERID_LABEL'); ?>
 					</div>
@@ -143,13 +145,15 @@ $guest = Factory::getUser()->guest;
 						<?php echo $event->organizer->getLinkToContact(); ?>
 					</div>
 				<?php endif; ?>
-
-				<div class="sdajem_label">
-					<?php echo Text::_('COM_SDAJEM_EVENT_DESCRIPTION_LABEL'); ?>
-				</div>
-				<div class="sdajem_value">
-					<?php echo $event->description; ?>
-				</div>
+				
+				<?php if ($event->description): ?>
+					<div class="sdajem_label">
+						<?php echo Text::_('COM_SDAJEM_EVENT_DESCRIPTION_LABEL'); ?>
+					</div>
+					<div class="sdajem_value">
+						<?php echo $event->description; ?>
+					</div>
+				<?php endif; ?>
 
 			</div>
 

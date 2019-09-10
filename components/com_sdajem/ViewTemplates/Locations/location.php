@@ -93,20 +93,26 @@ if (ComponentHelper::isEnabled('com_sdaprofiles') && !$currentUser->guest)
 			<?php echo $location->city; ?>
 			<?php if ($location->latlng) {echo "<br/><br/>" . $location->latlng; } ?>
 		</div>
-		<div class="sdajem_label">
-			<?php echo Text::_('COM_SDAJEM_LOCATION_DESCRIPTION_LABEL'); ?>
-		</div>
-		<div class="sdajem_value">
-			<?php echo $location->description; ?>
-		</div>
-		<div class="sdajem_label">
-			<?php echo Text::_('COM_SDAJEM_LOCATION_CONTACT_LABEL'); ?>
-		</div>
-		<div class="sdajem_value">
-			<a href="index.php?option=com_contact&view=contact&id=<?php echo $event->host->id; ?>">
-				<?php echo $location->contact->name; ?>
-			</a>
-		</div>
+		
+		<?php if ($location->description): ?>
+			<div class="sdajem_label">
+				<?php echo Text::_('COM_SDAJEM_LOCATION_DESCRIPTION_LABEL'); ?>
+			</div>
+			<div class="sdajem_value">
+				<?php echo $location->description; ?>
+			</div>
+		<?php endif; ?>
+		
+		<?php if ($location->contact->name && !Factory::getUser()->guest): ?>
+			<div class="sdajem_label">
+				<?php echo Text::_('COM_SDAJEM_LOCATION_CONTACT_LABEL'); ?>
+			</div>
+			<div class="sdajem_value">
+				<a href="index.php?option=com_contact&view=contact&id=<?php echo $event->host->id; ?>">
+					<?php echo $location->contact->name; ?>
+				</a>
+			</div>
+		<?php endif; ?>
 
 	</div>
 
