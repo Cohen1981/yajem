@@ -54,7 +54,7 @@
 
 			<!-- Toolbar configuration -->
 			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_BROWSE" task="browse">
-				<button type="new" />
+				<button type="back" />
 			</toolbar>
 			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_READ" task="read">
 				<button type="back" />

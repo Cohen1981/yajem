@@ -188,4 +188,14 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::save2new('savenew');
 		ToolbarHelper::cancel();
 	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 1.0.0
+	 */
+	public function onFittingsBrowse()
+	{
+		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGS_BROWSE'));
+	}
 }
