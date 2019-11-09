@@ -114,6 +114,6 @@ label.sdaprofile_tab.sda_active {
 #avatar_cell {
 	display: block;
 }
-.fittings_table_header table th a {
+.fittings_table_header table th a, table th a {
 	color: #A62C40 !important;
 }
