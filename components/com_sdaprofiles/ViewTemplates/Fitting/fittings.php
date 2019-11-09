@@ -24,6 +24,7 @@ if ($input['option'] == 'com_sdaprofiles' && ($input['task'] == 'edit' || $input
 {
 	$profile = $this->getModel();
 }
+$allowedUser = ($profile->users_user_id == Factory::getUser()->id) || ((bool) $profile->groupProfile || Factory::getUser()->authorise('core.admin'));
 ?>
 <div class="well">
 	<div class="titleContainer">
@@ -33,8 +34,8 @@ if ($input['option'] == 'com_sdaprofiles' && ($input['task'] == 'edit' || $input
 		</h2>
 	</div>
 	<div class="buttonsContainer">
-		<?php if (($profile->users_user_id == Factory::getUser()->id) || ((bool) $profile->groupProfile && $input['task'] == 'edit')) : ?>
-		<button id="sdaprofiles_fitting_new" type="button" onclick="newEquipment()">
+		<?php if ($allowedUser && $input['task'] == 'edit') : ?>
+		<button id="sdaprofiles_fitting_new" type="button" onclick="newEquipment(<?php echo $profile->sdaprofiles_profile_id ?>)">
 			<?php echo Text::_('SDAPROFILES_FITTING_NEW') ?>
 		</button>
 		<?php endif; ?>

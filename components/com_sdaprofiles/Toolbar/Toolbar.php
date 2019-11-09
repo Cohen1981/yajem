@@ -32,9 +32,14 @@ class Toolbar extends BaseToolbar
 	{
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_PROFILES_BROWSE'));
 
-		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
+		if (Factory::getUser()->authorise('core.add', 'com_sdaprofiles'))
 		{
 			ToolbarHelper::addNew();
+		}
+
+		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
+		{
+			ToolbarHelper::custom('ownProfile', 'new', '', 'COM_SDAPROFILES_OWN_PROFILE', false);
 		}
 
 		if (Factory::getUser()->authorise('core.edit', 'groupprofile'))
@@ -52,7 +57,7 @@ class Toolbar extends BaseToolbar
 	{
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_PROFILES_EDIT'));
 
-		// ToolbarHelper::apply();
+		//ToolbarHelper::apply();
 		ToolbarHelper::save();
 		ToolbarHelper::cancel();
 	}
@@ -86,9 +91,10 @@ class Toolbar extends BaseToolbar
 		$profile = $this->container->factory->model('Profile');
 		$profile->load();
 
-		if ($user->authorise('core.edit', 'groupprofile') && ($user->id === $profile->users_user_id || $profile->users_user_id == ''))
+		if ($user->authorise('core.admin') ||
+			($user->authorise('core.edit', 'groupprofile') && ($user->id === $profile->users_user_id || $profile->users_user_id == '')))
 		{
-			ToolbarHelper::custom('editGroup', 'edit', '', 'COM_SDAPROFILES_EDIT_PROFILE', false);
+			ToolbarHelper::custom('editProfile', 'edit', '', 'COM_SDAPROFILES_EDIT_PROFILE', false);
 		}
 
 		ToolbarHelper::back();

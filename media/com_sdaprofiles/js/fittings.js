@@ -62,7 +62,9 @@ function deleteFittingAjax(id) {
 	xhttp.send(formData);
 }
 
-function newEquipment() {
+function newEquipment(id) {
+	var formData = new FormData();
+	formData.append('profileId', id);
 	var xhttp = new XMLHttpRequest();
 	xhttp.onload = function () {
 		if (this.readyState === 4 && this.status === 200) {
@@ -82,7 +84,7 @@ function newEquipment() {
 	};
 
 	xhttp.open("POST", "index.php?option=com_sdaprofiles&format=raw&view=Fittings&task=add");
-	xhttp.send();
+	xhttp.send(formData);
 }
 
 function editFittingAjax(id) {

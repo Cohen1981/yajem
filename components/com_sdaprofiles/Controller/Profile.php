@@ -32,35 +32,44 @@ class Profile extends AdminProfile
 	 */
 	public function onBeforeAdd(bool $newGroup = false)
 	{
-		if (!((int) $this->defaultsForAdd['groupProfile'] === 1))
+		if (!((int) $this->defaultsForAdd['groupProfile'] === 1) && $this->defaultsForAdd['users_user_id'])
 		{
-			$currentUser = Factory::getUser()->id;
-
-			$container = Container::getInstance('com_sdaprofiles');
-
-			/** @var User $user */
-			$user = $container->factory->model('User');
-
-			$user->load((int) $currentUser);
-
-			if ($user->profile)
+			if ($this->defaultsForAdd['users_user_id'])
 			{
-				$this->setRedirect('index.php?option=com_sdaprofiles&task=edit&id=' . $user->profile->sdaprofiles_profile_id);
-			}
-			else
-			{
-				/** @var \Sda\Profiles\Site\Model\Profile $profile */
-				$profile                = $container->factory->model('Profile');
-				$profile->users_user_id = Factory::getUser()->id;
-				$profile->userName      = Factory::getUser()->username;
-				$profile->avatar        = 'media/com_sdaprofiles/images/user-image-blanco.png';
-				$profile->groupProfile  = 0;
-				$profile->save();
-				$this->setRedirect('index.php?option=com_sdaprofiles&task=edit&id=' . $profile->sdaprofiles_profile_id);
+				$currentUser = $this->defaultsForAdd['users_user_id'];
+
+				$container = Container::getInstance('com_sdaprofiles');
+
+				/** @var User $user */
+				$user = $container->factory->model('User');
+
+				$user->load((int) $currentUser);
+
+				if ($user->profile)
+				{
+					$this->setRedirect('index.php?option=com_sdaprofiles&task=edit&id=' . $user->profile->sdaprofiles_profile_id);
+				}
+				else
+				{
+					/** @var \Sda\Profiles\Site\Model\Profile $profile */
+					$profile                = $container->factory->model('Profile');
+					$profile->users_user_id = Factory::getUser()->id;
+					$profile->userName      = Factory::getUser()->username;
+					$profile->avatar        = 'media/com_sdaprofiles/images/user-image-blanco.png';
+					$profile->groupProfile  = 0;
+					$profile->save();
+					$this->setRedirect('index.php?option=com_sdaprofiles&task=edit&id=' . $profile->sdaprofiles_profile_id);
+				}
 			}
 
 			$this->redirect();
 		}
+	}
+
+	public function ownProfile()
+	{
+		$this->defaultsForAdd['users_user_id'] = Factory::getUser()->id;;
+		$this->execute('add');
 	}
 
 	/**
@@ -72,13 +81,14 @@ class Profile extends AdminProfile
 	{
 		parent::onBeforeSave();
 
-		if (!(bool) $this->input->get('groupProfile'))
+		if (!$this->input->get('users_user_id') && !$this->input->get('sdaprofiles_profile_id'))
 		{
 			$this->input->set('users_user_id', Factory::getUser()->id);
 			$this->input->set('userName', Factory::getUser()->username);
 			$this->input->set('groupProfile', 0);
 		}
-		else
+
+		if ((bool) $this->input->get('groupProfile'))
 		{
 			$this->input->set('users_user_id', null);
 			$this->input->set('userName', $this->input->get('userName'));
@@ -107,7 +117,7 @@ class Profile extends AdminProfile
 	 *
 	 * @since 0.1.4
 	 */
-	public function editGroup()
+	public function editProfile()
 	{
 		if ($this->input->get('profileId'))
 		{

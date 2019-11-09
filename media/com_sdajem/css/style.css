@@ -262,7 +262,7 @@ input[type="text"].jem_required {
 	background: #f2dede;
 }
 .sdajem_thumbnail {
-	max-width: 20px;
+	max-width: 20px !important;
 }
 .sdajem_align_help i {
 	margin-right: 5px;

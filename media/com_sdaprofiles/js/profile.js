@@ -1,6 +1,15 @@
 $(function () {
+	disableUser();
 	showHideGroup();
 });
+
+function disableUser() {
+	var user = document.getElementById('users_user_id');
+	var userId = user.options[user.selectedIndex].value;
+	if (userId !== '') {
+		document.getElementById('users_user_id').setAttribute('disabled', 'true');
+	}
+}
 
 function showHideGroup() {
 	var bool = parseInt(document.getElementById('groupProfile').value) === 1;

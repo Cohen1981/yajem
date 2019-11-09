@@ -48,7 +48,7 @@
 }
 
 .sdaprofiles_fitting_cell {
-	width: 100px;
+	width: 20%;
 	float: left;
 	padding: 5px;
 }
@@ -99,7 +99,7 @@ label.sdaprofile_tab.sda_active {
 	margin-right: 20px;
 }
 .image_smallest {
-	max-width: 50px;
+	max-width: 50px !important;
 	margin-right: 20px;
 }
 .preview_image {
@@ -110,6 +110,9 @@ label.sdaprofile_tab.sda_active {
 }
 #avatar_cell img {
 	margin-right: 10px;
+}
+#avatar_cell {
+	display: block;
 }
 .fittings_table_header table th a {
 	color: #A62C40 !important;

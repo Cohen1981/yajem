@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <form validate="true">
   <fieldset name="scaffolding">
+
     <field name="users_user_id"
-           type="User"
+           type="Model"
+           model="users"
+           key_field="id"
+           value_field="username"
            label="COM_SDAPROFILES_PROFILE_USERS_USER_ID_LABEL"
            description="COM_SDAPROFILES_PROFILE_USERS_USER_ID_DESC"
-           readonly="true"
+           none="COM_SDAPROFILES_PROFILE_USER_NOT SELECTED"
     />
     <field name="groupProfile"
            type="Boolean"
