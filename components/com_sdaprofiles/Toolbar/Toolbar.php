@@ -197,5 +197,6 @@ class Toolbar extends BaseToolbar
 	public function onFittingsBrowse()
 	{
 		ToolbarHelper::title(Text::_('COM_SDAPROFILES_TITLE_FITTINGS_BROWSE'));
+		ToolbarHelper::cancel();
 	}
 }

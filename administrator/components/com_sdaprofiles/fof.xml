@@ -52,21 +52,6 @@
 				<option name="renderFrontendButtons">1</option>
 			</config>
 
-			<!-- Toolbar configuration -->
-			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_BROWSE" task="browse">
-				<button type="back" />
-			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_READ" task="read">
-				<button type="back" />
-			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_EDIT" task="edit">
-				<button type="save" />
-				<button type="cancel" />
-			</toolbar>
-			<toolbar title="COM_SDAPROFILES_TITLE_FITTINGS_EDIT" task="add">
-				<button type="save" />
-				<button type="cancel" />
-			</toolbar>
 		</view>
 
 		<view name="FittingImages">
