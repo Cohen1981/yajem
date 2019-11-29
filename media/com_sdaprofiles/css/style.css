@@ -17,12 +17,19 @@
 	display: flex;
 	flex-wrap: wrap;
 }
+.justify-left {
+	justify-content: flex-start;
+}
 .sdaprofiles_cell {
 	margin-right: 10px;
 	margin-bottom: 10px;
 	flex-basis: 0;
 	flex-grow: 1;
 	display: flex;
+}
+.default-grow {
+	flex-grow: initial;
+	display: initial;
 }
 .sdaprofiles_avatar {
 	height: 60px;

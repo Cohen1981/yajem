@@ -23,6 +23,8 @@ if ($input['option'] == 'com_sdaprofiles')
 {
 	$profile = $this->getModel();
 }
+
+$currentDate = new DateTime;
 ?>
 
 <div class="well">
@@ -45,6 +47,8 @@ if ($input['option'] == 'com_sdaprofiles')
 		</div>
 	</div>
 	<?php foreach ($profile->organizing as $event) : ?>
+		<?php $startDT = new DateTime($event->startDateTime); ?>
+		<?php if ($startDT >= $currentDate): ?>
 		<div id="sdajem_organized<?php echo $event->sdajem_event_id; ?>" class="control-group">
 			<label class="control-label">
 				<?php
@@ -66,5 +70,6 @@ if ($input['option'] == 'com_sdaprofiles')
 				?>
 			</div>
 		</div>
+		<?php endif; ?>
 	<?php endforeach; ?>
 </div>

@@ -31,10 +31,12 @@ $profiles = $ProfileModel->getItemsArray();
 	<div id="sdaprofiles_container">
 
 		<!-- Filter -->
-		<div class="sdaprofiles_cell">
+		<div><h3><?php Text::_("COM_SDAPROFILES_FILTER"); ?></h3></div>
+		<div class="sdaprofiles_flex_row justify-left">
+		<div class="sdaprofiles_cell default-grow">
 			<label for="fiter_owner"><?php echo Text::_("COM_SDAPROFILES_FITTINGS_OWNER"); ?></label>
-			<select name="filter_owner" id="filter_owner" onchange="filter('filter_owner')">
-				<option value="all"><?php echo Text::_("COM_SDAPROFILES_FITTINGS_FILTER_ALL"); ?></option>
+			<select name="filter_owner" id="filter_owner" class="sdap_filter" onchange="multiFilter()">
+				<option value=""><?php echo Text::_("COM_SDAPROFILES_FITTINGS_FILTER_ALL"); ?></option>
 				<?php
 				foreach ($profiles as $profile)
 				{
@@ -43,10 +45,10 @@ $profiles = $ProfileModel->getItemsArray();
 				?>
 			</select>
 		</div>
-		<div class="sdaprofiles_cell">
+		<div class="sdaprofiles_cell default-grow">
 			<label for="filter_type"><?php echo Text::_("COM_SDAPROFILES_FITTINGTYPE_TITLE_LABEL"); ?></label>
-			<select id="filter_type" name="filter_type" onchange="filter('filter_type')">
-				<option value="all"><?php echo Text::_("COM_SDAPROFILES_FITTINGS_FILTER_ALL"); ?></option>
+			<select id="filter_type" name="filter_type" class="sdap_filter" onchange="multiFilter()">
+				<option value=""><?php echo Text::_("COM_SDAPROFILES_FITTINGS_FILTER_ALL"); ?></option>
 				<?php
 
 				foreach ($fTypes as $FType)
@@ -56,6 +58,7 @@ $profiles = $ProfileModel->getItemsArray();
 
 				?>
 			</select>
+		</div>
 		</div>
 
 		<div class="sdaprofiles_section_container">

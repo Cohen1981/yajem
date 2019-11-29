@@ -26,6 +26,8 @@ if ($input['option'] == 'com_sdaprofiles')
 	$profile = $this->getModel();
 }
 
+$currentDate = new DateTime;
+
 // This ViewTemplate could be called and displayed by other Components so we load the language Strings.
 $language    = Factory::getLanguage();
 $extension   = 'com_sdajem';
@@ -73,7 +75,9 @@ $language->load($extension, $baseDir, $languageTag, true);
 	</div>
 	<?php if ($profile->attendees) : ?>
 		<?php foreach ($profile->attendees as $attendee) : ?>
-		<?php if ($attendee->event->enabled == 1) : ?>
+		<?php $start = new DateTime($attendee->event->startDateTime); ?>
+		<!-- TODO get this right: -->
+		<?php if ($attendee->event->enabled == 1 && $start >= $currentDate) : ?>
 			<?php
 			$eventTitle = "<span class=\"sdajem_attending_cell\">" .
 				"<i class=\"far fa-bookmark\" aria-hidden=\"true\" title=\"<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>\">&nbsp;</i>" .
