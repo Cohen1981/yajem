@@ -57,10 +57,17 @@ class Attendee extends DataController
 				$event->store();
 			}
 
-			$attendee->users_user_id = Factory::getUser()->id;
+			$currentUser = Factory::getUser()->id;
+			$attendee->getAttendeeForEventAndUser($currentUser, $input['eventId']);
+
+			$attendee->users_user_id = $currentUser;
 			$attendee->sdajem_event_id = (int) $input['eventId'];
 			$attendee->status = (int) $input['action'];
-			$attendee->sdaprofilesFittingIds = $input['fittings'];
+
+			if ($input['action'] == 1)
+			{
+				$attendee->sdaprofilesFittingIds = $input['fittings'];
+			}
 
 			$attendee->save();
 
