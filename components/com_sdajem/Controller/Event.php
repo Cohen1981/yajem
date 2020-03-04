@@ -207,6 +207,8 @@ class Event extends DataController
 	}
 
 	/**
+	 * Sets the referer
+	 *
 	 * @return void
 	 *
 	 * @since 0.0.1
@@ -363,6 +365,7 @@ class Event extends DataController
 	}
 
 	/**
+	 * Subscribe for eMail notification for an event
 	 *
 	 * @return void
 	 *
