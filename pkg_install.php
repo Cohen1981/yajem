@@ -5,7 +5,7 @@ defined ( '_JEXEC' ) or die ();
 /**
 package installer script.
  */
-class Pkg_YajemInstallerScript
+class Pkg_SdaInstallerScript
 {
 
 	public function install($parent) {
@@ -35,9 +35,9 @@ class Pkg_YajemInstallerScript
 		$cache = JFactory::getCache();
 		$cache->clean('_system');
 
-		if ($type == 'uninstall') return true;
+		//if ($type == 'uninstall') return true;
 
-		$this->enablePlugin('system', 'yajemLib');
+		//$this->enablePlugin('system', 'yajemLib');
 		//$this->enablePlugin('yajem', 'mailer');
 
 		return true;

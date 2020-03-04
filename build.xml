@@ -1,128 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project name="Yajem Extension Build" default="build">
+<project name="sda_pkg" default="main">
 
-    <property name="build.version" value="1.2.5"/>
+    <property name="pkg.build.version" value="0.0.1"/>
 
-    <property name="build.dir" value="${project.basedir}/build"/>
-    <property name="dist.dir" value="${project.basedir}/target"/>
-    <property name="admin.src.dir" value="${project.basedir}/administrator/components/com_yajem"/>
-    <property name="site.src.dir" value="${project.basedir}/components/com_yajem"/>
-    <property name="media.src.dir" value="${project.basedir}/media/com_yajem"/>
-    <property name="plg.scr.dir" value="${project.basedir}/plugins"/>
+    <property name="pkg.dist.dir" value="${project.basedir}/target"/>
+    <property name="pkg.src.dir" value="${pkg.dist.dir}/packages"/>
+    <property name="lib.src.dir" value="${project.basedir}/libraries"/>
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
     </tstamp>
     <property name="creation.date" value="${TODAY}"/>
+    <delete dir="${pkg.dist.dir}" includeemptydirs="true" />
 
-    <target name="prepare" description="prepare for packaging">
-        <delete dir="${dist.dir}" includeemptydirs="true"/>
-        <mkdir dir="${build.dir}"/>
-        <mkdir dir="${build.dir}/com_yajem"/>
-        <mkdir dir="${build.dir}/plg_yajem_mailer"/>
-        <mkdir dir="${dist.dir}"/>
-        <mkdir dir="${dist.dir}/packages"/>
+    <import file="${project.basedir}/build_sdaprofiles.xml" optional="true"/>
+    <import file="${project.basedir}/build_sdajem.xml" optional="true" />
+
+    <target name="zip_pkg" description="package the archive" hidden="true">
+        <copy file="${project.basedir}/pkg_install.php" todir="${pkg.dist.dir}" overwrite="true"/>
+        <copy file="${project.basedir}/pkg_sda.xml" todir="${pkg.dist.dir}" overwrite="true"/>
+        <copy file="${lib.src.dir}/lib_fof30-3.4.2.zip" todir="${profiles.dist.dir}" overwrite="true" />
+        <copy todir="${pkg.dist.dir}/language" overwrite="true">
+            <fileset dir="${project.basedir}/language" includes="**/**" />
+        </copy>
+        <zip destfile="${pkg.dist.dir}/pkg_sda.zip" includeemptydirs="true" basedir="${pkg.dist.dir}" />
+        <delete file="${pkg.dist.dir}/pkg_install.php" />
+        <delete file="${pkg.dist.dir}/pkg_sda.xml" />
+        <delete dir="${project.basedir}/build" includeemptydirs="true" />
     </target>
 
-    <target name="cleanup" description="cleaning after build">
-        <delete dir="${build.dir}" includeemptydirs="true"/>
+    <target name="main" description="packaging all" depends="zip_sdaprofiles, zip_sdajem">
+        <phingcall target="zip_pkg" />
     </target>
-
-    <target name="copyFiles" description="copy main files for packaging">
-
-        <copy todir="media/com_yajem/css">
-            <filelist dir="vendor/components/font-awesome/css" files="fontawesome-all.min.css"/>
-        </copy>
-
-        <copy todir="media/com_yajem/webfonts">
-            <fileset dir="vendor/components/font-awesome/webfonts">
-                <include name="**.**"/>
-            </fileset>
-        </copy>
-
-        <!-- Packaging com_yajem -->
-        <copy todir="${build.dir}/com_yajem">
-            <fileset dir="${project.basedir}">
-                <include name="**/LICENSE"/>
-                <include name="administrator/components/com_yajem/**"/>
-                <include name="components/com_yajem/**"/>
-                <include name="media/**"/>
-                <exclude name="administartor/components/com_yajem/yajem.xml"/>
-                <exclude name="administartor/components/com_yajem/script.php"/>
-                <exclude name="vendor/**"/>
-            </fileset>
-        </copy>
-
-        <copy todir="${dist.dir}">
-            <fileset dir="${project.basedir}">
-                <include name="pkg_yajem.xml"/>
-                <include name="pkg_install.php"/>
-                <include name="language/**"/>
-            </fileset>
-        </copy>
-
-        <copy todir="${build.dir}/plg_yajem_mailer">
-            <fileset dir="${plg.scr.dir}/yajem/mailer">
-                <include name="**/**" />
-            </fileset>
-        </copy>
-
-        <copy todir="${build.dir}/plg_user_profileYajem">
-            <fileset dir="${plg.scr.dir}/user/profileYajem">
-                <include name="**/**" />
-            </fileset>
-        </copy>
-
-        <copy todir="${build.dir}/plg_system_yajemLib">
-            <fileset dir="${plg.scr.dir}/system/yajemLib">
-                <include name="**/**" />
-            </fileset>
-        </copy>
-
-        <move file="${build.dir}/com_yajem/administrator/components/com_yajem/yajem.xml" todir="${build.dir}/com_yajem"/>
-        <move file="${build.dir}/com_yajem/administrator/components/com_yajem/script.php" todir="${build.dir}/com_yajem"/>
-
-    </target>
-
-    <target name="zip" description="package the archive" depends="copyFiles">
-        <zip destfile="${dist.dir}/packages/com_yajem.zip" includeemptydirs="true">
-            <fileset dir="${build.dir}/com_yajem">
-                <include name="**/**"/>
-            </fileset>
-        </zip>
-        <zip destfile="${dist.dir}/packages/plg_yajem_mailer.zip" includeemptydirs="true">
-            <fileset dir="${build.dir}/plg_yajem_mailer">
-                <include name="**/**"/>
-            </fileset>
-        </zip>
-        <zip destfile="${dist.dir}/packages/plg_user_profileYajem.zip" includeemptydirs="true">
-            <fileset dir="${build.dir}/plg_user_profileYajem">
-                <include name="**/**"/>
-            </fileset>
-        </zip>
-        <zip destfile="${dist.dir}/packages/plg_system_yajemLib.zip" includeemptydirs="true">
-            <fileset dir="${build.dir}/plg_system_yajemLib">
-                <include name="**/**"/>
-            </fileset>
-        </zip>
-        <zip destfile="${dist.dir}/packages/lib_yajem.zip" includeemptydirs="true">
-            <fileset dir="${project.basedir}/libraries/Yajem">
-                <include name="**/**"/>
-            </fileset>
-        </zip>
-        <zip destfile="${dist.dir}/packages/tpl_survivants.zip" includeemptydirs="true">
-            <fileset dir="${project.basedir}/templates">
-                <include name="**/**"/>
-            </fileset>
-        </zip>
-        <zip destfile="${dist.dir}/pkg_yajem_${build.version}.zip" includeemptydirs="true">
-            <fileset dir="${dist.dir}">
-                <include name="**/**"/>
-            </fileset>
-        </zip>
-    </target>
-
-    <target name="build" description="packaging all"
-            depends="prepare, zip, cleanup"/>
 
 </project>

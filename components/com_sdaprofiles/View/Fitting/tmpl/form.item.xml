@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form validate="true" type="read">
+  <fieldset name="scaffolding" label="COM_SDAPROFILES_FITTING_GROUP_BASIC">
+    <field name="sdaprofiles_profile_id" type="Model" model="profiles" key_field="sdaprofiles_profile_id" value_field="sdaprofiles_profile_id" label="COM_SDAPROFILES_FITTING_SDAPROFILES_PROFILE_ID_LABEL"/>
+    <field name="type" type="Text" label="COM_SDAPROFILES_FITTING_TYPE_LABEL"/>
+    <field name="detail" type="Text" label="COM_SDAPROFILES_FITTING_DETAIL_LABEL"/>
+    <field name="length" type="Number" label="COM_SDAPROFILES_FITTING_LENGTH_LABEL"/>
+    <field name="width" type="Number" label="COM_SDAPROFILES_FITTING_WIDTH_LABEL"/>
+  </fieldset>
+</form>

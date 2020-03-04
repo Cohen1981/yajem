@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form type="browse" show_header="1" show_filters="1" show_pagination="1" norows_placeholder="COM_SDAJEM_COMMON_NORECORDS">
+  <headerset>
+    <header name="ordering" type="Ordering" label="COM_SDAJEM_EVENT_ORDERING_LABEL" sortable="true" tdwidth="1%"/>
+    <header name="sdajem_event_id" type="RowSelect" label="COM_SDAJEM_EVENT_SDAJEM_EVENT_ID_LABEL" sortable="true" tdwidth="20"/>
+    <header name="sdajem_category_id" type="Model" model="categories" key_field="sdajem_category_id" value_field="title" label="COM_SDAJEM_EVENT_SDAJEM_CATEGORY_ID_LABEL" sortable="true"/>
+    <header name="title" type="Searchable" label="COM_SDAJEM_EVENT_TITLE_LABEL"/>
+    <header name="slug" type="Searchable" label="COM_SDAJEM_EVENT_ALIAS_LABEL" sortable="true"/>
+    <header name="description" type="Searchable" label="COM_SDAJEM_EVENT_DESCRIPTION_LABEL" sortable="true"/>
+    <header name="url" type="Searchable" label="COM_SDAJEM_EVENT_URL_LABEL" sortable="true"/>
+    <header name="image" type="Field" label="COM_SDAJEM_EVENT_IMAGE_LABEL"/>
+    <header name="sdajem_location_id" type="Field" label="COM_SDAJEM_EVENT_SDAJEM_LOCATION_ID_LABEL" sortable="true"/>
+    <header name="hostId" type="Searchable" label="COM_SDAJEM_EVENT_HOSTID_LABEL" sortable="true"/>
+    <header name="organizerId" type="Searchable" label="COM_SDAJEM_EVENT_ORGANIZERID_LABEL" sortable="true"/>
+    <header name="startDateTime" type="Date" label="COM_SDAJEM_EVENT_STARTDATETIME_LABEL" sortable="true"/>
+    <header name="endDateTime" type="Date" label="COM_SDAJEM_EVENT_ENDDATETIME_LABEL" sortable="true"/>
+    <header name="allDayEvent" type="Field" label="COM_SDAJEM_EVENT_ALLDAYEVENT_LABEL" sortable="true"/>
+    <header name="useRegistration" type="Field" label="COM_SDAJEM_EVENT_USEREGISTRATION_LABEL" sortable="true"/>
+    <header name="registerUntil" type="Date" label="COM_SDAJEM_EVENT_REGISTERUNTIL_LABEL" sortable="true"/>
+    <header name="registrationLimit" type="Searchable" label="COM_SDAJEM_EVENT_REGISTRATIONLIMIT_LABEL" sortable="true"/>
+    <header name="useWaitingList" type="Field" label="COM_SDAJEM_EVENT_USEWAITINGLIST_LABEL" sortable="true"/>
+    <header name="eventStatus" type="Field" label="COM_SDAJEM_EVENT_EVENTSTATUS_LABEL" sortable="true"/>
+    <header name="access" type="AccessLevel" label="COM_SDAJEM_EVENT_ACCESS_LABEL" sortable="true"/>
+    <header name="enabled" type="Published" label="COM_SDAJEM_EVENT_ENABLED_LABEL" sortable="true"/>
+    <header name="hits" type="Searchable" label="COM_SDAJEM_EVENT_HITS_LABEL" sortable="true"/>
+  </headerset>
+  <fieldset name="items">
+    <field name="ordering" type="Ordering" class="input-mini input-sm"/>
+    <field name="sdajem_event_id" type="SelectRow"/>
+    <field name="sdajem_category_id" type="Model" model="categories" key_field="sdajem_category_id" value_field="title"/>
+    <field name="title" type="Sortable" url="index.php?option=com_sdajem&amp;view=Event&amp;id=[ITEM:ID]&amp;[TOKEN]=1"/>
+    <field name="slug" type="Text"/>
+    <field name="description" type="Editor"/>
+    <field name="url" type="Url"/>
+    <field name="image" type="Media"/>
+    <field name="sdajem_location_id" type="Model" model="locations" key_field="sdajem_location_id" value_field="title"/>
+    <field name="hostId"
+           type="Model"
+           model="contacts"
+           key_field="id"
+           value_field="name"
+    />
+    <field name="organizerId"
+           type="User"
+           show_avatar="false"
+           show_email="false"
+           show_name="false"
+           show_id="false"
+    />
+    <field name="startDateTime" type="Calendar"/>
+    <field name="endDateTime" type="Calendar"/>
+    <field name="allDayEvent" type="Boolean"/>
+    <field name="useRegistration" type="Boolean"/>
+    <field name="registerUntil" type="Calendar"/>
+    <field name="registrationLimit" type="Number"/>
+    <field name="useWaitingList" type="Boolean"/>
+    <field name="eventStatus" type="Number"/>
+    <field name="access" type="AccessLevel"/>
+    <field name="enabled" type="Actions"/>
+    <field name="hits" type="Number"/>
+  </fieldset>
+</form>

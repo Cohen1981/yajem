@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form validate="true">
+  <fieldset name="scaffolding" label="COM_SDACONTACTS_CONTACT_GROUP_BASIC">
+    <field name="title" type="Text" label="COM_SDACONTACTS_CONTACT_TITLE_LABEL" description="COM_SDACONTACTS_CONTACT_TITLE_DESC"/>
+    <field name="slug" type="Text" label="COM_SDACONTACTS_CONTACT_SLUG_LABEL" description="COM_SDACONTACTS_CONTACT_SLUG_DESC"/>
+    <field name="image"
+           type="Media"
+           preview="true"
+           preview_width="100"
+           preview_height="100"
+           label="COM_SDACONTACTS_CONTACT_IMAGE_LABEL"
+           description="COM_SDACONTACTS_CONTACT_IMAGE_DESC"/>
+    <field name="contactPerson"
+           type="Text"
+           label="COM_SDAONTACTS_CONTACT_CONTACTPERSON_LABEL"
+           description="COM_SDACONTACTS_CONTACT_CONTACTPERSON_DESC" />
+    <field name="con_position" type="Text" label="COM_SDACONTACTS_CONTACT_CON_POSITION_LABEL" description="COM_SDACONTACTS_CONTACT_CON_POSITION_DESC"/>
+    <field name="address" type="Text" label="COM_SDACONTACTS_CONTACT_ADDRESS_LABEL" description="COM_SDACONTACTS_CONTACT_ADDRESS_DESC"/>
+    <field name="postcode" type="Text" label="COM_SDACONTACTS_CONTACT_POSTCODE_LABEL" description="COM_SDACONTACTS_CONTACT_POSTCODE_DESC"/>
+    <field name="city" type="Text" label="COM_SDACONTACTS_CONTACT_CITY_LABEL" description="COM_SDACONTACTS_CONTACT_CITY_DESC"/>
+    <field name="state" type="Text" label="COM_SDACONTACTS_CONTACT_STATE_LABEL" description="COM_SDACONTACTS_CONTACT_STATE_DESC"/>
+    <field name="country" type="Text" label="COM_SDACONTACTS_CONTACT_COUNTRY_LABEL" description="COM_SDACONTACTS_CONTACT_COUNTRY_DESC"/>
+    <field name="telephone" type="Tel" label="COM_SDACONTACTS_CONTACT_TELEPHONE_LABEL" description="COM_SDACONTACTS_CONTACT_TELEPHONE_DESC"/>
+    <field name="mobile" type="Text" label="COM_SDACONTACTS_CONTACT_MOBILE_LABEL" description="COM_SDACONTACTS_CONTACT_MOBILE_DESC"/>
+    <field name="fax" type="Text" label="COM_SDACONTACTS_CONTACT_FAX_LABEL" description="COM_SDACONTACTS_CONTACT_FAX_DESC"/>
+    <field name="email" type="Email" label="COM_SDACONTACTS_CONTACT_EMAIL_LABEL" description="COM_SDACONTACTS_CONTACT_EMAIL_DESC"/>
+    <field name="access" type="AccessLevel" label="COM_SDACONTACTS_CONTACT_ACCESS_LABEL" description="COM_SDACONTACTS_CONTACT_ACCESS_DESC"/>
+    <field name="webpage" type="Text" label="COM_SDACONTACTS_CONTACT_WEBPAGE_LABEL" description="COM_SDACONTACTS_CONTACT_WEBPAGE_DESC"/>
+    <field name="misc" type="Editor" label="COM_SDACONTACTS_CONTACT_MISC_LABEL" description="COM_SDACONTACTS_CONTACT_MISC_DESC"/>
+    <field name="enabled" type="Published" label="COM_SDACONTACTS_CONTACT_ENABLED_LABEL" description="COM_SDACONTACTS_CONTACT_ENABLED_DESC"/>
+  </fieldset>
+</form>

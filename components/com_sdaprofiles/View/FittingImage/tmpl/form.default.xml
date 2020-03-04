@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form type="browse"
+      show_header="1"
+      show_filters="0"
+      show_pagination="1"
+      norows_placeholder="COM_SDAPROFILES_COMMON_NORECORDS"
+      cssfiles="media://com_sdaprofiles/css/style.css"
+>
+  <headerset>
+    <header name="sdaprofiles_fitting_image_id" type="RowSelect" label="COM_SDAPROFILES_FITTINGIMAGE_SDAPROFILES_FITTING_IMAGE_ID_LABEL" sortable="false" tdwidth="20"/>
+    <header name="type" type="Fiels" label="COM_SDAPROFILES_FITTING_TYPE_LABEL"/>
+    <header name="description" type="Field" label="COM_SDAPROFILES_FITTINGIMAGE_DESC_LABEL" sortable="false" />
+    <header name="image" tdwidth="150px" type="Field" label="COM_SDAPROFILES_FITTINGIMAGE_IMAGE_LABEL" sortable="false"/>
+  </headerset>
+  <fieldset name="items">
+    <field name="sdaprofiles_fitting_image_id" type="SelectRow"/>
+    <field name="type"
+           type="Model"
+           model="FittingType"
+           key_field="sdaprofiles_fitting_type_id"
+           value_field="title"
+           label="COM_SDAPROFILES_FITTING_TYPE_LABEL"
+           description="COM_SDAPROFILES_FITTING_TYPE_DESC">
+    </field>
+    <field name="description"
+           type="text"
+           label="COM_SDAPROFILES_FITTINGIMAGE_DESC_LABEL"
+           description="COM_SDAPROFILES_FITTINGIMAGE_DESC_DESC"
+    />
+    <field name="image"
+           type="Media"
+           preview="true"
+           preview_width="200"
+           preview_height="200"
+           tdwidth="150px"
+           class="preview_image"
+    />
+  </fieldset>
+</form>

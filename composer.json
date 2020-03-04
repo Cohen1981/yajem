@@ -10,14 +10,15 @@
     }
   ],
   "require": {
-    "phing/phing": "2.16.1",
     "components/font-awesome": "5.4.2",
-    "squizlabs/php_codesniffer": "2.9.2"
+    "squizlabs/php_codesniffer": "2.9.2",
+    "ext-json": "*",
   },
   "require-dev": {
+    "phing/phing": "2.*",
     "joomla/coding-standards": "2.0.0-rc2"
   },
   "scripts": {
-    "phpcs": "phpcs --standard=Joomla",
+    "phpcs": "phpcs --standard=Joomla"
   }
 }

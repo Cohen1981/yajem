@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form
+        type="browse"
+        show_header="1"
+        show_filters="0"
+        show_pagination="1"
+        norows_placeholder="COM_SDAPROFILES_COMMON_NORECORDS"
+        cssfiles="media://com_sdaprofiles/css/style.css"
+>
+  <headerset>
+    <header name="sdaprofiles_profile_id"
+            type="Model"
+            model="profiles"
+            key_field="sdaprofiles_profile_id"
+            value_field="userName"
+            label="COM_SDAPROFILES_FITTING_SDAPROFILES_PROFILE_ID_LABEL"
+            sortable="true"
+            class="fittings_table_header"
+    />
+    <header name="type" type="Text" label="COM_SDAPROFILES_FITTING_TYPE_LABEL" sortable="true"/>
+    <header name="detail" type="Text" label="COM_SDAPROFILES_FITTING_DETAIL_LABEL" sortable="false"/>
+    <header name="length" type="Text" label="COM_SDAPROFILES_FITTING_LENGHT_LABEL" sortable="false"/>
+    <header name="width" type="Text" label="COM_SDAPROFILES_FITTING_WIDTH_LABEL" sortable="false"/>
+  </headerset>
+  <fieldset name="items">
+    <field name="sdaprofiles_profile_id"
+           type="Model"
+           model="profiles"
+           key_field="sdaprofiles_profile_id"
+           value_field="userName"
+    />
+    <field name="type"
+           type="Model"
+           model="fittingType"
+           key_field="sdaprofiles_fitting_type_id"
+           value_field="title"
+    />
+    <field name="detail" type="Text"/>
+    <field name="lenght" type="Number"/>
+    <field name="width" type="Number"/>
+  </fieldset>
+</form>
