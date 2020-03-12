@@ -26,11 +26,12 @@ services:
       - joomladb:mysql
     ports:
       - 6080:80
+      - 9000:9000
     environment:
       JOOMLA_DB_HOST: joomladb
       JOOMLA_DB_PASSWORD: rootpw
       #change the line below with your IP address
-      XDEBUG_CONFIG: remote_host=172.17.186.1
+      XDEBUG_CONFIG: remote_host=host.docker.internal
   joomladb:
     image: mysql:5.6
     container_name: mysql
