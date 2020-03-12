@@ -1,0 +1,43 @@
+version: '3.7'
+services:
+  joomla:
+    build: ./DockerContainer/php-74-apache-xdebug-29
+    container_name: joomla_cms
+    restart: always
+    volumes:
+    # Link joomla root for use in IDEs
+    - ./.ContainerData/www-data:/var/www/html
+    # Link your Code here
+    # sdajem
+    - ./src/administrator/components/com_sdajem:/var/www/html/administrator/components/com_sdajem
+    - ./src/components/com_sdajem:/var/www/html/components/com_sdajem
+    - ./src/media/com_sdajem:/var/www/html/media/com_sdajem
+    # sdacontacts
+    - ./src/administrator/components/com_sdacontacts:/var/www/html/administrator/components/com_sdacontacts
+    - ./src/components/com_sdacontacts:/var/www/html/components/com_sdacontacts
+    - ./src/media/com_sdacontacts:/var/www/html/media/com_sdacontacts
+    # sdaprofiles
+    - ./src/administrator/components/com_sdaprofiles:/var/www/html/administrator/components/com_sdaprofiles
+    - ./src/components/com_sdaprofiles:/var/www/html/components/com_sdaprofiles
+    - ./src/media/com_sdaprofiles:/var/www/html/media/com_sdaprofiles
+    # plugin sdamailer
+    - ./src/plugins/system/sdamailer:/var/www/html/plugins/system/sdamailer
+    links:
+      - joomladb:mysql
+    ports:
+      - 6080:80
+    environment:
+      JOOMLA_DB_HOST: joomladb
+      JOOMLA_DB_PASSWORD: rootpw
+      #change the line below with your IP address
+      XDEBUG_CONFIG: remote_host=172.17.186.1
+  joomladb:
+    image: mysql:5.6
+    container_name: mysql
+    restart: always
+    ports:
+    - 3306:3306
+    volumes:
+    - ./.ContainerData/dbdata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
