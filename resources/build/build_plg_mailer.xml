@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="sda_mailer" default="build_sdamailer">
+
+    <property name="mailer.build.version" value="0.0.1"/>
+
+    <property name="mailer.dist.dir" value="${project.basedir}/target/packages"/>
+    <property name="mailer.src.dir" value="${project.basedir}/../../plugins/system/sdamailer"/>
+
+    <target name="prepare_sdamailer" description="prepare for packaging" hidden="true">
+        <mkdir dir="${mailer.dist.dir}" />
+    </target>
+
+    <target name="zip_sdamailer" description="package the archive" hidden="true">
+        <zip destfile="${mailer.dist.dir}/plg_system_sdamailer.zip" includeemptydirs="true" basedir="${mailer.src.dir}/" />
+    </target>
+
+    <target name="build_sdamailer" description="Make a zip"
+            depends="prepare_sdamailer, zip_sdamailer"/>
+
+</project>
