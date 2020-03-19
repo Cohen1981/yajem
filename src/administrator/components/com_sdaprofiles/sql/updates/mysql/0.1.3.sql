@@ -15,15 +15,6 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fitting_images`
     ENGINE=InnoDB
     DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
 
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/alexb.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/AlexE.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/Arne.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/kaiG.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/Kerstin.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/Soeren.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/Winnie.png');
-insert into `#__sdaprofiles_fitting_images` (`image`) value ('media/com_sdaprofiles/images/Sonnensegel.png');
-
 alter table `#__sdaprofiles_fittings` drop column image;
 
 alter table `#__sdaprofiles_fittings` modify `sdaprofiles_profile_id` int unsigned null comment 'foreign key to #__sdaprofiles_profiles';

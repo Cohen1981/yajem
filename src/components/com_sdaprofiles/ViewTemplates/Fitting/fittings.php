@@ -17,6 +17,7 @@ use FOF30\Date\Date;
 /** @var \Sda\Jem\Site\View\Attendee\Raw $this */
 
 $this->addCssFile('media://com_sdaprofiles/css/style.css');
+$this->addJavascriptFile('media://com_sdaprofiles/js/jquery-3.3.1.min.js');
 $this->addJavascriptFile('media://com_sdaprofiles/js/fittings.js');
 
 $input = $this->input->getArray();
