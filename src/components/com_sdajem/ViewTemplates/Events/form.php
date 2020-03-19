@@ -24,24 +24,6 @@ $this->addJavascriptFile('media://com_sdajem/js/eventForm.js');
 $event = $this->getItem();
 echo $this->getRenderedForm();
 
-try
-{
-	$fieldErrors = Factory::getApplication()->getUserState('fieldErrors');
-
-	if (count($fieldErrors) > 0)
-	{
-		for ($i = 0; $i < count($fieldErrors); $i++)
-		{
-			echo "<input type=\"hidden\" name=\"error_$i\" class='errors' value=\"$fieldErrors[$i]\" />";
-		}
-	}
-
-	Factory::getApplication()->setUserState('eventState', null);
-}
-catch (Exception $e)
-{
-}
-
 $plTool = ComponentHelper::getParams('com_sdajem')->get('usePlaningTool');
 
 echo "<input type=\"hidden\" id='usePlaningTool' name=\"usePlaningTool\" class='params' value=\"$plTool\" />";

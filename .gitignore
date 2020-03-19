@@ -3,3 +3,5 @@ resources/build/build
 resources/build/target
 vendor
 .ContainerData
+/.idea/
+.idea
