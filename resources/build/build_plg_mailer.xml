@@ -4,7 +4,7 @@
     <property name="mailer.build.version" value="0.0.1"/>
 
     <property name="mailer.dist.dir" value="${project.basedir}/target/packages"/>
-    <property name="mailer.src.dir" value="${project.basedir}/plugins/system/sdamailer"/>
+    <property name="mailer.src.dir" value="${project.basedir}/../../plugins/system/sdamailer"/>
 
     <target name="prepare_sdamailer" description="prepare for packaging" hidden="true">
         <mkdir dir="${mailer.dist.dir}" />

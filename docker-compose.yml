@@ -1,0 +1,41 @@
+version: '3.7'
+services:
+  joomla:
+    build:
+      dockerfile: ./resources/DockerContainer/php-apache-xdebug/Dockerfile
+      context: .
+    container_name: joomla_cms
+    restart: always
+    volumes:
+    # Link joomla root for use in IDEs
+    - ./.ContainerData/www-data:/var/www/html
+    - ./vendor:/vendor
+    links:
+      - joomladb:mysql
+    ports:
+      - 6080:80
+      - 9000:9000
+    environment:
+      JOOMLA_DB_HOST: joomladb
+      JOOMLA_DB_PASSWORD: rootpw
+      XDEBUG_CONFIG: remote_host=host.docker.internal
+    depends_on:
+      - joomladb
+      - composer
+
+  joomladb:
+    image: mysql:5.6
+    container_name: mysql
+    restart: always
+    ports:
+    - 3306:3306
+    volumes:
+    - ./.ContainerData/dbdata:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpw
+
+  composer:
+    image: composer:1.9
+    command: ["composer", "update"]
+    volumes:
+      - .:/app

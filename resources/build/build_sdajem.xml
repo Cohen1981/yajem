@@ -5,10 +5,10 @@
 
     <property name="jem.build.dir" value="${project.basedir}/build/com_sdajem"/>
     <property name="jem.dist.dir" value="${project.basedir}/target/packages"/>
-    <property name="jem.admin.src.dir" value="${project.basedir}/administrator/components/com_sdajem"/>
-    <property name="jem.site.src.dir" value="${project.basedir}/components/com_sdajem"/>
-    <property name="jem.media.src.dir" value="${project.basedir}/media/com_sdajem"/>
-    <property name="jem.vendor.src.dir" value="${project.basedir}/vendor"/>
+    <property name="jem.admin.src.dir" value="${project.basedir}/../../src/administrator/components/com_sdajem"/>
+    <property name="jem.site.src.dir" value="${project.basedir}/../../src/components/com_sdajem"/>
+    <property name="jem.media.src.dir" value="${project.basedir}/../../src/media/com_sdajem"/>
+    <property name="jem.vendor.src.dir" value="${project.basedir}/../../vendor"/>
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>

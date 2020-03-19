@@ -1,7 +1,7 @@
-.idea
 .phpstorm.meta.php
-build
-target/language
-target/pkg_install.php
-target/pkg_sda.zip
+resources/build/build
+resources/build/target
 vendor
+.ContainerData
+/.idea/
+.idea

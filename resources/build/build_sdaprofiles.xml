@@ -5,9 +5,9 @@
 
     <property name="profiles.build.dir" value="${project.basedir}/build/com_sdaprofiles"/>
     <property name="profiles.dist.dir" value="${project.basedir}/target/packages"/>
-    <property name="profiles.admin.src.dir" value="${project.basedir}/administrator/components/com_sdaprofiles"/>
-    <property name="profiles.site.src.dir" value="${project.basedir}/components/com_sdaprofiles"/>
-    <property name="profiles.media.src.dir" value="${project.basedir}/media/com_sdaprofiles"/>
+    <property name="profiles.admin.src.dir" value="${project.basedir}/../../administrator/components/com_sdaprofiles"/>
+    <property name="profiles.site.src.dir" value="${project.basedir}/../../components/com_sdaprofiles"/>
+    <property name="profiles.media.src.dir" value="${project.basedir}/../../media/com_sdaprofiles"/>
     <property name="profiles.vendor.src.dir" value="${project.basedir}/vendor"/>
 
     <tstamp>

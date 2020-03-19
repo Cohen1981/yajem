@@ -76,7 +76,7 @@ $language->load($extension, $baseDir, $languageTag, true);
 	<?php if ($profile->attendees) : ?>
 		<?php foreach ($profile->attendees as $attendee) : ?>
 		<?php $start = new DateTime($attendee->event->startDateTime); ?>
-		<!-- TODO get this right: -->
+
 		<?php if ($attendee->event->enabled == 1 && $start >= $currentDate) : ?>
 			<?php
 			$eventTitle = "<span class=\"sdajem_attending_cell\">" .

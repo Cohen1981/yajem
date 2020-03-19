@@ -13,13 +13,15 @@ Component for managing event contacts via frontend
 # Plugin: sdamailer
 Send Mails for Events
 
-# Installation
-1) use the phing build xmls  to generate the zip files.
-2) Download ready zips from target folder
+# Set Up DEV
+1) Install Docker
+2) clone this repository
+3) edit docker-compose.yml and Dockerfile if needed
+4) docker-compose up --build -d
+5) set up joomla site via localhost:6080
+    6) install fof30 from this projects recources/libraries folder 
+7) run deployCode.bat
+8) install components via discover
 
-# Used Dev-Tools:
-- VirtualBox
-- vagrant
-- joomlatools vagrant box (https://www.joomlatools.com/developer/tools/vagrant/)
-- phpstorm
-- phing
+# Build zips
+Phing build scripts in resources/build
