@@ -534,4 +534,37 @@ class Event extends DataController
 		}
 	}
 
+	/**
+	 * @since 0.6.0
+	 */
+	public function eventsFlexView()
+	{
+		$this->setDefaultView(0);
+	}
+
+	/**
+	 * @since 0.6.0
+	 */
+	public function eventsBoxedView()
+	{
+		$this->setDefaultView(1);
+	}
+
+	/**
+	 * @param int $view
+	 *
+	 * @since 0.6.0
+	 */
+	private function setDefaultView(int $view)
+	{
+		try {
+			$app = Factory::getApplication();
+			$app->setUserState("com_sdajem.eventsView", $view);
+		} catch (\Exception $e) {
+		}
+
+		$this->setRedirect('index.php?option=com_sdajem&view=Events&task=browse');
+		$this->redirect();
+	}
+
 }

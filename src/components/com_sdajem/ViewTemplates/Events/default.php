@@ -10,6 +10,7 @@
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use FOF30\Date\Date;
+use Joomla\CMS\Language\Text;
 
 /** @var \Sda\Jem\Site\View\Event\Html $this */
 /** @var \Sda\Jem\Site\Model\Event $event */
@@ -27,13 +28,28 @@ $items = $model->where('startDateTime', '>=', $currentDate->toSql())
 
 $guest = Factory::getUser()->guest;
 
+$viewParam = Factory::getApplication()->getUserState('com_sdajem.eventsView', ComponentHelper::getParams('com_sdajem')->get('eventDefaultView'))
+
 ?>
 <form action="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>" method="post"
       name="adminForm" id="adminForm">
 
+    <div id="sdajem_view_control">
+
+        <p> <?php echo Text::_('COM_SDAJEM_VIEW_CONTROL'); ?></p>
+
+	    <button formmethod="post" onclick="document.getElementById('task').value='eventsFlexView'" formaction="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>">
+		    <i class="fas fa-bars" aria-hidden="true"> </i>
+	    </button>
+	    <button formmethod="post" onclick="document.getElementById('task').value='eventsBoxedView'" formaction="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>">
+		    <i class="fas fa-th-list" aria-hidden="true"></i>
+	    </button>
+
+    </div>
+
 	<?php
-	if (ComponentHelper::getParams('com_sdajem')->get('eventDefaultView')) {
-		switch (ComponentHelper::getParams('com_sdajem')->get('eventDefaultView')) {
+	if ($viewParam) {
+		switch ($viewParam) {
 			case 0:
 				echo $this->loadAnyTemplate('site:com_sdajem/Events/default_flex');
 				break;
@@ -49,6 +65,6 @@ $guest = Factory::getUser()->guest;
 
 	?>
 
-	<input type="hidden" name="task" value=""/>
+	<input type="hidden" id="task" name="task" value=""/>
 	<?php echo JHtml::_('form.token'); ?>
 </form>

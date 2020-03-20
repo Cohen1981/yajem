@@ -39,18 +39,19 @@ $guest = Factory::getUser()->guest;
     <div class="sdajem_event_box">
 
         <div class="sdajem_image_container flex_col">
+            <div class="sdajem_event_box_date">
+                <p>
+			        <?php echo IconHelper::dateIcon() ?>
+			        <?php echo $event->getFormatedStartDate() ?>
+                    <i class="fas fa-angle-double-right" aria-hidden="true"></i>
+			        <?php echo $event->getFormatedEndDate() ?>
+                </p>
+            </div>
+
             <?php
             if ($event->image)
             {
-                echo "<img class='sdajem_round_img' src=" . $event->image . " alt=" . Text::_('COM_SDAJEM_EVET_IMAGE') ." />";
-            }
-            else
-            {
-                echo "<div class='sdajem_event_date'>"
-                    . $event->getFormatedStartDate()
-                    . " <i class=\"fas fa-angle-double-right\" aria-hidden=\"true\"></i> "
-                    . $event->getFormatedEndDate()
-                    . "</div>";
+	            echo "<img class='sdajem_round_img' src=" . $event->image . " alt=" . Text::_('COM_SDAJEM_EVET_IMAGE') ." />";
             }
             ?>
         </div>
@@ -62,14 +63,6 @@ $guest = Factory::getUser()->guest;
                         <?php echo IconHelper::statusIcon(); ?>
 				        <?php echo EventStatusHelper::getSymbolByStatus($event->eventStatus); ?>
 	                <?php endif; ?>
-            </div>
-            <div class="sdajem_event_box_date">
-                <p>
-                        <?php echo IconHelper::dateIcon() ?>
-                        <?php echo $event->getFormatedStartDate() ?>
-                        <i class="fas fa-angle-double-right" aria-hidden="true"></i>
-                        <?php echo $event->getFormatedEndDate() ?>
-                </p>
             </div>
             <div class="sdajem_event_box_category">
                 <p>
