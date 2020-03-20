@@ -38,10 +38,20 @@ $viewParam = Factory::getApplication()->getUserState('com_sdajem.eventsView', Co
 
         <p> <?php echo Text::_('COM_SDAJEM_VIEW_CONTROL'); ?></p>
 
-	    <button formmethod="post" onclick="document.getElementById('task').value='eventsFlexView'" formaction="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>">
+	    <button
+                formmethod="post"
+                onclick="document.getElementById('task').value='eventsFlexView'"
+                formaction="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>"
+                class="sdajem_view_button"
+        >
 		    <i class="fas fa-bars" aria-hidden="true"> </i>
 	    </button>
-	    <button formmethod="post" onclick="document.getElementById('task').value='eventsBoxedView'" formaction="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>">
+	    <button
+                formmethod="post"
+                onclick="document.getElementById('task').value='eventsBoxedView'"
+                formaction="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>"
+                class="sdajem_view_button"
+        >
 		    <i class="fas fa-th-list" aria-hidden="true"></i>
 	    </button>
 

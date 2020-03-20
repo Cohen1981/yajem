@@ -87,6 +87,14 @@ $guest = Factory::getUser()->guest;
                     ?>
                 </p>
             </div>
+
+            <?php if (!$guest) :?>
+            <div class="sdajem_attending_status">
+                <p>
+                    <?php echo EventStatusHelper::getStatusLabel(Factory::getUser()->id, $event->sdajem_event_id) ;?>
+                </p>
+            </div>
+            <?php endif; ?>
         </div>
 
     </div>

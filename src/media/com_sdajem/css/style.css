@@ -324,6 +324,10 @@ a.no_decoration:hover {
 	padding-bottom: 10px;
 }
 
+.sdajem_view_button {
+	padding: 1px 6px;
+}
+
 @media (max-width: 650px) {
 	.sdajem_event_table {
 		grid-template-columns: auto;

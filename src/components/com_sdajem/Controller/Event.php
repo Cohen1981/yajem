@@ -174,6 +174,40 @@ class Event extends DataController
 	}
 
 	/**
+	 * Redirect to add a Contact
+	 *
+	 * @return void
+	 *
+	 * @since 0.7.0
+	 */
+	public function addNewContact()
+	{
+		$input = $this->input->getArray();
+
+		if ($input['sdajem_event_id'] == '')
+		{
+			$referer = 'index.php?option=com_sdajem&view=Events&task=add';
+		}
+		else
+		{
+			$referer = 'index.php?option=com_sdajem&view=Events&task=edit&id='.$input['sdajem_event_id'];
+		}
+
+		try
+		{
+			Factory::getApplication()->setUserState('eventState', $input);
+		}
+		catch (\Exception $e)
+		{
+		}
+
+		RefererHelper::setReferer($referer);
+
+		$this->setRedirect('index.php?option=com_sdacontacts&view=Contact&task=add');
+		$this->redirect();
+	}
+
+	/**
 	 * Redirect to add a category
 	 *
 	 * @return void
