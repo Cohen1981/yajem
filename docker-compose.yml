@@ -43,4 +43,4 @@ services:
   sass:
     image: larryprice/sass
     volumes:
-      - ./src/templates/survivants/less:/src
+      - ./src/sassFiles:/src

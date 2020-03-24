@@ -17,7 +17,7 @@ $this->addJavascriptFile('media://jui/js/jquery.min.js');
 $this->addJavascriptFile('media://jui/js/bootstrap.min.js');
 $this->addJavascriptFile('media://com_sdaprofiles/js/fittings.js');
 
-$this->addCssFile('media://com_sdaprofiles/css/style.css');
+$this->addCssFile('media://com_sdaprofiles/css/sdaprofiles_style.css');
 $this->addCssFile('media://jui/css/bootstrap.min.css');
 
 $input = $this->input->request->getArray();

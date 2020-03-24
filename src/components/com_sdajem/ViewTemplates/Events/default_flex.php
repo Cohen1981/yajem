@@ -18,7 +18,7 @@ use Sda\Jem\Admin\Helper\IconHelper;
 /** @var \Sda\Jem\Site\View\Event\Html $this */
 /** @var \Sda\Jem\Site\Model\Event $event */
 
-$this->addCssFile('media://com_sdajem/css/style.css');
+$this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 $currentDate = new Date;
 
 /** @var \Sda\Jem\Site\Model\Event $model */

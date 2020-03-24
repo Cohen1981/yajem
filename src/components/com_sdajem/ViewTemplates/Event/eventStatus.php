@@ -14,7 +14,7 @@ use Sda\Jem\Admin\Helper\EventStatusHelper;
 /** @var \Sda\Jem\Site\View\Event\Html $this */
 /** @var \Sda\Jem\Site\Model\Event $event */
 $event = $this->getModel('Event');
-$this->addCssFile('media://com_sdajem/css/style.css');
+$this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 $this->addJavascriptFile('media://com_sdajem/js/status.js');
 
 switch ($event->eventStatus)

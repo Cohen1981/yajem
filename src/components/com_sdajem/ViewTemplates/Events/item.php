@@ -18,7 +18,7 @@ use Sda\Jem\Admin\Helper\IconHelper;
 /** @var \Sda\Jem\Site\Model\Attendee   $attendee   */
 /** @var \Sda\Jem\Site\Model\Comment    $comment    */
 
-$this->addCssFile('media://com_sdajem/css/style.css');
+$this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 $this->addJavascriptFile('media://com_sdajem/js/eventItem.js');
 
 $event = $this->getItem();

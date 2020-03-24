@@ -140,24 +140,28 @@ form
     @media (max-width: $mobile_breakpoint)
       display: block
 
-    li
+    .sda_menulink
       padding: 20px
-    li.active
+      width: fit-content
+    .sda_menulink.active
       //background-color: darken($content-background,10%)
       background-color: $content-background
       a
         color: $accent_color
-    li
+    .sda_menulink
       &:hover
         background-color: $content-background
         a
           color: $accent_color
+
+    li
+      background-color: $primary-color
+      &:hover
         ul
           @media (min-width: $mobile_breakpoint)
             display: flex
             ul
               display: block
-
       a
         color: $content-background
         //padding: 10px
@@ -166,9 +170,15 @@ form
         &:active
           color: $accent_color
       ul
+        position: absolute
+        z-index: 999
         display: none
         @media (max-width: $mobile_breakpoint)
+          position: relative
           display: block
+        ul
+          display: block
+          position: relative
 
 .pull-right
   float: right
@@ -230,3 +240,6 @@ button
   background-color: $content-background
   border-bottom-left-radius: 6px
   border-bottom-right-radius: 6px
+  @media (max-width: $mobile_breakpoint)
+    display: grid
+    grid-template-columns: auto

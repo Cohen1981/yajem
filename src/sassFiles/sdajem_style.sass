@@ -1,0 +1,354 @@
+@import "fontawesome-all.min.css"
+
+$color_accent: #A62C40
+$color_content-background: #FFFFFF
+$color_warn: #ff9c0a
+$color_primary: #333
+$color_gray: #b7b7b7
+$color_ok: #51a351
+$color_error: #A62C40
+$mobile_breakpoint: 600px
+
+.sdajem_flex_row 
+  display: flex
+  flex-direction: row
+  flex-wrap: wrap
+  border-bottom: $color_gray solid 1px
+
+.sdajem_cell 
+  display: block
+  width: auto
+  padding: 10px 10px 10px 0
+  flex-grow: 1
+  flex-basis: 0
+
+.sdajem_head 
+  font-weight: bold
+
+.sdajem_event_grid 
+  display: grid
+  grid-template-columns: minmax(100px, 200px) auto
+  grid-row-gap: 10px
+  margin-bottom: 10px
+  @media (max-width: $mobile_breakpoint)
+    grid-template-columns: auto
+    .sdajem_label
+      font-weight: bold
+      margin-top: 10px
+
+.sdajem_profile_container 
+  margin-right: 10px
+  margin-bottom: 10px
+  border: $color_gray solid 1px
+  border-radius: 5px
+  width: 100px
+
+.sdajem_avatar 
+  display: block
+  height: 60px
+  width: 60px
+  border-bottom-left-radius: 50%
+  border-bottom-right-radius: 50%
+  border: solid 1px
+  margin-right: auto
+  margin-left: auto
+
+.sdajem_comment_row 
+  display: grid
+  grid-template-columns: 80px auto 20px
+  border-bottom: $color_gray solid 1px
+  margin-bottom: 10px
+
+.sdajem_comment_user 
+  margin-right: 10px
+
+#comment 
+  display: inline-block
+  width: 98%
+  height: 100px
+  margin-bottom: 10px
+
+
+.sdajem_content_container input[type=submit] 
+  padding: 5px 15px
+  background: #ccc
+  border: 0 none
+  cursor: pointer
+  -webkit-border-radius: 5px
+  border-radius: 5px
+
+.sdajem_profile_details 
+  text-align: center
+
+.sdajem_status_label 
+  margin-right: auto
+  margin-left: auto
+  border: $color_gray solid 1px
+  border-radius: 5px
+  padding: 5px
+  text-align: center
+  color: #ffffff
+
+.sdajem_grey 
+  background-color: $color_gray
+
+.fa-check-circle 
+  color: $color_gray
+
+.fa-exclamation-circle 
+  color: $color_warn
+
+.sdajem_green
+  background-color: $color_ok
+
+.fa-check-circle 
+  color: $color_ok
+
+.sdajem_red
+  background-color: $color_error
+
+.fa-times-circle 
+  color: $color_error
+
+.sdajem_attending_cell 
+  width: 150px
+  float: left
+  padding: 5px
+
+.sdajem_event_grid h3
+  margin: 0px 0px 10px 0px
+
+.sdajem_event_table 
+  display: grid
+  grid-template-columns: auto 250px
+
+.sdajem_image_container 
+  margin-bottom: 10px
+
+input[type=checkbox]:checked ~ .sdajem_switchable 
+  display: block
+  overflow: auto
+
+.sdajem_switchable 
+  display: none
+  overflow: hidden
+
+.sdajem_switch 
+  margin: 5px
+
+.equipment 
+  margin: 5px
+
+#fitting_block 
+  display: grid
+  grid-template-columns: 20px auto
+  margin-top: 5px
+
+#fitting_block label 
+  margin-top: 3px
+
+#map 
+  height: 400px
+  margin-bottom: 10px
+
+.sdajem_row 
+  margin-bottom: 10px
+
+.sdajem_head 
+  color: #bd2a2a
+
+#attending_filter_buttons 
+  display: flex
+  flex-wrap: wrap
+
+#attending_filter_buttons input
+  margin: 2px 5px 0
+
+input[type=checkbox]:checked ~ .sdajem_switchable 
+  display: block
+  overflow: auto
+  padding: 20px 0
+
+.sdajem_switchable 
+  display: none
+  overflow: hidden
+
+.sdajem_tabs 
+  display: flex
+  flex-wrap: wrap
+  border-bottom: solid darken($color_gray, 10%) 1px
+  @media (max-width: $mobile_breakpoint)
+    display: block
+
+label.sdajem_tab 
+  border: solid darken($color_gray,10%) 1px
+  padding: 10px
+  margin-bottom: -1px
+  border-radius: 10px 10px 0 0
+  background-color: lighten($color_gray, 10%)
+
+label.sdajem_tab.sda_active 
+  font-weight: bold
+  background-color: $color_content-background !important
+  border-bottom: 0
+
+.sdajem_content_container form 
+  padding: 0
+  margin: 0
+
+#registerButtons, #subscribeButtons 
+  display: inline-block
+
+.buttonsContainer 
+  display: flex
+  flex-wrap: wrap
+
+.buttonsContainer button 
+  margin: 0 5px 5px 0
+
+#attendee_registerUntil 
+  font-weight: bold
+  padding-bottom: 5px
+
+#comment_button 
+  border-bottom: solid $color_gray 1px
+  padding-bottom: 5px
+  margin-bottom: 10px
+
+svg 
+  border: $color_primary solid 1px
+
+.draggme 
+  cursor: grab
+
+.draggme.dragged 
+  cursor: grabbing
+
+.draggme.dragged image 
+  opacity: 0.6
+
+.rotate 
+  cursor: crosshair
+
+svg g:hover circle 
+  fill-opacity: 1
+
+svg g:hover text 
+  opacity: 1.0
+  fill: $color_primary
+
+svg g text 
+  opacity: 0.0
+  fill: none
+
+.ok 
+  background-color: $color_ok
+
+.failed 
+  background-color: $color_error
+
+#messages 
+  padding: 10px
+
+#messages p 
+  display: inline-block
+
+#message_close 
+  float: right
+
+input[type="text"].jem_required 
+  border: 1px solid $color_error
+  background: lighten($color_error, 50%)
+
+.sdajem_thumbnail 
+  max-width: 20px !important
+
+.sdajem_align_help i 
+  margin-right: 5px
+
+.sdajem_align_help 
+  display: inline-flex
+
+#sdajem_comment_area 
+  width: 99%
+
+/* Alternative boxed design */
+.sdajem_event_box 
+  display: grid
+  grid-template-columns: 250px auto
+  grid-column-gap: 20px
+  border-bottom: solid $color_gray 1px
+  margin-bottom: 15px
+
+#sdajem_event_box_title h3 
+  margin-top: 0
+
+.no_decoration 
+  color: $color_primary
+  &:hover
+    color: $color_primary
+    text-decoration: none
+    text-underline: none
+
+.sdajem_event_box_title 
+  font-size: 1.4rem
+  margin-bottom: 15px
+  font-weight: bold
+
+.sdajem_event_box_date
+  font-size: 1.1rem
+  font-weight: bold
+  text-decoration: underline
+
+.sdajem_event_box_category,
+.sdajem_event_box_attendees 
+  font-size: 0.9rem
+
+.sdajem_event_box_location 
+  font-size: 1.0rem
+  font-weight: bold
+
+.sdajem_event_date 
+  border-top: solid $color_gray 1px
+  border-bottom: solid $color_gray 1px
+  border-right: solid $color_gray 1px
+  padding: 1.4em
+  border-radius: 0 10px 10px 0
+  font-size: 20px
+  font-weight: bold
+  line-height: 30px
+
+.sdajem_round_img 
+  border-radius: 10px
+
+#sdajem_view_control 
+  margin-bottom: 10px
+  border-bottom: solid $color_gray 1px
+  padding-bottom: 10px
+
+.sdajem_view_button 
+  padding: 10px
+  font-size: 1.3rem
+
+@media (max-width: $mobile_breakpoint)
+.sdajem_event_table 
+  grid-template-columns: auto
+  grid-template-rows: auto auto
+
+.sdajem_image_container 
+  max-width: 400px
+
+/* Alternative boxed design */
+.sdajem_event_box 
+  grid-template-columns: auto
+  grid-template-rows: auto auto
+
+.sdajem_event_image 
+  max-width: 250px
+  max-height: 250px
+
+.sdajem_image_container img 
+  width: 100%
+
+.tab-content
+  padding-top: 10px

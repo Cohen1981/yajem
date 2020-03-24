@@ -68,7 +68,7 @@ if ($tagId = $params->get('tag_id', ''))
 
 	echo '<li class="' . $class . '">';
 
-	echo "<div class\"sda_menulink\">";
+	echo "<div class=\"sda_menulink\">";
 
 	switch ($item->type) :
 		case 'separator':
@@ -88,13 +88,14 @@ if ($tagId = $params->get('tag_id', ''))
 	// The next item is deeper.
 	if ($item->deeper)
 	{
+	    echo "<div class=\"sda_subm_wrap\">";
 		echo '<ul class="nav-child unstyled small">';
 	}
 	// The next item is shallower.
 	elseif ($item->shallower)
 	{
 		echo '</li>';
-		echo str_repeat('</ul></li>', $item->level_diff);
+		echo str_repeat('</ul></div></li>', $item->level_diff);
 	}
 	// The next item is on the same level.
 	else

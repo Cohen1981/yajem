@@ -13,7 +13,7 @@ use Joomla\CMS\Language\Text;
 /** @var \Sda\Contacts\Site\View\Contacts\Html $this */
 /** @var Contact $contact */
 
-$this->addCssFile('media://com_sdacontacts/css/style.css');
+$this->addCssFile('media://com_sdacontacts/css/sdacontacts_style.css');
 
 $contacts = $this->getItems();
 

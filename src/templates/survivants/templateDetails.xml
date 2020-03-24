@@ -23,7 +23,6 @@
 		<folder>img</folder>
 		<folder>js</folder>
 		<folder>language</folder>
-		<folder>less</folder>
 	</files>
 	<positions>
 		<position>breadcrumb</position>
