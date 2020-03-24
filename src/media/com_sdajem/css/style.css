@@ -287,19 +287,23 @@ a.no_decoration:hover {
 }
 
 .sdajem_event_box_title {
-	font-size: 25px;
+	font-size: 1.4rem;
 	margin-bottom: 15px;
 	font-weight: bold;
 }
 
 .sdajem_event_box_date
 {
-	font-size: 18px;
+	font-size: 1.1rem;
 	font-weight: bold;
 	text-decoration: underline;
 }
+.sdajem_event_box_category,
+.sdajem_event_box_attendees {
+	font-size: 0.9rem;
+}
 .sdajem_event_box_location {
-	font-size: 15px;
+	font-size: 1.0rem;
 	font-weight: bold;
 }
 
@@ -307,7 +311,7 @@ a.no_decoration:hover {
 	border-top: solid gray 1px;
 	border-bottom: solid gray 1px;
 	border-right: solid gray 1px;
-	padding: 15px;
+	padding: 1.4em;
 	border-radius: 0px 10px 10px 0px;
 	font-size: 20px;
 	font-weight: bold;
@@ -325,7 +329,8 @@ a.no_decoration:hover {
 }
 
 .sdajem_view_button {
-	padding: 1px 6px;
+	padding: 10px;
+	font-size: 1.3rem;
 }
 
 @media (max-width: 650px) {
@@ -341,4 +346,16 @@ a.no_decoration:hover {
 		grid-template-columns: auto;
 		grid-template-rows: auto auto;
 	}
+}
+
+.sdajem_event_image {
+	max-width: 250px;
+	max-height: 250px;
+}
+
+.sdajem_image_container img {
+	width: 100%;
+}
+.tab-content{
+	padding-top: 10px;
 }

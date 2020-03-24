@@ -159,7 +159,7 @@ $guest = Factory::getUser()->guest;
 
 			<?php if ($event->image) :?>
 				<div class="sdajem_image_container">
-					<img src="<?php echo $event->image ?>" />
+					<img class="sdajem_event_image" src="<?php echo $event->image ?>" />
 				</div>
 			<?php endif; ?>
 
