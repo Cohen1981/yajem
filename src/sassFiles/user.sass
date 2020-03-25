@@ -1,0 +1,262 @@
+@import "fontawesome-all.min.css"
+
+$accent_color: #A62C40
+$content-background: #FFFFFF
+$font-stack:    Helvetica, sans-serif
+$primary-color: #333
+$background-color: #4A4A4A
+$mobile_breakpoint: 600px
+$gray_color: #dedede
+
+@mixin borderBoxed
+  padding: 10px
+  border: solid $gray_color 1px
+  border-radius: 6px
+
+// overwriting some of template css
+.btn-small
+  padding: 5px 10px
+.chzn-container
+  font-size: 1rem
+// Own css styling
+html
+  font-size: 16px
+  -webkit-text-size-adjust: 100%
+  -ms-text-size-adjust: 100%
+  margin: 0
+  padding: 0
+
+a
+  color: $accent_color
+  &:hover
+    color: $accent_color
+
+body
+  font: 100% $font-stack
+  color: $primary-color
+  background-color: $background-color
+
+.container
+  max-width: 1200px
+  margin-right: auto
+  margin-left: auto
+
+#main,
+footer,
+header
+  background-color: $content-background
+  border-radius: 6px
+  margin-bottom: 10px
+
+#main,
+footer
+  padding-top: 10px
+  padding-bottom: 10px
+
+  .sda_content_grid
+    display: flex
+    flex-wrap: wrap
+
+    @media (max-width: $mobile_breakpoint)
+      display: block
+
+    .sda_col
+      flex: 0.6
+      @media (max-width: $mobile_breakpoint)
+        width: 100%
+
+    .sda_col_content
+      flex: 2
+      @media (max-width: $mobile_breakpoint)
+        width: 100%
+
+    .sda_col_left
+      margin-right: 20px
+
+    .sda_col_right
+      margin-left: 20px
+
+.header-inner.clearfix
+  background-color: $primary-color
+
+p
+  margin-block-start: 0
+
+img.logo
+  width: 100%
+  border-top-left-radius: 6px
+  border-top-right-radius: 6px
+
+h1
+  font-size: 1.4rem
+
+h2
+  font-size: 1.3rem
+
+h3
+  font-size: 1.2rem
+
+h4
+  font-size: 1.1rem
+
+h5, h6
+  font-size: 1rem
+
+.sda_content_spacer
+  padding-left: 20px
+  padding-right: 20px
+
+#breadcrumb_pos
+  align-self: center
+  @media (max-width: $mobile_breakpoint)
+    display: none
+
+// Styling the main menu
+.sda_horizontal_menu
+  ul
+    padding: 0
+    margin: 0
+    display: flex
+    flex-direction: row
+    flex-wrap: wrap
+    list-style: none
+
+.navigation
+  background-color: $primary-color
+  font-size: 1.4rem
+  //padding-top: 10px
+  //padding-bottom: 10px
+
+  ul
+    @media (max-width: $mobile_breakpoint)
+      display: block
+
+    .sda_menulink
+      padding: 20px
+      width: fit-content
+
+      &:hover
+        background-color: $content-background
+        a
+          color: $accent_color
+
+    li
+      background-color: $primary-color
+      &:hover
+        ul
+          @media (min-width: $mobile_breakpoint)
+            display: flex
+            ul
+              display: block
+      a
+        color: $content-background
+        //padding: 10px
+        text-decoration: none
+
+      ul
+        position: absolute
+        z-index: 999
+        display: none
+        @media (max-width: $mobile_breakpoint)
+          position: relative
+          display: block
+        ul
+          display: block
+          position: relative
+          .sda_menulink
+            padding-left: 40px
+
+.pull-right
+  float: right
+
+.pull-left
+  float: left
+
+.sda_hidden
+  display: none !important
+
+.sda_switchable
+  display: none
+
+.sda_switch:checked ~ .sda_switchable, .sda_switch:checked ~ .sda_switchable_menu
+  display: block
+
+.sda_switch:checked ~ #user_login_form.sda_switchable
+  display: flex
+  align-items: stretch
+  flex-wrap: wrap
+
+#sda_mobile_nav
+  display: none
+  @media (max-width: $mobile_breakpoint)
+    display: block
+    font-size: 2rem
+
+.sda_switchable_menu
+  display: block
+  @media (max-width: $mobile_breakpoint)
+    display: none
+
+.burger_menu
+  background-color: $content-background
+  padding: 10px
+  border-radius: 6px
+  cursor: pointer
+
+button
+  border-radius: 6px
+  padding: 10px
+  background-color: $gray_color
+  &:hover
+    background-color: darken($gray_color, 10%)
+
+#sda_user_label
+  padding: 20px
+  background-color: $gray_color
+  border-radius: 6px
+  width: fit-content
+  font-size: 1.3rem
+  justify-self: end
+  &:hover
+    background-color: darken($gray_color, 10%)
+
+.sda_switch_label
+  cursor: pointer
+
+#head_last_row
+  padding-top: 10px
+  padding-bottom: 10px
+  display: grid
+  grid-template-columns: auto 100px
+  background-color: $content-background
+  @media (max-width: $mobile_breakpoint)
+    display: grid
+    grid-template-columns: auto
+
+.blog .item-image
+  max-width: 100px
+
+.categories-list img
+  max-width: 100px
+
+.category-desc img
+  float: left !important
+  max-width: 100px !important
+  border: solid 1px !important
+  margin-right: 10px !important
+  margin-bottom: 10px !important
+
+#user_login_form > *
+  @include borderBoxed
+  margin-right: 20px
+
+#user_login_form
+  background-color: $content-background
+  form, ul
+    margin-top: 0
+  ul li
+    margin-bottom: 10px
+
+.sda_bottom_rounded
+  border-bottom-left-radius: 6px
+  border-bottom-right-radius: 6px

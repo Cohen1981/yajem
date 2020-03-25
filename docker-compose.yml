@@ -39,3 +39,8 @@ services:
     command: ["composer", "update"]
     volumes:
       - .:/app
+
+  sass:
+    image: larryprice/sass
+    volumes:
+      - ./src/sassFiles:/src

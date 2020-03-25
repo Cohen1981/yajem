@@ -17,7 +17,7 @@ $this->addJavascriptFile('media://jui/js/jquery.min.js');
 $this->addJavascriptFile('media://jui/js/bootstrap.min.js');
 $this->addJavascriptFile('media://com_sdaprofiles/js/fittings.js');
 
-$this->addCssFile('media://com_sdaprofiles/css/style.css');
+$this->addCssFile('media://com_sdaprofiles/css/sdaprofiles_style.css');
 $this->addCssFile('media://jui/css/bootstrap.min.css');
 
 $input = $this->input->request->getArray();
@@ -54,7 +54,11 @@ $allowedUser = ($fitting->profile->users_user_id == Factory::getUser()->id) || (
 		?>
 		</span>
 		<span class="sdaprofiles_fitting_cell"><?php echo $fitting->detail ?></span>
-		<span class="sdaprofiles_fitting_cell"><?php if ((bool) $fitting->typeModel->needSpace) { echo $fitting->length; } ?></span>
-		<span class="sdaprofiles_fitting_cell"><?php if ((bool) $fitting->typeModel->needSpace) { echo $fitting->width; } ?></span>
+		<span class="sdaprofiles_fitting_cell">
+            <?php if ((bool) $fitting->typeModel->needSpace) { echo Text::_('COM_SDAPROFILES_FITTING_LENGTH_LABEL') . ": " . $fitting->length; } ?>
+        </span>
+		<span class="sdaprofiles_fitting_cell">
+            <?php if ((bool) $fitting->typeModel->needSpace) { echo Text::_('COM_SDAPROFILES_FITTING_LENGTH_DESC') . ": " . $fitting->width; } ?>
+        </span>
 	</div>
 </div>

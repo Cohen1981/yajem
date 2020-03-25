@@ -11,7 +11,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 
 /** @var \Sda\Jem\Site\View\Location\Html $this */
-$this->addCssFile('media://com_sdajem/css/style.css');
+$this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 
 /** @var \Sda\Jem\Admin\Model\Location $location */
 /** @var \Sda\Jem\Admin\Model\Location $model */

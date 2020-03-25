@@ -18,7 +18,7 @@ use Sda\Jem\Admin\Helper\IconHelper;
 /** @var \Sda\Jem\Site\Model\Attendee   $attendee   */
 /** @var \Sda\Jem\Site\Model\Comment    $comment    */
 
-$this->addCssFile('media://com_sdajem/css/style.css');
+$this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 $this->addJavascriptFile('media://com_sdajem/js/eventItem.js');
 
 $event = $this->getItem();
@@ -159,7 +159,7 @@ $guest = Factory::getUser()->guest;
 
 			<?php if ($event->image) :?>
 				<div class="sdajem_image_container">
-					<img src="<?php echo $event->image ?>" />
+					<img class="sdajem_event_image" src="<?php echo $event->image ?>" />
 				</div>
 			<?php endif; ?>
 

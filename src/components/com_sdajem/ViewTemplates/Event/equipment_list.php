@@ -13,7 +13,7 @@ use Joomla\CMS\Language\Text;
 /** @var \Sda\Jem\Site\View\Event\Html $this */
 /** @var \Sda\Jem\Site\Model\Event $event */
 $event = $this->getModel('Event');
-$this->addCssFile('media://com_sdajem/css/style.css');
+$this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 
 if ($event->attendees)
 {
