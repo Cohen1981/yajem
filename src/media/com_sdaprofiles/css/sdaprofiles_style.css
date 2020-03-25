@@ -12,7 +12,18 @@
   grid-template-columns: minmax(100px, 200px) auto;
   grid-gap: 10px; }
 
-.sdaprofiles_flex_row, .sdaprofiles_fitting_input {
+.sdaprofiles_flex_row {
+  display: grid;
+  grid-template-columns: 250px auto;
+  grid-column-gap: 20px;
+  border-bottom: solid #b7b7b7 1px;
+  margin-bottom: 15px; }
+  @media (max-width: 600px) {
+    .sdaprofiles_flex_row {
+      grid-template-columns: auto;
+      grid-template-rows: auto auto; } }
+
+.sdaprofiles_fitting_input {
   display: flex;
   flex-wrap: wrap; }
 
@@ -22,9 +33,9 @@
 .sdaprofiles_cell {
   margin-right: 10px;
   margin-bottom: 10px;
-  flex-basis: 0;
-  flex-grow: 1;
   display: flex; }
+  .sdaprofiles_cell i {
+    width: 30px; }
 
 .default-grow {
   flex-grow: initial;
@@ -52,15 +63,12 @@
   display: grid;
   grid-template-columns: minmax(100px, 200px) auto; }
 
-.sdaprofiles_fitting_cell {
-  width: 20%;
-  float: left;
-  padding: 5px; }
-
-#fitting_area .control-label, #profile_area .control-label {
+#fitting_area .sdaprofiles_fitting_cell {
+  display: block;
+  margin-bottom: 10px; }
+#fitting_area .control-label, #fitting_area #profile_area .control-label {
   padding: 0; }
-
-#fitting_area .control-group {
+#fitting_area #fitting_area .control-group {
   border-bottom: #b7b7b7 solid 1px; }
 
 input[type=checkbox]:checked ~ .sdaprofiles_switchable {
@@ -125,5 +133,12 @@ label.sdaprofile_tab.sda_active {
 .sdaprofiles_header {
   color: #A62C40;
   font-weight: bold; }
+
+#sdaprofiles_container a {
+  color: #333; }
+#sdaprofiles_container:hover {
+  color: #333;
+  text-decoration: none;
+  text-underline: none; }
 
 /*# sourceMappingURL=sdaprofiles_style.css.map */

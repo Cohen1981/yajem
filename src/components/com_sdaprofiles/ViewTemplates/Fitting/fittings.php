@@ -44,16 +44,6 @@ $allowedUser = ($profile->users_user_id == Factory::getUser()->id) || ((bool) $p
 </div>
 
 <div id="fitting_area" class="form-horizontal">
-	<div id="sdaprofiles_fitting" class="control-group">
-		<label class="control-label">
-		</label>
-		<div class="controls">
-			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_TYPE_LABEL'); ?></span>
-			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_DETAIL_LABEL'); ?></span>
-			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_LENGHT_LABEL'); ?></span>
-			<span class="sdaprofiles_fitting_cell"><?php echo Text::_('COM_SDAPROFILES_FITTING_WIDTH_LABEL'); ?></span>
-		</div>
-	</div>
 	<?php
 	if ($profile->fittings)
 	{
