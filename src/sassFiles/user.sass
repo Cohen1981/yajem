@@ -8,9 +8,12 @@ $background-color: #4A4A4A
 $mobile_breakpoint: 600px
 $gray_color: #dedede
 
+@mixin borderBoxed
+  padding: 10px
+  border: solid $gray_color 1px
+  border-radius: 6px
+
 // overwriting some of template css
-.nav
-  margin: 0
 .btn-small
   padding: 5px 10px
 .chzn-container
@@ -27,14 +30,6 @@ a
   color: $accent_color
   &:hover
     color: $accent_color
-
-ul
-  margin: 0
-  padding: 0
-
-  li
-    margin: 0
-    padding: 0
 
 body
   font: 100% $font-stack
@@ -116,10 +111,6 @@ h5, h6
   @media (max-width: $mobile_breakpoint)
     display: none
 
-form
-  ul
-    list-style: none
-
 // Styling the main menu
 .sda_horizontal_menu
   ul
@@ -143,12 +134,7 @@ form
     .sda_menulink
       padding: 20px
       width: fit-content
-    .sda_menulink.active
-      //background-color: darken($content-background,10%)
-      background-color: $content-background
-      a
-        color: $accent_color
-    .sda_menulink
+
       &:hover
         background-color: $content-background
         a
@@ -167,8 +153,6 @@ form
         //padding: 10px
         text-decoration: none
 
-        &:active
-          color: $accent_color
       ul
         position: absolute
         z-index: 999
@@ -179,6 +163,8 @@ form
         ul
           display: block
           position: relative
+          .sda_menulink
+            padding-left: 40px
 
 .pull-right
   float: right
@@ -194,6 +180,11 @@ form
 
 .sda_switch:checked ~ .sda_switchable, .sda_switch:checked ~ .sda_switchable_menu
   display: block
+
+.sda_switch:checked ~ #user_login_form.sda_switchable
+  display: flex
+  align-items: stretch
+  flex-wrap: wrap
 
 #sda_mobile_nav
   display: none
@@ -238,8 +229,34 @@ button
   display: grid
   grid-template-columns: auto 100px
   background-color: $content-background
-  border-bottom-left-radius: 6px
-  border-bottom-right-radius: 6px
   @media (max-width: $mobile_breakpoint)
     display: grid
     grid-template-columns: auto
+
+.blog .item-image
+  max-width: 100px
+
+.categories-list img
+  max-width: 100px
+
+.category-desc img
+  float: left !important
+  max-width: 100px !important
+  border: solid 1px !important
+  margin-right: 10px !important
+  margin-bottom: 10px !important
+
+#user_login_form > *
+  @include borderBoxed
+  margin-right: 20px
+
+#user_login_form
+  background-color: $content-background
+  form, ul
+    margin-top: 0
+  ul li
+    margin-bottom: 10px
+
+.sda_bottom_rounded
+  border-bottom-left-radius: 6px
+  border-bottom-right-radius: 6px

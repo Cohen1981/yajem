@@ -119,31 +119,33 @@ $positionBreadcrumbModuleCount = $this->countModules('breadcrumb');
                         </div>
                     </nav>
 				<?php endif; ?>
+
                 <?php if ($this->countModules('position-0') || $this->countModules('breadcrumb')) : ?>
-                    <div id="head_last_row" class="sda_content_spacer">
-
-                        <?php if ($positionBreadcrumbModuleCount) : ?>
-                            <div id="breadcrumb_pos" class="sda_horizontal_menu">
-                                <jdoc:include type="modules" name="breadcrumb" style="xhtml" />
-                            </div>
-                        <?php endif; ?>
-
-	                    <?php if ($this->countModules('position-0')) : ?>
-                            <input type="checkbox" id="user_login" class="sda_hidden sda_switch">
-                            <label id="sda_user_label" for="user_login" class="sda_switch_label">
-			                    <?php if($user->guest) : ?>
-                                    <i class="far fa-user" aria-hidden="true"></i>
-			                    <?php endif; ?>
-			                    <?php if(!$user->guest) : ?>
-                                    <i class="fas fa-user" aria-hidden="true"></i>
-			                    <?php endif; ?>
-                            </label>
-                            <div id="user_login_form" class="sda_switchable">
-                                <jdoc:include type="modules" name="position-0" style="none" />
-                            </div>
+                    <div id="head_last_row" class="sda_content_spacer sda_bottom_rounded">
+	                    <?php if ($positionBreadcrumbModuleCount) :?>
+                        <div id="breadcrumb_pos" class="sda_horizontal_menu">
+                            <jdoc:include type="modules" name="breadcrumb" style="xhtml" />
+                        </div>
 	                    <?php endif; ?>
 
+	                    <?php if ($this->countModules('position-0')) : ?>
+                        <label id="sda_user_label" for="user_login" class="sda_switch_label">
+                            <?php if($user->guest) : ?>
+                                <i class="far fa-user" aria-hidden="true"></i>
+                            <?php endif; ?>
+                            <?php if(!$user->guest) : ?>
+                                <i class="fas fa-user" aria-hidden="true"></i>
+                            <?php endif; ?>
+                        </label>
+	                    <?php endif; ?>
                     </div>
+					<?php if ($this->countModules('position-0')) : ?>
+                    <input type="checkbox" id="user_login" class="sda_hidden sda_switch">
+                    <div id="user_login_form" class="sda_switchable sda_content_spacer">
+                        <jdoc:include type="modules" name="position-0" style="none" />
+                    </div>
+					<?php endif; ?>
+
                 <?php endif; ?>
 			</header>
 
