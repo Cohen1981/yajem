@@ -26,6 +26,11 @@ $items = $this->getItems();
 		<?php foreach ($this->items as $profile) : ?>
 
 		<div class="sdaprofiles_section_container">
+            <?php if ($profile->user->id == Factory::getUser()->id) : ?>
+            <a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=edit&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
+            <?php else: ?>
+            <a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=read&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
+            <?php endif; ?>
 			<div class="sdaprofiles_flex_row">
 
 				<div id="avatar_cell" class="sdaprofiles_cell">
@@ -39,15 +44,8 @@ $items = $this->getItems();
 						echo "<img class=\"sdaprofiles_avatar\" src=\"media/com_sdaprofiles/images/user-image-blanco.png\"/>";
 					}
 					?>
-					<?php if ($profile->user->id == Factory::getUser()->id) : ?>
-						<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=edit&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
-							<?php echo $profile->userName; ?>
-						</a>
-					<?php else: ?>
-						<a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&task=read&id=' . (int) $profile->sdaprofiles_profile_id); ?>">
-							<?php echo $profile->userName; ?>
-						</a>
-					<?php endif; ?>
+
+                    <?php echo $profile->userName; ?>
 
 					<?php if ((bool) $profile->defaultGroup) : ?>
 						<i id="defaultMarker"
@@ -57,40 +55,43 @@ $items = $this->getItems();
 						</i>
 					<?php endif; ?>
 				</div>
-				<div class="sdaprofiles_cell">
-					<?php  if (!(bool) $profile->groupProfile) : ?>
-					<i class="fas fa-home" aria-hidden="true"></i>
-					<div class="float-right">
-					<?php
-						echo $profile->address1 . "<br/>" . $profile->address2 . "<br/>";
-						echo $profile->postal . " " . $profile->city;
-					?>
-					</div>
-					<?php endif; ?>
-				</div>
-				<div class="sdaprofiles_cell">
-					<?php  if (!(bool) $profile->groupProfile) : ?>
-					<i class="fas fa-mobile-alt" aria-hidden="true"></i>
-					<div class="float-right">
-					<?php
-						echo $profile->phone . "<br/>";
-						echo $profile->mobil;
-					?>
-					</div>
-					<?php endif; ?>
-				</div>
-				<div class="sdaprofiles_cell">
-					<?php if (!(bool) $profile->groupProfile) : ?>
-					<i class="fas fa-birthday-cake" aria-hidden="true"></i>
-					<div class="float-right">
-					<?php
-						$date = new Date($profile->dob);
-						echo $date->format('d.m.Y');
-					?>
-					</div>
-					<?php endif; ?>
-				</div>
+                <div id="sda_cell_container">
+                    <div class="sdaprofiles_cell">
+                        <?php  if (!(bool) $profile->groupProfile) : ?>
+                        <i class="fas fa-home" aria-hidden="true"></i>
+                        <div class="sdaprofile_detail">
+                        <?php
+                            echo $profile->address1 . "<br/>" . $profile->address2 . "<br/>";
+                            echo $profile->postal . " " . $profile->city;
+                        ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="sdaprofiles_cell">
+                        <?php  if (!(bool) $profile->groupProfile) : ?>
+                        <i class="fas fa-mobile-alt" aria-hidden="true"></i>
+                        <div class="sdaprofile_detail">
+                        <?php
+                            echo $profile->phone . "<br/>";
+                            echo $profile->mobil;
+                        ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                    <div class="sdaprofiles_cell">
+                        <?php if (!(bool) $profile->groupProfile) : ?>
+                        <i class="fas fa-birthday-cake" aria-hidden="true"></i>
+                        <div class="sdaprofile_detail">
+                        <?php
+                            $date = new Date($profile->dob);
+                            echo $date->format('d.m.Y');
+                        ?>
+                        </div>
+                        <?php endif; ?>
+                    </div>
+                </div>
 			</div>
+            </a>
 		</div>
 
 		<?php endforeach; ?>

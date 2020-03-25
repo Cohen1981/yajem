@@ -63,14 +63,6 @@ $profiles = $ProfileModel->getItemsArray();
 
 		<div class="sdaprofiles_section_container">
 
-			<!-- table header -->
-			<div class="sdaprofiles_flex_row">
-				<div class="sdaprofiles_cell sdaprofiles_header"><?php echo Text::_("COM_SDAPROFILES_FITTINGS_OWNER"); ?></div>
-				<div class="sdaprofiles_cell sdaprofiles_header"><?php echo Text::_("COM_SDAPROFILES_FITTINGTYPE_TITLE_LABEL"); ?></div>
-				<div class="sdaprofiles_cell sdaprofiles_header"><?php echo Text::_("COM_SDAPROFILES_FITTINGIMAGE_DESC_LABEL"); ?></div>
-				<div class="sdaprofiles_cell sdaprofiles_header"><?php echo Text::_("COM_SDAPROFILES_FITTINGS_SIZE"); ?></div>
-			</div>
-
 			<?php foreach ($this->items as $fitting) : ?>
 
 			<div class="sdaprofiles_flex_row filterRow <?php echo $fitting->profile->userName . " " . $fitting->typeModel->title;?>">
@@ -90,17 +82,18 @@ $profiles = $ProfileModel->getItemsArray();
 					<?php echo $fitting->profile->userName; ?>
 
 				</div>
-				<div class="sdaprofiles_cell">
-					<?php echo $fitting->typeModel->title; ?>
-				</div>
-				<div class="sdaprofiles_cell">
-					<?php echo $fitting->detail; ?>
-				</div>
-				<div class="sdaprofiles_cell">
-					<?php echo $fitting->width . " x " . $fitting->length; ?>
-				</div>
-
-			</div>
+                <div class="controls">
+                    <div class="sdaprofiles_cell">
+                        <?php echo $fitting->typeModel->title; ?>
+                    </div>
+                    <div class="sdaprofiles_cell">
+                        <?php echo $fitting->detail; ?>
+                    </div>
+                    <div class="sdaprofiles_cell">
+                        <?php echo $fitting->width . " x " . $fitting->length; ?>
+                    </div>
+                </div>
+            </div>
 			<?php endforeach; ?>
 		</div>
 	</div>
