@@ -89,3 +89,12 @@ CREATE TABLE IF NOT EXISTS `#__sdaprofiles_fitting_images`
 )
   ENGINE=InnoDB
   DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
+
+insert into `#__sdaprofiles_fitting_images` (`image`,`type`,`enabled`) value ('media/com_sdaprofiles/images/equipment/Zelt-A-klein-weiss.png',1,1);
+insert into `#__sdaprofiles_fitting_images` (`image`,`type`,`enabled`) value ('media/com_sdaprofiles/images/equipment/Zelt-Doppelmast-bg.png',1,1);
+insert into `#__sdaprofiles_fitting_images` (`image`,`type`,`enabled`) value ('media/com_sdaprofiles/images/equipment/Zelt-Doppelmast-Leinen.png',1,1);
+insert into `#__sdaprofiles_fitting_images` (`image`,`type`,`enabled`) value ('media/com_sdaprofiles/images/equipment/Zelt-Doppelmast-weiss.png',1,1);
+insert into `#__sdaprofiles_fitting_images` (`image`,`type`,`enabled`) value ('media/com_sdaprofiles/images/equipment/Zelt-Rund-gross-weiss.png',1,1);
+insert into `#__sdaprofiles_fitting_images` (`image`,`type`,`enabled`) value ('media/com_sdaprofiles/images/equipment/Zelt-Rund-Leinen.png',1,1);
+insert into `#__sdaprofiles_fitting_images` (`image`,`type`,`enabled`) value ('media/com_sdaprofiles/images/equipment/Zelt-Rund-Leinen.png',1,1);
+insert into `#__sdaprofiles_fitting_images` (`image`,`description`,`type`,`enabled`) value ('media/com_sdaprofiles/images/equipment/Sonnensegel-5x5.png','Sonnensegel',1,1);

@@ -9,5 +9,5 @@
 
 /** @var \Sda\Contacts\Site\View\Contacts\Html  $this       */
 
-$this->addCssFile('media://com_sdacontacts/css/style.css');
+$this->addCssFile('media://com_sdacontacts/css/sdacontacts_style.css');
 echo $this->getRenderedForm();

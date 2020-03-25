@@ -11,6 +11,7 @@ namespace Sda\Jem\Site\Toolbar;
 
 use FOF30\Toolbar\Toolbar as BaseToolbar;
 use FOF30\Container\Container;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Factory;
@@ -91,6 +92,10 @@ class Toolbar extends BaseToolbar
 
 		ToolbarHelper::custom('addNewLocation', 'new', '', 'COM_SDAJEM_LOCATION_NEW', false);
 		ToolbarHelper::custom('addNewCategory', 'new', '', 'COM_SDAJEM_CATEGORY_NEW', false);
+		if (ComponentHelper::isEnabled('com_sdacontacts'))
+		{
+			ToolbarHelper::custom('addNewContact', 'new', '', 'COM_SDAJEM_COTACT_NEW', false);
+		}
 	}
 
 	/**

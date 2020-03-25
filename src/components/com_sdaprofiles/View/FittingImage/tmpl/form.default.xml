@@ -4,7 +4,7 @@
       show_filters="0"
       show_pagination="1"
       norows_placeholder="COM_SDAPROFILES_COMMON_NORECORDS"
-      cssfiles="media://com_sdaprofiles/css/style.css"
+      cssfiles="media://com_sdaprofiles/css/sdaprofiles_style.css"
 >
   <headerset>
     <header name="sdaprofiles_fitting_image_id" type="RowSelect" label="COM_SDAPROFILES_FITTINGIMAGE_SDAPROFILES_FITTING_IMAGE_ID_LABEL" sortable="false" tdwidth="20"/>

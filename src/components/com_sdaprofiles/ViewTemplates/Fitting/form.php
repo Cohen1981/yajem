@@ -19,7 +19,7 @@ use Sda\Profiles\Site\Model\FittingType;
 /** @var FittingImage $fImageModel */
 /** @var FittingType $fTypeModel */
 
-$this->addCssFile('media://com_sdaprofiles/css/style.css');
+$this->addCssFile('media://com_sdaprofiles/css/sdaprofiles_style.css');
 $this->addJavascriptFile('media://jui/js/jquery.min.js');
 $this->addJavascriptFile('media://com_sdaprofiles/js/fittings.js');
 $input = $this->input->getArray();

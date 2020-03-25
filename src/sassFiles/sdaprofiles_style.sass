@@ -1,0 +1,139 @@
+@import "fontawesome-all.min.css"
+
+$color_accent: #A62C40
+$color_content-background: #FFFFFF
+$color_warn: #ff9c0a
+$color_primary: #333
+$color_gray: #b7b7b7
+$color_ok: #51a351
+$color_error: #A62C40
+$mobile_breakpoint: 600px
+
+.sda_section_container
+	display: block
+	padding-bottom: 10px
+	padding-top: 10px
+	border-bottom: darkgrey solid 1px
+	clear: both
+	overflow: auto
+
+.sda_grid_section 
+	display: grid
+	grid-template-columns: minmax(100px, 200px) auto
+	grid-gap: 10px
+
+.sdaprofiles_flex_row, .sdaprofiles_fitting_input 
+	display: flex
+	flex-wrap: wrap
+
+.justify-left 
+	justify-content: flex-start
+
+.sdaprofiles_cell 
+	margin-right: 10px
+	margin-bottom: 10px
+	flex-basis: 0
+	flex-grow: 1
+	display: flex
+
+.default-grow 
+	flex-grow: initial
+	display: initial
+
+.sdaprofiles_avatar 
+	height: 60px
+	width: 60px
+	border-bottom-left-radius: 50%
+	border-bottom-right-radius: 50%
+	border: solid 1px
+
+.sdaprofiles_fittings_grid 
+	display: grid
+	grid-template-columns: auto auto auto auto
+
+.float-right 
+	float: right
+	margin-left: 5px
+
+.float-left 
+	float: left
+
+.sdaprofiles_profile_grid 
+	display: grid
+	grid-template-columns: minmax(100px, 200px) auto
+
+
+.sdaprofiles_fitting_cell 
+	width: 20%
+	float: left
+	padding: 5px
+
+#fitting_area .control-label, #profile_area .control-label 
+	padding: 0
+
+#fitting_area .control-group 
+	border-bottom: $color_gray solid 1px
+
+input[type=checkbox]:checked ~ .sdaprofiles_switchable 
+	display: block
+	overflow: auto
+	padding: 20px 0
+
+.sdaprofiles_switchable 
+	display: none
+	overflow: hidden
+
+.sdaprofiles_tabs 
+	display: flex
+	flex-wrap: wrap
+	border-bottom: solid darken($color_gray, 10%) 1px
+
+label.sdaprofile_tab 
+	border: solid darken($color_gray, 10%) 1px
+	padding: 10px
+	margin-bottom: -1px
+	border-radius: 10px 10px 0 0
+	background-color: $color_gray
+
+label.sdaprofile_tab.sda_active 
+	font-weight: bold
+	background-color: $color_content-background !important
+	border-bottom: 0
+
+.img-label 
+	max-width: 100px
+
+.sdaprofiles_equipment_images 
+	display: flex
+	flex-wrap: wrap
+	border-bottom: solid $color_gray 1px
+	margin-bottom: 10px
+	padding-bottom: 10px
+
+.sdaprofiles_equipment_cell 
+	width: 100px
+	margin-right: 20px
+
+.image_smallest 
+	max-width: 50px !important
+	margin-right: 20px
+
+.preview_image 
+	max-width: 150px
+
+#defaultMarker
+	color: $color_warn
+
+#avatar_cell img 
+	margin-right: 10px
+
+#avatar_cell 
+	display: block
+
+.fittings_table_header table th a, table th a 
+	color: $color_accent !important
+
+.sdaprofiles_header 
+	color: $color_accent
+	font-weight: bold
+

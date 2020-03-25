@@ -10,6 +10,7 @@
 namespace Sda\Contacts\Site\Controller;
 
 use FOF30\Controller\DataController;
+use Sda\Contacts\Admin\Helper\RefererHelper;
 
 /**
  * @package     Sda\Contacts\Controller
@@ -39,5 +40,25 @@ class Contact extends DataController
 		{
 			$this->input->set('image', 'media/com_sdacontacts/images/noimage.png');
 		}
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.7.0
+	 */
+	public function onAfterSave() : void
+	{
+		$this->setRedirect(RefererHelper::getReferer());
+	}
+
+	/**
+	 * @return void
+	 *
+	 * @since 0.7.0
+	 */
+	public function onAfterCancel()
+	{
+		$this->setRedirect(RefererHelper::getReferer());
 	}
 }

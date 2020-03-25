@@ -14,7 +14,7 @@ use Joomla\CMS\Language\Text;
 /** @var \Sda\Profiles\Site\View\Profile\Html $this */
 /** @var \Sda\Profiles\Site\Model\Profile $profile */
 
-$this->addCssFile('media://com_sdaprofiles/css/style.css');
+$this->addCssFile('media://com_sdaprofiles/css/sdaprofiles_style.css');
 $items = $this->getItems();
 ?>
 

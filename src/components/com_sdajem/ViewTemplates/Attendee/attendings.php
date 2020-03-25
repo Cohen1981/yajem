@@ -16,7 +16,7 @@ use Joomla\CMS\Factory;
 /** @var \Sda\Jem\Site\Model\Attendee $attendee */
 /** @var \Sda\Jem\Site\View\Attendee\Raw $this */
 
-$this->addCssFile('media://com_sdajem/css/style.css');
+$this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 $this->addJavascriptFile('media://com_sdajem/js/attendings.js');
 $this->addJavascriptFile('media://com_sdajem/js/ics.js');
 

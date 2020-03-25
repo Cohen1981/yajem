@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="sda_template" default="build_sda_template">
+
+    <property name="jem.build.version" value="0.0.1"/>
+
+    <property name="jem.build.dir" value="${project.basedir}/build/sdatemplate"/>
+    <property name="jem.dist.dir" value="${project.basedir}/target/packages"/>
+    <property name="jem.tmpl.src.dir" value="${project.basedir}/../../src/templates/survivants"/>
+
+    <tstamp>
+        <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
+    </tstamp>
+    <property name="creation.date" value="${TODAY}"/>
+
+    <target name="prepare_sda_tempate" description="prepare for packaging" hidden="true">
+        <echo>${jem.build.dir}</echo>
+        <echo>${jem.dist.dir}</echo>
+        <echo>${jem.tmpl.src.dir}</echo>
+        <mkdir dir="${jem.build.dir}"/>
+        <mkdir dir="${jem.dist.dir}" />
+    </target>
+
+    <target name="cleanup_sda_template" description="cleaning after build" hidden="true">
+        <delete dir="${jem.build.dir}" includeemptydirs="true"/>
+    </target>
+
+    <target name="copyFiles_sda_template" description="copy main files for packaging" hidden="true">
+
+        <!-- Copy com_sdajem to build for packaging -->
+        <copy todir="${jem.build.dir}" overwrite="true">
+            <fileset dir="${jem.tmpl.src.dir}" includes="**/**">
+            </fileset>
+        </copy>
+
+    </target>
+
+    <target name="zip_sda_template" description="package the archive" depends="copyFiles_sda_template" hidden="true">
+        <zip destfile="${jem.dist.dir}/sda_templ.zip" includeemptydirs="true" basedir="${jem.build.dir}/" />
+    </target>
+
+    <target name="build_sda_template" description="Make a zip"
+            depends="prepare_sda_tempate, zip_sda_template, cleanup_sda_template"/>
+
+</project>

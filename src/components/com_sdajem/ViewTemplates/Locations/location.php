@@ -15,7 +15,7 @@ use Joomla\CMS\Component\ComponentHelper;
 /** @var \Sda\Jem\Site\Model\Location $location */
 
 $location = $this->getModel('Location');
-$this->addCssFile('media://com_sdajem/css/style.css');
+$this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 
 if ($location->latlng)
 {

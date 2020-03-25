@@ -174,6 +174,40 @@ class Event extends DataController
 	}
 
 	/**
+	 * Redirect to add a Contact
+	 *
+	 * @return void
+	 *
+	 * @since 0.7.0
+	 */
+	public function addNewContact()
+	{
+		$input = $this->input->getArray();
+
+		if ($input['sdajem_event_id'] == '')
+		{
+			$referer = 'index.php?option=com_sdajem&view=Events&task=add';
+		}
+		else
+		{
+			$referer = 'index.php?option=com_sdajem&view=Events&task=edit&id='.$input['sdajem_event_id'];
+		}
+
+		try
+		{
+			Factory::getApplication()->setUserState('eventState', $input);
+		}
+		catch (\Exception $e)
+		{
+		}
+
+		RefererHelper::setReferer($referer);
+
+		$this->setRedirect('index.php?option=com_sdacontacts&view=Contact&task=add');
+		$this->redirect();
+	}
+
+	/**
 	 * Redirect to add a category
 	 *
 	 * @return void
@@ -532,6 +566,39 @@ class Event extends DataController
 			$this->setRedirect($referer);
 			$this->redirect();
 		}
+	}
+
+	/**
+	 * @since 0.6.0
+	 */
+	public function eventsFlexView()
+	{
+		$this->setDefaultView(0);
+	}
+
+	/**
+	 * @since 0.6.0
+	 */
+	public function eventsBoxedView()
+	{
+		$this->setDefaultView(1);
+	}
+
+	/**
+	 * @param int $view
+	 *
+	 * @since 0.6.0
+	 */
+	private function setDefaultView(int $view)
+	{
+		try {
+			$app = Factory::getApplication();
+			$app->setUserState("com_sdajem.eventsView", $view);
+		} catch (\Exception $e) {
+		}
+
+		$this->setRedirect('index.php?option=com_sdajem&view=Events&task=browse');
+		$this->redirect();
 	}
 
 }

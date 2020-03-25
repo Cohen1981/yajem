@@ -10,7 +10,10 @@
 namespace Sda\Jem\Admin\Helper;
 
 
+use FOF30\Container\Container;
 use Joomla\CMS\Language\Text;
+use mysql_xdevapi\BaseResult;
+use Sda\Jem\Admin\Model\Attendee;
 
 /**
  * Helper Class for event status. Getting the right symbol and text.
@@ -131,5 +134,33 @@ abstract class EventStatusHelper
 		}
 
 		return $text;
+	}
+
+	/**
+	 * @param int $userId
+	 * @param int $eventId
+	 * @return string
+	 * @since 0.7.0
+	 */
+	public static function getStatusLabel(int $userId, int $eventId) : string
+	{
+		/** @var Attendee $attendeeModel */
+		$attendeeModel = Container::getInstance('com_sdajem')->factory->model('Attendee');
+		$attendeeModel->getAttendeeForEventAndUser($userId, $eventId);
+		$statusLabel="";
+		switch ($attendeeModel->status)
+		{
+			case 0:
+				$statusLabel = "<span class=\"sdajem_status_label sdajem_grey\">" . Text::_('COM_SDAJEM_UNDECIDED') . "</span>";
+				break;
+			case 1:
+				$statusLabel = "<span class=\"sdajem_status_label sdajem_green\">" . Text::_('COM_SDAJEM_ATTENDING') . "</span>";
+				break;
+			case 2:
+				$statusLabel = "<span class=\"sdajem_status_label sdajem_red\">" . Text::_('COM_SDAJEM_NATTENDING') . "</span>";
+				break;
+		}
+
+		return $statusLabel;
 	}
 }

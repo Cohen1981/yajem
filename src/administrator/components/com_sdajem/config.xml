@@ -24,6 +24,17 @@
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
+		<field  name="eventDefaultView"
+				type="radio"
+				label="COM_SDAJEM_EVENT_DEFAULT_VIEW"
+				description="COM_SDAJEM_EVENT_DEFAULT_VIEW_DESC"
+				default="1"
+				class="btn-group"
+		>
+			<option value="0">default_flex</option>
+			<option value="1">defualt_boxed</option>
+			<!-- <option value="2">default_timeline</option> -->
+		</field>
 	</fieldset>
 	<fieldset
 			name="permissions"

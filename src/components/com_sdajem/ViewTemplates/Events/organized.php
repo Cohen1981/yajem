@@ -16,7 +16,7 @@ use Sda\Jem\Admin\Helper\EventStatusHelper;
 /** @var \Sda\Jem\Site\Model\Event $event */
 /** @var \Sda\Jem\Site\View\Attendee\Raw $this */
 
-$this->addCssFile('media://com_sdajem/css/style.css');
+$this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 
 $input = $this->input->getArray();
 if ($input['option'] == 'com_sdaprofiles')
