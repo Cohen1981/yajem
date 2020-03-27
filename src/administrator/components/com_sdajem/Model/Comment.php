@@ -27,6 +27,7 @@ use FOF30\Date\Date;
  * @property   int			$sdajem_event_id
  * @property   string		$comment
  * @property   Date			$timestamp
+ * @property   array        $commentReadBy
  *
  * Relations:
  *
@@ -37,8 +38,8 @@ class Comment extends DataModel
 	/**
 	 * Comment constructor.
 	 *
-	 * @param   Container $container The Container
-	 * @param   array     $config    The Configuration
+	 * @param Container $container The Container
+	 * @param array $config The Configuration
 	 *
 	 * @since 0.0.1
 	 */
@@ -51,6 +52,45 @@ class Comment extends DataModel
 	}
 
 	/**
+	 * @param $value
+	 * @return array
+	 * @since 1.0.0
+	 */
+	protected function getCommentReadByAttribute($value)
+	{
+		return (array)json_decode($value);
+	}
+
+	/**
+	 * @param $value
+	 * @return false|string|null
+	 * @since 1.0.0
+	 */
+	protected function setCommentReadByAttribute($value)
+	{
+		// Array passes the isJson check, so we need a seperate check.
+		if (is_array($value)) {
+			return json_encode($value);
+		} elseif ($this->isJson($value)) {
+			return $value;
+		} else {
+			return null;
+		}
+	}
+
+	/**
+	 * @param $string
+	 * @return bool
+	 * @since 1.0.0
+	 */
+	private function isJson($string)
+	{
+		json_decode($string);
+
+		return (json_last_error() == JSON_ERROR_NONE);
+	}
+
+	/**
 	 *
 	 * @return void
 	 *
@@ -58,6 +98,24 @@ class Comment extends DataModel
 	 */
 	public function onBeforeSave()
 	{
-		$this->timestamp = $this->timestamp->toSql(false, $this->getDbo());
+		if ($this->timestamp instanceof \DateTime) {
+			$this->timestamp = $this->timestamp->toSql(false, $this->getDbo());
+		}
+	}
+
+	/**
+	 * @param int $userId
+	 * @return boolean true if read
+	 * @since 1.0.0
+	 */
+	public function isUnreadComment(int $userId): bool
+	{
+		$returnVal = true;
+
+		if ($this->commentReadBy) {
+			$returnVal = (!in_array($userId, $this->commentReadBy));
+		}
+
+		return $returnVal;
 	}
 }

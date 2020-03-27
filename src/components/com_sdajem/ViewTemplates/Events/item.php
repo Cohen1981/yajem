@@ -41,9 +41,15 @@ $guest = Factory::getUser()->guest;
 	</label>
 	<?php endif; ?>
 	<?php if (!$guest) : ?>
-	<label id="comments_switch_label" class="sdajem_tab" for="comments_switch">
+	<label id="comments_switch_label" class="sdajem_tab" for="comments_switch" onclick="commentRead(<?php echo Factory::getUser()->id ?>)">
 		<?php echo IconHelper::commentsIcon() . " " . Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
-		<?php if ($event->comments->count() > 0) { echo " (" . $event->comments->count() . ")"; } ?>
+		<?php if ($event->comments->count() > 0) {
+		    if ($event->hasUnreadComments(Factory::getUser()->id)) {
+		        $class = 'sdajem_text_red';
+            }
+		    echo "<span id='sdaCommentCount' class=\"$class\"> (" . $event->comments->count() . ")</span>";
+		}
+        ?>
 	</label>
 	<?php endif; ?>
 	<?php if((bool) ComponentHelper::getParams('com_sdajem')->get('usePlaningTool') && !$guest && (bool) $event->useFittings) : ?>

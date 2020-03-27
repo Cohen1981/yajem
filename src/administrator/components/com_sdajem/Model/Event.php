@@ -673,4 +673,17 @@ class Event extends DataModel
 
 		return (json_last_error() == JSON_ERROR_NONE);
 	}
+
+	public function hasUnreadComments (int $userId):int {
+		$comCount = 0;
+
+		/** @var Comment $comment */
+		foreach ($this->comments as $comment) {
+			if ($comment->isUnreadComment($userId)) {
+				$comCount++;
+			}
+		}
+
+		return $comCount;
+	}
 }

@@ -32,13 +32,15 @@ class Comment extends DataController
 
 		if ($input['eventId'] && $input['comment'])
 		{
+			$userId = Factory::getUser()->id;
 			/** @var \Sda\Jem\Site\Model\Comment $comment */
 			$comment = $this->getModel();
 
 			$comment->sdajem_event_id   = $input['eventId'];
 			$comment->comment           = $input['comment'];
 			$comment->timestamp         = new Date($this->input->server->getString('REQUEST_TIME'));
-			$comment->users_user_id     = Factory::getUser()->id;
+			$comment->users_user_id     = $userId;
+			$comment->commentReadBy = array($userId);
 
 			$comment->save();
 			$this->setRedirect('index.php?option=com_sdajem&format=raw&view=Comment&task=commentAjax&id=' . $comment->sdajem_comment_id);

@@ -1,4 +1,5 @@
-@import url(fontawesome-all.min.css);
+@import url(fontawesome.min.css);
+@import url(solid.min.css);
 .sdacontacts_table {
   display: grid;
   grid-template-columns: 100%;
@@ -37,7 +38,7 @@
 .sdacontacts_item_image {
   max-height: 200px; }
 
-@media (min-width: 500px) {
+@media (min-width: 600px) {
   .sdacontacts_table {
     display: grid;
     grid-template-columns: auto auto auto auto;

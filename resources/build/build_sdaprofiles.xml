@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="sda_profiles" default="build_sdaprofiles">
 
-    <property name="profiles.build.version" value="0.0.1"/>
+    <property name="profiles.build.version" value="1.0.0"/>
 
     <property name="profiles.build.dir" value="${project.basedir}/build/com_sdaprofiles"/>
     <property name="profiles.dist.dir" value="${project.basedir}/target/packages"/>
@@ -9,6 +9,7 @@
     <property name="profiles.site.src.dir" value="${project.basedir}/../../src/components/com_sdaprofiles"/>
     <property name="profiles.media.src.dir" value="${project.basedir}/../../src/media/com_sdaprofiles"/>
     <property name="profiles.vendor.src.dir" value="${project.basedir}/../../vendor"/>
+    <property name="sass.src.dir" value="${project.basedir}/../../src/sassFiles" />
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
@@ -33,10 +34,15 @@
     <target name="copyFiles_sdaprofiles" description="copy main files for packaging" hidden="true">
 
         <!-- Copy the font-awesome dependencies -->
-        <copy file="${profiles.vendor.src.dir}/components/font-awesome/css/fontawesome-all.min.css" todir="${profiles.media.src.dir}/css" overwrite="true" />
+        <copy file="${profiles.vendor.src.dir}/components/font-awesome/css/fontawesome.min.css" todir="${profiles.media.src.dir}/css" overwrite="true" />
+        <copy file="${profiles.vendor.src.dir}/components/font-awesome/css/solid.min.css" todir="${profiles.media.src.dir}/css" overwrite="true" />
         <copy todir="${profiles.media.src.dir}/webfonts" overwrite="true">
-            <fileset dir="${profiles.vendor.src.dir}/components/font-awesome/webfonts" includes="**.**"/>
+            <fileset dir="${profiles.vendor.src.dir}/components/font-awesome/webfonts" includes="fa-solid*.**">
+                <exclude name="*.svg"/>
+            </fileset>
         </copy>
+
+        <copy file="${sass.src.dir}/sdaprofiles_style.css" todir="${profiles.media.src.dir}/css" overwrite="true" />
 
         <!-- Copy com_sdaprofiles to build for packaging -->
         <copy todir="${profiles.build.dir}/administrator/components/com_sdaprofiles" overwrite="true">

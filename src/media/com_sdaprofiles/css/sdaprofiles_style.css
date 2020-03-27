@@ -1,4 +1,5 @@
-@import url(fontawesome-all.min.css);
+@import url(fontawesome.min.css);
+@import url(solid.min.css);
 .sda_section_container {
   display: block;
   padding-bottom: 10px;

@@ -28,64 +28,6 @@ use Sda\Profiles\Admin\Model\Fitting;
 class Event extends DataController
 {
 	/**
-	 * Saves a comment for the Event
-	 *
-	 * @return void
-	 * @since 0.0.1
-	 * @throws \Exception
-	 */
-	public function comment()
-	{
-		// After saving we want to return to where we came from
-		$referer = $this->input->server->getString('HTTP_REFERER');
-
-		$input = $this->input->request->post->getArray();
-
-		if ($input['eventId'] && $input['comment'])
-		{
-			/** @var \Sda\Jem\Site\Model\Event $event */
-			$event = $this->getModel('Event');
-			$event->load((int) $input['eventId']);
-
-			/** @var Comment $comment */
-			$comment                = $event->getNew('comments');
-			$comment->users_user_id = Factory::getUser()->id;
-			$comment->comment       = $input['comment'];
-			$comment->timestamp     = new Date($this->input->server->getString('REQUEST_TIME'));
-			$comment->save();
-		}
-		else
-		{
-			Factory::getApplication()->enqueueMessage(Text::_('SOME_ERROR_OCCURRED'), 'warning');
-		}
-
-		$this->setRedirect($referer);
-	}
-
-	/**
-	 * Deletes a comment for an event
-	 *
-	 * @return void
-	 * @since 0.0.1
-	 * @throws \Exception
-	 */
-	public function deleteComment()
-	{
-		$referer = $this->input->server->getString('HTTP_REFERER');
-
-		if ($id = $this->input->get('id'))
-		{
-			$this->getModel('Comment')->delete($id);
-		}
-		else
-		{
-			Factory::getApplication()->enqueueMessage(Text::_('SOME_ERROR_OCCURRED'), 'error');
-		}
-
-		$this->setRedirect($referer);
-	}
-
-	/**
 	 * Method to get the Html for the Register Buttons via Ajax Call
 	 *
 	 * @return void
@@ -601,4 +543,27 @@ class Event extends DataController
 		$this->redirect();
 	}
 
+	/**
+	 * Set a comment as read by user
+	 *
+	 * @return void
+	 * @since 1.0.0
+	 */
+	public function commentRead() {
+		$input = $this->input->getArray();
+		/** @var \Sda\Jem\Admin\Model\Event $event */
+		$event = $this->getModel();
+		$event->load($input['id']);
+		$userId = $input['userId'];
+
+		/** @var Comment $comment */
+		foreach ($event->comments as $comment) {
+			if (!in_array($userId, $comment->commentReadBy)) {
+				$tempArray = $comment->commentReadBy;
+				array_push($tempArray, $userId);
+				$comment->commentReadBy = $tempArray;
+				$comment->save();
+			}
+		}
+	}
 }

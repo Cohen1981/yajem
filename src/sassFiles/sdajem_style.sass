@@ -1,4 +1,5 @@
-@import "fontawesome-all.min.css"
+@import "fontawesome.min.css"
+@import "solid.min.css"
 
 $color_accent: #A62C40
 $color_content-background: #FFFFFF
@@ -54,10 +55,14 @@ $mobile_breakpoint: 600px
   margin-left: auto
 
 .sdajem_comment_row 
-  display: grid
-  grid-template-columns: 80px auto 20px
+  display: flex
+  align-content: stretch
+  flex-wrap: wrap
   border-bottom: $color_gray solid 1px
   margin-bottom: 10px
+
+.sdajem_comment_text
+  flex: 2
 
 .sdajem_comment_user 
   margin-right: 10px
@@ -106,6 +111,9 @@ $mobile_breakpoint: 600px
 
 .sdajem_red
   background-color: $color_error
+
+.sdajem_text_red
+  color: $color_error
 
 .fa-times-circle 
   color: $color_error
@@ -269,9 +277,6 @@ input[type="text"].jem_required
 .sdajem_align_help 
   display: inline-flex
 
-#sdajem_comment_area 
-  width: 99%
-
 /* Alternative boxed design */
 .sdajem_event_box 
   display: grid
@@ -329,6 +334,10 @@ input[type="text"].jem_required
 .sdajem_view_button 
   padding: 10px
   font-size: 1.3rem
+
+.sdajem_spacer1
+  width: 20px
+  display: inline-block
 
 @media (max-width: $mobile_breakpoint)
   .sdajem_event_table
