@@ -1,11 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="sda_template" default="build_sda_template">
 
-    <property name="jem.build.version" value="0.0.1"/>
+    <property name="jem.build.version" value="1.0.0"/>
 
     <property name="jem.build.dir" value="${project.basedir}/build/sdatemplate"/>
+    <property name="tmpl.src.dir" value="${project.basedir}/../../src/templates/survivants" />
     <property name="jem.dist.dir" value="${project.basedir}/target/packages"/>
     <property name="jem.tmpl.src.dir" value="${project.basedir}/../../src/templates/survivants"/>
+    <property name="vendor.src.dir" value="${project.basedir}/../../vendor" />
+    <property name="sass.src.dir" value="${project.basedir}/../../src/sassFiles" />
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
@@ -25,6 +28,16 @@
     </target>
 
     <target name="copyFiles_sda_template" description="copy main files for packaging" hidden="true">
+
+        <copy file="${vendor.src.dir}/components/font-awesome/css/fontawesome.min.css" todir="${tmpl.src.dir}/css" overwrite="true" />
+        <copy file="${vendor.src.dir}/components/font-awesome/css/solid.min.css" todir="${tmpl.src.dir}/css" overwrite="true" />
+        <copy todir="${tmpl.src.dir}/webfonts" overwrite="true">
+            <fileset dir="${vendor.src.dir}/components/font-awesome/webfonts" includes="fa-solid*.**">
+                <exclude name="*.svg"/>
+            </fileset>
+        </copy>
+
+        <copy file="${sass.src.dir}/sdaprofiles_style.css" todir="${jem.tmpl.src.dir}/css" overwrite="true" />
 
         <!-- Copy com_sdajem to build for packaging -->
         <copy todir="${jem.build.dir}" overwrite="true">

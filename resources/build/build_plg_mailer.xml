@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="sda_mailer" default="build_sdamailer">
 
-    <property name="mailer.build.version" value="0.0.1"/>
+    <property name="mailer.build.version" value="1.0.0"/>
 
     <property name="mailer.dist.dir" value="${project.basedir}/target/packages"/>
     <property name="mailer.src.dir" value="${project.basedir}/../../src/plugins/system/sdamailer"/>

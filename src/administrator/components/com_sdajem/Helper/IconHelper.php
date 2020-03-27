@@ -29,7 +29,7 @@ abstract class IconHelper
 	 */
 	public static function dateIcon()
 	{
-		return "<i class=\"far fa-calendar-alt\" aria-hidden=\"true\" title=\"" . Text::_('COM_SDAJEM_ICON_DATE') . "\"></i>";
+		return "<i class=\"fas fa-calendar-alt\" aria-hidden=\"true\" title=\"" . Text::_('COM_SDAJEM_ICON_DATE') . "\"></i>";
 	}
 
 	/**
@@ -41,7 +41,7 @@ abstract class IconHelper
 	 */
 	public static function titleIcon()
 	{
-		return "<i class=\"far fa-bookmark\" aria-hidden=\"true\" title=\"" . Text::_('COM_SDAJEM_ICON_TITLE') . "\">&nbsp;</i>";
+		return "<i class=\"fas fa-bookmark\" aria-hidden=\"true\" title=\"" . Text::_('COM_SDAJEM_ICON_TITLE') . "\">&nbsp;</i>";
 	}
 
 	/**
@@ -65,7 +65,7 @@ abstract class IconHelper
 	 */
 	public static function categoryIcon()
 	{
-		return "<i class=\"far fa-flag\" aria-hidden=\"true\" title=\"" . Text::_('COM_SDAJEM_ICON_CATEGORY') . "\">&nbsp;</i>";
+		return "<i class=\"fas fa-flag\" aria-hidden=\"true\" title=\"" . Text::_('COM_SDAJEM_ICON_CATEGORY') . "\">&nbsp;</i>";
 	}
 
 	/**

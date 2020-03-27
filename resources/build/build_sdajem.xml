@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project name="sda_jem" default="build_sdajem">
 
-    <property name="jem.build.version" value="0.0.1"/>
+    <property name="jem.build.version" value="1.0.0"/>
 
     <property name="jem.build.dir" value="${project.basedir}/build/com_sdajem"/>
     <property name="jem.dist.dir" value="${project.basedir}/target/packages"/>
@@ -9,6 +9,7 @@
     <property name="jem.site.src.dir" value="${project.basedir}/../../src/components/com_sdajem"/>
     <property name="jem.media.src.dir" value="${project.basedir}/../../src/media/com_sdajem"/>
     <property name="jem.vendor.src.dir" value="${project.basedir}/../../vendor"/>
+    <property name="sass.src.dir" value="${project.basedir}/../../src/sassFiles" />
 
     <tstamp>
         <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
@@ -33,10 +34,15 @@
     <target name="copyFiles_sdajem" description="copy main files for packaging" hidden="true">
 
         <!-- Copy the font-awesome dependencies -->
-        <copy file="${jem.vendor.src.dir}/components/font-awesome/css/fontawesome-all.min.css" todir="${jem.media.src.dir}/css" overwrite="true" />
+        <copy file="${jem.vendor.src.dir}/components/font-awesome/css/fontawesome.min.css" todir="${jem.media.src.dir}/css" overwrite="true" />
+        <copy file="${jem.vendor.src.dir}/components/font-awesome/css/solid.min.css" todir="${jem.media.src.dir}/css" overwrite="true" />
         <copy todir="${jem.media.src.dir}/webfonts" overwrite="true">
-            <fileset dir="${jem.vendor.src.dir}/components/font-awesome/webfonts" includes="**.**"/>
+            <fileset dir="${jem.vendor.src.dir}/components/font-awesome/webfonts" includes="fa-solid*.**">
+                <exclude name="*.svg"/>
+            </fileset>
         </copy>
+
+        <copy file="${sass.src.dir}/sdajem_style.css" todir="${jem.media.src.dir}/css" overwrite="true" />
 
         <!-- Copy com_sdajem to build for packaging -->
         <copy todir="${jem.build.dir}/administrator/components/com_sdajem" overwrite="true">

@@ -5,3 +5,15 @@ vendor
 .ContainerData
 /.idea/
 .idea
+/src/media/com_sdacontacts/webfonts/
+/src/media/com_sdajem/webfonts/
+/src/media/com_sdaprofiles/webfonts/
+/src/templates/survivants/webfonts/
+/src/media/com_sdacontacts/css/fontawesome.min.css
+/src/media/com_sdacontacts/css/solid.min.css
+/src/media/com_sdajem/css/fontawesome.min.css
+/src/media/com_sdajem/css/solid.min.css
+/src/media/com_sdaprofiles/css/fontawesome.min.css
+/src/media/com_sdaprofiles/css/solid.min.css
+/src/templates/survivants/css/solid.min.css
+/src/templates/survivants/css/fontawesome.min.css
