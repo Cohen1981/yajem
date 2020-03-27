@@ -97,6 +97,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_comments` (
   `sdajem_event_id` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__yajame_events',
   `comment` MEDIUMTEXT NOT NULL ,
   `timestamp` DATETIME,
+  `commentReadBy` varchar(255) DEFAULT NULL NULL,
   PRIMARY KEY (`sdajem_comment_id`),
   INDEX `idx_comment_time` (`timestamp` DESC))
   ENGINE=InnoDB

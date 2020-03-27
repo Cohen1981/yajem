@@ -45,10 +45,14 @@
   margin-left: auto; }
 
 .sdajem_comment_row {
-  display: grid;
-  grid-template-columns: 80px auto 20px;
+  display: flex;
+  align-content: stretch;
+  flex-wrap: wrap;
   border-bottom: #b7b7b7 solid 1px;
   margin-bottom: 10px; }
+
+.sdajem_comment_text {
+  flex: 2; }
 
 .sdajem_comment_user {
   margin-right: 10px; }
@@ -96,6 +100,9 @@
 
 .sdajem_red {
   background-color: #A62C40; }
+
+.sdajem_text_red {
+  color: #A62C40; }
 
 .fa-times-circle {
   color: #A62C40; }
@@ -260,9 +267,6 @@ input[type="text"].jem_required {
 .sdajem_align_help {
   display: inline-flex; }
 
-#sdajem_comment_area {
-  width: 99%; }
-
 /* Alternative boxed design */
 .sdajem_event_box {
   display: grid;
@@ -320,6 +324,10 @@ input[type="text"].jem_required {
 .sdajem_view_button {
   padding: 10px;
   font-size: 1.3rem; }
+
+.sdajem_spacer1 {
+  width: 20px;
+  display: inline-block; }
 
 @media (max-width: 600px) {
   .sdajem_event_table {

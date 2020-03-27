@@ -2,7 +2,7 @@
 <!DOCTYPE install PUBLIC "-//Joomla! 2.5//DTD template 1.0//EN" "https://www.joomla.org/xml/dtd/2.5/template-install.dtd">
 <extension version="3.1" type="template" client="site" method="upgrade">
 	<name>survivants</name>
-	<version>1.0</version>
+	<version>1.0.1</version>
 	<creationDate>2/01/2019</creationDate>
 	<author>Alexander Bahlo</author>
 	<authorEmail>abahlo@hotmail.de</authorEmail>

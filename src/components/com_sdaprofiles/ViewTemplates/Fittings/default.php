@@ -7,6 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 
 /** @var \Sda\Profiles\Site\View\Profile\Html $this */
@@ -68,6 +69,11 @@ $profiles = $ProfileModel->getItemsArray();
 			<div class="sdaprofiles_flex_row filterRow <?php echo $fitting->profile->userName . " " . $fitting->typeModel->title;?>">
 
 				<div id="avatar_cell" class="sdaprofiles_cell">
+					<?php if ($fitting->profile->user->id == Factory::getUser()->id) : ?>
+                    <a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&view=profiles&task=edit&id=' . (int) $fitting->profile->sdaprofiles_profile_id); ?>">
+                    <?php else: ?>
+                    <a href="<?php echo JRoute::_('index.php?option=com_sdaprofiles&view=profiles&task=read&id=' . (int) $fitting->profile->sdaprofiles_profile_id); ?>">
+                    <?php endif; ?>
 					<?php
 					if ($fitting->profile->avatar)
 					{
@@ -80,7 +86,7 @@ $profiles = $ProfileModel->getItemsArray();
 					?>
 
 					<?php echo $fitting->profile->userName; ?>
-
+                    </a>
 				</div>
                 <div class="controls">
                     <div class="sdaprofiles_cell">

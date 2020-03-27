@@ -78,11 +78,23 @@ $guest = Factory::getUser()->guest;
             </div>
             <div class="sdajem_event_box_attendees">
                 <p>
-                    <?php echo IconHelper::usersIcon(); ?>
                     <?php
-                    if ((bool) $event->useRegistration)
-                    {
+                    if ((bool) $event->useRegistration) {
+	                    echo IconHelper::usersIcon();
 	                    echo $event->getAttendingCount();
+                    }
+
+                    echo "<span class=\"sdajem_spacer1\"></span>";
+
+                    if($event->comments->count() > 0) {
+	                    $comCount = $event->hasUnreadComments(Factory::getUser()->id);
+	                    if ($comCount > 0 ) {
+		                    $class = 'sdajem_text_red';
+		                    $title = $comCount . " " . Text::_("COM_SDAJEM_NEW_COMMENTS");
+	                    }
+	                    echo "<span class=\"$class\" title=\"$title\">";
+	                    echo IconHelper::commentsIcon() . $event->comments->count();
+	                    echo "</span>";
                     }
                     ?>
                 </p>

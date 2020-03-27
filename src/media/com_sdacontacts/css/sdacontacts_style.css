@@ -37,7 +37,7 @@
 .sdacontacts_item_image {
   max-height: 200px; }
 
-@media (min-width: 500px) {
+@media (min-width: 600px) {
   .sdacontacts_table {
     display: grid;
     grid-template-columns: auto auto auto auto;

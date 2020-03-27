@@ -37,7 +37,7 @@ $timestamp = new Date($comment->timestamp);
 		<?php endif; ?>
 
 	</div>
-	<div class=\"sdajem_comment_text\">
+	<div class="sdajem_comment_text">
 		<?php echo nl2br($comment->comment); ?>
 	</div>
 	<div>
