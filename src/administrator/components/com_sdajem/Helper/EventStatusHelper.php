@@ -33,7 +33,7 @@ abstract class EventStatusHelper
 	 */
 	public static function getOpenSymbol()
 	{
-		return "<i class=\"far fa-circle\" aria-hidden='true' title='" . Text::_('COM_SDAJEM_ICON_STATUS_OPEN') . "'></i> ";
+		return "<i class=\"fas fa-question-circle\" aria-hidden='true' title='" . Text::_('COM_SDAJEM_ICON_STATUS_OPEN') . "'></i> ";
 	}
 
 	/**

@@ -1,18 +1,7 @@
 @import "fontawesome.min.css"
 @import "solid.min.css"
-
-$accent_color: #A62C40
-$content-background: #FFFFFF
-$font-stack:    Helvetica, sans-serif
-$primary-color: #333
-$background-color: #4A4A4A
-$mobile_breakpoint: 600px
-$gray_color: #dedede
-
-@mixin borderBoxed
-  padding: 10px
-  border: solid $gray_color 1px
-  border-radius: 6px
+@import "regular.min.css"
+@import "shared.sass"
 
 // overwriting some of template css
 .btn-small
@@ -28,14 +17,14 @@ html
   padding: 0
 
 a
-  color: $accent_color
+  color: $color_accent
   &:hover
-    color: $accent_color
+    color: $color_accent
 
 body
   font: 100% $font-stack
-  color: $primary-color
-  background-color: $background-color
+  color: $color_primary
+  background-color: #4A4A4A
 
 .container
   max-width: 1200px
@@ -46,7 +35,7 @@ body
 #main,
 footer,
 header
-  background-color: $content-background
+  background-color: $color_content-background
   border-radius: 6px
   margin-bottom: 10px
 
@@ -79,7 +68,7 @@ footer
       margin-left: 20px
 
 .header-inner.clearfix
-  background-color: $primary-color
+  background-color: $color_primary
 
 p
   margin-block-start: 0
@@ -124,7 +113,7 @@ h5, h6
     list-style: none
 
 .navigation
-  background-color: $primary-color
+  background-color: $color_primary
   font-size: 1.4rem
   //padding-top: 10px
   //padding-bottom: 10px
@@ -138,12 +127,12 @@ h5, h6
       width: fit-content
 
       &:hover
-        background-color: $content-background
+        background-color: $color_content-background
         a
-          color: $accent_color
+          color: $color_accent
 
     li
-      background-color: $primary-color
+      background-color: $color_primary
       &:hover
         ul
           @media (min-width: $mobile_breakpoint)
@@ -151,7 +140,7 @@ h5, h6
             ul
               display: block
       a
-        color: $content-background
+        color: $color_content-background
         //padding: 10px
         text-decoration: none
 
@@ -200,27 +189,20 @@ h5, h6
     display: none
 
 .burger_menu
-  background-color: $content-background
+  background-color: $color_content-background
   padding: 10px
   border-radius: 6px
   cursor: pointer
 
-button
-  border-radius: 6px
-  padding: 10px
-  background-color: $gray_color
-  &:hover
-    background-color: darken($gray_color, 10%)
-
 #sda_user_label
   padding: 20px
-  background-color: $gray_color
+  background-color: $color_gray
   border-radius: 6px
   width: fit-content
   font-size: 1.3rem
   justify-self: end
   &:hover
-    background-color: darken($gray_color, 10%)
+    background-color: darken($color_gray, 10%)
 
 .sda_switch_label
   cursor: pointer
@@ -230,7 +212,7 @@ button
   padding-bottom: 10px
   display: grid
   grid-template-columns: auto 100px
-  background-color: $content-background
+  background-color: $color_content-background
   @media (max-width: $mobile_breakpoint)
     display: grid
     grid-template-columns: auto
@@ -253,7 +235,7 @@ button
   margin-right: 20px
 
 #user_login_form
-  background-color: $content-background
+  background-color: $color_content-background
   form, ul
     margin-top: 0
   ul li

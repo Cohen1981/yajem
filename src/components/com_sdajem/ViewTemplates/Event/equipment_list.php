@@ -20,32 +20,31 @@ if ($event->attendees)
 	/** @var \Sda\Jem\Admin\Model\Attendee $attendee */
 	foreach ($event->attendees as $attendee)
 	{
-		// Attendee has checked Equipment
-		if (count($attendee->sdaprofilesFittingIds) > 0)
-		{
-			foreach ($attendee->sdaprofilesFittingIds as $fIds)
-			{
-				/** @var \Sda\Profiles\Admin\Model\Fitting $fitting */
-				$fitting = Container::getInstance('com_sdaprofiles')->factory->model('Fitting');
-				$fitting->load($fIds);
+	    if ($attendee->status == 1 && $attendee->sdaprofilesFittingIds) {
+		    // Attendee has checked Equipment
+		    if (count($attendee->sdaprofilesFittingIds) > 0) {
+			    foreach ($attendee->sdaprofilesFittingIds as $fIds) {
+				    /** @var \Sda\Profiles\Admin\Model\Fitting $fitting */
+				    $fitting = Container::getInstance('com_sdaprofiles')->factory->model('Fitting');
+				    $fitting->load($fIds);
 
-				if (!(bool) $fitting->typeModel->needSpace)
-				{
-					/** @var \Sda\Profiles\Admin\Model\FittingType $type */
-					$type = $fitting->typeModel;
-					/** @var \Sda\Profiles\Site\Model\Profile $profile */
-					$profile = $fitting->profile;
-					/** @var \Sda\Profiles\Site\Model\FittingImage $image */
-					$image = $fitting->image;
+				    if (!(bool)$fitting->typeModel->needSpace) {
+					    /** @var \Sda\Profiles\Admin\Model\FittingType $type */
+					    $type = $fitting->typeModel;
+					    /** @var \Sda\Profiles\Site\Model\Profile $profile */
+					    $profile = $fitting->profile;
+					    /** @var \Sda\Profiles\Site\Model\FittingImage $image */
+					    $image = $fitting->image;
 
-					$listHtml = $listHtml . "<div class=\"sdajem_flex_row space_even\">";
-					$listHtml = $listHtml . "<div class=\"sdajem_cell\">$profile->userName</div>";
-					$listHtml = $listHtml . "<div class=\"sdajem_cell\">$fitting->detail</div>";
-					$listHtml = $listHtml . "<div class=\"sdajem_cell\"><img class=\"sdajem_thumbnail\" src=\"$image->image\" alt=\"\" /></div>";
-					$listHtml = $listHtml . "</div>";
-				}
-			}
-		}
+					    $listHtml = $listHtml . "<div class=\"sdajem_flex_row space_even\">";
+					    $listHtml = $listHtml . "<div class=\"sdajem_cell\">$profile->userName</div>";
+					    $listHtml = $listHtml . "<div class=\"sdajem_cell\">$fitting->detail</div>";
+					    $listHtml = $listHtml . "<div class=\"sdajem_cell\"><img class=\"sdajem_thumbnail\" src=\"$image->image\" alt=\"\" /></div>";
+					    $listHtml = $listHtml . "</div>";
+				    }
+			    }
+		    }
+	    }
 	}
 }
 ?>

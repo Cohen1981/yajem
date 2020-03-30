@@ -1,0 +1,27 @@
+$color_accent: #A62C40
+$color_content-background: #FFFFFF
+$color_warn: #ff9c0a
+$color_primary: #333
+$color_gray: #b7b7b7
+$color_ok: #51a351
+$color_error: #A62C40
+$mobile_breakpoint: 600px
+$font-stack: Helvetica, sans-serif
+
+@mixin borderBoxed
+  padding: 10px
+  border: solid $color_gray 1px
+  border-radius: 6px
+
+button,
+.sda_button
+  border-radius: 6px
+  padding: 10px
+  background-color: $color_gray
+  &:hover
+    background-color: darken($color_gray, 10%)
+
+.sda_button
+  margin-right: 10px
+  &:hover
+    cursor: pointer

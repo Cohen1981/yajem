@@ -11,6 +11,7 @@ namespace Sda\Profiles\Admin\Model;
 
 use FOF30\Container\Container;
 use FOF30\Model\DataModel;
+use FOF30\Utils\Collection;
 
 /**
  * @package     Sda\Profiles\Admin\Model
@@ -27,7 +28,8 @@ use FOF30\Model\DataModel;
  *
  * Relations:
  *
- * @property  FittingType $type
+ * @property  FittingType   $type
+ * @property  Collection    $fittings
  */
 class FittingImage extends DataModel
 {
@@ -45,7 +47,7 @@ class FittingImage extends DataModel
 		$config['idFieldName'] = 'sdaprofiles_fitting_image_id';
 		parent::__construct($container, $config);
 		$this->addBehaviour('Filters');
-		$this->belongsTo('fitting', 'Fitting', 'sdaprofiles_fitting_image_id', 'sdaprofiles_fitting_image_id');
+		$this->belongsTo('fittings', 'Fitting', 'sdaprofiles_fitting_image_id', 'sdaprofiles_fitting_image_id');
 		$this->hasOne('type', 'FittingType', 'type', 'sdaprofiles_fitting_type_id');
 	}
 

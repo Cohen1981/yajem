@@ -41,5 +41,6 @@ class FittingType extends DataModel
 		$config['idFieldName'] = 'sdaprofiles_fitting_type_id';
 		parent::__construct($container, $config);
 		$this->belongsTo('fitting', 'Fitting', 'sdaprofiles_fitting_type_id', 'type');
+		$this->belongsTo('fittingImage', 'FittingImage', 'sdaprofiles_fitting_type_id', 'type');
 	}
 }

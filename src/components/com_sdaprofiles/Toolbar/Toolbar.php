@@ -112,8 +112,6 @@ class Toolbar extends BaseToolbar
 		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
 		{
 			ToolbarHelper::addNew();
-			ToolbarHelper::editList();
-			ToolbarHelper::deleteList();
 		}
 	}
 
@@ -158,8 +156,6 @@ class Toolbar extends BaseToolbar
 		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
 		{
 			ToolbarHelper::addNew();
-			ToolbarHelper::editList();
-			ToolbarHelper::deleteList();
 		}
 	}
 

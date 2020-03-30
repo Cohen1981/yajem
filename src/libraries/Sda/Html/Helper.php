@@ -44,7 +44,7 @@ abstract class Helper
 	 */
 	public static function trueIcon()
 	{
-		return "<i class=\"fas fa-calendar-alt\" aria-hidden=\"true\" title=\"" . Text::_('COM_SDAJEM_ICON_DATE') . "\"></i>";
+		return "<i class=\"fas fa-check\" aria-hidden=\"true\" title=\"" . Text::_('COM_SDAJEM_ICON_DATE') . "\"></i>";
 	}
 
 	/**
@@ -56,13 +56,14 @@ abstract class Helper
 	 */
 	public static function falseIcon()
 	{
-		return "<i class=\"fas fa-bookmark\" aria-hidden=\"true\" title=\"" . Text::_('COM_SDAJEM_ICON_TITLE') . "\">&nbsp;</i>";
+		return "<i class=\"fas fa-times\" aria-hidden=\"true\" title=\"" . Text::_('COM_SDAJEM_ICON_TITLE') . "\"></i>";
 	}
 
 	/**
 	 * Generates a link tag for edit or item view
 	 *
 	 * @param string $component the consuming component eg. com_sdajem
+	 * @param string $view the consuming view
 	 * @param int $itemId the itemId
 	 * @param bool $edit set true if you want edit view; default = false
 	 * @param string $name the Link text; default = ''
@@ -72,14 +73,19 @@ abstract class Helper
 	 *
 	 * @since 1.0.0
 	 */
-	public static function itemLink(string $component, int $itemId, bool $edit = false, string $name = '', bool $closedTag = true)
+	public static function itemLink(string $component,string $view = '', int $itemId, bool $edit = false, string $name = '', bool $closedTag = true)
 	{
-		if ($edit) {
-			$linkText = "<a href=\"" . JRoute::_('index.php?option=' . $component . ' &task=edit&id=' . (int)$itemId . '\'') . ">" . $name;
-		} else {
-			$linkText = "<a href=\"" . JRoute::_('index.php?option=' . $component . ' &task=read&id=' . (int)$itemId . '\'') . ">" . $name;
+		$url = "index.php?option=" . $component;
+		if (!$view == '') {
+			$url = $url . "&view=" . $view;
 		}
-
+		if ($edit) {
+			$url = $url . "&task=edit";
+		} else {
+			$url = $url . "&task=read";
+		}
+		$url = $url . "&id=" . (int)$itemId;
+		$linkText = "<a href=\"" . JRoute::_($url) . "\">" . $name;
 		if ($closedTag) {
 			$linkText = $linkText . "</a>";
 		}
@@ -211,5 +217,15 @@ abstract class Helper
 		}
 
 		return $text;
+	}
+
+	public static function getEditSymbol()
+	{
+		return "<i class=\"fas fa-pen\" aria-hidden='true' title='" . Text::_('JACTION_EDIT') . "'></i> ";
+	}
+
+	public static function getDeleteSymbol()
+	{
+		return "<i class=\"fas fa-trash\" aria-hidden='true' title='" . Text::_('JACTION_DELETE') . "'></i> ";
 	}
 }

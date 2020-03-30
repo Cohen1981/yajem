@@ -14,7 +14,6 @@ defined('_JEXEC') or die;
 $app  = JFactory::getApplication();
 $user = JFactory::getUser();
 $doc = JFactory::getDocument();
-$doc->addStyleSheet($this->baseurl.'/media/jui/css/icomoon.css');
 
 // Output as HTML5
 $this->setHtml5(true);

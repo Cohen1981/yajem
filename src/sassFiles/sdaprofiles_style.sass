@@ -1,20 +1,12 @@
 @import "fontawesome.min.css"
 @import "solid.min.css"
-
-$color_accent: #A62C40
-$color_content-background: #FFFFFF
-$color_warn: #ff9c0a
-$color_primary: #333
-$color_gray: #b7b7b7
-$color_ok: #51a351
-$color_error: #A62C40
-$mobile_breakpoint: 600px
+@import "shared.sass"
 
 .sda_section_container
 	display: block
 	padding-bottom: 10px
 	padding-top: 10px
-	border-bottom: darkgrey solid 1px
+	border-bottom: darken($color_gray, 10%) solid 1px
 	clear: both
 	overflow: auto
 
@@ -155,3 +147,21 @@ label.sdaprofile_tab.sda_active
 		color: $color_primary
 		text-decoration: none
 		text-underline: none
+
+.sdaprofiles_flexed_row
+	display: flex
+	flex-wrap: wrap
+	border-bottom: $color_gray solid 1px
+	margin-bottom: 10px
+
+.sdaprofiles_flexed
+	flex: 1
+	padding-bottom: 10px
+
+.sdaprofiles_flex2
+	flex: 2
+
+.sdaprofiles_controls
+	display: inline-flex
+	justify-content: start
+	align-items: flex-start

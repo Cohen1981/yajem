@@ -59,12 +59,12 @@ $language->load($extension, $baseDir, $languageTag, true);
 <div id="attending_area" class="form-horizontal">
 	<div id="sdajem_attendings" class="control-group">
 		<label class="control-label">
-			<i class="far fa-calendar-alt" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_DATE') ?>"></i>
+			<i class="fas fa-calendar-alt" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_DATE') ?>"></i>
 			<?php echo Text::_('COM_SDAJEM_ATTENDINGS_DATE'); ?>
 		</label>
 		<div class="controls">
 			<span class="sdajem_attending_cell">
-				<i class="far fa-bookmark" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
+				<i class="fas fa-bookmark" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
 				<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL'); ?>
 			</span>
 			<span class="sdajem_attending_cell">
@@ -80,7 +80,7 @@ $language->load($extension, $baseDir, $languageTag, true);
 		<?php if ($attendee->event->enabled == 1 && $start >= $currentDate) : ?>
 			<?php
 			$eventTitle = "<span class=\"sdajem_attending_cell\">" .
-				"<i class=\"far fa-bookmark\" aria-hidden=\"true\" title=\"<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>\">&nbsp;</i>" .
+				"<i class=\"fas fa-bookmark\" aria-hidden=\"true\" title=\"<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>\">&nbsp;</i>" .
 				"<a href=\"index.php?option=com_sdajem&view=Events&task=read&id=" . $attendee->event->sdajem_event_id . "\">" .
 				$attendee->event->title .
 				"</a>" .

@@ -25,12 +25,12 @@ $locations = $model->where('enabled', '=', 1)->orderBy('sdajem_category_id', 'AS
 	<div class="sdajem_flex_row">
 
 		<div class="sdajem_cell sdajem_head">
-			<i class="far fa-flag" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
+			<i class="fas fa-flag" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
 			<?php echo Text::_('COM_SDAJEM_EVENT_SDAJEM_CATEGORY_ID_LABEL'); ?>
 		</div>
 
 		<div class="sdajem_cell sdajem_head">
-			<i class="far fa-bookmark" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
+			<i class="fas fa-bookmark" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
 			<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL'); ?>
 		</div>
 
@@ -46,12 +46,12 @@ $locations = $model->where('enabled', '=', 1)->orderBy('sdajem_category_id', 'AS
 	<div class="sdajem_flex_row">
 
 		<div class="sdajem_cell">
-			<i class="far fa-flag" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
+			<i class="fas fa-flag" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
 			<?php echo $location->category->title; ?>
 		</div>
 
 		<div class="sdajem_cell">
-			<i class="far fa-bookmark" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
+			<i class="fas fa-bookmark" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_TITLE') ?>">&nbsp;</i>
 			<a href="<?php echo Route::_('index.php?option=com_sdajem&view=Location&task=read&id=' . $location->sdajem_location_id) ?>">
 				<?php echo $location->title; ?>
 			</a>
