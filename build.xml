@@ -18,8 +18,19 @@
     </target>
 
     <target name="build_packages" hidden="true">
-        <phing phingfile="${build.script.dir}/build_plg_mailer.xml" target="build_sdamailer" haltonfailure="true">
+        <phing phingfile="${build.script.dir}/build_subpackage_lib.xml" target="build" haltonfailure="true">
             <property name="project.basedir" value="${project.basedir}/resources/build" />
+            <property name="library" value="Sda" />
+        </phing>
+        <phing phingfile="${build.script.dir}/build_subpackage_plg.xml" target="build" haltonfailure="true">
+            <property name="project.basedir" value="${project.basedir}/resources/build" />
+            <property name="plugin" value="sdamailer" />
+            <property name="folder" value="system" />
+        </phing>
+        <phing phingfile="${build.script.dir}/build_subpackage_plg.xml" target="build" haltonfailure="true">
+            <property name="project.basedir" value="${project.basedir}/resources/build" />
+            <property name="plugin" value="sdalib" />
+            <property name="folder" value="system" />
         </phing>
         <phing phingfile="${build.script.dir}/build_sda_template.xml" target="build_sda_template" haltonfailure="true">
             <property name="project.basedir" value="${project.basedir}/resources/build" />
@@ -30,8 +41,9 @@
         <phing phingfile="${build.script.dir}/build_sdaprofiles.xml" target="build_sdaprofiles" haltonfailure="true">
             <property name="project.basedir" value="${project.basedir}/resources/build" />
         </phing>
-        <phing phingfile="${build.script.dir}/build_sdajem.xml" target="build_sdajem" haltonfailure="true">
+        <phing phingfile="${build.script.dir}/build_subpackage_com.xml" target="build" haltonfailure="true">
             <property name="project.basedir" value="${project.basedir}/resources/build" />
+            <property name="component" value="sdajem" />
         </phing>
     </target>
 

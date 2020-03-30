@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="plugin" default="build">
+
+    <property name="plugin" value="" />
+    <property name="folder" value="" />
+    <property name="plg.build.version" value="1.0.0"/>
+
+    <property name="plg.dist.dir" value="${project.basedir}/target/packages"/>
+    <property name="plg.src.dir" value="${project.basedir}/../../src/plugins/${folder}/${plugin}"/>
+
+    <target name="prepare_plugin" description="prepare for packaging" hidden="true">
+        <mkdir dir="${plg.dist.dir}" />
+    </target>
+
+    <target name="zip_plugin" description="package the archive" hidden="true">
+        <zip destfile="${plg.dist.dir}/plg_${folder}_${plugin}.zip" includeemptydirs="true" basedir="${plg.src.dir}/" />
+    </target>
+
+    <target name="build" description="Make a zip"
+            depends="prepare_plugin, zip_plugin"/>
+
+</project>

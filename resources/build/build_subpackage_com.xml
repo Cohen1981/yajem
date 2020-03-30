@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<project name="component" default="build">
+
+    <property name="component" value=""/>
+    <property name="component.build.version" value="1.0.0"/>
+
+    <property name="component.build.dir" value="${project.basedir}/build/com_${component}"/>
+    <property name="component.dist.dir" value="${project.basedir}/target/packages"/>
+    <property name="component.admin.src.dir" value="${project.basedir}/../../src/administrator/components/com_${component}"/>
+    <property name="component.site.src.dir" value="${project.basedir}/../../src/components/com_${component}"/>
+    <property name="component.media.src.dir" value="${project.basedir}/../../src/media/com_${component}"/>
+    <property name="component.vendor.src.dir" value="${project.basedir}/../../vendor"/>
+    <property name="sass.src.dir" value="${project.basedir}/../../src/sassFiles" />
+
+    <tstamp>
+        <format property="datetime" pattern="dd.MM.yyyy" locale="de"/>
+    </tstamp>
+    <property name="creation.date" value="${TODAY}"/>
+
+    <target name="prepare_component" description="prepare for packaging" hidden="true">
+        <echo>${component.build.dir}</echo>
+        <echo>${component.dist.dir}</echo>
+        <echo>${component.admin.src.dir}</echo>
+        <echo>${component.site.src.dir}</echo>
+        <echo>${component.media.src.dir}</echo>
+        <echo>${component.vendor.src.dir}</echo>
+        <mkdir dir="${component.build.dir}"/>
+        <mkdir dir="${component.dist.dir}" />
+    </target>
+
+    <target name="cleanup_component" description="cleaning after build" hidden="true">
+        <delete dir="${component.build.dir}" includeemptydirs="true"/>
+    </target>
+
+    <target name="copyFiles_component" description="copy main files for packaging" hidden="true">
+
+        <!-- Copy the font-awesome dependencies -->
+        <copy file="${component.vendor.src.dir}/components/font-awesome/css/fontawesome.min.css" todir="${component.media.src.dir}/css" overwrite="true" />
+        <copy file="${component.vendor.src.dir}/components/font-awesome/css/solid.min.css" todir="${component.media.src.dir}/css" overwrite="true" />
+        <copy todir="${component.media.src.dir}/webfonts" overwrite="true">
+            <fileset dir="${component.vendor.src.dir}/components/font-awesome/webfonts" includes="fa-solid*.**">
+                <exclude name="*.svg"/>
+            </fileset>
+        </copy>
+
+        <copy file="${sass.src.dir}/${component}_style.css" todir="${component.media.src.dir}/css" overwrite="true" />
+
+        <!-- Copy com_sdajem to build for packaging -->
+        <copy todir="${component.build.dir}/administrator/components/com_${component}" overwrite="true">
+            <fileset dir="${component.admin.src.dir}" includes="**/**">
+                <exclude name="${component}.xml" />
+                <exclude name="script.php" />
+            </fileset>
+        </copy>
+        <copy file="${component.admin.src.dir}/${component}.xml" todir="${component.build.dir}" overwrite="true" />
+        <copy file="${component.admin.src.dir}/script.php" todir="${component.build.dir}" overwrite="true" />
+        <copy todir="${component.build.dir}/components/com_${component}" overwrite="true">
+            <fileset dir="${component.site.src.dir}" includes="**/**" />
+        </copy>
+        <copy todir="${component.build.dir}/media/com_${component}" overwrite="true">
+            <fileset dir="${component.media.src.dir}" includes="**/**" />
+        </copy>
+
+    </target>
+
+    <target name="zip_component" description="package the archive" depends="copyFiles_component" hidden="true">
+        <zip destfile="${component.dist.dir}/com_${component}.zip" includeemptydirs="true" basedir="${component.build.dir}/" />
+    </target>
+
+    <target name="build" description="Make a zip"
+            depends="prepare_component, zip_component, cleanup_component"/>
+
+</project>
