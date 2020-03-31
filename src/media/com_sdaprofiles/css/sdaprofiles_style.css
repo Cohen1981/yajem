@@ -161,6 +161,10 @@ label.sdaprofile_tab.sda_active {
   flex-wrap: wrap;
   border-bottom: #b7b7b7 solid 1px;
   margin-bottom: 10px; }
+  @media (max-width: 600px) {
+    .sdaprofiles_flexed_row {
+      display: grid;
+      grid-template-rows: repeat(3, auto); } }
 
 .sdaprofiles_flexed {
   flex: 1;

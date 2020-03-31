@@ -170,6 +170,7 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::save();
 		ToolbarHelper::save2new('savenew');
 		ToolbarHelper::cancel();
+		ToolbarHelper::custom('addNewType', 'new', '', 'COM_SDAPROFILES_TYPE_NEW', false);
 	}
 
 	/**
@@ -183,6 +184,7 @@ class Toolbar extends BaseToolbar
 		ToolbarHelper::save();
 		ToolbarHelper::save2new('savenew');
 		ToolbarHelper::cancel();
+		ToolbarHelper::custom('addNewType', 'new', '', 'COM_SDAPROFILES_TYPE_NEW', false);
 	}
 
 	/**

@@ -1,20 +1,20 @@
 <?php
 /**
- * @package     Sda\Jem\Admin\Helper
+ * @package     Sda\Referer\Helper
  * @subpackage
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Sda\Referer\Helper;
+namespace Sda\Referer;
 
 use Joomla\CMS\Factory;
 
 /**
  * Helper Class for setting and getting Referers. Standard Joomla would throw back to Home
  *
- * @package     Sda\Jem\Admin\Helper
+ * @package     Sda\Referer
  *
  * @since       1.0.0
  */

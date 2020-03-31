@@ -3,6 +3,8 @@
 namespace Sda\Profiles\Site\Controller;
 
 use FOF30\Controller\DataController;
+use Joomla\CMS\Factory;
+use Sda\Referer\Helper as RefererHelper;
 
 /**
  * Class FittingImage
@@ -37,6 +39,36 @@ class FittingImage extends DataController
 			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=FittingImage&task=checked_ok');
 		}
 
+		$this->redirect();
+	}
+
+	/**
+	 * @since 1.1.0
+	 */
+	public function addNewType()
+	{
+		$input = $this->input->getArray();
+
+		if ($input['sdaprofiles_fitting_image_id'] == '')
+		{
+			$referer = 'index.php?option=com_sdaprofiles&view=FittingImages&task=add';
+		}
+		else
+		{
+			$referer = 'index.php?option=com_sdaprofiles&view=FittingImages&task=edit&id='.$input['sdaprofiles_fitting_type_id'];
+		}
+
+		try
+		{
+			Factory::getApplication()->setUserState('eventState', $input);
+		}
+		catch (\Exception $e)
+		{
+		}
+
+		RefererHelper::setReferer($referer);
+
+		$this->setRedirect('index.php?option=com_sdaprofiles&view=FittingType&task=add');
 		$this->redirect();
 	}
 }

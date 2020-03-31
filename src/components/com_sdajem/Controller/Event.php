@@ -308,8 +308,6 @@ class Event extends DataController
 
 		$this->clearEventState();
 
-		$this->setRedirect(RefererHelper::getReferer());
-
 		// It is possible that we would be redirected to a Category add but we want to go to brose view after save
 		$this->setRedirect('index.php?option=com_sdajem&view=Events&task=browse');
 	}

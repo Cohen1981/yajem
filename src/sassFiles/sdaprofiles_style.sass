@@ -153,6 +153,9 @@ label.sdaprofile_tab.sda_active
 	flex-wrap: wrap
 	border-bottom: $color_gray solid 1px
 	margin-bottom: 10px
+	@media (max-width: $mobile_breakpoint)
+		display: grid
+		grid-template-rows: repeat(3,auto)
 
 .sdaprofiles_flexed
 	flex: 1

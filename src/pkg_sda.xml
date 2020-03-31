@@ -18,6 +18,8 @@
         <file type="component" id="com_sdaprofiles">com_sdaprofiles.zip</file>
         <file type="component" id="com_sdacontacts">com_sdacontacts.zip</file>
         <file type="component" id="com_sdajem">com_sdajem.zip</file>
+        <file type="library" id="Sda">lib_Sda.zip</file>
+        <file type="plugin" id="sdalib">plg_system_sdalib.zip</file>
         <file type="plugin" id="plg_system_sdamailer" group="system">plg_system_sdamailer.zip</file>
         <file type="template" id="survivants" client="site">sda_templ.zip</file>
     </files>

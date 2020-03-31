@@ -77,7 +77,6 @@
 			<filename>config.xml</filename>
 			<filename>fof.xml</filename>
 			<folder>Controller</folder>
-			<folder>Helper</folder>
 			<folder>language</folder>
 			<folder>Model</folder>
 			<folder>sql</folder>
