@@ -20,28 +20,30 @@ use Sda\Jem\Admin\Helper\IconHelper;
 
 $this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 $this->addJavascriptFile('media://com_sdajem/js/eventItem.js');
+$this->addJavascriptFile('media://com_sda/js/jquery-3.3.1.min.js');
+$this->addJavascriptFile('media://com_sda/js/tabSwitch.js');
 
 $event = $this->getItem();
 
 $guest = Factory::getUser()->guest;
 ?>
 <div class="sdajem_tabs">
-	<label id="event_switch_label" class="sdajem_tab sda_active" for="event_switch">
+	<label id="event_switch_label" class="sda_tab sdajem_tab sda_active" for="event_switch">
 		<?php echo IconHelper::titleIcon() . " " . Text::_('COM_SDAJEM_TITLE_EVENT_BASIC') ?>
 	</label>
 	<?php if ($event->location) : ?>
-	<label id="location_switch_label" class="sdajem_tab" for="location_switch">
+	<label id="location_switch_label" class="sda_tab sdajem_tab" for="location_switch">
 		<?php echo IconHelper::locationIcon() . " " . Text::_('COM_SDAJEM_TITLE_LOCATION_BASIC') ?>
 	</label>
 	<?php endif; ?>
 	<?php if ((bool) $event->useRegistration && !$guest) : ?>
-	<label id="attendees_switch_label" class="sdajem_tab" for="attendees_switch">
+	<label id="attendees_switch_label" class="sda_tab sdajem_tab" for="attendees_switch">
 		<?php echo IconHelper::usersIcon() . " " . Text::_('COM_SDAJEM_TITLE_ATTENDEES_BASIC') ?>
 		<?php if ($event->getAttendingCount() > 0) { echo "(" . $event->getAttendingCount() . ")"; } ?>
 	</label>
 	<?php endif; ?>
 	<?php if (!$guest) : ?>
-	<label id="comments_switch_label" class="sdajem_tab" for="comments_switch" onclick="commentRead(<?php echo Factory::getUser()->id ?>)">
+	<label id="comments_switch_label" class="sda_tab sdajem_tab" for="comments_switch" onclick="commentRead(<?php echo Factory::getUser()->id ?>)">
 		<?php echo IconHelper::commentsIcon() . " " . Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
 		<?php if ($event->comments->count() > 0) {
 		    if ($event->hasUnreadComments(Factory::getUser()->id)) {
@@ -53,7 +55,7 @@ $guest = Factory::getUser()->guest;
 	</label>
 	<?php endif; ?>
 	<?php if((bool) ComponentHelper::getParams('com_sdajem')->get('usePlaningTool') && !$guest && (bool) $event->useFittings) : ?>
-	<label id="planing_switch_label" class="sdajem_tab" for="planing_switch">
+	<label id="planing_switch_label" class="sda_tab sdajem_tab" for="planing_switch">
 		<?php echo IconHelper::planingIcon() . " " . Text::_('COM_SDAJEM_TITLE_PLANER_BASIC') ?>
 	</label>
 	<?php endif; ?>
@@ -69,7 +71,7 @@ $guest = Factory::getUser()->guest;
 	</form>
 
 	<div>
-		<input type="checkbox" id="event_switch" class="sdaprofiles_hidden" hidden checked="checked" onchange="switchCheckBox('event_switch')"/>
+		<input type="checkbox" id="event_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden checked="checked" onchange="switchCheckBox('event_switch')"/>
 		<div class="sdajem_switchable">
 			<div class="sdajem_event_table">
 
@@ -178,7 +180,7 @@ $guest = Factory::getUser()->guest;
 	<div>
 		<input type="checkbox" 
 		       id="location_switch" 
-		       class="sdaprofiles_hidden" 
+		       class="sdaprofiles_hidden sda_switchinputbox"
 		       hidden
 		       onchange="switchCheckBox('location_switch')"
 		/>
@@ -203,7 +205,7 @@ $guest = Factory::getUser()->guest;
 		<input 
 				type="checkbox" 
 				id="attendees_switch" 
-				class="sdaprofiles_hidden" 
+				class="sdaprofiles_hidden sda_switchinputbox"
 				hidden 
 				onchange="switchCheckBox('attendees_switch')"
 		/>
@@ -227,7 +229,7 @@ $guest = Factory::getUser()->guest;
 		<input 
 				type="checkbox" 
 				id="comments_switch" 
-				class="sdaprofiles_hidden" 
+				class="sdaprofiles_hidden sda_switchinputbox"
 				hidden
 				onchange="switchCheckBox('comments_switch')"
 		/>
@@ -250,7 +252,7 @@ $guest = Factory::getUser()->guest;
 		<input
 				type="checkbox"
 				id="planing_switch"
-				class="sdaprofiles_hidden"
+				class="sdaprofiles_hidden sda_switchinputbox"
 				hidden
 				onchange="switchCheckBox('planing_switch')"
 		/>

@@ -1,5 +1,5 @@
-@import url(fontawesome.min.css);
-@import url(solid.min.css);
+@import url(../../com_sda/css/fontawesome.min.css);
+@import url(../../com_sda/css/solid.min.css);
 button,
 .sda_button {
   border-radius: 6px;

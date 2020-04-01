@@ -19,7 +19,7 @@ use Sda\Html\Helper as HtmlHelper;
 
 $this->addCssFile('media://com_sdaprofiles/css/sdaprofiles_style.css');
 $this->addJavascriptFile('media://jui/js/jquery.min.js');
-$this->addJavascriptFile('media://com_sdaprofiles/js/filter.js');
+$this->addJavascriptFile('media://com_sda/js/filter.js');
 
 $items = $this->getItems();
 $fTypeModel = $this->getContainer()->factory->model('FittingType');

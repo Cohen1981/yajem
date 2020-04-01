@@ -10,6 +10,8 @@ services:
     # Link joomla root for use in IDEs
     - ./.ContainerData/www-data:/var/www/html
     - ./vendor:/vendor
+    - ./resources:/resources
+    - ./src:/src
     links:
       - joomladb:mysql
     ports:

@@ -29,26 +29,33 @@ $items = $model->where('startDateTime', '>=', $currentDate->toSql())
 	->orderBy('startDateTime')->get();
 
 $guest = Factory::getUser()->guest;
-
+$lastMonth = '';
 ?>
 
 <?php foreach ($items as $event): ?>
-<?php $event->applyAccessFiltering() ?>
-    <?php
-    $class = '';
-    $class = $class . ' ' . str_replace(' ', '_', $event->location->title);
-    $class = $class . ' ' . str_replace(' ', '_', EventStatusHelper::getStatusTextByStatus($event->eventStatus));
-    $class = $class . ' ' . str_replace(' ', '_', $event->getStartMonth());
-    ?>
+<?php
+$event->applyAccessFiltering();
+$currentMonth = str_replace(' ', '_', $event->getStartMonth());
+
+$class = '';
+$class = $class . ' ' . str_replace(' ', '_', $event->location->title);
+$class = $class . ' ' . str_replace(' ', '_', EventStatusHelper::getStatusTextByStatus($event->eventStatus));
+$class = $class . ' ' . $currentMonth;
+
+if($currentMonth <> $lastMonth) {
+    echo "<div class='sda_month_divider filterRow " . $currentMonth . "'>";
+    echo "<h1>$currentMonth</h1>";
+    echo "</div>";
+    $lastMonth = $currentMonth;
+}
+?>
+
 <a class="no_decoration filterRow <?php echo $class;?>"
    href="<?php echo Route::_('index.php?option=com_sdajem&task=read&id=' . $event->sdajem_event_id) ?>">
     <div class="sdajem_event_box">
 
         <div class="sdajem_image_container flex_col">
             <div class="sdajem_event_box_date">
-                <p>
-		            <?php echo $event->getStartMonth(); ?>
-                </p>
                 <p>
 			        <?php echo IconHelper::dateIcon() ?>
 			        <?php echo $event->getFormatedStartDate() ?>

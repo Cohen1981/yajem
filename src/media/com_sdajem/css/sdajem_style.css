@@ -1,5 +1,5 @@
-@import url(fontawesome.min.css);
-@import url(solid.min.css);
+@import url(../../com_sda/css/fontawesome.min.css);
+@import url(../../com_sda/css/solid.min.css);
 button,
 .sda_button {
   border-radius: 6px;
@@ -388,5 +388,10 @@ input[type="text"].jem_required {
 
   .tab-content {
     padding-top: 10px; } }
+.sda_month_divider {
+  background-color: #A62C40;
+  color: #FFFFFF; }
+  .sda_month_divider h1 {
+    padding: 10px; }
 
 /*# sourceMappingURL=sdajem_style.css.map */

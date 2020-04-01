@@ -9,6 +9,7 @@
     <property name="component.admin.src.dir" value="${project.basedir}/../../src/administrator/components/com_${component}"/>
     <property name="component.site.src.dir" value="${project.basedir}/../../src/components/com_${component}"/>
     <property name="component.media.src.dir" value="${project.basedir}/../../src/media/com_${component}"/>
+    <property name="shared.media.src.dir" value="${project.basedir}/../../src/media/com_sda"/>
     <property name="component.vendor.src.dir" value="${project.basedir}/../../vendor"/>
     <property name="sass.src.dir" value="${project.basedir}/../../src/sassFiles" />
 
@@ -18,12 +19,6 @@
     <property name="creation.date" value="${TODAY}"/>
 
     <target name="prepare_component" description="prepare for packaging" hidden="true">
-        <echo>${component.build.dir}</echo>
-        <echo>${component.dist.dir}</echo>
-        <echo>${component.admin.src.dir}</echo>
-        <echo>${component.site.src.dir}</echo>
-        <echo>${component.media.src.dir}</echo>
-        <echo>${component.vendor.src.dir}</echo>
         <mkdir dir="${component.build.dir}"/>
         <mkdir dir="${component.dist.dir}" />
     </target>
@@ -33,11 +28,10 @@
     </target>
 
     <target name="copyFiles_component" description="copy main files for packaging" hidden="true">
-
         <!-- Copy the font-awesome dependencies -->
-        <copy file="${component.vendor.src.dir}/components/font-awesome/css/fontawesome.min.css" todir="${component.media.src.dir}/css" overwrite="true" />
-        <copy file="${component.vendor.src.dir}/components/font-awesome/css/solid.min.css" todir="${component.media.src.dir}/css" overwrite="true" />
-        <copy todir="${component.media.src.dir}/webfonts" overwrite="true">
+        <copy file="${component.vendor.src.dir}/components/font-awesome/css/fontawesome.min.css" todir="${shared.media.src.dir}/css" overwrite="true" />
+        <copy file="${component.vendor.src.dir}/components/font-awesome/css/solid.min.css" todir="${shared.media.src.dir}/css" overwrite="true" />
+        <copy todir="${shared.media.src.dir}/webfonts" overwrite="true">
             <fileset dir="${component.vendor.src.dir}/components/font-awesome/webfonts" includes="fa-solid*.**">
                 <exclude name="*.svg"/>
             </fileset>
@@ -59,6 +53,9 @@
         </copy>
         <copy todir="${component.build.dir}/media/com_${component}" overwrite="true">
             <fileset dir="${component.media.src.dir}" includes="**/**" />
+        </copy>
+        <copy todir="${component.build.dir}/media/com_sda" overwrite="true">
+            <fileset dir="${shared.media.src.dir}" includes="**/**" />
         </copy>
 
     </target>

@@ -6,7 +6,7 @@
 	<authorEmail>abahlo@hotmail.de</authorEmail>
 	<copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<version>1.1.1</version>
+	<version>1.1.2</version>
 	<description>COM_SDAPROFILES_XML_DESCRIPTION</description>
 
 	<!-- Scripts to run on installation -->
@@ -34,11 +34,14 @@
 	</update>
 
 	<!-- Media files -->
-	<media folder="media/com_sdaprofiles" destination="com_sdaprofiles">
-		<folder>css</folder>
-		<folder>images</folder>
-		<folder>js</folder>
-		<folder>webfonts</folder>
+	<media folder="media" destination="">
+		<folder>com_sdaprofiles/css</folder>
+		<folder>com_sdaprofiles/images</folder>
+		<folder>com_sdaprofiles/js</folder>
+		<!-- shared files -->
+		<folder>com_sda/css</folder>
+		<folder>com_sda/js</folder>
+		<folder>com_sda/webfonts</folder>
 	</media>
 
 	<!-- Front-end files -->

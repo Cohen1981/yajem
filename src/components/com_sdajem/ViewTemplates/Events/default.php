@@ -20,7 +20,7 @@ use Sda\Jem\Admin\Helper\EventStatusHelper;
 
 $this->addCssFile('media://com_sdajem/css/sdajem_style.css');
 $this->addJavascriptFile('media://jui/js/jquery.min.js');
-$this->addJavascriptFile('media://com_sdajem/js/filter.js');
+$this->addJavascriptFile('media://com_sda/js/filter.js');
 $currentDate = new Date;
 
 /** @var \Sda\Jem\Site\Model\Event $model */

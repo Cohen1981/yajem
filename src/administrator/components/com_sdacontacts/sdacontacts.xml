@@ -6,7 +6,7 @@
 	<authorEmail>abahlo@hotmail.de</authorEmail>
 	<copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
 	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 	<description>COM_SDACONTACTS_XML_DESCRIPTION</description>
 
 	<!-- Scripts to run on installation
@@ -35,10 +35,12 @@
 	</update>
 
 	<!-- Media files -->
-	<media folder="media/com_sdacontacts" destination="com_sdacontacts">
-		<folder>css</folder>
-		<folder>webfonts</folder>
-		<folder>images</folder>
+	<media folder="media" destination="">
+		<folder>com_sdacontacts/css</folder>
+		<folder>com_sdacontacts/images</folder>
+		<!-- shared files -->
+		<folder>com_sda/css</folder>
+		<folder>com_sda/webfonts</folder>
 	</media>
 
 	<!-- Front-end files -->
