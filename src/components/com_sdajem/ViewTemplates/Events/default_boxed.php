@@ -34,12 +34,21 @@ $guest = Factory::getUser()->guest;
 
 <?php foreach ($items as $event): ?>
 <?php $event->applyAccessFiltering() ?>
-
-<a class="no_decoration" href="<?php echo Route::_('index.php?option=com_sdajem&task=read&id=' . $event->sdajem_event_id) ?>">
+    <?php
+    $class = '';
+    $class = $class . ' ' . str_replace(' ', '_', $event->location->title);
+    $class = $class . ' ' . str_replace(' ', '_', EventStatusHelper::getStatusTextByStatus($event->eventStatus));
+    $class = $class . ' ' . str_replace(' ', '_', $event->getStartMonth());
+    ?>
+<a class="no_decoration filterRow <?php echo $class;?>"
+   href="<?php echo Route::_('index.php?option=com_sdajem&task=read&id=' . $event->sdajem_event_id) ?>">
     <div class="sdajem_event_box">
 
         <div class="sdajem_image_container flex_col">
             <div class="sdajem_event_box_date">
+                <p>
+		            <?php echo $event->getStartMonth(); ?>
+                </p>
                 <p>
 			        <?php echo IconHelper::dateIcon() ?>
 			        <?php echo $event->getFormatedStartDate() ?>

@@ -36,7 +36,7 @@ if ($event->attendees)
 					    /** @var \Sda\Profiles\Site\Model\FittingImage $image */
 					    $image = $fitting->image;
 
-					    $listHtml = $listHtml . "<div class=\"sdajem_flex_row space_even\">";
+					    $listHtml = $listHtml . "<div class=\"sda_flexed_row space_even\">";
 					    $listHtml = $listHtml . "<div class=\"sdajem_cell\">$profile->userName</div>";
 					    $listHtml = $listHtml . "<div class=\"sdajem_cell\">$fitting->detail</div>";
 					    $listHtml = $listHtml . "<div class=\"sdajem_cell\"><img class=\"sdajem_thumbnail\" src=\"$image->image\" alt=\"\" /></div>";
@@ -57,7 +57,7 @@ if ($event->attendees)
 	</div>
 </div>
 
-<div class="sdajem_flex_row space_even">
+<div class="sda_flexed_row space_even">
 	<div class="sdajem_head sdajem_cell"> <?php echo Text::_('COM_SDAJEM_TITLE_ATTENDEES_BASIC'); ?> </div>
 	<div class="sdajem_head sdajem_cell"> <?php echo Text::_('COM_SDAJEM_PROFILES_FITTING_DETAIL'); ?> </div>
 	<div class="sdajem_head sdajem_cell"> <?php echo Text::_('COM_SDAJEM_PROFILES_FITTING_IMAGE'); ?> </div>

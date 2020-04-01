@@ -7,12 +7,13 @@
     <copyright>Copyright (C) 2020</copyright>
     <license>GNU General Public License version 2 or later;</license>
     <authorEmail>abahlo@hotmail.de</authorEmail>
-    <version>1.0</version>
+    <version>1.1.0</version>
     <description>
     </description>
 
     <files>
         <folder>Html</folder>
         <folder>Referer</folder>
+        <folder>Model</folder>
     </files>
 </extension>

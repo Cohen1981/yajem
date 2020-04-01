@@ -10,13 +10,13 @@
 namespace Sda\Jem\Admin\Model;
 
 use FOF30\Container\Container;
-use FOF30\Model\DataModel;
 use FOF30\Date\Date;
 use FOF30\Utils\Collection;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Sda\Profiles\Admin\Model\Profile;
+use Sda\Model\SdaProtoModel;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -70,7 +70,7 @@ use Sda\Profiles\Admin\Model\Profile;
  * @property  Mailing       $subscriptions
  * @property  Profile       $fProfile
  */
-class Event extends DataModel
+class Event extends SdaProtoModel
 {
 	/**
 	 * @var array
@@ -674,6 +674,11 @@ class Event extends DataModel
 		return (json_last_error() == JSON_ERROR_NONE);
 	}
 
+	/**
+	 * @param int $userId
+	 * @return int
+	 * @since 1.1.0
+	 */
 	public function hasUnreadComments (int $userId):int {
 		$comCount = 0;
 
@@ -685,5 +690,82 @@ class Event extends DataModel
 		}
 
 		return $comCount;
+	}
+
+	/**
+	 * @param string $filterString
+	 * @return array
+	 * @since 1.1.0
+	 */
+	public function getFilters(string $filterString): array
+	{
+		$filters = parent::getFilters($filterString);
+		sort($filters);
+
+		if ($filterString == 'startDateTime' || $filterString == 'endDateTime') {
+
+			foreach ($filters as &$filter) {
+				$filter = $this->getMonthName($this->getDateValue($filter)->month);
+			}
+			return array_unique($filters);
+		} else {
+			return $filters;
+		}
+	}
+
+	/**
+	 * @return string
+	 * @since 1.1.0
+	 */
+	public function getStartMonth() {
+		return $this->getMonthName($this->getDateValue($this->startDateTime)->month);
+	}
+
+	/**
+	 * @param string $month
+	 * @return string
+	 * @since 1.1.0
+	 */
+	private function getMonthName(string $month):string {
+		switch ($month) {
+			case "01":
+				$monthName = Text::_('SDAJEM_MONTH_01');
+				break;
+			case "02":
+				$monthName = Text::_('SDAJEM_MONTH_02');
+				break;
+			case "03":
+				$monthName = Text::_('SDAJEM_MONTH_03');
+				break;
+			case "04":
+				$monthName = Text::_('SDAJEM_MONTH_04');
+				break;
+			case "05":
+				$monthName = Text::_('SDAJEM_MONTH_05');
+				break;
+			case "06":
+				$monthName = Text::_('SDAJEM_MONTH_06');
+				break;
+			case "07":
+				$monthName = Text::_('SDAJEM_MONTH_07');
+				break;
+			case "08":
+				$monthName = Text::_('SDAJEM_MONTH_08');
+				break;
+			case "09":
+				$monthName = Text::_('SDAJEM_MONTH_09');
+				break;
+			case "10":
+				$monthName = Text::_('SDAJEM_MONTH_10');
+				break;
+			case "11":
+				$monthName = Text::_('SDAJEM_MONTH_11');
+				break;
+			case "12":
+				$monthName = Text::_('SDAJEM_MONTH_12');
+				break;
+		}
+
+		return $monthName;
 	}
 }

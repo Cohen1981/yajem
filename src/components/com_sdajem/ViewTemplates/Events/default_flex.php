@@ -33,7 +33,7 @@ $guest = Factory::getUser()->guest;
 
 ?>
 
-<div class="sdajem_flex_row">
+<div class="sda_flexed_row">
     <div class="sdajem_cell sdajem_head">
         <div class="sdajem_align_help">
             <?php echo IconHelper::dateIcon(); ?>
@@ -79,7 +79,14 @@ $guest = Factory::getUser()->guest;
 <?php foreach ($items as $event): ?>
 <?php $event->applyAccessFiltering() ?>
 
-<div class="sdajem_flex_row">
+	<?php
+	$class = '';
+	$class = $class . ' ' . str_replace(' ', '_', $event->location->title);
+	$class = $class . ' ' . str_replace(' ', '_', EventStatusHelper::getStatusTextByStatus($event->eventStatus));
+	$class = $class . ' ' . str_replace(' ', '_', $event->getStartMonth());
+	?>
+
+<div class="sda_flexed_row filterRow <?php echo $class;?>">
 
     <div class="sdajem_cell">
         <div class="sdajem_align_help">

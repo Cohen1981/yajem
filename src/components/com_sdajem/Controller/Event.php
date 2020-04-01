@@ -15,7 +15,7 @@ use Sda\Jem\Site\Model\Attendee;
 use Sda\Jem\Site\Model\Comment;
 use FOF30\Date\Date;
 use Joomla\CMS\Language\Text;
-use Sda\Jem\Admin\Helper\RefererHelper;
+use Sda\Referer\Helper as RefererHelper;
 use Sda\Jem\Admin\Model\Mailing;
 use FOF30\Container\Container;
 use Sda\Profiles\Admin\Model\Fitting;

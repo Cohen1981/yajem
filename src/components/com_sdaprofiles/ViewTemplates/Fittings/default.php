@@ -7,8 +7,10 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
+use FOF30\Container\Container;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Sda\Html\Helper as HtmlHelper;
 
 /** @var \Sda\Profiles\Site\View\Profile\Html $this */
 /** @var \Sda\Profiles\Site\Model\Fitting $fitting */
@@ -34,39 +36,28 @@ $profiles = $ProfileModel->getItemsArray();
 		<!-- Filter -->
 		<div><h3><?php Text::_("COM_SDAPROFILES_FILTER"); ?></h3></div>
 		<div class="sdaprofiles_flex_row justify-left">
-		<div class="sdaprofiles_cell default-grow">
-			<label for="fiter_owner"><?php echo Text::_("COM_SDAPROFILES_FITTINGS_OWNER"); ?></label>
-			<select name="filter_owner" id="filter_owner" class="sdap_filter" onchange="multiFilter()">
-				<option value=""><?php echo Text::_("COM_SDAPROFILES_FITTINGS_FILTER_ALL"); ?></option>
-				<?php
-				foreach ($profiles as $profile)
-				{
-					echo "<option>" . $profile->userName . "</option>";
-				}
-				?>
-			</select>
-		</div>
-		<div class="sdaprofiles_cell default-grow">
-			<label for="filter_type"><?php echo Text::_("COM_SDAPROFILES_FITTINGTYPE_TITLE_LABEL"); ?></label>
-			<select id="filter_type" name="filter_type" class="sdap_filter" onchange="multiFilter()">
-				<option value=""><?php echo Text::_("COM_SDAPROFILES_FITTINGS_FILTER_ALL"); ?></option>
-				<?php
-
-				foreach ($fTypes as $FType)
-				{
-					echo "<option>" . $FType->title . "</option>";
-				}
-
-				?>
-			</select>
-		</div>
+            <div class="sdaprofiles_cell default-grow">
+                <?php
+                $filters = $ProfileModel->getFilters('userName');
+                echo HtmlHelper::getFilter('COM_SDAPROFILES_FITTINGS_OWNER', $filters);
+                ?>
+            </div>
+            <div class="sdaprofiles_cell default-grow">
+                <?php
+                $filters = $fTypeModel->getFilters('title');
+                echo HtmlHelper::getFilter('COM_SDAPROFILES_FITTINGTYPE_TITLE_LABEL', $filters);
+                ?>
+            </div>
 		</div>
 
 		<div class="sdaprofiles_section_container">
 
 			<?php foreach ($this->items as $fitting) : ?>
-
-			<div class="sdaprofiles_flex_row filterRow <?php echo $fitting->profile->userName . " " . $fitting->typeModel->title;?>">
+                <?php
+                $class = str_replace(' ', '_', $fitting->profile->userName);
+                $class = $class . ' ' . str_replace(' ', '_', $fitting->typeModel->title);
+                ?>
+			<div class="sdaprofiles_flex_row filterRow <?php echo $class ?>">
 
 				<div id="avatar_cell" class="sdaprofiles_cell">
 					<?php if ($fitting->profile->user->id == Factory::getUser()->id) : ?>

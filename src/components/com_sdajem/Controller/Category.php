@@ -10,7 +10,7 @@
 namespace Sda\Jem\Site\Controller;
 
 use FOF30\Controller\DataController;
-use Sda\Jem\Admin\Helper\RefererHelper;
+use Sda\Referer\Helper as RefererHelper;
 
 /**
  * @package     Sda\Jem\Site\Controller

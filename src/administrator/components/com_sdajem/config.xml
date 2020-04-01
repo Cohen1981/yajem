@@ -24,6 +24,8 @@
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
+	</fieldset>
+	<fieldset name="eventsView">
 		<field  name="eventDefaultView"
 				type="radio"
 				label="COM_SDAJEM_EVENT_DEFAULT_VIEW"
@@ -34,6 +36,36 @@
 			<option value="0">default_flex</option>
 			<option value="1">defualt_boxed</option>
 			<!-- <option value="2">default_timeline</option> -->
+		</field>
+		<field name="filterDate"
+			   type="radio"
+			   label="COM_SDAJEM_FILTER_DATE"
+			   description=""
+			   default="1"
+			   class="btn-group btn-group-yesno"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field name="filterEventStatus"
+			   type="radio"
+			   label="COM_SDAJEM_FILTER_EVENT_STATUS"
+			   description=""
+			   default="1"
+			   class="btn-group btn-group-yesno"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field name="filterLocation"
+			   type="radio"
+			   label="COM_SDAJEM_FILTER_LOCATION"
+			   description=""
+			   default="1"
+			   class="btn-group btn-group-yesno"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 	</fieldset>
 	<fieldset

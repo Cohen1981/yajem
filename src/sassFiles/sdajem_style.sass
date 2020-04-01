@@ -1,14 +1,6 @@
 @import "fontawesome.min.css"
 @import "solid.min.css"
-
-$color_accent: #A62C40
-$color_content-background: #FFFFFF
-$color_warn: #ff9c0a
-$color_primary: #333
-$color_gray: #b7b7b7
-$color_ok: #51a351
-$color_error: #A62C40
-$mobile_breakpoint: 600px
+@import "shared.sass"
 
 .sdajem_flex_row 
   display: flex
@@ -330,6 +322,11 @@ input[type="text"].jem_required
   margin-bottom: 10px
   border-bottom: solid $color_gray 1px
   padding-bottom: 10px
+  display: flex
+  flex-wrap: wrap
+
+.sdajem_controls
+  margin-right: 20px
 
 .sdajem_view_button 
   padding: 10px

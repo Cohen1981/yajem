@@ -75,7 +75,7 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 	</div>
 </form>
 <?php if (!Factory::getUser()->guest): ?>
-<div id="sdajem_attendee_area" class="sdajem_flex_row">
+<div id="sdajem_attendee_area" class="sda_flexed_row">
 
 	<?php
 	foreach ($event->attendees as $attendee)

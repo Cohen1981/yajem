@@ -219,13 +219,42 @@ abstract class Helper
 		return $text;
 	}
 
+	/**
+	 * @return string
+	 * @since 1.0.0
+	 */
 	public static function getEditSymbol()
 	{
 		return "<i class=\"fas fa-pen\" aria-hidden='true' title='" . Text::_('JACTION_EDIT') . "'></i> ";
 	}
 
+	/**
+	 * @return string
+	 * @since 1.0.0
+	 */
 	public static function getDeleteSymbol()
 	{
 		return "<i class=\"fas fa-trash\" aria-hidden='true' title='" . Text::_('JACTION_DELETE') . "'></i> ";
+	}
+
+	/**
+	 * @param string $label
+	 * @param array $options
+	 *
+	 * @return string
+	 *
+	 * @since 1.1.0
+	 */
+	public static function getFilter(string $label, array $options) : string {
+		$html = "<label for=\"filter_type" . Text::_($label) . "\">" . Text::_($label) . "</label>";
+		$html = $html . "<select id=\"filter_type" . Text::_($label) . "\" name=\"filter_type\" class=\"sda_filter\" onchange=\"multiFilter()\">";
+		$html = $html . "<option value=\"\">" . Text::_('COM_SDA_FILTER_ALL') . "</option>";
+
+		foreach ($options as $option) {
+			$html = $html . "<option>" . str_replace(' ', '_', $option) . "</option>";
+		}
+		$html = $html . "</select>";
+
+		return $html;
 	}
 }

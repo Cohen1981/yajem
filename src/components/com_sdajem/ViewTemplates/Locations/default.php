@@ -22,7 +22,7 @@ $locations = $model->where('enabled', '=', 1)->orderBy('sdajem_category_id', 'AS
 
 <form action="<?php echo JRoute::_('index.php?option=com_sdajem&view=Locations'); ?>" method="post" name="adminForm" id="adminForm">
 
-	<div class="sdajem_flex_row">
+	<div class="sda_flexed_row">
 
 		<div class="sdajem_cell sdajem_head">
 			<i class="fas fa-flag" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>
@@ -43,7 +43,7 @@ $locations = $model->where('enabled', '=', 1)->orderBy('sdajem_category_id', 'AS
 
 	<?php foreach ($locations as $location) : ?>
 
-	<div class="sdajem_flex_row">
+	<div class="sda_flexed_row">
 
 		<div class="sdajem_cell">
 			<i class="fas fa-flag" aria-hidden="true" title="<?php echo Text::_('COM_SDAJEM_ICON_CATEGORY') ?>"></i>

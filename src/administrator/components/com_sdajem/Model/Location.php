@@ -10,8 +10,8 @@
 namespace Sda\Jem\Admin\Model;
 
 use FOF30\Container\Container;
-use FOF30\Model\DataModel;
 use FOF30\Date\Date;
+use Sda\Model\SdaProtoModel;
 
 /**
  * @package     Sda\Jem\Admin\Model
@@ -52,7 +52,7 @@ use FOF30\Date\Date;
  * @property  Contact       $contact
  * @property  Category      $category
  */
-class Location extends DataModel
+class Location extends SdaProtoModel
 {
 	/**
 	 * Location constructor.

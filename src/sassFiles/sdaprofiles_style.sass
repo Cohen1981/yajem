@@ -148,21 +148,13 @@ label.sdaprofile_tab.sda_active
 		text-decoration: none
 		text-underline: none
 
-.sdaprofiles_flexed_row
-	display: flex
-	flex-wrap: wrap
-	border-bottom: $color_gray solid 1px
-	margin-bottom: 10px
+.sda_flexed_row
 	@media (max-width: $mobile_breakpoint)
-		display: grid
+		display: grid !important
 		grid-template-rows: repeat(3,auto)
 
-.sdaprofiles_flexed
-	flex: 1
+.sda_flexed
 	padding-bottom: 10px
-
-.sdaprofiles_flex2
-	flex: 2
 
 .sdaprofiles_controls
 	display: inline-flex

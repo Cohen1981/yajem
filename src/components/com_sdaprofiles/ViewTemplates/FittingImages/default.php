@@ -28,8 +28,8 @@ $items = $this->getItems();
 
     <?php foreach ($items as $fImage) : ?>
     <div id="sdaprofiles_message_container<?php echo $fImage->sdaprofiles_fitting_image_id; ?>"></div>
-    <div id="sdap_fimage_<?php echo $fImage->sdaprofiles_fitting_image_id; ?>" class="sdaprofiles_flexed_row">
-        <div class="sdaprofiles_controls sdaprofiles_flexed">
+    <div id="sdap_fimage_<?php echo $fImage->sdaprofiles_fitting_image_id; ?>" class="sda_flexed_row">
+        <div class="sdaprofiles_controls sda_flexed">
             <span id="edit_<?php echo $fImage->sdaprofiles_fitting_image_id; ?>"
                   class="sda_button"
                   onclick="document.getElementById('formTask').value='edit';
@@ -45,12 +45,12 @@ $items = $this->getItems();
 		        <?php echo HtmlHelper::getDeleteSymbol(); ?>
             </span>
         </div>
-        <div class="sdaprofiles_image_cell sdaprofiles_flexed">
+        <div class="sdaprofiles_image_cell sda_flexed">
             <?php
                 echo HtmlHelper::imgTag($fImage->image, 'preview_image');
             ?>
         </div>
-        <div class="sdaprofiles_detail_cell sdaprofiles_flexed sdaprofiles_flex2">
+        <div class="sdaprofiles_detail_cell sda_flexed sda_flex2">
             <?php
             $fTypeID = (int) $fImage->type;
             $fType = Container::getInstance('com_sdaprofiles')->factory->model('FittingType');

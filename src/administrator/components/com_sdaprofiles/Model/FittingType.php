@@ -10,7 +10,7 @@
 namespace Sda\Profiles\Admin\Model;
 
 use FOF30\Container\Container;
-use FOF30\Model\DataModel;
+use Sda\Model\SdaProtoModel;
 
 /**
  * @package     Sda\Profiles\Admin\Model
@@ -25,7 +25,7 @@ use FOF30\Model\DataModel;
  * @property  string    $title
  * @property  int       $needSpace
  */
-class FittingType extends DataModel
+class FittingType extends SdaProtoModel
 {
 	/**
 	 * FittingType constructor.

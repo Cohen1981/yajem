@@ -11,13 +11,12 @@ namespace Sda\Profiles\Admin\Model;
 
 use FOF30\Container\Container;
 use FOF30\Date\Date;
-use FOF30\Model\DataModel;
 use Sda\Jem\Admin\Model\Attendee;
-use Sda\Jem\Site\Model\Event;
 use Sda\Profiles\Admin\Model\User as UserAlias;
-use Sda\Profiles\Admin\Model\Fitting;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Sda\Model\SdaProtoModel;
+use FOF30\Model\DataModel\Collection;
 
 /**
  * @package     Sda\Profiles\Admin\Model
@@ -61,10 +60,10 @@ use Joomla\CMS\Factory;
  * @property  UserAlias                 $user
  * @property  Fitting                   $fittings
  * @property  Attendee                  $attendees  Only if sdajem is installed and active
- * @property  DataModel\Collection      $organizing Only if sdajem is installed and active
+ * @property  Collection                $organizing Only if sdajem is installed and active
  *
  */
-class Profile extends DataModel
+class Profile extends SdaProtoModel
 {
 	/**
 	 * Profile constructor.

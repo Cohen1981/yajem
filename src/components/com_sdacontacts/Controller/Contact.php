@@ -10,7 +10,7 @@
 namespace Sda\Contacts\Site\Controller;
 
 use FOF30\Controller\DataController;
-use Sda\Contacts\Admin\Helper\RefererHelper;
+use Sda\Referer\Helper as RefererHelper;
 
 /**
  * @package     Sda\Contacts\Controller
