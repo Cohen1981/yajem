@@ -61,8 +61,11 @@ $items = $this->getItems();
                         <i class="fas fa-home" aria-hidden="true"></i>
                         <div class="sdaprofile_detail">
                         <?php
-                            echo $profile->address1 . "<br/>" . $profile->address2 . "<br/>";
-                            echo $profile->postal . " " . $profile->city;
+                            if ($profile->address1) { echo $profile->address1 . "<br/>"; }
+                            if ($profile->address2) { echo $profile->address2 . "<br/>"; }
+                            if ($profile->city || $profile->postal) {
+	                            echo $profile->postal . " " . $profile->city;
+                            }
                         ?>
                         </div>
                         <?php endif; ?>
@@ -72,8 +75,8 @@ $items = $this->getItems();
                         <i class="fas fa-mobile-alt" aria-hidden="true"></i>
                         <div class="sdaprofile_detail">
                         <?php
-                            echo $profile->phone . "<br/>";
-                            echo $profile->mobil;
+                            if ($profile->phone) { echo $profile->phone . "<br/>"; }
+                            if ($profile->mobil) { echo $profile->mobil; }
                         ?>
                         </div>
                         <?php endif; ?>

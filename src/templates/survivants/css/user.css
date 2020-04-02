@@ -32,6 +32,13 @@ button,
 .sda_flex2 {
   flex: 2; }
 
+.sda_bottom_rounded {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px; }
+
+@font-face {
+  font-family: "Jim Nightshade";
+  src: url("../webfonts/JimNightshade-Regular.ttf") format("truetype"); }
 .btn-small {
   padding: 5px 10px; }
 
@@ -51,7 +58,7 @@ a {
     color: #A62C40; }
 
 body {
-  font: 100% Helvetica, sans-serif;
+  font: 100% "Cantarell", Helvetica, Arial, Sans-Serif;
   color: #333;
   background-color: #4A4A4A; }
 
@@ -112,20 +119,24 @@ img.logo {
   border-top-left-radius: 6px;
   border-top-right-radius: 6px; }
 
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Jim Nightshade", serif;
+  font-weight: normal; }
+
 h1 {
-  font-size: 1.4rem; }
+  font-size: 1.7rem; }
 
 h2 {
-  font-size: 1.3rem; }
+  font-size: 1.5rem; }
 
 h3 {
-  font-size: 1.2rem; }
+  font-size: 1.4rem; }
 
 h4 {
-  font-size: 1.1rem; }
+  font-size: 1.4rem; }
 
 h5, h6 {
-  font-size: 1rem; }
+  font-size: 1.4rem; }
 
 .sda_content_spacer {
   padding-left: 20px;
@@ -146,9 +157,14 @@ h5, h6 {
   list-style: none; }
 
 .navigation {
+  font-family: "Jim Nightshade", serif;
   background-color: #333;
-  font-size: 1.4rem; }
+  font-size: 1.7rem;
+  font-weight: normal; }
   @media (max-width: 600px) {
+    .navigation ul {
+      display: block; } }
+  @media (hover: none) and (pointer: coarse) {
     .navigation ul {
       display: block; } }
   .navigation ul .sda_menulink {
@@ -173,6 +189,10 @@ h5, h6 {
       z-index: 999;
       display: none; }
       @media (max-width: 600px) {
+        .navigation ul li ul {
+          position: relative;
+          display: block; } }
+      @media (hover: none) and (pointer: coarse) {
         .navigation ul li ul {
           position: relative;
           display: block; } }
@@ -208,10 +228,17 @@ h5, h6 {
     #sda_mobile_nav {
       display: block;
       font-size: 2rem; } }
+  @media (hover: none) and (pointer: coarse) {
+    #sda_mobile_nav {
+      display: block;
+      font-size: 2rem; } }
 
 .sda_switchable_menu {
   display: block; }
   @media (max-width: 600px) {
+    .sda_switchable_menu {
+      display: none; } }
+  @media (hover: none) and (pointer: coarse) {
     .sda_switchable_menu {
       display: none; } }
 
@@ -271,8 +298,13 @@ h5, h6 {
   #user_login_form ul li {
     margin-bottom: 10px; }
 
-.sda_bottom_rounded {
-  border-bottom-left-radius: 6px;
-  border-bottom-right-radius: 6px; }
+.divider img {
+  margin-bottom: 5px; }
+
+#kunena.layout .breadcrumb {
+  display: none; }
+
+#kunena.layout img {
+  max-width: 100px; }
 
 /*# sourceMappingURL=user.css.map */

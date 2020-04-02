@@ -31,6 +31,10 @@ button,
 .sda_flex2 {
   flex: 2; }
 
+.sda_bottom_rounded {
+  border-bottom-left-radius: 6px;
+  border-bottom-right-radius: 6px; }
+
 .sdajem_flex_row {
   display: flex;
   flex-direction: row;

@@ -3,6 +3,10 @@
 @import "regular.min.css"
 @import "shared.sass"
 
+@font-face
+  font-family: 'Jim Nightshade'
+  src: url('../webfonts/JimNightshade-Regular.ttf') format('truetype')
+
 // overwriting some of template css
 .btn-small
   padding: 5px 10px
@@ -78,20 +82,24 @@ img.logo
   border-top-left-radius: 6px
   border-top-right-radius: 6px
 
+h1, h2, h3, h4, h5, h6
+  font-family: 'Jim Nightshade', serif
+  font-weight: normal
+
 h1
-  font-size: 1.4rem
+  font-size: 1.7rem
 
 h2
-  font-size: 1.3rem
+  font-size: 1.5rem
 
 h3
-  font-size: 1.2rem
+  font-size: 1.4rem
 
 h4
-  font-size: 1.1rem
+  font-size: 1.4rem
 
 h5, h6
-  font-size: 1rem
+  font-size: 1.4rem
 
 .sda_content_spacer
   padding-left: 20px
@@ -113,13 +121,18 @@ h5, h6
     list-style: none
 
 .navigation
+  font-family: 'Jim Nightshade', serif
   background-color: $color_primary
-  font-size: 1.4rem
+  font-size: 1.7rem
+  font-weight: normal
+
   //padding-top: 10px
   //padding-bottom: 10px
 
   ul
     @media (max-width: $mobile_breakpoint)
+      display: block
+    @media (hover: none) and (pointer: coarse)
       display: block
 
     .sda_menulink
@@ -149,6 +162,9 @@ h5, h6
         z-index: 999
         display: none
         @media (max-width: $mobile_breakpoint)
+          position: relative
+          display: block
+        @media (hover: none) and (pointer: coarse)
           position: relative
           display: block
         ul
@@ -182,10 +198,15 @@ h5, h6
   @media (max-width: $mobile_breakpoint)
     display: block
     font-size: 2rem
+  @media (hover: none) and (pointer: coarse)
+    display: block
+    font-size: 2rem
 
 .sda_switchable_menu
   display: block
   @media (max-width: $mobile_breakpoint)
+    display: none
+  @media (hover: none) and (pointer: coarse)
     display: none
 
 .burger_menu
@@ -241,6 +262,11 @@ h5, h6
   ul li
     margin-bottom: 10px
 
-.sda_bottom_rounded
-  border-bottom-left-radius: 6px
-  border-bottom-right-radius: 6px
+.divider img
+  margin-bottom: 5px
+
+#kunena.layout .breadcrumb
+  display: none
+
+#kunena.layout img
+  max-width: 100px

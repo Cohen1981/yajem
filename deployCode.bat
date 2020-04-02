@@ -1,3 +1,8 @@
+IF [%1] == [] (
+echo build for only zip; copy for only copy; deploy for zip and copy
+goto END
+)
+
 IF [%1] == [build] (
 call :BUILD
 goto END
@@ -8,7 +13,7 @@ call :COPY
 goto END
 )
 
-if [%1] == [] (
+if [%1] == [deploy] (
 call :BUILD
 call :COPY
 goto END
