@@ -82,13 +82,22 @@ class com_SdajemInstallerScript
 	 */
 	public function postflight($type, $parent)
 	{
+		$config = array(
+			'use_sdacontacts'=>'1',
+			'usePlaningTool' =>'1',
+			'eventDefaultView' =>'1',
+			'viewToggle' =>'0',
+			'filterDate' =>'1',
+			'filterEventStatus' =>'1',
+			'filterLocation' =>'1'
+		);
 		// Setting default config params
 		if ($type == 'install')
 		{
 			$db = JFactory::getDBO();
 			$query = $db->getQuery(true);
 			$query->update($db->quoteName('#__extensions'));
-			$defaults = '{"use_sdacontacts":"1","usePlaningTool":"1"}';
+			$defaults = json_encode($config);
 			$query->set($db->quoteName('params') . ' = ' . $db->quote($defaults));
 			$query->where($db->quoteName('name') . ' = ' . $db->quote('com_sdajem'));
 			$db->setQuery($query);

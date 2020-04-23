@@ -298,6 +298,23 @@ h5, h6 {
   #user_login_form ul li {
     margin-bottom: 10px; }
 
+#content .blog-featured p::first-letter,
+#content .item-page p::first-letter,
+#content .categories-list p::first-letter {
+  initial-letter: 2;
+  color: #A62C40;
+  font-family: "Jim Nightshade", serif;
+  font-size: 1.2rem;
+  font-weight: bold; }
+
+footer .sda_horizontal_menu {
+  margin-bottom: 10px; }
+  footer .sda_horizontal_menu ul li {
+    margin-right: 20px; }
+
+.pull-left.item-image {
+  max-width: 200px; }
+
 .divider img {
   margin-bottom: 5px; }
 

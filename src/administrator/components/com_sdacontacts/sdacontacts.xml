@@ -28,11 +28,13 @@
 	</uninstall>
 
 	<!-- Runs on update -->
+	<!--
 	<update>
 		<schemas>
 			<schemapath type="mysql">sql/updates/mysql</schemapath>
 		</schemas>
 	</update>
+	-->
 
 	<!-- Media files -->
 	<media folder="media" destination="">

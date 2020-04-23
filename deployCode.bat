@@ -17,6 +17,7 @@ if [%1] == [deploy] (
 call :BUILD
 call :COPY
 goto END
+)
 
 :BUILD
 docker exec -it joomla_cms /vendor/bin/phing -f /resources/build/build.xml

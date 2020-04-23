@@ -25,7 +25,7 @@
 			<option value="0">JNO</option>
 		</field>
 	</fieldset>
-	<fieldset name="eventsView">
+	<fieldset name="EVENTSVIEW">
 		<field  name="eventDefaultView"
 				type="radio"
 				label="COM_SDAJEM_EVENT_DEFAULT_VIEW"
@@ -34,8 +34,18 @@
 				class="btn-group"
 		>
 			<option value="0">default_flex</option>
-			<option value="1">defualt_boxed</option>
+			<option value="1">default_boxed</option>
 			<!-- <option value="2">default_timeline</option> -->
+		</field>
+		<field name="viewToggle"
+			   type="radio"
+			   label="COM_SDAJEM_VIEW_TOGGLE"
+			   description=""
+			   default="0"
+			   class="btn-group btn-group-yesno"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
 		</field>
 		<field name="filterDate"
 			   type="radio"

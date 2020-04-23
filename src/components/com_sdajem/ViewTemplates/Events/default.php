@@ -35,9 +35,10 @@ $guest = Factory::getUser()->guest;
 
 $viewParam = Factory::getApplication()->getUserState('com_sdajem.eventsView', ComponentHelper::getParams('com_sdajem')->get('eventDefaultView'));
 
-$filterDate = ComponentHelper::getParams('com_sdajem')->get('filterDate');
-$filterEventStatus = ComponentHelper::getParams('com_sdajem')->get('filterEventStatus');
-$filterLocation = ComponentHelper::getParams('com_sdajem')->get('filterLocation');
+$viewToggle = (bool) ComponentHelper::getParams('com_sdajem')->get('viewToggle');
+$filterDate = (bool) ComponentHelper::getParams('com_sdajem')->get('filterDate');
+$filterEventStatus = (bool) ComponentHelper::getParams('com_sdajem')->get('filterEventStatus');
+$filterLocation = (bool) ComponentHelper::getParams('com_sdajem')->get('filterLocation');
 
 $activeFilters = ($filterDate || $filterEventStatus || $filterLocation) ? true:false;
 
@@ -45,7 +46,9 @@ $activeFilters = ($filterDate || $filterEventStatus || $filterLocation) ? true:f
 <form action="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>" method="post"
       name="adminForm" id="adminForm">
 
+    <h4><?php echo Text::_('COM_SDAJEM_FILTERS'); ?></h4>
     <div id="sdajem_view_control">
+	    <?php if($viewToggle) :?>
         <div class="sdajem_controls">
             <p> <?php echo Text::_('COM_SDAJEM_VIEW_CONTROL'); ?></p>
 
@@ -66,6 +69,7 @@ $activeFilters = ($filterDate || $filterEventStatus || $filterLocation) ? true:f
                 <i class="fas fa-th-list" aria-hidden="true"></i>
             </button>
         </div>
+	    <?php endif; ?>
         <?php if ($activeFilters) :?>
         <div class="sda_sub_flexed">
 	        <?php if ($filterDate) :?>

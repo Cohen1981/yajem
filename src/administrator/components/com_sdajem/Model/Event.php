@@ -127,7 +127,7 @@ class Event extends SdaProtoModel
 
 	/**
 	 *
-	 * @return integer
+	 * @return integer required space in m²
 	 *
 	 * @since 0.0.1
 	 */
