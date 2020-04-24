@@ -13,6 +13,7 @@ use Sda\Profiles\Admin\Controller\Profile as AdminProfile;
 use FOF30\Container\Container;
 use Sda\Profiles\Site\Model\User;
 use Joomla\CMS\Factory;
+use Sda\Profiles\Admin\Model\Profile as ProfileModel;
 
 /**
  * @package     Sda\Profiles\Site\Controller
@@ -123,9 +124,11 @@ class Profile extends AdminProfile
 	 */
 	public function editProfile()
 	{
-		if ($this->input->get('profileId'))
-		{
-			$this->setRedirect('index.php?option=com_sdaprofiles&task=edit&id=' . (int) $this->input->get('profileId'));
+		if ($this->input->get('layout') == 'ownProfile') {
+			$profileId = ProfileModel::getProfileIdForUserId(Factory::getUser()->id);
+		} else {
+			$profileId = $this->input->get('profileId');
 		}
+		$this->setRedirect('index.php?option=com_sdaprofiles&task=edit&id=' . (int) $profileId);
 	}
 }

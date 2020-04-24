@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<metadata>
+    <layout title="COM_SDAPROFILES_VIEW_PROFILE_OWN_TITLE">
+        <message>
+            <![CDATA[COM_SDAPROFILES_VIEW_PROFILE_OWN_DESC]]>
+        </message>
+    </layout>
+    <fields name="request">
+        <fieldset name="request">
+            <field name="task" type="hidden" default="editProfile"/>
+        </fieldset>
+    </fields>
+</metadata>
