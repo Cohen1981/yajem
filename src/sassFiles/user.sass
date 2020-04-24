@@ -38,7 +38,8 @@ body
 
 #main,
 footer,
-header
+header,
+.element-spacer
   background-color: $color_content-background
   border-radius: 6px
   margin-bottom: 10px
@@ -48,7 +49,7 @@ footer
   padding-top: 10px
   padding-bottom: 10px
 
-  .sda_content_grid
+  .sda_content_flex
     display: flex
     flex-wrap: wrap
 
@@ -122,56 +123,72 @@ h5, h6
 
 .navigation
   font-family: 'Jim Nightshade', serif
-  background-color: $color_primary
   font-size: 1.7rem
   font-weight: normal
 
-  //padding-top: 10px
-  //padding-bottom: 10px
-
   ul
+    z-index: 999
     @media (max-width: $mobile_breakpoint)
       display: block
     @media (hover: none) and (pointer: coarse)
       display: block
 
     .sda_menulink
-      padding: 20px
+      padding: 20px 10px
       width: fit-content
 
       &:hover
         background-color: $color_content-background
+        opacity: 1
         a
           color: $color_accent
 
     li
+      ul
+        z-index: 999
+        position: absolute
+        display: flex
+        visibility: hidden
+        opacity: 0
+        -webkit-transition: opacity 600ms, visibility 600ms
+        transition: opacity 600ms, visibility 600ms
+        @media (max-width: $mobile_breakpoint)
+          position: relative
+          display: block
+          visibility: visible
+          opacity: 1
+        @media (hover: none) and (pointer: coarse)
+          position: relative
+          display: block
+          visibility: visible
+          opacity: 1
+        ul
+          z-index: 999
+          position: relative
+          display: block
+          .sda_menulink
+            padding-left: 40px
       background-color: $color_primary
       &:hover
         ul
           @media (min-width: $mobile_breakpoint)
-            display: flex
+            visibility: visible
+            opacity: 1
             ul
-              display: block
+              visibility: hidden
+              height: 0
+              opacity: 0
+              -webkit-transition: opacity 600ms, visibility 600ms
+              transition: opacity 600ms, visibility 600ms
+            li
+              &:hover
+                ul
+                  visibility: visible
+                  opacity: 1
       a
         color: $color_content-background
         //padding: 10px
         text-decoration: none
-
-      ul
-        position: absolute
-        z-index: 999
-        display: none
-        @media (max-width: $mobile_breakpoint)
-          position: relative
-          display: block
-        @media (hover: none) and (pointer: coarse)
-          position: relative
-          display: block
-        ul
-          display: block
-          position: relative
-          .sda_menulink
-            padding-left: 40px
 
 .pull-right
   float: right
@@ -216,27 +233,33 @@ h5, h6
   cursor: pointer
 
 #sda_user_label
-  padding: 20px
-  background-color: $color_gray
+  padding: 15px
+  background-color: $color_content-background
   border-radius: 6px
   width: fit-content
   font-size: 1.3rem
   justify-self: end
+  margin-top: auto
+  margin-bottom: auto
+  @media (max-width: $mobile_breakpoint)
+    margin-top: 0
+  @media (hover: none) and (pointer: coarse)
+    margin-top: 0
   &:hover
     background-color: darken($color_gray, 10%)
 
 .sda_switch_label
   cursor: pointer
 
+.sda_menugrid
+  display: grid
+  grid-template-columns: auto auto
+
 #head_last_row
   padding-top: 10px
   padding-bottom: 10px
-  display: grid
-  grid-template-columns: auto 100px
+
   background-color: $color_content-background
-  @media (max-width: $mobile_breakpoint)
-    display: grid
-    grid-template-columns: auto
 
 .blog .item-image
   max-width: 100px
@@ -251,12 +274,21 @@ h5, h6
   margin-right: 10px !important
   margin-bottom: 10px !important
 
+#sda_navigation_row
+  background-color: $color_primary
+  position: sticky
+  top: 0
+  z-index: 800
+
 #user_login_form > *
   @include borderBoxed
   margin-right: 20px
 
 #user_login_form
   background-color: $color_content-background
+  padding-top: 10px
+  padding-bottom: 10px
+  border-bottom: solid $color_primary 1px
   form, ul
     margin-top: 0
   ul li

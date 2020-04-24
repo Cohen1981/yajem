@@ -98,7 +98,7 @@ $positionBreadcrumbModuleCount = $this->countModules('breadcrumb');
 		<div class="container">
 
 			<!-- Header -->
-			<header class="header" role="banner">
+			<!--<header class="header" role="banner">-->
 				<div class="header-inner clearfix">
 					<a class="sda_brand" href="<?php echo $this->baseurl; ?>/">
 						<?php echo $logo; ?>
@@ -107,7 +107,15 @@ $positionBreadcrumbModuleCount = $this->countModules('breadcrumb');
 						<?php endif; ?>
 					</a>
 				</div>
-				<?php if ($this->countModules('position-1')) : ?>
+				<?php if ($this->countModules('position-0') || $this->countModules('position-1')) : ?>
+				<div id="sda_navigation_row">
+				<?php
+					if ($this->countModules('position-0') && $this->countModules('position-1')) {
+						echo "<div class=\"sda_menugrid\">";
+					} else {
+						echo "<div>";
+					}
+				?>
                     <nav class="navigation sda_horizontal_menu" role="navigation">
                         <label id="sda_mobile_nav" for="menu_switch" class="sda_switch_label">
                             <i class="fas fa-bars burger_menu" aria-hidden="true"> </i>
@@ -117,39 +125,40 @@ $positionBreadcrumbModuleCount = $this->countModules('breadcrumb');
                             <jdoc:include type="modules" name="position-1" style="none" />
                         </div>
                     </nav>
+					<?php if ($this->countModules('position-0')) : ?>
+						<label id="sda_user_label" for="user_login" class="sda_switch_label">
+							<?php if($user->guest) : ?>
+								<i class="far fa-user" aria-hidden="true"></i>
+							<?php endif; ?>
+							<?php if(!$user->guest) : ?>
+								<i class="fas fa-user" aria-hidden="true"></i>
+							<?php endif; ?>
+						</label>
+					<?php endif; ?>
+				</div>
+					<?php if ($this->countModules('position-0')) : ?>
+						<input type="checkbox" id="user_login" class="sda_hidden sda_switch">
+						<div id="user_login_form" class="sda_switchable sda_content_spacer">
+							<jdoc:include type="modules" name="position-0" style="none" />
+						</div>
+					<?php endif; ?>
+				</div>
 				<?php endif; ?>
 
-                <?php if ($this->countModules('position-0') || $this->countModules('breadcrumb')) : ?>
+                <?php if ($this->countModules('breadcrumb')) : ?>
                     <div id="head_last_row" class="sda_content_spacer sda_bottom_rounded">
 	                    <?php if ($positionBreadcrumbModuleCount) :?>
                         <div id="breadcrumb_pos" class="sda_horizontal_menu">
                             <jdoc:include type="modules" name="breadcrumb" style="xhtml" />
                         </div>
 	                    <?php endif; ?>
-
-	                    <?php if ($this->countModules('position-0')) : ?>
-                        <label id="sda_user_label" for="user_login" class="sda_switch_label">
-                            <?php if($user->guest) : ?>
-                                <i class="far fa-user" aria-hidden="true"></i>
-                            <?php endif; ?>
-                            <?php if(!$user->guest) : ?>
-                                <i class="fas fa-user" aria-hidden="true"></i>
-                            <?php endif; ?>
-                        </label>
-	                    <?php endif; ?>
                     </div>
-					<?php if ($this->countModules('position-0')) : ?>
-                    <input type="checkbox" id="user_login" class="sda_hidden sda_switch">
-                    <div id="user_login_form" class="sda_switchable sda_content_spacer">
-                        <jdoc:include type="modules" name="position-0" style="none" />
-                    </div>
-					<?php endif; ?>
-
                 <?php endif; ?>
-			</header>
+			<!--</header>-->
+            <div class="element-spacer"></div>
 
             <div id="main" class="sda_content_spacer">
-                <div class="row-fluid sda_content_grid">
+                <div class="row-fluid sda_content_flex">
                     <?php if ($position8ModuleCount) : ?>
                         <!-- Begin Sidebar -->
                         <div id="sidebar" class="sda_col sda_col_left">
