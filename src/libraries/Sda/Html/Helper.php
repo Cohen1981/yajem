@@ -13,6 +13,7 @@ namespace Sda\Html;
 use FOF30\Container\Container;
 use Joomla\CMS\Language\Text;
 use JRoute;
+use Sda\Jem\Admin\Model\Event;
 
 /**
  * Class for lazy people.
@@ -256,5 +257,54 @@ abstract class Helper
 		$html = $html . "</select>";
 
 		return $html;
+	}
+
+	public static function getEventStatusChanger(Event $event) : string {
+		$return = "";
+		$checkedButton = "
+			<button id=\"checkedButton\" 
+					type=\"button\" 
+					onclick=\"changeEventStatus(3," . $event->sdajem_event_id . ")\" 
+					name=\"checkedButton\">"
+			. self::getCheckedSymbol()
+			. "</button>"
+		;
+		$confirmButton = "
+			<button id=\"confirmButton\" 
+					type=\"button\" 
+					onclick=\"changeEventStatus(1," . $event->sdajem_event_id . ")\" 
+					name=\"confirmButton\">"
+			. self::getConfirmedSymbol()
+			. "</button>"
+		;
+		$cancelButton = "
+			<button id=\"cancelButton\" 
+					type=\"button\" 
+					onclick=\"changeEventStatus(2,$event->sdajem_event_id)\" 
+					name=\"cancelButton\">"
+			. self::getCanceledSymbol()
+			. "</button>"
+		;
+
+		switch ($event->eventStatus)
+		{
+			case 0:
+				$return = $return . $checkedButton;
+				$return = $return . $confirmButton;
+				$return = $return . $cancelButton;
+				break;
+			case 1:
+				$return = $return . $cancelButton;
+				break;
+			case 2:
+				$return = $return . $confirmButton;
+				break;
+			case 3:
+				$return = $return . $confirmButton;
+				$return = $return . $cancelButton;
+				break;
+		}
+
+		return $return;
 	}
 }

@@ -9,6 +9,7 @@
 
 use Joomla\CMS\Language\Text;
 use FOF30\Date\Date;
+use Sda\Html\Helper;
 use Sda\Jem\Admin\Helper\EventStatusHelper;
 
 /** @var \Sda\Profiles\Site\Model\Profile $profile */
@@ -17,6 +18,7 @@ use Sda\Jem\Admin\Helper\EventStatusHelper;
 /** @var \Sda\Jem\Site\View\Attendee\Raw $this */
 
 $this->addCssFile('media://com_sdajem/css/sdajem_style.css');
+$this->addJavascriptFile('media://com_sdajem/js/status.js');
 
 $input = $this->input->getArray();
 if ($input['option'] == 'com_sdaprofiles')
@@ -66,7 +68,11 @@ $currentDate = new DateTime;
 				echo $eventTitle;
 				echo "<span class=\"sdajem_attending_cell\">" . $event->getAttendingCount() . "</span>";
 				echo "<span class=\"sdajem_attending_cell\">" . $event->getRequiredSpaceForEvent() . "</span>";
-				echo EventStatusHelper::getSymbolByStatus($event->eventStatus);
+				echo "<span id=\"eventStatus_" . $event->sdajem_event_id . "\" class=\"sdajem_attending_cell\"><h3>"
+				     . EventStatusHelper::getSymbolByStatus($event->eventStatus)
+                     . "</h3>"
+                     . Helper::getEventStatusChanger($event)
+                     . "</span>";
 				?>
 			</div>
 		</div>

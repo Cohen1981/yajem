@@ -1,5 +1,4 @@
-function changeEventStatus(status) {
-	var eventId = document.getElementById('eventId').value;
+function changeEventStatus(status, eventId) {
 	var formData = new FormData();
 	formData.append('id', eventId);
 	formData.append('status', status);
@@ -14,7 +13,7 @@ function changeEventStatus(status) {
 			}
 			else
 			{
-				document.getElementById('eventStatus').innerHTML = html;
+				document.getElementById('eventStatus_'+eventId).innerHTML = html;
 			}
 		}
 	};

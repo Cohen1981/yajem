@@ -84,7 +84,7 @@ $guest = Factory::getUser()->guest;
 						<?php echo Text::_('COM_SDAJEM_EVENT_EVENTSTATUS_LABEL'); ?>
 					</h3>
 				</div>
-				<div id="eventStatus" class="sdajem_value">
+				<div id="eventStatus_<?php echo $event->sdajem_event_id ?>" class="sdajem_value">
 					<?php
 					try
 					{
