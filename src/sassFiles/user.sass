@@ -205,10 +205,18 @@ h5, h6
 .sda_switch:checked ~ .sda_switchable, .sda_switch:checked ~ .sda_switchable_menu
   display: block
 
-.sda_switch:checked ~ #user_login_form.sda_switchable
+#user_login_form.sda_switchable
+  overflow: hidden
   display: flex
+  max-height: 0
   align-items: stretch
   flex-wrap: wrap
+  -webkit-transition: max-height 600ms ease-in-out
+  transition: max-height 600ms ease-in-out
+
+.sda_switch:checked ~ #user_login_form.sda_switchable
+  max-height: 1000px
+  padding-top: 10px
 
 #sda_mobile_nav
   display: none
@@ -276,9 +284,6 @@ h5, h6
 
 #sda_navigation_row
   background-color: $color_primary
-  position: sticky
-  top: 0
-  z-index: 800
 
 #user_login_form > *
   @include borderBoxed
@@ -286,8 +291,6 @@ h5, h6
 
 #user_login_form
   background-color: $color_content-background
-  padding-top: 10px
-  padding-bottom: 10px
   border-bottom: solid $color_primary 1px
   form, ul
     margin-top: 0

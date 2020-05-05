@@ -237,10 +237,18 @@ h5, h6 {
 .sda_switch:checked ~ .sda_switchable, .sda_switch:checked ~ .sda_switchable_menu {
   display: block; }
 
-.sda_switch:checked ~ #user_login_form.sda_switchable {
+#user_login_form.sda_switchable {
+  overflow: hidden;
   display: flex;
+  max-height: 0;
   align-items: stretch;
-  flex-wrap: wrap; }
+  flex-wrap: wrap;
+  -webkit-transition: max-height 600ms ease-in-out;
+  transition: max-height 600ms ease-in-out; }
+
+.sda_switch:checked ~ #user_login_form.sda_switchable {
+  max-height: 1000px;
+  padding-top: 10px; }
 
 #sda_mobile_nav {
   display: none; }
@@ -312,10 +320,12 @@ h5, h6 {
   margin-bottom: 10px !important; }
 
 #sda_navigation_row {
-  background-color: #333;
-  position: sticky;
-  top: 0;
-  z-index: 800; }
+  background-color: #333; }
+  @media (min-width: 600px) {
+    #sda_navigation_row {
+      position: sticky;
+      top: 0;
+      z-index: 800; } }
 
 #user_login_form > * {
   padding: 10px;
@@ -325,8 +335,6 @@ h5, h6 {
 
 #user_login_form {
   background-color: #FFFFFF;
-  padding-top: 10px;
-  padding-bottom: 10px;
   border-bottom: solid #333 1px; }
   #user_login_form form, #user_login_form ul {
     margin-top: 0; }
