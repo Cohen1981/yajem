@@ -214,7 +214,7 @@ h5, h6
   -webkit-transition: max-height 600ms ease-in-out
   transition: max-height 600ms ease-in-out
 
-.sda_switch:checked ~ #user_login_form.sda_switchable
+#user_login_switch:checked ~ #user_login_form.sda_switchable
   max-height: 1000px
   padding-top: 10px
 
@@ -284,6 +284,9 @@ h5, h6
 
 #sda_navigation_row
   background-color: $color_primary
+  position: sticky
+  top: 0
+  z-index: 800
 
 #user_login_form > *
   @include borderBoxed
