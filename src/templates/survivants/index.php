@@ -126,7 +126,7 @@ $positionBreadcrumbModuleCount = $this->countModules('breadcrumb');
                         </div>
                     </nav>
 					<?php if ($this->countModules('position-0')) : ?>
-						<label id="sda_user_label" for="user_login" class="sda_switch_label">
+						<label id="sda_user_label" for="user_login_switch" class="sda_switch_label">
 							<?php if($user->guest) : ?>
 								<i class="far fa-user" aria-hidden="true"></i>
 							<?php endif; ?>
@@ -137,7 +137,7 @@ $positionBreadcrumbModuleCount = $this->countModules('breadcrumb');
 					<?php endif; ?>
 				</div>
 					<?php if ($this->countModules('position-0')) : ?>
-						<input type="checkbox" id="user_login" class="sda_hidden sda_switch">
+						<input type="checkbox" id="user_login_switch" class="sda_hidden sda_switch">
 						<div id="user_login_form" class="sda_switchable sda_content_spacer">
 							<jdoc:include type="modules" name="position-0" style="none" />
 						</div>

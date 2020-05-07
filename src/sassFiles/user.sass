@@ -202,8 +202,12 @@ h5, h6
 .sda_switchable
   display: none
 
-.sda_switch:checked ~ .sda_switchable, .sda_switch:checked ~ .sda_switchable_menu
+.sda_switch:checked ~ .sda_switchable
   display: block
+
+#menu_switch:checked.sda_switch:checked ~ .sda_switchable_menu
+  max-height: 400px
+  overflow: auto
 
 #user_login_form.sda_switchable
   overflow: hidden
@@ -230,9 +234,15 @@ h5, h6
 .sda_switchable_menu
   display: block
   @media (max-width: $mobile_breakpoint)
-    display: none
+    max-height: 0
+    overflow: hidden
+    -webkit-transition: max-height 600ms ease-in-out
+    transition: max-height 600ms ease-in-out
   @media (hover: none) and (pointer: coarse)
-    display: none
+    max-height: 0
+    overflow: hidden
+    -webkit-transition: max-height 600ms ease-in-out
+    transition: max-height 600ms ease-in-out
 
 .burger_menu
   background-color: $color_content-background
@@ -261,7 +271,7 @@ h5, h6
 
 .sda_menugrid
   display: grid
-  grid-template-columns: auto auto
+  grid-template-columns: auto 50px
 
 #head_last_row
   padding-top: 10px
