@@ -36,6 +36,21 @@ services:
     environment:
       MYSQL_ROOT_PASSWORD: rootpw
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOST=joomladb
+      - PMA_PORT=3306
+      - PMA_USER=root
+      - PMA_PASSWORD=rootpw
+    restart: always
+    ports:
+      - 6081:80
+    volumes:
+      - /sessions
+
   composer:
     image: composer:1.9
     command: ["composer", "update"]

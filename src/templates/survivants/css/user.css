@@ -159,7 +159,7 @@ h5, h6 {
 
 .navigation {
   font-family: "Jim Nightshade", serif;
-  font-size: 1.7rem;
+  font-size: 2rem;
   font-weight: normal; }
   .navigation ul {
     z-index: 999; }
@@ -192,19 +192,27 @@ h5, h6 {
             position: relative;
             display: block;
             visibility: visible;
-            opacity: 1; } }
+            opacity: 1;
+            padding-left: 20px; } }
         @media (hover: none) and (pointer: coarse) {
           .navigation ul li ul {
             position: relative;
             display: block;
             visibility: visible;
-            opacity: 1; } }
+            opacity: 1;
+            padding-left: 20px; } }
         .navigation ul li ul ul {
           z-index: 999;
           position: relative;
           display: block; }
           .navigation ul li ul ul .sda_menulink {
             padding-left: 40px; }
+            @media (hover: none) and (pointer: coarse) {
+              .navigation ul li ul ul .sda_menulink {
+                padding-left: 20px; } }
+            @media (max-width: 600px) {
+              .navigation ul li ul ul .sda_menulink {
+                padding-left: 20px; } }
       @media (min-width: 600px) {
         .navigation ul li:hover ul {
           visibility: visible;
@@ -364,7 +372,7 @@ footer .sda_horizontal_menu {
     margin-right: 20px; }
 
 .pull-left.item-image {
-  max-width: 200px; }
+  max-width: 90px; }
 
 .divider img {
   margin-bottom: 5px; }
