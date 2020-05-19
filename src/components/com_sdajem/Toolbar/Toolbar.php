@@ -36,14 +36,24 @@ class Toolbar extends BaseToolbar
 		$event = Container::getInstance('com_sdajem')->factory->model('Event');
 		$event->load();
 
-		ToolbarHelper::title(' ' . $event->title, 'calendar');
-
 		if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles'))
 		{
 			ToolbarHelper::custom('edit', 'edit', '', 'JGLOBAL_EDIT', false);
 		}
 
 		ToolbarHelper::custom('cancel', 'backward-2', '', 'COM_SDAJEM_BACK', false);
+		if (!(bool)$event->eventCancelled) {
+			ToolbarHelper::title(' ' . $event->title, 'calendar');
+			if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles')) {
+				ToolbarHelper::custom('eventCancelled', 'expired', '', 'COM_SDAJEM_EVENT_CANCELLED', false);
+			}
+		} else {
+			ToolbarHelper::title(' ' . $event->title . \Sda\Html\Helper::getEventCanceledByHostSymbol(), 'calendar');
+			if (Factory::getUser()->authorise('core.edit', 'com_sdaprofiles')) {
+				ToolbarHelper::custom('eventUnCancelled', 'expired', '', 'COM_SDAJEM_EVENT_UNCANCELE', false);
+			}
+		}
+
 	}
 
 	/**

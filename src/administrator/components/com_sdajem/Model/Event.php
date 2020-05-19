@@ -58,6 +58,7 @@ use Sda\Model\SdaProtoModel;
  * @property   Date			$modified_on
  * @property   int			$modified_by
  * @property   array        $svg
+ * @property   int          $eventCancelled
  *
  * Relations:
  *

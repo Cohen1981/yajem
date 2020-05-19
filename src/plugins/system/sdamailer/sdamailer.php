@@ -410,4 +410,29 @@ class plgSystemSdamailer extends CMSPlugin
 		$subject = sprintf("%s => %s", $event->title, EventStatusHelper::getStatusTextByStatus($event->eventStatus));
 		$this->sendMail($recipients, $subject, $body);
 	}
+
+	/**
+	 * @param \Sda\Jem\Site\Controller\Event $controller
+	 * @since 1.2.0
+	 * @throws Exception
+	 */
+	public function onComSdajemControllerEventAfterEventCancelled(\Sda\Jem\Site\Controller\Event $controller){
+		/** @var Event $event */
+		$event = $controller->getModel();
+		$recipients = array();
+		$subject = "";
+		$body = "";
+
+		/** @var Attendee $attendee */
+		foreach ($event->attendees as $attendee)
+		{
+			if ($attendee->status == 1)
+			{
+				array_push($recipients, $attendee->user->email);
+			}
+		}
+
+		$subject = sprintf("%s => %s", $event->title, "Veranstaltung abgesagt");
+		$this->sendMail($recipients, $subject, $body);
+	}
 }

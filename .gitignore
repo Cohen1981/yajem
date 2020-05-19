@@ -1,6 +1,6 @@
 .phpstorm.meta.php
-resources/build/build
-resources/build/target
+resources/build/
+resources/build/target/packages
 vendor
 .ContainerData
 /.idea/

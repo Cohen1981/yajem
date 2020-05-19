@@ -73,6 +73,11 @@ if($currentMonth <> $lastMonth) {
         </div>
 
         <div class="sdajem_event_details flex_col">
+	        <?php
+	        if ((bool)$event->eventCancelled) {
+		        echo \Sda\Html\Helper::getEventCanceledByHostSymbol();
+	        }
+	        ?>
             <div class="sdajem_event_box_title">
                     <?php echo $event->title ?>
 	                <?php if (!$guest):	?>

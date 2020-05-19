@@ -157,6 +157,14 @@ abstract class Helper
 	}
 
 	/**
+	 * @return string
+	 * @since 1.3.0
+	 */
+	public static function getEventCanceledByHostSymbol() {
+		return "<div class='sda_event_cancelled_host'><span><b>Veranstaltung abgesagt !</b></span></div>";
+	}
+
+	/**
 	 * Get the status symbol by event->status
 	 *
 	 * @param   int $status The event status

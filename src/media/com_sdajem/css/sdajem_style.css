@@ -1,5 +1,8 @@
 @import url(../../com_sda/css/fontawesome.min.css);
 @import url(../../com_sda/css/solid.min.css);
+.sda_red {
+  color: #A62C40; }
+
 button,
 .sda_button {
   border-radius: 6px;
@@ -34,6 +37,23 @@ button,
 .sda_bottom_rounded {
   border-bottom-left-radius: 6px;
   border-bottom-right-radius: 6px; }
+
+.sda_event_cancelled_host {
+  position: absolute;
+  margin-top: 35px;
+  margin-left: 10px;
+  font-size: 1.4rem;
+  background-color: RGB(166, 44, 64);
+  color: RGB(254, 196, 24);
+  transform: rotate(-15deg);
+  padding: 5px;
+  opacity: 0.8;
+  border-radius: 6px; }
+
+#FOFHeaderContainer .sda_event_cancelled_host {
+  margin-top: -15px;
+  margin-left: 70px;
+  font-size: 1.9rem; }
 
 .sdajem_flex_row {
   display: flex;
@@ -401,5 +421,8 @@ input[type="text"].jem_required {
   color: #FFFFFF; }
   .sda_month_divider h1 {
     padding: 10px; }
+
+.sdajem_float_right {
+  float: right; }
 
 /*# sourceMappingURL=sdajem_style.css.map */

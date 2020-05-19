@@ -564,4 +564,41 @@ class Event extends DataController
 			}
 		}
 	}
+
+	/**
+	 * @since 1.2.0
+	 */
+	private function saveCancelledStatusForEvent(int $status) {
+		$referer = $this->input->server->getString('HTTP_REFERER');
+
+		if ($referer != null)
+		{
+			RefererHelper::setReferer($referer);
+		}
+
+		$input = $this->input->getArray();
+		/** @var \Sda\Jem\Site\Model\Event $event */
+		$event = $this->getModel();
+		$event->load($input['id']);
+		$event->eventCancelled = $status;
+		$event->save();
+
+		$this->triggerEvent('onAfterEventCancelled', array($event));
+
+		$this->setRedirect(RefererHelper::getReferer());
+	}
+
+	/**
+	 * @since 1.2.0
+	 */
+	public function eventCancelled() {
+		$this->saveCancelledStatusForEvent(1);
+	}
+
+	/**
+	 * @since 1.2.0
+	 */
+	public function eventUnCancelled() {
+		$this->saveCancelledStatusForEvent(0);
+	}
 }

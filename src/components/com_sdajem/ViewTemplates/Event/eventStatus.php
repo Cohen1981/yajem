@@ -32,7 +32,7 @@ switch ($event->eventStatus)
 		echo "<h3>" . Helper::getCheckedSymbol() . "</h3>";
 }
 
-if ($event->organizerId == Factory::getUser()->id)
+if ($event->organizerId == Factory::getUser()->id && !(bool)$event->eventCancelled)
 {
 	echo Helper::getEventStatusChanger($event);
 }
