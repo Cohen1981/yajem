@@ -89,7 +89,8 @@ class com_SdajemInstallerScript
 			'viewToggle' =>'0',
 			'filterDate' =>'1',
 			'filterEventStatus' =>'1',
-			'filterLocation' =>'1'
+			'filterLocation' =>'1',
+			'guestDefaultEventView' => 1
 		);
 		// Setting default config params
 		if ($type == 'install')

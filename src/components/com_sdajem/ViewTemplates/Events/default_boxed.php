@@ -7,6 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use FOF30\Date\Date;
 use Joomla\CMS\Language\Text;
@@ -30,25 +31,30 @@ $items = $model->where('startDateTime', '>=', $currentDate->toSql())
 
 $guest = Factory::getUser()->guest;
 $lastMonth = '';
+$viewParam = Factory::getApplication()->getUserState('com_sdajem.eventsView', ComponentHelper::getParams('com_sdajem')->get('guestDefaultEventView'));
 ?>
 
 <?php foreach ($items as $event): ?>
 <?php
-$event->applyAccessFiltering();
-$currentMonth = str_replace(' ', '_', $event->getStartMonth());
+    if(($viewParam == 1 && $guest && $viewParam == $event->eventStatus) || $viewParam == 0 || !$guest) {
+	    $event->applyAccessFiltering();
+	    $currentMonth = str_replace(' ', '_', $event->getStartMonth());
 
-$class = '';
-$class = $class . ' ' . str_replace(' ', '_', $event->location->title);
-$class = $class . ' ' . str_replace(' ', '_', EventStatusHelper::getStatusTextByStatus($event->eventStatus));
-$class = $class . ' ' . $currentMonth;
+	    $class = '';
+	    $class = $class . ' ' . str_replace(' ', '_', $event->location->title);
+	    $class = $class . ' ' . str_replace(' ', '_', EventStatusHelper::getStatusTextByStatus($event->eventStatus));
+	    $class = $class . ' ' . $currentMonth;
 
-if($currentMonth <> $lastMonth) {
-    echo "<div class='sda_month_divider filterRow " . $currentMonth . "'>";
-    echo "<h1>$currentMonth</h1>";
-    echo "</div>";
-    $lastMonth = $currentMonth;
-}
+	    if ($currentMonth <> $lastMonth) {
+		    echo "<div class='sda_month_divider filterRow " . $currentMonth . "'>";
+		    echo "<h1>$currentMonth</h1>";
+		    echo "</div>";
+		    $lastMonth = $currentMonth;
+	    }
+    }
 ?>
+
+<?php if(($viewParam == 1 && $guest && $viewParam == $event->eventStatus) || $viewParam == 0 || !$guest): ?>
 
 <a class="no_decoration filterRow <?php echo $class;?>"
    href="<?php echo Route::_('index.php?option=com_sdajem&task=read&id=' . $event->sdajem_event_id) ?>">
@@ -134,4 +140,6 @@ if($currentMonth <> $lastMonth) {
 
     </div>
 </a>
+
+<?php endif; ?>
 <?php endforeach; ?>

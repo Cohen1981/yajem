@@ -14,16 +14,6 @@
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>
 		</field>
-		<field name="usePlaningTool"
-		       type="radio"
-		       label="COM_SDAJEM_PLANINGTOOL_LABEL"
-		       description="COM_SDAJEM_PLANINGTOOL_DESC"
-		       class="btn-group btn-group-yesno"
-		       default="1"
-		>
-			<option value="1">JYES</option>
-			<option value="0">JNO</option>
-		</field>
 	</fieldset>
 	<fieldset name="EVENTSVIEW">
 		<field  name="eventDefaultView"
@@ -73,6 +63,32 @@
 			   description=""
 			   default="1"
 			   class="btn-group btn-group-yesno"
+		>
+			<option value="1">JYES</option>
+			<option value="0">JNO</option>
+		</field>
+		<field  name="guestDefaultEventView"
+				type="radio"
+				label="COM_SDAJEM_GUEST_EVENT_DEFAULT_VIEW"
+				description="COM_SDAJEM_GUEST_EVENT_DEFAULT_VIEW_DESC"
+				default="1"
+				class="btn-group"
+		>
+			<option value="0">COM_SDAJEM_ALL</option>
+			<option value="1">COM_SDAJEM_CONFIRMED_ONLY</option>
+			<!-- <option value="2">default_timeline</option> -->
+		</field>
+	</fieldset>
+	<fieldset name="event"
+			  label="COM_SDAJEM_EVENT_CONFIG_LABEL"
+			  description="COM_SDAJEM_EVENT_CONFIG_DESC"
+	>
+		<field name="usePlaningTool"
+			   type="radio"
+			   label="COM_SDAJEM_PLANINGTOOL_LABEL"
+			   description="COM_SDAJEM_PLANINGTOOL_DESC"
+			   class="btn-group btn-group-yesno"
+			   default="1"
 		>
 			<option value="1">JYES</option>
 			<option value="0">JNO</option>

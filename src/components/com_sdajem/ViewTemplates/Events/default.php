@@ -116,7 +116,7 @@ $activeFilters = ($filterDate || $filterEventStatus || $filterLocation) ? true:f
 	}
 	else
 	{
-		echo $this->loadAnyTemplate('site:com_sdajem/Events/default_flex');
+		echo $this->loadAnyTemplate('site:com_sdajem/Events/default_boxed');
     }
 
 	?>
