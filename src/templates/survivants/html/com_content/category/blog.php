@@ -60,12 +60,12 @@ $afterDisplayContent = trim(implode("\n", $results));
                         <div class="desc"><?php echo htmlspecialchars($this->category->getParams()->get('image_alt'), ENT_COMPAT, 'UTF-8'); ?></div>
                     </div>
                 </div>
+				<?php echo $beforeDisplayContent; ?>
+				<?php if ($this->params->get('show_description') && $this->category->description) : ?>
+					<?php echo JHtml::_('content.prepare', $this->category->description, '', 'com_content.category'); ?>
+				<?php endif; ?>
+				<?php echo $afterDisplayContent; ?>
 			<?php endif; ?>
-			<?php echo $beforeDisplayContent; ?>
-			<?php if ($this->params->get('show_description') && $this->category->description) : ?>
-				<?php echo JHtml::_('content.prepare', $this->category->description, '', 'com_content.category'); ?>
-			<?php endif; ?>
-			<?php echo $afterDisplayContent; ?>
 		</div>
 	<?php endif; ?>
 
