@@ -29,6 +29,10 @@
             <property name="plugin" value="sdalib" />
             <property name="folder" value="system" />
         </phing>
+        <phing phingfile="${build.script.dir}/build_subpackage_plg.xml" target="build" haltonfailure="true">
+            <property name="plugin" value="sdalightbox" />
+            <property name="folder" value="content" />
+        </phing>
         <phing phingfile="${build.script.dir}/build_sda_template.xml" target="build_sda_template" haltonfailure="true">
         </phing>
         <phing phingfile="${build.script.dir}/build_subpackage_com.xml" target="build" haltonfailure="true">
