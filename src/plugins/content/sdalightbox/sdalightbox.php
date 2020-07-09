@@ -82,8 +82,7 @@ class plgContentSdalightbox extends CMSPlugin
 				$galleryString = $galleryString . $lightbox;
 			}
 
+			$article->text = implode(' ', $text) . $galleryString;
 		}
-		$article->text = implode(' ', $text) . $galleryString;
-
 	}
 }
