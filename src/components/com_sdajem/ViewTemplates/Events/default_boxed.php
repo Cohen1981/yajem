@@ -24,9 +24,8 @@ $currentDate = new Date;
 /** @var \Sda\Jem\Site\Model\Event $model */
 $model = $this->getModel();
 
-// Show only future events sorted ascending
-$items = $model->where('startDateTime', '>=', $currentDate->toSql())
-	->where('enabled', '=', 1)
+// Show only enabled events sorted ascending
+$items = $model->where('enabled', '=', 1)
 	->orderBy('startDateTime')->get();
 
 $guest = Factory::getUser()->guest;
@@ -44,9 +43,11 @@ $viewParam = Factory::getApplication()->getUserState('com_sdajem.eventsView', Co
 	    $class = $class . ' ' . str_replace(' ', '_', $event->location->title);
 	    $class = $class . ' ' . str_replace(' ', '_', EventStatusHelper::getStatusTextByStatus($event->eventStatus));
 	    $class = $class . ' ' . $currentMonth;
+	    $upcoming = ($event->startDateTime > $currentDate) ? 'upcoming' : 'past';
+	    $class = $class . ' ' . $upcoming;
 
 	    if ($currentMonth <> $lastMonth) {
-		    echo "<div class='sda_month_divider filterRow " . $currentMonth . "'>";
+		    echo "<div class='sda_month_divider filterRow " . $currentMonth . " " . $upcoming . "'>";
 		    echo "<h1>$currentMonth</h1>";
 		    echo "</div>";
 		    $lastMonth = $currentMonth;
@@ -58,7 +59,7 @@ $viewParam = Factory::getApplication()->getUserState('com_sdajem.eventsView', Co
 
 <a class="no_decoration filterRow <?php echo $class;?>"
    href="<?php echo Route::_('index.php?option=com_sdajem&task=read&id=' . $event->sdajem_event_id) ?>">
-    <div class="sdajem_event_box">
+    <div class="sdajem_event_box filterRow <?php echo $class;?>">
 
         <div class="sdajem_image_container flex_col">
             <div class="sdajem_event_box_date">

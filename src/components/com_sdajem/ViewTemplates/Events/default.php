@@ -33,9 +33,6 @@ $locationModel = Container::getInstance('com_sdajem')->factory->model('Location'
 
 $guest = Factory::getUser()->guest;
 
-$viewParam = Factory::getApplication()->getUserState('com_sdajem.eventsView', ComponentHelper::getParams('com_sdajem')->get('eventDefaultView'));
-
-$viewToggle = (bool) ComponentHelper::getParams('com_sdajem')->get('viewToggle');
 $filterDate = (bool) ComponentHelper::getParams('com_sdajem')->get('filterDate');
 $filterEventStatus = (bool) ComponentHelper::getParams('com_sdajem')->get('filterEventStatus');
 $filterLocation = (bool) ComponentHelper::getParams('com_sdajem')->get('filterLocation');
@@ -48,26 +45,14 @@ $activeFilters = ($filterDate || $filterEventStatus || $filterLocation) ? true:f
 
     <h4><?php echo Text::_('COM_SDAJEM_FILTERS'); ?></h4>
     <div id="sdajem_view_control">
-	    <?php if($viewToggle) :?>
+	    <?php if(!$guest) :?>
         <div class="sdajem_controls">
-            <p> <?php echo Text::_('COM_SDAJEM_VIEW_CONTROL'); ?></p>
-
-            <button
-                    formmethod="post"
-                    onclick="document.getElementById('task').value='eventsFlexView'"
-                    formaction="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>"
-                    class="sdajem_view_button"
-            >
-                <i class="fas fa-bars" aria-hidden="true"> </i>
-            </button>
-            <button
-                    formmethod="post"
-                    onclick="document.getElementById('task').value='eventsBoxedView'"
-                    formaction="<?php echo JRoute::_('index.php?option=com_sdajem&view=Events'); ?>"
-                    class="sdajem_view_button"
-            >
-                <i class="fas fa-th-list" aria-hidden="true"></i>
-            </button>
+            <!-- TODO: Show past events -->
+            <label for="upcoming"><?php echo Text::_('COM_SDAJEM_SHOW_PAST_EVENTS'); ?></label>
+            <select id="upcoming" name="upcoming" class="sda_filter" onchange="multiFilter()">";
+                <option value="upcoming"><?php echo Text::_('JNO'); ?></option>
+                <option value=""><?php echo Text::_('JYES'); ?></option>
+            </select>
         </div>
 	    <?php endif; ?>
         <?php if ($activeFilters) :?>
@@ -104,21 +89,7 @@ $activeFilters = ($filterDate || $filterEventStatus || $filterLocation) ? true:f
     </div>
 
 	<?php
-	if ($viewParam) {
-		switch ($viewParam) {
-			case 0:
-				echo $this->loadAnyTemplate('site:com_sdajem/Events/default_flex');
-				break;
-			case 1:
-				echo $this->loadAnyTemplate('site:com_sdajem/Events/default_boxed');
-				break;
-		}
-	}
-	else
-	{
 		echo $this->loadAnyTemplate('site:com_sdajem/Events/default_boxed');
-    }
-
 	?>
 
 	<input type="hidden" id="task" name="task" value=""/>

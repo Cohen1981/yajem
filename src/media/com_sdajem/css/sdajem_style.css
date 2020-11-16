@@ -425,4 +425,7 @@ input[type="text"].jem_required {
 .sdajem_float_right {
   float: right; }
 
+.past {
+  display: none; }
+
 /*# sourceMappingURL=sdajem_style.css.map */

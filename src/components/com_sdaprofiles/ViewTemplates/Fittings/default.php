@@ -11,6 +11,7 @@ use FOF30\Container\Container;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Sda\Html\Helper as HtmlHelper;
+use Sda\Profiles\Site\Model\Fitting;
 
 /** @var \Sda\Profiles\Site\View\Profile\Html $this */
 /** @var \Sda\Profiles\Site\Model\Fitting $fitting */
@@ -21,7 +22,10 @@ $this->addCssFile('media://com_sdaprofiles/css/sdaprofiles_style.css');
 $this->addJavascriptFile('media://jui/js/jquery.min.js');
 $this->addJavascriptFile('media://com_sda/js/filter.js');
 
-$items = $this->getItems();
+/** @var Fitting $fittingModel */
+$fittingModel = $this->getModel();
+$items = $fittingModel->orderBy('sdaprofiles_profile_id', 'ASC')->get();
+// $items = $this->getItems();
 $fTypeModel = $this->getContainer()->factory->model('FittingType');
 $fTypes = $fTypeModel->getItemsArray();
 $ProfileModel = $this->getContainer()->factory->model('Profile');
@@ -52,7 +56,7 @@ $profiles = $ProfileModel->getItemsArray();
 
 		<div class="sdaprofiles_section_container">
 
-			<?php foreach ($this->items as $fitting) : ?>
+			<?php foreach ($items as $fitting) : ?>
                 <?php
                 $class = str_replace(' ', '_', $fitting->profile->userName);
                 $class = $class . ' ' . str_replace(' ', '_', $fitting->typeModel->title);
