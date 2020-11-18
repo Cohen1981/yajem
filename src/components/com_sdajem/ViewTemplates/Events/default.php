@@ -47,7 +47,6 @@ $activeFilters = ($filterDate || $filterEventStatus || $filterLocation) ? true:f
     <div id="sdajem_view_control">
 	    <?php if(!$guest) :?>
         <div class="sdajem_controls">
-            <!-- TODO: Show past events -->
             <label for="upcoming"><?php echo Text::_('COM_SDAJEM_SHOW_PAST_EVENTS'); ?></label>
             <select id="upcoming" name="upcoming" class="sda_filter" onchange="multiFilter()">";
                 <option value="upcoming"><?php echo Text::_('JNO'); ?></option>

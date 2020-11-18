@@ -601,4 +601,22 @@ class Event extends DataController
 	public function eventUnCancelled() {
 		$this->saveCancelledStatusForEvent(0);
 	}
+
+	/**
+	 * @since 1.3.0
+	 */
+	public function deletePastEvents() {
+		$referer = $this->input->server->getString('HTTP_REFERER');
+
+		if ($referer != null)
+		{
+			RefererHelper::setReferer($referer);
+		}
+
+		$currentDate = new Date();
+		$pastEvents = $this->getModel()->where('startDateTime', '<', $currentDate->toSql())->get();
+		$pastEvents->delete();
+
+		$this->setRedirect(RefererHelper::getReferer());
+	}
 }

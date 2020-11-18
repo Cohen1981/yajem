@@ -70,6 +70,10 @@ class Toolbar extends BaseToolbar
 			ToolbarHelper::addNew();
 			ToolbarHelper::custom('addNewLocation', 'new', '', 'COM_SDAJEM_LOCATION_NEW', false);
 		}
+
+		if (Factory::getUser()->authorise('core.admin', 'com_sdaprofiles')) {
+			ToolbarHelper::custom('deletePastEvents', 'trash', '', 'COM_SDAJEM_DELETE_OLD_EVENTS', false);
+		}
 	}
 
 	/**
