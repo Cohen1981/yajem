@@ -7,7 +7,7 @@
     <authorEmail>abahlo@hotmail.de</authorEmail>
     <copyright>Copyright (C) 2018 Alexander Bahlo</copyright>
     <license>GNU General Public License version 2 or later; see LICENSE.txt</license>
-    <version>1.0.0</version>
+    <version>1.1.0</version>
     <description>PKG_SDA_INSTALLATION_DESCRIPTION</description>
     <packager>Alexander Bahlo</packager>
 
@@ -22,6 +22,7 @@
         <file type="plugin" id="sdalib">plg_system_sdalib.zip</file>
         <file type="plugin" id="plg_system_sdamailer" group="system">plg_system_sdamailer.zip</file>
         <file type="plugin" id="plg_content_sdalightbox" group="content">plg_content_sdalightbox.zip</file>
+        <file type="plugin" id="plg_user_sdaprofile" group="user">plg_user_sdaprofile.zip</file>
         <file type="template" id="survivants" client="site">sda_templ.zip</file>
     </files>
 

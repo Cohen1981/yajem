@@ -71,12 +71,9 @@ $viewParam = Factory::getApplication()->getUserState('com_sdajem.eventsView', Co
                 </p>
             </div>
 
-            <?php
-            if ($event->image)
-            {
-	            echo "<img class='sdajem_round_img' src=" . $event->image . " alt=" . Text::_('COM_SDAJEM_EVET_IMAGE') ." />";
-            }
-            ?>
+            <?php if ($event->image) :?>
+	            <img class='sdajem_round_img' src="<?php echo $event->image; ?>" alt="<?php echo Text::_('COM_SDAJEM_EVET_IMAGE'); ?>" />
+            <?php endif; ?>
         </div>
 
         <div class="sdajem_event_details flex_col">

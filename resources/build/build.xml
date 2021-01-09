@@ -33,6 +33,10 @@
             <property name="plugin" value="sdalightbox" />
             <property name="folder" value="content" />
         </phing>
+        <phing phingfile="${build.script.dir}/build_subpackage_plg.xml" target="build" haltonfailure="true">
+            <property name="plugin" value="sdaprofile" />
+            <property name="folder" value="user" />
+        </phing>
         <phing phingfile="${build.script.dir}/build_sda_template.xml" target="build_sda_template" haltonfailure="true">
         </phing>
         <phing phingfile="${build.script.dir}/build_subpackage_com.xml" target="build" haltonfailure="true">
