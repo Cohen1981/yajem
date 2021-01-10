@@ -23,28 +23,13 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 $task = $this->input->get('task');
 
 ?>
-<div class="sdaprofiles_tabs">
-	<label id="basic_switch_label" class="sdaprofile_tab sda_tab sda_active" for="basic_switch">
+	<label id="basic_switch_label" class="sda_tab sda_active" for="basic_switch">
 		<?php echo Text::_('COM_SDAPROFILES_TITLE_PROFILES_READ') ?>
+        <span id="basic_switch_state" class="fas fa-angle-double-up sdajem_float_right"></span>
 	</label>
-	<!-- Only User profiles are intially saved. If we have a group profile we don't have an profiles_id on add -->
-	<?php if (!($task === "newGroup")) : ?>
-		<label id="fitting_switch_label" class="sdaprofile_tab sda_tab" for="fitting_switch">
-			<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTING_BASIC') ?>
-		</label>
-		<label id="events_switch_label" class="sdaprofile_tab sda_tab" for="events_switch">
-			<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL') ?>
-		</label>
-		<?php if ((bool) $params->get('use_preferences')) : ?>
-		<label id="preferences_switch_label" class="sdaprofile_tab sda_tab" for="preferences_switch">
-			<?php echo Text::_('') ?>
-		</label>
-		<?php endif;?>
-	<?php endif ?>
-</div>
 
 <div>
-	<input type="checkbox" id="basic_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden checked="checked" onchange="switchCheckBox('basic_switch')"/>
+	<input type="checkbox" id="basic_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden checked="checked"/>
 	<div class="sdaprofiles_switchable">
 		<?php echo $this->getRenderedForm(); ?>
 	</div>
@@ -52,8 +37,13 @@ $task = $this->input->get('task');
 
 <!-- Only User profiles are intially saved. If we have a group profile we don't have an profiles_id on add -->
 <?php if (!($task === "newGroup")) : ?>
+    <label id="fitting_switch_label" class="sda_tab" for="fitting_switch">
+		<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTING_BASIC') ?>
+	    <span id="fitting_switch_reload" hidden><i class="fas fa-spinner fa-pulse"></i></span>
+        <span id="fitting_switch_state" class="fas fa-angle-double-down sdajem_float_right"></span>
+    </label>
 	<div>
-		<input type="checkbox" id="fitting_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden onchange="switchCheckBox('fitting_switch')"/>
+		<input type="checkbox" id="fitting_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden/>
 		<div class="sdaprofiles_switchable">
 
 			<?php
@@ -65,23 +55,16 @@ $task = $this->input->get('task');
 			{
 			}
 			?>
-			<div id="fitting_form">
-			<?php
-			try
-			{
-				echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/form');
-			}
-			catch (Exception $e)
-			{
-			}
-			?>
-			</div>
 
 		</div>
 	</div>
 
+    <label id="events_switch_label" class="sda_tab" for="events_switch">
+		<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL') ?>
+        <span id="events_switch_state" class="fas fa-angle-double-down sdajem_float_right"></span>
+    </label>
 	<div>
-		<input type="checkbox" id="events_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden onchange="switchCheckBox('events_switch')"/>
+		<input type="checkbox" id="events_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden/>
 		<div class="sdaprofiles_switchable">
 			<?php
 			if ($profile->attendees)
@@ -112,8 +95,11 @@ $task = $this->input->get('task');
 	</div>
 
 	<?php if ((bool) $params->get('use_preferences')) : ?>
+        <label id="preferences_switch_label" class="sda_tab" for="preferences_switch">
+		    <?php echo Text::_('') ?>
+        </label>
 		<div>
-			<input type="checkbox" id="preferences_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden onchange="switchCheckBox('preferences_switch')"/>
+			<input type="checkbox" id="preferences_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden/>
 			<div class="sdaprofiles_switchable">
 				<?php
 				try

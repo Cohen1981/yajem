@@ -33,7 +33,7 @@ $allowedUser = ($fitting->profile->users_user_id == Factory::getUser()->id) || (
 		<?php if ($fitting->image->image != '') : ?>
 			<img src="<?php echo $fitting->image->image; ?>" class="image_smallest" />
 		<?php endif; ?>
-		<?php if ($allowedUser && $input['task'] == 'edit') : ?>
+		<?php if ($allowedUser) : ?>
 		<button type="button" onclick="editFittingAjax(<?php echo $fitting->sdaprofiles_fitting_id; ?>)">
 			<i class="fas fa-edit" aria-hidden="true" title="<?php echo JText::_('COM_SDAPROFILES_ICON_EDIT') ?>"></i>
 		</button>

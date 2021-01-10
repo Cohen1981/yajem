@@ -29,15 +29,16 @@ $fImageModel = $this->getContainer()->factory->model('FittingImage');
 $fTypeModel = $this->getContainer()->factory->model('FittingType');
 $fTypes = $fTypeModel->getItemsArray();
 
-if($input['view'] == 'Fittings' && $input['task'] == 'edit')
+if($input['view'] == 'Fitting' && $input['task'] == 'editAjax')
 {
 	/** @var Fitting $fitting */
-	$fitting = $this->getItem();
+	$fitting = $this->getModel();
+	$fitting->load($input['id']);
 }
 
 ?>
 
-<form name="fittingForm" id="fittingForm" class="form-horizontal" hidden>
+<form name="fittingForm" id="fittingForm" class="form-horizontal">
 	<div class="well">
 		<div class="titleContainer">
 			<h2 class="page-title">
@@ -48,6 +49,9 @@ if($input['view'] == 'Fittings' && $input['task'] == 'edit')
 		<div class="buttonsContainer">
 			<button id="sdaprofiles_fitting_add" type="button" onclick="addFittingAjax()">
 				<?php echo Text::_('SDAPROFILES_FITTING_SAVE') ?>
+			</button>
+			<button id="sdaprofiles_fitting_cancel" type="button" onclick="cancel()">
+				<?php echo Text::_('SDAPROFILES_FITTING_CANCEL') ?>
 			</button>
 		</div>
 	</div>

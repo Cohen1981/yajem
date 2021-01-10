@@ -27,7 +27,7 @@ $event = $this->getItem();
 
 $guest = Factory::getUser()->guest;
 ?>
-	<label id="event_switch_label" class="sda_tab sdajem_tab sda_active" for="event_switch">
+	<label id="event_switch_label" class="sda_tab sda_active" for="event_switch">
 		<?php echo IconHelper::titleIcon() . " " . Text::_('COM_SDAJEM_TITLE_EVENT_BASIC') ?>
 		<span id="event_switch_state" class="fas fa-angle-double-up sdajem_float_right"></span>
 	</label>
@@ -43,7 +43,7 @@ $guest = Factory::getUser()->guest;
 
 	<div>
 		<input type="checkbox" id="event_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden checked="checked"/>
-		<div id="event_switch_Tab" class="sdajem_switchable">
+		<div id="event_switch_Tab" class="sda_switchable">
 			<div class="sdajem_event_table">
 
 			<div class="sdajem_event_grid">
@@ -148,7 +148,7 @@ $guest = Factory::getUser()->guest;
 
 	<!-- Location Block -->
 	<?php if ($event->location) : ?>
-        <label id="location_switch_label" class="sda_tab sdajem_tab" for="location_switch">
+        <label id="location_switch_label" class="sda_tab" for="location_switch">
 			<?php echo IconHelper::locationIcon() . " " . Text::_('COM_SDAJEM_TITLE_LOCATION_BASIC') ?>
 	        <span id="location_switch_state" class="fas fa-angle-double-down sdajem_float_right"></span>
         </label>
@@ -160,7 +160,7 @@ $guest = Factory::getUser()->guest;
 		       class="sdaprofiles_hidden sda_switchinputbox"
 		       hidden
 		/>
-		<div id="location_switch_Tab" class="sdajem_switchable">
+		<div id="location_switch_Tab" class="sda_switchable">
 			<?php $this->setModel('Location', $event->location); ?>
 			<?php
 			try
@@ -177,7 +177,7 @@ $guest = Factory::getUser()->guest;
 
 	<!-- Attendee Block -->
 	<?php if ((bool) $event->useRegistration && !$guest) : ?>
-        <label id="attendees_switch_label" class="sda_tab sdajem_tab" for="attendees_switch">
+        <label id="attendees_switch_label" class="sda_tab" for="attendees_switch">
 			<?php echo IconHelper::usersIcon() . " " . Text::_('COM_SDAJEM_TITLE_ATTENDEES_BASIC') ?>
 	        (<span id="attendeeCounter"><?php if ($event->getAttendingCount() > 0) { echo $event->getAttendingCount(); } else { echo 0;} ?></span>)
 	        <span id="attendees_switch_reload" hidden><i class="fas fa-spinner fa-pulse"></i></span>
@@ -192,7 +192,7 @@ $guest = Factory::getUser()->guest;
 				class="sdaprofiles_hidden sda_switchinputbox"
 				hidden
 		/>
-		<div id="attendees_switch_Tab" class="sdajem_switchable">
+		<div id="attendees_switch_Tab" class="sda_switchable">
 			<?php
 			try
 			{
@@ -208,7 +208,7 @@ $guest = Factory::getUser()->guest;
 
 	<!-- Comment Block -->
 	<?php if (!$guest) : ?>
-        <label id="comments_switch_label" class="sda_tab sdajem_tab" for="comments_switch" onclick="commentRead(<?php echo Factory::getUser()->id ?>)">
+        <label id="comments_switch_label" class="sda_tab" for="comments_switch" onclick="commentRead(<?php echo Factory::getUser()->id ?>)">
 			<?php echo IconHelper::commentsIcon() . " " . Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
 			<?php if ($event->comments->count() > 0) {
 				if ($event->hasUnreadComments(Factory::getUser()->id)) {
@@ -229,7 +229,7 @@ $guest = Factory::getUser()->guest;
 				class="sdaprofiles_hidden sda_switchinputbox"
 				hidden
 		/>
-		<div id="comments_switch_Tab" class="sdajem_switchable">
+		<div id="comments_switch_Tab" class="sda_switchable">
 			<?php
 			try
 			{
@@ -244,7 +244,7 @@ $guest = Factory::getUser()->guest;
 	<?php endif; ?>
 
 	<?php if((bool) ComponentHelper::getParams('com_sdajem')->get('usePlaningTool') && !$guest && (bool) $event->useFittings) : ?>
-        <label id="planing_switch_label" class="sda_tab sdajem_tab" for="planing_switch">
+        <label id="planing_switch_label" class="sda_tab" for="planing_switch">
 			<?php echo IconHelper::planingIcon() . " " . Text::_('COM_SDAJEM_TITLE_PLANER_BASIC') ?>
 	        <span id="planing_switch_reload" hidden><i class="fas fa-spinner fa-pulse"></i></span>
 	        <span id="planing_switch_state" class="fas fa-angle-double-down sdajem_float_right"></span>
@@ -258,7 +258,7 @@ $guest = Factory::getUser()->guest;
 				class="sdaprofiles_hidden sda_switchinputbox"
 				hidden
 		/>
-		<div id="planing_switch_Tab" class="sdajem_switchable">
+		<div id="planing_switch_Tab" class="sda_switchable">
 
 			<?php
 			try

@@ -175,4 +175,17 @@ class Fitting extends DataController
 		$this->redirect;
 	}
 
+	public function editFitting()
+	{
+		$input = $this->input->post->getArray();
+
+		if ($input['id'])
+		{
+			/** @var \Sda\Profiles\Site\Model\Fitting $fitting */
+			$fitting                         = Container::getInstance('com_sdaprofiles')->factory->model('fitting');
+			//$fitting->load($input['id']);
+			$this->setRedirect('index.php?option=com_sdaprofiles&format=raw&view=Fitting&task=editAjax&id=' . $input['id']);
+		}
+	}
+
 }

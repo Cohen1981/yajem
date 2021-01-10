@@ -34,11 +34,14 @@ $allowedUser = ($profile->users_user_id == Factory::getUser()->id) || ((bool) $p
 			<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTINGS_STOCK'); ?>
 		</h2>
 	</div>
+
 	<div class="buttonsContainer">
 		<?php if ($allowedUser && $input['task'] == 'edit') : ?>
-		<button id="sdaprofiles_fitting_new" type="button" onclick="newEquipment(<?php echo $profile->sdaprofiles_profile_id ?>)">
-			<?php echo Text::_('SDAPROFILES_FITTING_NEW') ?>
-		</button>
+        <button id="fittingform_switch_button">
+			<label id="fittingform_switch_label" for="fittingform_switch">
+				<i class="fas fa-plus-circle"></i><?php echo Text::_('SDAPROFILES_FITTING_NEW') ?>
+			</label>
+        </button>
 		<?php endif; ?>
 	</div>
 </div>
@@ -58,6 +61,19 @@ $allowedUser = ($profile->users_user_id == Factory::getUser()->id) || ((bool) $p
 			{
 			}
 		}
+	}
+	?>
+</div>
+
+<input type="checkbox" id="fittingform_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden>
+<div id="fittingform_switch_Tab" class="sda_switchable">
+	<?php
+	try
+	{
+		echo $this->loadAnyTemplate('site:com_sdaprofiles/Fitting/form');
+	}
+	catch (Exception $e)
+	{
 	}
 	?>
 </div>

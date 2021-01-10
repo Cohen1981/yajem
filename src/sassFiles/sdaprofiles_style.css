@@ -57,7 +57,6 @@ button,
 
 input[type=checkbox]:checked ~ .sda_switchable {
   display: block;
-  opacity: 1;
   padding: 20px 0;
   max-height: 10000px;
   transition: max-height 2s ease-in;
@@ -71,18 +70,6 @@ input[type=checkbox]:checked ~ .sda_switchable {
   display: block;
   overflow: auto;
   padding: 20px 0; }
-
-.sda_switchable {
-  display: none;
-  overflow: hidden; }
-
-.sda_tabs {
-  display: flex;
-  flex-wrap: wrap;
-  border-bottom: solid #9e9e9e 1px; }
-  @media (max-width: 600px) {
-    .sda_tabs {
-      display: block; } }
 
 label.sda_tab {
   border: solid #9e9e9e 1px;
@@ -245,5 +232,12 @@ label.sdaprofile_tab.sda_active {
   display: inline-flex;
   justify-content: start;
   align-items: flex-start; }
+
+#fittingform_switch_button {
+  background-color: #51a351;
+  padding: 10px; }
+
+#fittingform_switch_label {
+  font-size: 1.2em; }
 
 /*# sourceMappingURL=sdaprofiles_style.css.map */

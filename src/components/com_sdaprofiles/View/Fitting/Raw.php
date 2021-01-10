@@ -36,7 +36,9 @@ class Raw extends BaseRaw
 			case "error":
 				$this->setLayout('error');
 				break;
-			case "edit":
+			case "editAjax":
+				$fitting = $this->getModel();
+				$fitting->load($input['id']);
 				$this->setLayout('form');
 				break;
 			case "add":
