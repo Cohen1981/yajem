@@ -132,11 +132,16 @@
 
 input[type=checkbox]:checked ~ .sdajem_switchable 
   display: block
+  opacity: 1
+  padding: 20px 0
+  max-height: 10000px
+  transition: max-height 2s ease-in
   overflow: auto
 
-.sdajem_switchable 
-  display: none
+.sdajem_switchable
+  max-height: 0
   overflow: hidden
+//  opacity: 0
 
 .sdajem_switch 
   margin: 5px
@@ -169,23 +174,23 @@ input[type=checkbox]:checked ~ .sdajem_switchable
 #attending_filter_buttons input
   margin: 2px 5px 0
 
-input[type=checkbox]:checked ~ .sdajem_switchable 
+input[type=checkbox]:checked ~ .sdajem_switchable
   display: block
   overflow: auto
   padding: 20px 0
 
-.sdajem_switchable 
+.sdajem_switchable
   display: none
   overflow: hidden
 
-.sdajem_tabs 
+.sdajem_tabs
   display: flex
   flex-wrap: wrap
   border-bottom: solid darken($color_gray, 10%) 1px
   @media (max-width: $mobile_breakpoint)
     display: block
 
-label.sdajem_tab 
+label.sdajem_tab
   border: solid darken($color_gray,10%) 1px
   padding: 10px
   margin-bottom: -1px
