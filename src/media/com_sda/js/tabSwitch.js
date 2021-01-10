@@ -9,13 +9,30 @@
  *
  * @param id
  */
+$(document).ready(function () {
+    var tabcb = $('.sda_switchinputbox');
+    tabcb.each(function ()
+     {
+        $(this).on('change',function () {
+            switchCheckBox($(this).prop("id"))
+        })
+    });
+});
+
 function switchCheckBox(id) {
-    var el = document.getElementById(id);
-    if (el.checked)
+    var el = $('#'+id);
+    var state = $('#'+id+'_state');
+    if (el.prop("checked"))
     {
-        $('.sda_switchinputbox').prop("checked", false);
-        $('#'+id).prop("checked", true);
-        $('.sda_tab').removeClass("sda_active");
-        $('#'+id+"_label").addClass("sda_active");
+        $('#'+id+'_label').addClass("sda_active");
+    } else {
+        $('#'+id+'_label').removeClass("sda_active");
+    }
+    if (state.hasClass('fa-angle-double-up')) {
+        state.removeClass('fa-angle-double-up');
+        state.addClass('fa-angle-double-down');
+    } else {
+        state.removeClass('fa-angle-double-down');
+        state.addClass('fa-angle-double-up');
     }
 }

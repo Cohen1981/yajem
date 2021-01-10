@@ -1,4 +1,13 @@
 function registerAjax(toDo) {
+	var planing_switch = $('#planing_switch');
+	$('#attendees_switch').prop('checked', false);
+	$('#attendees_switch_reload').show();
+	$('#planing_switch_reload').show();
+	if (planing_switch.prop('checked')) {
+		planing_switch.prop('checked',false);
+		var swbp = true;
+	}
+
 	var formElement = document.querySelector("#attendeeForm");
 	var formData = new FormData(formElement);
 	document.getElementById('registerButtons').hidden=true;
@@ -16,9 +25,12 @@ function registerAjax(toDo) {
 			}
 			else
 			{
-				document.getElementById('attending_block').innerHTML = html;
+				document.getElementById('attendees_switch_Tab').innerHTML = html;
+				$('#attendees_switch').prop('checked', true);
+				$('#attendees_switch_reload').hide();
+				$('#attendeeCounter').html($('#currentAttendeeCount').html());
 
-				var planingTool = document.getElementById('planingTab');
+				var planingTool = document.getElementById('planing_switch_Tab');
 				if (planingTool) {
 					var xhttp3 = new XMLHttpRequest();
 					xhttp3.onload = function () {
@@ -27,8 +39,12 @@ function registerAjax(toDo) {
 							if (html.toString() === "error") {
 								alert('An Error occured');
 							} else {
-								document.getElementById('planingTab').innerHTML = html;
+								document.getElementById('planing_switch_Tab').innerHTML = html;
 								makeDraggable();
+								if(swbp) {
+									planing_switch.prop('checked',true);
+								}
+								$('#planing_switch_reload').hide();
 							}
 						}
 					};

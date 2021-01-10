@@ -1,4 +1,6 @@
 function addCommentAjax() {
+	var cc = parseInt(document.getElementById('sdaCommentCount').innerHTML);
+
 	if(document.getElementById('comment').value == "")
 	{
 		alert('Kommentar Feld darf nicht leer sein');
@@ -6,6 +8,7 @@ function addCommentAjax() {
 	}
 	else {
 		document.getElementById('sdajem_comment_button').hidden=true;
+		document.getElementById('comments_switch_reload').hidden=false;
 		var formElement = document.querySelector("#commentForm");
 		var formData = new FormData(formElement);
 
@@ -24,6 +27,8 @@ function addCommentAjax() {
 					document.getElementById('sdajem_comment_area').innerHTML = html + document.getElementById('sdajem_comment_area').innerHTML;
 				}
 				document.getElementById('sdajem_comment_button').hidden=false;
+				document.getElementById('comments_switch_reload').hidden=true;
+				document.getElementById('sdaCommentCount').innerHTML = cc + 1;
 			}
 		};
 
@@ -33,6 +38,7 @@ function addCommentAjax() {
 }
 
 function deleteCommentAjax(id) {
+	var cc = parseInt(document.getElementById('sdaCommentCount').innerHTML);
 	var formData = new FormData();
 	formData.append('id', id);
 
@@ -47,6 +53,7 @@ function deleteCommentAjax(id) {
 			else
 			{
 				document.getElementById('sdajem_comment_'+id).remove();
+				document.getElementById('sdaCommentCount').innerHTML = cc - 1;
 			}
 		}
 	};

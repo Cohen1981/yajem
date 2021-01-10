@@ -43,6 +43,7 @@ class Attendee extends DataController
 
 			$event->load($input['eventId']);
 
+			// es gibt ein svg und es soll abgemeldet werden. Wir müssen also schauen ob Elemente gelöscht werden müssen
 			if (count($event->svg) > 0 && (int) $input['action'] == 2 && $attendee->sdajem_attendee_id)
 			{
 				$fittings = $attendee->sdaprofilesFittingIds;
@@ -67,6 +68,8 @@ class Attendee extends DataController
 			if ($input['action'] == 1)
 			{
 				$attendee->sdaprofilesFittingIds = $input['fittings'];
+			} else {
+				$attendee->sdaprofilesFittingIds = '';
 			}
 
 			$attendee->save();

@@ -67,3 +67,39 @@ button,
     margin-top: -15px
     margin-left: 70px
     font-size: 1.9rem
+
+input[type=checkbox]:checked ~ .sda_switchable
+  display: block
+  opacity: 1
+  padding: 20px 0
+  max-height: 10000px
+  transition: max-height 2s ease-in
+  overflow: auto
+
+.sda_switchable
+  max-height: 0
+  overflow: hidden
+//  opacity: 0
+    
+input[type=checkbox]:checked ~ .sda_switchable
+  display: block
+  overflow: auto
+  padding: 20px 0
+
+.sda_switchable
+  display: none
+  overflow: hidden
+
+.sda_tabs
+  display: flex
+  flex-wrap: wrap
+  border-bottom: solid darken($color_gray, 10%) 1px
+  @media (max-width: $mobile_breakpoint)
+    display: block
+
+label.sda_tab
+  border: solid darken($color_gray,10%) 1px
+  padding: 10px
+  margin-bottom: -1px
+  border-radius: 10px 10px 0 0
+  background-color: lighten($color_gray, 10%)

@@ -109,4 +109,5 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 	}
 	?>
 </div>
+<div id="currentAttendeeCount" hidden><?php echo $event->getAttendingCount(); ?></div>
 <?php endif; ?>
