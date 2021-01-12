@@ -78,6 +78,11 @@ label.sda_tab {
   border-radius: 10px 10px 0 0;
   background-color: #d1d1d1; }
 
+label.sda_tab.sda_active {
+  font-weight: bold;
+  background-color: #FFFFFF !important;
+  border-bottom: 0; }
+
 .sdajem_flex_row {
   display: flex;
   flex-direction: row;
@@ -235,18 +240,6 @@ label.sda_tab {
 
 #attending_filter_buttons input {
   margin: 2px 5px 0; }
-
-label.sdajem_tab {
-  border: solid #9e9e9e 1px;
-  padding: 10px;
-  margin-bottom: -1px;
-  border-radius: 10px 10px 0 0;
-  background-color: #d1d1d1; }
-
-label.sdajem_tab.sda_active {
-  font-weight: bold;
-  background-color: #FFFFFF !important;
-  border-bottom: 0; }
 
 .sdajem_content_container form {
   padding: 0;

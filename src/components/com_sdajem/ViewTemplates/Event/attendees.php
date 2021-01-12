@@ -21,17 +21,6 @@ $this->addJavascriptFile('media://com_sdajem/js/attendees.js');
 ?>
 <form name="attendeeForm" id="attendeeForm">
 	<div class="well">
-		<div class="titleContainer">
-			<h2 class="page-title">
-				<span class="icon-users" aria-hidden="true"></span>
-				<?php echo Text::_('COM_SDAJEM_TITLE_ATTENDEES_BASIC'); ?>
-				<span>&nbsp;</span>
-				<i class="fas fa-users" aria-hidden="true"></i>
-				<span id="attendeeCount">
-					<?php echo $event->getAttendingCount(); ?>
-				</span>
-			</h2>
-		</div>
 
 		<?php if($event->registerUntil) : ?>
 		<div id="attendee_registerUntil">

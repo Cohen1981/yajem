@@ -210,12 +210,11 @@ $guest = Factory::getUser()->guest;
 	<?php if (!$guest) : ?>
         <label id="comments_switch_label" class="sda_tab" for="comments_switch" onclick="commentRead(<?php echo Factory::getUser()->id ?>)">
 			<?php echo IconHelper::commentsIcon() . " " . Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
-			<?php if ($event->comments->count() > 0) {
+			<?php
 				if ($event->hasUnreadComments(Factory::getUser()->id)) {
 					$class = 'sdajem_text_red';
 				}
 				echo "(<span id='sdaCommentCount' class=\"$class\">" . $event->comments->count() . "</span>)";
-			}
 			?>
             <span id="comments_switch_reload" hidden><i class="fas fa-spinner fa-pulse"></i></span>
 	        <span id="comments_switch_state" class="fas fa-angle-double-down sdajem_float_right"></span>

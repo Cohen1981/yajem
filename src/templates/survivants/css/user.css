@@ -80,6 +80,11 @@ label.sda_tab {
   border-radius: 10px 10px 0 0;
   background-color: #d1d1d1; }
 
+label.sda_tab.sda_active {
+  font-weight: bold;
+  background-color: #FFFFFF !important;
+  border-bottom: 0; }
+
 @font-face {
   font-family: "Jim Nightshade";
   src: url("../webfonts/JimNightshade-Regular.ttf") format("truetype"); }
@@ -283,14 +288,8 @@ h5, h6 {
 .sda_hidden {
   display: none !important; }
 
-.sda_switchable {
-  display: none; }
-
-.sda_switch:checked ~ .sda_switchable {
-  display: block; }
-
 #menu_switch:checked.sda_switch:checked ~ .sda_switchable_menu {
-  max-height: 400px;
+  max-height: 1000px;
   overflow: auto; }
 
 #user_login_form.sda_switchable {

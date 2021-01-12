@@ -28,11 +28,12 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 
 <label id="basic_switch_label" class="sda_tab sda_active" for="basic_switch">
 	<?php echo Text::_('COM_SDAPROFILES_TITLE_PROFILES_READ') ?>
+    <span id="basic_switch_state" class="fas fa-angle-double-up float-right"></span>
 </label>
 
 <div>
     <input type="checkbox" id="basic_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden checked="checked"/>
-    <div class="sdaprofiles_switchable">
+    <div class="sda_switchable">
         <div id="profile_area" class="form-horizontal">
 
             <div class="control-group ">
@@ -106,9 +107,10 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 <div>
     <label id="fitting_switch_label" class="sda_tab" for="fitting_switch">
 		<?php echo Text::_('COM_SDAPROFILES_TITLE_FITTING_BASIC') ?>
+        <span id="fitting_switch_state" class="fas fa-angle-double-down float-right"></span>
     </label>
     <input type="checkbox" id="fitting_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden/>
-    <div class="sdaprofiles_switchable">
+    <div class="sda_switchable">
 		<?php
 		try
 		{
@@ -124,10 +126,11 @@ $params = ComponentHelper::getParams('com_sdaprofiles');
 <?php if ($profile->users_user_id) : ?>
     <label id="events_switch_label" class="sda_tab" for="events_switch">
 		<?php echo Text::_('COM_SDAJEM_EVENT_TITLE_LABEL') ?>
+        <span id="fitting_switch_state" class="fas fa-angle-double-down float-right"></span>
     </label>
     <div>
         <input type="checkbox" id="events_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden/>
-        <div class="sdaprofiles_switchable">
+        <div class="sda_switchable">
 			<?php
 			if ($profile->attendees && (bool) $params->get('show_attendings_all'))
 			{

@@ -55,7 +55,7 @@ $items = $this->getItems();
 						</i>
 					<?php endif; ?>
 				</div>
-                <div id="sda_cell_container">
+                <div class="sda_cell_container">
                     <div class="sdaprofiles_cell">
                         <?php  if (!(bool) $profile->groupProfile) : ?>
                         <i class="fas fa-home" aria-hidden="true"></i>

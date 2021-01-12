@@ -30,7 +30,7 @@ $task = $this->input->get('task');
 
 <div>
 	<input type="checkbox" id="basic_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden checked="checked"/>
-	<div class="sdaprofiles_switchable">
+	<div class="sda_switchable">
 		<?php echo $this->getRenderedForm(); ?>
 	</div>
 </div>
@@ -44,7 +44,7 @@ $task = $this->input->get('task');
     </label>
 	<div>
 		<input type="checkbox" id="fitting_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden/>
-		<div class="sdaprofiles_switchable">
+		<div class="sda_switchable">
 
 			<?php
 			try
@@ -65,7 +65,7 @@ $task = $this->input->get('task');
     </label>
 	<div>
 		<input type="checkbox" id="events_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden/>
-		<div class="sdaprofiles_switchable">
+		<div class="sda_switchable">
 			<?php
 			if ($profile->attendees)
 			{
@@ -100,7 +100,7 @@ $task = $this->input->get('task');
         </label>
 		<div>
 			<input type="checkbox" id="preferences_switch" class="sdaprofiles_hidden sda_switchinputbox" hidden/>
-			<div class="sdaprofiles_switchable">
+			<div class="sda_switchable">
 				<?php
 				try
 				{

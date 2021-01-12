@@ -53,7 +53,7 @@
     <target name="zip_pkg" description="package the archive" hidden="true">
         <copy file="${project.basedir}/../../src/pkg_install.php" todir="${pkg.dist.dir}" overwrite="true"/>
         <copy file="${project.basedir}/../../src/pkg_sda.xml" todir="${pkg.dist.dir}" overwrite="true"/>
-        <copy file="${lib.src.dir}/lib_fof30-3.4.2.zip" todir="${pkg.dist.dir}/packages" overwrite="true" />
+        <copy file="${lib.src.dir}/lib_fof30-3.7.1.zip" todir="${pkg.dist.dir}/packages" overwrite="true" />
         <copy todir="${pkg.dist.dir}/language" overwrite="true">
             <fileset dir="${build.script.dir}/language" includes="**/**" />
         </copy>

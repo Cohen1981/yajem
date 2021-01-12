@@ -19,14 +19,6 @@ $this->addJavascriptFile('media://com_sdajem/js/comments.js');
 
 <form action="<?php echo JRoute::_('index.php?option=com_sdajem&task=comment'); ?>" method="post"
       name="commentForm" id="commentForm">
-	<div class="well">
-		<div class="titleContainer">
-			<h2 class="page-title">
-				<span class="icon-comments-2" aria-hidden="true"></span>
-				<?php echo Text::_('COM_SDAJEM_TITLE_COMMENTS_BASIC'); ?>
-			</h2>
-		</div>
-	</div>
 
 	<label for="comment"></label>
 	<textarea form="commentForm" id="comment" wrap="soft" name="comment"></textarea>

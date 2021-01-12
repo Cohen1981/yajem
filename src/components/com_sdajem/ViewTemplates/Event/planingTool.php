@@ -23,11 +23,6 @@ $boxY = 30;
 
 <div id="planingTool">
 	<div class="well">
-		<div class="titleContainer">
-			<h2 class="page-title">
-				<?php echo Text::_('COM_SDAJEM_TITLE_PLANINGTOOL_BASIC'); ?>
-			</h2>
-		</div>
 		<div class="buttonsContainer">
 			<button id="toSvg"><?php echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
 			<button id="save"><?php echo Text::_('COM_SDAJEM_PLANING_SAVE') ?></button>
