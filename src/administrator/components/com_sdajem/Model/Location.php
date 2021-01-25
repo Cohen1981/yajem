@@ -124,4 +124,28 @@ class Location extends SdaProtoModel
 
 		return $value;
 	}
+
+	public function getLastModified():Date
+	{
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('max(modified_on)')
+			->from('#__sdajem_locations');
+		$db->setQuery($query);
+		$lastModified = $db->loadResult();
+
+		if ($lastModified == null || $lastModified == "0000-00-00")
+		{
+			return null;
+		}
+
+		// Make sure it's not a Date already
+		if (is_object($lastModified) && ($lastModified instanceof Date))
+		{
+			return $lastModified;
+		}
+
+		// Return the data transformed to a Date object
+		return new Date($lastModified);
+	}
 }

@@ -10,6 +10,7 @@
 namespace Sda\Jem\Admin\Model;
 
 use FOF30\Container\Container;
+use FOF30\Date\Date;
 use FOF30\Model\DataModel;
 use Joomla\CMS\Factory;
 
@@ -26,6 +27,16 @@ use Joomla\CMS\Factory;
  * @property   int			$sdajem_event_id
  * @property   int		    $users_user_id
  * @property   int		    $subscribed
+ * @property   int			$access
+ * @property   int			$enabled
+ * @property   int			$locked_by
+ * @property   Date			$locked_on
+ * @property   int			$hits
+ * @property   int			$ordering
+ * @property   Date			$created_on
+ * @property   int			$created_by
+ * @property   Date			$modified_on
+ * @property   int			$modified_by
  *
  * Relations:
  *

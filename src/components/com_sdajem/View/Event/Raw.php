@@ -12,6 +12,7 @@ namespace Sda\Jem\Site\View\Event;
 use FOF30\View\DataView\Raw as BaseRaw;
 use Sda\Jem\Site\Model\Event;
 use Joomla\CMS\Factory;
+use Joomla\Input\Input;
 
 /**
  * @package     Sda\Profiles\Site\View\Event
@@ -28,9 +29,9 @@ class Raw extends BaseRaw
 	 */
 	public function onBeforeMain()
 	{
-		$input = $this->input->request->getArray();
+		$input = $this->input;
 
-		switch ($input['task'])
+		switch ($input->get('task'))
 		{
 			case "getRegisterHtml":
 				/** @var Event $event */
@@ -70,6 +71,9 @@ class Raw extends BaseRaw
 				break;
 			case "error":
 				$this->setLayout('error');
+				break;
+			case "getLastModified":
+				$this->setLayout('jsonLastModified');
 				break;
 		}
 	}

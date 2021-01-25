@@ -10,6 +10,7 @@
 namespace Sda\Jem\Admin\Model;
 
 use FOF30\Container\Container;
+use FOF30\Date\Date;
 use FOF30\Model\DataModel;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -32,6 +33,16 @@ use Sda\Profiles\Site\Model\Fitting;
  * @property   int          $sdaprofiles_profile_id
  * @property   int			$status
  * @property   array        $sdaprofilesFittingIds
+ * @property   int			$access
+ * @property   int			$enabled
+ * @property   int			$locked_by
+ * @property   Date			$locked_on
+ * @property   int			$hits
+ * @property   int			$ordering
+ * @property   Date			$created_on
+ * @property   int			$created_by
+ * @property   Date			$modified_on
+ * @property   int			$modified_by
  *
  * Relations:
  *
@@ -66,6 +77,18 @@ class Attendee extends DataModel
 		{
 			$this->hasOne('profile', 'Profile@com_sdaprofiles', 'sdaprofiles_profile_id', 'sdaprofiles_profile_id');
 		}
+	}
+
+	public function getLastModified()
+	{
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('max(modified_on)')
+			->from('#__sdajem_attendees');
+		$db->setQuery($query);
+		$lastModified = $db->loadResult();
+
+		return $lastModified;
 	}
 
 	/**

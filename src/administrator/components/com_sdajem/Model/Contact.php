@@ -90,4 +90,5 @@ class Contact extends DataModel
 
 		return $link;
 	}
+
 }

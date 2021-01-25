@@ -15,6 +15,7 @@ use FOF30\Utils\Collection;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Sda\Jem\Admin\Helper\DateHelper;
 use Sda\Profiles\Admin\Model\Profile;
 use Sda\Model\SdaProtoModel;
 
@@ -282,7 +283,7 @@ class Event extends SdaProtoModel
 	 */
 	protected function getStartDateTimeAttribute($value)
 	{
-		return $this->getDateValue($value);
+		return DateHelper::getDateValue($value);
 	}
 
 	/**
@@ -330,10 +331,10 @@ class Event extends SdaProtoModel
 	{
 		if ($value == '')
 		{
-			return $this->getDateValue($this->startDateTime);
+			return DateHelper::getDateValue($this->startDateTime);
 		}
 
-		return $this->getDateValue($value);
+		return DateHelper::getDateValue($value);
 	}
 
 	/**
@@ -362,7 +363,7 @@ class Event extends SdaProtoModel
 	 */
 	protected function getRegisterUntilAttribute($value)
 	{
-		return $this->getDateValue($value);
+		return DateHelper::getDateValue($value);
 	}
 
 	/**
@@ -382,30 +383,6 @@ class Event extends SdaProtoModel
 		{
 			return $value;
 		}
-	}
-
-	/**
-	 * @param   mixed $value The date and time as string
-	 *
-	 * @return Date | null
-	 *
-	 * @since 0.1.1
-	 */
-	private function getDateValue($value)
-	{
-		if ($value == null || $value == "0000-00-00")
-		{
-			return null;
-		}
-
-		// Make sure it's not a Date already
-		if (is_object($value) && ($value instanceof Date))
-		{
-			return $value;
-		}
-
-		// Return the data transformed to a Date object
-		return new Date($value);
 	}
 
 	/**
@@ -706,7 +683,7 @@ class Event extends SdaProtoModel
 		if ($filterString == 'startDateTime' || $filterString == 'endDateTime') {
 
 			foreach ($filters as &$filter) {
-				$filter = $this->getMonthName($this->getDateValue($filter)->month);
+				$filter = $this->getMonthName(DateHelper::getDateValue($filter)->month);
 			}
 			return array_unique($filters);
 		} else {
@@ -719,7 +696,7 @@ class Event extends SdaProtoModel
 	 * @since 1.1.0
 	 */
 	public function getStartMonth() {
-		return $this->getMonthName($this->getDateValue($this->startDateTime)->month);
+		return $this->getMonthName(DateHelper::getDateValue($this->startDateTime)->month);
 	}
 
 	/**
@@ -768,5 +745,29 @@ class Event extends SdaProtoModel
 		}
 
 		return $monthName;
+	}
+
+	public function getLastModified():Date
+	{
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('max(modified_on)')
+			->from('#__sdajem_events');
+		$db->setQuery($query);
+		$lastModified = $db->loadResult();
+
+		if ($lastModified == null || $lastModified == "0000-00-00")
+		{
+			return null;
+		}
+
+		// Make sure it's not a Date already
+		if (is_object($lastModified) && ($lastModified instanceof Date))
+		{
+			return $lastModified;
+		}
+
+		// Return the data transformed to a Date object
+		return new Date($lastModified);
 	}
 }

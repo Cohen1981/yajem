@@ -64,4 +64,16 @@ class Contact extends DataModel
 		$config['behaviours'] = array('Filters', 'Access');
 		parent::__construct($container, $config);
 	}
+
+	public function getLastModified()
+	{
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('max(modified_on)')
+			->from('#__sdacontacts_contacts');
+		$db->setQuery($query);
+		$lastModified = $db->loadResult();
+
+		return $lastModified;
+	}
 }

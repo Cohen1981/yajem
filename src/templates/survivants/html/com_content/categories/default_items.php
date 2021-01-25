@@ -13,12 +13,12 @@ JHtml::_('bootstrap.tooltip');
 
 $class = ' class="first"';
 
-if ($this->maxLevelcat != 0 && count($this->items[$this->parent->id]) > 0) :
+if ($container->maxLevelcat != 0 && count($container->items[$container->parent->id]) > 0) :
 ?>
-	<?php foreach ($this->items[$this->parent->id] as $id => $item) : ?>
+	<?php foreach ($container->items[$container->parent->id] as $id => $item) : ?>
 		<?php
-		if ($this->params->get('show_empty_categories_cat') || $item->numitems || count($item->getChildren())) :
-		if (!isset($this->items[$this->parent->id][$id + 1]))
+		if ($container->params->get('show_empty_categories_cat') || $item->numitems || count($item->getChildren())) :
+		if (!isset($container->items[$container->parent->id][$id + 1]))
 		{
 			$class = ' class="last"';
 		}
@@ -27,19 +27,19 @@ if ($this->maxLevelcat != 0 && count($this->items[$this->parent->id]) > 0) :
 		<?php $class = ''; ?>
 			<h3 class="page-header item-title">
 				<a href="<?php echo JRoute::_(ContentHelperRoute::getCategoryRoute($item->id, $item->language)); ?>">
-				<?php echo $this->escape($item->title); ?></a>
-				<?php if ($this->params->get('show_cat_num_articles_cat') == 1) :?>
+				<?php echo $container->escape($item->title); ?></a>
+				<?php if ($container->params->get('show_cat_num_articles_cat') == 1) :?>
 					<span class="badge badge-info tip hasTooltip" title="<?php echo JHtml::_('tooltipText', 'COM_CONTENT_NUM_ITEMS_TIP'); ?>">
 						<?php echo JText::_('COM_CONTENT_NUM_ITEMS'); ?>&nbsp;
 						<?php echo $item->numitems; ?>
 					</span>
 				<?php endif; ?>
-				<?php if (count($item->getChildren()) > 0 && $this->maxLevelcat > 1) : ?>
+				<?php if (count($item->getChildren()) > 0 && $container->maxLevelcat > 1) : ?>
 					<a id="category-btn-<?php echo $item->id; ?>" href="#category-<?php echo $item->id; ?>"
 						data-toggle="collapse" data-toggle="button" class="btn btn-mini pull-right" aria-label="<?php echo JText::_('JGLOBAL_EXPAND_CATEGORIES'); ?>"><span class="icon-plus" aria-hidden="true"></span></a>
 				<?php endif; ?>
 			</h3>
-			<?php if ($this->params->get('show_description_image') && $item->getParams()->get('image')) : ?>
+			<?php if ($container->params->get('show_description_image') && $item->getParams()->get('image')) : ?>
 
                 <div class="sda_dropdown">
                     <img src="<?php echo $item->getParams()->get('image'); ?>" alt="<?php echo htmlspecialchars($item->getParams()->get('image_alt'), ENT_COMPAT, 'UTF-8'); ?>"/>
@@ -48,7 +48,7 @@ if ($this->maxLevelcat != 0 && count($this->items[$this->parent->id]) > 0) :
                         <div class="desc"><?php echo htmlspecialchars($item->getParams()->get('image_alt'), ENT_COMPAT, 'UTF-8'); ?></div>
                     </div>
                 </div>
-				<?php if ($this->params->get('show_subcat_desc_cat') == 1) : ?>
+				<?php if ($container->params->get('show_subcat_desc_cat') == 1) : ?>
 					<?php if ($item->description) : ?>
                         <div class="category-desc clearfix">
 							<?php echo JHtml::_('content.prepare', $item->description, '', 'com_content.categories'); ?>
@@ -58,15 +58,15 @@ if ($this->maxLevelcat != 0 && count($this->items[$this->parent->id]) > 0) :
 
 			<?php endif; ?>
 
-			<?php if (count($item->getChildren()) > 0 && $this->maxLevelcat > 1) : ?>
+			<?php if (count($item->getChildren()) > 0 && $container->maxLevelcat > 1) : ?>
 				<div class="collapse fade" id="category-<?php echo $item->id; ?>">
 				<?php
-				$this->items[$item->id] = $item->getChildren();
-				$this->parent = $item;
-				$this->maxLevelcat--;
-				echo $this->loadTemplate('items');
-				$this->parent = $item->getParent();
-				$this->maxLevelcat++;
+				$container->items[$item->id] = $item->getChildren();
+				$container->parent = $item;
+				$container->maxLevelcat--;
+				echo $container->loadTemplate('items');
+				$container->parent = $item->getParent();
+				$container->maxLevelcat++;
 				?>
 				</div>
 			<?php endif; ?>

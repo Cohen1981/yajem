@@ -28,6 +28,16 @@ use FOF30\Date\Date;
  * @property   string		$comment
  * @property   Date			$timestamp
  * @property   array        $commentReadBy
+ * @property   int			$access
+ * @property   int			$enabled
+ * @property   int			$locked_by
+ * @property   Date			$locked_on
+ * @property   int			$hits
+ * @property   int			$ordering
+ * @property   Date			$created_on
+ * @property   int			$created_by
+ * @property   Date			$modified_on
+ * @property   int			$modified_by
  *
  * Relations:
  *
@@ -117,5 +127,29 @@ class Comment extends DataModel
 		}
 
 		return $returnVal;
+	}
+
+	public function getLastModified():Date
+	{
+		$db = $this->getDbo();
+		$query = $db->getQuery(true);
+		$query->select('max(modified_on)')
+			->from('#__sdajem_comments');
+		$db->setQuery($query);
+		$lastModified = $db->loadResult();
+
+		if ($lastModified == null || $lastModified == "0000-00-00")
+		{
+			return null;
+		}
+
+		// Make sure it's not a Date already
+		if (is_object($lastModified) && ($lastModified instanceof Date))
+		{
+			return $lastModified;
+		}
+
+		// Return the data transformed to a Date object
+		return new Date($lastModified);
 	}
 }
