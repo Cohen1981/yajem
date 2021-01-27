@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_categories` (
   `created_on` DATETIME NULL COMMENT 'joomla standard: holds the creation timestamp.',
   `created_by` INT NOT NULL COMMENT 'joomla standard: holds the creator of the item. Foreign key to #__users',
   `modified_on` DATETIME NULL COMMENT 'Joomla standard: holds the timestamp of the last modification',
-  `modified_by` INT NULL COMMENT 'Joomla standard: holds the modifier of the item. Foreign key to #__users';
+  `modified_by` INT NULL COMMENT 'Joomla standard: holds the modifier of the item. Foreign key to #__users',
   primary key (`sdajem_category_id`)
 )
   ENGINE=InnoDB
@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
   `registrationLimit` INT NULL COMMENT 'Limit of available accommodations. 0=No Limit',
   `useWaitingList` TINYINT(1) NULL DEFAULT 0 COMMENT 'use of waiting List in case of limitation. 0=false, 1=true',
   `eventStatus` TINYINT(1) NULL DEFAULT 0 COMMENT  'Optional status of event. 0=open,1=confirmed,2=cancelled',
-  `eventCancelled` TINYINT(1) NULL DEFAULT 0 COMMENT 'for marking events as cancelled by host'
+  `eventCancelled` TINYINT(1) NULL DEFAULT 0 COMMENT 'for marking events as cancelled by host',
   `svg` BLOB NULL DEFAULT NULL,
   `access` INT(10) NULL,
   `enabled` TINYINT(4) NOT NULL COMMENT 'like state or published',
