@@ -1,4 +1,5 @@
-.phpstorm.meta.php
+docker/www
+docker/mysql
 resources/build/
 resources/build/target/packages
 vendor
