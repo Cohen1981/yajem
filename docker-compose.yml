@@ -26,8 +26,8 @@ services:
     ports:
       - '3306:3306'
     volumes:
-      - ./docker/mysql/data:/bitnami/mysql/data
-      - ./docker/mysql/backup:/backup
+      - ./mysql/data:/bitnami/mysql/data
+      - ./mysql/backup:/backup
 
   # --- PHP 7.4
   #
@@ -36,8 +36,8 @@ services:
     image: bitnami/php-fpm:8.2
     restart: unless-stopped
     volumes:
-      - ./docker/www:/app:delegated
-      - ./docker/php/php.ini:/opt/bitnami/php/etc/conf.d/php.ini:ro
+      - ./www:/app:delegated
+      - ./php/php.ini:/opt/bitnami/php/etc/conf.d/php.ini:ro
 
   # --- Apache 2.4
   #
@@ -53,9 +53,9 @@ services:
       - mysql
     volumes:
       #- /Users/hschneider/Work/Web:/app:delegated
-      - ./docker/www:/app:delegated
-      - ./docker/apache/my_vhost.conf:/vhosts/myapp.conf:ro
-      - ./docker/apache/certs:/certs
+      - ./www:/app:delegated
+      - ./apache/my_vhost.conf:/vhosts/myapp.conf:ro
+      - ./apache/certs:/certs
       # Use this for bitnami's builtin certs:
       # ./docker/apache/certs:/opt/bitnami/apache2/conf/bitnami/certs
 
@@ -75,6 +75,12 @@ services:
       - '8143:8443'
     environment:
       - DATABASE_HOST=host.docker.internal
+
+  composer:
+    image: composer:2.5.1
+    command: [ "composer", "update" ]
+    volumes:
+      - .:/app
 
 volumes:
   ampp-mysql:

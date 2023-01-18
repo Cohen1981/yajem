@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="component" method="upgrade">
+    <name>COM_SDAJEM</name>
+    <creationDate>18.01.2023</creationDate>
+    <author>Alexander Bahlo</author>
+    <authorEmail>abahlo@hotmail.de</authorEmail>
+    <copyright>Alexander Bahlo</copyright>
+    <license>GNU General Public License version 2 or later;</license>
+    <version>__BUMP_VERSION__</version>
+    <description>COM_SDAJEM_XML_DESCRIPTION</description>
+    <namespace path="src">Sda\Component\Sdajem</namespace>
+    <scriptfile>script.php</scriptfile>
+    <!-- Back-end files -->
+    <administration>
+        <!-- Menu entries -->
+        <menu view="sdajem">COM_SDAJEM</menu>
+        <submenu>
+            <menu link="option=com_sdajem">COM_SDAJEM</menu>
+        </submenu>
+        <files folder="administrator/components/com_sdajem">
+            <filename>sdajem.xml</filename>
+            <folder>services</folder>
+            <folder>src</folder>
+            <folder>tmpl</folder>
+        </files>
+    </administration>
+    <changelogurl></changelogurl>
+    <updateservers>
+        <server type="extension" name="Sdajem Updates"></server>
+    </updateservers>
+    <dlid prefix="dlid=" suffix="" />
+</extension>
