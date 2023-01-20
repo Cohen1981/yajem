@@ -31,6 +31,9 @@ use Joomla\CMS\Router\Route;
                             <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
 								<?php echo Text::_('COM_SDAJEM_TABLE_TABLEHEAD_EVENT_TITLE'); ?>
                             </th>
+                            <th scope="col" style="width:10%" class="d-none d-md-table-cell">
+		                        <?php echo TEXT::_('JGRID_HEADING_ACCESS') ?>
+                            </th>
                             <th scope="col">
 								<?php echo Text::_('COM_SDAJEM_TABLE_TABLEHEAD_ID'); ?>
                             </th>
@@ -51,6 +54,9 @@ use Joomla\CMS\Router\Route;
                                     <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_sdajem&task=event.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->title)); ?>">
 										<?php echo $editIcon; ?><?php echo $this->escape($item->title); ?></a>
                                 </th>
+                                <td class="small d-none d-md-table-cell">
+		                            <?php echo $item->access_level; ?>
+                                </td>
                                 <td class="d-none d-md-table-cell">
 									<?php echo $item->id; ?>
                                 </td>

@@ -53,7 +53,7 @@ class EventModel extends BaseDatabaseModel
 
 		if (!isset($this->_item[$pk])) {
 			try {
-				$db = $this->getDbo();
+				$db = $this->getDatabase();
 				$query = $db->getQuery(true);
 
 				$query->select('*')
@@ -75,5 +75,12 @@ class EventModel extends BaseDatabaseModel
 		}
 
 		return $this->_item[$pk];
+	}
+
+	protected function populateState()
+	{
+		$app = Factory::getApplication();
+		$this->setState('event.id', $app->input->getInt('id'));
+		$this->setState('params', $app->getParams());
 	}
 }

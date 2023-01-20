@@ -47,9 +47,16 @@ class EventsModel extends ListModel
 		$query = $db->getQuery(true);
 		// Select the required fields from the table.
 		$query->select(
-			$db->quoteName(['id', 'title', 'alias'])
+			$db->quoteName(['id', 'title', 'alias', 'access'])
 		);
-		$query->from($db->quoteName('#__sda_events'));
+		$query->from($db->quoteName('#__sda_events', 'a'));
+
+		// Join over the asset groups.
+		$query->select($db->quoteName('ag.title', 'access_level'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__viewlevels', 'ag') . ' ON ' . $db->quoteName('ag.id') . ' = ' . $db->quoteName('a.access')
+			);;
 
 		return $query;
 	}

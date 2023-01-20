@@ -23,5 +23,11 @@
                 size="45"
                 hint="JFIELD_ALIAS_PLACEHOLDER"
         />
+        <field
+                name="access"
+                type="accesslevel"
+                label="JFIELD_ACCESS_LABEL"
+                size="1"
+        />
     </fieldset>
 </form>

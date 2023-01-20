@@ -7,7 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Sda\Component\Sdajem\Site\Field\Modal;
+namespace Sda\Component\Sdajem\Administrator\Field\Modal;
 
 \defined('_JEXEC') or die();
 

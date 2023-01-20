@@ -7,10 +7,12 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
+use Joomla\CMS\Language\Text;
+
 \defined('_JEXEC') or die;
 
 /* @var \Sda\Component\Sdajem\Site\Model\EventModel $event */
 ?>
+
 <?php
-$event = $this->item;
-echo $event->title;
+echo Text::_('COM_SDAJEM_NAME') . $this->item->title;
