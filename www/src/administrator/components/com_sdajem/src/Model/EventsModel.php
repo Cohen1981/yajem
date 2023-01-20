@@ -47,7 +47,7 @@ class EventsModel extends ListModel
 		$query = $db->getQuery(true);
 		// Select the required fields from the table.
 		$query->select(
-			$db->quoteName(['id', 'title', 'alias', 'access'])
+			$db->quoteName(['a.id', 'a.title', 'a.alias', 'a.access'])
 		);
 		$query->from($db->quoteName('#__sda_events', 'a'));
 
@@ -56,7 +56,7 @@ class EventsModel extends ListModel
 			->join(
 				'LEFT',
 				$db->quoteName('#__viewlevels', 'ag') . ' ON ' . $db->quoteName('ag.id') . ' = ' . $db->quoteName('a.access')
-			);;
+			);
 
 		return $query;
 	}

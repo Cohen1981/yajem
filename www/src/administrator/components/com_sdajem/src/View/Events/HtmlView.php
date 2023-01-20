@@ -13,8 +13,10 @@ namespace Sda\Component\Sdajem\Administrator\View\Events;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
@@ -44,6 +46,8 @@ class HtmlView extends BaseHtmlView
 		}
 		$this->addToolbar();
 
+		HTMLHelper::_('formbehavior.chosen', 'select');
+
 		parent::display($tpl);
 	}
 
@@ -51,7 +55,9 @@ class HtmlView extends BaseHtmlView
 	{
 		$canDo = ContentHelper::getActions('com_sdajem');
 		// Get the toolbar object instance
-		$toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
+		#$toolbar = Factory::getContainer()->get('Joomla\CMS\Toolbar\ToolbarFactoryInterface');
+
+		$toolbar = Toolbar::getInstance('toolbar');
 		ToolbarHelper::title(Text::_('COM_SDAJEM_MANAGER_EVENTS'), 'address event');
 
 		if ($canDo->get('core.create'))

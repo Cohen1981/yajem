@@ -24,6 +24,7 @@ use Joomla\CMS\MVC\Model\AdminModel;
  * @property   int			$id
  * @property   string		$title
  * @property   string		$alias
+ * @property   int          $access
  */
 class EventModel extends AdminModel
 {
