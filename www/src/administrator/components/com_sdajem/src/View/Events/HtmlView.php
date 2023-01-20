@@ -11,7 +11,11 @@ namespace Sda\Component\Sdajem\Administrator\View\Events;
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
+use Joomla\CMS\Toolbar\ToolbarHelper;
 
 /**
  * View class for a list of events.
@@ -20,6 +24,7 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
  */
 class HtmlView extends BaseHtmlView
 {
+	protected $items;
 	/**
 	 * Method to display the view.
 	 *
@@ -31,6 +36,21 @@ class HtmlView extends BaseHtmlView
 	 */
 	public function display($tpl = null): void
 	{
+		$this->items = $this->get('Items');
+
+		if (!count($this->items) && $this->get('IsEmptyState')) {
+			$this->setLayout('emptystate');
+		}
+		$this->addToolbar();
+
 		parent::display($tpl);
+	}
+
+	protected function addToolbar()
+	{
+		// Get the toolbar object instance
+		$toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
+		ToolbarHelper::title(Text::_('COM_SDAJEM_MANAGER_EVENTS'), 'address event');
+		$toolbar->addNew('event.add');
 	}
 }
