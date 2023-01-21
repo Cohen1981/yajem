@@ -15,6 +15,7 @@ use Joomla\CMS\Categories\CategoryServiceInterface;
 use Joomla\CMS\Categories\CategoryServiceTrait;
 use Joomla\CMS\Extension\BootableExtensionInterface;
 use Joomla\CMS\Extension\MVCComponent;
+use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
 use Sda\Component\Sdajem\Administrator\Service\HTML\AdministratorService;
 use Psr\Container\ContainerInterface;
@@ -45,5 +46,33 @@ class SdajemComponent extends MVCComponent implements BootableExtensionInterface
 	public function boot(ContainerInterface $container)
 	{
 		$this->getRegistry()->register('sdajemadministrator', new AdministratorService);
+	}
+
+	public function countItems(array $items, string $section)
+	{
+		try
+		{
+			$config = (object) array(
+				'related_tbl'   => $this->getTableNameForSection($section),
+				'state_col'     => 'published',
+				'group_col'     => 'catid',
+				'relation_type' => 'category_or_group',
+			);
+			ContentHelper::countRelations($items, $config);
+		}
+		catch (\Exception $e)
+		{
+			// Ignore it
+		}
+	}
+
+	protected function getTableNameForSection(string $section = null)
+	{
+		return ($section === 'category' ? 'categories' : 'sda_events');
+	}
+
+	protected function getStateColumnForSection(string $section = null)
+	{
+		return 'published';
 	}
 }

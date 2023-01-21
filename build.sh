@@ -3,7 +3,7 @@ mkdir www/joomla
 # start docker containers
 docker-compose up -d
 # set priviliges
-chmod -Rf 777 *
+chmod -Rf 755 *
 download and unzip joomla
 cd www/joomla || exit
 curl -sSL https://downloads.joomla.org/cms/joomla4/4-2-6/Joomla_4-2-6-Stable-Full_Package.zip?format=zip > joomla.zip

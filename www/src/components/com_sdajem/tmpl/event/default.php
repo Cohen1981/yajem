@@ -16,3 +16,7 @@ use Joomla\CMS\Language\Text;
 
 <?php
 echo Text::_('COM_SDAJEM_NAME') . $this->item->title;
+
+echo $this->item->event->afterDisplayTitle;
+echo $this->item->event->beforeDisplayContent;
+echo $this->item->event->afterDisplayContent;

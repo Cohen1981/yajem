@@ -46,6 +46,9 @@
         <menu view="sdajem">COM_SDAJEM</menu>
         <submenu>
             <menu link="option=com_sdajem">COM_SDAJEM</menu>
+            <menu link="option=com_categories&amp;extension=com_sdajem">JCATEGORY</menu>
+            <menu link="option=com_fields&amp;context=com_sdajem.event">JGLOBAL_FIELDS</menu>
+            <menu link="option=com_fields&amp;view=groups&amp;context=com_sdajem.event">JGLOBAL_FIELD_GROUPS</menu>
         </submenu>
         <files folder="administrator/components/com_sdajem">
             <filename>sdajem.xml</filename>

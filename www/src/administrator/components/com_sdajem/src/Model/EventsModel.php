@@ -47,9 +47,16 @@ class EventsModel extends ListModel
 		$query = $db->getQuery(true);
 		// Select the required fields from the table.
 		$query->select(
-			$db->quoteName(['a.id', 'a.title', 'a.alias', 'a.access'])
+			$db->quoteName(['a.id', 'a.title', 'a.alias', 'a.access', 'a.catid', 'a.published', 'a.publish_up', 'a.publish_down'])
 		);
 		$query->from($db->quoteName('#__sda_events', 'a'));
+
+		// Join over the categories.
+		$query->select($db->quoteName('c.title', 'category_title'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__categories', 'c') . ' ON ' . $db->quoteName('c.id') . ' = ' . $db->quoteName('a.catid')
+			);
 
 		// Join over the asset groups.
 		$query->select($db->quoteName('ag.title', 'access_level'))

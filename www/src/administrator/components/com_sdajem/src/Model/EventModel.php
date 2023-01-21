@@ -66,8 +66,18 @@ class EventModel extends AdminModel
 	protected function loadFormData()
 	{
 		$app = Factory::getApplication();
-		$data = $this->getItem();
+
+		// Check the session for previously entered form data.
+		$data = $app->getUserState('com_sdajem.edit.event.data', []);
+		if (empty($data)) {
+			$data = $this->getItem();
+			// Prime some default values.
+			if ($this->getState('event.id') == 0) {
+				$data->set('catid', $app->input->get('catid', $app->getUserState('com_sdajem.events.filter.category_id'), 'int'));
+			}
+		}
 		$this->preprocessData($this->typeAlias, $data);
+
 		return $data;
 	}
 

@@ -57,4 +57,31 @@ class EventTable extends Table
 		}
 		return $this->alias;
 	}
+
+	public function check()
+	{
+		try {
+			parent::check();
+		} catch (\Exception $e) {
+			$this->setError($e->getMessage());
+			return false;
+		}
+		// Check the publish down date is not earlier than publish up.
+		if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up) {
+			$this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
+			return false;
+		}
+		// Set publish_up, publish_down to null if not set
+		if (!$this->publish_up) {
+			$this->publish_up = null;
+		}
+		if (!$this->publish_down) {
+			$this->publish_down = null;
+		}
+		return true;
+	}
+	public function store($updateNulls = true)
+	{
+		return parent::store($updateNulls);
+	}
 }

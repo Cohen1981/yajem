@@ -6,6 +6,17 @@
   "license": "GPL-2.0-or-later",
   "assets": [
     {
+      "name": "com_sdajem.admin_event_letter",
+      "type": "script",
+      "uri": "com_sdajem/admin_event_letter.js",
+      "dependencies": [
+        "core"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
       "name": "com_sdajem.admin-events-modal",
       "type": "script",
       "uri": "com_sdajem/admin-events-modal.js",
