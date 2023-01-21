@@ -12,6 +12,8 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\MVC\Model\AdminModel;
 
 /**
@@ -35,6 +37,8 @@ class EventModel extends AdminModel
 	 * @since  __BUMP_VERSION__
 	 */
 	public $typeAlias = 'com_sdajem.event';
+
+	protected $associationsContext = 'com_events.item';
 
 	/**
 	 * Method to get the row form.
@@ -79,6 +83,51 @@ class EventModel extends AdminModel
 		$this->preprocessData($this->typeAlias, $data);
 
 		return $data;
+	}
+
+	public function getItem($pk = null)
+	{
+		$item = parent::getItem($pk);
+		// Load associated foo items
+		$assoc = Associations::isEnabled();
+		if ($assoc) {
+			$item->associations = [];
+			if ($item->id != null) {
+				$associations = Associations::getAssociations('com_sdajem', '#__sda_events', 'com_sdajem.item', $item->id, 'id', null);
+				foreach ($associations as $tag => $association) {
+					$item->associations[$tag] = $association->id;
+				}
+			}
+		}
+		return $item;
+	}
+
+	protected function preprocessForm(\JForm $form, $data, $group = 'content')
+	{
+		if (Associations::isEnabled()) {
+			$languages = LanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
+			if (count($languages) > 1) {
+				$addform = new \SimpleXMLElement('<form />');
+				$fields = $addform->addChild('fields');
+				$fields->addAttribute('name', 'associations');
+				$fieldset = $fields->addChild('fieldset');
+				$fieldset->addAttribute('name', 'item_associations');
+				foreach ($languages as $language) {
+					$field = $fieldset->addChild('field');
+					$field->addAttribute('name', $language->lang_code);
+					$field->addAttribute('type', 'modal_foo');
+					$field->addAttribute('language', $language->lang_code);
+					$field->addAttribute('label', $language->title);
+					$field->addAttribute('translate_label', 'false');
+					$field->addAttribute('select', 'true');
+					$field->addAttribute('new', 'true');
+					$field->addAttribute('edit', 'true');
+					$field->addAttribute('clear', 'true');
+				}
+				$form->load($addform, false);
+			}
+		}
+		parent::preprocessForm($form, $data, $group);
 	}
 
 	/**

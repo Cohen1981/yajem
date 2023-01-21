@@ -13,7 +13,7 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc">
-      <console name="mysql" type="STANDARD" schema="mysql" session="Main" />
+      <console name="mysql" type="STANDARD" schema="joomla_db" session="Main"><![CDATA[ALTER TABLE `k1xk2_sda_events` ADD COLUMN  `state` tinyint(3) NOT NULL DEFAULT 0 AFTER `alias`;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -22,9 +22,18 @@
   <component name="DBNavigator.Project.DatabaseFileManager">
     <open-files />
   </component>
+  <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc" dataset="joomla_db.k1xk2_sda_events" active-filter-id="" />
+  </component>
+  <component name="DBNavigator.Project.ExecutionManager">
+    <retain-sticky-names value="false" />
+  </component>
   <component name="DBNavigator.Project.ObjectQuickFilterManager">
     <last-used-operator value="EQUAL" />
     <filters />
+  </component>
+  <component name="DBNavigator.Project.ScriptExecutionManager" clear-outputs="true">
+    <recently-used-interfaces />
   </component>
   <component name="DBNavigator.Project.Settings">
     <connections>

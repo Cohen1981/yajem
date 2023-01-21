@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-    <fieldset addruleprefix="Sda\Component\Sdajem\Administrator\Rule">
+    <fieldset addruleprefix="Sda\Component\Sdajem\Administrator\Rule"
+              addfieldprefix="Sda\Component\Sdajem\Administrator\Field"
+    >
         <field
                 name="id"
                 type="number"
@@ -9,6 +11,13 @@
                 class="readonly"
                 readonly="true"
         />
+        <field
+                name="language"
+                type="contentlanguage"
+                label="JFIELD_LANGUAGE_LABEL"
+        >
+            <option value="*">JALL</option>
+        </field>
         <field
                 name="title"
                 type="text"
@@ -71,6 +80,12 @@
                 type="accesslevel"
                 label="JFIELD_ACCESS_LABEL"
                 size="1"
+        />
+        <field
+                name="ordering"
+                type="ordering"
+                label="JFIELD_ORDERING_LABEL"
+                content_type="com_foos.foo"
         />
     </fieldset>
 </form>

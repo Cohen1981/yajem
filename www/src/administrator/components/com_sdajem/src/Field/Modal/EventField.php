@@ -55,7 +55,7 @@ class EventField extends FormField
 			if (!isset($scriptSelect[$this->id])) {
 				$wa->addInlineScript("
 				window.jSelectEvent_" . $this->id . " = function (id, title, object) {
-					window.processModalSelect('Foo', '" . $this->id . "', id, title, '', object);
+					window.processModalSelect('Event', '" . $this->id . "', id, title, '', object);
 				}",
 					[],
 					['type' => 'module']
@@ -66,9 +66,14 @@ class EventField extends FormField
 		// Setup variables for display.
 		$linkEvents = 'index.php?option=com_sdajem&amp;view=events&amp;layout=modal&amp;tmpl=component&amp;'
 			. Session::getFormToken() . '=1';
-		$linkFoo  = 'index.php?option=com_sdajem&amp;view=event&amp;layout=modal&amp;tmpl=component&amp;'
-			. Session::getFormToken() . '=1';
+
 		$modalTitle   = Text::_('COM_EVENTS_CHANGE_EVENT');
+
+		if (isset($this->element['language'])) {
+			$linkEvents .= '&amp;forcedLanguage=' . $this->element['language'];
+			$modalTitle .= ' &#8212; ' . $this->element['label'];
+		}
+
 		$urlSelect = $linkEvents . '&amp;function=jSelectEvent_' . $this->id;
 		if ($value) {
 			$db    = Factory::getContainer()->get('DatabaseDriver');

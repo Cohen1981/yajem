@@ -11,6 +11,8 @@ namespace Sda\Component\Sdajem\Administrator\Extension;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\CMS\Association\AssociationServiceInterface;
+use Joomla\CMS\Association\AssociationServiceTrait;
 use Joomla\CMS\Categories\CategoryServiceInterface;
 use Joomla\CMS\Categories\CategoryServiceTrait;
 use Joomla\CMS\Extension\BootableExtensionInterface;
@@ -25,10 +27,11 @@ use Psr\Container\ContainerInterface;
  *
  * @since  __BUMP_VERSION__
  */
-class SdajemComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface
+class SdajemComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface, AssociationServiceInterface
 {
 	use CategoryServiceTrait;
 	use HTMLRegistryAwareTrait;
+	use AssociationServiceTrait;
 
 	/**
 	 * Booting the extension. This is the function to set up the environment of the extension like
