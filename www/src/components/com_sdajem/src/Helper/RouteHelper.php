@@ -1,7 +1,7 @@
 <?php
 /**
  * @package     Joomla.Site
- * @subpackage  com_foos
+ * @subpackage  com_events
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
@@ -18,19 +18,19 @@ use Joomla\CMS\Language\Multilanguage;
  *
  * @static
  * @package     Joomla.Site
- * @subpackage  com_foos
+ * @subpackage  com_events
  * @since       __DEPLOY_VERSION__
  */
 abstract class RouteHelper
 {
 	/**
-	 * Get the URL route for a foos from a foo ID, foos category ID and language
+	 * Get the URL route for a events from a event ID, events category ID and language
 	 *
-	 * @param   integer  $id        The id of the foos
-	 * @param   integer  $catid     The id of the foos's category
+	 * @param   integer  $id        The id of the events
+	 * @param   integer  $catid     The id of the events's category
 	 * @param   mixed    $language  The id of the language being used.
 	 *
-	 * @return  string  The link to the foos
+	 * @return  string  The link to the events
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -47,13 +47,13 @@ abstract class RouteHelper
 		return $link;
 	}
 	/**
-	 * Get the URL route for a foo from a foo ID, foos category ID and language
+	 * Get the URL route for a event from a event ID, events category ID and language
 	 *
-	 * @param   integer  $id        The id of the foos
-	 * @param   integer  $catid     The id of the foos's category
+	 * @param   integer  $id        The id of the events
+	 * @param   integer  $catid     The id of the events's category
 	 * @param   mixed    $language  The id of the language being used.
 	 *
-	 * @return  string  The link to the foos
+	 * @return  string  The link to the events
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -70,12 +70,12 @@ abstract class RouteHelper
 		return $link;
 	}
 	/**
-	 * Get the URL route for a foos category from a foos category ID and language
+	 * Get the URL route for a events category from a events category ID and language
 	 *
-	 * @param   mixed  $catid     The id of the foos's category either an integer id or an instance of CategoryNode
+	 * @param   mixed  $catid     The id of the events's category either an integer id or an instance of CategoryNode
 	 * @param   mixed  $language  The id of the language being used.
 	 *
-	 * @return  string  The link to the foos
+	 * @return  string  The link to the events
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */

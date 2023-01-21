@@ -127,18 +127,48 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected function addToolbar()
 	{
-		$canDo = ContentHelper::getActions('com_sdajem');
+		$this->sidebar = \JHtmlSidebar::render();
+		$canDo = ContentHelper::getActions('com_sdajem', 'category', $this->state->get('filter.category_id'));
+		$user  = Factory::getApplication()->getIdentity(); #getUser();
 
 		// Get the toolbar object instance
 		$toolbar = Toolbar::getInstance('toolbar');
 
 		ToolbarHelper::title(Text::_('COM_SDAJEM_MANAGER_EVENTS'), 'address event');
 
-		if ($canDo->get('core.create')) {
+		if ($canDo->get('core.create') || count($user->getAuthorisedCategories('com_sdajem', 'core.create')) > 0) {
 			$toolbar->addNew('event.add');
 		}
 
-		if ($canDo->get('core.options')) {
+		if ($canDo->get('core.edit.state'))
+		{
+			$dropdown = $toolbar->dropdownButton('status-group')
+				->text('JTOOLBAR_CHANGE_STATUS')
+				->toggleSplit(false)
+				->icon('fa fa-ellipsis-h')
+				->buttonClass('btn btn-action')
+				->listCheck(true);
+			$childBar = $dropdown->getChildToolbar();
+			$childBar->publish('events.publish')->listCheck(true);
+			$childBar->unpublish('events.unpublish')->listCheck(true);
+			$childBar->archive('events.archive')->listCheck(true);
+			if ($user->authorise('core.admin'))
+			{
+				$childBar->checkin('events.checkin')->listCheck(true);
+			}
+			if ($this->state->get('filter.published') != -2)
+			{
+				$childBar->trash('events.trash')->listCheck(true);
+			}
+		}
+		if ($this->state->get('filter.published') == -2 && $canDo->get('core.delete'))
+		{
+			$toolbar->delete('events.delete')
+				->text('JTOOLBAR_EMPTY_TRASH')
+				->message('JGLOBAL_CONFIRM_DELETE')
+				->listCheck(true);
+		}
+		if ($user->authorise('core.admin', 'com_sdajem') || $user->authorise('core.options', 'com_sdajem')) {
 			$toolbar->preferences('com_sdajem');
 		}
 	}

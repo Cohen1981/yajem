@@ -4,47 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "d5fac9bf1f2d841b8966dae092c14a61",
+    "content-hash": "12fef1a6af991b8f69129f2479943335",
     "packages": [
-        {
-            "name": "components/font-awesome",
-            "version": "5.4.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/components/font-awesome.git",
-                "reference": "2273b93337e2296539665c40520308207b35ff6d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/components/font-awesome/zipball/2273b93337e2296539665c40520308207b35ff6d",
-                "reference": "2273b93337e2296539665c40520308207b35ff6d",
-                "shasum": ""
-            },
-            "type": "component",
-            "extra": {
-                "component": {
-                    "styles": [
-                        "css/fontawesome-all.css"
-                    ],
-                    "files": [
-                        "css/fontawesome-all.min.css",
-                        "webfonts/*"
-                    ]
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "CC-BY-4.0",
-                "MIT",
-                "OFL-1.1"
-            ],
-            "description": "Font Awesome, the iconic SVG, font, and CSS framework.",
-            "support": {
-                "issues": "https://github.com/components/font-awesome/issues",
-                "source": "https://github.com/components/font-awesome/tree/master"
-            },
-            "time": "2018-10-31T11:12:29+00:00"
-        },
         {
             "name": "squizlabs/php_codesniffer",
             "version": "2.9.2",
@@ -132,16 +93,16 @@
     "packages-dev": [
         {
             "name": "joomla/coding-standards",
-            "version": "2.0.0-rc2",
+            "version": "2.0-rc4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/joomla/coding-standards.git",
-                "reference": "01b9a2d6e3f3cfedd6f28d262b11cfbf811ba3ab"
+                "reference": "d6a62eab09e342be51be2b30030b61071e26c8ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/joomla/coding-standards/zipball/01b9a2d6e3f3cfedd6f28d262b11cfbf811ba3ab",
-                "reference": "01b9a2d6e3f3cfedd6f28d262b11cfbf811ba3ab",
+                "url": "https://api.github.com/repos/joomla/coding-standards/zipball/d6a62eab09e342be51be2b30030b61071e26c8ca",
+                "reference": "d6a62eab09e342be51be2b30030b61071e26c8ca",
                 "shasum": ""
             },
             "require": {
@@ -177,9 +138,9 @@
             ],
             "support": {
                 "issues": "https://github.com/joomla/coding-standards/issues",
-                "source": "https://github.com/joomla/coding-standards/tree/master"
+                "source": "https://github.com/joomla/coding-standards/tree/2.0-rc4"
             },
-            "time": "2018-10-02T12:01:43+00:00"
+            "time": "2020-09-17T05:49:01+00:00"
         },
         {
             "name": "phing/phing",
@@ -302,7 +263,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "ext-json": "*"
+        "ext-json": "*",
+        "ext-simplexml": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "2.3.0"

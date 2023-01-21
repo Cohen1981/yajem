@@ -24,12 +24,12 @@ use Joomla\CMS\Router\Route;
  */
 class AdministratorService
 {
-	public function association($fooid)
+	public function association($eventid)
 	{
 		// Defaults
 		$html = '';
 		// Get the associations
-		if ($associations = Associations::getAssociations('com_foos', '#__foos_details', 'com_foos.item', $fooid, 'id', null)) {
+		if ($associations = Associations::getAssociations('com_sdajem', '#__sda_events', 'com_sdajem.item', $eventid, 'id', null)) {
 			foreach ($associations as $tag => $associated) {
 				$associations[$tag] = (int) $associated->id;
 			}
@@ -42,7 +42,7 @@ class AdministratorService
 				->select('cat.title as category_title')
 				->join('LEFT', '#__categories as cat ON cat.id=c.catid')
 				->where('c.id IN (' . implode(',', array_values($associations)) . ')')
-				->where('c.id != ' . $fooid)
+				->where('c.id != ' . $eventid)
 				->join('LEFT', '#__languages as l ON c.language=l.lang_code')
 				->select('l.image')
 				->select('l.title as language_title');

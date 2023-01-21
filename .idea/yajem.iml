@@ -8,7 +8,6 @@
       <excludeFolder url="file://$MODULE_DIR$/vendor/joomla/coding-standards" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/squizlabs/php_codesniffer" />
       <excludeFolder url="file://$MODULE_DIR$/vendor/phing/phing" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/components/font-awesome" />
       <excludeFolder url="file://$MODULE_DIR$/mysql/data/joomla_db" />
       <excludeFolder url="file://$MODULE_DIR$/vendor" />
     </content>

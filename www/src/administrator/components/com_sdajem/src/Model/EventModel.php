@@ -38,7 +38,7 @@ class EventModel extends AdminModel
 	 */
 	public $typeAlias = 'com_sdajem.event';
 
-	protected $associationsContext = 'com_events.item';
+	protected $associationsContext = 'com_sdajem.item';
 
 	/**
 	 * Method to get the row form.
