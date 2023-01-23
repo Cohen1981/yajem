@@ -14,21 +14,38 @@
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc">
       <console name="mysql" type="STANDARD" schema="joomla_db" session="Main"><![CDATA[select
-    kxsft.access,
-    kxsft.alias,
-    kxsft.checked_out,
-    kxsft.checked_out_time,
-    kxsft.id,
-    kxsft.`language`,
-    kxsft.`needSpace`,
-    kxsft.ordering,
-    kxsft.publish_down,
-    kxsft.publish_up,
-    kxsft.published,
-    kxsft.state,
-    kxsft.title
+    sc.access,
+    sc.alias,
+    sc.asset_id,
+    sc.attribs,
+    sc.catid,
+    sc.checked_out,
+    sc.checked_out_time,
+    sc.created,
+    sc.created_by,
+    sc.created_by_alias,
+    sc.featured,
+    sc.`fulltext`,
+    sc.hits,
+    sc.id,
+    sc.images,
+    sc.introtext,
+    sc.`language`,
+    sc.metadata,
+    sc.metadesc,
+    sc.metakey,
+    sc.modified,
+    sc.modified_by,
+    sc.note,
+    sc.ordering,
+    sc.publish_down,
+    sc.publish_up,
+    sc.state,
+    sc.title,
+    sc.urls,
+    sc.`version`
 from
-    k1xk2_sdaprofile_fitting_type kxsft;]]></console>
+    sda_content sc;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -38,6 +55,7 @@ from
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc" dataset="joomla_db.sda_content" active-filter-id="" />
     <filter-actions connection-id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc" dataset="joomla_db.k1xk2_users" active-filter-id="" />
     <filter-actions connection-id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc" dataset="joomla_db.k1xk2_sda_events" active-filter-id="" />
   </component>

@@ -4,7 +4,7 @@ mkdir www/joomla
 docker-compose up -d
 # set priviliges
 chmod -Rf 755 *
-download and unzip joomla
+#download and unzip joomla
 cd www/joomla || exit
 curl -sSL https://downloads.joomla.org/cms/joomla4/4-2-6/Joomla_4-2-6-Stable-Full_Package.zip?format=zip > joomla.zip
 sudo apt install unzip
@@ -14,11 +14,5 @@ chmod -Rf 777 *
 ln -sr /home/joomla/development/yajem/www/src/administrator/components/com_sdajem /home/joomla/development/yajem/www/joomla/administrator/components/com_sdajem
 ln -sr /home/joomla/development/yajem/www/src/components/com_sdajem /home/joomla/development/yajem/www/joomla/components/com_sdajem
 ln -sr /home/joomla/development/yajem/www/src/media/com_sdajem /home/joomla/development/yajem/www/joomla/media/com_sdajem
-
-ln -sr /home/joomla/development/yajem/www/src/administrator/components/com_sdaprofile /home/joomla/development/yajem/www/joomla/administrator/components/com_sdaprofile
-ln -sr /home/joomla/development/yajem/www/src/components/com_sdaprofile /home/joomla/development/yajem/www/joomla/components/com_sdaprofile
-ln -sr /home/joomla/development/yajem/www/src/media/com_sdaprofile /home/joomla/development/yajem/www/joomla/media/com_sdaprofile
-
-ln -sr /home/joomla/development/yajem/www/src/plugins/user/sdaprofile /home/joomla/development/yajem/www/joomla/plugins/user/sdaprofile
 
 cd ../..
