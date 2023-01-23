@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<extension type="plugin" group="user" method="upgrade">
+    <name>plg_user_sdaprofile</name>
+    <creationDate>23.01.2023</creationDate>
+    <author>Alexander Bahlo</author>
+    <authorEmail>abahlo@hotmail.de</authorEmail>
+    <copyright>[COPYRIGHT]</copyright>
+    <license>GNU General Public License version 2 or later;</license>
+    <version>__BUMP_VERSION__</version>
+    <description>PLG_USER_SDAPROFILE_XML_DESCRIPTION</description>
+    <files>
+        <filename plugin="sdaprofile">sdaprofile.php</filename>
+        <folder>language</folder>
+    </files>
+    <config>
+        <fields name="params">
+            <fieldset name="basic">
+
+            </fieldset>
+        </fields>
+    </config>
+</extension>

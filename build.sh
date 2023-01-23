@@ -15,4 +15,10 @@ ln -sr /home/joomla/development/yajem/www/src/administrator/components/com_sdaje
 ln -sr /home/joomla/development/yajem/www/src/components/com_sdajem /home/joomla/development/yajem/www/joomla/components/com_sdajem
 ln -sr /home/joomla/development/yajem/www/src/media/com_sdajem /home/joomla/development/yajem/www/joomla/media/com_sdajem
 
+ln -sr /home/joomla/development/yajem/www/src/administrator/components/com_sdaprofile /home/joomla/development/yajem/www/joomla/administrator/components/com_sdaprofile
+ln -sr /home/joomla/development/yajem/www/src/components/com_sdaprofile /home/joomla/development/yajem/www/joomla/components/com_sdaprofile
+ln -sr /home/joomla/development/yajem/www/src/media/com_sdaprofile /home/joomla/development/yajem/www/joomla/media/com_sdaprofile
+
+ln -sr /home/joomla/development/yajem/www/src/plugins/user/sdaprofile /home/joomla/development/yajem/www/joomla/plugins/user/sdaprofile
+
 cd ../..

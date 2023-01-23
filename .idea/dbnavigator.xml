@@ -13,7 +13,22 @@
   </component>
   <component name="DBNavigator.Project.DatabaseConsoleManager">
     <connection id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc">
-      <console name="mysql" type="STANDARD" schema="joomla_db" session="Main"><![CDATA[ALTER TABLE `k1xk2_sda_events` ADD COLUMN  `state` tinyint(3) NOT NULL DEFAULT 0 AFTER `alias`;]]></console>
+      <console name="mysql" type="STANDARD" schema="joomla_db" session="Main"><![CDATA[select
+    kxsft.access,
+    kxsft.alias,
+    kxsft.checked_out,
+    kxsft.checked_out_time,
+    kxsft.id,
+    kxsft.`language`,
+    kxsft.`needSpace`,
+    kxsft.ordering,
+    kxsft.publish_down,
+    kxsft.publish_up,
+    kxsft.published,
+    kxsft.state,
+    kxsft.title
+from
+    k1xk2_sdaprofile_fitting_type kxsft;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -23,6 +38,7 @@
     <open-files />
   </component>
   <component name="DBNavigator.Project.DatasetFilterManager">
+    <filter-actions connection-id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc" dataset="joomla_db.k1xk2_users" active-filter-id="" />
     <filter-actions connection-id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc" dataset="joomla_db.k1xk2_sda_events" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">
