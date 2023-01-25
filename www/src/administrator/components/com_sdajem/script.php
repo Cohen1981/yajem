@@ -54,7 +54,7 @@ class Com_SdajemInstallerScript
 		// Initialize a new category.
 		$category = Table::getInstance('Category');
 		$data = array(
-			'extension' => 'com_sdajem_event',
+			'extension' => 'com_sdajem.event',
 			'title' => 'EventUncategorised',
 			'alias' => $alias . '(de-DE)',
 			'description' => '',

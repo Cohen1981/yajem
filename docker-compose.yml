@@ -38,6 +38,8 @@ services:
     volumes:
       - ./www:/app:delegated
       - ./php/php.ini:/opt/bitnami/php/etc/conf.d/php.ini:ro
+    extra_hosts:
+      host.docker.internal: host-gateway
 
   # --- Apache 2.4
   #

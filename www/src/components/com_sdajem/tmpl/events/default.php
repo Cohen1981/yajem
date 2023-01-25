@@ -14,7 +14,9 @@ use Joomla\CMS\Router\Route;
 \defined('_JEXEC') or die;
 
 /* @var \Sda\Component\Sdajem\Site\Model\EventModel $item */
+
 ?>
+
 <?php foreach ($this->items as $i => $item) : ?>
 	<tr class="row<?php echo $i % 2; ?>">
 		<th scope="row" class="has-context">
@@ -30,3 +32,5 @@ use Joomla\CMS\Router\Route;
 		</td>
 	</tr>
 <?php endforeach; ?>
+
+

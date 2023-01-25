@@ -11,6 +11,7 @@ namespace Sda\Component\Sdajem\Administrator\Extension;
 
 defined('JPATH_PLATFORM') or die;
 
+use Joomla\CMS\Application\SiteApplication;
 use Joomla\CMS\Categories\CategoryServiceInterface;
 use Joomla\CMS\Categories\CategoryServiceTrait;
 use Joomla\CMS\Extension\BootableExtensionInterface;
@@ -18,6 +19,8 @@ use Joomla\CMS\Extension\MVCComponent;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
 use Psr\Container\ContainerInterface;
+use Sda\Component\Sdajem\Administrator\Service\HTML\AdministratorService;
+use Sda\Component\Sdajem\Administrator\Service\HTML\Icon;
 
 class SdajemComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface
 {
@@ -39,6 +42,7 @@ class SdajemComponent extends MVCComponent implements BootableExtensionInterface
 	public function boot(ContainerInterface $container)
 	{
 		$this->getRegistry()->register('sdajemadministrator', new AdministratorService);
+		$this->getRegistry()->register('eventicon', new Icon($container->get(SiteApplication::class)));
 	}
 
 	/**
