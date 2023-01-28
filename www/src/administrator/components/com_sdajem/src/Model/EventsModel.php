@@ -13,6 +13,7 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
+use Joomla\Database\QueryInterface;
 
 class EventsModel extends ListModel
 {
@@ -24,7 +25,7 @@ class EventsModel extends ListModel
 	/**
 	 * Build an SQL query to load the list data.
 	 *
-	 * @return  \JDatabaseQuery
+	 * @return  QueryInterface
 	 *
 	 * @since   __BUMP_VERSION__
 	 */

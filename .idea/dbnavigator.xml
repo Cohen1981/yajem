@@ -17,35 +17,32 @@
     sc.access,
     sc.alias,
     sc.asset_id,
-    sc.attribs,
-    sc.catid,
     sc.checked_out,
     sc.checked_out_time,
-    sc.created,
-    sc.created_by,
-    sc.created_by_alias,
-    sc.featured,
-    sc.`fulltext`,
+    sc.created_time,
+    sc.created_user_id,
+    sc.description,
+    sc.extension,
     sc.hits,
     sc.id,
-    sc.images,
-    sc.introtext,
     sc.`language`,
+    sc.`level`,
+    sc.lft,
     sc.metadata,
     sc.metadesc,
     sc.metakey,
-    sc.modified,
-    sc.modified_by,
+    sc.modified_time,
+    sc.modified_user_id,
     sc.note,
-    sc.ordering,
-    sc.publish_down,
-    sc.publish_up,
-    sc.state,
+    sc.params,
+    sc.parent_id,
+    sc.path,
+    sc.published,
+    sc.rgt,
     sc.title,
-    sc.urls,
     sc.`version`
 from
-    sda_content sc;]]></console>
+    sda_categories sc;]]></console>
     </connection>
   </component>
   <component name="DBNavigator.Project.DatabaseEditorStateManager">
@@ -57,6 +54,7 @@ from
   <component name="DBNavigator.Project.DatasetFilterManager">
     <filter-actions connection-id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc" dataset="joomla_db.sda_content" active-filter-id="" />
     <filter-actions connection-id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc" dataset="joomla_db.k1xk2_users" active-filter-id="" />
+    <filter-actions connection-id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc" dataset="joomla_db.sda_categories" active-filter-id="" />
     <filter-actions connection-id="0f86234c-3cc8-476e-b1ed-ee44dd763bfc" dataset="joomla_db.k1xk2_sda_events" active-filter-id="" />
   </component>
   <component name="DBNavigator.Project.ExecutionManager">

@@ -17,6 +17,13 @@ use Joomla\CMS\Router\Route;
 
 ?>
 
+<form action="<?= Route::_('index.php?option=com_sdajem&view=event') ?>" method="post" id="adminForm" name="adminForm">
+	<?= HTMLHelper::_('form.token'); ?>
+    <input type="hidden" name="option" value="com_sdajem">
+    <input type="hidden" name="task" value="" />
+
+	<?= $this->renderToolbar(); ?>
+
 <?php foreach ($this->items as $i => $item) : ?>
 	<tr class="row<?php echo $i % 2; ?>">
 		<th scope="row" class="has-context">
@@ -32,5 +39,4 @@ use Joomla\CMS\Router\Route;
 		</td>
 	</tr>
 <?php endforeach; ?>
-
-
+</form>

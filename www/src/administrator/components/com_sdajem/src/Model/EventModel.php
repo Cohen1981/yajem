@@ -81,11 +81,4 @@ class EventModel extends AdminModel
 	{
 		$table->generateAlias();
 	}
-
-	protected function populateState()
-	{
-		$app = Factory::getApplication();
-		$this->setState('event.id', $app->input->getInt('id'));
-		$this->setState('params', $app->getParams());
-	}
 }

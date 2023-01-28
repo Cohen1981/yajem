@@ -14,6 +14,7 @@ use Joomla\CMS\Installer\InstallerAdapter;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Table\Table;
+use Joomla\Database\DatabaseInterface;
 
 /**
  * Script file of Sdajem Component
@@ -49,43 +50,12 @@ class Com_SdajemInstallerScript
 	{
 		echo Text::_('COM_SDAJEM_INSTALLERSCRIPT_INSTALL');
 
-		$db = Factory::getDbo();
-		$alias   = ApplicationHelper::stringURLSafe('EventUncategorised');
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		// Initialize a new category.
 		$category = Table::getInstance('Category');
-		$data = array(
-			'extension' => 'com_sdajem.event',
-			'title' => 'EventUncategorised',
-			'alias' => $alias . '(de-DE)',
-			'description' => '',
-			'published' => 1,
-			'access' => 1,
-			'params' => '{"target":"","image":""}',
-			'metadesc' => '',
-			'metakey' => '',
-			'metadata' => '{"page_title":"","author":"","robots":""}',
-			'created_time' => Factory::getDate()->toSql(),
-			'created_user_id' => (int) $this->getAdminId(),
-			'language' => 'de-DE',
-			'rules' => array(),
-			'parent_id' => 1,
-		);
-		$category->setLocation(1, 'last-child');
-		// Bind the data to the table
-		if (!$category->bind($data))
-		{
-			return false;
-		}
-		// Check to make sure our data is valid.
-		if (!$category->check())
-		{
-			return false;
-		}
-		// Store the category.
-		if (!$category->store(true))
-		{
-			return false;
-		}
+
+		$this->setupData($category, 'com_sdajem.events', 'Märkte', ApplicationHelper::stringURLSafe('EventMärkte'));
+		$this->setupData($category, 'com_sdajem.locations', 'Orte', ApplicationHelper::stringURLSafe('EventOrte'));
 
 		return true;
 	}
@@ -204,5 +174,51 @@ class Com_SdajemInstallerScript
 			return false;
 		}
 		return $id;
+	}
+
+	/**
+	 * @param Table     $table
+	 * @param string    $extension extension for the category
+	 * @param string    $title
+	 * @param string    $alias
+	 *
+	 * @return false|void
+	 *
+	 * @since version
+	 */
+	private function setupData($table, $extension, $title, $alias) {
+		$data = array(
+			'extension' => $extension,
+			'title' => $title,
+			'alias' => $alias . '(de-DE)',
+			'description' => '',
+			'published' => 1,
+			'access' => 1,
+			'params' => '{"target":"","image":""}',
+			'metadesc' => '',
+			'metakey' => '',
+			'metadata' => '{"page_title":"","author":"","robots":""}',
+			'created_time' => Factory::getDate()->toSql(),
+			'created_user_id' => (int) $this->getAdminId(),
+			'language' => '*',
+			'rules' => array(),
+			'parent_id' => 1,
+		);
+		$table->setLocation(1, 'last-child');
+		// Bind the data to the table
+		if (!$table->bind($data))
+		{
+			return false;
+		}
+		// Check to make sure our data is valid.
+		if (!$table->check())
+		{
+			return false;
+		}
+		// Store the category.
+		if (!$table->store(true))
+		{
+			return false;
+		}
 	}
 }

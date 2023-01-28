@@ -28,7 +28,7 @@ class EventTable extends Table
 	 */
 	public function __construct(DatabaseDriver $db)
 	{
-		$this->typeAlias = 'com_sdajem.event';
+		$this->typeAlias = 'com_sdajem';
 		parent::__construct('#__sdajem_events', 'id', $db);
 	}
 

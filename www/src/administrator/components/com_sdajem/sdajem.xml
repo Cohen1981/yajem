@@ -35,36 +35,23 @@
     <media folder="media/com_sdajem" destination="com_sdajem">
         <folder>images</folder>
     </media>
+
     <!-- Back-end files -->
     <administration>
-        <menu img="class:comment">
-            COM_SDAJEM
-            <params>
-                <dashboard>sdajem</dashboard>
-            </params>
-        </menu>
+        <!-- Menu entries -->
+        <menu view="events">COM_SDAJEM</menu>
         <submenu>
-            <menu link="option=com_sdajem">
-                COM_SDAJEM
-                <params>
-                    <menu-quicktask-title>COM_SDAJEM</menu-quicktask-title>
-                    <menu-quicktask>index.php?option=com_sdajem&amp;view=event&amp;layout=edit</menu-quicktask>
-                </params>
-            </menu>
             <menu link="option=com_sdajem">COM_SDAJEM</menu>
-            <menu link="option=com_categories&amp;extension=com_sdajem.event">
-                JCATEGORY
-                <params>
-                    <menu-quicktask-title>JCATEGORY</menu-quicktask-title>
-                    <menu-quicktask>index.php?option=com_categories&amp;view=category&amp;layout=edit&amp;extension=com_sdajem.event</menu-quicktask>
-                </params>
-            </menu>
+            <menu link="option=com_categories&amp;extension=com_sdajem.events">COM_SDAJEM_MENU_EVENTS_CATEGORIES</menu>
+            <menu link="option=com_categories&amp;extension=com_sdajem.locations">COM_SDAJEM_MENU_LOCATIONS_CATEGORIES</menu>
         </submenu>
+
         <files folder="administrator/components/com_sdajem">
             <filename>sdajem.xml</filename>
             <filename>script.php</filename>
             <filename>access.xml</filename>
             <filename>config.xml</filename>
+            <folder>forms</folder>
             <folder>language</folder>
             <folder>services</folder>
             <folder>sql</folder>

@@ -13,7 +13,6 @@
                 name="title"
                 type="text"
                 label="COM_SDAJEM_FIELD_TITLE_LABEL"
-                description="COM_SDAJEM_FIELD_TITLE_DESC"
                 size="40"
                 required="true"
         />
@@ -28,7 +27,6 @@
                 name="url"
                 type="text"
                 label="COM_SDAJEM_FIELD_URL_LABEL"
-                description="COM_SDAJEM_FIELD_URL_DESC"
                 size="255"
         />
     </fieldset>
@@ -88,7 +86,7 @@
                 name="catid"
                 type="categoryedit"
                 label="JCATEGORY"
-                extension="com_sdajem"
+                extension="com_sdajem.events"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
                 required="true"
                 default=""
