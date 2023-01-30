@@ -24,10 +24,43 @@
                 hint="JFIELD_ALIAS_PLACEHOLDER"
         />
         <field
+                name="description"
+                type="editor"
+                label="COM_SDAJEM_FIELD_EVENTDESC_LABEL"
+        />
+        <field
                 name="url"
                 type="text"
                 label="COM_SDAJEM_FIELD_URL_LABEL"
                 size="255"
+        />
+        <field
+                name="allDayEvent"
+                type="list"
+                label="COM_SDAJEM_FIELD_ALLDAYEVENT_LABEL"
+                default="1"
+                validate="options"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="startDateTime"
+                type="calendar"
+                label="COM_SDAJEM_FIELD_STARTDATETIME_LABEL"
+                showtime="true"
+                translateformat="true"
+                todaybutton="true"
+                size="22"
+        />
+        <field
+                name="endDateTime"
+                type="calendar"
+                label="COM_SDAJEM_FIELD_ENDDATETIME_LABEL"
+                showtime="true"
+                translateformat="true"
+                todaybutton="true"
+                size="22"
         />
     </fieldset>
     <fieldset name="language" label="JFIELD_LANGUAGE_LABEL">
@@ -67,7 +100,7 @@
         <field
                 name="publish_up"
                 type="calendar"
-                label="COM_FOOS_FIELD_PUBLISH_UP_LABEL"
+                label="COM_SDAJEM_FIELD_PUBLISH_UP_LABEL"
                 translateformat="true"
                 showtime="true"
                 size="22"
@@ -76,7 +109,7 @@
         <field
                 name="publish_down"
                 type="calendar"
-                label="COM_FOOS_FIELD_PUBLISH_DOWN_LABEL"
+                label="COM_SDAJEM_FIELD_PUBLISH_DOWN_LABEL"
                 translateformat="true"
                 showtime="true"
                 size="22"

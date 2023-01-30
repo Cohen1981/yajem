@@ -18,13 +18,16 @@ use Joomla\CMS\Extension\BootableExtensionInterface;
 use Joomla\CMS\Extension\MVCComponent;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLRegistryAwareTrait;
+use Joomla\CMS\Association\AssociationServiceInterface;
+use Joomla\CMS\Association\AssociationServiceTrait;
 use Psr\Container\ContainerInterface;
 use Sda\Component\Sdajem\Administrator\Service\HTML\AdministratorService;
 use Sda\Component\Sdajem\Administrator\Service\HTML\Icon;
 
-class SdajemComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface
+class SdajemComponent extends MVCComponent implements BootableExtensionInterface, CategoryServiceInterface, AssociationServiceInterface
 {
 	use CategoryServiceTrait;
+	use AssociationServiceTrait;
 	use HTMLRegistryAwareTrait;
 	/**
 	 * Booting the extension. This is the function to set up the environment of the extension like

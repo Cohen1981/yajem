@@ -8,7 +8,10 @@
 
 namespace Sda\Component\Sdajem\Administrator\View\Event;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use \Joomla\CMS\MVC\View\HtmlView AS BaseHtmlView;
@@ -40,6 +43,7 @@ class HtmlView extends BaseHtmlView
 	{
 		$this->form  = $this->get('Form');
 		$this->item = $this->get('Item');
+
 		$this->addToolbar();
 		return parent::display($tpl);
 	}
@@ -53,9 +57,63 @@ class HtmlView extends BaseHtmlView
 	protected function addToolbar()
 	{
 		Factory::getApplication()->input->set('hidemainmenu', true);
+
+		$user = Factory::getApplication()->getIdentity();
+		$userId = $user->id;
+
 		$isNew = ($this->item->id == 0);
-		ToolbarHelper::title($isNew ? Text::_('COM_SDAJEM_EVENT_NEW') : Text::_('COM_SDAJEM_EVENT_EDIT'), 'address foo');
-		ToolbarHelper::apply('event.apply');
-		ToolbarHelper::cancel('event.cancel', 'JTOOLBAR_CLOSE');
+
+		ToolbarHelper::title($isNew ? Text::_('COM_SDAJEM_EVENT_NEW') : Text::_('COM_SDAJEM_EVENT_EDIT'), 'address event');
+
+		// Since we don't track these assets at the item level, use the category id.
+		$canDo = ContentHelper::getActions('com_sdajem', 'category', $this->item->catid);
+
+		// Build the actions for new and existing records.
+		if ($isNew) {
+			// For new records, check the create permission.
+			if ($isNew && (count($user->getAuthorisedCategories('com_sdajem.events', 'core.create')) > 0)) {
+				ToolbarHelper::apply('event.apply');
+				ToolbarHelper::saveGroup(
+					[
+						['save', 'event.save'],
+						['save2new', 'event.save2new']
+					],
+					'btn-success'
+				);
+			}
+
+			ToolbarHelper::cancel('event.cancel');
+		} else {
+			// Since it's an existing record, check the edit permission, or fall back to edit own if the owner.
+			$itemEditable = $canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $userId);
+			$toolbarButtons = [];
+
+			// Can't save the record if it's not editable
+			if ($itemEditable) {
+				ToolbarHelper::apply('event.apply');
+				$toolbarButtons[] = ['save', 'event.save'];
+
+				// We can save this record, but check the create permission to see if we can return to make a new one.
+				if ($canDo->get('core.create')) {
+					$toolbarButtons[] = ['save2new', 'event.save2new'];
+				}
+			}
+
+			// If checked out, we can still save
+			if ($canDo->get('core.create')) {
+				$toolbarButtons[] = ['save2copy', 'event.save2copy'];
+			}
+
+			ToolbarHelper::saveGroup(
+				$toolbarButtons,
+				'btn-success'
+			);
+
+			if (Associations::isEnabled() && ComponentHelper::isEnabled('com_associations')) {
+				ToolbarHelper::custom('event.editAssociations', 'contract', 'contract', 'JTOOLBAR_ASSOCIATIONS', false, false);
+			}
+
+			ToolbarHelper::cancel('event.cancel', 'JTOOLBAR_CLOSE');
+		}
 	}
 }

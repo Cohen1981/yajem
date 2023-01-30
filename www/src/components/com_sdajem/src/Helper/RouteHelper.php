@@ -54,7 +54,7 @@ abstract class RouteHelper
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public static function getFooRoute($id, $catid, $language = 0)
+	public static function getEventRoute($id, $catid, $language = 0)
 	{
 		// Create the link
 		$link = 'index.php?option=com_sdajem&view=event&id=' . $id;

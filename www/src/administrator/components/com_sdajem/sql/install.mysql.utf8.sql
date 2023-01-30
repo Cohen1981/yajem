@@ -13,9 +13,11 @@ Standard for all tables
 	`publish_down` datetime,
 	`state` tinyint(3) NOT NULL DEFAULT 0,
 	`ordering` int(11) NOT NULL DEFAULT 0,
+	`language` char(7) NOT NULL DEFAULT '*',
 	PRIMARY KEY (`id`),
 	KEY `idx_state` (`published`),
-	KEY `idx_created_by` (`created_by`)
+	KEY `idx_created_by` (`created_by`),
+	KEY `idx_language` (`language`)
 */
 
 CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
@@ -32,6 +34,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
 	`publish_down` datetime,
 	`state` tinyint(3) NOT NULL DEFAULT 0,
 	`ordering` int(11) NOT NULL DEFAULT 0,
+	`language` char(7) NOT NULL DEFAULT '*',
 	`title` VARCHAR(255) NOT NULL COMMENT 'The event title',
 	`description` MEDIUMTEXT NULL COMMENT 'Optional description of the event',
 	`url` VARCHAR(255) NULL COMMENT 'Optional url. Use Case: Planing of visiting a third party event.',
@@ -51,6 +54,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
   KEY `idx_organizer` (`organizerId`),
   KEY `idx_location` (`sdajem_location_id`),
   KEY `idx_created_by` (`created_by`),
-  KEY `idx_catid` (`catid`)
+  KEY `idx_catid` (`catid`),
+  KEY `idx_language` (`language`)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
