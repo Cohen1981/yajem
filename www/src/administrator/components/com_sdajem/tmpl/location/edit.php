@@ -32,7 +32,7 @@ $layout  = 'edit';
 $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 ?>
 
-<form action="<?php echo Route::_('index.php?option=com_sdajem&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="event-form" class="form-validate">
+<form action="<?php echo Route::_('index.php?option=com_sdajem&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="location-form" class="form-validate">
     <div>
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'details']); ?>
 
@@ -44,12 +44,13 @@ $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 						<?php echo $this->getForm()->renderField('title'); ?>
 						<?php echo $this->getForm()->renderField('alias'); ?>
 						<?php echo $this->getForm()->renderField('description'); ?>
-	                    <?php echo $this->getForm()->renderField('sdajem_location_id'); ?>
 						<?php echo $this->getForm()->renderField('url'); ?>
-                        <?php echo $this->getForm()->renderField('allDayEvent'); ?>
-						<?php echo $this->getForm()->renderField('startDateTime'); ?>
-						<?php echo $this->getForm()->renderField('endDateTime'); ?>
-						<?php echo $this->getForm()->renderField('access'); ?>
+                        <?php echo $this->getForm()->renderField('street'); ?>
+						<?php echo $this->getForm()->renderField('postalCode'); ?>
+						<?php echo $this->getForm()->renderField('city'); ?>
+						<?php echo $this->getForm()->renderField('stateAddress'); ?>
+						<?php echo $this->getForm()->renderField('country'); ?>
+						<?php echo $this->getForm()->renderField('latlng'); ?>
 						<?php echo $this->getForm()->renderField('published'); ?>
 						<?php echo $this->getForm()->renderField('catid'); ?>
                     </div>

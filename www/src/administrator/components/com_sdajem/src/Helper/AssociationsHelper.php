@@ -33,7 +33,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @since   __BUMP_VERSION__
 	 */
-	protected $itemTypes = ['event', 'category'];
+	protected $itemTypes = ['event', 'location', 'category'];
 	/**
 	 * Has the extension association support
 	 *
@@ -107,6 +107,9 @@ class AssociationsHelper extends AssociationExtensionHelper
 			case 'event':
 				$table = Table::getInstance('EventTable', 'Sda\\Component\\Sdajem\\Administrator\\Table\\');
 				break;
+			case 'location':
+				$table = Table::getInstance('LocationTable', 'Sda\\Component\\Sdajem\\Administrator\\Table\\');
+				break;
 			case 'category':
 				$table = Table::getInstance('Category');
 				break;
@@ -146,6 +149,18 @@ class AssociationsHelper extends AssociationExtensionHelper
 						'a' => '#__sdajem_events'
 					];
 					$title = 'event';
+					break;
+				case 'location':
+					$fields['title'] = 'a.title';
+					$fields['state'] = 'a.published';
+					$support['state'] = true;
+					$support['acl'] = true;
+					$support['category'] = true;
+					$support['save2copy'] = true;
+					$tables = [
+						'a' => '#__sdajem_locations'
+					];
+					$title = 'location';
 					break;
 				case 'category':
 					$fields['created_user_id'] = 'a.created_user_id';
