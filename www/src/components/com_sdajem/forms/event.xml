@@ -13,7 +13,6 @@
                 name="title"
                 type="text"
                 label="COM_SDAJEM_FIELD_TITLE_LABEL"
-                description="COM_SDAJEM_FIELD_TITLE_DESC"
                 size="40"
                 required="true"
         />
@@ -24,12 +23,65 @@
                 size="45"
                 hint="JFIELD_ALIAS_PLACEHOLDER"
         />
+    </fieldset>
+    <fieldset name="details">
+        <field
+                name="description"
+                type="editor"
+                label="COM_SDAJEM_FIELD_EVENTDESC_LABEL"
+        />
         <field
                 name="url"
                 type="text"
                 label="COM_SDAJEM_FIELD_URL_LABEL"
-                description="COM_SDAJEM_FIELD_URL_DESC"
                 size="255"
+        />
+        <field  addfieldprefix="Sda\Component\Sdajem\Administrator\Field"
+                name="sdajem_location_id"
+                type="modal_location"
+                label="COM_FOOS_SELECT_FOO_LABEL"
+                required="true"
+                select="true"
+                new="true"
+                edit="true"
+                clear="true"
+        />
+        <field
+                name="allDayEvent"
+                type="list"
+                label="COM_SDAJEM_FIELD_ALLDAYEVENT_LABEL"
+                default="1"
+                validate="options"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="startDateTime"
+                type="calendar"
+                label="COM_SDAJEM_FIELD_STARTDATETIME_LABEL"
+                showtime="true"
+                translateformat="true"
+                todaybutton="true"
+                size="22"
+        />
+        <field
+                name="endDateTime"
+                type="calendar"
+                label="COM_SDAJEM_FIELD_ENDDATETIME_LABEL"
+                showtime="true"
+                translateformat="true"
+                todaybutton="true"
+                size="22"
+        />
+        <field
+                name="catid"
+                type="categoryedit"
+                label="JCATEGORY"
+                extension="com_sdajem.events"
+                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
+                required="true"
+                default=""
         />
     </fieldset>
     <fieldset name="language" label="JFIELD_LANGUAGE_LABEL">
@@ -69,7 +121,7 @@
         <field
                 name="publish_up"
                 type="calendar"
-                label="COM_FOOS_FIELD_PUBLISH_UP_LABEL"
+                label="COM_SDAJEM_FIELD_PUBLISH_UP_LABEL"
                 translateformat="true"
                 showtime="true"
                 size="22"
@@ -78,20 +130,11 @@
         <field
                 name="publish_down"
                 type="calendar"
-                label="COM_FOOS_FIELD_PUBLISH_DOWN_LABEL"
+                label="COM_SDAJEM_FIELD_PUBLISH_DOWN_LABEL"
                 translateformat="true"
                 showtime="true"
                 size="22"
                 filter="user_utc"
-        />
-        <field
-                name="catid"
-                type="categoryedit"
-                label="JCATEGORY"
-                extension="com_sdajem"
-                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
-                required="true"
-                default=""
         />
         <field
                 name="access"

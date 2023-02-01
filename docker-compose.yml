@@ -84,6 +84,11 @@ services:
     volumes:
       - .:/app
 
+  sass:
+    image: larryprice/sass
+    volumes:
+      - ./www/src:/src
+
 volumes:
   ampp-mysql:
     driver: local

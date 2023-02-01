@@ -29,7 +29,7 @@ class AdministratorService
 			foreach ($associations as $tag => $associated) {
 				$associations[$tag] = (int) $associated->id;
 			}
-			// Get the associated foo items
+			// Get the associated event items
 			$db = Factory::getContainer()->get(DatabaseInterface::class);
 			$query = $db->getQuery(true)
 				->select('c.id, c.title')

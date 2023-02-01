@@ -9,8 +9,7 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-use Joomla\CMS\Factory;
-
-class EventsModel extends \Sda\Component\Sdajem\Administrator\Model\EventsModel
+class LocationsModel extends \Sda\Component\Sdajem\Administrator\Model\LocationsModel
 {
+
 }

@@ -1,0 +1,7 @@
+{
+"version": 3,
+"mappings": "AAAA,OAAO;EACL,OAAO,EAAE,KAAK;;AAEhB,IAAI;EACF,OAAO,EAAE,IAAI",
+"sources": ["sdajem.sass"],
+"names": [],
+"file": "sdajem.css"
+}

@@ -112,7 +112,7 @@ class Icon
 		if (!isset($event->slug)) {
 			$event->slug = "";
 		}
-		$eventUrl = RouteHelper::getFooRoute($event->slug, $event->catid, $event->language);
+		$eventUrl = RouteHelper::getEventRoute($event->slug, $event->catid, $event->language);
 		$url        = $eventUrl . '&task=event.edit&id=' . $event->id . '&return=' . base64_encode($uri);
 		if ($event->published == 0) {
 			$overlib = Text::_('JUNPUBLISHED');

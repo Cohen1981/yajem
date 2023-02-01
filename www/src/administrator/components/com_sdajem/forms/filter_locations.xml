@@ -32,7 +32,7 @@
                 type="category"
                 label="JCATEGORY"
                 multiple="true"
-                extension="com_foos"
+                extension="com_sdajem"
                 layout="joomla.form.field.list-fancy-select"
                 hint="JOPTION_SELECT_CATEGORY"
                 onchange="this.form.submit();"

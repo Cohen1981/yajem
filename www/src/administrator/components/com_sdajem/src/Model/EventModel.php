@@ -116,7 +116,7 @@ class EventModel extends AdminModel
 	{
 		$item = parent::getItem($pk);
 
-		// Load associated foo items
+		// Load associated event items
 		$assoc = Associations::isEnabled();
 
 		if ($assoc) {
@@ -160,7 +160,7 @@ class EventModel extends AdminModel
 				foreach ($languages as $language) {
 					$field = $fieldset->addChild('field');
 					$field->addAttribute('title', $language->lang_code);
-					#$field->addAttribute('type', 'modal_foo');
+					#$field->addAttribute('type', 'modal_event');
 					$field->addAttribute('language', $language->lang_code);
 					$field->addAttribute('label', $language->title);
 					$field->addAttribute('translate_label', 'false');

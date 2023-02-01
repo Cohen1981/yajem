@@ -9,21 +9,38 @@
 
 namespace Sda\Component\Sdajem\Site\View\Events;
 
-use Joomla\CMS\Categories\Categories;
-use Joomla\CMS\Categories\CategoryFactory;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Helper\ContentHelper;
-use Joomla\CMS\HTML\Helpers\Category;
-use Joomla\CMS\Language\Text;
-use Joomla\CMS\Toolbar\Toolbar;
-use Joomla\CMS\Toolbar\ToolbarHelper;
-use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
+
 
 
 \defined('_JEXEC') or die;
 
 class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 {
+	/**
+	 * The page parameters
+	 *
+	 * @var    \Joomla\Registry\Registry|null
+	 * @since  __BUMP_VERSION__
+	 */
+	protected $params = null;
+
+	/**
+	 * The item model state
+	 *
+	 * @var    \Joomla\Registry\Registry
+	 * @since  __BUMP_VERSION__
+	 */
+	protected $state;
+
+	/**
+	 * The item object details
+	 *
+	 * @var    \JObject
+	 * @since  __BUMP_VERSION__
+	 */
 	protected $items;
 	/**
 	 * @param   null  $tpl
@@ -34,26 +51,11 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 	 */
 	public function display($tpl = null)
 	{
-
-		$document = Factory::getDocument();
-		$document->addStyleSheet(Uri::root() . '/media/com_sdajem/css/toolbar.css');
-
 		$this->items = $this->get('Items');
 
+		$state = $this->state = $this->get('State');
+		$this->params = $this->params = $state->get('params');
+
 		return parent::display($tpl);
-	}
-
-	protected function renderToolbar(): string {
-		$this->canDo = ContentHelper::getActions('com_sdajem');
-		$title = Text::_('COM_SDAJEM_EVENTS_TITLE');
-
-		ToolbarHelper::title($title);
-		if ($this->canDo->get('core.create'))
-		{
-			ToolbarHelper::addNew('add', 'COM_SDAJEM_BUTTON_CODE_NEW');
-		}
-		ToolbarHelper::back();
-
-		return Toolbar::getInstance()->render();
 	}
 }
