@@ -20,51 +20,48 @@ use Joomla\CMS\Language\Text;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 
 /**
- * Event model for the Joomla Events component.
+ * Location model for the Joomla Locations component.
  *
  * @since  __BUMP_VERSION__
  *
  * @property  int       id
- * @property  int       $access
- * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
- * @property  int       checked_out
- * @property  Date      checked_out_time
- * @property  int       published
- * @property  Date      publish_up
- * @property  Date      publish_down
- * @property  int       state
- * @property  int       ordering
- * @property  string    language
  * @property  string    title
+ * @property  string    alias
  * @property  string    description
  * @property  string    url
- * @property  string    image
- * @property  int       sdajem_location_id fk to locations table
- * @property  int       hostId
- * @property  int       organizerId
- * @property  Date      startDateTime
- * @property  Date      endDateTime
- * @property  int       allDayEvent
- * @property  int       eventStatus
- * @property  int       eventCancelled
  * @property  int       catid
- * @property  string    svg
-   */
+ * @property  string    language
+ * @property  string    street
+ * @property  string    postalCode
+ * @property  string    city
+ * @property  string    stateAddress
+ * @property  string    country
+ * @property  string    latlng
+  */
 
-class EventModel extends BaseDatabaseModel
+class LocationModel extends BaseDatabaseModel
 {
+	/**
+	 * Linkt to com_contact
+	 * @since version
+	 * @var int
+	 */
+	public int $organizerId;
+	/**
+	 * Link to com_users
+	 * @since version
+	 * @var int
+	 */
+	public int $hostId;
 	/**
 	 * @var string item
 	 * @since __BUMP_VERSION__
 	 */
 	protected $_item = null;
 	/**
-	 * Gets a event
+	 * Gets a location
 	 *
-	 * @param   integer  $pk  Id for the event
+	 * @param   integer  $pk  Id for the location
 	 *
 	 * @return  mixed Object or null
 	 *
@@ -88,7 +85,7 @@ class EventModel extends BaseDatabaseModel
 				$query = $db->getQuery(true);
 
 				$query->select('*')
-					->from($db->quoteName('#__sdajem_events', 'a'))
+					->from($db->quoteName('#__sdajem_locations', 'a'))
 					->where('a.id = ' . (int) $pk);
 
 				$db->setQuery($query);
@@ -96,7 +93,7 @@ class EventModel extends BaseDatabaseModel
 
 				if (empty($data))
 				{
-					throw new \Exception(Text::_('COM_SDAJEM_ERROR_EVENT_NOT_FOUND'), 404);
+					throw new \Exception(Text::_('COM_SDAJEM_ERROR_LOCATION_NOT_FOUND'), 404);
 				}
 
 				$this->_item[$pk] = $data;
@@ -124,7 +121,7 @@ class EventModel extends BaseDatabaseModel
 	{
 		$app = Factory::getApplication();
 
-		$this->setState('event.id', $app->input->getInt('id'));
+		$this->setState('location.id', $app->input->getInt('id'));
 		$this->setState('params', $app->getParams());
 	}
 }

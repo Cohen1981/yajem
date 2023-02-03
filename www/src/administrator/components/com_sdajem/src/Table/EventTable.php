@@ -12,11 +12,45 @@ namespace Sda\Component\Sdajem\Administrator\Table;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\ApplicationHelper;
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 
+/**
+ * @since       version
+ * @package     Sda\Component\Sdajem\Administrator\Table
+ *
+ * @property  int       id
+ * @property  int       $access
+ * @property  string    alias
+ * @property  Date      created
+ * @property  int       created_by
+ * @property  string    created_by_alias
+ * @property  int       checked_out
+ * @property  Date      checked_out_time
+ * @property  int       published
+ * @property  Date      publish_up
+ * @property  Date      publish_down
+ * @property  int       state
+ * @property  int       ordering
+ * @property  string    language
+ * @property  string    title
+ * @property  string    description
+ * @property  string    url
+ * @property  string    image
+ * @property  int       sdajem_location_id fk to locations table
+ * @property  int       hostId
+ * @property  int       organizerId
+ * @property  Date      startDateTime
+ * @property  Date      endDateTime
+ * @property  int       allDayEvent
+ * @property  int       eventStatus
+ * @property  int       eventCancelled
+ * @property  int       catid
+ * @property  string    svg
+ */
 class EventTable extends Table
 {
 	/**
@@ -71,6 +105,16 @@ class EventTable extends Table
 		}
 		if (!$this->publish_down) {
 			$this->publish_down = null;
+		}
+		if (!$this->hostId) {
+			$this->hostId = null;
+		}
+		if (!$this->organizerId) {
+			$this->organizerId = null;
+		}
+		if (!$this->checked_out) {
+			$this->checked_out = null;
+			$this->checked_out_time = null;
 		}
 		return true;
 	}

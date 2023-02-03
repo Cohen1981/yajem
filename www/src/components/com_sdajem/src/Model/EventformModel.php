@@ -20,7 +20,7 @@ use Joomla\CMS\Table\Table;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
-class FormModel extends \Sda\Component\Sdajem\Administrator\Model\EventModel
+class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventModel
 {
 	/**
 	 * Model typeAlias string. Used for version history.

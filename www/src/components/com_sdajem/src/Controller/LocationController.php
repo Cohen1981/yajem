@@ -14,10 +14,9 @@ use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Utilities\ArrayHelper;
-use Sda\Component\Sdajem\Site\Enums\EventStatus;
 use Sda\Component\Sdajem\Site\Model\AttendingModel;
 
-class EventController extends FormController
+class LocationController extends FormController
 {
 	/**
 	 * The URL view item variable.
@@ -25,7 +24,7 @@ class EventController extends FormController
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
 	 */
-	protected $view_item = 'eventform';
+	protected $view_item = 'locationform';
 	/**
 	 * Method to get a model object, loading it if required.
 	 *
@@ -37,7 +36,7 @@ class EventController extends FormController
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getModel($name = 'eventform', $prefix = '', $config = ['ignore_request' => true])
+	public function getModel($name = 'locationform', $prefix = '', $config = ['ignore_request' => true])
 	{
 		return parent::getModel($name, $prefix, ['ignore_request' => false]);
 	}

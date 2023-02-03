@@ -18,43 +18,20 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Language\Text;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
+use Sda\Component\Sdajem\Site\Enums\EventStatus;
 
 /**
  * Event model for the Joomla Events component.
  *
  * @since  __BUMP_VERSION__
  *
- * @property  int       id
- * @property  int       $access
- * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
- * @property  int       checked_out
- * @property  Date      checked_out_time
- * @property  int       published
- * @property  Date      publish_up
- * @property  Date      publish_down
- * @property  int       state
- * @property  int       ordering
- * @property  string    language
- * @property  string    title
- * @property  string    description
- * @property  string    url
- * @property  string    image
- * @property  int       sdajem_location_id fk to locations table
- * @property  int       hostId
- * @property  int       organizerId
- * @property  Date      startDateTime
- * @property  Date      endDateTime
- * @property  int       allDayEvent
- * @property  int       eventStatus
- * @property  int       eventCancelled
- * @property  int       catid
- * @property  string    svg
-   */
+ * @property  int           id
+ * @property  int           event_id
+ *`@property  int           users_user_id
+ * @property  EventStatus   status
+ */
 
-class EventModel extends BaseDatabaseModel
+class AttendingModel extends BaseDatabaseModel
 {
 	/**
 	 * @var string item
@@ -88,7 +65,7 @@ class EventModel extends BaseDatabaseModel
 				$query = $db->getQuery(true);
 
 				$query->select('*')
-					->from($db->quoteName('#__sdajem_events', 'a'))
+					->from($db->quoteName('#__sdajem_attending', 'a'))
 					->where('a.id = ' . (int) $pk);
 
 				$db->setQuery($query);
@@ -96,7 +73,7 @@ class EventModel extends BaseDatabaseModel
 
 				if (empty($data))
 				{
-					throw new \Exception(Text::_('COM_SDAJEM_ERROR_EVENT_NOT_FOUND'), 404);
+					throw new \Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
 				}
 
 				$this->_item[$pk] = $data;
@@ -107,6 +84,7 @@ class EventModel extends BaseDatabaseModel
 				$this->_item[$pk] = false;
 			}
 		}
+		$this->_item[$pk]['status'] = EventStatus::from($this->_item[$pk]['status']);
 
 		return $this->_item[$pk];
 	}

@@ -17,12 +17,12 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
-use Sda\Component\Sdajem\Administrator\Model\LocationModel;
 
 /**
  * @since       version
  * @package     Sda\Component\Sdajem\Administrator\Table
  *
+ * Fields
  * @property  int       id
  * @property  int       $access
  * @property  string    alias
@@ -37,20 +37,11 @@ use Sda\Component\Sdajem\Administrator\Model\LocationModel;
  * @property  int       state
  * @property  int       ordering
  * @property  string    language
- * @property  string    title
- * @property  string    description
- * @property  string    url
- * @property  string    street
- * @property  string    postalCode
- * @property  string    city
- * @property  string    stateAddress
- * @property  string    country
- * @property  string    latlng
- * @property  int       contactId
- * @property  string    image
- * @property  int       catid
+ * @property  int       event_id
+ * @property  int       users_user_id
+ * @property  int       status
  */
-class LocationTable extends Table
+class AttendingTable extends Table
 {
 	/**
 	 * Constructor
@@ -62,7 +53,7 @@ class LocationTable extends Table
 	public function __construct(DatabaseDriver $db)
 	{
 		$this->typeAlias = 'com_sdajem';
-		parent::__construct('#__sdajem_locations', 'id', $db);
+		parent::__construct('#__sdajem_attending', 'id', $db);
 	}
 
 	/**
@@ -75,10 +66,7 @@ class LocationTable extends Table
 	 */
 	public function generateAlias()
 	{
-		/* @var LocationModel $this */
-		if (empty($this->alias)) {
-			$this->alias = $this->title;
-		}
+		$this->alias = 'attending';
 		$this->alias = ApplicationHelper::stringURLSafe($this->alias, $this->language);
 		if (trim(str_replace('-', '', $this->alias)) == '') {
 			$this->alias = Factory::getDate()->format('Y-m-d-H-i-s');
@@ -105,10 +93,6 @@ class LocationTable extends Table
 		}
 		if (!$this->publish_down) {
 			$this->publish_down = null;
-		}
-		if (!$this->checked_out) {
-			$this->checked_out = null;
-			$this->checked_out_time = null;
 		}
 		return true;
 	}

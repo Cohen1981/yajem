@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-    <fieldset>
+    <fieldset name="location">
         <field
                 name="id"
                 type="number"
@@ -12,7 +12,7 @@
         <field
                 name="title"
                 type="text"
-                label="COM_SDAJEM_FIELD_TITLE_LABEL"
+                label="COM_SDAJEM_FIELD_LOCATION_TITLE_LABEL"
                 size="40"
                 required="true"
         />
@@ -23,89 +23,54 @@
                 size="45"
                 hint="JFIELD_ALIAS_PLACEHOLDER"
         />
-    </fieldset>
-    <fieldset name="details">
         <field
                 name="description"
                 type="editor"
-                label="COM_SDAJEM_FIELD_EVENTDESC_LABEL"
+                label="COM_SDAJEM_FIELD_LOCATION_DESC_LABEL"
         />
         <field
                 name="url"
                 type="text"
-                label="COM_SDAJEM_FIELD_URL_LABEL"
+                label="COM_SDAJEM_FIELD_LOCATION_URL_LABEL"
                 size="255"
         />
-        <field  addfieldprefix="Sda\Component\Sdajem\Administrator\Field"
-                name="sdajem_location_id"
-                type="modal_location"
-                label="COM_FOOS_SELECT_FOO_LABEL"
-                required="true"
-                select="true"
-                new="true"
-                edit="true"
-                clear="true"
+        <field
+                name="street"
+                type="text"
+                label="COM_SDAJEM_FIELD_LOCATION_STREET_LABEL"
+                size="255"
         />
         <field
-                name="allDayEvent"
-                type="list"
-                label="COM_SDAJEM_FIELD_ALLDAYEVENT_LABEL"
-                default="1"
-                validate="options"
-        >
-            <option value="0">JNO</option>
-            <option value="1">JYES</option>
-        </field>
-        <field
-                name="startDateTime"
-                type="calendar"
-                label="COM_SDAJEM_FIELD_STARTDATETIME_LABEL"
-                showtime="true"
-                translateformat="true"
-                todaybutton="true"
-                size="22"
+                name="postalCode"
+                type="text"
+                label="COM_SDAJEM_FIELD_LOCATION_POSTALCODE_LABEL"
+                size="255"
         />
         <field
-                name="endDateTime"
-                type="calendar"
-                label="COM_SDAJEM_FIELD_ENDDATETIME_LABEL"
-                showtime="true"
-                translateformat="true"
-                todaybutton="true"
-                size="22"
+                name="city"
+                type="text"
+                label="COM_SDAJEM_FIELD_LOCATION_CITY_LABEL"
+                size="255"
         />
         <field
-                name="catid"
-                type="categoryedit"
-                label="JCATEGORY"
-                extension="com_sdajem.events"
-                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
-                required="true"
-                default=""
+                name="stateAddress"
+                type="text"
+                label="COM_SDAJEM_FIELD_LOCATION_STATEADDRESS_LABEL"
+                size="255"
         />
-        <field name="organizerId"
-               type="sql"
-               label="COM_SDAJEM_FIELD_ORGANIZER_LABEL"
-               desc=""
-               query="SELECT id , name FROM #__users"
-               multiple="single"
-               key_field="id"
-               value_field="name"
-               header="COM_SDAJEM_SELECT_OPTION"
+        <field
+                name="country"
+                type="text"
+                label="COM_SDAJEM_FIELD_LOCATION_COUNTRY_LABEL"
+                size="255"
         />
-        <field name="hostId"
-               type="sql"
-               label="COM_SDAJEM_FIELD_HOST_LABEL"
-               desc=""
-               sql_select="cd.*"
-               sql_from="#__contact_details AS cd"
-               multiple="single"
-               key_field="id"
-               value_field="name"
-               header="COM_SDAJEM_SELECT_OPTION"
+        <field
+                name="latlng"
+                type="text"
+                label="COM_SDAJEM_FIELD_LOCATION_LATLNG_LABEL"
+                size="255"
         />
     </fieldset>
-
     <fieldset name="language" label="JFIELD_LANGUAGE_LABEL">
         <field
                 name="language"
@@ -157,6 +122,15 @@
                 showtime="true"
                 size="22"
                 filter="user_utc"
+        />
+        <field
+                name="catid"
+                type="categoryedit"
+                label="JCATEGORY"
+                extension="com_sdajem.locations"
+                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
+                required="true"
+                default=""
         />
         <field
                 name="access"

@@ -1,7 +1,10 @@
-.sdarow {
-  display: block; }
+.sda_row {
+  display: block;
+  padding: 10px; }
 
-.sda {
-  display: flex; }
+.sda_event_head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; }
 
 /*# sourceMappingURL=sdajem.css.map */

@@ -77,12 +77,18 @@ class EventsModel extends ListModel
 					$db->quoteName('a.language'),
 					$db->quoteName('a.startDateTime'),
 					$db->quoteName('a.endDateTime'),
-					$db->quoteName('a.allDayEvent')
+					$db->quoteName('a.allDayEvent'),
+					$db->quoteName('a.sdajem_location_id')
 				]
 			)
 		);
 		$query->from($db->quoteName('#__sdajem_events', 'a'));
 
+		$query->select($db->quoteName('loc.title', 'location_name'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__sdajem_locations', 'loc') . ' ON ' . $db->quoteName('loc.id') . ' = ' . $db->quoteName('a.sdajem_location_id')
+			);
 		// Join over the asset groups.
 		$query->select($db->quoteName('ag.title', 'access_level'))
 			->join(

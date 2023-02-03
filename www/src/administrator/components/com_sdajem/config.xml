@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <config>
     <fieldset
-            name="event"
+            name="general"
             label="COM_SDAJEM_FIELDS_CONFIG"
             description="COM_SDAJEM_FIELD_CONFIG_DESC"
     >
@@ -30,6 +30,30 @@
                 label="COM_SDAJEM_FIELD_AVATAR_FIELD_NAME"
                 showon="sda_use_avatar:1"
         />
+    </fieldset>
+    <fieldset
+            name="event"
+            label="COM_SDAJEM_FIELDS_EVENT_CONFIG"
+            description="COM_SDAJEM_FIELDS_EVENT_CONFIG_DESC"
+    >
+        <field
+                name="sda_use_attending"
+                type="list"
+                label="COM_SDAJEM_FIELD_USE_ATTENDING_LABEL"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="sda_use_organizer"
+                type="list"
+                label="COM_SDAJEM_FIELD_USE_ORGANIZER_LABEL"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
     </fieldset>
     <fieldset
             name="permissions"

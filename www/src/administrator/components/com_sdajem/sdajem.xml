@@ -35,6 +35,7 @@
     <media folder="media/com_sdajem" destination="com_sdajem">
         <folder>images</folder>
         <folder>js</folder>
+        <folder>css</folder>
         <filename>joomla.asset.json</filename>
     </media>
 

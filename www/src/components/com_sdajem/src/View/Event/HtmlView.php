@@ -9,37 +9,50 @@
 
 namespace Sda\Component\Sdajem\Site\View\Event;
 
+use Exception;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Object\CMSObject;
+use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
+use Joomla\Component\Contact\Site\Model\ContactModel;
+use Joomla\Component\Users\Administrator\Extension\UsersComponent;
+use Joomla\Component\Users\Administrator\Model\UserModel;
 use Joomla\Registry\Registry;
+use Sda\Component\Sdajem\Site\Model\AttendingsModel;
+use Sda\Component\Sdajem\Site\Model\EventModel;
+use stdClass;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
+/**
+ * @method getMVCFactory()
+ * @since __BUM_VERSION__
+ */
 class HtmlView extends BaseHtmlView
 {
 	/**
 	 * The page parameters
 	 *
-	 * @var    \Joomla\Registry\Registry|null
+	 * @var    Registry|null
 	 * @since  __BUMP_VERSION__
 	 */
-	protected $params = null;
+	protected ?Registry $params = null;
 
 	/**
 	 * The item model state
 	 *
-	 * @var    \Joomla\Registry\Registry
+	 * @var    CMSObject
 	 * @since  __BUMP_VERSION__
 	 */
-	protected $state;
+	protected CMSObject $state;
 
 	/**
 	 * The item object details
 	 *
-	 * @var    \JObject
+	 * @var    stdClass
 	 * @since  __BUMP_VERSION__
 	 */
-	protected $item;
+	protected stdClass $item;
 
 	/**
 	 * Execute and display a template script.
@@ -47,15 +60,40 @@ class HtmlView extends BaseHtmlView
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @return  mixed  A string if successful, otherwise an Error object.
+	 * @throws Exception
 	 * @since __BUMP_VERSION__
 	 */
 	public function display($tpl = null)
 	{
+		/* @var EventModel $item */
 		$item = $this->item = $this->get('Item');
 
 		$state = $this->state = $this->get('State');
 		$params = $this->params = $state->get('params');
 
+		if (isset($item->organizerId))
+		{
+			/** @var UsersComponent $userComponent */
+			$userComponent = Factory::getApplication()->bootComponent('com_users');
+
+			/** @var UserModel $userModel */
+			$userModel = $userComponent->getMVCFactory()
+				->createModel('User', 'Administrator', ['ignore_request' => true]);
+
+			$item->organizer = $userModel->getItem($item->organizerId);
+		}
+
+		if (isset($item->hostId))
+		{
+			/** @var ContactComponent $contactComponent */
+			$contactComponent = Factory::getApplication()->bootComponent('com_contact');
+
+			/** @var ContactModel $contactModel */
+			$contactModel = $contactComponent->getMVCFactory()
+				->createModel('Contact', 'Administrator', ['ignore_request' => true]);
+
+			$item->host = $contactModel->getItem($item->hostId);
+		}
 		/**
 		 * $item->params are the event params, $temp are the menu item params
 		 * Merge so that the menu item params take priority
@@ -65,6 +103,13 @@ class HtmlView extends BaseHtmlView
 
 		// Merge so that event params take priority
 		$item->params = $params;
+
+		if($item->params->get('sda_use_attending')) {
+			/* @var AttendingsModel $attendings */
+			$attendings = new AttendingsModel();
+			$attendings->getAttendingsToEvent($item->id);
+			$item->attendings = $attendings;
+		}
 
 		$active = Factory::getApplication()->getMenu()->getActive();
 
@@ -82,7 +127,7 @@ class HtmlView extends BaseHtmlView
 		Factory::getApplication()->triggerEvent('onContentPrepare', ['com_sdajem.event', &$item, &$item->params]);
 
 		// Store the events for later
-		$item->event = new \stdClass;
+		$item->event = new stdClass;
 		$results = Factory::getApplication()->triggerEvent('onContentAfterTitle', ['com_sdajem.event', &$item, &$item->params]);
 		$item->event->afterDisplayTitle = trim(implode("\n", $results));
 

@@ -7,7 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Sda\Component\Sdajem\Site\View\Form;
+namespace Sda\Component\Sdajem\Site\View\Locationform;
 
 \defined('_JEXEC') or die;
 
@@ -16,9 +16,9 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Sda\Component\Sdajem\Administrator\Helper\EventHelper;
+use Sda\Component\Sdajem\Administrator\Helper\LocationHelper;
 /**
- * HTML Event View class for the Event component
+ * HTML Location View class
  *
  * @since  __DEPLOY_VERSION__
  */
@@ -91,9 +91,9 @@ class HtmlView extends BaseHtmlView
 		$this->params = $this->state->params;
 		// Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
-		// Override global params with event specific params
+		// Override global params with location specific params
 		#$this->params->merge($this->item->params);
-		// Propose current language as default when creating new event
+		// Propose current language as default when creating new location
 		if (empty($this->item->id) && Multilanguage::isEnabled()) {
 			$lang = Factory::getLanguage()->getTag();
 			$this->form->setFieldAttribute('language', 'default', $lang);
