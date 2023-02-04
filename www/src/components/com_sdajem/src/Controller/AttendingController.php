@@ -9,29 +9,35 @@
 
 namespace Sda\Component\Sdajem\Site\Controller;
 
-use Sda\Component\Sdajem\Site\Enums\EventStatus;
+use Joomla\CMS\Factory;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingModel;
 
 class AttendingController extends \Joomla\CMS\MVC\Controller\FormController
 {
-	public function getModel($name = 'Attending', $prefix = '', $config = ['ignore_request' => true])
+	protected $view_item = 'event';
+
+	public function getModel($name = 'Attendingform', $prefix = '', $config = ['ignore_request' => true])
 	{
 		return parent::getModel($name, $prefix, ['ignore_request' => false]);
 	}
 
 	public function signup($eventId = null, $userId = null)
 	{
-		/* @var AttendingModel $attending */
-		$attending = new AttendingModel();
-
-		if (!$eventId) {
-			$attending->event_id = $this->input->get('eventId');
-		}
-		if (!$userId) {
-			$attending->users_user_id = $this->input->get('userId');
+		$this->input->set('id', $this->input->get('attendingId'));
+		/* @var \Sda\Component\Sdajem\Site\Enums\EventStatusEnum $newStatus */
+		if ($this->input->get('newAttendeeStatus'))
+		{
+			$newStatus = ($this->input->get('newAttendeeStatus'));
 		}
 
-		$attending->status = EventStatus::ATTENDING->value;
+		$data = array(
+			'id' => $this->input->get('attendingId'),
+			'event_id' => $this->input->get('event_id'),
+			'users_user_id' => Factory::getApplication()->getIdentity()->id,
+			'status' => $newStatus
+		);
+		$this->input->post->set('jform', $data);
 
 		$this->save();
 	}

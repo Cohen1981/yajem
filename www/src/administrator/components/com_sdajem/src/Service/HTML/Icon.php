@@ -16,9 +16,12 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
 use Joomla\Registry\Registry;
+use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 
 class Icon
 {
@@ -143,6 +146,57 @@ class Icon
 		$text .= Text::_('JGLOBAL_EDIT');
 		$attribs['title'] = Text::_('COM_FOOS_EDIT_FOO');
 		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
+		return $output;
+	}
+
+	public static function register($event, $params, $attribs = [], $legacy = false)
+	{
+		$user = Factory::getApplication()->getIdentity();
+		$uri  = Uri::getInstance();
+		// Ignore if in a popup window.
+		if ($params && $params->get('popup')) {
+			return '';
+		}
+		// Ignore if the state is negative (trashed).
+		if ($event->published < 0) {
+			return '';
+		}
+		// Set the link class
+		$attribs['class'] = 'dropdown-item';
+		if (!isset($event->slug)) {
+			$event->slug = "";
+		}
+
+		$url      = 'index.php?option=com_sdajem&&task=attending.signup'
+			. '&event_id=' . $event->id
+			. '&return=' . base64_encode($uri);
+
+		$icon = 'add';
+
+		$text = '<form action="' . $url . '" method="post" id="attendeeForm" name="attendeeForm">';
+		$text .= HTMLHelper::_('form.token');
+		// Test for attending Status
+		$attendingsModel = new AttendingsModel();
+		$attending = $attendingsModel->getAttendingStatusToEvent($event->id);
+
+		if ($attending) {
+			$text .= '<input type="hidden" name="attendingId" value="' . $attending->id . '"/>';
+		} else {
+			$attending = new \stdClass();
+			$attending->status = EventStatusEnum::NA->value;
+		}
+
+		foreach (EventStatusEnum::cases() as $status) {
+			if ($status != EventStatusEnum::from($attending->status) && $status != EventStatusEnum::NA)
+			{
+				$text .= '<button type="submit" form="attendeeForm" name="newAttendeeStatus" value="' . $status->value . '">';
+				$text .= Text::_($status->getButtonLabel()) . '</button>';
+			}
+		}
+
+		$text .= '</form>';
+        $output = $text;
+
 		return $output;
 	}
 }

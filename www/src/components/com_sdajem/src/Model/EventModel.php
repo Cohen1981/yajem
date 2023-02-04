@@ -87,7 +87,7 @@ class EventModel extends BaseDatabaseModel
 				$db    = $this->getDatabase();
 				$query = $db->getQuery(true);
 
-				$query->select('*')
+				$query->select('a.*')
 					->from($db->quoteName('#__sdajem_events', 'a'))
 					->where('a.id = ' . (int) $pk);
 

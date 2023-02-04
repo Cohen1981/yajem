@@ -18,17 +18,25 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Language\Text;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
-use Sda\Component\Sdajem\Site\Enums\EventStatus;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 /**
  * Event model for the Joomla Events component.
  *
  * @since  __BUMP_VERSION__
  *
- * @property  int           id
- * @property  int           event_id
- *`@property  int           users_user_id
- * @property  EventStatus   status
+ * Fields
+ * @property  int       id
+ * @property  int       access
+ * @property  string    alias
+ * @property  Date      created
+ * @property  int       created_by
+ * @property  string    created_by_alias
+ * @property  int       state
+ * @property  int       ordering
+ * @property  int       event_id
+ * @property  int       users_user_id
+ * @property  int       status
  */
 
 class AttendingModel extends BaseDatabaseModel
@@ -65,7 +73,7 @@ class AttendingModel extends BaseDatabaseModel
 				$query = $db->getQuery(true);
 
 				$query->select('*')
-					->from($db->quoteName('#__sdajem_attending', 'a'))
+					->from($db->quoteName('#__sdajem_attendings', 'a'))
 					->where('a.id = ' . (int) $pk);
 
 				$db->setQuery($query);
@@ -84,7 +92,7 @@ class AttendingModel extends BaseDatabaseModel
 				$this->_item[$pk] = false;
 			}
 		}
-		$this->_item[$pk]['status'] = EventStatus::from($this->_item[$pk]['status']);
+		$this->_item[$pk]['status'] = EventStatusEnum::from($this->_item[$pk]['status']);
 
 		return $this->_item[$pk];
 	}

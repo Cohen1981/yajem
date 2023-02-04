@@ -13,8 +13,12 @@ use Exception;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Object\CMSObject;
+use Joomla\CMS\User\UserFactory;
+use Joomla\CMS\User\UserFactoryInterface;
+use Joomla\CMS\User\UserHelper;
 use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
 use Joomla\Component\Contact\Site\Model\ContactModel;
+use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
 use Joomla\Component\Users\Administrator\Extension\UsersComponent;
 use Joomla\Component\Users\Administrator\Model\UserModel;
 use Joomla\Registry\Registry;
@@ -73,14 +77,27 @@ class HtmlView extends BaseHtmlView
 
 		if (isset($item->organizerId))
 		{
+			$item->organizer = Factory::getContainer()->get(UserFactoryInterface::class)->loadUserById($item->organizerId);
+
+			$item->organizer->profile = UserHelper::getProfile($item->organizerId);
+
+			$userdata = FieldsHelper::getFields('com_users.user', $item->organizer, true);
+			$tmp          = isset($userdata) ? $userdata : array();
+			$customFields = array();
+
+			foreach ($tmp as $customField)
+			{
+				$customFields[$customField->name] = $customField;
+			}
+			$item->organizer->userData = $customFields;
+
 			/** @var UsersComponent $userComponent */
-			$userComponent = Factory::getApplication()->bootComponent('com_users');
+			#$userComponent = Factory::getApplication()->bootComponent('com_users');
 
 			/** @var UserModel $userModel */
-			$userModel = $userComponent->getMVCFactory()
-				->createModel('User', 'Administrator', ['ignore_request' => true]);
+			#$userModel = $userComponent->getMVCFactory()->createModel('User', 'Administrator', ['ignore_request' => true]);
 
-			$item->organizer = $userModel->getItem($item->organizerId);
+			#$item->organizer = $userModel->getItem($item->organizerId);
 		}
 
 		if (isset($item->hostId))
@@ -107,8 +124,10 @@ class HtmlView extends BaseHtmlView
 		if($item->params->get('sda_use_attending')) {
 			/* @var AttendingsModel $attendings */
 			$attendings = new AttendingsModel();
-			$attendings->getAttendingsToEvent($item->id);
-			$item->attendings = $attendings;
+			$attendees = $attendings->getAttendingsToEvent($item->id);
+			if ($attendees) {
+				$item->attendings = $attendees;
+			}
 		}
 
 		$active = Factory::getApplication()->getMenu()->getActive();
