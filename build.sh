@@ -13,6 +13,8 @@ chmod -Rf 777 *
 #create symbolic links for own code
 ln -sr /home/joomla/development/yajem/www/src/administrator/components/com_sdajem /home/joomla/development/yajem/www/joomla/administrator/components/com_sdajem
 ln -sr /home/joomla/development/yajem/www/src/components/com_sdajem /home/joomla/development/yajem/www/joomla/components/com_sdajem
+ln -sr /home/joomla/development/yajem/www/src/templates/survivants /home/joomla/development/yajem/www/joomla/templates/survivants
 ln -sr /home/joomla/development/yajem/www/src/media/com_sdajem /home/joomla/development/yajem/www/joomla/media/com_sdajem
+ln -sr /home/joomla/development/yajem/www/src/media/templates/site/survivants /home/joomla/development/yajem/www/joomla/media/templates/site/survivants
 
 cd ../..

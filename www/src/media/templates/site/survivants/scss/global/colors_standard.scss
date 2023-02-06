@@ -1,0 +1,8 @@
+// Variables, Functions and Mixins
+@import "../tools/tools";
+
+:root {
+  --survivants-color-primary: #{$standard-color-primary};
+  --survivants-color-link: #{$standard-color-link};
+  --survivants-color-hover: #{$standard-color-hover};
+}

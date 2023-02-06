@@ -39,7 +39,7 @@
         <field  addfieldprefix="Sda\Component\Sdajem\Administrator\Field"
                 name="sdajem_location_id"
                 type="modal_location"
-                label="COM_FOOS_SELECT_FOO_LABEL"
+                label="COM_SDAJEM_SELECT_LOCATION_LABEL"
                 required="true"
                 select="true"
                 new="true"

@@ -1,0 +1,73 @@
+/*
+Error: File to import not found or unreadable: ../../../../../vendor/bootstrap/scss/functions.
+       Load path: /src
+        on line 2 of /src/media/templates/site/survivants/scss/tools/_tools.scss
+        from line 1 of /src/media/templates/site/survivants/scss/vendor/joomla-custom-elements/joomla-alert.scss
+
+1: @import "../../tools/tools";
+2: @import "../../../../../../vendor/joomla-custom-elements/css/joomla-alert.css";
+3: 
+4: // The following is a restyle for the system alerts
+5: #system-message-container {
+6:   &:empty {
+7:     display: none;
+
+Backtrace:
+/src/media/templates/site/survivants/scss/tools/_tools.scss:2
+/src/media/templates/site/survivants/scss/vendor/joomla-custom-elements/joomla-alert.scss:1
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/import_node.rb:66:in `rescue in import'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/import_node.rb:45:in `import'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/import_node.rb:28:in `imported_file'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/import_node.rb:37:in `css_import?'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:311:in `visit_import'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:325:in `block (2 levels) in visit_import'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:325:in `map'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:325:in `block in visit_import'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/stack.rb:88:in `block in with_import'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/stack.rb:88:in `with_import'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:322:in `visit_import'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `block in visit'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/stack.rb:79:in `block in with_base'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/stack.rb:115:in `with_frame'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/stack.rb:79:in `with_base'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:158:in `visit'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `block in visit_children'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `map'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:52:in `visit_children'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:167:in `block in visit_children'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:179:in `with_environment'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:166:in `visit_children'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `block in visit'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:186:in `visit_root'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/base.rb:36:in `visit'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:157:in `visit'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/visitors/perform.rb:8:in `visit'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/root_node.rb:36:in `css_tree'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/tree/root_node.rb:29:in `render_with_sourcemap'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/engine.rb:368:in `_render_with_sourcemap'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/engine.rb:285:in `render_with_sourcemap'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:490:in `update_stylesheet'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:215:in `block in update_stylesheets'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `each'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:209:in `update_stylesheets'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:470:in `on_file_changed'
+/usr/local/bundle/gems/sass-3.4.13/lib/sass/plugin/compiler.rb:328:in `block in watch'
+/usr/local/bundle/gems/sass-3.4.13/vendor/listen/lib/listen/listener.rb:252:in `call'
+/usr/local/bundle/gems/sass-3.4.13/vendor/listen/lib/listen/listener.rb:252:in `on_change'
+/usr/local/bundle/gems/sass-3.4.13/vendor/listen/lib/listen/listener.rb:290:in `block in initialize_adapter'
+/usr/local/bundle/gems/sass-3.4.13/vendor/listen/lib/listen/adapters/polling.rb:48:in `call'
+/usr/local/bundle/gems/sass-3.4.13/vendor/listen/lib/listen/adapters/polling.rb:48:in `poll_changed_directories'
+/usr/local/bundle/gems/sass-3.4.13/vendor/listen/lib/listen/adapter.rb:299:in `block in start_poller'
+*/
+body:before {
+  white-space: pre;
+  font-family: monospace;
+  content: "Error: File to import not found or unreadable: ../../../../../vendor/bootstrap/scss/functions.\A        Load path: /src\A         on line 2 of /src/media/templates/site/survivants/scss/tools/_tools.scss\A         from line 1 of /src/media/templates/site/survivants/scss/vendor/joomla-custom-elements/joomla-alert.scss\A \A 1: @import \"../../tools/tools\";\A 2: @import \"../../../../../../vendor/joomla-custom-elements/css/joomla-alert.css\";\A 3: \A 4: // The following is a restyle for the system alerts\A 5: #system-message-container {\A 6:   &:empty {\A 7:     display: none;"; }

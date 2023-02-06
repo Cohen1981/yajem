@@ -23,7 +23,7 @@ $this->useCoreUI = true;
 <form action="<?php echo Route::_('index.php?option=com_sdajem&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-vertical">
 	<fieldset>
 		<?php echo HTMLHelper::_('uitab.startTabSet', $this->tab_name, ['active' => 'details']); ?>
-		<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'details', empty($this->item->id) ? Text::_('COM_FOOS_NEW_FOO') : Text::_('COM_FOOS_EDIT_FOO')); ?>
+		<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'details', empty($this->item->id) ? Text::_('COM_SDAJEM_NEW_LOCATION') : Text::_('COM_SDAJEM_EDIT_LOCATION')); ?>
 		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
         <?php echo HTMLHelper::_('uitab.endTab'); ?>
 

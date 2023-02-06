@@ -13,17 +13,13 @@ use Exception;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Object\CMSObject;
-use Joomla\CMS\User\UserFactory;
-use Joomla\CMS\User\UserFactoryInterface;
-use Joomla\CMS\User\UserHelper;
 use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
 use Joomla\Component\Contact\Site\Model\ContactModel;
-use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
-use Joomla\Component\Users\Administrator\Extension\UsersComponent;
-use Joomla\Component\Users\Administrator\Model\UserModel;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
+use Sda\Component\Sdajem\Site\Model\LocationModel;
+use Sda\Component\Sdajem\Site\Model\UserModel as SdaUserModel;
 use stdClass;
 
 defined('_JEXEC') or die;
@@ -77,27 +73,7 @@ class HtmlView extends BaseHtmlView
 
 		if (isset($item->organizerId))
 		{
-			$item->organizer = Factory::getContainer()->get(UserFactoryInterface::class)->loadUserById($item->organizerId);
-
-			$item->organizer->profile = UserHelper::getProfile($item->organizerId);
-
-			$userdata = FieldsHelper::getFields('com_users.user', $item->organizer, true);
-			$tmp          = isset($userdata) ? $userdata : array();
-			$customFields = array();
-
-			foreach ($tmp as $customField)
-			{
-				$customFields[$customField->name] = $customField;
-			}
-			$item->organizer->userData = $customFields;
-
-			/** @var UsersComponent $userComponent */
-			#$userComponent = Factory::getApplication()->bootComponent('com_users');
-
-			/** @var UserModel $userModel */
-			#$userModel = $userComponent->getMVCFactory()->createModel('User', 'Administrator', ['ignore_request' => true]);
-
-			#$item->organizer = $userModel->getItem($item->organizerId);
+			$item->organizer = new SdaUserModel($item->organizerId);
 		}
 
 		if (isset($item->hostId))
@@ -128,6 +104,11 @@ class HtmlView extends BaseHtmlView
 			if ($attendees) {
 				$item->attendings = $attendees;
 			}
+		}
+
+		if (isset($item->sdajem_location_id)) {
+			$locationModel = new LocationModel();
+			$item->location = $locationModel->getItem($item->sdajem_location_id);
 		}
 
 		$active = Factory::getApplication()->getMenu()->getActive();

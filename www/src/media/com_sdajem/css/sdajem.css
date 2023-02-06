@@ -7,4 +7,16 @@
   flex-wrap: wrap;
   justify-content: space-between; }
 
+.sda_attendee_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left; }
+
+.sda_attendee {
+  display: block;
+  padding: 10px; }
+
+.sda_avatar {
+  width: 100px; }
+
 /*# sourceMappingURL=sdajem.css.map */
