@@ -137,8 +137,8 @@ class Icon
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= Text::sprintf('COM_FOOS_WRITTEN_BY', htmlspecialchars($author, ENT_COMPAT, 'UTF-8'));
 		$icon = $event->published ? 'edit' : 'eye-slash';
-		if (strtotime($event->publish_up) > strtotime(Factory::getDate())
-			|| ((strtotime($event->publish_down) < strtotime(Factory::getDate())) && $event->publish_down != Factory::getDbo()->getNullDate())) {
+		if ((strtotime($event->publish_up) > strtotime(Factory::getDate()) && $event->publish_up != null)
+			|| ((strtotime($event->publish_down) < strtotime(Factory::getDate())) && $event->publish_down != null)) {
 			$icon = 'eye-slash';
 		}
 		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
@@ -149,6 +149,19 @@ class Icon
 		return $output;
 	}
 
+	/**
+	 * @param          $event
+	 * @param          $params
+	 * @param   array  $attribs
+	 * @param   false  $legacy
+	 *
+	 * @return string
+	 *
+	 * @throws \Exception
+	 * @since __BUMP_VERSION__
+	 *
+	 * ToDo Umbau Joomlas button type=button für hübscheres styling
+	 */
 	public static function register($event, $params, $attribs = [], $legacy = false)
 	{
 		$user = Factory::getApplication()->getIdentity();

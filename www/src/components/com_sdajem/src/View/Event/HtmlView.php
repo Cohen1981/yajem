@@ -13,6 +13,7 @@ use Exception;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Object\CMSObject;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
 use Joomla\Component\Contact\Site\Model\ContactModel;
 use Joomla\Registry\Registry;
@@ -136,6 +137,8 @@ class HtmlView extends BaseHtmlView
 
 		$results = Factory::getApplication()->triggerEvent('onContentAfterDisplay', ['com_sdajem.event', &$item, &$item->params]);
 		$item->event->afterDisplayContent = trim(implode("\n", $results));
+
+		$this->return_page = base64_encode(Uri::getInstance());
 
 		return parent::display($tpl);
 	}

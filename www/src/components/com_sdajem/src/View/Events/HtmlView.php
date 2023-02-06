@@ -11,6 +11,7 @@ namespace Sda\Component\Sdajem\Site\View\Events;
 
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
 
 
@@ -55,6 +56,7 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 
 		$state = $this->state = $this->get('State');
 		$this->params = $this->params = $state->get('params');
+		$this->return_page = base64_encode(Uri::getInstance());
 
 		return parent::display($tpl);
 	}

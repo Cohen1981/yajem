@@ -70,7 +70,8 @@ class LocationModel extends BaseDatabaseModel
 	public function getItem($pk = null)
 	{
 		$app = Factory::getApplication();
-		$pk  = $app->input->getInt('id');
+		if ($pk === null)
+			$pk  = $app->input->getInt('id');
 
 		if ($this->_item === null)
 		{

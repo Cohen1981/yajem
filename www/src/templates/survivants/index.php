@@ -161,10 +161,21 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
                     <jdoc:include type="modules" name="menu" style="none" />
                 <?php endif; ?>
 	            <?php if ($this->countModules('search', true)) : ?>
-                    <div class="container-search">
-                        <jdoc:include type="modules" name="search" style="none" />
-                    </div>
+
+                    <label id="sda_user_label" for="user_login_switch" class="sda_switch_label">
+				        <?php if(Factory::getApplication()->getIdentity()->guest) : ?>
+                            <i class="far fa-user"></i>
+				        <?php endif; ?>
+				        <?php if(!Factory::getApplication()->getIdentity()->guest) : ?>
+                            <i class="fas fa-user"></i>
+				        <?php endif; ?>
+                    </label>
+
 	            <?php endif; ?>
+            </div>
+            <input type="checkbox" id="user_login_switch" class="sda_hidden sda_switch">
+            <div class="container-search sda_switchable grid-child-search">
+                <jdoc:include type="modules" name="search" style="none" />
             </div>
         <?php endif; ?>
     </header>
