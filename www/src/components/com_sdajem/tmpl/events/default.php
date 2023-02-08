@@ -9,17 +9,20 @@
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Session\Session;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
+use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('table.columns');
+$wa->useScript('form.validate');
 $canChange = true;
 $canDo = ContentHelper::getActions('com_sdajem');
 
@@ -38,7 +41,7 @@ $params = $this->get('State')->get('params');
 ?>
 <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="adminForm" id="adminForm">
     <div>
-		<?php if ($canDo->get('core.create')) : ?>
+        <?php if ($canDo->get('core.create')) : ?>
             <div class="mb-2">
                 <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('event.add')">
                     <span class="fas fa-check" aria-hidden="true"></span>
@@ -66,14 +69,17 @@ $params = $this->get('State')->get('params');
                         </caption>
                         <thead>
                         <tr>
-                            <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
+                            <th scope="col" style="width:1%" class="d-none d-md-table-cell">
 								<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
                             </th>
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
 		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_STARTDATE', 'a.startDateTime', $listDirn, $listOrder); ?>
                             </th>
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_ENDTDATE', 'a.endDateTime', $listDirn, $listOrder); ?>
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_ENDDATE', 'a.endDateTime', $listDirn, $listOrder); ?>
+                            </th>
+                            <th>
+                                <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLEHEAD_EVENTS_STATUS', 'a.eventStatus', $listDirn, $listOrder); ?>
                             </th>
                         </tr>
                         </thead>
@@ -83,11 +89,12 @@ $params = $this->get('State')->get('params');
 						foreach ($this->items as $i => $item) :
 							?>
                             <tr class="row<?php echo $i % 2; ?>">
-                                <th scope="row" class="has-context">
-									<?php $editIcon = '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>
+                                <th scope="row" class="has-context col-4">
+                                    <div>
                                     <a href="<?php echo Route::_('index.php?option=com_sdajem&view=event&id=' . (int) $item->id); ?>">
 										<?php echo $this->escape($item->title); ?>
                                     </a>
+                                    </div>
                                     <div class="small">
                                         <?php echo Text::_('COM_SDAJEM_LOCATION') . ': ' . $this->escape($item->location_name);?>
                                     </div>
@@ -95,7 +102,7 @@ $params = $this->get('State')->get('params');
 										<?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
                                     </div>
                                 </th>
-                                <td class="small d-md-table-cell">
+                                <td class="d-md-table-cell">
 		                            <?php
 		                            if ($item->allDayEvent) {
 			                            echo HTMLHelper::date($item->startDateTime,'d.m.Y',true);
@@ -104,7 +111,7 @@ $params = $this->get('State')->get('params');
 		                            }
                                     ?>
                                 </td>
-                                <td class="small d-none d-md-table-cell">
+                                <td class="d-none d-md-table-cell">
 		                            <?php
 		                            if ($item->allDayEvent)
 		                            {
@@ -117,6 +124,32 @@ $params = $this->get('State')->get('params');
 
 		                            ?>
                                 </td>
+                                <?php if (!Factory::getApplication()->getIdentity()->guest) : ?>
+                                <td class="d-md-table-cell">
+                                    <div>
+                                    <?php echo Text::_(EventStatusEnum::from($item->eventStatus)->getStatusLabel()); ?>
+                                    </div>
+
+                                    <?php if (!Factory::getApplication()->getIdentity()->id == $item->organizerId) : ?>
+                                    <div class="sda_form">
+                                        <form action="<?php echo Route::_('index.php?view=event'); ?>" method="post" name="eventForm<?php echo $item->id; ?>" id="eventForm<?php echo $item->id; ?>">
+                                            <?php foreach (EventStatusEnum::cases() as $status) : ?>
+	                                            <?php if ($status != EventStatusEnum::from($item->eventStatus) && $status != EventStatusEnum::OPEN) : ?>
+	                                                <button type="button" class="sda_button_spacer btn btn-primary" onclick="Joomla.submitbutton('<?php echo $status->getEventAction();?>','eventForm<?php echo $item->id;?>')">
+			                                        <span class="<?php echo $status->getIcon();?>" aria-hidden="true"></span>
+		                                            </button>
+	                                            <?php endif; ?>
+                                            <?php endforeach; ?>
+                                            <input type="hidden" name="eventId" value="<?php echo $item->id; ?>"/>
+                                            <input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
+                                            <input type="hidden" name="task" value=""/>
+	                                        <?php echo HTMLHelper::_('form.token'); ?>
+                                        </form>
+                                    </div>
+                                    <?php endif; ?>
+
+                                </td>
+                                <?php endif; ?>
                                 <td class="small d-none d-md-table-cell">
 	                                <?php if ($canDo->get('core.edit') || $canDo->get('core.edit.own')) : ?>
                                         <div class="icons">
@@ -130,7 +163,7 @@ $params = $this->get('State')->get('params');
                     </table>
 
 				<?php endif; ?>
-                <input type="hidden" name="task" value="">
+                <input type="hidden" name="task" value=""/>
                 <input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
 				<?php echo HTMLHelper::_('form.token'); ?>
             </div>

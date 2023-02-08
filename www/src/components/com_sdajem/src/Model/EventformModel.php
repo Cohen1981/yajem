@@ -19,6 +19,7 @@ use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Table\Table;
 use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventModel
 {
@@ -183,5 +184,36 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	public function getTable($name = 'Event', $prefix = 'Administrator', $options = [])
 	{
 		return parent::getTable($name, $prefix, $options);
+	}
+
+	public function updateEventStatus(int $pk = null, EventStatusEnum $enum)
+	{
+		if ($pk != null) {
+			// Initialize variables.
+			$db    = $this->getDatabase();
+			$query = $db->getQuery(true);
+
+			$query->update($db->quoteName('#__sdajem_events'));
+			$query->set($db->quoteName('eventStatus') . '=' . $enum->value);
+			$query->where($db->quoteName('id') . '=' . $pk);
+
+			$db->setQuery($query);
+			try {
+				$db->execute();
+			} catch (\RuntimeException $e) {
+				Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+
+				return false;
+			}
+
+			$this->cleanCache();
+
+			return true;
+		} else
+		{
+			Factory::getApplication()->enqueueMessage(Text::sprintf('COM_SDAJEM_MISSING_ID'), 'error');
+
+			return false;
+		}
 	}
 }

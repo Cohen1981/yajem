@@ -35,7 +35,8 @@ class EventsModel extends ListModel
 				'publish_up', 'a.publish_up',
 				'publish_down', 'a.publish_down',
 				'startDateTime', 'a.startDateTime',
-				'endDateTime', 'a.endDateTime'
+				'endDateTime', 'a.endDateTime',
+				'eventStatus', 'a.eventStatus'
 			);
 			$assoc = Associations::isEnabled();
 			if ($assoc)
@@ -82,16 +83,24 @@ class EventsModel extends ListModel
 					$db->quoteName('a.allDayEvent'),
 					$db->quoteName('a.sdajem_location_id'),
 					$db->quoteName('a.image'),
-					$db->quoteName('a.eventStatus')
+					$db->quoteName('a.eventStatus'),
+					$db->quoteName('a.organizerId')
 				]
 			)
 		);
 		$query->from($db->quoteName('#__sdajem_events', 'a'));
 
+		// Join over locations
 		$query->select($db->quoteName('loc.title', 'location_name'))
 			->join(
 				'LEFT',
 				$db->quoteName('#__sdajem_locations', 'loc') . ' ON ' . $db->quoteName('loc.id') . ' = ' . $db->quoteName('a.sdajem_location_id')
+			);
+		//Join over User as organizer
+		$query->select($db->quoteName('org.username', 'organizerName'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__users', 'org') . ' ON ' . $db->quoteName('org.id') . ' = ' . $db->quoteName('a.organizerId')
 			);
 		// Join over the asset groups.
 		$query->select($db->quoteName('ag.title', 'access_level'))

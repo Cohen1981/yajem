@@ -13939,3 +13939,7 @@ input[type=checkbox]:checked ~ .sda_switchable {
 .js-stools-container-bar .btn-toolbar {
   justify-content: flex-start !important;
 }
+
+.sda_button_spacer {
+  margin-right: 0.5em;
+}

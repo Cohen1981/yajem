@@ -95,7 +95,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_locations` (
 ) ENGINE=InnoDB
   DEFAULT CHARSET=`utf8mb4` DEFAULT COLLATE=`utf8mb4_unicode_ci`;
 
-CREATE TABLE IF NOT EXISTS `#__sdajem_attending` (
+CREATE TABLE IF NOT EXISTS `#__sdajem_attendings` (
 	`id` int(10) unsigned NOT NULL auto_increment,
 	`access` int(10) unsigned NOT NULL DEFAULT 0,
 	`alias` varchar(400),

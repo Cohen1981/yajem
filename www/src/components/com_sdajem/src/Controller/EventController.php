@@ -15,7 +15,10 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingModel;
+use Sda\Component\Sdajem\Site\Model\EventformModel;
+use Sda\Component\Sdajem\Site\Model\EventModel;
 
 class EventController extends FormController
 {
@@ -178,5 +181,33 @@ class EventController extends FormController
 			return Uri::base();
 		}
 		return base64_decode($return);
+	}
+
+	public function applied()
+	{
+		$this->setEventStatus(EventStatusEnum::APPLIED);
+		$this->setRedirect(Route::_($this->getReturnPage(), false));
+	}
+
+	public function canceled()
+	{
+		$this->setEventStatus(EventStatusEnum::CANCELED);
+		$this->setRedirect(Route::_($this->getReturnPage(), false));
+	}
+
+	public function confirmed()
+	{
+		$this->setEventStatus(EventStatusEnum::CONFIRMED);
+		$this->setRedirect(Route::_($this->getReturnPage(), false));
+	}
+
+	protected function setEventStatus(EventStatusEnum $enum) {
+		$eventId = $this->input->get('eventId');
+
+		if ($eventId != null) {
+			/* @var EventformModel $event */
+			$event = $this->getModel();
+			$event->updateEventStatus($eventId, $enum);
+		}
 	}
 }

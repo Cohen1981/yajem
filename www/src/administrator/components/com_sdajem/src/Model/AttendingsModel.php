@@ -50,7 +50,7 @@ class AttendingsModel extends ListModel
 				]
 			)
 		);
-		$query->from($db->quoteName('#__sdajem_attending', 'a'));
+		$query->from($db->quoteName('#__sdajem_attendings', 'a'));
 
 		return $query;
 	}
