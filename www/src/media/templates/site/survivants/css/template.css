@@ -13118,7 +13118,7 @@ body:not(.has-sidebar-right) .site-grid .container-component {
 }
 
 .site-grid {
-  margin-bottom: auto;
+  /* margin-bottom: auto; */
   background-color: var(--gray-700);
 }
 
@@ -13931,3 +13931,11 @@ input[type=checkbox]:checked ~ .sda_switchable {
   justify-self: end;
   margin-top: auto;
   margin-bottom: auto; }
+
+.icon-spacer {
+  padding-right: 0.5em;
+}
+
+.js-stools-container-bar .btn-toolbar {
+  justify-content: flex-start !important;
+}

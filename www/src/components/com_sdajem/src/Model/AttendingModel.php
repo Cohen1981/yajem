@@ -18,7 +18,7 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Language\Text;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 
 /**
  * Event model for the Joomla Events component.
@@ -92,7 +92,7 @@ class AttendingModel extends BaseDatabaseModel
 				$this->_item[$pk] = false;
 			}
 		}
-		$this->_item[$pk]['status'] = EventStatusEnum::from($this->_item[$pk]['status']);
+		$this->_item[$pk]['status'] = AttendingStatusEnum::from($this->_item[$pk]['status']);
 
 		return $this->_item[$pk];
 	}

@@ -18,7 +18,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
@@ -180,13 +180,14 @@ class Icon
 			$event->slug = "";
 		}
 
-		$url      = 'index.php?option=com_sdajem&&task=attending.signup'
-			. '&event_id=' . $event->id
-			. '&return=' . base64_encode($uri);
+		$url      = Route::_('index.php?option=com_sdajem');
 
 		$icon = 'add';
 
-		$text = '<form action="' . $url . '" method="post" id="attendeeForm" name="attendeeForm">';
+		$text = '<form action="' . $url . '" method="post" id="adminForm" name="adminForm">';
+		$text .= '<input type="hidden" name="event_id" value="' . $event->id . '"/>'
+				. '<input type="hidden" name="return" value="' . base64_encode($uri) . '"/>'
+				. '<input type="hidden" name="task" value=""/>';
 		$text .= HTMLHelper::_('form.token');
 		// Test for attending Status
 		$attendingsModel = new AttendingsModel();
@@ -196,13 +197,14 @@ class Icon
 			$text .= '<input type="hidden" name="attendingId" value="' . $attending->id . '"/>';
 		} else {
 			$attending = new \stdClass();
-			$attending->status = EventStatusEnum::NA->value;
+			$attending->status = AttendingStatusEnum::NA->value;
 		}
 
-		foreach (EventStatusEnum::cases() as $status) {
-			if ($status != EventStatusEnum::from($attending->status) && $status != EventStatusEnum::NA)
+		foreach (AttendingStatusEnum::cases() as $status) {
+			if ($status != AttendingStatusEnum::from($attending->status) && $status != AttendingStatusEnum::NA)
 			{
-				$text .= '<button type="submit" form="attendeeForm" name="newAttendeeStatus" value="' . $status->value . '">';
+				$text .= '<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
+						. '<span class="icon-spacer ' . $status->getIcon() . '" aria-hidden="true"></span>';
 				$text .= Text::_($status->getButtonLabel()) . '</button>';
 			}
 		}

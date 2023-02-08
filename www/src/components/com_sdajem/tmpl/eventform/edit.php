@@ -30,16 +30,6 @@ $this->useCoreUI = true;
 		<?php endif; ?>
 		<?php echo $this->form->renderFieldset('details'); ?>
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
-
-		<?php if (Multilanguage::isEnabled()) : ?>
-			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'language', Text::_('JFIELD_LANGUAGE_LABEL')); ?>
-			<?php echo $this->form->renderField('language'); ?>
-			<?php echo HTMLHelper::_('uitab.endTab'); ?>
-		<?php else : ?>
-			<?php echo $this->form->renderField('language'); ?>
-		<?php endif; ?>
-
-		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
 		<input type="hidden" name="task" value=""/>
 		<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
@@ -54,5 +44,9 @@ $this->useCoreUI = true;
 			<span class="fas fa-times-cancel" aria-hidden="true"></span>
 			<?php echo Text::_('JCANCEL'); ?>
 		</button>
+        <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('location.add')">
+            <span class="fas fa-check" aria-hidden="true"></span>
+			<?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
+        </button>
 	</div>
 </form>

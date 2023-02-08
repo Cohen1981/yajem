@@ -47,7 +47,6 @@ use Joomla\Database\DatabaseDriver;
  * @property  Date      endDateTime
  * @property  int       allDayEvent
  * @property  int       eventStatus
- * @property  int       eventCancelled
  * @property  int       catid
  * @property  string    svg
  */
@@ -98,6 +97,12 @@ class EventTable extends Table
 		if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up) {
 			$this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
 			return false;
+		}
+		if (!$this->created_by) {
+			$this->created_by = Factory::getApplication()->getIdentity()->id;
+		}
+		if (!$this->created) {
+			$this->created = Date::getInstance()->toSql();
 		}
 		// Set publish_up, publish_down to null if not set
 		if (!$this->publish_up) {

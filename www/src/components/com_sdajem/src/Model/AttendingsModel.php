@@ -10,7 +10,7 @@
 namespace Sda\Component\Sdajem\Site\Model;
 
 use Joomla\CMS\Factory;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 
 class AttendingsModel extends \Sda\Component\Sdajem\Administrator\Model\AttendingsModel
 {

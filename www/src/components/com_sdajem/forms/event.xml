@@ -117,16 +117,6 @@
     </fieldset>
     <fieldset name="publishing" label="JGLOBAL_FIELDSET_PUBLISHING">
         <field
-                name="featured"
-                type="list"
-                label="JFEATURED"
-                default="0"
-                validate="options"
-        >
-            <option value="0">JNO</option>
-            <option value="1">JYES</option>
-        </field>
-        <field
                 name="published"
                 type="list"
                 label="JSTATUS"
@@ -173,6 +163,12 @@
                 name="checked_out_time"
                 type="hidden"
                 filter="unset"
+        />
+        <field
+                name="ordering"
+                type="ordering"
+                label="JFIELD_ORDERING_LABEL"
+                content_type="com_sdajem.event"
         />
     </fieldset>
 </form>

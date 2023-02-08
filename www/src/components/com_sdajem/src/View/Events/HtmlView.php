@@ -53,10 +53,17 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 	public function display($tpl = null)
 	{
 		$this->items = $this->get('Items');
-
+		$this->filterForm = $this->get('FilterForm');
+		$this->activeFilters = $this->get('ActiveFilters');
 		$state = $this->state = $this->get('State');
 		$this->params = $this->params = $state->get('params');
 		$this->return_page = base64_encode(Uri::getInstance());
+
+		// Preprocess the list of items to find ordering divisions.
+		foreach ($this->items as &$item) {
+			$item->order_up = true;
+			$item->order_dn = true;
+		}
 
 		return parent::display($tpl);
 	}

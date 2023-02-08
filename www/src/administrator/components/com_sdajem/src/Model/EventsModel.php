@@ -34,6 +34,8 @@ class EventsModel extends ListModel
 				'language', 'a.language', 'language_title',
 				'publish_up', 'a.publish_up',
 				'publish_down', 'a.publish_down',
+				'startDateTime', 'a.startDateTime',
+				'endDateTime', 'a.endDateTime'
 			);
 			$assoc = Associations::isEnabled();
 			if ($assoc)
@@ -78,7 +80,9 @@ class EventsModel extends ListModel
 					$db->quoteName('a.startDateTime'),
 					$db->quoteName('a.endDateTime'),
 					$db->quoteName('a.allDayEvent'),
-					$db->quoteName('a.sdajem_location_id')
+					$db->quoteName('a.sdajem_location_id'),
+					$db->quoteName('a.image'),
+					$db->quoteName('a.eventStatus')
 				]
 			)
 		);
@@ -183,7 +187,7 @@ class EventsModel extends ListModel
 
 		return $query;
 	}
-
+/*
 	protected function populateState($ordering = 'a.title', $direction = 'asc')
 	{
 		$app = Factory::getApplication();
@@ -206,4 +210,5 @@ class EventsModel extends ListModel
 			$this->setState('filter.language', $forcedLanguage);
 		}
 	}
+*/
 }

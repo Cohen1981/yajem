@@ -9,18 +9,18 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 
 /**
  * @since       version
  * @package     Sda\Component\Sdajem\Site\Model
  *
- * @property  int               attendingId
- * @property  int               event_id
- * @property  int               users_user_id
- * @property  EventStatusEnum   status
- * @property  array             profile
- * @property  array             userData
+ * @property  int                 attendingId
+ * @property  int                 event_id
+ * @property  int                 users_user_id
+ * @property  AttendingStatusEnum status
+ * @property  array               profile
+ * @property  array               userData
  */
 class AttendeeModel extends UserModel
 {
@@ -32,6 +32,6 @@ class AttendeeModel extends UserModel
 		}
 		$this->event_id = $data->event_id;
 		$this->attendingId = $data->id;
-		$this->status = EventStatusEnum::tryFrom($data->status);
+		$this->status = AttendingStatusEnum::tryFrom($data->status);
 	}
 }

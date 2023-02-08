@@ -49,7 +49,6 @@ use Joomla\Component\Categories\Administrator\Model\CategoryModel;
  * @property  Date      endDateTime
  * @property  int       allDayEvent
  * @property  int       eventStatus
- * @property  int       eventCancelled
  * @property  int       catid
  * @property  string    svg
    */

@@ -35,7 +35,7 @@ abstract  class AssociationHelper extends CategoryAssociationHelper
 		$id = empty($id) ? $jinput->getInt('id') : $id;
 		if ($view === 'events') {
 			if ($id) {
-				$associations = Associations::getAssociations('com_events', '#__sdajem_events', 'com_sdajem.item', $id);
+				$associations = Associations::getAssociations('com_sdajem', '#__sdajem_events', 'com_sdajem.item', $id);
 				$return = [];
 				foreach ($associations as $tag => $item) {
 					$return[$tag] = RouteHelper::getEventsRoute($item->id, (int) $item->catid, $item->language);
