@@ -23,5 +23,7 @@
   font-size: 1.1em; }
 .sdajem_content_container a {
   color: #A62C40; }
+.sdajem_content_container .sdajem_teaser_image {
+  max-width: 200px; }
 
 /*# sourceMappingURL=sdajem.css.map */

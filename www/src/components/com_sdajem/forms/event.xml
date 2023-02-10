@@ -31,6 +31,11 @@
                 label="COM_SDAJEM_FIELD_EVENTDESC_LABEL"
         />
         <field
+                name="image"
+                type="media"
+                label="COM_SDAJEM_EVENT_IMAGE_LABEL"
+                />
+        <field
                 name="url"
                 type="text"
                 label="COM_SDAJEM_FIELD_URL_LABEL"

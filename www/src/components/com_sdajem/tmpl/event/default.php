@@ -82,8 +82,13 @@ if (isset($event->location))
         </div>
     </div>
 
-    <div class="sda_row">
-        <?php echo $event->description; ?>
+    <div class="sda_row clearfix">
+        <?php if ($event->image) : ?>
+            <div class="sdajem_teaser_image">
+                <?php echo HTMLHelper::image($event->image,'',['class'=>'float-start pe-2']); ?>
+            </div>
+        <?php endif; ?>
+        <p><?php echo $event->description; ?></p>
     </div>
 
     <div class="accordion" id="accordionEvent">
@@ -95,7 +100,7 @@ if (isset($event->location))
                 </button>
             </h5>
             <div id="collapseLocation" class="accordion-collapse collapse" aria-labelledby="headingLocation" data-bs-parent="#accordionEvent">
-                <div class="accordion-body">
+                <div class="accordion-body clearfix">
 	                <?php if (!empty($canEdit))
 	                {
 		                if ($canEdit) : ?>
@@ -104,6 +109,11 @@ if (isset($event->location))
                             </div>
 		                <?php endif;
 	                } ?>
+                    <?php if ($location->image): ?>
+                        <div class="sdajem_teaser_image">
+                            <?php echo HTMLHelper::image($location->image,'',['class'=>'float-start pe-2']); ?>
+                        </div>
+                    <?php endif; ?>
                     <p><?php echo $location->street; ?></p>
                     <p><?php echo $location->postalCode; ?></p>
                     <p><?php echo $location->city; ?></p>
