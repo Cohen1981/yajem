@@ -13115,6 +13115,7 @@ body:not(.has-sidebar-left) .site-grid .container-component {
 }
 body:not(.has-sidebar-right) .site-grid .container-component {
   grid-column-end: main-end;
+  padding: 1.0em;
 }
 
 .site-grid {

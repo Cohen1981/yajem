@@ -86,7 +86,10 @@ class HtmlView extends BaseHtmlView
 			$contactModel = $contactComponent->getMVCFactory()
 				->createModel('Contact', 'Administrator', ['ignore_request' => true]);
 
-			$item->host = $contactModel->getItem($item->hostId);
+			$temp = $contactModel->getItem($item->hostId);
+			$temp->slug = $temp->alias ? ($temp->id . ':' . $temp->alias) : $temp->id;
+			$item->host = $temp;
+
 		}
 		/**
 		 * $item->params are the event params, $temp are the menu item params

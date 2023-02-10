@@ -71,6 +71,33 @@ abstract class RouteHelper
 	}
 
 	/**
+	 * Get the URL route for a event from a event ID, events category ID and language
+	 *
+	 * @param   integer  $id        The id of the location
+	 * @param   integer  $catid     The id of the location category
+	 * @param   mixed    $language  The id of the language being used.
+	 *
+	 * @return  string  The link to the location
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public static function getLocationRoute($id, $catid, $language = 0)
+	{
+		// Create the link
+		$link = 'index.php?option=com_sdajem&view=location&id=' . $id;
+
+		if ($catid > 1) {
+			$link .= '&catid=' . $catid;
+		}
+
+		if ($language && $language !== '*' && Multilanguage::isEnabled()) {
+			$link .= '&lang=' . $language;
+		}
+
+		return $link;
+	}
+
+	/**
 	 * Get the URL route for a events category from a events category ID and language
 	 *
 	 * @param   mixed  $catid     The id of the events's category either an integer id or an instance of CategoryNode

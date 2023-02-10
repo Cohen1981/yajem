@@ -16,7 +16,6 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Session\Session;
 use Joomla\CMS\Uri\Uri;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
@@ -150,6 +149,84 @@ class Icon
 	}
 
 	/**
+	 * Display an edit icon for the event.
+	 *
+	 * This icon will not display in a popup window, nor if the event is trashed.
+	 * Edit access checks must be performed in the calling code.
+	 *
+	 * @param   object    $location  The event information
+	 * @param   Registry  $params   The item parameters
+	 * @param   array     $attribs  Optional attributes for the link
+	 * @param   boolean   $legacy   True to use legacy images, false to use icomoon based graphic
+	 *
+	 * @return  string   The HTML for the event edit icon.
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	public static function editLocation($location, $params, $attribs = [], $legacy = false)
+	{
+		$user = Factory::getApplication()->getIdentity();
+		$uri  = Uri::getInstance();
+		// Ignore if in a popup window.
+		if ($params && $params->get('popup')) {
+			return '';
+		}
+		// Ignore if the state is negative (trashed).
+		if ($location->published < 0) {
+			return '';
+		}
+
+		// Show checked_out icon if the event is checked out by a different user
+		if (property_exists($location, 'checked_out')
+			&& property_exists($location, 'checked_out_time')
+			&& $location->checked_out > 0
+			&& $location->checked_out != $user->get('id')) {
+			$checkoutUser = Factory::getApplication()->getIdentity($location->checked_out);
+			$date         = HTMLHelper::_('date', $location->checked_out_time);
+			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_FOOS_CHECKED_OUT_BY', $checkoutUser->name)
+				. ' <br /> ' . $date;
+			$text = LayoutHelper::render('joomla.content.icons.edit_lock', ['tooltip' => $tooltip, 'legacy' => $legacy]);
+			$output = HTMLHelper::_('link', '#', $text, $attribs);
+			return $output;
+		}
+		if (!isset($location->slug)) {
+			$location->slug = "";
+		}
+		$locationUrl = RouteHelper::getLocationRoute($location->slug, $location->catid, $location->language);
+		$url        = $locationUrl . '&task=location.edit&id=' . $location->id . '&return=' . base64_encode($uri);
+		if ($location->published == 0) {
+			$overlib = Text::_('JUNPUBLISHED');
+		} else {
+			$overlib = Text::_('JPUBLISHED');
+		}
+		if (!isset($location->created)) {
+			$date = HTMLHelper::_('date', 'now');
+		} else {
+			$date = HTMLHelper::_('date', $location->created);
+		}
+		if (!isset($created_by_alias) && !isset($location->created_by)) {
+			$author = '';
+		} else {
+			$author = $location->created_by_alias ?: Factory::getApplication()->getIdentity($location->created_by)->name;
+		}
+		$overlib .= '&lt;br /&gt;';
+		$overlib .= $date;
+		$overlib .= '&lt;br /&gt;';
+		$overlib .= Text::sprintf('COM_FOOS_WRITTEN_BY', htmlspecialchars($author, ENT_COMPAT, 'UTF-8'));
+		$icon = $location->published ? 'edit' : 'eye-slash';
+		if ((strtotime($location->publish_up) > strtotime(Factory::getDate()) && $location->publish_up != null)
+			|| ((strtotime($location->publish_down) < strtotime(Factory::getDate())) && $location->publish_down != null)) {
+			$icon = 'eye-slash';
+		}
+		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
+			. HTMLHelper::tooltipText(Text::_('COM_SDAJEM_EDIT_LOCATION'), $overlib, 0, 0) . '"></span> ';
+		$text .= Text::_('JGLOBAL_EDIT');
+		$attribs['title'] = Text::_('COM_SDAJEM_EDIT_LOCATION');
+		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
+		return $output;
+	}
+
+	/**
 	 * @param          $event
 	 * @param          $params
 	 * @param   array  $attribs
@@ -160,7 +237,6 @@ class Icon
 	 * @throws \Exception
 	 * @since __BUMP_VERSION__
 	 *
-	 * ToDo Umbau Joomlas button type=button für hübscheres styling
 	 */
 	public static function register($event, $params, $attribs = [], $legacy = false)
 	{
