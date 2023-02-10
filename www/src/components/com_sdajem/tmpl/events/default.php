@@ -78,9 +78,11 @@ $params = $this->get('State')->get('params');
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
 		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_ENDDATE', 'a.endDateTime', $listDirn, $listOrder); ?>
                             </th>
+	                        <?php if (!Factory::getApplication()->getIdentity()->guest) : ?>
                             <th>
                                 <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLEHEAD_EVENTS_STATUS', 'a.eventStatus', $listDirn, $listOrder); ?>
                             </th>
+                            <?php endif; ?>
                         </tr>
                         </thead>
                         <tbody>

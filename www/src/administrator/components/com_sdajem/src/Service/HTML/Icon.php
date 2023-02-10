@@ -203,7 +203,7 @@ class Icon
 		foreach (AttendingStatusEnum::cases() as $status) {
 			if ($status != AttendingStatusEnum::from($attending->status) && $status != AttendingStatusEnum::NA)
 			{
-				$text .= '<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
+				$text .= '<button type="button" class="sda_button_spacer btn ' . $status->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
 						. '<span class="icon-spacer ' . $status->getIcon() . '" aria-hidden="true"></span>';
 				$text .= Text::_($status->getButtonLabel()) . '</button>';
 			}

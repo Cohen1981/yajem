@@ -93,4 +93,14 @@ enum AttendingStatusEnum: int
 		};
 	}
 
+	public function getButtonClass(): string
+	{
+		return match($this)
+		{
+			self::NA => 'fas fa-question',
+			self::ATTENDING => 'btn-success',
+			self::NOT_ATTENDING => 'btn-danger'
+		};
+	}
+
 }

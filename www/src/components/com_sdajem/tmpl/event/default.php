@@ -54,17 +54,22 @@ if (isset($event->location))
 <div class="sda_row">
     <div class="sda_event_head">
         <div>
-            <?php echo $this->escape($event->title). ': ';
-            if ($event->allDayEvent) {
-                echo HTMLHelper::date($event->startDateTime,'d.m.Y',true);
-                echo ' - ';
-                echo HTMLHelper::date($event->endDateTime,'d.m.Y',true);
-            } else {
-                echo HTMLHelper::date($event->startDateTime,'d.m.Y H:i',true);
-                echo ' - ';
-                echo HTMLHelper::date($event->endDateTime,'d.m.Y H:i',true);
-            }
-            ?>
+            <h3>
+                <?php echo $this->escape($event->title);?>
+            </h3>
+            <h4>
+                <?php
+                if ($event->allDayEvent) {
+                    echo HTMLHelper::date($event->startDateTime,'d.m.Y',true);
+                    echo ' - ';
+                    echo HTMLHelper::date($event->endDateTime,'d.m.Y',true);
+                } else {
+                    echo HTMLHelper::date($event->startDateTime,'d.m.Y H:i',true);
+                    echo ' - ';
+                    echo HTMLHelper::date($event->endDateTime,'d.m.Y H:i',true);
+                }
+                ?>
+            </h4>
         </div>
         <?php if (!empty($canEdit))
         {
