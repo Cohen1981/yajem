@@ -17,6 +17,8 @@ use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 class EventsModel extends ListModel
 {
@@ -102,6 +104,19 @@ class EventsModel extends ListModel
 				'LEFT',
 				$db->quoteName('#__users', 'org') . ' ON ' . $db->quoteName('org.id') . ' = ' . $db->quoteName('a.organizerId')
 			);
+
+		//Get the Attendee count
+		$attendees = $db->getQuery(true)
+			->select('COUNT(' . $db->quoteName('att.id') . ')')
+			->from($db->quoteName('#__sdajem_attendings', 'att'))
+			->where(
+				[
+					$db->quoteName('att.event_id') . ' = ' . $db->quoteName('a.id'),
+					$db->quoteName('att.status') . ' = ' . AttendingStatusEnum::ATTENDING->value,
+				]
+			);
+		$query->select('(' . $attendees . ') AS ' . $db->quoteName('attendeeCount'));
+
 		// Join over the asset groups.
 		$query->select($db->quoteName('ag.title', 'access_level'))
 			->join(
@@ -196,28 +211,4 @@ class EventsModel extends ListModel
 
 		return $query;
 	}
-/*
-	protected function populateState($ordering = 'a.title', $direction = 'asc')
-	{
-		$app = Factory::getApplication();
-		$forcedLanguage = $app->input->get('forcedLanguage', '', 'cmd');
-		// Adjust the context to support modal layouts.
-		if ($layout = $app->input->get('layout'))
-		{
-			$this->context .= '.' . $layout;
-		}
-		// Adjust the context to support forced languages.
-		if ($forcedLanguage)
-		{
-			$this->context .= '.' . $forcedLanguage;
-		}
-		// List state information.
-		parent::populateState($ordering, $direction);
-		// Force a language.
-		if (!empty($forcedLanguage))
-		{
-			$this->setState('filter.language', $forcedLanguage);
-		}
-	}
-*/
 }

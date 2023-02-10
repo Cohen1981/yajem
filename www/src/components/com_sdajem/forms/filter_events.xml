@@ -40,6 +40,8 @@
             <option value="a.eventStatus DESC">SDAJEM_STATUS_SORT_DESC</option>
             <option value="category_title ASC">JCATEGORY_ASC</option>
             <option value="category_title DESC">JCATEGORY_DESC</option>
+            <option value="attendeeCount ASC">SDAJEM_ATTENDEE_COUNT_ASC</option>
+            <option value="attendeeCount DESC">SDAJEM_ATTENDEE_COUNT_DESC</option>
         </field>
         <field
                 name="limit"

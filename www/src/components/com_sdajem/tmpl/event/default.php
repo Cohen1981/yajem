@@ -50,7 +50,7 @@ if (isset($event->host))
 if (isset($event->location))
     $location = $event->location;
 ?>
-
+<div class="sdajem_content_container">
 <div class="sda_row">
     <div class="sda_event_head">
         <div>
@@ -82,30 +82,34 @@ if (isset($event->location))
     </div>
 </div>
 
-<?php if (isset($event->location)) : ?>
-<div class="sda_row">
-    <?php echo $location->title; ?>
-</div>
-<?php endif; ?>
-
 <div class="sda_row">
     <?php echo $event->description; ?>
 </div>
 
+<?php if (isset($event->location)) : ?>
+<div class="sda_row">
+    <h5><?php echo Text::_('COM_SDAJEM_LOCATION'); ?></h5>
+    <?php echo $location->title; ?>
+</div>
+<?php endif; ?>
+
 <?php if($tparams->get('sda_use_organizer') && isset($organizer)) : ?>
     <div class="sda_row">
+        <h5><?php echo Text::_('COM_SDAJEM_FIELD_ORGANIZER_LABEL'); ?></h5>
         <?php echo $organizer->user->name; ?>
     </div>
 <?php endif; ?>
 
 <?php if(isset($event->hostId)) : ?>
     <div class="sda_row">
+        <h5><?php echo Text::_('COM_SDAJEM_FIELD_HOST_LABEL'); ?></h5>
         <?php echo $host->get('name'); ?>
     </div>
 <?php endif; ?>
 
 <?php if ($tparams->get('sda_use_attending')) : ?>
     <div id="attendings" class="sda_row">
+        <h5><?php echo Text::_('COM_SDAJEM_ATTENDESS'); ?></h5>
         <div class="sda_row">
         <?php if (isset($event->attendings)) : ?>
         <div class="sda_attendee_container">
@@ -127,3 +131,4 @@ if (isset($event->location))
         </div>
     </div>
 <?php endif; ?>
+</div>

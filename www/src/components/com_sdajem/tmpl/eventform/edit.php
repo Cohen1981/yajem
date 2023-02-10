@@ -20,6 +20,7 @@ $this->tab_name  = 'com-events-form';
 $this->ignore_fieldsets = ['details', 'item_associations', 'language'];
 $this->useCoreUI = true;
 ?>
+<div class="sdajem_content_container">
 <form action="<?php echo Route::_('index.php?option=com_sdajem&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-vertical">
 	<fieldset>
 		<?php echo HTMLHelper::_('uitab.startTabSet', $this->tab_name, ['active' => 'details']); ?>
@@ -50,3 +51,4 @@ $this->useCoreUI = true;
         </button>
 	</div>
 </form>
+</div>

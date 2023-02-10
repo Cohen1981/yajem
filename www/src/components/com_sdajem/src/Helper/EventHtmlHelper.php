@@ -15,14 +15,14 @@ use Sda\Component\Sdajem\Site\Model\AttendeeModel;
 abstract class EventHtmlHelper
 {
 	public static function renderAttendee(AttendeeModel $attendeeModel, string $fieldName = null) {
-		echo '<div class="sda_attendee">';
-
-		if (!is_null($fieldName)) {
+		echo '<div class="card" style="width: 120px;">';
+		if (!is_null($fieldName))
+		{
 			echo $attendeeModel->userData[$fieldName]->value;
 		}
-
-		echo '<div>' . $attendeeModel->user->name . '</div>';
-		echo '<div>' . Text::_($attendeeModel->status->getStatusLabel()) . '</div>';
-		echo '</div>';
+        echo '<div class="card-body">';
+		echo '<h5 class="card-title">' . $attendeeModel->user->username . '</h5>';
+        echo '<p class="card-text">' . Text::_($attendeeModel->status->getStatusLabel()) . '</p>';
+        echo '</div></div>';
 	}
 }

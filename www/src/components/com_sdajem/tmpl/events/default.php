@@ -23,6 +23,8 @@ use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('table.columns');
 $wa->useScript('form.validate');
+$wa->registerAndUseStyle('sdajem', 'com_sdajem/sdajem.css');
+
 $canChange = true;
 $canDo = ContentHelper::getActions('com_sdajem');
 
@@ -39,6 +41,7 @@ $params = $this->get('State')->get('params');
 
 /* @var \Sda\Component\Sdajem\Administrator\Model\EventsItemModel $item */
 ?>
+<div class="sdajem_content_container">
 <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="adminForm" id="adminForm">
     <div>
         <?php if ($canDo->get('core.create')) : ?>
@@ -63,7 +66,7 @@ $params = $this->get('State')->get('params');
 						<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
                     </div>
 				<?php else : ?>
-                    <table class="table" id="eventList">
+                    <table class="table table-striped" id="eventList">
                         <caption class="visually-hidden">
 							<?php echo Text::_('COM_SDAJEM_TABLE_CAPTION'); ?>, <?php echo Text::_('JGLOBAL_SORTED_BY'); ?>
                         </caption>
@@ -79,8 +82,11 @@ $params = $this->get('State')->get('params');
 		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_ENDDATE', 'a.endDateTime', $listDirn, $listOrder); ?>
                             </th>
 	                        <?php if (!Factory::getApplication()->getIdentity()->guest) : ?>
-                            <th>
+                            <th class="d-none d-md-table-cell">
                                 <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLEHEAD_EVENTS_STATUS', 'a.eventStatus', $listDirn, $listOrder); ?>
+                            </th>
+                            <th class="d-none d-md-table-cell">
+	                            <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLEHEAD_EVENTS_ATTENDEE_COUNT', 'attendeeCount', $listDirn, $listOrder); ?>
                             </th>
                             <?php endif; ?>
                         </tr>
@@ -132,7 +138,7 @@ $params = $this->get('State')->get('params');
                                     <?php echo Text::_(EventStatusEnum::from($item->eventStatus)->getStatusLabel()); ?>
                                     </div>
 
-                                    <?php if (!Factory::getApplication()->getIdentity()->id == $item->organizerId) : ?>
+                                    <?php if (Factory::getApplication()->getIdentity()->id == $item->organizerId) : ?>
                                     <div class="sda_form">
                                         <form action="<?php echo Route::_('index.php?view=event'); ?>" method="post" name="eventForm<?php echo $item->id; ?>" id="eventForm<?php echo $item->id; ?>">
                                             <?php foreach (EventStatusEnum::cases() as $status) : ?>
@@ -150,6 +156,9 @@ $params = $this->get('State')->get('params');
                                     </div>
                                     <?php endif; ?>
 
+                                </td>
+                                <td class="d-none d-md-table-cell">
+                                    <?php echo $item->attendeeCount; ?>
                                 </td>
                                 <?php endif; ?>
                                 <td class="small d-none d-md-table-cell">
@@ -172,3 +181,4 @@ $params = $this->get('State')->get('params');
         </div>
     </div>
 </form>
+</div>
