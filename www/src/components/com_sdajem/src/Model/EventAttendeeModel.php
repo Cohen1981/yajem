@@ -22,7 +22,7 @@ use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
  * @property  array               profile
  * @property  array               userData
  */
-class AttendeeModel extends UserModel
+class EventAttendeeModel extends UserModel
 {
 	public function __construct($data)
 	{

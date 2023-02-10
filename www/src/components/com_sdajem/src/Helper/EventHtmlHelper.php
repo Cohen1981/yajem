@@ -10,11 +10,11 @@
 namespace Sda\Component\Sdajem\Site\Helper;
 
 use Joomla\CMS\Language\Text;
-use Sda\Component\Sdajem\Site\Model\AttendeeModel;
+use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
 
 abstract class EventHtmlHelper
 {
-	public static function renderAttendee(AttendeeModel $attendeeModel, string $fieldName = null) {
+	public static function renderAttendee(EventAttendeeModel $attendeeModel, string $fieldName = null) {
 		echo '<div class="card" style="width: 120px;">';
 		if (!is_null($fieldName))
 		{

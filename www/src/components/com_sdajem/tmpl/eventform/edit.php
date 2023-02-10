@@ -36,19 +36,28 @@ $this->useCoreUI = true;
 		<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
 		<?php echo HTMLHelper::_('form.token'); ?>
 	</fieldset>
-	<div class="mb-2">
-		<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('event.save')">
+	<div class="mb-2 row g-4">
+		<button type="button" class="btn me-2 btn-primary col-auto" onclick="Joomla.submitbutton('event.save')">
 			<span class="fas fa-check" aria-hidden="true"></span>
 			<?php echo Text::_('JSAVE'); ?>
 		</button>
-		<button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('event.cancel')">
+		<button type="button" class="btn me-2 btn-danger col-auto" onclick="Joomla.submitbutton('event.cancel')">
 			<span class="fas fa-times-cancel" aria-hidden="true"></span>
 			<?php echo Text::_('JCANCEL'); ?>
 		</button>
-        <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('location.add')">
+        <button type="button" class="btn me-2 btn-primary col-auto" onclick="Joomla.submitbutton('location.add')">
             <span class="fas fa-check" aria-hidden="true"></span>
 			<?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
         </button>
+
+        <div class="input-group col">
+            <input type="hidden" name="returnEdit" value="<?php echo $this->return_page_edit; ?>">
+            <input type="text" class="form-control" placeholder="<?php echo Text::_('SDAJEM_NEW_CATEGORY'); ?>" aria-label="Category" aria-describedby="button-category" name="newCat">
+            <button type="button" id="button-category" class="btn btn-primary" onclick="Joomla.submitbutton('event.addCategory')">
+                <span class="fas fa-check" aria-hidden="true"></span>
+		        <?php echo Text::_('COM_SDAJEM_Category_ADD'); ?>
+            </button>
+        </div>
 	</div>
 </form>
 </div>

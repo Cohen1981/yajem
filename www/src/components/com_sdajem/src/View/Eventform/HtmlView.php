@@ -16,6 +16,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Uri\Uri;
 use Sda\Component\Sdajem\Administrator\Helper\EventHelper;
 /**
  * HTML Event View class for the Event component
@@ -98,6 +99,7 @@ class HtmlView extends BaseHtmlView
 			$lang = Factory::getLanguage()->getTag();
 			$this->form->setFieldAttribute('language', 'default', $lang);
 		}
+		$this->return_page_edit = base64_encode(Uri::getInstance());
 		$this->_prepareDocument();
 
 		parent::display($tpl);

@@ -13,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
@@ -209,5 +210,37 @@ class EventController extends FormController
 			$event = $this->getModel();
 			$event->updateEventStatus($eventId, $enum);
 		}
+	}
+
+	public function addCategory() {
+		$input = Factory::getApplication()->input;
+		$app = Factory::getApplication();
+		$user = $app->getIdentity();
+		$extension = 'com_sdajem';
+		$data = array();
+		$data['title'] = $input->get('newCat', '');
+
+		if (($user->authorise('core.create', $extension)
+			|| count($user->getAuthorisedCategories($extension, 'core.create')))
+			&& $data['title']!='')
+		{
+			$data['id'] = '';
+			$data['alias']     = $input->get('categoryalias', '');
+			$data['extension'] = 'com_sdajem.events';
+			$data['parent_id'] = 1;
+
+			$catModel = new CategoryModel();
+
+			$return = $this->input->get('returnEdit', null, 'base64');
+			if (empty($return) || !Uri::isInternal(base64_decode($return))) {
+				$return = Uri::base();
+			}
+
+			$this->setRedirect(Route::_(base64_decode($return), false));
+
+			return $catModel->save($data);
+		}
+
+		return true;
 	}
 }

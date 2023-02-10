@@ -41,15 +41,24 @@ $this->useCoreUI = true;
 		<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
 		<?php echo HTMLHelper::_('form.token'); ?>
 	</fieldset>
-	<div class="mb-2">
-		<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('location.save')">
+	<div class="mb-2 row g-4">
+		<button type="button" class="btn btn-primary me-2 col-auto" onclick="Joomla.submitbutton('location.save')">
 			<span class="fas fa-check" aria-hidden="true"></span>
 			<?php echo Text::_('JSAVE'); ?>
 		</button>
-		<button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('location.cancel')">
+		<button type="button" class="btn btn-danger me-2 col-auto" onclick="Joomla.submitbutton('location.cancel')">
 			<span class="fas fa-times-cancel" aria-hidden="true"></span>
 			<?php echo Text::_('JCANCEL'); ?>
 		</button>
+
+        <div class="input-group col">
+            <input type="hidden" name="returnEdit" value="<?php echo $this->return_page_edit; ?>">
+            <input type="text" class="form-control" placeholder="<?php echo Text::_('SDAJEM_NEW_CATEGORY'); ?>" aria-label="Category" aria-describedby="button-category" name="newCat">
+            <button type="button" id="button-category" class="btn btn-primary" onclick="Joomla.submitbutton('location.addCategory')">
+                <span class="fas fa-check" aria-hidden="true"></span>
+				<?php echo Text::_('COM_SDAJEM_Category_ADD'); ?>
+            </button>
+        </div>
 	</div>
 </form>
 </div>

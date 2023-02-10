@@ -37,6 +37,7 @@ use Joomla\Component\Categories\Administrator\Model\CategoryModel;
  * @property  string    stateAddress
  * @property  string    country
  * @property  string    latlng
+ * @property  string    image
   */
 
 class LocationModel extends BaseDatabaseModel

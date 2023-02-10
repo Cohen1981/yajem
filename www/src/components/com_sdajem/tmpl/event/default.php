@@ -17,7 +17,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\Component\Contact\Administrator\Model\ContactModel;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
-use Sda\Component\Sdajem\Site\Model\AttendeeModel;
+use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\Model\UserModel;
 
@@ -169,7 +169,7 @@ if (isset($event->location))
             <div class="sda_attendee_container">
                 <?php if (!$user->guest) : ?>
                     <?php foreach ($event->attendings as $i => $attending) : ?>
-                        <?php EventHtmlHelper::renderAttendee(new AttendeeModel($attending), $tparams->get('sda_avatar_field_name')); ?>
+                        <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending), $tparams->get('sda_avatar_field_name')); ?>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <?php echo count($event->attendings); ?>
