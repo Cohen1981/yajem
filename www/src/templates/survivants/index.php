@@ -128,32 +128,35 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
     . $hasClass
     . ($this->direction == 'rtl' ? ' rtl' : '');
 ?>">
+<div class="sda_header container-header full-width">
+	<?php if ($this->countModules('topbar')) : ?>
+        <div class="container-topbar">
+            <jdoc:include type="modules" name="topbar" style="none" />
+        </div>
+	<?php endif; ?>
+
+	<?php if ($this->countModules('below-top')) : ?>
+        <div class="grid-child container-below-top">
+            <jdoc:include type="modules" name="below-top" style="none" />
+        </div>
+	<?php endif; ?>
+
+	<?php if ($this->params->get('brand', 1)) : ?>
+        <div class="grid-child">
+            <div class="navbar-brand">
+                <a class="brand-logo" href="<?php echo $this->baseurl; ?>/">
+					<?php echo $logo; ?>
+                </a>
+				<?php if ($this->params->get('siteDescription')) : ?>
+                    <div class="site-description"><?php echo htmlspecialchars($this->params->get('siteDescription')); ?></div>
+				<?php endif; ?>
+            </div>
+        </div>
+	<?php endif; ?>
+</div>
     <header class="header container-header full-width<?php echo $stickyHeader ? ' ' . $stickyHeader : ''; ?>">
 
-        <?php if ($this->countModules('topbar')) : ?>
-            <div class="container-topbar">
-            <jdoc:include type="modules" name="topbar" style="none" />
-            </div>
-        <?php endif; ?>
 
-        <?php if ($this->countModules('below-top')) : ?>
-            <div class="grid-child container-below-top">
-                <jdoc:include type="modules" name="below-top" style="none" />
-            </div>
-        <?php endif; ?>
-
-        <?php if ($this->params->get('brand', 1)) : ?>
-            <div class="grid-child">
-                <div class="navbar-brand">
-                    <a class="brand-logo" href="<?php echo $this->baseurl; ?>/">
-                        <?php echo $logo; ?>
-                    </a>
-                    <?php if ($this->params->get('siteDescription')) : ?>
-                        <div class="site-description"><?php echo htmlspecialchars($this->params->get('siteDescription')); ?></div>
-                    <?php endif; ?>
-                </div>
-            </div>
-        <?php endif; ?>
 
         <?php if ($this->countModules('menu', true) || $this->countModules('search', true)) : ?>
             <div class="grid-child container-nav">
