@@ -49,6 +49,28 @@ if (isset($event->host))
 /* @var \Sda\Component\Sdajem\Site\Model\LocationModel $location */
 if (isset($event->location))
     $location = $event->location;
+
+if ($location->latlng)
+{
+	$lAddressString = urlencode($location->latlng);
+}
+else
+{
+	$lAddressString = urlencode($location->street) . "+" . urlencode($location->postalCode) . "+" . urlencode($location->city);
+}
+
+$uAdressString = null;
+
+if (!$user->guest)
+{
+	/** @var UserModel $userModel */
+    $userModel = new UserModel($user->id);
+
+	$uAdressString = urlencode($userModel->profile['address1']) . "+" .
+        	urlencode($userModel->profile['postal_code']) . "+" .
+			urlencode($userModel->profile['city']);
+}
+
 ?>
 <div class="sdajem_content_container">
     <div class="sda_row">
@@ -99,32 +121,51 @@ if (isset($event->location))
                     <h5><?php echo Text::_('COM_SDAJEM_LOCATION'); ?>: <?php echo $location->title; ?></h5>
                 </button>
             </h5>
-            <div id="collapseLocation" class="accordion-collapse collapse" aria-labelledby="headingLocation" data-bs-parent="#accordionEvent">
+
+            <div id="collapseLocation" class="accordion-collapse collapse show" aria-labelledby="headingLocation" data-bs-parent="#accordionEvent">
                 <div class="accordion-body clearfix">
 	                <?php if (!empty($canEdit))
 	                {
 		                if ($canEdit) : ?>
-                            <div class="icons">
+                            <div class="icons float-end">
 				                <?php echo HTMLHelper::_('eventicon.editLocation', $location, $tparams); ?>
                             </div>
 		                <?php endif;
 	                } ?>
+                    <p>
+                        <a href="https://www.google.de/maps?q=<?php echo $lAddressString; ?>"
+                           class="me-2" target="_blank">
+                            <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
+			                <?php echo Text::_('COM_SDAJEM_LOCATION_SHOW_ON_MAP'); ?>
+                        </a>
+
+		                <?php if ($uAdressString): ?>
+                            <a href="https://www.google.de/maps?saddr=<?php echo $uAdressString; ?>&daddr=<?php echo $lAddressString; ?>"
+                               class="me-2" target="_blank">
+                                <i class="fas fa-route" aria-hidden="true"></i>
+				                <?php echo Text::_('COM_SDAJEM_LOCATION_SHOW_ROUTE'); ?>
+                            </a>
+		                <?php endif; ?>
+                    </p>
+
                     <?php if ($location->image): ?>
                         <div class="sdajem_teaser_image">
                             <?php echo HTMLHelper::image($location->image,'',['class'=>'float-start pe-2']); ?>
                         </div>
                     <?php endif; ?>
-                    <p><?php echo $location->street; ?></p>
-                    <p><?php echo $location->postalCode; ?></p>
-                    <p><?php echo $location->city; ?></p>
+                    <div class="loc_address">
+                        <p><?php echo $location->street; ?></p>
+                        <p><?php echo $location->postalCode; ?></p>
+                        <p><?php echo $location->city; ?></p>
+                    </div>
                 </div>
             </div>
         </div>
 	    <?php endif; ?>
-	    <?php if($tparams->get('sda_use_organizer') && isset($organizer)) : ?>
+	    <?php if($tparams->get('sda_use_organizer') && isset($organizer) && !$user->guest) : ?>
             <div class="accordion-item">
                 <h5 class="accordion-header" id="headingOrganizer">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOrganizer" aria-expanded="true" aria-controls="collapseOrganizer">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOrganizer" aria-expanded="true" aria-controls="collapseOrganizer">
                         <h5><?php echo Text::_('COM_SDAJEM_FIELD_ORGANIZER_LABEL'); ?>: <?php echo $organizer->user->name; ?></h5>
                     </button>
                 </h5>
@@ -138,7 +179,7 @@ if (isset($event->location))
 	    <?php if(isset($event->hostId)) : ?>
             <div class="accordion-item">
                 <h5 class="accordion-header" id="headingHost">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHost" aria-expanded="true" aria-controls="collapseHost">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHost" aria-expanded="true" aria-controls="collapseHost">
                         <h5><?php echo Text::_('COM_SDAJEM_FIELD_HOST_LABEL'); ?>: <?php echo $host->get('name'); ?></h5>
                     </button>
                 </h5>
@@ -147,7 +188,7 @@ if (isset($event->location))
 	                    <?php if (!empty($canEdit))
 	                    {
 		                    if ($canEdit) : ?>
-                                <div class="icons">
+                                <div class="icons float-end">
 				                    <?php echo HTMLHelper::_('contacticon.edit', $host, $tparams); ?>
                                 </div>
 		                    <?php endif;

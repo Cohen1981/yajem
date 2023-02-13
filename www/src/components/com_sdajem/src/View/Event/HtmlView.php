@@ -9,6 +9,8 @@
 
 namespace Sda\Component\Sdajem\Site\View\Event;
 
+defined('_JEXEC') or die();
+
 use Exception;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
@@ -22,8 +24,6 @@ use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\Model\LocationModel;
 use Sda\Component\Sdajem\Site\Model\UserModel as SdaUserModel;
 use stdClass;
-
-defined('_JEXEC') or die;
 
 /**
  * @method getMVCFactory()

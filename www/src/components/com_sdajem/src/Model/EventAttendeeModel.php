@@ -9,6 +9,8 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
+defined('_JEXEC') or die();
+
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 
 /**

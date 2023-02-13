@@ -9,7 +9,7 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-use Joomla\CMS\Factory;
+defined('_JEXEC') or die();
 
 class EventsModel extends \Sda\Component\Sdajem\Administrator\Model\EventsModel
 {

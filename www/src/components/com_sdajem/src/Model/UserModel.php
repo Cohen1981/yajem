@@ -9,6 +9,8 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\User\User;
 use Joomla\CMS\User\UserFactoryInterface;

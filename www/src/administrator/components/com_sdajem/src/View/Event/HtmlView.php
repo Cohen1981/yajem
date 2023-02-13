@@ -8,6 +8,8 @@
 
 namespace Sda\Component\Sdajem\Administrator\View\Event;
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
@@ -22,6 +24,7 @@ class HtmlView extends BaseHtmlView
 	 * The \JForm object
 	 *
 	 * @var  \JForm
+	 * @since __BUMP_VERSION__
 	 */
 	protected mixed $form;
 	/**

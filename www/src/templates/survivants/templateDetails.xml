@@ -16,6 +16,7 @@
 		<filename>offline.php</filename>
 		<filename>templateDetails.xml</filename>
 		<folder>html</folder>
+		<folder>language</folder>
 	</files>
 	<media destination="templates/site/survivants" folder="media">
 		<folder>js</folder>
@@ -41,10 +42,6 @@
 		<position>footer</position>
 		<position>debug</position>
 	</positions>
-	<languages folder="language">
-		<language tag="en-GB">en-GB/tpl_survivants.ini</language>
-		<language tag="en-GB">en-GB/tpl_survivants.sys.ini</language>
-	</languages>
 	<config>
 		<fields name="params">
 			<fieldset name="advanced">

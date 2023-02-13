@@ -9,14 +9,12 @@
 
 namespace Sda\Component\Sdajem\Site\View\Events;
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
-
-
-
-\defined('_JEXEC') or die;
 
 class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 {

@@ -9,6 +9,8 @@
 
 namespace Sda\Component\Sdajem\Site\Helper;
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\Language\Text;
 use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
 

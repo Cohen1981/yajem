@@ -12081,6 +12081,15 @@ fieldset > * {
   gap: 1rem;
 }
 
+.com-users-profile__edit .control-group ,
+.profile-edit .control-group {
+  display: block;
+}
+
+.com-users-profile img {
+  max-width: 200px;
+}
+
 .btn.jmodedit {
   position: absolute;
   top: 0;
@@ -13115,7 +13124,6 @@ body:not(.has-sidebar-left) .site-grid .container-component {
 }
 body:not(.has-sidebar-right) .site-grid .container-component {
   grid-column-end: main-end;
-  padding: 1.0em;
 }
 
 .site-grid {
@@ -13943,4 +13951,8 @@ input[type=checkbox]:checked ~ .sda_switchable {
 
 .sda_header .grid-child {
   padding: 0;
+}
+
+main .sda_content_container {
+  padding: 0 15px;
 }

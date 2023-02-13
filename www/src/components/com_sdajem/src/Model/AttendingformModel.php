@@ -9,6 +9,8 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
+defined('_JEXEC') or die();
+
 use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;

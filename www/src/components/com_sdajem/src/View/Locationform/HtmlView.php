@@ -17,7 +17,7 @@ use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
-use Sda\Component\Sdajem\Administrator\Helper\LocationHelper;
+
 /**
  * HTML Location View class
  *

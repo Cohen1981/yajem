@@ -9,11 +9,18 @@
 
 namespace Sda\Component\Sdajem\Site\Controller;
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingModel;
 
+/**
+ * @since       __BUMP_VERSION__
+ * @package     Sda\Component\Sdajem\Site\Controller
+ *
+ */
 class AttendingController extends FormController
 {
 	protected $view_item = 'event';

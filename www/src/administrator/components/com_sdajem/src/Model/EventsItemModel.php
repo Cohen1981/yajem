@@ -9,6 +9,8 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
+defined('_JEXEC') or die();
+
 use Joomla\CMS\Date\Date;
 
 /**

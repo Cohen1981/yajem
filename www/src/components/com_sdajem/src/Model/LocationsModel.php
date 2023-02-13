@@ -9,6 +9,8 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
+defined('_JEXEC') or die();
+
 class LocationsModel extends \Sda\Component\Sdajem\Administrator\Model\LocationsModel
 {
 
