@@ -19,7 +19,7 @@ use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
 use Joomla\Component\Users\Site\Model\ProfileModel;
 
 /**
- * @since       __BUMP_VERSION__
+ * @since       1.0.0
  * @package     Sda\Component\Sdajem\Site\Model
  *
  * @property int            id

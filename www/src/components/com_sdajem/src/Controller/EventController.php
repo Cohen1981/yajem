@@ -11,6 +11,7 @@ namespace Sda\Component\Sdajem\Site\Controller;
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Dispatcher\Dispatcher;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;

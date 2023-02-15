@@ -27,7 +27,7 @@ class DisplayController extends BaseController
 	 * @param   CMSApplication       $app      The JApplication for the dispatcher
 	 * @param   \JInput              $input    Input
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function __construct($config = [], MVCFactoryInterface $factory = null, $app = null, $input = null)
 	{
@@ -41,7 +41,7 @@ class DisplayController extends BaseController
 	 *
 	 * @return  static  This object to support chaining.
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function display($cachable = false, $urlparams = [])
 	{

@@ -54,7 +54,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @return  void
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function addToolbar()
 	{

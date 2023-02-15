@@ -26,7 +26,7 @@ abstract  class AssociationHelper extends CategoryAssociationHelper
 	 *
 	 * @return  array   Array of associations for the item
 	 *
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	public static function getAssociations($id = 0, $view = null)
 	{

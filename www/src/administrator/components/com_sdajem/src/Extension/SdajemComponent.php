@@ -40,7 +40,7 @@ class SdajemComponent extends MVCComponent implements BootableExtensionInterface
 	 *
 	 * @return  void
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function boot(ContainerInterface $container)
 	{
@@ -56,7 +56,7 @@ class SdajemComponent extends MVCComponent implements BootableExtensionInterface
 	 *
 	 * @return  void
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function countItems(array $items, string $section)
 	{
@@ -81,7 +81,7 @@ class SdajemComponent extends MVCComponent implements BootableExtensionInterface
 	 *
 	 * @return  string|null
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function getTableNameForSection(string $section = null)
 	{
@@ -93,7 +93,7 @@ class SdajemComponent extends MVCComponent implements BootableExtensionInterface
 	 *
 	 * @return string
 	 *
-	 * @since version
+	 * @ since 1.0.0
 	 */
 	protected function getStateColumnForSection(string $section = null)
 	{

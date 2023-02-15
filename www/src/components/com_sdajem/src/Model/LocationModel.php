@@ -22,7 +22,7 @@ use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 /**
  * Location model for the Joomla Locations component.
  *
- * @since  __BUMP_VERSION__
+ * @since  1.0.0
  *
  * @property  int       id
  * @property  string    title
@@ -44,19 +44,19 @@ class LocationModel extends BaseDatabaseModel
 {
 	/**
 	 * Linkt to com_contact
-	 * @since version
+	 * @ since 1.0.0
 	 * @var int
 	 */
 	public int $organizerId;
 	/**
 	 * Link to com_users
-	 * @since version
+	 * @ since 1.0.0
 	 * @var int
 	 */
 	public int $hostId;
 	/**
 	 * @var string item
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 */
 	protected $_item = null;
 	/**
@@ -66,7 +66,7 @@ class LocationModel extends BaseDatabaseModel
 	 *
 	 * @return  mixed Object or null
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
 	{
@@ -117,7 +117,7 @@ class LocationModel extends BaseDatabaseModel
 	 *
 	 * @return  void
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function populateState()
 	{

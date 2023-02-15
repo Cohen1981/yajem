@@ -19,7 +19,7 @@ use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\MVC\Model\AdminModel;
 
 /**
- * @since       __BUMP_VERSION__
+ * @since       1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Model
  *
  * Fields
@@ -41,7 +41,7 @@ class AttendingModel extends AdminModel
 	 * The type alias for this content type.
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	public $typeAlias = 'com_sdajem.attending';
 
@@ -49,7 +49,7 @@ class AttendingModel extends AdminModel
 	 * The context used for the associations table
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	protected $associationsContext = 'com_sdajem.item';
 	/**
@@ -58,7 +58,7 @@ class AttendingModel extends AdminModel
 	 *
 	 * @return Form|false
 	 *
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -82,7 +82,7 @@ class AttendingModel extends AdminModel
 	 *
 	 * @return  mixed  The data for the form.
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function loadFormData()
 	{
@@ -107,7 +107,7 @@ class AttendingModel extends AdminModel
 	 *
 	 * @return  mixed  Object on success, false on failure.
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
 	{
@@ -140,7 +140,7 @@ class AttendingModel extends AdminModel
 	 *
 	 * @return  void
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function preprocessForm(\JForm $form, $data, $group = 'content')
 	{
@@ -181,7 +181,7 @@ class AttendingModel extends AdminModel
 	 *
 	 * @return  void
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function prepareTable($table)
 	{

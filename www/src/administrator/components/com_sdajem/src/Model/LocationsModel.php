@@ -50,7 +50,7 @@ class LocationsModel extends ListModel
 	 *
 	 * @return  QueryInterface
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function getListQuery()
 	{

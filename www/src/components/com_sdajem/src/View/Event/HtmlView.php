@@ -35,7 +35,7 @@ class HtmlView extends BaseHtmlView
 	 * The page parameters
 	 *
 	 * @var    Registry|null
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	protected ?Registry $params = null;
 
@@ -43,7 +43,7 @@ class HtmlView extends BaseHtmlView
 	 * The item model state
 	 *
 	 * @var    CMSObject
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	protected CMSObject $state;
 
@@ -51,7 +51,7 @@ class HtmlView extends BaseHtmlView
 	 * The item object details
 	 *
 	 * @var    stdClass
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	protected stdClass $item;
 
@@ -62,7 +62,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @return  mixed  A string if successful, otherwise an Error object.
 	 * @throws Exception
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 */
 	public function display($tpl = null)
 	{

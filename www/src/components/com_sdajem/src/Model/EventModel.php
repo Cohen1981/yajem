@@ -22,7 +22,7 @@ use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 /**
  * Event model for the Joomla Events component.
  *
- * @since  __BUMP_VERSION__
+ * @since  1.0.0
  *
  * @property  int       id
  * @property  int       $access
@@ -57,7 +57,7 @@ class EventModel extends BaseDatabaseModel
 {
 	/**
 	 * @var string item
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 */
 	protected $_item = null;
 	/**
@@ -67,7 +67,7 @@ class EventModel extends BaseDatabaseModel
 	 *
 	 * @return  mixed Object or null
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
 	{
@@ -117,7 +117,7 @@ class EventModel extends BaseDatabaseModel
 	 *
 	 * @return  void
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function populateState()
 	{

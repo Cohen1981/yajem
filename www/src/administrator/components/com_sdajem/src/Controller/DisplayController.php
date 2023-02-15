@@ -19,7 +19,7 @@ class DisplayController extends BaseController
 	 * The default view.
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	protected $default_view = 'events';
 	/**
@@ -30,7 +30,7 @@ class DisplayController extends BaseController
 	 *
 	 * @return  BaseController|bool  This object to support chaining.
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 *
 	 * @throws  \Exception
 	 */

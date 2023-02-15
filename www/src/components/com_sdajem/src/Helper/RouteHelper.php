@@ -13,6 +13,7 @@ namespace Sda\Component\Sdajem\Site\Helper;
 
 use Joomla\CMS\Categories\CategoryNode;
 use Joomla\CMS\Language\Multilanguage;
+use Joomla\CMS\Uri\Uri;
 
 abstract class RouteHelper
 {

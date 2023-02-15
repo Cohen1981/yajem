@@ -19,7 +19,7 @@ use Joomla\Database\DatabaseInterface;
 /**
  * Script file of Sdajem Component
  *
- * @since  __BUMP_VERSION__
+ * @since  1.0.0
  */
 class Com_SdajemInstallerScript
 {
@@ -27,16 +27,16 @@ class Com_SdajemInstallerScript
 	 * Minimum Joomla version to check
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	private $minimumJoomlaVersion = '4.0';
 	/**
 	 * Minimum PHP version to check
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
-	private $minimumPHPVersion = JOOMLA_MINIMUM_PHP;
+	private $minimumPHPVersion = '8.1';
 	/**
 	 * Method to install the extension
 	 *
@@ -44,7 +44,7 @@ class Com_SdajemInstallerScript
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	public function install($parent): bool
 	{
@@ -66,7 +66,7 @@ class Com_SdajemInstallerScript
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	public function uninstall($parent): bool
 	{
@@ -80,7 +80,7 @@ class Com_SdajemInstallerScript
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 *
 	 */
 	public function update($parent): bool
@@ -96,7 +96,7 @@ class Com_SdajemInstallerScript
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 *
 	 * @throws Exception
 	 */
@@ -133,7 +133,7 @@ class Com_SdajemInstallerScript
 	 *
 	 * @return  boolean  True on success
 	 *
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 *
 	 */
 	public function postflight($type, $parent)
@@ -184,7 +184,7 @@ class Com_SdajemInstallerScript
 	 *
 	 * @return false|void
 	 *
-	 * @since version
+	 * @ since 1.0.0
 	 */
 	private function setupData($table, $extension, $title, $alias) {
 		$data = array(

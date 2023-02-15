@@ -236,7 +236,7 @@ class Icon
 	 * @return string
 	 *
 	 * @throws \Exception
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 *
 	 */
 	public static function register($event, $params, $attribs = [], $legacy = false)

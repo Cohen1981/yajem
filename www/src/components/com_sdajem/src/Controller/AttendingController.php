@@ -17,7 +17,7 @@ use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingModel;
 
 /**
- * @since       __BUMP_VERSION__
+ * @since       1.0.0
  * @package     Sda\Component\Sdajem\Site\Controller
  *
  */

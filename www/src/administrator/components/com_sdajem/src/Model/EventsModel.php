@@ -11,14 +11,11 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 
 \defined('_JEXEC') or die();
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Associations;
-use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 class EventsModel extends ListModel
 {
@@ -55,7 +52,7 @@ class EventsModel extends ListModel
 	 *
 	 * @return  QueryInterface
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function getListQuery()
 	{

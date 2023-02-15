@@ -19,7 +19,7 @@ use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 
 /**
- * @since       version
+ * @ since      1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Table
  *
  * Fields
@@ -42,7 +42,7 @@ class AttendingTable extends Table
 	 *
 	 * @param   DatabaseDriver  $db  Database connector object
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function __construct(DatabaseDriver $db)
 	{
@@ -56,7 +56,7 @@ class AttendingTable extends Table
 	 *
 	 * @return  string
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function generateAlias()
 	{
@@ -84,7 +84,7 @@ class AttendingTable extends Table
 	 *
 	 * @return bool
 	 *
-	 * @since version
+	 * @ since 1.0.0
 	 */
 	public function store($updateNulls = true)
 	{

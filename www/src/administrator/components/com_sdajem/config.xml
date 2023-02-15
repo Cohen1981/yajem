@@ -40,7 +40,7 @@
                 name="sda_use_attending"
                 type="list"
                 label="COM_SDAJEM_FIELD_USE_ATTENDING_LABEL"
-                default="0"
+                default="1"
         >
             <option value="0">JNO</option>
             <option value="1">JYES</option>
@@ -49,7 +49,37 @@
                 name="sda_use_organizer"
                 type="list"
                 label="COM_SDAJEM_FIELD_USE_ORGANIZER_LABEL"
+                default="1"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="sda_user_group_name"
+                type="text"
+                label="COM_SDAJEM_FIELD_USER_FIELD_NAME"
+                showon="sda_use_organizer:1"
+        />
+        <field
+                name="sda_use_host"
+                type="list"
+                label="COM_SDAJEM_FIELD_USE_HOST_LABEL"
                 default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="sda_host_category_name"
+                type="text"
+                label="COM_SDAJEM_FIELD_HOST_FIELD_NAME"
+                showon="sda_use_host:1"
+        />
+        <field
+                name="sda_use_location"
+                type="list"
+                label="COM_SDAJEM_FIELD_USE_LOCATION_LABEL"
+                default="1"
         >
             <option value="0">JNO</option>
             <option value="1">JYES</option>

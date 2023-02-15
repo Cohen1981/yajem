@@ -22,7 +22,7 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 	 * The page parameters
 	 *
 	 * @var    \Joomla\Registry\Registry|null
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	protected $params = null;
 
@@ -30,7 +30,7 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 	 * The item model state
 	 *
 	 * @var    \Joomla\Registry\Registry
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	protected $state;
 
@@ -38,7 +38,7 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 	 * The item object details
 	 *
 	 * @var    \JObject
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	protected $items;
 	/**
@@ -46,7 +46,7 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 	 *
 	 *
 	 * @throws \Exception
-	 * @since version
+	 * @ since 1.0.0
 	 */
 	public function display($tpl = null)
 	{

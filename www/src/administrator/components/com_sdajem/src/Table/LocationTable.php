@@ -20,7 +20,7 @@ use Joomla\Database\DatabaseDriver;
 use Sda\Component\Sdajem\Administrator\Model\LocationModel;
 
 /**
- * @since       version
+ * @ since      1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Table
  *
  * @property  int       id
@@ -57,7 +57,7 @@ class LocationTable extends Table
 	 *
 	 * @param   DatabaseDriver  $db  Database connector object
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function __construct(DatabaseDriver $db)
 	{
@@ -71,7 +71,7 @@ class LocationTable extends Table
 	 *
 	 * @return  string
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function generateAlias()
 	{
@@ -118,7 +118,7 @@ class LocationTable extends Table
 	 *
 	 * @return bool
 	 *
-	 * @since version
+	 * @ since 1.0.0
 	 */
 	public function store($updateNulls = true)
 	{

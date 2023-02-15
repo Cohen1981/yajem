@@ -10,7 +10,7 @@
 namespace Sda\Component\Sdajem\Site\Enums;
 
 /**
- * @since       __BUMP_VERSION__
+ * @since       1.0.0
  * @package     Sda\Component\Sdajem\Site\Enums
  *
  * Event Attending Status
@@ -25,7 +25,7 @@ enum AttendingStatusEnum: int
 	 *
 	 * @return string
 	 *
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 *
 	 * joomla translate String for Buttons
 	 */
@@ -43,7 +43,7 @@ enum AttendingStatusEnum: int
 	 *
 	 * @return string
 	 *
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 *
 	 * Joomla translate String for attening status label
 	 */
@@ -61,7 +61,7 @@ enum AttendingStatusEnum: int
 	 *
 	 * @return string
 	 *
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 *
 	 * Actions for attending status changes. Task to get status ATTENDING would be 'attending.attend'
 	 */
@@ -79,7 +79,7 @@ enum AttendingStatusEnum: int
 	 *
 	 * @return string
 	 *
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 *
 	 * get the fontawesome class for a status symbol
 	 */

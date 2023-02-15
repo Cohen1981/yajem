@@ -9,19 +9,18 @@
 
 \defined('_JEXEC') or die;
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Uri\Uri;
+use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('behavior.formvalidator');
 $this->tab_name  = 'com-events-form';
 $this->ignore_fieldsets = ['details', 'item_associations', 'language'];
 $this->useCoreUI = true;
+
 ?>
 <div class="sdajem_content_container">
 <form action="<?php echo Route::_('index.php?option=com_sdajem&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="adminForm" class="form-validate form-vertical">
@@ -32,8 +31,31 @@ $this->useCoreUI = true;
 		<?php if (is_null($this->item->id)) : ?>
 			<?php echo $this->form->renderField('alias'); ?>
 		<?php endif; ?>
-		<?php echo $this->form->renderFieldset('details'); ?>
-		<?php echo HTMLHelper::_('uitab.endTab'); ?>
+        <?php echo $this->form->renderField('description'); ?>
+		<?php echo $this->form->renderField('image'); ?>
+		<?php echo $this->form->renderField('url'); ?>
+
+        <?php if ($this->params['sda_use_location']): ?>
+	        <?php echo $this->form->renderField('sdajem_location_id'); ?>
+        <?php endif; ?>
+
+        <?php echo $this->form->renderField('allDayEvent'); ?>
+		<?php echo $this->form->renderField('startDateTime'); ?>
+		<?php echo $this->form->renderField('endDateTime'); ?>
+
+        <?php if ($this->params['event_use_categories']): ?>
+			<?php echo $this->form->renderField('catid'); ?>
+        <?php endif; ?>
+
+		<?php if ($this->params['sda_use_organizer']): ?>
+			<?php echo $this->form->renderField('organizerId'); ?>
+		<?php endif; ?>
+
+		<?php if ($this->params['sda_use_host']): ?>
+			<?php echo $this->form->renderField('hostId'); ?>
+		<?php endif; ?>
+
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
 		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
 		<input type="hidden" name="task" value=""/>
 		<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
@@ -53,12 +75,16 @@ $this->useCoreUI = true;
 			<?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
         </button>
 
+        <?php if ($this->params['sda_use_host']): ?>
+            <!-- TODO Link to Contact Add -->
+        <?php endif; ?>
+
         <div class="input-group col">
             <input type="hidden" name="returnEdit" value="<?php echo $this->return_page_edit; ?>">
             <input type="text" class="form-control" placeholder="<?php echo Text::_('SDAJEM_NEW_CATEGORY'); ?>" aria-label="Category" aria-describedby="button-category" name="newCat">
             <button type="button" id="button-category" class="btn btn-primary" onclick="Joomla.submitbutton('event.addCategory')">
                 <span class="fas fa-check" aria-hidden="true"></span>
-		        <?php echo Text::_('COM_SDAJEM_Category_ADD'); ?>
+		        <?php echo Text::_('COM_SDAJEM_CATEGORY_ADD'); ?>
             </button>
         </div>
 	</div>

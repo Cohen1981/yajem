@@ -19,7 +19,7 @@ use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\MVC\Model\AdminModel;
 
 /**
- * @since       __BUMP_VERSION__
+ * @since       1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Model
  *
  * @property  int       id
@@ -39,7 +39,7 @@ class EventModel extends AdminModel
 	 * The type alias for this content type.
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	public $typeAlias = 'com_sdajem.event';
 
@@ -47,7 +47,7 @@ class EventModel extends AdminModel
 	 * The context used for the associations table
 	 *
 	 * @var    string
-	 * @since  __BUMP_VERSION__
+	 * @since  1.0.0
 	 */
 	protected $associationsContext = 'com_sdajem.item';
 	/**
@@ -56,7 +56,7 @@ class EventModel extends AdminModel
 	 *
 	 * @return Form|false
 	 *
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -80,7 +80,7 @@ class EventModel extends AdminModel
 	 *
 	 * @return  mixed  The data for the form.
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function loadFormData()
 	{
@@ -110,7 +110,7 @@ class EventModel extends AdminModel
 	 *
 	 * @return  mixed  Object on success, false on failure.
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
 	{
@@ -143,7 +143,7 @@ class EventModel extends AdminModel
 	 *
 	 * @return  void
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function preprocessForm(\JForm $form, $data, $group = 'content')
 	{
@@ -184,7 +184,7 @@ class EventModel extends AdminModel
 	 *
 	 * @return  void
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function prepareTable($table)
 	{

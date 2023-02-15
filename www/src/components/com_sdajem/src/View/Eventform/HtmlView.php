@@ -17,6 +17,10 @@ use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Component\Categories\Administrator\Extension\CategoriesComponent;
+use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
+use Joomla\Component\Contact\Site\Model\CategoryModel;
+use Joomla\Component\Contact\Site\Model\ContactModel;
 use Sda\Component\Sdajem\Administrator\Helper\EventHelper;
 /**
  * HTML Event View class for the Event component
@@ -99,7 +103,9 @@ class HtmlView extends BaseHtmlView
 			$lang = Factory::getLanguage()->getTag();
 			$this->form->setFieldAttribute('language', 'default', $lang);
 		}
+
 		$this->return_page_edit = base64_encode(Uri::getInstance());
+
 		$this->_prepareDocument();
 
 		parent::display($tpl);

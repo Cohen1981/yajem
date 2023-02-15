@@ -89,25 +89,14 @@
                 default=""
         />
         <field name="organizerId"
-               type="sql"
+               type="Userlist"
                label="COM_SDAJEM_FIELD_ORGANIZER_LABEL"
                desc=""
-               query="SELECT id , name FROM #__users"
-               multiple="single"
-               key_field="id"
-               value_field="name"
-               header="COM_SDAJEM_SELECT_OPTION"
         />
         <field name="hostId"
-               type="sql"
+               type="Contactlist"
                label="COM_SDAJEM_FIELD_HOST_LABEL"
                desc=""
-               sql_select="cd.*"
-               sql_from="#__contact_details AS cd"
-               multiple="single"
-               key_field="id"
-               value_field="name"
-               header="COM_SDAJEM_SELECT_OPTION"
         />
     </fieldset>
 

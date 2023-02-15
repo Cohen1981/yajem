@@ -27,7 +27,7 @@ class  HtmlView extends BaseHtmlView
 	 * An array of items
 	 *
 	 * @var  array
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 */
 	protected $items;
 
@@ -35,7 +35,7 @@ class  HtmlView extends BaseHtmlView
 	 * The model state
 	 *
 	 * @var  \JObject
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 */
 	protected $state;
 
@@ -43,7 +43,7 @@ class  HtmlView extends BaseHtmlView
 	 * Form object for search filters
 	 *
 	 * @var  \JForm
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 */
 	public $filterForm;
 
@@ -51,7 +51,7 @@ class  HtmlView extends BaseHtmlView
 	 * The active search filters
 	 *
 	 * @var  array
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 */
 	public $activeFilters;
 
@@ -63,7 +63,7 @@ class  HtmlView extends BaseHtmlView
 	 * @return  void
 	 *
 	 * @throws \Exception
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function display($tpl = null): void
 	{
@@ -117,7 +117,7 @@ class  HtmlView extends BaseHtmlView
 	 * @return  void
 	 *
 	 * @throws \Exception
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function addToolbar()
 	{

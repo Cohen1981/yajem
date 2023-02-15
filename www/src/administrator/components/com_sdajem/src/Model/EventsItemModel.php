@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Date\Date;
 
 /**
- * @since       version
+ * @ since      1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Model
  *
  * @property  int       id

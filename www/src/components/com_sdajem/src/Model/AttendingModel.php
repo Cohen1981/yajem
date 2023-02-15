@@ -23,7 +23,7 @@ use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 /**
  * Event model for the Joomla Events component.
  *
- * @since  __BUMP_VERSION__
+ * @since  1.0.0
  *
  * Fields
  * @property  int       id
@@ -43,7 +43,7 @@ class AttendingModel extends BaseDatabaseModel
 {
 	/**
 	 * @var string item
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 */
 	protected $_item = null;
 	/**
@@ -53,7 +53,7 @@ class AttendingModel extends BaseDatabaseModel
 	 *
 	 * @return  mixed Object or null
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
 	{
@@ -104,7 +104,7 @@ class AttendingModel extends BaseDatabaseModel
 	 *
 	 * @return  void
 	 *
-	 * @since   __BUMP_VERSION__
+	 * @since   1.0.0
 	 */
 	protected function populateState()
 	{

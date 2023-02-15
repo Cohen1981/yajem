@@ -20,7 +20,7 @@ enum EventStatusEnum : int
 	 *
 	 * @return string
 	 *
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 *
 	 * Joomla translate String for event status label
 	 */
@@ -39,7 +39,7 @@ enum EventStatusEnum : int
 	 *
 	 * @return string
 	 *
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 *
 	 * Actions for event status changes. Task to get status ATTENDING would be 'attending.attend'
 	 */
@@ -58,7 +58,7 @@ enum EventStatusEnum : int
 	 *
 	 * @return string
 	 *
-	 * @since __BUMP_VERSION__
+	 * @since 1.0.0
 	 *
 	 * get the fontawesome class for a status symbol
 	 */
