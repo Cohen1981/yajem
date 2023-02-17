@@ -110,6 +110,9 @@ if (!$user->guest)
                 <?php echo HTMLHelper::image($event->image,'',['class'=>'float-start pe-2']); ?>
             </div>
         <?php endif; ?>
+        <?php if ($event->url) : ?>
+            <a href="<?php echo $event->url; ?>" target="_blank"><?php echo Text::_('COM_SDAJEM_EVENT_URL'); ?></a>
+        <?php endif; ?>
         <p><?php echo $event->description; ?></p>
     </div>
 
@@ -171,7 +174,7 @@ if (!$user->guest)
                 </h5>
                 <div id="collapseOrganizer" class="accordion-collapse collapse" aria-labelledby="headingOrganizer" data-bs-parent="#accordionEvent">
                     <div class="accordion-body">
-                        <p><?php echo $organizer->user->username; ?></p>
+                        <p><?php echo $organizer->user->email; ?></p>
                     </div>
                 </div>
             </div>
