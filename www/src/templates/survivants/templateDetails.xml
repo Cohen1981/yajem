@@ -21,7 +21,6 @@
 	<media destination="templates/site/survivants" folder="media">
 		<folder>js</folder>
 		<folder>css</folder>
-		<folder>scss</folder>
 		<folder>images</folder>
 	</media>
 	<positions>
