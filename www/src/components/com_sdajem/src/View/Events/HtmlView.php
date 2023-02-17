@@ -53,8 +53,7 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 		$this->items = $this->get('Items');
 		$this->filterForm = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
-		$state = $this->state = $this->get('State');
-		$this->params = $this->params = $state->get('params');
+		$this->state = $this->get('State');
 		$this->return_page = base64_encode(Uri::getInstance());
 
 		// Preprocess the list of items to find ordering divisions.

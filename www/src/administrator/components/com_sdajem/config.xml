@@ -30,6 +30,15 @@
                 label="COM_SDAJEM_FIELD_AVATAR_FIELD_NAME"
                 showon="sda_use_avatar:1"
         />
+        <field
+            name="sda_events_new_location"
+            type="list"
+            label="COM_SDAJEM_FIELD_EVENTS_NEW_LOCATION_LABEL"
+            default="1"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
     </fieldset>
     <fieldset
             name="event"

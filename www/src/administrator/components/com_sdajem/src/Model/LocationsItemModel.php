@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Sda\Component\Sdajem\Administrator\Model
+ * @package     administrator\components\com_sdajem\src\Model
  * @subpackage
  *
  * @copyright   A copyright
@@ -9,14 +9,13 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-defined('_JEXEC') or die();
-
 use Joomla\CMS\Date\Date;
 
 /**
- * @since      1.0.0
- * @package     Sda\Component\Sdajem\Administrator\Model
+ * @since       1.0.1
+ * @package     administrator\components\com_sdajem\src\Model
  *
+ * Fields
  * @property  int       id
  * @property  int       access
  * @property  string    alias
@@ -28,20 +27,19 @@ use Joomla\CMS\Date\Date;
  * @property  string    language
  * @property  string    title
  * @property  string    description
+ * @property  string    url
+ * @property  string    street
+ * @property  string    postalCode
+ * @property  string    city
+ * @property  string    stateAddress
+ * @property  string    country
+ * @property  string    latlng
+ * @property  int       contactId
  * @property  string    image
- * @property  int       sdajem_location_id fk to locations table
- * @property  string    location_name
- * @property  Date      startDateTime
- * @property  Date      endDateTime
- * @property  int       allDayEvent
- * @property  int       eventStatus
  * @property  int       catid
- * @property  string    category_title
- * @property  int       organizerId
- * @property  string    organizerName
- * @property  int       attendeeCount
+ *
  */
-class EventsItemModel
+class LocationsItemModel
 {
 
 }

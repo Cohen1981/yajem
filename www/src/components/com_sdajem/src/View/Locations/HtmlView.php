@@ -7,6 +7,7 @@ namespace Sda\Component\Sdajem\Site\View\Locations;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
+use Joomla\CMS\Uri\Uri;
 
 /**
  * @package     ${NAMESPACE}
@@ -68,6 +69,7 @@ class HtmlView extends BaseHtmlView
 		$this->filterForm = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 		$this->state = $this->get('State');
+		$this->return_page = base64_encode(Uri::getInstance());
 
 		// Check for errors.
 		#if (count($errors = $this->get('Errors'))) {

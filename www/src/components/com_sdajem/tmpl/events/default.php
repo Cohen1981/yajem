@@ -9,6 +9,7 @@
 
 \defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -17,7 +18,6 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Session\Session;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
-use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 $wa = $this->document->getWebAssetManager();
@@ -37,7 +37,7 @@ if ($saveOrder && !empty($this->items)) {
 	$saveOrderingUrl = 'index.php?option=com_sdajem&task=events.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 }
 
-$params = $this->get('State')->get('params');
+$params = $params = ComponentHelper::getParams('com_sdajem');
 
 /* @var \Sda\Component\Sdajem\Administrator\Model\EventsItemModel $item */
 ?>
@@ -50,10 +50,12 @@ $params = $this->get('State')->get('params');
                     <span class="fas fa-check" aria-hidden="true"></span>
 					<?php echo Text::_('COM_SDAJEM_EVENT_ADD'); ?>
                 </button>
+                <?php if ($params->get('sda_events_new_location')) :?>
                 <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('location.add')">
                     <span class="fas fa-check" aria-hidden="true"></span>
 					<?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
                 </button>
+                <?php endif; ?>
             </div>
 		<?php endif; ?>
     </div>
