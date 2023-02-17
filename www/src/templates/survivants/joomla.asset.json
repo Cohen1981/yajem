@@ -9,7 +9,7 @@
       "name": "template.survivants.ltr",
       "description": "The css file to be used when the site is left to right (LTR).",
       "type": "style",
-      "uri": "template.min.css",
+      "uri": "template.css",
       "dependencies": [
         "fontawesome"
       ]
@@ -18,7 +18,7 @@
       "name": "template.survivants.rtl",
       "description": "The css file to be used when the site is right to left (RTL).",
       "type": "style",
-      "uri": "template-rtl.min.css",
+      "uri": "template-rtl.css",
       "dependencies": [
         "fontawesome"
       ]

@@ -165,19 +165,18 @@ $wa->getAsset('style', 'fontawesome')->setAttribute('rel', 'lazy-stylesheet');
                 <?php endif; ?>
 	            <?php if ($this->countModules('search', true)) : ?>
 
-                    <label id="sda_user_label" for="user_login_switch" class="sda_switch_label">
-				        <?php if(Factory::getApplication()->getIdentity()->guest) : ?>
+                    <button class="btn btn-light" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSearch" aria-expanded="false" aria-controls="collapseSearch">
+	                    <?php if(Factory::getApplication()->getIdentity()->guest) : ?>
                             <i class="far fa-user"></i>
-				        <?php endif; ?>
-				        <?php if(!Factory::getApplication()->getIdentity()->guest) : ?>
+	                    <?php endif; ?>
+	                    <?php if(!Factory::getApplication()->getIdentity()->guest) : ?>
                             <i class="fas fa-user"></i>
-				        <?php endif; ?>
-                    </label>
+	                    <?php endif; ?>
+                    </button>
 
 	            <?php endif; ?>
             </div>
-            <input type="checkbox" id="user_login_switch" class="sda_hidden sda_switch">
-            <div class="container-search sda_switchable grid-child-search">
+            <div class="container-search collapse grid-child-search" id="collapseSearch">
                 <jdoc:include type="modules" name="search" style="none" />
             </div>
         <?php endif; ?>
