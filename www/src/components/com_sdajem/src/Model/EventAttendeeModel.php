@@ -14,7 +14,7 @@ defined('_JEXEC') or die();
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 
 /**
- * @ since      1.0.0
+ * @since      1.0.0
  * @package     Sda\Component\Sdajem\Site\Model
  *
  * @property  int                 attendingId

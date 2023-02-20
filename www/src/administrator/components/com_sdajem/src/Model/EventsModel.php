@@ -17,6 +17,11 @@ use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 
+/**
+ * @since       1.0.1
+ * @package     Sda\Component\Sdajem\Administrator\Model
+ *
+ */
 class EventsModel extends ListModel
 {
 	public function __construct($config = array())

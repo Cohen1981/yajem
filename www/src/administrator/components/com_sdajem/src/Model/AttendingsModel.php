@@ -22,6 +22,16 @@ class AttendingsModel extends ListModel
 {
 	public function __construct($config = array())
 	{
+		if (empty($config['filter_fields']))
+		{
+			$config['filter_fields'] = array(
+				'id', 'a.id',
+				'event_id', 'a.event_id', 'e.title', 'eventTitle',
+				'users_user_is', 'a.users_user_id', 'at.username', 'attendeeName',
+				'Status', 'a.Status'
+			);
+		}
+
 		parent::__construct($config);
 	}
 
@@ -51,6 +61,20 @@ class AttendingsModel extends ListModel
 			)
 		);
 		$query->from($db->quoteName('#__sdajem_attendings', 'a'));
+
+		// join event
+		$query->select($db->quoteName('e.title', 'eventTitle'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__sdajem_events', 'e') . ' ON ' . $db->quoteName('e.id') . '=' . $db->quoteName('a.event_id')
+			);
+
+		//Join over User as attendee
+		$query->select($db->quoteName('at.username', 'attendeeName'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__users', 'at') . ' ON ' . $db->quoteName('at.id') . ' = ' . $db->quoteName('a.users_user_id')
+			);
 
 		return $query;
 	}

@@ -228,6 +228,43 @@ class Icon
 	}
 
 	/**
+	 * @param          $attending
+	 * @param          $params
+	 * @param   array  $attribs
+	 * @param   false  $legacy
+	 *
+	 * @return mixed|string
+	 *
+	 * @throws \Exception
+	 * @since 1.0.1
+	 */
+	public static function editAttending($attending, $params, $attribs = [], $legacy = false) {
+		$user = Factory::getApplication()->getIdentity();
+		$uri  = Uri::getInstance();
+		// Ignore if in a popup window.
+		if ($params && $params->get('popup')) {
+			return '';
+		}
+		// Set the link class
+		$attribs['class'] = 'dropdown-item';
+		// Show checked_out icon if the event is checked out by a different user
+		if (!isset($attending->slug)) {
+			$attending->slug = "";
+		}
+		$attendingUrl = 'index.php?option=com_sdajem&view=attending&id=' . $attending->id;
+		$url        = $attendingUrl . '&task=attending.edit&id=' . $attending->id . '&return=' . base64_encode($uri);
+
+		$icon = 'edit';
+
+		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
+			. HTMLHelper::tooltipText(Text::_('COM_FOOS_EDIT_ATTENDING'), '', 0, 0) . '"></span> ';
+		$text .= Text::_('JGLOBAL_EDIT');
+		$attribs['title'] = Text::_('COM_SDAJEM_EDIT_ATTENDING');
+		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
+		return $output;
+	}
+
+	/**
 	 * @param          $event
 	 * @param          $params
 	 * @param   array  $attribs
@@ -291,4 +328,5 @@ class Icon
 
 		return $output;
 	}
+
 }

@@ -35,8 +35,10 @@ use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
  * @property  int       state
  * @property  int       ordering
  * @property  int       event_id
+ * @property  string    eventTitle
  * @property  int       users_user_id
- * @property  int       status
+ * @property  string    attendeeName
+ * @property  AttendingStatusEnum   status
  */
 
 class AttendingModel extends BaseDatabaseModel
@@ -76,6 +78,19 @@ class AttendingModel extends BaseDatabaseModel
 					->from($db->quoteName('#__sdajem_attendings', 'a'))
 					->where('a.id = ' . (int) $pk);
 
+				$query->select($db->quoteName('e.title', 'eventTitle'))
+					->join(
+						'LEFT',
+						$db->quoteName('#__sdajem_events', 'e') . ' ON ' . $db->quoteName('e.id') . '=' . $db->quoteName('a.event_id')
+					);
+
+				//Join over User as attendee
+				$query->select($db->quoteName('at.username', 'attendeeName'))
+					->join(
+						'LEFT',
+						$db->quoteName('#__users', 'at') . ' ON ' . $db->quoteName('at.id') . ' = ' . $db->quoteName('a.users_user_id')
+					);
+
 				$db->setQuery($query);
 				$data = $db->loadObject();
 
@@ -92,7 +107,7 @@ class AttendingModel extends BaseDatabaseModel
 				$this->_item[$pk] = false;
 			}
 		}
-		$this->_item[$pk]['status'] = AttendingStatusEnum::from($this->_item[$pk]['status']);
+		$this->_item[$pk]->status = AttendingStatusEnum::from($this->_item[$pk]->status);
 
 		return $this->_item[$pk];
 	}
@@ -110,7 +125,7 @@ class AttendingModel extends BaseDatabaseModel
 	{
 		$app = Factory::getApplication();
 
-		$this->setState('event.id', $app->input->getInt('id'));
+		$this->setState('attending.id', $app->input->getInt('id'));
 		$this->setState('params', $app->getParams());
 	}
 }

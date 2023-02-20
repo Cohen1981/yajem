@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <extension type="template" client="site">
 	<name>survivants</name>
-	<version>1.0</version>
+	<version>1.0.1</version>
 	<creationDate>2017-02</creationDate>
 	<author>Alexander Bahlo</author>
 	<authorEmail>abahlo@hotmail.de</authorEmail>
@@ -15,8 +15,10 @@
 		<filename>joomla.asset.json</filename>
 		<filename>offline.php</filename>
 		<filename>templateDetails.xml</filename>
+		<filename>favicon.ico</filename>
 		<folder>html</folder>
 		<folder>language</folder>
+		<folder>favicon-package</folder>
 	</files>
 	<media destination="templates/site/survivants" folder="media">
 		<folder>js</folder>
