@@ -152,7 +152,6 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                                             <?php endforeach; ?>
                                             <input type="hidden" name="eventId" value="<?php echo $item->id; ?>"/>
                                             <input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
-                                            <input type="hidden" name="task" value=""/>
 	                                        <?php echo HTMLHelper::_('form.token'); ?>
                                         </form>
                                     </div>
