@@ -20,7 +20,9 @@ use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Site\Model\AttendingformModel;
 use Sda\Component\Sdajem\Site\Model\AttendingModel;
+use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 use Sda\Component\Sdajem\Site\Model\EventformModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
 
@@ -131,6 +133,35 @@ class EventController extends FormController
 	public function cancel($key = null)
 	{
 		$result = parent::cancel($key);
+		$this->setRedirect(Route::_($this->getReturnPage(), false));
+		return $result;
+	}
+
+	/**
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0.1
+	 */
+	public function delete()
+	{
+		$pks = $this->input->get('cid');
+
+		$attendingFormModel = new AttendingformModel();
+		$attendingsModel = new AttendingsModel();
+
+		foreach ($pks as &$pk) {
+			$attendings = $attendingsModel->getAttendingsIdToEvent($pk);
+			$attResult = $attendingFormModel->delete($attendings);
+		}
+
+		$eventFormModel = new EventformModel();
+
+		if ($attResult)
+		{
+			$result = $eventFormModel->delete($pks);
+		}
+
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 		return $result;
 	}

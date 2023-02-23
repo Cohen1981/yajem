@@ -46,7 +46,7 @@ $params = $this->get('State')->get('params');
 			<?php if ($canDo->get('core.create')) : ?>
 				<div class="mb-2">
 					<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('attending.add')">
-						<span class="fas fa-check" aria-hidden="true"></span>
+						<span class="fas fa-plus-circle" aria-hidden="true"></span>
 						<?php echo Text::_('COM_SDAJEM_ATTENDING_ADD'); ?>
 					</button>
 				</div>

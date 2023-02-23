@@ -47,15 +47,23 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
         <?php if ($canDo->get('core.create')) : ?>
             <div class="mb-2">
                 <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('event.add')">
-                    <span class="fas fa-check" aria-hidden="true"></span>
+                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
 					<?php echo Text::_('COM_SDAJEM_EVENT_ADD'); ?>
                 </button>
+
                 <?php if ($params->get('sda_events_new_location')) :?>
                 <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('location.add')">
-                    <span class="fas fa-check" aria-hidden="true"></span>
+                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
 					<?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
                 </button>
                 <?php endif; ?>
+
+	            <?php if ($canDo->get('core.delete')) : ?>
+                <button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('event.delete')">
+                    <span class="fas fa-trash" aria-hidden="true"></span>
+                    <?php echo Text::_('COM_SDAJEM_EVENT_DELETE'); ?>
+                </button>
+	            <?php endif; ?>
             </div>
 		<?php endif; ?>
     </div>
@@ -74,6 +82,9 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                         </caption>
                         <thead>
                         <tr>
+                            <td style="width:1%" class="text-center">
+		                        <?php echo HTMLHelper::_('grid.checkall'); ?>
+                            </td>
                             <th scope="col" style="width:1%" class="d-none d-md-table-cell">
 								<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
                             </th>
@@ -99,6 +110,9 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
 						foreach ($this->items as $i => $item) :
 							?>
                             <tr class="row<?php echo $i % 2; ?>">
+                                <td class="text-center">
+		                            <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
+                                </td>
                                 <th scope="row" class="has-context col-4">
                                     <div>
                                     <a href="<?php echo Route::_('index.php?option=com_sdajem&view=event&id=' . (int) $item->id); ?>">

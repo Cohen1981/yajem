@@ -31,6 +31,34 @@ class AttendingController extends FormController
 		return parent::getModel($name, $prefix, ['ignore_request' => false]);
 	}
 
+	/**
+	 * @param   null  $key
+	 * @param   null  $urlVar
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0.1
+	 *        TODO austesten
+	 */
+	public function save($key = null, $urlVar = null)
+	{
+		$input = $this->input->get('jform');
+
+		if($input)
+		{
+			/* @var AttendingModel $attendingModel */
+			$attendingModel = $this->getModel('attending');
+
+			$data = $attendingModel->getAttendingStatusToEvent($input['users_user_id'], $input['event_id']);
+			if ($data)
+			{
+				$this->input->set('id', $data->id);
+			}
+		}
+
+		return parent::save($key, $urlVar);
+	}
+
 	public function attend($eventId = null, $userId = null)
 	{
 		$this->input->set('id', $this->input->get('attendingId'));

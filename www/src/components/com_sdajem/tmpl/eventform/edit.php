@@ -66,12 +66,16 @@ $this->useCoreUI = true;
 			<span class="fas fa-check" aria-hidden="true"></span>
 			<?php echo Text::_('JSAVE'); ?>
 		</button>
+        <button type="button" class="btn me-2 btn-primary col-auto" onclick="Joomla.submitbutton('event.save2new')">
+            <span class="fas fa-check" aria-hidden="true"></span>
+			<?php echo Text::_('SAVE_AND_NEW'); ?>
+        </button>
 		<button type="button" class="btn me-2 btn-danger col-auto" onclick="Joomla.submitbutton('event.cancel')">
 			<span class="fas fa-times-cancel" aria-hidden="true"></span>
 			<?php echo Text::_('JCANCEL'); ?>
 		</button>
         <button type="button" class="btn me-2 btn-primary col-auto" onclick="Joomla.submitbutton('location.add')">
-            <span class="fas fa-check" aria-hidden="true"></span>
+            <span class="fas fa-plus-circle" aria-hidden="true"></span>
 			<?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
         </button>
 
