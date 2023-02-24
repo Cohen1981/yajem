@@ -1,1 +1,0 @@
-alter table `#__sdaprofiles_fittings` add `standard` tinyint(1) null default 0;

@@ -1,0 +1,5 @@
+:root {
+  --survivants-color-primary: hsl(351deg, 54%, 37%);
+  --survivants-color-link: hsl(207deg, 49%, 37%);
+  --survivants-color-hover: hsl(351deg, 33%, 44%);
+}

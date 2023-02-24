@@ -1,63 +1,94 @@
-version: '3.7'
+# AMPP 1.0.9
+#
+# Runs Apache, MySQL, PHP (+Redis) and PhpMyAdmin
+# SSL is preconfigured.
+# Imagemagick and XDebug are activated.
+#
+# Run with
+# docker-compose up -d
+#
+# (C)2020-2022 Harald Schneider
+#
+
+version: "3"
+
 services:
-  joomla:
-    build:
-      dockerfile: ./resources/DockerContainer/php-apache-xdebug/Dockerfile
-      context: .
-    container_name: joomla_cms
-    restart: always
-    volumes:
-    # Link joomla root for use in IDEs
-    - ./.ContainerData/www-data:/var/www/html
-    - ./vendor:/vendor
-    - ./resources:/resources
-    - ./src:/src
-    links:
-      - joomladb:mysql
-    ports:
-      - 6080:80
-      - 9000:9000
+
+  # --- MySQL 5.7
+  #
+  mysql:
+    container_name: "ampp-mysql"
+    image: bitnami/mysql:5.7
+    build: ./build/mysql
+    restart: unless-stopped
     environment:
-      JOOMLA_DB_HOST: joomladb
-      JOOMLA_DB_PASSWORD: rootpw
-      XDEBUG_CONFIG: remote_host=host.docker.internal
+      - MYSQL_ROOT_PASSWORD=pw_root
+    ports:
+      - '3306:3306'
+    volumes:
+      - ./mysql/data:/bitnami/mysql/data
+      - ./mysql/backup:/backup
+
+  # --- PHP 7.4
+  #
+  php:
+    container_name: "ampp-php"
+    image: bitnami/php-fpm:8.2
+    restart: unless-stopped
+    volumes:
+      - ./www:/app:delegated
+      - ./php/php.ini:/opt/bitnami/php/etc/conf.d/php.ini:ro
+    extra_hosts:
+      host.docker.internal: host-gateway
+
+  # --- Apache 2.4
+  #
+  apache:
+    container_name: "ampp-apache"
+    image: bitnami/apache:2.4
+    build: ./build/apache
+    ports:
+      - '80:8080'
+      - '443:8443'
     depends_on:
-      - joomladb
-      - composer
-
-  joomladb:
-    image: mysql:5.6
-    container_name: mysql
-    restart: always
-    ports:
-    - 3306:3306
+      - php
+      - mysql
     volumes:
-    - ./.ContainerData/dbdata:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpw
+      #- /Users/hschneider/Work/Web:/app:delegated
+      - ./www:/app:delegated
+      - ./apache/my_vhost.conf:/vhosts/myapp.conf:ro
+      - ./apache/certs:/certs
+      # Use this for bitnami's builtin certs:
+      # ./docker/apache/certs:/opt/bitnami/apache2/conf/bitnami/certs
 
+    # --- PhpMyAdmin latest
+  # Acccess via
+  # http://127.0.0.1:8180 or https://127.0.0.1:8143
+  # Login with user root and mysql-password.
+  #
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin
-    container_name: phpmyadmin
-    environment:
-      - PMA_ARBITRARY=1
-      - PMA_HOST=joomladb
-      - PMA_PORT=3306
-      - PMA_USER=root
-      - PMA_PASSWORD=rootpw
-    restart: always
+    container_name: "ampp-phpmyadmin"
+    image: bitnami/phpmyadmin:latest
+    build: ./build/phpmyadmin
+    depends_on:
+      - mysql
     ports:
-      - 6081:80
-    volumes:
-      - /sessions
+      - '8180:8080'
+      - '8143:8443'
+    environment:
+      - DATABASE_HOST=host.docker.internal
 
   composer:
-    image: composer:1.9
-    command: ["composer", "update"]
+    image: composer:2.5.1
+    command: [ "composer", "update" ]
     volumes:
       - .:/app
 
   sass:
     image: larryprice/sass
     volumes:
-      - ./src/sassFiles:/src
+      - ./www/src:/src
+
+volumes:
+  ampp-mysql:
+    driver: local
