@@ -10,13 +10,13 @@
     }
   ],
   "require": {
-    "components/font-awesome": "5.4.2",
     "squizlabs/php_codesniffer": "2.9.2",
-    "ext-json": "*"
+    "ext-json": "*",
+    "ext-simplexml": "*"
   },
   "require-dev": {
     "phing/phing": "2.*",
-    "joomla/coding-standards": "2.0.0-rc2"
+    "joomla/coding-standards": "2.0-rc4"
   },
   "scripts": {
     "phpcs": "phpcs --standard=Joomla"

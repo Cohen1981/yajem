@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<config>
+    <fieldset
+            name="general"
+            label="COM_SDAJEM_FIELDS_CONFIG"
+            description="COM_SDAJEM_FIELD_CONFIG_DESC"
+    >
+        <field
+                name="event_use_categories"
+                type="list"
+                label="COM_SDAJEM_FIELD_EVENT_USE_CATEGORIES_LABEL"
+                description="COM_SDAJEM_FIELD_EVENT_USE_CATEGORIES_DESC"
+                default="1"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="sda_use_avatar"
+                type="list"
+                label="COM_SDAJEM_FIELD_USE_AVATAR_LABEL"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="sda_avatar_field_name"
+                type="text"
+                label="COM_SDAJEM_FIELD_AVATAR_FIELD_NAME"
+                showon="sda_use_avatar:1"
+        />
+        <field
+            name="sda_events_new_location"
+            type="list"
+            label="COM_SDAJEM_FIELD_EVENTS_NEW_LOCATION_LABEL"
+            default="1"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+    </fieldset>
+    <fieldset
+            name="event"
+            label="COM_SDAJEM_FIELDS_EVENT_CONFIG"
+            description="COM_SDAJEM_FIELDS_EVENT_CONFIG_DESC"
+    >
+        <field
+                name="sda_use_attending"
+                type="list"
+                label="COM_SDAJEM_FIELD_USE_ATTENDING_LABEL"
+                default="1"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="sda_use_organizer"
+                type="list"
+                label="COM_SDAJEM_FIELD_USE_ORGANIZER_LABEL"
+                default="1"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="sda_user_group_name"
+                type="text"
+                label="COM_SDAJEM_FIELD_USER_FIELD_NAME"
+                showon="sda_use_organizer:1"
+        />
+        <field
+                name="sda_use_host"
+                type="list"
+                label="COM_SDAJEM_FIELD_USE_HOST_LABEL"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="sda_host_category_name"
+                type="text"
+                label="COM_SDAJEM_FIELD_HOST_FIELD_NAME"
+                showon="sda_use_host:1"
+        />
+        <field
+                name="sda_use_location"
+                type="list"
+                label="COM_SDAJEM_FIELD_USE_LOCATION_LABEL"
+                default="1"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+    </fieldset>
+    <fieldset
+            name="permissions"
+            label="JCONFIG_PERMISSIONS_LABEL"
+            description="JCONFIG_PERMISSIONS_DESC"
+    >
+        <field
+                name="rules"
+                type="rules"
+                label="JCONFIG_PERMISSIONS_LABEL"
+                validate="rules"
+                filter="rules"
+                component="com_sdajem"
+                section="component"
+        />
+    </fieldset>
+</config>

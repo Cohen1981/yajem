@@ -1,0 +1,32 @@
+.sdajem_content_container .sda_row {
+  display: block;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em; }
+.sdajem_content_container .sda_event_head {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  border-bottom: #000 2px solid; }
+.sdajem_content_container .sda_attendee_container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left; }
+  .sdajem_content_container .sda_attendee_container .card {
+    margin-right: 10px; }
+.sdajem_content_container .sda_attendee {
+  display: block;
+  padding: 10px; }
+.sdajem_content_container .sda_avatar {
+  width: 100px; }
+.sdajem_content_container .sda_button_spacer {
+  margin-right: 0.5em; }
+.sdajem_content_container thead {
+  font-size: 1.1em; }
+.sdajem_content_container a {
+  color: #A62C40; }
+.sdajem_content_container .sdajem_teaser_image {
+  max-width: 200px; }
+.sdajem_content_container .loc_address {
+  display: inline-block; }
+
+/*# sourceMappingURL=sdajem.css.map */
