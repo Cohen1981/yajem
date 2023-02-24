@@ -48,15 +48,17 @@ if (isset($event->host))
 
 /* @var \Sda\Component\Sdajem\Site\Model\LocationModel $location */
 if (isset($event->location))
-    $location = $event->location;
+{
+	$location = $event->location;
 
-if ($location->latlng)
-{
-	$lAddressString = urlencode($location->latlng);
-}
-else
-{
-	$lAddressString = urlencode($location->street) . "+" . urlencode($location->postalCode) . "+" . urlencode($location->city);
+	if ($location->latlng)
+	{
+		$lAddressString = urlencode($location->latlng);
+	}
+	else
+	{
+		$lAddressString = urlencode($location->street) . "+" . urlencode($location->postalCode) . "+" . urlencode($location->city);
+	}
 }
 
 $uAdressString = null;
@@ -135,6 +137,7 @@ if (!$user->guest)
                             </div>
 		                <?php endif;
 	                } ?>
+                    <?php if(isset($lAddressString)): ?>
                     <p>
                         <a href="https://www.google.de/maps?q=<?php echo $lAddressString; ?>"
                            class="me-2" target="_blank">
@@ -150,6 +153,7 @@ if (!$user->guest)
                             </a>
 		                <?php endif; ?>
                     </p>
+                    <?php endif; ?>
 
                     <?php if ($location->image): ?>
                         <div class="sdajem_teaser_image">

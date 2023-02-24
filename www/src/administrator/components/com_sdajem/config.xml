@@ -26,8 +26,13 @@
         </field>
         <field
                 name="sda_avatar_field_name"
-                type="text"
+                type="sql"
                 label="COM_SDAJEM_FIELD_AVATAR_FIELD_NAME"
+                sql_select="f.*"
+                sql_from="#__fields AS f"
+                sql_where="f.context = 'com_users.user'"
+                key_field="name"
+                value_field="title"
                 showon="sda_use_avatar:1"
         />
         <field
@@ -65,8 +70,12 @@
         </field>
         <field
                 name="sda_user_group_name"
-                type="text"
+                type="sql"
                 label="COM_SDAJEM_FIELD_USER_FIELD_NAME"
+                sql_select="ug.*"
+                sql_from="#__usergroups AS ug"
+                key_field="id"
+                value_field="title"
                 showon="sda_use_organizer:1"
         />
         <field
@@ -80,8 +89,13 @@
         </field>
         <field
                 name="sda_host_category_name"
-                type="text"
+                type="sql"
                 label="COM_SDAJEM_FIELD_HOST_FIELD_NAME"
+                sql_select="cat.*"
+                sql_from="#__categories AS cat"
+                sql_where="cat.extension = 'com_contact'"
+                key_field="id"
+                value_field="title"
                 showon="sda_use_host:1"
         />
         <field

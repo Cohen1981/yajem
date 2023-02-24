@@ -67,9 +67,7 @@ class UserlistField extends ListField
 
 		$params = ComponentHelper::getParams('com_sdajem');
 
-		$group_name = '\'' . $params->get('sda_user_group_name') . '\'';
-
-		$query->where($db->quoteName('ug.title') . ' = ' . $group_name);
+		$query->where($db->quoteName('ug.id') . ' = ' . (int) $params->get('sda_user_group_name'));
 
 		// Set the query and get the result list.
 		$db->setQuery($query);

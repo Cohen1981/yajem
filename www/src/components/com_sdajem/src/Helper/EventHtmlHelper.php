@@ -30,25 +30,4 @@ abstract class EventHtmlHelper
         echo '<p class="card-text">' . Text::_($attendeeModel->status->getStatusLabel()) . '</p>';
         echo '</div></div>';
 	}
-
-	public static function getHostCategory() {
-		$db = Factory::getDbo();
-		$params = ComponentHelper::getParams('com_sdajem');
-
-		$query = $db->getQuery(true);
-
-		$query->select($db->quoteName('id'));
-		$query->from($db->quoteName('#__categories'));
-		$query->where($db->quoteName('title') . '=\'' . $params->get('sda_host_category_name') . '\'');
-
-		$db->setQuery($query);
-
-		try {
-			$item = $db->loadResult();
-		} catch (ExecutionFailureException $e) {
-			Factory::getApplication()->enqueueMessage(Text::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
-		}
-
-		echo $item;
-	}
 }

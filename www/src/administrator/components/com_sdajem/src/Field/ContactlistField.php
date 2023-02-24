@@ -59,9 +59,7 @@ class ContactlistField extends ListField
 
 		$params = ComponentHelper::getParams('com_sdajem');
 
-		$cat_name = '\'' . $params->get('sda_host_category_name') . '\'';
-
-		$query->where($db->quoteName('c.title') . ' = ' . $cat_name);
+		$query->where($db->quoteName('c.id') . ' = ' . (int) $params->get('sda_host_category_name'));
 
 		// Set the query and get the result list.
 		$db->setQuery($query);
