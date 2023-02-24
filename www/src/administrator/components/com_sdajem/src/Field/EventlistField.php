@@ -13,6 +13,7 @@ namespace Sda\Component\Sdajem\Administrator\Field;
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Component\ComponentHelper;
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -35,7 +36,6 @@ class EventlistField extends ListField
 		$options = [];
 
 		$key = 'id';
-		$value= 'title';
 
 		// Get the database object.
 		$db = $this->getDatabase();
@@ -46,7 +46,9 @@ class EventlistField extends ListField
 		$query->select(
 			[
 				$db->quoteName('e.id', 'id'),
-				$db->quoteName('e.title', 'title')
+				$db->quoteName('e.title', 'title'),
+				$db->quoteName('e.startDateTime', 'startDate'),
+				$db->quoteName('e.endDateTime', 'endDate')
 			]
 		);
 		$query->from($db->quoteName('#__sdajem_events', 'e'));
@@ -72,7 +74,9 @@ class EventlistField extends ListField
 		// Build the field options.
 		if (!empty($items)) {
 			foreach ($items as $item) {
-					$options[] = HTMLHelper::_('select.option', $item->$key, $item->$value);
+					$startDate = Factory::getDate($item->startDate,'UTC');
+					$endDate = Factory::getDate($item->endDate,'UTC');
+					$options[] = HTMLHelper::_('select.option', $item->$key, $item->title . ' ' . $startDate->format('d.m.Y') . ' - ' .$endDate->format('d.m.Y'));
 			}
 		}
 

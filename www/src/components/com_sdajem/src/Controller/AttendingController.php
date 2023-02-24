@@ -38,18 +38,18 @@ class AttendingController extends FormController
 	 * @return bool
 	 *
 	 * @since 1.0.1
-	 *        TODO austesten
 	 */
 	public function save($key = null, $urlVar = null)
 	{
-		$input = $this->input->get('jform');
-
-		if($input)
+		// we are not in event context and have to check if attending exists
+		if($this->doTask === 'save')
 		{
+			$input = $this->input->get('jform');
 			/* @var AttendingModel $attendingModel */
 			$attendingModel = $this->getModel('attending');
 
 			$data = $attendingModel->getAttendingStatusToEvent($input['users_user_id'], $input['event_id']);
+			// attending exists so we set the id for updating the record
 			if ($data)
 			{
 				$this->input->set('id', $data->id);

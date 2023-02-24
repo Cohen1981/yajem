@@ -213,7 +213,11 @@ if (!$user->guest)
             <div class="sda_attendee_container">
                 <?php if (!$user->guest) : ?>
                     <?php foreach ($event->attendings as $i => $attending) : ?>
-                        <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending), $tparams->get('sda_avatar_field_name')); ?>
+                        <?php if ($tparams->get('sda_avatar_field_name') && $tparams->get('sda_use_avatar')): ?>
+                            <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending), $tparams->get('sda_avatar_field_name')); ?>
+                        <?php else: ?>
+			                <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending)); ?>
+                        <?php endif; ?>
                     <?php endforeach; ?>
                 <?php else: ?>
                     <?php echo count($event->attendings); ?>

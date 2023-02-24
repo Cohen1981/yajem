@@ -28,7 +28,7 @@ $this->useCoreUI = true;
 	<fieldset>
 		<?php echo HTMLHelper::_('uitab.startTabSet', $this->tab_name, ['active' => 'details']); ?>
 		<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'details', empty($this->item->id) ? Text::_('COM_SDAJEM_NEW_LOCATION') : Text::_('COM_SDAJEM_EDIT_LOCATION')); ?>
-		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
+        <?php echo $this->form->renderFieldset('location'); ?>
         <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php if (Multilanguage::isEnabled()) : ?>
@@ -49,6 +49,10 @@ $this->useCoreUI = true;
 			<span class="fas fa-check" aria-hidden="true"></span>
 			<?php echo Text::_('JSAVE'); ?>
 		</button>
+        <button type="button" class="btn me-2 btn-primary col-auto" onclick="Joomla.submitbutton('location.save2new')">
+            <span class="fas fa-check" aria-hidden="true"></span>
+			<?php echo Text::_('SAVE_AND_NEW'); ?>
+        </button>
 		<button type="button" class="btn btn-danger me-2 col-auto" onclick="Joomla.submitbutton('location.cancel')">
 			<span class="fas fa-times-cancel" aria-hidden="true"></span>
 			<?php echo Text::_('JCANCEL'); ?>

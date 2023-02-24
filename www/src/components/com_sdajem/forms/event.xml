@@ -45,7 +45,7 @@
                 name="sdajem_location_id"
                 type="modal_location"
                 label="COM_SDAJEM_SELECT_LOCATION_LABEL"
-                required="true"
+                required="false"
                 select="true"
                 new="true"
                 edit="true"
