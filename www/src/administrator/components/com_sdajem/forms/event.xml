@@ -81,6 +81,28 @@
                 required="true"
                 default=""
         />
+        <fields name="params" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
+            <fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
+                <field
+                        name="sda_use_attending"
+                        type="list"
+                        label="COM_SDAJEM_FIELD_USE_ATTENDING_LABEL"
+                        default="1"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+                <field
+                        name="sda_use_host"
+                        type="list"
+                        label="COM_SDAJEM_FIELD_USE_HOST_LABEL"
+                        default="0"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+        </fields>
     </fieldset>
     <fieldset name="language" label="JFIELD_LANGUAGE_LABEL">
         <field

@@ -198,6 +198,7 @@ class LocationController extends FormController
 			$data['alias']     = $input->get('categoryalias', '');
 			$data['extension'] = 'com_sdajem.locations';
 			$data['parent_id'] = 1;
+			$data['published'] = 1;
 
 			$catModel = new CategoryModel();
 

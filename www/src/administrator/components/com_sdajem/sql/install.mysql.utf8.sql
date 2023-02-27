@@ -49,6 +49,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
 	`eventStatus` TINYINT(1) NULL DEFAULT 0 COMMENT  'Optional status of event. 0=open,1=confirmed,2=cancelled',
 	`eventCancelled` TINYINT(1) NULL DEFAULT 0 COMMENT 'for marking events as cancelled by host',
 	`catid` INT(10) unsigned,
+	`params` text,
 	`svg` BLOB NULL DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `idx_state` (`published`),

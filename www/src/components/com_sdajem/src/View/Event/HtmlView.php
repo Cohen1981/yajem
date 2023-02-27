@@ -71,6 +71,20 @@ class HtmlView extends BaseHtmlView
 
 		$state = $this->state = $this->get('State');
 		$params = $this->params = $state->get('params');
+		$itemparams = new Registry(json_decode($item->params));
+
+		$temp = clone $params;
+
+		/**
+		 * $item->params are the foo params, $temp are the menu item params
+		 * Merge so that the menu item params take priority
+		 *
+		 * $itemparams->merge($temp);
+		 */
+
+		// Merge so that foo params take priority
+		$temp->merge($itemparams);
+		$item->params = $temp;
 
 		if (isset($item->organizerId))
 		{
@@ -91,15 +105,6 @@ class HtmlView extends BaseHtmlView
 			$item->host = $temp;
 
 		}
-		/**
-		 * $item->params are the event params, $temp are the menu item params
-		 * Merge so that the menu item params take priority
-		 *
-		 * $itemparams->merge($temp);
-		 */
-
-		// Merge so that event params take priority
-		$item->params = $params;
 
 		if($item->params->get('sda_use_attending')) {
 			/* @var AttendingsModel $attendings */

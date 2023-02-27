@@ -24,6 +24,15 @@
                 hint="JFIELD_ALIAS_PLACEHOLDER"
         />
         <field
+                name="catid"
+                type="categoryedit"
+                label="JCATEGORY"
+                extension="com_sdajem.locations"
+                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
+                required="true"
+                default=""
+        />
+        <field
                 name="description"
                 type="editor"
                 label="COM_SDAJEM_FIELD_LOCATION_DESC_LABEL"
@@ -127,15 +136,6 @@
                 showtime="true"
                 size="22"
                 filter="user_utc"
-        />
-        <field
-                name="catid"
-                type="categoryedit"
-                label="JCATEGORY"
-                extension="com_sdajem.locations"
-                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
-                required="true"
-                default=""
         />
         <field
                 name="access"

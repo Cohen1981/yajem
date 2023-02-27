@@ -56,7 +56,14 @@ $this->useCoreUI = true;
 		<?php endif; ?>
 
         <?php echo HTMLHelper::_('uitab.endTab'); ?>
-		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
+
+        <?php if ($this->params['sda_use_attending']): ?>
+	        <?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'params', Text::_('COM_SDAJEM_EVENT_PARAMS')); ?>
+			<?php echo $this->form->renderFieldset('display'); ?>
+	        <?php echo HTMLHelper::_('uitab.endTab'); ?>
+		<?php endif; ?>
+
+        <?php echo HTMLHelper::_('uitab.endTabSet'); ?>
 		<input type="hidden" name="task" value=""/>
 		<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
 		<?php echo HTMLHelper::_('form.token'); ?>
@@ -74,23 +81,28 @@ $this->useCoreUI = true;
 			<span class="fas fa-times-cancel" aria-hidden="true"></span>
 			<?php echo Text::_('JCANCEL'); ?>
 		</button>
-        <button type="button" class="btn me-2 btn-primary col-auto" onclick="Joomla.submitbutton('location.add')">
+        <input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
+    </div>
+</form>
+<form action="<?php echo Route::_('index.php?option=com_sdajem&id=' . (int) $this->item->id); ?>" method="post" name="locForm" id="locForm">
+    <div class="mb-2 row g-4">
+        <input type="hidden" name="return" value="<?php echo $this->return_page_edit; ?>">
+        <input type="hidden" name="task" value=""/>
+	    <?php echo HTMLHelper::_('form.token'); ?>
+
+        <button type="button" class="btn me-2 btn-primary col-auto" onclick="Joomla.submitbutton('location.add','locForm','false')">
             <span class="fas fa-plus-circle" aria-hidden="true"></span>
-			<?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
+            <?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
         </button>
 
-        <?php if ($this->params['sda_use_host']): ?>
-            <!-- TODO Link to Contact Add -->
-        <?php endif; ?>
-
         <div class="input-group col">
-            <input type="hidden" name="returnEdit" value="<?php echo $this->return_page_edit; ?>">
             <input type="text" class="form-control" placeholder="<?php echo Text::_('SDAJEM_NEW_CATEGORY'); ?>" aria-label="Category" aria-describedby="button-category" name="newCat">
-            <button type="button" id="button-category" class="btn btn-primary" onclick="Joomla.submitbutton('event.addCategory')">
+            <input type="hidden" name="cid" value="<?php echo '';?>">
+            <button type="button" id="button-category" class="btn btn-primary" onclick="Joomla.submitbutton('event.addCategory','locForm','false')">
                 <span class="fas fa-check" aria-hidden="true"></span>
-		        <?php echo Text::_('COM_SDAJEM_CATEGORY_ADD'); ?>
+                <?php echo Text::_('COM_SDAJEM_CATEGORY_ADD'); ?>
             </button>
         </div>
-	</div>
+    </div>
 </form>
 </div>

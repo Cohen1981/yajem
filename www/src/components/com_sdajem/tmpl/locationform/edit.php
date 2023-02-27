@@ -35,8 +35,6 @@ $this->useCoreUI = true;
 			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'language', Text::_('JFIELD_LANGUAGE_LABEL')); ?>
 			<?php echo $this->form->renderField('language'); ?>
 			<?php echo HTMLHelper::_('uitab.endTab'); ?>
-		<?php else : ?>
-			<?php echo $this->form->renderField('language'); ?>
 		<?php endif; ?>
 
 		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>

@@ -17,6 +17,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
+use Joomla\Registry\Registry;
 
 /**
  * @ since      1.0.0
@@ -129,10 +130,16 @@ class EventTable extends Table
 	 *
 	 * @return bool
 	 *
-	 * @ since 1.0.0
+	 * @since 1.0.2
 	 */
 	public function store($updateNulls = true)
 	{
+		// Transform the params field
+		if (is_array($this->params)) {
+			$registry = new Registry($this->params);
+			$this->params = (string) $registry;
+		}
+
 		return parent::store($updateNulls);
 	}
 }
