@@ -39,7 +39,7 @@ if ($saveOrder && !empty($this->items)) {
 
 $params = $params = ComponentHelper::getParams('com_sdajem');
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\EventsItemModel $item */
+/* @var \Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel $item */
 ?>
 <div class="sdajem_content_container">
 <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="adminForm" id="adminForm">

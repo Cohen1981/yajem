@@ -87,7 +87,7 @@
                 label="JCATEGORY"
                 extension="com_sdajem.events"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
-                required="true"
+                required=""
                 default=""
         />
         <field name="organizerId"

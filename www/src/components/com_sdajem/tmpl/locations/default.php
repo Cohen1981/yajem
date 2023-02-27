@@ -36,7 +36,7 @@ if ($saveOrder && !empty($this->items)) {
 
 $params = $this->get('State')->get('params');
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\LocationsItemModel $item */
+/* @var \Sda\Component\Sdajem\Administrator\Model\Items\LocationsItemModel $item */
 ?>
 
 <div class="sdajem_content_container">

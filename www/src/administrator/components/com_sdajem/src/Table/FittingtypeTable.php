@@ -9,48 +9,12 @@
 
 namespace Sda\Component\Sdajem\Administrator\Table;
 
-\defined('_JEXEC') or die;
-
-use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Sda\Component\Sdajem\Administrator\Model\LocationModel;
 
-/**
- * @ since      1.0.0
- * @package     Sda\Component\Sdajem\Administrator\Table
- *
- * @property  int       id
- * @property  int       $access
- * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
- * @property  int       checked_out
- * @property  Date      checked_out_time
- * @property  int       published
- * @property  Date      publish_up
- * @property  Date      publish_down
- * @property  int       state
- * @property  int       ordering
- * @property  string    language
- * @property  string    title
- * @property  string    description
- * @property  string    url
- * @property  string    street
- * @property  string    postalCode
- * @property  string    city
- * @property  string    stateAddress
- * @property  string    country
- * @property  string    latlng
- * @property  int       contactId
- * @property  string    image
- * @property  int       catid
- */
-class LocationTable extends Table
+class FittingtypeTable extends \Joomla\CMS\Table\Table
 {
 	/**
 	 * Constructor
@@ -62,7 +26,7 @@ class LocationTable extends Table
 	public function __construct(DatabaseDriver $db)
 	{
 		$this->typeAlias = 'com_sdajem';
-		parent::__construct('#__sdajem_locations', 'id', $db);
+		parent::__construct('#__sdajem_fittingtypes', 'id', $db);
 	}
 
 	/**
@@ -79,7 +43,6 @@ class LocationTable extends Table
 		if (empty($this->alias)) {
 			$this->alias = $this->title;
 		}
-		$this->alias = ApplicationHelper::stringURLSafe($this->alias, $this->language);
 		if (trim(str_replace('-', '', $this->alias)) == '') {
 			$this->alias = Factory::getDate()->format('Y-m-d-H-i-s');
 		}
@@ -109,10 +72,7 @@ class LocationTable extends Table
 		if (!$this->published) {
 			$this->published = 1;
 		}
-		//if (!$this->checked_out) {
-		$this->checked_out = null;
-		$this->checked_out_time = null;
-		//}
+
 		return true;
 	}
 

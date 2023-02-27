@@ -33,7 +33,7 @@ class AssociationsHelper extends AssociationExtensionHelper
 	 *
 	 * @since   1.0.0
 	 */
-	protected $itemTypes = ['event', 'location', 'category'];
+	protected $itemTypes = ['event', 'location', 'category', 'fittingtype'];
 	/**
 	 * Has the extension association support
 	 *
@@ -113,6 +113,9 @@ class AssociationsHelper extends AssociationExtensionHelper
 			case 'category':
 				$table = Table::getInstance('Category');
 				break;
+			case 'fittingtype':
+				$table = Table::getInstance('FittingtypeTable', 'Sda\\Component\\Sdajem\\Administrator\\Table\\');
+				break;
 		}
 		if (empty($table)) {
 			return null;
@@ -176,6 +179,17 @@ class AssociationsHelper extends AssociationExtensionHelper
 						'a' => '#__categories'
 					];
 					$title = 'category';
+					break;
+				case 'fittingtype':
+					$fields['title'] = 'a.title';
+					$fields['state'] = 'a.published';
+					$support['state'] = true;
+					$support['acl'] = false;
+					$support['save2copy'] = true;
+					$tables = [
+						'a' => '#__sdajem_fittingtypes'
+					];
+					$title = 'fittingtypes';
 					break;
 			}
 		}

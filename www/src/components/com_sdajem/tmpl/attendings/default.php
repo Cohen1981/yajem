@@ -37,7 +37,7 @@ if ($saveOrder && !empty($this->items)) {
 */
 $params = $this->get('State')->get('params');
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\AttendingsItemModel $item */
+/* @var \Sda\Component\Sdajem\Administrator\Model\Items\AttendingsItemModel $item */
 ?>
 
 <div class="sdajem_content_container">
@@ -68,8 +68,11 @@ $params = $this->get('State')->get('params');
 							<thead>
 							<tr>
 								<th scope="col" style="width:1%" class="d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'a.event_id', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'eventTitle', $listDirn, $listOrder); ?>
 								</th>
+                                <th scope="col" style="width:1%" class="d-none d-md-table-cell">
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_USERNAME', 'attendeeName', $listDirn, $listOrder); ?>
+                                </th>
 							</tr>
 							</thead>
 							<tbody>
@@ -80,15 +83,21 @@ $params = $this->get('State')->get('params');
 								<tr class="row<?php echo $i % 2; ?>">
 									<th scope="row" class="has-context col-4">
 										<div>
-												<?php echo $this->escape($item->eventTitle); ?>
-										</div>
-										<div class="small">
-											<?php echo Text::_('SDAJEM_ATTENDEE_NAME') . ': ' . $this->escape($item->attendeeName); ?>
+											<?php echo $this->escape($item->eventTitle); ?>
 										</div>
                                         <div class="small">
-											<?php echo Text::_('SDAJEM_ATTENDEE_STATUS') . ': ' . Text::_(AttendingStatusEnum::from($item->status)->getStatusLabel()); ?>
+                                            <?php echo HTMLHelper::date($item->startDateTime,'d.m.Y',true) . ' - '; ?>
+                                            <?php echo HTMLHelper::date($item->endDateTime,'d.m.Y',true); ?>
                                         </div>
 									</th>
+                                    <td class="d-md-table-cell">
+                                        <div>
+		                                    <?php echo $this->escape($item->attendeeName); ?>
+                                        </div>
+                                        <div>
+		                                    <?php echo AttendingStatusEnum::from($item->status)->getStatusBatch(); ?>
+                                        </div>
+                                    </td>
 									<td class="small d-none d-md-table-cell">
 										<?php if ($canDo->get('core.edit') || $canDo->get('core.edit.own')) : ?>
 											<div class="icons">

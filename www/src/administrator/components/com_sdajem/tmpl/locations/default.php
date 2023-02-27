@@ -32,7 +32,7 @@ if ($saveOrder && !empty($this->items)) {
 
 /* @var \Sda\Component\Sdajem\Administrator\Model\LocationModel $item */
 ?>
-<form action="<?php echo Route::_('index.php?option=com_sdajem'); ?>" method="post" name="adminForm" id="adminForm">
+<form action="<?php echo Route::_('index.php?option=com_sdajem&view=locations'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
         <div class="col-md-12">
             <div id="j-main-container" class="j-main-container">

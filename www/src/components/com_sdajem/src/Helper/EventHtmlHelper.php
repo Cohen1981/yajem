@@ -27,7 +27,7 @@ abstract class EventHtmlHelper
 		}
         echo '<div class="card-body">';
 		echo '<h5 class="card-title">' . $attendeeModel->user->username . '</h5>';
-        echo '<p class="card-text">' . Text::_($attendeeModel->status->getStatusLabel()) . '</p>';
+        echo '<p class="card-text">' . $attendeeModel->status->getStatusBatch() . '</p>';
         echo '</div></div>';
 	}
 }

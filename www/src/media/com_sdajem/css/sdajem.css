@@ -28,5 +28,11 @@
   max-width: 200px; }
 .sdajem_content_container .loc_address {
   display: inline-block; }
+.sdajem_content_container .color-ok {
+  background-color: #4f914f; }
+.sdajem_content_container .color-nok {
+  background-color: #A62C40; }
+.sdajem_content_container .color-neutral {
+  background-color: #dcdcdc; }
 
 /*# sourceMappingURL=sdajem.css.map */

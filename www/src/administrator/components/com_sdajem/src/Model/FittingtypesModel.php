@@ -9,16 +9,9 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-\defined('_JEXEC') or die();
-
-use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Associations;
-use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
-use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
-use Joomla\Utilities\ArrayHelper;
 
-class AttendingsModel extends ListModel
+class FittingtypesModel extends \Joomla\CMS\MVC\Model\ListModel
 {
 	public function __construct($config = array())
 	{
@@ -26,11 +19,7 @@ class AttendingsModel extends ListModel
 		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'event_id', 'a.event_id',
-				'eventTitle', 'e.title',
-				'users_user_is', 'a.users_user_id',
-				'attendeeName', 'at.username',
-				'Status', 'a.Status'
+				'title', 'a.title',
 			);
 		}
 
@@ -56,31 +45,32 @@ class AttendingsModel extends ListModel
 				'list.select',
 				[
 					$db->quoteName('a.id'),
-					$db->quoteName('a.event_id'),
-					$db->quoteName('a.users_user_id'),
-					$db->quoteName('a.status'),
+					$db->quoteName('a.access'),
+					$db->quoteName('a.alias'),
+					$db->quoteName('a.created_by'),
+					$db->quoteName('a.created_by_alias'),
+					$db->quoteName('a.published'),
+					$db->quoteName('a.publish_up'),
+					$db->quoteName('a.publish_down'),
+					$db->quoteName('a.state'),
+					$db->quoteName('a.ordering'),
+					$db->quoteName('a.title'),
+					$db->quoteName('a.description'),
+					$db->quoteName('a.needSpace'),
+					$db->quoteName('a.image')
 				]
 			)
 		);
-		$query->from($db->quoteName('#__sdajem_attendings', 'a'));
+		$query->from($db->quoteName('#__sdajem_fittingtypes', 'a'));
 
-		// join event
-		$query->select($db->quoteName('e.title', 'eventTitle'))
-			->select($db->quoteName('e.startDateTime', 'startDateTime'))
-			->select($db->quoteName('e.endDateTime', 'endDateTime'))
+		// Join over the asset groups.
+		$query->select($db->quoteName('ag.title', 'access_level'))
 			->join(
 				'LEFT',
-				$db->quoteName('#__sdajem_events', 'e') . ' ON ' . $db->quoteName('e.id') . '=' . $db->quoteName('a.event_id')
+				$db->quoteName('#__viewlevels', 'ag') . ' ON ' . $db->quoteName('ag.id') . ' = ' . $db->quoteName('a.access')
 			);
 
-		//Join over User as attendee
-		$query->select($db->quoteName('at.username', 'attendeeName'))
-			->join(
-				'LEFT',
-				$db->quoteName('#__users', 'at') . ' ON ' . $db->quoteName('at.id') . ' = ' . $db->quoteName('a.users_user_id')
-			);
-
-		// Filter by search in name.
+				// Filter by search in name.
 		$search = $this->getState('filter.search');
 		if (!empty($search))
 		{
@@ -92,14 +82,13 @@ class AttendingsModel extends ListModel
 			{
 				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
 				$query->where(
-					'(' . $db->quoteName('e.title') . ' LIKE ' . $search . ')'
+					'(' . $db->quoteName('a.title') . ' LIKE ' . $search . ')'
 				);
-				$query->extendWhere('OR', '(' . $db->quoteName('at.username') . ' LIKE ' . $search . ')');
 			}
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'e.title');
+		$orderCol = $this->state->get('list.ordering', 'a.title');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

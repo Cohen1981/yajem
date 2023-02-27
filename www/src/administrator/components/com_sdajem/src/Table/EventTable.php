@@ -112,16 +112,19 @@ class EventTable extends Table
 		if (!$this->publish_down) {
 			$this->publish_down = null;
 		}
+		if (!$this->published) {
+			$this->published = 1;
+		}
 		if (!$this->hostId) {
 			$this->hostId = null;
 		}
 		if (!$this->organizerId) {
 			$this->organizerId = null;
 		}
-		if (!$this->checked_out) {
+		//if (!$this->checked_out) {
 			$this->checked_out = null;
 			$this->checked_out_time = null;
-		}
+		//}
 		return true;
 	}
 

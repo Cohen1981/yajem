@@ -7,7 +7,9 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Sda\Component\Sdajem\Administrator\Model;
+namespace Sda\Component\Sdajem\Administrator\Model\Items;
+
+use Joomla\CMS\Date\Date;
 
 /**
  * @since       version
@@ -19,6 +21,8 @@ namespace Sda\Component\Sdajem\Administrator\Model;
  * @property  int       status
  * @property  string    eventTitle
  * @property  string    attendeeName
+ * @property  string    startDateTime
+ * @property  string    endDateTime
  */
 class AttendingsItemModel
 {

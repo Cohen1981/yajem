@@ -7,7 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Sda\Component\Sdajem\Administrator\Model;
+namespace Sda\Component\Sdajem\Administrator\Model\Items;
 
 use Joomla\CMS\Date\Date;
 
