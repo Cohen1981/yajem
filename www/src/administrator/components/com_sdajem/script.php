@@ -50,13 +50,6 @@ class Com_SdajemInstallerScript
 	{
 		echo Text::_('COM_SDAJEM_INSTALLERSCRIPT_INSTALL');
 
-		$db = Factory::getContainer()->get(DatabaseInterface::class);
-		// Initialize a new category.
-		$category = Table::getInstance('Category');
-
-		$this->setupData($category, 'com_sdajem.events', 'Märkte', ApplicationHelper::stringURLSafe('EventMärkte'));
-		$this->setupData($category, 'com_sdajem.locations', 'Orte', ApplicationHelper::stringURLSafe('EventOrte'));
-
 		return true;
 	}
 	/**
@@ -139,12 +132,20 @@ class Com_SdajemInstallerScript
 	public function postflight($type, $parent)
 	{
 		echo Text::_('COM_SDAJEM_INSTALLERSCRIPT_POSTFLIGHT');
+
+		$assetId = $this->getAssetId();
+
+		// Initialize a new category.
+		$category = Table::getInstance('Category');
+
+		$this->setupData($category, 'com_sdajem.events', 'Märkte', ApplicationHelper::stringURLSafe('EventMärkte'), $assetId);
+		$this->setupData($category, 'com_sdajem.locations', 'Orte', ApplicationHelper::stringURLSafe('EventOrte'), $assetId);
 		return true;
 	}
 
 	private function getAdminId()
 	{
-		$db    = Factory::getDbo();
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
 		$query = $db->getQuery(true);
 		// Select the admin user ID
 		$query
@@ -184,9 +185,9 @@ class Com_SdajemInstallerScript
 	 *
 	 * @return false|void
 	 *
-	 * @ since 1.0.0
+	 * @since 1.0.0
 	 */
-	private function setupData($table, $extension, $title, $alias) {
+	private function setupData($table, $extension, $title, $alias, $assetId) {
 		$data = array(
 			'extension' => $extension,
 			'title' => $title,
@@ -202,7 +203,7 @@ class Com_SdajemInstallerScript
 			'created_user_id' => (int) $this->getAdminId(),
 			'language' => '*',
 			'rules' => array(),
-			'parent_id' => 1,
+			'parent_id' => $assetId,
 		);
 		$table->setLocation(1, 'last-child');
 		// Bind the data to the table
@@ -220,5 +221,28 @@ class Com_SdajemInstallerScript
 		{
 			return false;
 		}
+		return true;
+	}
+
+	private function getAssetId()
+	{
+		$db = Factory::getContainer()->get(DatabaseInterface::class);
+		$query = $db->getQuery(true);
+		// Select the admin user ID
+		$query
+			->clear()
+			->select($db->quoteName('id'))
+			->from($db->quoteName('#__assets'))
+			->where(
+				$db->quoteName('name')
+				. ' = ' . $db->quote('com_sdajem')
+			);
+		$db->setQuery($query);
+		$id = $db->loadResult();
+		if (!$id || $id instanceof \Exception)
+		{
+			return false;
+		}
+		return $id;
 	}
 }

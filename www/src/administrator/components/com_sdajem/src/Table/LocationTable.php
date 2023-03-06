@@ -20,7 +20,7 @@ use Joomla\Database\DatabaseDriver;
 use Sda\Component\Sdajem\Administrator\Model\LocationModel;
 
 /**
- * @ since      1.0.0
+ * @since      1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Table
  *
  * @property  int       id
@@ -121,7 +121,7 @@ class LocationTable extends Table
 	 *
 	 * @return bool
 	 *
-	 * @ since 1.0.0
+	 * @since 1.0.0
 	 */
 	public function store($updateNulls = true)
 	{

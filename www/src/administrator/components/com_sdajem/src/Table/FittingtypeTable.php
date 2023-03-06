@@ -81,7 +81,7 @@ class FittingtypeTable extends \Joomla\CMS\Table\Table
 	 *
 	 * @return bool
 	 *
-	 * @ since 1.0.0
+	 * @since 1.0.0
 	 */
 	public function store($updateNulls = true)
 	{

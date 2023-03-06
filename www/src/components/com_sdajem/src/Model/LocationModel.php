@@ -44,13 +44,13 @@ class LocationModel extends BaseDatabaseModel
 {
 	/**
 	 * Linkt to com_contact
-	 * @ since 1.0.0
+	 * @since 1.0.0
 	 * @var int
 	 */
 	public int $organizerId;
 	/**
 	 * Link to com_users
-	 * @ since 1.0.0
+	 * @since 1.0.0
 	 * @var int
 	 */
 	public int $hostId;
