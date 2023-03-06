@@ -67,7 +67,7 @@ $params = $this->get('State')->get('params');
 							<thead>
 							<tr>
 								<th scope="col" style="width:1%" class="d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_LOCATION', 'a.title', $listDirn, $listOrder); ?>
 								</th>
 							</tr>
 							</thead>
