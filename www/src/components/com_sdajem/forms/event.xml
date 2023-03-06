@@ -81,6 +81,7 @@
                 required="true"
                 size="22"
         />
+        <!--
         <field
                 name="catid"
                 type="categoryedit"
@@ -90,6 +91,7 @@
                 required=""
                 default=""
         />
+        -->
         <field name="organizerId"
                type="Userlist"
                label="COM_SDAJEM_FIELD_ORGANIZER_LABEL"

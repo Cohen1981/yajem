@@ -126,9 +126,9 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                                     <div class="small">
                                         <?php echo Text::_('COM_SDAJEM_LOCATION') . ': ' . $this->escape($item->location_name);?>
                                     </div>
-                                    <div class="small">
-                                        <?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
-                                    </div>
+                                    <!--<div class="small">
+                                        <?php //echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
+                                    </div>-->
                                 </th>
                                 <td class="d-md-table-cell">
                                     <?php

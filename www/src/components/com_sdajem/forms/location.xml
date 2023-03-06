@@ -23,6 +23,7 @@
                 size="45"
                 hint="JFIELD_ALIAS_PLACEHOLDER"
         />
+        <!--
         <field
                 name="catid"
                 type="categoryedit"
@@ -32,6 +33,7 @@
                 required="true"
                 default=""
         />
+        -->
         <field
                 name="description"
                 type="editor"

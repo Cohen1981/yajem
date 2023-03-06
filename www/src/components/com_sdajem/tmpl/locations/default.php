@@ -83,9 +83,9 @@ $params = $this->get('State')->get('params');
 												<?php echo $this->escape($item->title); ?>
 											</a>
 										</div>
-										<div class="small">
-											<?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
-										</div>
+										<!--<div class="small">
+											<?php //echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
+										</div>-->
 									</th>
 									<td class="small d-none d-md-table-cell">
 										<?php if ($canDo->get('core.edit') || $canDo->get('core.edit.own')) : ?>
