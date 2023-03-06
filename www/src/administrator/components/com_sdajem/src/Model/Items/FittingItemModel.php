@@ -22,7 +22,7 @@ namespace Sda\Component\Sdajem\Administrator\Model\Items;
  * @property  int       fittingType
  * @property  int       user_id
  * @property  string    userName
-
+ * @property  int       created_by
  */
 class FittingItemModel
 {

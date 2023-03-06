@@ -14,6 +14,12 @@ use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseDriver;
 use Sda\Component\Sdajem\Administrator\Model\LocationModel;
 
+/**
+ * @since       version
+ * @package     Sda\Component\Sdajem\Administrator\Table
+ *
+ * @property  int   user_id
+ */
 class FittingTable extends \Joomla\CMS\Table\Table
 {
 	/**
@@ -22,6 +28,7 @@ class FittingTable extends \Joomla\CMS\Table\Table
 	 * @param   DatabaseDriver  $db  Database connector object
 	 *
 	 * @since   1.0.0
+	 *
 	 */
 	public function __construct(DatabaseDriver $db)
 	{
@@ -71,6 +78,9 @@ class FittingTable extends \Joomla\CMS\Table\Table
 		}
 		if (!$this->published) {
 			$this->published = 1;
+		}
+		if (!$this->user_id) {
+			$this->user_id = Factory::getApplication()->getIdentity()->id;
 		}
 
 		return true;

@@ -20,7 +20,7 @@ use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
 
 /**
- * @ since      1.0.0
+ * @since      1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Table
  *
  * @property  int       id

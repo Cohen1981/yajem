@@ -45,6 +45,11 @@ class AttendingController extends FormController
 		if($this->doTask === 'save')
 		{
 			$input = $this->input->get('jform');
+
+			if (!$input['users_user_id']) {
+				$input['users_user_id'] = Factory::getApplication()->getIdentity()->id;
+			}
+
 			/* @var AttendingModel $attendingModel */
 			$attendingModel = $this->getModel('attending');
 

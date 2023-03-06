@@ -329,4 +329,26 @@ class Icon
 		return $output;
 	}
 
+	public static function editFitting($fitting, $params, $attribs = [], $legacy = false) {
+		$user = Factory::getApplication()->getIdentity();
+		$uri  = Uri::getInstance();
+		// Ignore if in a popup window.
+		if ($params && $params->get('popup')) {
+			return '';
+		}
+		// Set the link class
+		$attribs['class'] = 'dropdown-item';
+
+		$attendingUrl = 'index.php?option=com_sdajem&view=fitting&layout=edit&id=' . $fitting->id;
+		$url        = $attendingUrl . '&task=fitting.edit&id=' . $fitting->id . '&return=' . base64_encode($uri);
+
+		$icon = 'edit';
+
+		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
+			. HTMLHelper::tooltipText(Text::_('COM_SDAJEM_EDIT_FITTING'), '', 0, 0) . '"></span> ';
+		$text .= Text::_('JGLOBAL_EDIT');
+		$attribs['title'] = Text::_('COM_SDAJEM_EDIT_FITTING');
+		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
+		return $output;
+	}
 }

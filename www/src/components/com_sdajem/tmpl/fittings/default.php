@@ -38,17 +38,17 @@ if ($saveOrder && !empty($this->items)) {
 */
 $params = $this->get('State')->get('params');
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\Items\AttendingsItemModel $item */
+/* @var \Sda\Component\Sdajem\Administrator\Model\Items\FittingItemModel $item */
 ?>
 
 <div class="sdajem_content_container">
-	<form action="<?php echo Route::_('index.php?view=attendings'); ?>" method="post" name="adminForm" id="adminForm">
+	<form action="<?php echo Route::_('index.php?view=fittings'); ?>" method="post" name="adminForm" id="adminForm">
 		<div>
 			<?php if ($canDo->get('core.create')) : ?>
 				<div class="mb-2">
-					<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('attending.add')">
+					<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('fitting.add')">
 						<span class="fas fa-plus-circle" aria-hidden="true"></span>
-						<?php echo Text::_('COM_SDAJEM_ATTENDING_ADD'); ?>
+						<?php echo Text::_('COM_SDAJEM_FITTING_ADD'); ?>
 					</button>
 				</div>
 			<?php endif; ?>
@@ -62,17 +62,17 @@ $params = $this->get('State')->get('params');
 							<?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
 						</div>
 					<?php else : ?>
-						<table class="table table-striped" id="locationList">
+						<table class="table table-striped" id="fittingsList">
 							<caption class="visually-hidden">
 								<?php echo Text::_('COM_SDAJEM_TABLE_CAPTION'); ?>, <?php echo Text::_('JGLOBAL_SORTED_BY'); ?>
 							</caption>
 							<thead>
 							<tr>
 								<th scope="col" style="width:1%" class="d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'eventTitle', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_FITTING_TITLE', 'title', $listDirn, $listOrder); ?>
 								</th>
                                 <th scope="col" style="width:1%" class="d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_USERNAME', 'attendeeName', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_FITTING_USERNAME', 'userName', $listDirn, $listOrder); ?>
                                 </th>
 							</tr>
 							</thead>
@@ -84,25 +84,18 @@ $params = $this->get('State')->get('params');
 								<tr class="row<?php echo $i % 2; ?>">
 									<th scope="row" class="has-context col-4">
 										<div>
-											<?php echo $this->escape($item->eventTitle); ?>
+											<?php echo $this->escape($item->title); ?>
 										</div>
-                                        <div class="small">
-                                            <?php echo HTMLHelper::date($item->startDateTime,'d.m.Y',true) . ' - '; ?>
-                                            <?php echo HTMLHelper::date($item->endDateTime,'d.m.Y',true); ?>
-                                        </div>
 									</th>
                                     <td class="d-md-table-cell">
                                         <div>
-		                                    <?php echo $this->escape($item->attendeeName); ?>
-                                        </div>
-                                        <div>
-		                                    <?php echo AttendingStatusEnum::from($item->status)->getStatusBatch(); ?>
+		                                    <?php echo $this->escape($item->userName); ?>
                                         </div>
                                     </td>
 									<td class="small d-none d-md-table-cell">
-										<?php if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $item->users_user_id == Factory::getApplication()->getIdentity()->id)) : ?>
+										<?php if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $item->user_id == Factory::getApplication()->getIdentity()->id)) : ?>
 											<div class="icons">
-												<?php echo HTMLHelper::_('eventicon.editAttending', $item, $params); ?>
+												<?php echo HTMLHelper::_('eventicon.editFitting', $item, $params); ?>
 											</div>
 										<?php endif; ?>
 									</td>

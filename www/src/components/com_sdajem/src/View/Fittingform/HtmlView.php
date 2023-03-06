@@ -7,7 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Sda\Component\Sdajem\Site\View\Attendingform;
+namespace Sda\Component\Sdajem\Site\View\Fittingform;
 
 \defined('_JEXEC') or die;
 
@@ -79,11 +79,11 @@ class HtmlView extends BaseHtmlView
 			$authorised = $user->authorise('core.create', 'com_sdajem');
 		} else {
 			$authorised = $user->authorise('core.edit', 'com_sdajem');
-
 			if ($authorised !== true) {
-				$authorised = $user->id == $this->item->users_user_id;
+				$authorised = $user->id == $this->item->user_id;
 			}
 		}
+
 		if ($authorised !== true) {
 			$app->redirect('index.php?option=com_users&view=login');
 		}
@@ -123,9 +123,9 @@ class HtmlView extends BaseHtmlView
 		if ($menu) {
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
 		} else {
-			$this->params->def('page_heading', Text::_('COM_FOOS_FORM_EDIT_ATTENDING'));
+			$this->params->def('page_heading', Text::_('COM_SDAJEM_FORM_EDIT_FITTING'));
 		}
-		$title = $this->params->def('page_title', Text::_('COM_FOOS_FORM_EDIT_ATTENDING'));
+		$title = $this->params->def('page_title', Text::_('COM_SDAJEM_FORM_EDIT_FITTING'));
 		if ($app->get('sitename_pagetitles', 0) == 1) {
 			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		} else if ($app->get('sitename_pagetitles', 0) == 2) {

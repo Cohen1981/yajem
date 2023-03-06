@@ -64,7 +64,7 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 				]
 			)
 		);
-		$query->from($db->quoteName('#__sdajem_fittingts', 'a'));
+		$query->from($db->quoteName('#__sdajem_fittings', 'a'));
 
 		//Join over User
 		$query->select($db->quoteName('u.username', 'userName'))
