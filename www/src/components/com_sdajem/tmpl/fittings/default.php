@@ -95,7 +95,7 @@ $params = $this->get('State')->get('params');
 									<td class="small d-none d-md-table-cell">
 										<?php if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $item->user_id == Factory::getApplication()->getIdentity()->id)) : ?>
 											<div class="icons">
-												<?php echo HTMLHelper::_('eventicon.editFitting', $item, $params); ?>
+												<?php echo HTMLHelper::_('sdajemIcon.editFitting', $item, $params); ?>
 											</div>
 										<?php endif; ?>
 									</td>

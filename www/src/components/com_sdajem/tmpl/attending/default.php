@@ -39,7 +39,7 @@ $item = $this->item;
 	{
 		if ($canEdit) : ?>
 			<div class="icons float-end">
-				<?php echo HTMLHelper::_('eventicon.editAttending', $item, $params); ?>
+				<?php echo HTMLHelper::_('sdajemIcon.editAttending', $item, $params); ?>
 			</div>
 		<?php endif;
 	} ?>

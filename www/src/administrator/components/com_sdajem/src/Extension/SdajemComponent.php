@@ -45,7 +45,7 @@ class SdajemComponent extends MVCComponent implements BootableExtensionInterface
 	public function boot(ContainerInterface $container)
 	{
 		$this->getRegistry()->register('sdajemadministrator', new AdministratorService);
-		$this->getRegistry()->register('eventicon', new Icon($container->get(SiteApplication::class)));
+		$this->getRegistry()->register('sdajemIcon', new Icon($container->get(SiteApplication::class)));
 	}
 
 	/**

@@ -99,7 +99,7 @@ if (!$user->guest)
             {
                 if ($canEdit) : ?>
                     <div class="icons">
-                        <?php echo HTMLHelper::_('eventicon.edit', $event, $tparams); ?>
+                        <?php echo HTMLHelper::_('sdajemIcon.edit', $event, $tparams); ?>
                     </div>
                 <?php endif;
             } ?>
@@ -129,14 +129,13 @@ if (!$user->guest)
 
             <div id="collapseLocation" class="accordion-collapse collapse show" aria-labelledby="headingLocation" data-bs-parent="#accordionEvent">
                 <div class="accordion-body clearfix">
-	                <?php if (!empty($canEdit))
-	                {
-		                if ($canEdit) : ?>
+
+                    <?php if ($user->authorise('core.edit', 'com_sdajem') || ($user->authorise('core.edit.own', 'com_sdajem') && $location->created_by == $user->id)) : ?>
                             <div class="icons float-end">
-				                <?php echo HTMLHelper::_('eventicon.editLocation', $location, $tparams); ?>
+				                <?php echo HTMLHelper::_('sdajemIcon.editLocation', $location, $tparams); ?>
                             </div>
-		                <?php endif;
-	                } ?>
+		            <?php endif; ?>
+
                     <?php if(isset($lAddressString)): ?>
                     <p>
                         <a href="https://www.google.de/maps?q=<?php echo $lAddressString; ?>"
@@ -232,7 +231,7 @@ if (!$user->guest)
             <div class="sda_row">
             <?php if (!$user->guest) : ?>
                 <?= HTMLHelper::_('form.token'); ?>
-                <?php echo HTMLHelper::_('eventicon.register', $event, $tparams); ?>
+                <?php echo HTMLHelper::_('sdajemIcon.register', $event, $tparams); ?>
             <?php endif; ?>
             </div>
         </div>

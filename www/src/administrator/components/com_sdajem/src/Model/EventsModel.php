@@ -40,7 +40,8 @@ class EventsModel extends ListModel
 				'publish_down', 'a.publish_down',
 				'startDateTime', 'a.startDateTime',
 				'endDateTime', 'a.endDateTime',
-				'eventStatus', 'a.eventStatus'
+				'eventStatus', 'a.eventStatus',
+				'attendeeCount'
 			);
 			$assoc = Associations::isEnabled();
 			if ($assoc)

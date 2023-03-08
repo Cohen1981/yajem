@@ -70,6 +70,9 @@ $params = $this->get('State')->get('params');
 								<th scope="col" style="width:1%" class="d-none d-md-table-cell">
 									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_LOCATION', 'a.title', $listDirn, $listOrder); ?>
 								</th>
+                                <th scope="col" style="width:10%" class="d-none d-md-table-cell">
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_POSTALCODE', 'a.postalCode', $listDirn, $listOrder); ?>
+                                </th>
 							</tr>
 							</thead>
 							<tbody>
@@ -85,10 +88,13 @@ $params = $this->get('State')->get('params');
 											</a>
 										</div>
 									</th>
+                                    <td class="d-md-table-cell">
+										<?php echo $item->postalCode; ?>
+                                    </td>
 									<td class="small d-none d-md-table-cell">
 										<?php if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $item->created_by == Factory::getApplication()->getIdentity()->id)): ?>
 											<div class="icons">
-												<?php echo HTMLHelper::_('eventicon.editLocation', $item, $params); ?>
+												<?php echo HTMLHelper::_('sdajemIcon.editLocation', $item, $params); ?>
 											</div>
 										<?php endif; ?>
 									</td>

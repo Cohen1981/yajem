@@ -28,7 +28,7 @@ class AttendingsModel extends ListModel
 				'id', 'a.id',
 				'event_id', 'a.event_id',
 				'eventTitle', 'e.title',
-				'users_user_is', 'a.users_user_id',
+				'users_user_id', 'a.users_user_id',
 				'attendeeName', 'at.username',
 				'Status', 'a.Status'
 			);

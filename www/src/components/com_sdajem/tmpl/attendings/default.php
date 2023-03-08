@@ -102,7 +102,7 @@ $params = $this->get('State')->get('params');
 									<td class="small d-none d-md-table-cell">
 										<?php if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $item->users_user_id == Factory::getApplication()->getIdentity()->id)) : ?>
 											<div class="icons">
-												<?php echo HTMLHelper::_('eventicon.editAttending', $item, $params); ?>
+												<?php echo HTMLHelper::_('sdajemIcon.editAttending', $item, $params); ?>
 											</div>
 										<?php endif; ?>
 									</td>

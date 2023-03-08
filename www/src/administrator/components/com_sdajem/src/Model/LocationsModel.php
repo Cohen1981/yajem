@@ -34,6 +34,7 @@ class LocationsModel extends ListModel
 				'language', 'a.language', 'language_title',
 				'publish_up', 'a.publish_up',
 				'publish_down', 'a.publish_down',
+				'postalCode', 'a.postalCode'
 			);
 			$assoc = Associations::isEnabled();
 			if ($assoc)
