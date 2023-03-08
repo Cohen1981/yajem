@@ -99,6 +99,12 @@ class LocationTable extends Table
 			$this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
 			return false;
 		}
+		if (!$this->created_by) {
+			$this->created_by = Factory::getApplication()->getIdentity()->id;
+		}
+		if (!$this->created) {
+			$this->created = Date::getInstance()->toSql();
+		}
 		// Set publish_up, publish_down to null if not set
 		if (!$this->publish_up) {
 			$this->publish_up = null;

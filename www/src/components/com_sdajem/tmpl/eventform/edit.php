@@ -43,10 +43,6 @@ $this->useCoreUI = true;
 		<?php echo $this->form->renderField('startDateTime'); ?>
 		<?php echo $this->form->renderField('endDateTime'); ?>
 
-        <?php if ($this->params['event_use_categories']): ?>
-			<?php echo $this->form->renderField('catid'); ?>
-        <?php endif; ?>
-
 		<?php if ($this->params['sda_use_organizer']): ?>
 			<?php echo $this->form->renderField('organizerId'); ?>
 		<?php endif; ?>
@@ -94,15 +90,6 @@ $this->useCoreUI = true;
             <span class="fas fa-plus-circle" aria-hidden="true"></span>
             <?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
         </button>
-
-        <div class="input-group col">
-            <input type="text" class="form-control" placeholder="<?php echo Text::_('SDAJEM_NEW_CATEGORY'); ?>" aria-label="Category" aria-describedby="button-category" name="newCat">
-            <input type="hidden" name="cid" value="<?php echo '';?>">
-            <button type="button" id="button-category" class="btn btn-primary" onclick="Joomla.submitbutton('event.addCategory','locForm','false')">
-                <span class="fas fa-check" aria-hidden="true"></span>
-                <?php echo Text::_('COM_SDAJEM_CATEGORY_ADD'); ?>
-            </button>
-        </div>
     </div>
 </form>
 </div>

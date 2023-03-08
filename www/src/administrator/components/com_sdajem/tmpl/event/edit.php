@@ -51,7 +51,6 @@ $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 						<?php echo $this->getForm()->renderField('endDateTime'); ?>
 						<?php echo $this->getForm()->renderField('access'); ?>
 						<?php echo $this->getForm()->renderField('published'); ?>
-						<?php echo $this->getForm()->renderField('catid'); ?>
                     </div>
                 </div>
             </div>

@@ -31,12 +31,6 @@ $this->useCoreUI = true;
         <?php echo $this->form->renderFieldset('location'); ?>
         <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-		<?php if (Multilanguage::isEnabled()) : ?>
-			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'language', Text::_('JFIELD_LANGUAGE_LABEL')); ?>
-			<?php echo $this->form->renderField('language'); ?>
-			<?php echo HTMLHelper::_('uitab.endTab'); ?>
-		<?php endif; ?>
-
 		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
 		<input type="hidden" name="task" value=""/>
 		<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
@@ -55,15 +49,6 @@ $this->useCoreUI = true;
 			<span class="fas fa-times-cancel" aria-hidden="true"></span>
 			<?php echo Text::_('JCANCEL'); ?>
 		</button>
-
-        <div class="input-group col">
-            <input type="hidden" name="returnEdit" value="<?php echo $this->return_page_edit; ?>">
-            <input type="text" class="form-control" placeholder="<?php echo Text::_('SDAJEM_NEW_CATEGORY'); ?>" aria-label="Category" aria-describedby="button-category" name="newCat">
-            <button type="button" id="button-category" class="btn btn-primary" onclick="Joomla.submitbutton('location.addCategory')">
-                <span class="fas fa-check" aria-hidden="true"></span>
-				<?php echo Text::_('COM_SDAJEM_Category_ADD'); ?>
-            </button>
-        </div>
 	</div>
 </form>
 </div>

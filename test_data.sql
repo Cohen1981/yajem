@@ -1,0 +1,55 @@
+INSERT INTO `sda_sdajem_locations` (`id`, `access`, `alias`, `created`, `created_by`, `created_by_alias`, `checked_out`, `checked_out_time`, `published`, `publish_up`, `publish_down`, `state`, `ordering`, `language`, `title`, `description`, `url`, `street`, `postalCode`, `city`, `stateAddress`, `country`, `latlng`, `contactId`, `image`, `catid`)
+VALUES
+    (1, 1, 'luetjenburg', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 0, '*', 'Lütjenburg', '', 'http://www.turmhuegelburg.de/', 'Nienburg 10', '24321', 'Lütjenburg', '', '', '54.30227203301196, 10.57175977130135', NULL, NULL, 9),
+    (2, 1, 'bad-bodenteich', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 0, '*', 'Bad Bodenteich', '', '', 'Burgstraße 8', '29389', 'Bad Bodenteich', '', '', '', NULL, '', 10),
+    (3, 1, 'erlebniswelt-tankumsee', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 0, '*', 'Erlebniswelt Tankumsee', '', '', 'Dannenbütteler Weg 12', '38550', 'Isenbüttel', '', '', '', NULL, '', 9),
+    (4, 1, 'burg-neustadt-glewe', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 0, '*', 'Burg Neustadt-Glewe', '', '', 'An der Burg 1', '19306', 'Neustadt-Glewe', '', '', '', NULL, '', 10),
+    (5, 1, 'burgmuseum-plau-am-see', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 0, '*', 'Burgmuseum Plau am See', '', '', 'Burgplatz 2', '19395', 'Plau am See', '', '', '', NULL, '', 10),
+    (6, 1, 'furth-im-wald', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 0, '*', 'Furth im Wald', '', '', 'Eschlkamer Str. 7', '93437', 'Furth im Wald', '', '', '', NULL, '', 9),
+    (7, 1, 'pfadi-heim', NULL, NULL, NULL, NULL, NULL, 1, NULL, NULL, 0, 0, '*', 'Pfadi Heim', '', '', '', '', '', '', '', '53.386724, 9.963679', NULL, '', 9),
+    (8, 1, 'kurpark-moelln', NULL, NULL, NULL, NULL, NULL, 0, NULL, NULL, 0, 0, '*', 'Kurpark Mölln', '', '', 'Bergstraße', '23879', 'Mölln', '', '', '53.627683, 10.693615', NULL, '', 9);
+
+INSERT INTO `sda_sdajem_events` (`id`, `access`, `alias`, `created`, `created_by`, `created_by_alias`, `checked_out`, `checked_out_time`, `published`, `publish_up`, `publish_down`, `state`, `ordering`, `language`, `title`, `description`, `url`, `image`, `sdajem_location_id`, `hostId`, `organizerId`, `startDateTime`, `endDateTime`, `allDayEvent`, `eventStatus`, `eventCancelled`, `catid`, `params`, `svg`)
+VALUES
+(1, 1, 'mittelalterey-zu-pfingesten', '2023-02-13 12:25:54', 137, NULL, NULL, NULL, 1, '2023-02-24 15:37:57', NULL, 0, 0, '*', 'Mittelalterey zu Pfingesten', '', '', '', 1, NULL, NULL, '2023-05-27 13:25:27', '2023-05-28 13:25:34', 1, 0, 0, 8, NULL, NULL),
+(2, 1, 'burgfest', '2023-02-15 12:03:52', 138, NULL, NULL, NULL, 1, '2023-02-24 15:37:57', NULL, 0, 0, '*', 'Burgfest', '', '', '', 1, NULL, NULL, '2023-08-05 13:03:34', '2023-08-06 13:03:40', 1, 0, 0, 8, NULL, NULL),
+(3, 1, 'burgbelebung', '2023-02-15 12:24:35', 138, NULL, 0, '0000-00-00 00:00:00', 1, '2023-02-24 15:37:57', NULL, 0, 0, '*', 'Burgbelebung', '', '', '', 1, NULL, 139, '2023-09-30 13:24:14', '2023-10-01 13:24:26', 1, 0, 0, 8, '{\"sda_use_attending\":\"1\"}', NULL),
+(4, 1, 'bad-bodenteich', '2023-02-15 12:27:24', 138, NULL, NULL, NULL, 1, '2023-02-24 15:37:57', NULL, 0, 0, '*', 'Bad Bodenteich', '', '', '', 2, NULL, 143, '2023-04-29 13:26:52', '2023-05-01 13:26:59', 1, 0, 0, 8, NULL, NULL),
+(5, 1, 'mittelalterliches-seespektakel-am-tankumsee', '2023-02-15 12:30:30', 138, NULL, NULL, NULL, 1, '2023-02-24 15:37:57', NULL, 0, 0, '*', 'Mittelalterliches Seespektakel am Tankumsee', '', 'https://mittelaltermarkt-info.de/event-pro/mittelalterliches-seespektakel-am-tankumsee-zu-isenbuettel/', '', 3, NULL, NULL, '2023-05-06 13:30:18', '2023-05-07 13:30:23', 1, 0, 0, 8, NULL, NULL),
+(6, 1, 'burgfest-neustadt-glewe', '2023-02-15 12:54:38', 138, NULL, NULL, NULL, 1, '2023-02-24 15:37:57', NULL, 0, 0, '*', 'Burgfest Neustadt-Glewe', '', 'https://burgfest-neustadt.de/', '', 4, NULL, NULL, '2023-06-02 13:54:25', '2023-06-04 13:54:30', 1, 0, 0, 8, NULL, NULL),
+(7, 1, 'plauer-ritterspiele', '2023-02-15 13:07:59', 138, NULL, NULL, NULL, 1, '2023-02-24 15:37:57', NULL, 0, 0, '*', 'Plauer Ritterspiele', '', 'http://www.mittelalterspass.de/', '', 5, NULL, NULL, '2023-07-14 14:06:31', '2023-07-16 14:06:37', 1, 0, 0, 8, NULL, NULL),
+(8, 1, 'cave-gladium', '2023-02-21 08:37:42', 138, NULL, NULL, NULL, 1, '2023-02-24 15:37:57', NULL, 0, 0, '*', 'Cave Gladium', '', 'http://cave-gladium.de/', '', 6, NULL, 138, '2023-08-18 09:36:45', '2023-08-20 09:36:53', 1, 1, 0, 8, NULL, NULL),
+(9, 1, 'bastelwochenende', '2023-02-24 15:35:58', 138, NULL, NULL, NULL, 1, NULL, NULL, 0, 0, '*', 'Bastelwochenende', '', '', '', 7, NULL, NULL, '2023-03-17 16:35:38', '2023-03-19 16:35:42', 1, 0, 0, 14, '{\"sda_use_attending\":\"1\",\"sda_use_host\":\"0\"}', NULL),
+(10, 1, 'spektakulum-mulne', '2023-02-24 16:00:32', 138, NULL, 0, '0000-00-00 00:00:00', 1, '2023-02-27 14:41:36', NULL, 0, 0, '*', 'Spektakulum Mulne', '', 'https://www.spektakulum-mulne.de/', '', 8, NULL, NULL, '2023-09-15 17:00:10', '2023-09-17 17:00:17', 1, 0, 0, 8, '{\"sda_use_attending\":\"1\"}', NULL);
+
+INSERT INTO `sda_sdajem_attendings` (`event_id`, `users_user_id`, `status`)
+VALUES (1, 956, 1),
+       (2, 956, 2),
+       (3, 956, 2),
+       (4, 956, 2),
+       (5, 956, 1),
+       (6, 956, 1),
+       (7, 956, 1),
+       (8, 956, 1),
+       (9, 956, 1),
+       (10, 956, 1),
+       (1, 957, 1),
+       (2, 957, 1),
+       (3, 957, 1),
+       (4, 957, 1),
+       (5, 957, 2),
+       (6, 957, 1),
+       (7, 957, 2),
+       (8, 957, 1),
+       (9, 957, 1),
+       (10, 957, 1),
+       (1, 955, 1),
+       (2, 955, 1),
+       (3, 955, 1),
+       (4, 955, 1),
+       (5, 955, 1),
+       (6, 955, 1),
+       (7, 955, 1),
+       (8, 955, 1),
+       (9, 955, 1),
+       (10, 955, 1);

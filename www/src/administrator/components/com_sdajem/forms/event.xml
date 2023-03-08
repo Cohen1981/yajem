@@ -72,15 +72,6 @@
                 todaybutton="true"
                 size="22"
         />
-        <field
-                name="catid"
-                type="categoryedit"
-                label="JCATEGORY"
-                extension="com_sdajem.events"
-                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
-                required="true"
-                default=""
-        />
         <fields name="params" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
             <fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
                 <field

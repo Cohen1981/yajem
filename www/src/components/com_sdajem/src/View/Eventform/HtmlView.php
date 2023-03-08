@@ -82,7 +82,7 @@ class HtmlView extends BaseHtmlView
 			$authorised = $user->authorise('core.create', 'com_sdajem');
 		} else {
 			// Since we don't track these assets at the item level, use the category id.
-			$authorised = $user->authorise('core.edit', 'com_sdajem') || ($user->authorise('core.edit', 'com_sdajem') && $this->item->created_by == $user->id);
+			$authorised = $user->authorise('core.edit', 'com_sdajem') || ($user->authorise('core.edit.own', 'com_sdajem') && $this->item->created_by == $user->id);
 		}
 		if ($authorised !== true) {
 			$app->redirect('index.php?option=com_users&view=login');

@@ -126,9 +126,6 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                                     <div class="small">
                                         <?php echo Text::_('COM_SDAJEM_LOCATION') . ': ' . $this->escape($item->location_name);?>
                                     </div>
-                                    <!--<div class="small">
-                                        <?php //echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
-                                    </div>-->
                                 </th>
                                 <td class="d-md-table-cell">
                                     <?php
@@ -182,7 +179,7 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                                 </td>
                                 <?php endif; ?>
                                 <td class="small d-none d-md-table-cell">
-                                    <?php if ($canDo->get('core.edit') || $canDo->get('core.edit.own')) : ?>
+                                    <?php if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $item->created_by == Factory::getApplication()->getIdentity()->id)) : ?>
                                     <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="editForm" id="editForm">
                                         <div class="icons">
                                             <?php echo HTMLHelper::_('eventicon.edit', $item, $params); ?>
@@ -197,6 +194,9 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                         <?php endforeach; ?>
                         </tbody>
                     </table>
+
+	                <?php echo $this->pagination->getListFooter(); ?>
+
                 <?php endif; ?>
             </div>
         </div>

@@ -6,16 +6,6 @@
             description="COM_SDAJEM_FIELD_CONFIG_DESC"
     >
         <field
-                name="event_use_categories"
-                type="list"
-                label="COM_SDAJEM_FIELD_EVENT_USE_CATEGORIES_LABEL"
-                description="COM_SDAJEM_FIELD_EVENT_USE_CATEGORIES_DESC"
-                default="1"
-        >
-            <option value="0">JNO</option>
-            <option value="1">JYES</option>
-        </field>
-        <field
                 name="sda_use_avatar"
                 type="list"
                 label="COM_SDAJEM_FIELD_USE_AVATAR_LABEL"

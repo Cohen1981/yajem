@@ -111,6 +111,8 @@ $params = $this->get('State')->get('params');
 							</tbody>
 						</table>
 
+						<?php echo $this->pagination->getListFooter(); ?>
+
 					<?php endif; ?>
 					<input type="hidden" name="task" value=""/>
 					<input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>

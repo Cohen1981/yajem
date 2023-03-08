@@ -50,15 +50,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	public function getForm($data = [], $loadData = true)
 	{
 		$form = parent::getForm($data, $loadData);
-		// Prevent messing with article language and category when editing existing event with associations
-		if ($id = $this->getState('event.id') && Associations::isEnabled()) {
-			$associations = Associations::getAssociations('com_sdajem', '#__sdajem_events', 'com_sdajem.item', $id);
-			// Make fields read only
-			if (!empty($associations)) {
-				$form->setFieldAttribute('language', 'readonly', 'true');
-				$form->setFieldAttribute('language', 'filter', 'unset');
-			}
-		}
+
 		return $form;
 	}
 	/**
@@ -115,14 +107,6 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	 */
 	public function save($data)
 	{
-		// Associations are not edited in frontend ATM so we have to inherit them
-		if (Associations::isEnabled() && !empty($data['id'])
-			&& $associations = Associations::getAssociations('com_sdajem', '#__sdajem_events', 'com_sdajem.item', $data['id'])) {
-			foreach ($associations as $tag => $associated) {
-				$associations[$tag] = (int) $associated->id;
-			}
-			$data['associations'] = $associations;
-		}
 		return parent::save($data);
 	}
 	/**

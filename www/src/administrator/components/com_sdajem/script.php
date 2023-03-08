@@ -138,8 +138,8 @@ class Com_SdajemInstallerScript
 		// Initialize a new category.
 		$category = Table::getInstance('Category');
 
-		$this->setupData($category, 'com_sdajem.events', 'Märkte', ApplicationHelper::stringURLSafe('EventMärkte'), $assetId);
-		$this->setupData($category, 'com_sdajem.locations', 'Orte', ApplicationHelper::stringURLSafe('EventOrte'), $assetId);
+		//$this->setupData($category, 'com_sdajem.events', 'Märkte', ApplicationHelper::stringURLSafe('EventMärkte'), $assetId);
+		//$this->setupData($category, 'com_sdajem.locations', 'Orte', ApplicationHelper::stringURLSafe('EventOrte'), $assetId);
 		return true;
 	}
 

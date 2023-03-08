@@ -208,7 +208,7 @@ class Icon
 		if (!isset($created_by_alias) && !isset($location->created_by)) {
 			$author = '';
 		} else {
-			$author = $location->created_by_alias ?: Factory::getApplication()->getIdentity($location->created_by)->name;
+			$author = Factory::getApplication()->getIdentity($location->created_by)->name;
 		}
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= $date;

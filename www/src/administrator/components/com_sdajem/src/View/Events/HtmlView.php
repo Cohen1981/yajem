@@ -103,8 +103,6 @@ class HtmlView extends BaseHtmlView
 				// Also, unset the active language filter so the search tools is not open by default with this filter.
 				unset($this->activeFilters['language']);
 
-				// One last changes needed is to change the category filter to just show categories with All language or with the forced language.
-				$this->filterForm->setFieldAttribute('category_id', 'language', '*,' . $forcedLanguage, 'filter');
 			}
 		}
 

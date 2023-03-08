@@ -78,7 +78,7 @@ class HtmlView extends BaseHtmlView
 			$authorised = $user->authorise('core.create', 'com_sdajem');
 		} else {
 			// Since we don't track these assets at the item level, use the category id.
-			$authorised = $user->authorise('core.edit', 'com_sdajem') || ($user->authorise('core.edit', 'com_sdajem') && $this->item->created_by == $user->id);
+			$authorised = $user->authorise('core.edit', 'com_sdajem') || ($user->authorise('core.edit.own', 'com_sdajem') && $this->item->created_by == $user->id);
 		}
 		if ($authorised !== true) {
 			$app->redirect('index.php?option=com_users&view=login');
@@ -126,9 +126,9 @@ class HtmlView extends BaseHtmlView
 		if ($menu) {
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
 		} else {
-			$this->params->def('page_heading', Text::_('COM_FOOS_FORM_EDIT_FOO'));
+			$this->params->def('page_heading', Text::_('COM_SDAJEM_FORM_EDIT_LOCATION'));
 		}
-		$title = $this->params->def('page_title', Text::_('COM_FOOS_FORM_EDIT_FOO'));
+		$title = $this->params->def('page_title', Text::_('COM_SDAJEM_FORM_EDIT_LOCATION'));
 		if ($app->get('sitename_pagetitles', 0) == 1) {
 			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		} else if ($app->get('sitename_pagetitles', 0) == 2) {

@@ -54,13 +54,10 @@ class LocationController extends FormController
 	 */
 	protected function allowAdd($data = [])
 	{
-		if ($categoryId = ArrayHelper::getValue($data, 'catid', $this->input->getInt('catid'), 'int')) {
-			$user = Factory::getApplication()->getIdentity();
-			// If the category has been passed in the data or URL check it.
-			return $user->authorise('core.create', 'com_sdajem.category.' . $categoryId);
-		}
-		// In the absence of better information, revert to the component permissions.
-		return parent::allowAdd();
+		$user = Factory::getApplication()->getIdentity();
+
+		return $user->authorise('core.create', 'com_sdajem');
+
 	}
 	/**
 	 * Method override to check if you can edit an existing record.
@@ -80,21 +77,18 @@ class LocationController extends FormController
 		}
 		// Need to do a lookup from the model.
 		$record     = $this->getModel()->getItem($recordId);
-		$categoryId = (int) $record->catid;
-		if ($categoryId) {
-			$user = Factory::getApplication()->getIdentity();
-			// The category has been set. Check the category permissions.
-			if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId)) {
-				return true;
-			}
-			// Fallback on edit.own.
-			if ($user->authorise('core.edit.own', $this->option . '.category.' . $categoryId)) {
-				return ($record->created_by == $user->id);
-			}
-			return false;
+
+		$user = Factory::getApplication()->getIdentity();
+
+		if ($user->authorise('core.edit', 'com_sdajem')) {
+			return true;
 		}
-		// Since there is no asset tracking, revert to the component permissions.
-		return parent::allowEdit($data, $key);
+
+		if ($user->authorise('core.edit.own', 'com_sdajem')) {
+			return ($record->created_by == $user->id);
+		}
+
+		return false;
 	}
 	/**
 	 * Method to save a record.
@@ -152,12 +146,9 @@ class LocationController extends FormController
 		$append .= '&' . $urlVar . '=' . (int) $recordId;
 		$itemId = $this->input->getInt('Itemid');
 		$return = $this->getReturnPage();
-		$catId  = $this->input->getInt('catid');
+
 		if ($itemId) {
 			$append .= '&Itemid=' . $itemId;
-		}
-		if ($catId) {
-			$append .= '&catid=' . $catId;
 		}
 		if ($return) {
 			$append .= '&return=' . base64_encode($return);
@@ -180,38 +171,5 @@ class LocationController extends FormController
 			return Uri::base();
 		}
 		return base64_decode($return);
-	}
-
-	public function addCategory() {
-		$input = Factory::getApplication()->input;
-		$app = Factory::getApplication();
-		$user = $app->getIdentity();
-		$extension = 'com_sdajem';
-		$data = array();
-		$data['title'] = $input->get('newCat', '');
-
-		if (($user->authorise('core.create', $extension)
-				|| count($user->getAuthorisedCategories($extension, 'core.create')))
-			&& $data['title']!='')
-		{
-			$data['id'] = '';
-			$data['alias']     = $input->get('categoryalias', '');
-			$data['extension'] = 'com_sdajem.locations';
-			$data['parent_id'] = 1;
-			$data['published'] = 1;
-
-			$catModel = new CategoryModel();
-
-			$return = $this->input->get('returnEdit', null, 'base64');
-			if (empty($return) || !Uri::isInternal(base64_decode($return))) {
-				$return = Uri::base();
-			}
-
-			$this->setRedirect(Route::_(base64_decode($return), false));
-
-			return $catModel->save($data);
-		}
-
-		return true;
 	}
 }

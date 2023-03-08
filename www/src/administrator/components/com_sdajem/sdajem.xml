@@ -47,8 +47,6 @@
             <menu link="option=com_sdajem&amp;view=fittingtypes">COM_SDAJEM_MENU_FITTINGTYPES</menu>
             <menu link="option=com_sdajem">COM_SDAJEM_MENU_EVENTS</menu>
             <menu link="option=com_sdajem&amp;view=locations">COM_SDAJEM_MENU_LOCATIONS</menu>
-            <menu link="option=com_categories&amp;view=categories&amp;extension=com_sdajem.events">COM_SDAJEM_MENU_EVENTS_CATEGORIES</menu>
-            <menu link="option=com_categories&amp;view=categories&amp;extension=com_sdajem.locations">COM_SDAJEM_MENU_LOCATIONS_CATEGORIES</menu>
         </submenu>
 
         <files folder="administrator/components/com_sdajem">

@@ -7,6 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
@@ -83,12 +84,9 @@ $params = $this->get('State')->get('params');
 												<?php echo $this->escape($item->title); ?>
 											</a>
 										</div>
-										<!--<div class="small">
-											<?php //echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
-										</div>-->
 									</th>
 									<td class="small d-none d-md-table-cell">
-										<?php if ($canDo->get('core.edit') || $canDo->get('core.edit.own')) : ?>
+										<?php if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $item->created_by == Factory::getApplication()->getIdentity()->id)): ?>
 											<div class="icons">
 												<?php echo HTMLHelper::_('eventicon.editLocation', $item, $params); ?>
 											</div>
@@ -98,6 +96,8 @@ $params = $this->get('State')->get('params');
 							<?php endforeach; ?>
 							</tbody>
 						</table>
+
+						<?php echo $this->pagination->getListFooter(); ?>
 
 					<?php endif; ?>
 					<input type="hidden" name="task" value=""/>
