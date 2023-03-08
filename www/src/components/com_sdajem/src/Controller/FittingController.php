@@ -125,4 +125,36 @@ class FittingController extends \Joomla\CMS\MVC\Controller\FormController
 
 		return $result;
 	}
+
+	/**
+	 * Gets the URL arguments to append to an item redirect.
+	 *
+	 * @param   integer  $recordId  The primary key id for the item.
+	 * @param   string   $urlVar    The name of the URL variable for the id.
+	 *
+	 * @return  string    The arguments to append to the redirect URL.
+	 *
+	 * @since   __DEPLOY_VERSION__
+	 */
+	protected function getRedirectToItemAppend($recordId = 0, $urlVar = 'id')
+	{
+		// Need to override the parent method completely.
+		$tmpl = $this->input->get('tmpl');
+		$append = '';
+		// Setup redirect info.
+		if ($tmpl) {
+			$append .= '&tmpl=' . $tmpl;
+		}
+		$append .= '&layout=edit';
+		$append .= '&' . $urlVar . '=' . (int) $recordId;
+		$itemId = $this->input->getInt('Itemid');
+		$return = $this->getReturnPage();
+		if ($itemId) {
+			$append .= '&Itemid=' . $itemId;
+		}
+		if ($return) {
+			$append .= '&return=' . base64_encode($return);
+		}
+		return $append;
+	}
 }

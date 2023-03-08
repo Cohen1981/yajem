@@ -153,7 +153,7 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                                     <?php if (!Factory::getApplication()->getIdentity()->guest) : ?>
                                     <td class="d-md-table-cell">
                                         <div>
-                                        <?php echo Text::_(EventStatusEnum::from($item->eventStatus)->getStatusLabel()); ?>
+                                        <?php echo EventStatusEnum::from($item->eventStatus)->getStatusBatch(); ?>
                                         </div>
 
                                         <?php if (Factory::getApplication()->getIdentity()->id == $item->organizerId) : ?>

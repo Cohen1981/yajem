@@ -26,7 +26,7 @@ $canDo = ContentHelper::getActions('com_sdajem');
 	<form action="<?php echo Route::_('index.php?option=com_sdajem&id=' . (int) $this->item->id); ?>" method="post" name="fittingForm" id="fittingForm" class="form-validate form-vertical">
 		<fieldset>
 			<?php echo HTMLHelper::_('uitab.startTabSet', $this->tab_name, ['active' => 'details']); ?>
-			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'details', empty($this->item->id) ? Text::_('COM_SDAJEM_NEW_ATTENDING') : Text::_('COM_SDAJEM_EDIT_ATTENDING')); ?>
+			<?php echo HTMLHelper::_('uitab.addTab', $this->tab_name, 'details', empty($this->item->id) ? Text::_('COM_SDAJEM_NEW_FITTING') : Text::_('COM_SDAJEM_EDIT_FITTING')); ?>
 
 			<?php echo $this->form->renderFieldset('details'); ?>
 

@@ -46,6 +46,7 @@ class AttendingsModel extends ListModel
 	 */
 	protected function getListQuery()
 	{
+		$currentUser = Factory::getApplication()->getIdentity();
 		// Create a new query object.
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
@@ -79,6 +80,22 @@ class AttendingsModel extends ListModel
 				'LEFT',
 				$db->quoteName('#__users', 'at') . ' ON ' . $db->quoteName('at.id') . ' = ' . $db->quoteName('a.users_user_id')
 			);
+
+		// Filter on user.
+		if ($currentUser->authorise('core.manage', 'com_sdajem')) {
+			if ($user = $this->getState('filter.users_user_id'))
+			{
+				$query->where($db->quoteName('a.users_user_id') . ' = ' . $db->quote($user));
+			}
+		} else {
+			$query->where($db->quoteName('a.users_user_id') . ' = ' . $db->quote($currentUser->id));
+		}
+
+		// Filter on event
+		if ($event = $this->getState('filter.event_id'))
+		{
+			$query->where($db->quoteName('a.event_id') . ' = ' . $db->quote($event));
+		}
 
 		// Filter by search in name.
 		$search = $this->getState('filter.search');
