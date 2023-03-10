@@ -157,6 +157,7 @@ class EventController extends FormController
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 		return $result;
 	}
+
 	/**
 	 * Gets the URL arguments to append to an item redirect.
 	 *

@@ -18,6 +18,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
@@ -279,8 +280,8 @@ class Icon
 				. '<input type="hidden" name="task" value=""/>';
 		$text .= HTMLHelper::_('form.token');
 		// Test for attending Status
-		$attendingsModel = new AttendingsModel();
-		$attending = $attendingsModel->getAttendingStatusToEvent($event->id);
+
+		$attending = AttendingHelper::getAttendingStatusToEvent(Factory::getApplication()->getIdentity()->id, $event->id);
 
 		if ($attending) {
 			$text .= '<input type="hidden" name="attendingId" value="' . $attending->id . '"/>';
@@ -331,7 +332,7 @@ class Icon
 		$uri  = Uri::getInstance();
 
 		// Set the link class
-		$attribs['class'] = 'sda_button_spacer btn btn-secondary';
+		$attribs['class'] = 'sda_button_spacer btn btn-light';
 
 		$eventUrl = 'index.php?option=com_sdajem&view=events';
 		$url        = $eventUrl . '&task='. $action->getEventAction() . '&eventId=' . $event->id . '&return=' . base64_encode($uri);

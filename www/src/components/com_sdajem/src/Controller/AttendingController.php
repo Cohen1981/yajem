@@ -14,6 +14,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Uri\Uri;
+use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingModel;
 
@@ -50,10 +51,7 @@ class AttendingController extends FormController
 				$input['users_user_id'] = Factory::getApplication()->getIdentity()->id;
 			}
 
-			/* @var AttendingModel $attendingModel */
-			$attendingModel = $this->getModel('attending');
-
-			$data = $attendingModel->getAttendingStatusToEvent($input['users_user_id'], $input['event_id']);
+			$data = AttendingHelper::getAttendingStatusToEvent($input['users_user_id'], $input['event_id']);
 			// attending exists so we set the id for updating the record
 			if ($data)
 			{
@@ -66,33 +64,88 @@ class AttendingController extends FormController
 
 	public function attend($eventId = null, $userId = null)
 	{
-		$this->input->set('id', $this->input->get('attendingId'));
-		$this->option = 'core.manage.attending';
+		//$this->option = 'core.manage.attending';
+		$pks = [];
 
-		$data = array(
-			'id' => $this->input->get('attendingId'),
-			'event_id' => $this->input->get('event_id'),
-			'users_user_id' => Factory::getApplication()->getIdentity()->id,
-			'status' => AttendingStatusEnum::ATTENDING->value
-		);
-		$this->input->post->set('jform', $data);
+		if ($this->input->get('event_id')) {
+			$pks[0] = $this->input->get('event_id');
+		} else if ($eventId !== null)
+		{
+			$pks[0] = $eventId;
+		} else {
+			$pks = $this->input->get('cid');
+		}
 
-		$this->save();
+		if (count($pks) >= 0) {
+
+			if ($userId !== null) {
+				$currUser = $userId;
+			} else
+			{
+				$currUser = Factory::getApplication()->getIdentity();
+			}
+
+			foreach ($pks as $id)
+			{
+				$attending = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
+
+				$this->input->set('id', $attending->id);
+
+				$data = array(
+					'id'            => $attending->id,
+					'event_id'      => $id,
+					'users_user_id' => $currUser->id,
+					'status'        => AttendingStatusEnum::ATTENDING->value
+				);
+
+				$this->input->post->set('jform', $data);
+
+				$this->save();
+			}
+		}
 	}
 
 	public function unattend($eventId = null, $userId = null)
 	{
-		$this->input->set('id', $this->input->get('attendingId'));
+		//$this->option = 'core.manage.attending';
+		$pks = [];
 
-		$data = array(
-			'id' => $this->input->get('attendingId'),
-			'event_id' => $this->input->get('event_id'),
-			'users_user_id' => Factory::getApplication()->getIdentity()->id,
-			'status' => AttendingStatusEnum::NOT_ATTENDING->value
-		);
-		$this->input->post->set('jform', $data);
+		if ($this->input->get('event_id')) {
+			$pks[0] = $this->input->get('event_id');
+		} else if ($eventId !== null)
+		{
+			$pks[0] = $eventId;
+		} else {
+			$pks = $this->input->get('cid');
+		}
 
-		$this->save();
+		if (count($pks) >= 0) {
+
+			if ($userId !== null) {
+				$currUser = $userId;
+			} else
+			{
+				$currUser = Factory::getApplication()->getIdentity();
+			}
+
+			foreach ($pks as $id)
+			{
+				$attending = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
+
+				$this->input->set('id', $attending->id);
+
+				$data = array(
+					'id'            => $attending->id,
+					'event_id'      => $id,
+					'users_user_id' => $currUser->id,
+					'status'        => AttendingStatusEnum::NOT_ATTENDING->value
+				);
+
+				$this->input->post->set('jform', $data);
+
+				$this->save();
+			}
+		}
 	}
 
 	/**

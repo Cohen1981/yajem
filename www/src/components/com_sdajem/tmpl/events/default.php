@@ -18,6 +18,8 @@ use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Session\Session;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
+use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
+use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 /* @var \Joomla\CMS\WebAsset\WebAssetManager $wa */
@@ -48,24 +50,43 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
         <div>
             <?php if ($canDo->get('core.create')) : ?>
                 <div class="mb-2">
-                    <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('event.add')">
-                        <span class="fas fa-plus-circle" aria-hidden="true"></span>
-                        <?php echo Text::_('COM_SDAJEM_EVENT_ADD'); ?>
-                    </button>
+                    <div class="btn-group sda_button_spacer" role="group" aria-label="basic group">
+                        <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('event.add')">
+                            <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                            <?php echo Text::_('COM_SDAJEM_EVENT_ADD'); ?>
+                        </button>
 
-                    <?php if ($params->get('sda_events_new_location')) :?>
-                    <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('location.add')">
-                        <span class="fas fa-plus-circle" aria-hidden="true"></span>
-                        <?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
-                    </button>
-                    <?php endif; ?>
+                        <?php if ($params->get('sda_events_new_location')) :?>
+                        <button type="button" class="btn btn-secondary" onclick="Joomla.submitbutton('location.add')">
+                            <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                            <?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
+                        </button>
+                        <?php endif; ?>
 
-                    <?php if ($canDo->get('core.delete')) : ?>
-                    <button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('event.delete')">
-                        <span class="fas fa-trash" aria-hidden="true"></span>
-                        <?php echo Text::_('COM_SDAJEM_EVENT_DELETE'); ?>
-                    </button>
-                    <?php endif; ?>
+                        <?php if ($canDo->get('core.delete')) : ?>
+                        <button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('event.delete')">
+                            <span class="fas fa-trash" aria-hidden="true"></span>
+                            <?php echo Text::_('COM_SDAJEM_EVENT_DELETE'); ?>
+                        </button>
+                        <?php endif; ?>
+                    </div>
+                    <?php
+                    if ($params->get('sda_use_attending'))
+                    {
+	                    echo '<div class="btn-group sda_button_spacer" role="group" aria-label="Attending group">';
+	                    foreach (AttendingStatusEnum::cases() as $stat)
+	                    {
+		                    if ($stat != AttendingStatusEnum::NA)
+		                    {
+			                    $text = '<button type="button" class="btn ' . $stat->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $stat->getAction() . '\')">'
+				                    . '<span class="icon-spacer ' . $stat->getIcon() . '" aria-hidden="true"></span>';
+			                    $text .= Text::_($stat->getButtonLabel()) . '</button>';
+			                    echo $text;
+		                    }
+	                    }
+                        echo '</div>';
+                    }
+                    ?>
                 </div>
             <?php endif; ?>
         </div>
@@ -86,9 +107,11 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                             </caption>
                             <thead>
                             <tr>
+                                <?php if (!Factory::getApplication()->getIdentity()->guest) :?>
                                 <td style="width:1%" class="text-center">
                                     <?php echo HTMLHelper::_('grid.checkall'); ?>
                                 </td>
+                                <?php endif; ?>
                                 <th scope="col" style="width:1%" class="d-none d-md-table-cell">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
                                 </th>
@@ -112,21 +135,39 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                             <tbody>
                             <?php
                             $n = count($this->items);
+                            $attending = new \Sda\Component\Sdajem\Site\Model\AttendingModel();
                             foreach ($this->items as $i => $item) :
                                 ?>
                                 <tr class="row<?php echo $i % 2; ?>">
+	                                <?php if (!Factory::getApplication()->getIdentity()->guest) :?>
                                     <td class="text-center">
                                         <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                     </td>
+                                    <?php endif; ?>
                                     <th scope="row" class="has-context col-4">
                                         <div>
                                         <a href="<?php echo Route::_('index.php?option=com_sdajem&view=event&id=' . (int) $item->id); ?>">
                                             <?php echo $this->escape($item->title); ?>
                                         </a>
                                         </div>
+                                        <?php if ($params->get('sda_use_location')) :?>
                                         <div class="small">
                                             <?php echo Text::_('COM_SDAJEM_LOCATION') . ': ' . $this->escape($item->location_name);?>
                                         </div>
+                                        <?php endif; ?>
+                                        <?php if ($params->get('sda_use_attending')) :?>
+                                        <div class="small">
+                                            <?php
+                                            if (!Factory::getApplication()->getIdentity()->guest)
+                                            {
+	                                            $attStatus = (AttendingHelper::getAttendingStatusToEvent(Factory::getApplication()->getIdentity()->id,
+		                                            $item->id)) ? AttendingHelper::getAttendingStatusToEvent(Factory::getApplication()->getIdentity()->id,
+		                                            $item->id)->status : 0;
+	                                            echo AttendingStatusEnum::from($attStatus)->getStatusBadge();
+                                            }
+                                            ?>
+                                        </div>
+                                        <?php endif; ?>
                                     </th>
                                     <td class="d-md-table-cell">
                                         <?php
@@ -153,7 +194,7 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                                     <?php if (!Factory::getApplication()->getIdentity()->guest) : ?>
                                     <td class="d-md-table-cell">
                                         <div>
-                                        <?php echo EventStatusEnum::from($item->eventStatus)->getStatusBatch(); ?>
+                                        <?php echo EventStatusEnum::from($item->eventStatus)->getStatusBadge(); ?>
                                         </div>
 
                                         <?php if (Factory::getApplication()->getIdentity()->id == $item->organizerId) : ?>

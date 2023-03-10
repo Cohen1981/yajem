@@ -96,7 +96,7 @@ $params = $this->get('State')->get('params');
 		                                    <?php echo $this->escape($item->attendeeName); ?>
                                         </div>
                                         <div>
-		                                    <?php echo AttendingStatusEnum::from($item->status)->getStatusBatch(); ?>
+		                                    <?php echo AttendingStatusEnum::from($item->status)->getStatusBadge(); ?>
                                         </div>
                                     </td>
 									<td class="small d-none d-md-table-cell">

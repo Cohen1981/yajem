@@ -41,7 +41,7 @@ enum AttendingStatusEnum: int
 		};
 	}
 
-	public function getStatusBatch(): string
+	public function getStatusBadge(): string
 	{
 		return match($this)
 		{

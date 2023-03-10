@@ -112,39 +112,6 @@ class AttendingModel extends BaseDatabaseModel
 		return $this->_item[$pk];
 	}
 
-	public function getAttendingStatusToEvent(int $userId=null, int $eventId)
-	{
-		if (!$userId) {
-			$userId = Factory::getApplication()->getIdentity()->id;
-		}
-
-		try
-		{
-			$db    = $this->getDatabase();
-			$query = $db->getQuery(true);
-
-			$query->select('*')
-				->from($db->quoteName('#__sdajem_attendings', 'a'))
-				->where('a.users_user_id = ' . (int) $userId)
-				->extendWhere('AND', 'a.event_id = ' . (int) $eventId);
-
-			$db->setQuery($query);
-			$data = $db->loadObject();
-
-			if (empty($data))
-			{
-				throw new \Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
-			}
-		}
-		catch (\Exception $e)
-		{
-			$this->setError($e);
-			return null;
-		}
-
-		return $data;
-	}
-
 	/**
 	 * Method to auto-populate the model state.
 	 *
