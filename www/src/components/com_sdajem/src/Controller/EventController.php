@@ -61,13 +61,9 @@ class EventController extends FormController
 	 */
 	protected function allowAdd($data = [])
 	{
-		if ($categoryId = ArrayHelper::getValue($data, 'catid', $this->input->getInt('catid'), 'int')) {
-			$user = Factory::getApplication()->getIdentity();
-			// If the category has been passed in the data or URL check it.
-			return $user->authorise('core.create', 'com_sdajem.category.' . $categoryId);
-		}
-		// In the absence of better information, revert to the component permissions.
-		return parent::allowAdd();
+		$user = Factory::getApplication()->getIdentity();
+
+		return $user->authorise('core.create', 'com_sdajem');
 	}
 	/**
 	 * Method override to check if you can edit an existing record.
@@ -87,21 +83,17 @@ class EventController extends FormController
 		}
 		// Need to do a lookup from the model.
 		$record     = $this->getModel()->getItem($recordId);
-		$categoryId = (int) $record->catid;
-		if ($categoryId) {
-			$user = Factory::getApplication()->getIdentity();
-			// The category has been set. Check the category permissions.
-			if ($user->authorise('core.edit', $this->option . '.category.' . $categoryId)) {
-				return true;
-			}
-			// Fallback on edit.own.
-			if ($user->authorise('core.edit.own', $this->option . '.category.' . $categoryId)) {
-				return ($record->created_by == $user->id);
-			}
-			return false;
+
+		$user = Factory::getApplication()->getIdentity();
+
+		if ($user->authorise('core.edit', 'com_sdajem')) {
+			return true;
 		}
-		// Since there is no asset tracking, revert to the component permissions.
-		return parent::allowEdit($data, $key);
+			// Fallback on edit.own.
+		if ($user->authorise('core.edit.own', 'com_sdajem')) {
+			return ($record->created_by == $user->id);
+		}
+		return false;
 	}
 	/**
 	 * Method to save a record.
@@ -188,12 +180,9 @@ class EventController extends FormController
 		$append .= '&' . $urlVar . '=' . (int) $recordId;
 		$itemId = $this->input->getInt('Itemid');
 		$return = $this->getReturnPage();
-		$catId  = $this->input->getInt('catid');
+
 		if ($itemId) {
 			$append .= '&Itemid=' . $itemId;
-		}
-		if ($catId) {
-			$append .= '&catid=' . $catId;
 		}
 		if ($return) {
 			$append .= '&return=' . base64_encode($return);
@@ -262,6 +251,7 @@ class EventController extends FormController
 			$data['alias']     = $input->get('categoryalias', '');
 			$data['extension'] = 'com_sdajem.events';
 			$data['parent_id'] = 1;
+			$data['published'] = 1;
 
 			$catModel = new CategoryModel();
 

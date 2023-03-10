@@ -9,6 +9,8 @@
 
 namespace Sda\Component\Sdajem\Site\Enums;
 
+use Joomla\CMS\Language\Text;
+
 enum EventStatusEnum : int
 {
 	case OPEN = 0;
@@ -70,6 +72,17 @@ enum EventStatusEnum : int
 			self::APPLIED => 'fas fa-clipboard',
 			self::CONFIRMED => 'fas fa-thumbs-up',
 			self::CANCELED => 'fas fa-thumbs-down'
+		};
+	}
+
+	public function getStatusBatch(): string
+	{
+		return match($this)
+		{
+			self::OPEN => '<span class="badge color-neutral eventbatch">' . Text::_('COM_SDAJEM_EVENT_STATUS_OPEN') . '</span>',
+			self::APPLIED => '<span class="badge color-warning eventbatch">' . Text::_('COM_SDAJEM_EVENT_STATUS_APPLIED') . '</span>',
+			self::CONFIRMED => '<span class="badge color-ok eventbatch">' . Text::_('COM_SDAJEM_EVENT_STATUS_CONFIRMED') . '</span>',
+			self::CANCELED => '<span class="badge color-nok eventbatch">' . Text::_('COM_SDAJEM_EVENT_STATUS_CANCELED') . '</span>'
 		};
 	}
 

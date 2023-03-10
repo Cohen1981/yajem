@@ -19,6 +19,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
@@ -43,32 +44,6 @@ class Icon
 	public function __construct(CMSApplication $application)
 	{
 		$this->application = $application;
-	}
-	/**
-	 * Method to generate a link to the create item page for the given category
-	 *
-	 * @param   object    $category  The category information
-	 * @param   Registry  $params    The item parameters
-	 * @param   array     $attribs   Optional attributes for the link
-	 *
-	 * @return  string  The HTML markup for the create item link
-	 *
-	 * @since  __DEPLOY_VERSION__
-	 */
-	public static function create($category, $params, $attribs = [])
-	{
-		$uri = Uri::getInstance();
-		$url = 'index.php?option=com_sdajem&task=event.add&return=' . base64_encode($uri) . '&id=0&catid=' . $category->id;
-		$text = LayoutHelper::render('joomla.content.icons.create', ['params' => $params, 'legacy' => false]);
-		// Add the button classes to the attribs array
-		if (isset($attribs['class'])) {
-			$attribs['class'] .= ' btn btn-primary';
-		} else {
-			$attribs['class'] = 'btn btn-primary';
-		}
-		$button = HTMLHelper::_('link', Route::_($url), $text, $attribs);
-		$output = '<span class="hasTooltip" title="' . HTMLHelper::_('tooltipText', 'COM_FOOS_CREATE_FOO') . '">' . $button . '</span>';
-		return $output;
 	}
 	/**
 	 * Display an edit icon for the event.
@@ -208,7 +183,7 @@ class Icon
 		if (!isset($created_by_alias) && !isset($location->created_by)) {
 			$author = '';
 		} else {
-			$author = $location->created_by_alias ?: Factory::getApplication()->getIdentity($location->created_by)->name;
+			$author = Factory::getApplication()->getIdentity($location->created_by)->name;
 		}
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= $date;
@@ -329,4 +304,44 @@ class Icon
 		return $output;
 	}
 
+	public static function editFitting($fitting, $params, $attribs = [], $legacy = false) {
+		$user = Factory::getApplication()->getIdentity();
+		$uri  = Uri::getInstance();
+		// Ignore if in a popup window.
+		if ($params && $params->get('popup')) {
+			return '';
+		}
+		// Set the link class
+		$attribs['class'] = 'dropdown-item';
+
+		$attendingUrl = 'index.php?option=com_sdajem&view=fitting&layout=edit&id=' . $fitting->id;
+		$url        = $attendingUrl . '&task=fitting.edit&id=' . $fitting->id . '&return=' . base64_encode($uri);
+
+		$icon = 'edit';
+
+		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
+			. HTMLHelper::tooltipText(Text::_('COM_SDAJEM_EDIT_FITTING'), '', 0, 0) . '"></span> ';
+		$text .= Text::_('JGLOBAL_EDIT');
+		$attribs['title'] = Text::_('COM_SDAJEM_EDIT_FITTING');
+		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
+		return $output;
+	}
+
+	public static function switchEventStatus($event, EventStatusEnum $action, $attribs = []) {
+		$uri  = Uri::getInstance();
+
+		// Set the link class
+		$attribs['class'] = 'sda_button_spacer btn btn-secondary';
+
+		$eventUrl = 'index.php?option=com_sdajem&view=events';
+		$url        = $eventUrl . '&task='. $action->getEventAction() . '&eventId=' . $event->id . '&return=' . base64_encode($uri);
+
+		$icon = $action->getIcon();
+
+		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
+			. HTMLHelper::tooltipText(Text::_($action->getStatusLabel()), '', 0, 0) . '"></span> ';
+		$attribs['title'] = Text::_($action->getStatusLabel());
+		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
+		return $output;
+	}
 }

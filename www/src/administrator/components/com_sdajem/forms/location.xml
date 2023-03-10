@@ -124,15 +124,6 @@
                 filter="user_utc"
         />
         <field
-                name="catid"
-                type="categoryedit"
-                label="JCATEGORY"
-                extension="com_sdajem.locations"
-                addfieldprefix="Joomla\Component\Categories\Administrator\Field"
-                required="true"
-                default=""
-        />
-        <field
                 name="access"
                 type="accesslevel"
                 label="JFIELD_ACCESS_LABEL"

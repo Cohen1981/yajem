@@ -60,7 +60,7 @@ if (!$user->guest)
 	{
 		if ($canEdit) : ?>
 			<div class="icons float-end">
-				<?php echo HTMLHelper::_('eventicon.editLocation', $item, $params); ?>
+				<?php echo HTMLHelper::_('sdajemIcon.editLocation', $item, $params); ?>
 			</div>
 		<?php endif;
 	} ?>

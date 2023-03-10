@@ -34,6 +34,7 @@ class LocationsModel extends ListModel
 				'language', 'a.language', 'language_title',
 				'publish_up', 'a.publish_up',
 				'publish_down', 'a.publish_down',
+				'postalCode', 'a.postalCode'
 			);
 			$assoc = Associations::isEnabled();
 			if ($assoc)
@@ -64,23 +65,31 @@ class LocationsModel extends ListModel
 				'list.select',
 				[
 					$db->quoteName('a.id'),
-					$db->quoteName('a.title'),
-					$db->quoteName('a.alias'),
-					$db->quoteName('a.description'),
-					$db->quoteName('a.url'),
 					$db->quoteName('a.access'),
-					$db->quoteName('a.catid'),
+					$db->quoteName('a.alias'),
+					$db->quoteName('a.created'),
+					$db->quoteName('a.created_by'),
+					$db->quoteName('a.created_by_alias'),
+					$db->quoteName('a.checked_out'),
+					$db->quoteName('a.checked_out_time'),
 					$db->quoteName('a.published'),
 					$db->quoteName('a.publish_up'),
 					$db->quoteName('a.publish_down'),
+					$db->quoteName('a.state'),
 					$db->quoteName('a.ordering'),
 					$db->quoteName('a.language'),
+					$db->quoteName('a.title'),
+					$db->quoteName('a.description'),
+					$db->quoteName('a.url'),
 					$db->quoteName('a.street'),
 					$db->quoteName('a.postalCode'),
 					$db->quoteName('a.city'),
 					$db->quoteName('a.stateAddress'),
 					$db->quoteName('a.country'),
-					$db->quoteName('a.latlng')
+					$db->quoteName('a.latlng'),
+					$db->quoteName('a.contactId'),
+					$db->quoteName('a.image'),
+					$db->quoteName('a.catid')
 				]
 			)
 		);

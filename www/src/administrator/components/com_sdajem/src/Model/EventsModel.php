@@ -40,7 +40,8 @@ class EventsModel extends ListModel
 				'publish_down', 'a.publish_down',
 				'startDateTime', 'a.startDateTime',
 				'endDateTime', 'a.endDateTime',
-				'eventStatus', 'a.eventStatus'
+				'eventStatus', 'a.eventStatus',
+				'attendeeCount'
 			);
 			$assoc = Associations::isEnabled();
 			if ($assoc)
@@ -71,17 +72,25 @@ class EventsModel extends ListModel
 				'list.select',
 				[
 					$db->quoteName('a.id'),
-					$db->quoteName('a.title'),
 					$db->quoteName('a.alias'),
-					$db->quoteName('a.description'),
-					$db->quoteName('a.url'),
+					$db->quoteName('a.id'),
 					$db->quoteName('a.access'),
-					$db->quoteName('a.catid'),
+					$db->quoteName('a.alias'),
+					$db->quoteName('a.created'),
+					$db->quoteName('a.created_by'),
+					$db->quoteName('a.created_by_alias'),
+					$db->quoteName('a.checked_out'),
+					$db->quoteName('a.checked_out_time'),
 					$db->quoteName('a.published'),
 					$db->quoteName('a.publish_up'),
 					$db->quoteName('a.publish_down'),
+					$db->quoteName('a.state'),
 					$db->quoteName('a.ordering'),
 					$db->quoteName('a.language'),
+					$db->quoteName('a.title'),
+					$db->quoteName('a.description'),
+					$db->quoteName('a.url'),
+					$db->quoteName('a.catid'),
 					$db->quoteName('a.startDateTime'),
 					$db->quoteName('a.endDateTime'),
 					$db->quoteName('a.allDayEvent'),

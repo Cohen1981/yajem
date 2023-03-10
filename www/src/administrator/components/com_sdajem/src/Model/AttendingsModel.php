@@ -26,8 +26,10 @@ class AttendingsModel extends ListModel
 		{
 			$config['filter_fields'] = array(
 				'id', 'a.id',
-				'event_id', 'a.event_id', 'e.title', 'eventTitle',
-				'users_user_is', 'a.users_user_id', 'at.username', 'attendeeName',
+				'event_id', 'a.event_id',
+				'eventTitle', 'e.title',
+				'users_user_id', 'a.users_user_id',
+				'attendeeName', 'at.username',
 				'Status', 'a.Status'
 			);
 		}
@@ -44,6 +46,7 @@ class AttendingsModel extends ListModel
 	 */
 	protected function getListQuery()
 	{
+		$currentUser = Factory::getApplication()->getIdentity();
 		// Create a new query object.
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
@@ -64,6 +67,8 @@ class AttendingsModel extends ListModel
 
 		// join event
 		$query->select($db->quoteName('e.title', 'eventTitle'))
+			->select($db->quoteName('e.startDateTime', 'startDateTime'))
+			->select($db->quoteName('e.endDateTime', 'endDateTime'))
 			->join(
 				'LEFT',
 				$db->quoteName('#__sdajem_events', 'e') . ' ON ' . $db->quoteName('e.id') . '=' . $db->quoteName('a.event_id')
@@ -75,6 +80,46 @@ class AttendingsModel extends ListModel
 				'LEFT',
 				$db->quoteName('#__users', 'at') . ' ON ' . $db->quoteName('at.id') . ' = ' . $db->quoteName('a.users_user_id')
 			);
+
+		// Filter on user.
+		if ($currentUser->authorise('core.manage', 'com_sdajem')) {
+			if ($user = $this->getState('filter.users_user_id'))
+			{
+				$query->where($db->quoteName('a.users_user_id') . ' = ' . $db->quote($user));
+			}
+		} else {
+			$query->where($db->quoteName('a.users_user_id') . ' = ' . $db->quote($currentUser->id));
+		}
+
+		// Filter on event
+		if ($event = $this->getState('filter.event_id'))
+		{
+			$query->where($db->quoteName('a.event_id') . ' = ' . $db->quote($event));
+		}
+
+		// Filter by search in name.
+		$search = $this->getState('filter.search');
+		if (!empty($search))
+		{
+			if (stripos($search, 'id:') === 0)
+			{
+				$query->where('a.id = ' . (int) substr($search, 3));
+			}
+			else
+			{
+				$search = $db->quote('%' . str_replace(' ', '%', $db->escape(trim($search), true) . '%'));
+				$query->where(
+					'(' . $db->quoteName('e.title') . ' LIKE ' . $search . ')'
+				);
+				$query->extendWhere('OR', '(' . $db->quoteName('at.username') . ' LIKE ' . $search . ')');
+			}
+		}
+
+		// Add the list ordering clause.
+		$orderCol = $this->state->get('list.ordering', 'e.title');
+		$orderDirn = $this->state->get('list.direction', 'asc');
+
+		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;
 	}

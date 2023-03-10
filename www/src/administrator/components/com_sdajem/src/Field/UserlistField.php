@@ -37,6 +37,7 @@ class UserlistField extends ListField
 		$key = 'id';
 		$value= 'username';
 
+		$currentUser = Factory::getApplication()->getIdentity();
 		// Get the database object.
 		$db = $this->getDatabase();
 
@@ -69,6 +70,14 @@ class UserlistField extends ListField
 
 		$query->where($db->quoteName('ug.id') . ' = ' . (int) $params->get('sda_user_group_name'));
 
+		if ($this->element instanceof \SimpleXMLElement)
+		{
+			$attr = $this->element->attributes();
+			if ($attr->filter !== null && !$currentUser->authorise('core.manage', 'com_sdajem'))
+			{
+				$query->where($db->quoteName('u.id') . ' = ' . $currentUser->id);
+			}
+		}
 		// Set the query and get the result list.
 		$db->setQuery($query);
 

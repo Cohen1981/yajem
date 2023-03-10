@@ -7,7 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
-namespace Sda\Component\Sdajem\Administrator\Model;
+namespace Sda\Component\Sdajem\Administrator\Model\Items;
 
 defined('_JEXEC') or die();
 
@@ -21,6 +21,7 @@ use Joomla\CMS\Date\Date;
  * @property  int       access
  * @property  string    alias
  * @property  Date      created
+ * @property  int       created_by
  * @property  int       published
  * @property  Date      publish_up
  * @property  Date      publish_down

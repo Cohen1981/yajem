@@ -6,8 +6,21 @@
                 type="text"
                 inputmode="search"
                 label="COM_SDAJEM_FILTER_SEARCH_LABEL"
-                description="COM_SDAJEM_FILTER_SEARCH_DESC"
+                description="COM_SDAJEM_FILTER_SEARCH_ATTENDINGS_DESC"
                 hint="JSEARCH_FILTER"
+        />
+        <field addfieldprefix="Sda\Component\Sdajem\Administrator\Field"
+                name="users_user_id"
+                type="Userlist"
+                label="COM_SDAJEM_ATTENDEE"
+                onchange="this.form.submit();"
+               filter="true"
+        />
+        <field addfieldprefix="Sda\Component\Sdajem\Administrator\Field"
+               name="event_id"
+               type="Eventlist"
+               label="COM_SDAJEM_EVENT"
+               onchange="this.form.submit();"
         />
     </fields>
     <fields name="list">
@@ -22,7 +35,7 @@
             <option value="eventTitle ASC">SDAJEM_EVENT_TITLE_ASC</option>
             <option value="eventTitle DESC">SDAJEM_EVENT_TITLE_DESC</option>
             <option value="attendeeName ASC">SDAJEM_ATTENDEE_NAME_ASC</option>
-            <option value="a.attendeeName DESC">SDAJEM_ATTENDEE_NAME_DESC</option>
+            <option value="attendeeName DESC">SDAJEM_ATTENDEE_NAME_DESC</option>
         </field>
         <field
                 name="limit"

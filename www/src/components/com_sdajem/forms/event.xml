@@ -68,6 +68,7 @@
                 showtime="true"
                 translateformat="true"
                 todaybutton="true"
+                required="true"
                 size="22"
         />
         <field
@@ -77,17 +78,20 @@
                 showtime="true"
                 translateformat="true"
                 todaybutton="true"
+                required="true"
                 size="22"
         />
+        <!--
         <field
                 name="catid"
                 type="categoryedit"
                 label="JCATEGORY"
                 extension="com_sdajem.events"
                 addfieldprefix="Joomla\Component\Categories\Administrator\Field"
-                required="true"
+                required=""
                 default=""
         />
+        -->
         <field name="organizerId"
                type="Userlist"
                label="COM_SDAJEM_FIELD_ORGANIZER_LABEL"
@@ -98,6 +102,19 @@
                label="COM_SDAJEM_FIELD_HOST_LABEL"
                desc=""
         />
+        <fields name="params" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
+            <fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
+                <field
+                        name="sda_use_attending"
+                        type="list"
+                        label="COM_SDAJEM_FIELD_USE_ATTENDING_LABEL"
+                        default="1"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+        </fields>
     </fieldset>
 
     <fieldset name="language" label="JFIELD_LANGUAGE_LABEL">

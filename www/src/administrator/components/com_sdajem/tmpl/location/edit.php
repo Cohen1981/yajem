@@ -52,7 +52,6 @@ $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 						<?php echo $this->getForm()->renderField('country'); ?>
 						<?php echo $this->getForm()->renderField('latlng'); ?>
 						<?php echo $this->getForm()->renderField('published'); ?>
-						<?php echo $this->getForm()->renderField('catid'); ?>
                     </div>
                 </div>
             </div>

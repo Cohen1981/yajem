@@ -9,6 +9,8 @@
 
 namespace Sda\Component\Sdajem\Site\Enums;
 
+use Joomla\CMS\Language\Text;
+
 /**
  * @since       1.0.0
  * @package     Sda\Component\Sdajem\Site\Enums
@@ -36,6 +38,16 @@ enum AttendingStatusEnum: int
 			self::NA => 'COM_SDAJEM_ATTENDING_NA',
 			self::ATTENDING => 'COM_SDAJEM_ATTENDING_ATTEND',
 			self::NOT_ATTENDING => 'COM_SDAJEM_ATTENDING_NOT_ATTENDING'
+		};
+	}
+
+	public function getStatusBatch(): string
+	{
+		return match($this)
+		{
+			self::NA => '<span class="badge color-neutral">' . Text::_('COM_SDAJEM_ATTENDING_NA') . '</span>',
+			self::ATTENDING => '<span class="badge color-ok">' . Text::_('COM_SDAJEM_ATTENDING_ATTEND') . '</span>',
+			self::NOT_ATTENDING => '<span class="badge color-nok">' . Text::_('COM_SDAJEM_ATTENDING_NOT_ATTENDING') . '</span>'
 		};
 	}
 

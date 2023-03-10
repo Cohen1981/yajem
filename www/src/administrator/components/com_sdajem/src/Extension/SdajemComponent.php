@@ -45,7 +45,7 @@ class SdajemComponent extends MVCComponent implements BootableExtensionInterface
 	public function boot(ContainerInterface $container)
 	{
 		$this->getRegistry()->register('sdajemadministrator', new AdministratorService);
-		$this->getRegistry()->register('eventicon', new Icon($container->get(SiteApplication::class)));
+		$this->getRegistry()->register('sdajemIcon', new Icon($container->get(SiteApplication::class)));
 	}
 
 	/**
@@ -93,7 +93,7 @@ class SdajemComponent extends MVCComponent implements BootableExtensionInterface
 	 *
 	 * @return string
 	 *
-	 * @ since 1.0.0
+	 * @since 1.0.0
 	 */
 	protected function getStateColumnForSection(string $section = null)
 	{

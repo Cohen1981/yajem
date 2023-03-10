@@ -20,7 +20,7 @@ use Joomla\Database\DatabaseDriver;
 use Sda\Component\Sdajem\Administrator\Model\LocationModel;
 
 /**
- * @ since      1.0.0
+ * @since      1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Table
  *
  * @property  int       id
@@ -99,6 +99,12 @@ class LocationTable extends Table
 			$this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
 			return false;
 		}
+		if (!$this->created_by) {
+			$this->created_by = Factory::getApplication()->getIdentity()->id;
+		}
+		if (!$this->created) {
+			$this->created = Date::getInstance()->toSql();
+		}
 		// Set publish_up, publish_down to null if not set
 		if (!$this->publish_up) {
 			$this->publish_up = null;
@@ -106,10 +112,13 @@ class LocationTable extends Table
 		if (!$this->publish_down) {
 			$this->publish_down = null;
 		}
-		if (!$this->checked_out) {
-			$this->checked_out = null;
-			$this->checked_out_time = null;
+		if (!$this->published) {
+			$this->published = 1;
 		}
+		//if (!$this->checked_out) {
+		$this->checked_out = null;
+		$this->checked_out_time = null;
+		//}
 		return true;
 	}
 
@@ -118,7 +127,7 @@ class LocationTable extends Table
 	 *
 	 * @return bool
 	 *
-	 * @ since 1.0.0
+	 * @since 1.0.0
 	 */
 	public function store($updateNulls = true)
 	{

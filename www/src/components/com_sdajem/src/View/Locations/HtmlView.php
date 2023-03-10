@@ -66,6 +66,7 @@ class HtmlView extends BaseHtmlView
 	{
 		$this->items = $this->get('Items');
 
+		$this->pagination = $this->get('Pagination');
 		$this->filterForm = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 		$this->state = $this->get('State');
@@ -95,9 +96,6 @@ class HtmlView extends BaseHtmlView
 
 			// Also, unset the active language filter so the search tools is not open by default with this filter.
 			unset($this->activeFilters['language']);
-
-			// One last changes needed is to change the category filter to just show categories with All language or with the forced language.
-			$this->filterForm->setFieldAttribute('category_id', 'language', '*,' . $forcedLanguage, 'filter');
 		}
 
 		parent::display($tpl);

@@ -79,6 +79,10 @@ class HtmlView extends BaseHtmlView
 			$authorised = $user->authorise('core.create', 'com_sdajem');
 		} else {
 			$authorised = $user->authorise('core.edit', 'com_sdajem');
+
+			if ($authorised !== true) {
+				$authorised = $user->id == $this->item->users_user_id;
+			}
 		}
 		if ($authorised !== true) {
 			$app->redirect('index.php?option=com_users&view=login');
@@ -92,13 +96,6 @@ class HtmlView extends BaseHtmlView
 		$this->params = $this->state->params;
 		// Escape strings for HTML output
 		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
-		// Override global params with location specific params
-		#$this->params->merge($this->item->params);
-		// Propose current language as default when creating new location
-		/*if (empty($this->item->id) && Multilanguage::isEnabled()) {
-			$lang = Factory::getLanguage()->getTag();
-			$this->form->setFieldAttribute('language', 'default', $lang);
-		}*/
 
 		$this->return_page_edit = base64_encode(Uri::getInstance());
 
@@ -126,9 +123,9 @@ class HtmlView extends BaseHtmlView
 		if ($menu) {
 			$this->params->def('page_heading', $this->params->get('page_title', $menu->title));
 		} else {
-			$this->params->def('page_heading', Text::_('COM_FOOS_FORM_EDIT_FOO'));
+			$this->params->def('page_heading', Text::_('COM_FOOS_FORM_EDIT_ATTENDING'));
 		}
-		$title = $this->params->def('page_title', Text::_('COM_FOOS_FORM_EDIT_FOO'));
+		$title = $this->params->def('page_title', Text::_('COM_FOOS_FORM_EDIT_ATTENDING'));
 		if ($app->get('sitename_pagetitles', 0) == 1) {
 			$title = Text::sprintf('JPAGETITLE', $app->get('sitename'), $title);
 		} else if ($app->get('sitename_pagetitles', 0) == 2) {

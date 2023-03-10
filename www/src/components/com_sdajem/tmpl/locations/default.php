@@ -7,6 +7,7 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
@@ -36,7 +37,7 @@ if ($saveOrder && !empty($this->items)) {
 
 $params = $this->get('State')->get('params');
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\LocationsItemModel $item */
+/* @var \Sda\Component\Sdajem\Administrator\Model\Items\LocationsItemModel $item */
 ?>
 
 <div class="sdajem_content_container">
@@ -67,8 +68,11 @@ $params = $this->get('State')->get('params');
 							<thead>
 							<tr>
 								<th scope="col" style="width:1%" class="d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_LOCATION', 'a.title', $listDirn, $listOrder); ?>
 								</th>
+                                <th scope="col" style="width:10%" class="d-none d-md-table-cell">
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_POSTALCODE', 'a.postalCode', $listDirn, $listOrder); ?>
+                                </th>
 							</tr>
 							</thead>
 							<tbody>
@@ -83,14 +87,14 @@ $params = $this->get('State')->get('params');
 												<?php echo $this->escape($item->title); ?>
 											</a>
 										</div>
-										<div class="small">
-											<?php echo Text::_('JCATEGORY') . ': ' . $this->escape($item->category_title); ?>
-										</div>
 									</th>
+                                    <td class="d-md-table-cell">
+										<?php echo $item->postalCode; ?>
+                                    </td>
 									<td class="small d-none d-md-table-cell">
-										<?php if ($canDo->get('core.edit') || $canDo->get('core.edit.own')) : ?>
+										<?php if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $item->created_by == Factory::getApplication()->getIdentity()->id)): ?>
 											<div class="icons">
-												<?php echo HTMLHelper::_('eventicon.editLocation', $item, $params); ?>
+												<?php echo HTMLHelper::_('sdajemIcon.editLocation', $item, $params); ?>
 											</div>
 										<?php endif; ?>
 									</td>
@@ -98,6 +102,8 @@ $params = $this->get('State')->get('params');
 							<?php endforeach; ?>
 							</tbody>
 						</table>
+
+						<?php echo $this->pagination->getListFooter(); ?>
 
 					<?php endif; ?>
 					<input type="hidden" name="task" value=""/>

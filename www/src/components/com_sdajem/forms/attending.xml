@@ -15,14 +15,16 @@
                 label="COM_SDAJEM_FIELD_EVENT_TITLE_LABEL"
         />
         <field
-                name="users_user_id"
-                type="Userlist"
-                label="COM_SDAJEM_FIELD_USER_TITLE_LABEL"
-        />
-        <field
                 name="status"
                 type="Attendeestatuslist"
                 label="COM_SDAJEM_FIELD_ATTENDING_STATUS_LABEL"
+        />
+    </fieldset>
+    <fieldset name="admin" addfieldprefix="Sda\Component\Sdajem\Administrator\Field">
+        <field
+                name="users_user_id"
+                type="Userlist"
+                label="COM_SDAJEM_FIELD_USER_TITLE_LABEL"
         />
     </fieldset>
 </form>

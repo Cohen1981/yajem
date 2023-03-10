@@ -19,7 +19,7 @@ use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 
 /**
- * @ since      1.0.0
+ * @since      1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Table
  *
  * Fields
@@ -76,6 +76,10 @@ class AttendingTable extends Table
 			$this->setError($e->getMessage());
 			return false;
 		}
+
+		if (!$this->users_user_id) {
+			$this->users_user_id = Factory::getApplication()->getIdentity()->id;
+		}
 		return true;
 	}
 
@@ -84,7 +88,7 @@ class AttendingTable extends Table
 	 *
 	 * @return bool
 	 *
-	 * @ since 1.0.0
+	 * @since 1.0.0
 	 */
 	public function store($updateNulls = true)
 	{

@@ -51,6 +51,7 @@ class BaseItemsView extends \Joomla\CMS\MVC\View\HtmlView
 	public function display($tpl = null)
 	{
 		$this->items = $this->get('Items');
+		$this->pagination = $this->get('Pagination');
 		$this->filterForm = $this->get('FilterForm');
 		$this->activeFilters = $this->get('ActiveFilters');
 		$this->state = $this->get('State');
