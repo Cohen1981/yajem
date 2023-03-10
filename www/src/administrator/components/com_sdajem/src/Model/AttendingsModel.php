@@ -31,7 +31,9 @@ class AttendingsModel extends ListModel
 				'eventTitle', 'e.title',
 				'users_user_id', 'a.users_user_id',
 				'attendeeName', 'at.username',
-				'Status', 'a.Status'
+				'Status', 'a.Status',
+				'startDateTime', 'e.startDateTime',
+				'endDateTime', 'e.endDateTime'
 			);
 		}
 
@@ -118,7 +120,7 @@ class AttendingsModel extends ListModel
 		}
 
 		// Add the list ordering clause.
-		$orderCol = $this->state->get('list.ordering', 'e.title');
+		$orderCol = $this->state->get('list.ordering', 'e.startDateTime');
 		$orderDirn = $this->state->get('list.direction', 'asc');
 
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));

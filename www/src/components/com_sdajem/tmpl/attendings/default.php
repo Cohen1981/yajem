@@ -69,7 +69,7 @@ $params = $this->get('State')->get('params');
 							<thead>
 							<tr>
 								<th scope="col" style="width:1%" class="d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'eventTitle', $listDirn, $listOrder); ?>
+									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'startDateTime', $listDirn, $listOrder); ?>
 								</th>
                                 <th scope="col" style="width:1%" class="d-none d-md-table-cell">
 									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_USERNAME', 'attendeeName', $listDirn, $listOrder); ?>

@@ -34,6 +34,8 @@
             <option value="">JGLOBAL_SORT_BY</option>
             <option value="eventTitle ASC">SDAJEM_EVENT_TITLE_ASC</option>
             <option value="eventTitle DESC">SDAJEM_EVENT_TITLE_DESC</option>
+            <option value="startDateTime ASC">SDAJEM_START_DATE_ASC</option>
+            <option value="startDateTime DESC">SDAJEM_START_DATE_DESC</option>
             <option value="attendeeName ASC">SDAJEM_ATTENDEE_NAME_ASC</option>
             <option value="attendeeName DESC">SDAJEM_ATTENDEE_NAME_DESC</option>
         </field>
