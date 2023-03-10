@@ -108,6 +108,20 @@
         </field>
     </fieldset>
     <fieldset
+            name="attendings"
+            label="COM_SDAJEM_FIELDS_ATTENDING_CONFIG"
+            description="COM_SDAJEM_FIELDS_ATTENDING_CONFIG_DESC">
+        <field
+                name="sda_show_all_users"
+                type="list"
+                label="COM_SDAJEM_FIELD_SHOW_ALL_USERS_LABEL"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+    </fieldset>
+    <fieldset
             name="permissions"
             label="JCONFIG_PERMISSIONS_LABEL"
             description="JCONFIG_PERMISSIONS_DESC"

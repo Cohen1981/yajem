@@ -11,6 +11,7 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 
 \defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Associations;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
@@ -81,8 +82,9 @@ class AttendingsModel extends ListModel
 				$db->quoteName('#__users', 'at') . ' ON ' . $db->quoteName('at.id') . ' = ' . $db->quoteName('a.users_user_id')
 			);
 
-		// Filter on user.
-		if ($currentUser->authorise('core.manage', 'com_sdajem')) {
+		// Filter on user. Default Current User
+		if ($this->getState('filter.users_user_id'))
+		{
 			if ($user = $this->getState('filter.users_user_id'))
 			{
 				$query->where($db->quoteName('a.users_user_id') . ' = ' . $db->quote($user));

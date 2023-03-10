@@ -73,9 +73,13 @@ class UserlistField extends ListField
 		if ($this->element instanceof \SimpleXMLElement)
 		{
 			$attr = $this->element->attributes();
-			if ($attr->filter !== null && !$currentUser->authorise('core.manage', 'com_sdajem'))
+			$params = ComponentHelper::getParams('com_sdajem');
+			if (!$params->get('sda_show_all_users'))
 			{
-				$query->where($db->quoteName('u.id') . ' = ' . $currentUser->id);
+				if ($attr->filter !== null && !$currentUser->authorise('core.manage', 'com_sdajem'))
+				{
+					$query->where($db->quoteName('u.id') . ' = ' . $currentUser->id);
+				}
 			}
 		}
 		// Set the query and get the result list.
