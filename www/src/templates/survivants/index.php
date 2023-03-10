@@ -81,6 +81,9 @@ $wa->usePreset('template.survivants.' . ($this->direction === 'rtl' ? 'rtl' : 'l
 // Override 'template.active' asset to set correct ltr/rtl dependency
 $wa->registerStyle('template.active', '', [], [], ['template.survivants.' . ($this->direction === 'rtl' ? 'rtl' : 'ltr')]);
 
+$wa->useScript('bootstrap.dropdown');
+$wa->useScript('bootstrap.collapse');
+
 // Logo file or site title param
 if ($this->params->get('logoFile')) {
     $logo = HTMLHelper::_('image', Uri::root(false) . htmlspecialchars($this->params->get('logoFile'), ENT_QUOTES), $sitename, ['loading' => 'eager', 'decoding' => 'async'], false, 0);

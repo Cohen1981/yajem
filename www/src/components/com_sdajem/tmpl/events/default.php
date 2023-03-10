@@ -24,6 +24,8 @@ use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 /* @var \Joomla\CMS\WebAsset\WebAssetManager $wa */
 $wa = $this->document->getWebAssetManager();
+$wa->useScript('bootstrap.dropdown');
+$wa->useScript('bootstrap.collapse');
 $wa->useScript('table.columns');
 $wa->useScript('form.validate');
 $wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
@@ -42,6 +44,7 @@ if ($saveOrder && !empty($this->items)) {
 }
 
 $params = $params = ComponentHelper::getParams('com_sdajem');
+$currentUser = Factory::getApplication()->getIdentity();
 
 /* @var \Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel $item */
 ?>
@@ -107,7 +110,7 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                             </caption>
                             <thead>
                             <tr>
-                                <?php if (!Factory::getApplication()->getIdentity()->guest) :?>
+                                <?php if (!$currentUser->guest) :?>
                                 <td style="width:1%" class="text-center">
                                     <?php echo HTMLHelper::_('grid.checkall'); ?>
                                 </td>
@@ -121,7 +124,7 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                                 <th scope="col" style="width:10%" class="d-none d-md-table-cell">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_ENDDATE', 'a.endDateTime', $listDirn, $listOrder); ?>
                                 </th>
-                                <?php if (!Factory::getApplication()->getIdentity()->guest) : ?>
+                                <?php if (!$currentUser->guest) : ?>
                                 <th class="d-none d-md-table-cell">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLEHEAD_EVENTS_STATUS', 'a.eventStatus', $listDirn, $listOrder); ?>
                                 </th>
@@ -139,7 +142,7 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                             foreach ($this->items as $i => $item) :
                                 ?>
                                 <tr class="row<?php echo $i % 2; ?>">
-	                                <?php if (!Factory::getApplication()->getIdentity()->guest) :?>
+	                                <?php if (!$currentUser->guest) :?>
                                     <td class="text-center">
                                         <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                     </td>
@@ -158,10 +161,10 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
                                         <?php if ($params->get('sda_use_attending')) :?>
                                         <div class="small">
                                             <?php
-                                            if (!Factory::getApplication()->getIdentity()->guest)
+                                            if (!$currentUser->guest)
                                             {
-	                                            $attStatus = (AttendingHelper::getAttendingStatusToEvent(Factory::getApplication()->getIdentity()->id,
-		                                            $item->id)) ? AttendingHelper::getAttendingStatusToEvent(Factory::getApplication()->getIdentity()->id,
+	                                            $attStatus = (AttendingHelper::getAttendingStatusToEvent($currentUser->id,
+		                                            $item->id)) ? AttendingHelper::getAttendingStatusToEvent($currentUser->id,
 		                                            $item->id)->status : 0;
 	                                            echo AttendingStatusEnum::from($attStatus)->getStatusBadge();
                                             }
@@ -191,29 +194,39 @@ $params = $params = ComponentHelper::getParams('com_sdajem');
 
                                         ?>
                                     </td>
-                                    <?php if (!Factory::getApplication()->getIdentity()->guest) : ?>
+                                    <?php if (!$currentUser->guest) : ?>
                                     <td class="d-md-table-cell">
-                                        <div>
-                                        <?php echo EventStatusEnum::from($item->eventStatus)->getStatusBadge(); ?>
-                                        </div>
-
-                                        <?php if (Factory::getApplication()->getIdentity()->id == $item->organizerId) : ?>
+                                        <?php if ($currentUser->id == $item->organizerId || $canDo->get('core.manage')) : ?>
                                         <div class="sda_form">
+                                            <?php
+                                            $class = EventStatusEnum::from($item->eventStatus)->getStatusColorClass();
+                                            ?>
+                                            <button type="button" class="btn btn-sm <?php echo $class; ?> dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+	                                            <?php echo Text::_(EventStatusEnum::from($item->eventStatus)->getStatusLabel()); ?>
+                                            </button>
+                                            <ul class="dropdown-menu">
+
                                             <?php foreach (EventStatusEnum::cases() as $status) : ?>
                                                 <?php if ($status != EventStatusEnum::from($item->eventStatus) && $status != EventStatusEnum::OPEN) : ?>
-		                                            <?php echo HTMLHelper::_('sdajemIcon.switchEventStatus',$item, $status); ?>
+                                                    <li><?php echo HTMLHelper::_('sdajemIcon.switchEventStatus',$item, $status); ?></li>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
+                                            </ul>
+                                        </div>
+                                        <?php else: ?>
+                                        <div>
+		                                    <?php echo EventStatusEnum::from($item->eventStatus)->getStatusBadge(); ?>
                                         </div>
                                         <?php endif; ?>
-
                                     </td>
                                     <td class="d-none d-md-table-cell">
                                         <?php echo $item->attendeeCount; ?>
                                     </td>
                                     <?php endif; ?>
                                     <td class="small d-none d-md-table-cell">
-                                        <?php if ($canDo->get('core.edit') || ($canDo->get('core.edit.own') && $item->created_by == Factory::getApplication()->getIdentity()->id)) : ?>
+                                        <?php if ($canDo->get('core.edit') ||
+                                                 ($canDo->get('core.edit.own') && $item->created_by == $currentUser->id)
+                                        ) : ?>
 
                                             <div class="icons">
                                                 <?php echo HTMLHelper::_('sdajemIcon.edit', $item, $params); ?>

@@ -86,6 +86,17 @@ enum EventStatusEnum : int
 		};
 	}
 
+	public function getStatusColorClass(): string
+	{
+		return match($this)
+		{
+			self::OPEN => 'color-neutral',
+			self::APPLIED => 'color-warning',
+			self::CONFIRMED => 'color-ok',
+			self::CANCELED => 'color-nok'
+		};
+	}
+
 	public function getColor(): string
 	{
 		return match($this)

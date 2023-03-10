@@ -332,7 +332,8 @@ class Icon
 		$uri  = Uri::getInstance();
 
 		// Set the link class
-		$attribs['class'] = 'sda_button_spacer btn btn-light';
+		// $attribs['class'] = 'sda_button_spacer btn btn-light';
+		$attribs['class']= 'dropdown-item';
 
 		$eventUrl = 'index.php?option=com_sdajem&view=events';
 		$url        = $eventUrl . '&task='. $action->getEventAction() . '&eventId=' . $event->id . '&return=' . base64_encode($uri);
@@ -340,7 +341,7 @@ class Icon
 		$icon = $action->getIcon();
 
 		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
-			. HTMLHelper::tooltipText(Text::_($action->getStatusLabel()), '', 0, 0) . '"></span> ';
+			. HTMLHelper::tooltipText(Text::_($action->getStatusLabel()), '', 0, 0) . '"> &nbsp;' . Text::_($action->getStatusLabel()) . '</span> ';
 		$attribs['title'] = Text::_($action->getStatusLabel());
 		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
 		return $output;

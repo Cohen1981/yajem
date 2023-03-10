@@ -16,6 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Contact\Administrator\Model\ContactModel;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
@@ -23,6 +24,9 @@ use Sda\Component\Sdajem\Site\Model\UserModel;
 
 $wa=$this->document->getWebAssetManager();
 $wa->registerAndUseStyle('sdajem', 'com_sdajem/sdajem.css');
+
+$wa->useScript('bootstrap.dropdown');
+$wa->useScript('bootstrap.collapse');
 
 $canDo   = ContentHelper::getActions('com_sdajem', 'category', $this->item->catid);
 $user = Factory::getApplication()->getIdentity();
@@ -73,6 +77,8 @@ if (!$user->guest)
 			urlencode($userModel->profile['city']);
 }
 
+$currentUser = Factory::getApplication()->getIdentity();
+
 ?>
 <div class="sdajem_content_container">
     <div class="sda_row">
@@ -94,6 +100,32 @@ if (!$user->guest)
                     }
                     ?>
                 </h4>
+                <?php if (!$currentUser->guest) : ?>
+                <h5>
+	                <?php if ($currentUser->id == $event->organizerId || $canDo->get('core.manage')) : ?>
+
+		                <?php
+		                $class = EventStatusEnum::from($event->eventStatus)->getStatusColorClass();
+		                ?>
+                        <button type="button" class="btn btn-sm <?php echo $class; ?> dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+			                <?php echo Text::_(EventStatusEnum::from($event->eventStatus)->getStatusLabel()); ?>
+                        </button>
+                        <ul class="dropdown-menu">
+
+			                <?php foreach (EventStatusEnum::cases() as $status) : ?>
+				                <?php if ($status != EventStatusEnum::from($event->eventStatus) && $status != EventStatusEnum::OPEN) : ?>
+                                    <li><?php echo HTMLHelper::_('sdajemIcon.switchEventStatus',$event, $status); ?></li>
+				                <?php endif; ?>
+			                <?php endforeach; ?>
+                        </ul>
+
+	                <?php else: ?>
+
+		                <?php echo EventStatusEnum::from($event->eventStatus)->getStatusBadge(); ?>
+
+	                <?php endif; ?>
+                </h5>
+                <?php endif; ?>
             </div>
             <?php if (!empty($canEdit))
             {
@@ -208,31 +240,25 @@ if (!$user->guest)
 	    <?php endif; ?>
     </div>
 
-    <?php if ($tparams->get('sda_use_attending')) : ?>
+    <?php if ($tparams->get('sda_use_attending') && !$user->guest) : ?>
         <div id="attendings" class="sda_row">
             <h5><?php echo Text::_('COM_SDAJEM_ATTENDESS'); ?></h5>
             <div class="sda_row">
             <?php if (isset($event->attendings)) : ?>
             <div class="sda_attendee_container">
-                <?php if (!$user->guest) : ?>
-                    <?php foreach ($event->attendings as $i => $attending) : ?>
-                        <?php if ($tparams->get('sda_avatar_field_name') && $tparams->get('sda_use_avatar')): ?>
-                            <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending), $tparams->get('sda_avatar_field_name')); ?>
-                        <?php else: ?>
-			                <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending)); ?>
-                        <?php endif; ?>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <?php echo count($event->attendings); ?>
-                <?php endif; ?>
+                <?php foreach ($event->attendings as $i => $attending) : ?>
+                    <?php if ($tparams->get('sda_avatar_field_name') && $tparams->get('sda_use_avatar')): ?>
+                        <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending), $tparams->get('sda_avatar_field_name')); ?>
+                    <?php else: ?>
+                        <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending)); ?>
+                    <?php endif; ?>
+                <?php endforeach; ?>
             </div>
             <?php endif; ?>
             </div>
             <div class="sda_row">
-            <?php if (!$user->guest) : ?>
                 <?= HTMLHelper::_('form.token'); ?>
                 <?php echo HTMLHelper::_('sdajemIcon.register', $event, $tparams); ?>
-            <?php endif; ?>
             </div>
         </div>
     <?php endif; ?>
