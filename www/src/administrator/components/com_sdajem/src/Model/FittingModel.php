@@ -11,8 +11,6 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
-use Joomla\CMS\Language\Associations;
-use Joomla\CMS\Language\LanguageHelper;
 
 class FittingModel extends \Joomla\CMS\MVC\Model\AdminModel
 {
@@ -25,13 +23,6 @@ class FittingModel extends \Joomla\CMS\MVC\Model\AdminModel
 	 */
 	public $typeAlias = 'com_sdajem.fitting';
 
-	/**
-	 * The context used for the associations table
-	 *
-	 * @var    string
-	 * @since  1.0.0
-	 */
-	protected $associationsContext = 'com_sdajem.item';
 	/**
 	 * @param   array  $data
 	 * @param   bool   $loadData

@@ -14,10 +14,8 @@ namespace Sda\Component\Sdajem\Site\Model;
 use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Table\Table;
-use Joomla\Registry\Registry;
 use Joomla\Utilities\ArrayHelper;
 
 class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\LocationModel

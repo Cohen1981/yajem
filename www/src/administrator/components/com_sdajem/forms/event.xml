@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <form>
-    <fieldset addfieldprefix="Sda\Component\Sdajem\Administrator\Field">
+    <config>
+        <inlinehelp button="show"/>
+    </config>
+    <fieldset name="eventdetails" addfieldprefix="Sda\Component\Sdajem\Administrator\Field">
         <field
                 name="id"
                 type="number"
@@ -29,16 +32,21 @@
                 label="COM_SDAJEM_FIELD_EVENTDESC_LABEL"
         />
         <field
-                name="url"
+                name="image"
+                type="media"
+                label="COM_SDAJEM_EVENT_IMAGE_LABEL"
+        />
+        <field
+                name=""
                 type="text"
                 label="COM_SDAJEM_FIELD_URL_LABEL"
                 size="255"
         />
-        <field
+        <field  addfieldprefix="Sda\Component\Sdajem\Administrator\Field"
                 name="sdajem_location_id"
                 type="modal_location"
-                label="COM_FOOS_SELECT_FOO_LABEL"
-                required="true"
+                label="COM_SDAJEM_SELECT_LOCATION_LABEL"
+                required="false"
                 select="true"
                 new="true"
                 edit="true"
@@ -61,6 +69,7 @@
                 showtime="true"
                 translateformat="true"
                 todaybutton="true"
+                required="true"
                 size="22"
         />
         <field
@@ -70,51 +79,30 @@
                 showtime="true"
                 translateformat="true"
                 todaybutton="true"
+                required="true"
                 size="22"
         />
-        <fields name="params" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-            <fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
-                <field
-                        name="sda_use_attending"
-                        type="list"
-                        label="COM_SDAJEM_FIELD_USE_ATTENDING_LABEL"
-                        default="1"
-                >
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-                <field
-                        name="sda_use_host"
-                        type="list"
-                        label="COM_SDAJEM_FIELD_USE_HOST_LABEL"
-                        default="0"
-                >
-                    <option value="0">JNO</option>
-                    <option value="1">JYES</option>
-                </field>
-            </fieldset>
-        </fields>
-    </fieldset>
-    <fieldset name="language" label="JFIELD_LANGUAGE_LABEL">
-        <field
-                name="language"
-                type="contentlanguage"
-                label="JFIELD_LANGUAGE_LABEL"
-        >
-            <option value="*">JALL</option>
-        </field>
-    </fieldset>
-    <fieldset name="publishing" label="JGLOBAL_FIELDSET_PUBLISHING">
+        <field name="organizerId"
+               type="Userlist"
+               label="COM_SDAJEM_FIELD_ORGANIZER_LABEL"
+               desc=""
+        />
+        <field name="hostId"
+               type="Contactlist"
+               label="COM_SDAJEM_FIELD_HOST_LABEL"
+               desc=""
+        />
         <field
                 name="featured"
-                type="list"
+                type="radio"
+                layout="joomla.form.field.radio.switcher"
                 label="JFEATURED"
                 default="0"
-                validate="options"
         >
             <option value="0">JNO</option>
             <option value="1">JYES</option>
         </field>
+
         <field
                 name="published"
                 type="list"
@@ -129,6 +117,7 @@
             <option value="2">JARCHIVED</option>
             <option value="-2">JTRASHED</option>
         </field>
+
         <field
                 name="publish_up"
                 type="calendar"
@@ -138,6 +127,7 @@
                 size="22"
                 filter="user_utc"
         />
+
         <field
                 name="publish_down"
                 type="calendar"
@@ -147,21 +137,44 @@
                 size="22"
                 filter="user_utc"
         />
+
         <field
                 name="access"
                 type="accesslevel"
                 label="JFIELD_ACCESS_LABEL"
                 size="1"
         />
+
         <field
                 name="checked_out"
                 type="hidden"
                 filter="unset"
         />
+
         <field
                 name="checked_out_time"
                 type="hidden"
                 filter="unset"
         />
+
+        <field
+                name="ordering"
+                type="ordering"
+                label="JFIELD_ORDERING_LABEL"
+                content_type="com_foos.foo"
+        />
+        <fields name="params" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
+            <fieldset name="display" label="JGLOBAL_FIELDSET_DISPLAY_OPTIONS">
+                <field
+                        name="sda_use_attending"
+                        type="list"
+                        label="COM_SDAJEM_FIELD_USE_ATTENDING_LABEL"
+                        default="1"
+                >
+                    <option value="0">JNO</option>
+                    <option value="1">JYES</option>
+                </field>
+            </fieldset>
+        </fields>
     </fieldset>
 </form>

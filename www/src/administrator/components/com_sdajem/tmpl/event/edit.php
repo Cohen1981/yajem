@@ -11,7 +11,6 @@
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
@@ -19,13 +18,12 @@ use Joomla\CMS\Router\Route;
 $app = Factory::getApplication();
 $input = $app->input;
 
-$assoc = Associations::isEnabled();
-
 $this->ignore_fieldsets = ['item_associations'];
 $this->useCoreUI = true;
 
 $wa = $this->document->getWebAssetManager();
 $wa ->useScript('keepalive')
+	->useScript('inlinehelp')
     ->useScript('form.validate');
 
 $layout  = 'edit';
@@ -33,42 +31,52 @@ $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 ?>
 
 <form action="<?php echo Route::_('index.php?option=com_sdajem&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>" method="post" name="adminForm" id="event-form" class="form-validate">
-    <div>
+    <div class="row title-alias form-vertical mb-3">
+        <div class="col-12 col-md-6">
+	        <?php echo $this->getForm()->renderField('title'); ?>
+        </div>
+        <div class="col-12 col-md-6">
+	        <?php echo $this->getForm()->renderField('alias'); ?>
+        </div>
+    </div>
+    <div class="main-card">
 		<?php echo HTMLHelper::_('uitab.startTabSet', 'myTab', ['active' => 'details']); ?>
 
-		<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', empty($this->item->id) ? Text::_('COM_SDAJEM_NEW_EVENT') : Text::_('COM_SDAJEM_EDIT_EVENT')); ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'details', empty($this->item->id) ? Text::_('COM_SDAJEM_NEW_EVENT') : Text::_('COM_SDAJEM_EDIT_EVENT')); ?>
+
         <div class="row">
-            <div class="col-md-9">
-                <div class="row">
-                    <div class="col-md-6">
-						<?php echo $this->getForm()->renderField('title'); ?>
-						<?php echo $this->getForm()->renderField('alias'); ?>
-						<?php echo $this->getForm()->renderField('description'); ?>
-	                    <?php echo $this->getForm()->renderField('sdajem_location_id'); ?>
-						<?php echo $this->getForm()->renderField('url'); ?>
-                        <?php echo $this->getForm()->renderField('allDayEvent'); ?>
-						<?php echo $this->getForm()->renderField('startDateTime'); ?>
-						<?php echo $this->getForm()->renderField('endDateTime'); ?>
-						<?php echo $this->getForm()->renderField('access'); ?>
-						<?php echo $this->getForm()->renderField('published'); ?>
-                    </div>
-                </div>
+            <div class="col-lg-9">
+                <?php echo $this->getForm()->renderField('description'); ?>
+                <?php echo $this->getForm()->renderField('image'); ?>
+                <?php echo $this->getForm()->renderField('url'); ?>
+                <?php echo $this->getForm()->renderField('sdajem_location_id'); ?>
+                <?php echo $this->getForm()->renderField('allDayEvent'); ?>
+                <?php echo $this->getForm()->renderField('startDateTime'); ?>
+                <?php echo $this->getForm()->renderField('endDateTime'); ?>
+                <?php echo $this->getForm()->renderField('organizerId'); ?>
+                <?php echo $this->getForm()->renderField('hostId'); ?>
+            </div>
+            <div class="col-lg-3">
+                <?php echo LayoutHelper::render('joomla.edit.global', $this); ?>
             </div>
         </div>
+
 		<?php echo HTMLHelper::_('uitab.endTab'); ?>
 
-		<?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
+        <?php echo LayoutHelper::render('joomla.edit.params', $this); ?>
 
-		<?php if ($assoc) : ?>
-			<?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'associations', Text::_('JGLOBAL_FIELDSET_ASSOCIATIONS')); ?>
-            <fieldset id="fieldset-associations" class="options-form">
-                <legend><?php echo Text::_('JGLOBAL_FIELDSET_ASSOCIATIONS'); ?></legend>
-                <div>
-					<?php echo LayoutHelper::render('joomla.edit.associations', $this); ?>
-                </div>
-            </fieldset>
-			<?php echo HTMLHelper::_('uitab.endTab'); ?>
-		<?php endif; ?>
+        <?php echo HTMLHelper::_('uitab.addTab', 'myTab', 'publishing', Text::_('JGLOBAL_FIELDSET_PUBLISHING')); ?>
+        <div class="row">
+            <div class="col-md-6">
+                <fieldset id="fieldset-publishingdata" class="options-form">
+                    <legend><?php echo Text::_('JGLOBAL_FIELDSET_PUBLISHING'); ?></legend>
+                    <div>
+                        <?php echo LayoutHelper::render('joomla.edit.publishingdata', $this); ?>
+                    </div>
+                </fieldset>
+            </div>
+        </div>
+        <?php echo HTMLHelper::_('uitab.endTab'); ?>
 
 		<?php echo HTMLHelper::_('uitab.endTabSet'); ?>
     </div>

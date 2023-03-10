@@ -10,10 +10,8 @@ namespace Sda\Component\Sdajem\Administrator\View\Location;
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use \Joomla\CMS\MVC\View\HtmlView AS BaseHtmlView;
@@ -110,10 +108,6 @@ class HtmlView extends BaseHtmlView
 				$toolbarButtons,
 				'btn-success'
 			);
-
-			if (Associations::isEnabled() && ComponentHelper::isEnabled('com_associations')) {
-				ToolbarHelper::custom('location.editAssociations', 'contract', 'contract', 'JTOOLBAR_ASSOCIATIONS', false, false);
-			}
 
 			ToolbarHelper::cancel('location.cancel', 'JTOOLBAR_CLOSE');
 		}

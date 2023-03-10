@@ -9,7 +9,6 @@
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Session\Session;
@@ -25,8 +24,6 @@ $wa->registerAndUseStyle('sdajem', 'com_sdajem/sdajem.css');
 
 $canChange = true;
 $canDo = ContentHelper::getActions('com_sdajem');
-
-$assoc = Associations::isEnabled();
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));

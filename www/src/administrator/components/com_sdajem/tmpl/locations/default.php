@@ -13,15 +13,12 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Multilanguage;
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Session\Session;
 
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('table.columns');
 $canChange = true;
-
-$assoc = Associations::isEnabled();
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
@@ -63,11 +60,6 @@ if ($saveOrder && !empty($this->items)) {
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
 								<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ACCESS', 'access_level', $listDirn, $listOrder); ?>
                             </th>
-							<?php if ($assoc) : ?>
-                                <th scope="col" style="width:10%">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
-                                </th>
-							<?php endif; ?>
 							<?php if (Multilanguage::isEnabled()) : ?>
                                 <th scope="col" style="width:10%" class="d-none d-md-table-cell">
 									<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language_title', $listDirn, $listOrder); ?>
@@ -122,15 +114,6 @@ if ($saveOrder && !empty($this->items)) {
 									<?php echo $item->access_level; ?>
                                 </td>
 
-								<?php if ($assoc) : ?>
-                                    <td class="d-none d-md-table-cell">
-										<?php if ($item->association) : ?>
-											<?php
-											echo HTMLHelper::_('locationsadministrator.association', $item->id);
-											?>
-										<?php endif; ?>
-                                    </td>
-								<?php endif; ?>
 								<?php if (Multilanguage::isEnabled()) : ?>
                                     <td class="small d-none d-md-table-cell">
 										<?php echo LayoutHelper::render('joomla.content.language', $item); ?>

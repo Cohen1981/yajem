@@ -12,16 +12,14 @@
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Router\Route;
-use Joomla\CMS\Language\Multilanguage;
-use Joomla\CMS\Language\Associations;
+use Joomla\CMS\Language\Multilanguage;;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Session\Session;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('table.columns');
 $canChange = true;
-
-$assoc = Associations::isEnabled();
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
@@ -30,7 +28,9 @@ if ($saveOrder && !empty($this->items)) {
 	$saveOrderingUrl = 'index.php?option=com_sdajem&task=events.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 }
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\EventModel $item */
+$params = \Joomla\CMS\Component\ComponentHelper::getParams('com_sdajem');
+
+/* @var \Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel $item */
 ?>
 <form action="<?php echo Route::_('index.php?option=com_sdajem'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
@@ -48,33 +48,29 @@ if ($saveOrder && !empty($this->items)) {
                         </caption>
                         <thead>
                         <tr>
-                            <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
-								<?php echo HTMLHelper::_('searchtools.sort', '', 'a.ordering', $listDirn, $listOrder, null, 'asc', 'JGRID_HEADING_ORDERING', 'icon-menu-2'); ?>
-                            </th>
                             <td style="width:1%" class="text-center">
 								<?php echo HTMLHelper::_('grid.checkall'); ?>
                             </td>
-                            <th scope="col" style="width:1%" class="text-center d-none d-md-table-cell">
+                            <th scope="col" style="width:10%" class="text-start d-md-table-cell">
 								<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
+                            </th>
+                            <th scope="col" class="d-md-table-cell text-start">
+	                            <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_DATE', 'a.startDateTime', $listDirn, $listOrder); ?>
+                            </th>
+                            <th scope="col" class="d-md-table-cell text-start">
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_LOCATION', 'location_name', $listDirn, $listOrder); ?>
+                            </th>
+                            <th scope="col" class="d-md-table-cell text-start">
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_STATUS', 'a.eventStatus', $listDirn, $listOrder); ?>
+                            </th>
+                            <th class="d-none d-md-table-cell">
+		                        <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLEHEAD_EVENTS_ATTENDEE_COUNT', 'attendeeCount', $listDirn, $listOrder); ?>
                             </th>
                             <th scope="col" style="width:1%; min-width:85px" class="text-center">
 								<?php echo HTMLHelper::_('searchtools.sort', 'JSTATUS', 'a.published', $listDirn, $listOrder); ?>
                             </th>
                             <th scope="col" style="width:10%" class="d-none d-md-table-cell">
 								<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ACCESS', 'access_level', $listDirn, $listOrder); ?>
-                            </th>
-							<?php if ($assoc) : ?>
-                                <th scope="col" style="width:10%">
-									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_HEADING_ASSOCIATION', 'association', $listDirn, $listOrder); ?>
-                                </th>
-							<?php endif; ?>
-							<?php if (Multilanguage::isEnabled()) : ?>
-                                <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-									<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_LANGUAGE', 'language_title', $listDirn, $listOrder); ?>
-                                </th>
-							<?php endif; ?>
-                            <th scope="col">
-								<?php echo HTMLHelper::_('searchtools.sort', 'JGRID_HEADING_ID', 'a.id', $listDirn, $listOrder); ?>
                             </th>
                         </tr>
                         </thead>
@@ -84,35 +80,36 @@ if ($saveOrder && !empty($this->items)) {
 						foreach ($this->items as $i => $item) :
 							?>
                             <tr class="row<?php echo $i % 2; ?>">
-                                <td class="order text-center d-none d-md-table-cell">
-									<?php
-									$iconClass = '';
-									if (!$canChange) {
-										$iconClass = ' inactive';
-									} else if (!$saveOrder) {
-										$iconClass = ' inactive tip-top hasTooltip" title="' . HTMLHelper::_('tooltipText', 'JORDERINGDISABLED');
-									}
-									?>
-                                    <span class="sortable-handler<?php echo $iconClass; ?>">
-										<span class="icon-menu" aria-hidden="true"></span>
-									</span>
-									<?php if ($canChange && $saveOrder) : ?>
-                                        <input type="text" style="display:none" name="order[]" size="5"
-                                               value="<?php echo $item->ordering; ?>" class="width-20 text-area-order">
-									<?php endif; ?>
-                                </td>
                                 <td class="text-center">
 									<?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                 </td>
                                 <th scope="row" class="has-context">
-                                    <div>
-										<?php echo $this->escape($item->title); ?>
-                                    </div>
 									<?php $editIcon = '<span class="fa fa-pencil-square mr-2" aria-hidden="true"></span>'; ?>
                                     <a class="hasTooltip" href="<?php echo Route::_('index.php?option=com_sdajem&task=event.edit&id=' . (int) $item->id); ?>" title="<?php echo Text::_('JACTION_EDIT'); ?> <?php echo $this->escape(addslashes($item->title)); ?>">
 										<?php echo $editIcon; ?><?php echo $this->escape($item->title); ?></a>
-
                                 </th>
+                                <td>
+                                    <?php
+                                    if ($item->allDayEvent) {
+                                        echo HTMLHelper::date($item->startDateTime,'d.m.Y',true);
+                                        echo ' - ';
+                                        echo HTMLHelper::date($item->endDateTime,'d.m.Y',true);
+                                    } else {
+                                        echo HTMLHelper::date($item->startDateTime,'d.m.Y H:i',true);
+                                        echo ' - ';
+                                        echo HTMLHelper::date($item->endDateTime,'d.m.Y H:i',true);
+                                    }
+                                    ?>
+                                </td>
+                                <td>
+                                    <?php echo $item->location_name; ?>
+                                </td>
+                                <td>
+                                    <?php echo Text::_(EventStatusEnum::from($item->eventStatus)->getStatusLabel()); ?>
+                                </td>
+                                <td class="d-none d-md-table-cell">
+		                            <?php echo $item->attendeeCount; ?>
+                                </td>
                                 <td class="text-center">
 									<?php
 									echo HTMLHelper::_('jgrid.published', $item->published, $i, 'events.', $canChange, 'cb', $item->publish_up, $item->publish_down);
@@ -122,24 +119,6 @@ if ($saveOrder && !empty($this->items)) {
 									<?php echo $item->access_level; ?>
                                 </td>
 
-								<?php if ($assoc) : ?>
-                                    <td class="d-none d-md-table-cell">
-										<?php if ($item->association) : ?>
-											<?php
-											echo HTMLHelper::_('eventsadministrator.association', $item->id);
-											?>
-										<?php endif; ?>
-                                    </td>
-								<?php endif; ?>
-								<?php if (Multilanguage::isEnabled()) : ?>
-                                    <td class="small d-none d-md-table-cell">
-										<?php echo LayoutHelper::render('joomla.content.language', $item); ?>
-                                    </td>
-								<?php endif; ?>
-
-                                <td class="d-none d-md-table-cell">
-									<?php echo $item->id; ?>
-                                </td>
                             </tr>
 						<?php endforeach; ?>
                         </tbody>

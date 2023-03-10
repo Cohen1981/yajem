@@ -11,13 +11,9 @@ namespace Sda\Component\Sdajem\Site\Model;
 
 \defined('_JEXEC') or die;
 
-use Joomla\CMS\Categories\Categories;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Language\Text;
-use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 
 /**
  * Location model for the Joomla Locations component.

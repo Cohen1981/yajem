@@ -14,8 +14,6 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
-use Joomla\CMS\Language\Associations;
-use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\MVC\Model\AdminModel;
 
 /**
@@ -43,13 +41,6 @@ class EventModel extends AdminModel
 	 */
 	public $typeAlias = 'com_sdajem.event';
 
-	/**
-	 * The context used for the associations table
-	 *
-	 * @var    string
-	 * @since  1.0.0
-	 */
-	protected $associationsContext = 'com_sdajem.item';
 	/**
 	 * @param   array  $data
 	 * @param   bool   $loadData
@@ -116,65 +107,7 @@ class EventModel extends AdminModel
 	{
 		$item = parent::getItem($pk);
 
-		// Load associated event items
-		$assoc = Associations::isEnabled();
-
-		if ($assoc) {
-			$item->associations = [];
-
-			if ($item->id != null) {
-				$associations = Associations::getAssociations('com_sdajem', '#__sdajem_events', 'com_sdajem.item', $item->id, 'id', null);
-
-				foreach ($associations as $tag => $association) {
-					$item->associations[$tag] = $association->id;
-				}
-			}
-		}
-
 		return $item;
-	}
-
-	/**
-	 * Preprocess the form.
-	 *
-	 * @param   \JForm  $form   Form object.
-	 * @param   object  $data   Data object.
-	 * @param   string  $group  Group name.
-	 *
-	 * @return  void
-	 *
-	 * @since   1.0.0
-	 */
-	protected function preprocessForm(\JForm $form, $data, $group = 'content')
-	{
-		if (Associations::isEnabled()) {
-			$languages = LanguageHelper::getContentLanguages(false, true, null, 'ordering', 'asc');
-
-			if (count($languages) > 1) {
-				$addform = new \SimpleXMLElement('<form />');
-				$fields = $addform->addChild('fields');
-				$fields->addAttribute('title', 'associations');
-				$fieldset = $fields->addChild('fieldset');
-				$fieldset->addAttribute('title', 'item_associations');
-
-				foreach ($languages as $language) {
-					$field = $fieldset->addChild('field');
-					$field->addAttribute('title', $language->lang_code);
-					#$field->addAttribute('type', 'modal_event');
-					$field->addAttribute('language', $language->lang_code);
-					$field->addAttribute('label', $language->title);
-					$field->addAttribute('translate_label', 'false');
-					$field->addAttribute('select', 'true');
-					$field->addAttribute('new', 'true');
-					$field->addAttribute('edit', 'true');
-					$field->addAttribute('clear', 'true');
-				}
-
-				$form->load($addform, false);
-			}
-		}
-
-		parent::preprocessForm($form, $data, $group);
 	}
 
 	/**

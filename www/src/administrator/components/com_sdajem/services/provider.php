@@ -19,9 +19,7 @@ use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
-use Joomla\CMS\Association\AssociationExtensionInterface;
 use Sda\Component\Sdajem\Administrator\Extension\SdajemComponent;
-use Sda\Component\Sdajem\Administrator\Helper\AssociationsHelper;
 
 return new class implements ServiceProviderInterface {
 
@@ -29,16 +27,13 @@ return new class implements ServiceProviderInterface {
 		$container->registerServiceProvider(new CategoryFactory('\\Sda\\Component\\Sdajem'));
 		$container->registerServiceProvider(new MVCFactory('\\Sda\\Component\\Sdajem'));
 		$container->registerServiceProvider(new ComponentDispatcherFactory('\\Sda\\Component\\Sdajem'));
-		$container->set(AssociationExtensionInterface::class, new AssociationsHelper);
 		$container->set(
 			ComponentInterface::class,
 			function (Container $container) {
 				$component = new SdajemComponent($container->get(ComponentDispatcherFactoryInterface::class));
-
 				$component->setRegistry($container->get(Registry::class));
 				$component->setMVCFactory($container->get(MVCFactoryInterface::class));
 				$component->setCategoryFactory($container->get(CategoryFactoryInterface::class));
-				$component->setAssociationExtension($container->get(AssociationExtensionInterface::class));
 
 				return $component;
 			}

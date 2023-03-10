@@ -11,7 +11,6 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 
 \defined('_JEXEC') or die();
 
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
@@ -43,11 +42,6 @@ class EventsModel extends ListModel
 				'eventStatus', 'a.eventStatus',
 				'attendeeCount'
 			);
-			$assoc = Associations::isEnabled();
-			if ($assoc)
-			{
-				$config['filter_fields'][] = 'association';
-			}
 		}
 
 		parent::__construct($config);
@@ -150,21 +144,6 @@ class EventsModel extends ListModel
 				$db->quoteName('#__languages', 'l') . ' ON ' . $db->quoteName('l.lang_code') . ' = ' . $db->quoteName('a.language')
 			);
 
-		// Join over the associations.
-		if (Associations::isEnabled())
-		{
-			$subQuery = $db->getQuery(true)
-				->select('COUNT(' . $db->quoteName('asso1.id') . ') > 1')
-				->from($db->quoteName('#__associations', 'asso1'))
-				->join('INNER', $db->quoteName('#__associations', 'asso2'), $db->quoteName('asso1.key') . ' = ' . $db->quoteName('asso2.key'))
-				->where(
-					[
-						$db->quoteName('asso1.id') . ' = ' . $db->quoteName('a.id'),
-						$db->quoteName('asso1.context') . ' = ' . $db->quote('com_sdajem.item'),
-					]
-				);
-			$query->select('(' . $subQuery . ') AS ' . $db->quoteName('association'));
-		}
 		// Filter on the language.
 		if ($language = $this->getState('filter.language'))
 		{

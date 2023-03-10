@@ -11,15 +11,11 @@
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Associations;
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
 $app = Factory::getApplication();
 $input = $app->input;
-
-$assoc = Associations::isEnabled();
 
 $this->ignore_fieldsets = ['item_associations'];
 $this->useCoreUI = true;

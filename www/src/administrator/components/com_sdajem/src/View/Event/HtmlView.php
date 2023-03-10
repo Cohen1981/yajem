@@ -10,10 +10,8 @@ namespace Sda\Component\Sdajem\Administrator\View\Event;
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
-use Joomla\CMS\Language\Associations;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use \Joomla\CMS\MVC\View\HtmlView AS BaseHtmlView;
@@ -69,12 +67,12 @@ class HtmlView extends BaseHtmlView
 		ToolbarHelper::title($isNew ? Text::_('COM_SDAJEM_EVENT_NEW') : Text::_('COM_SDAJEM_EVENT_EDIT'), 'address event');
 
 		// Since we don't track these assets at the item level, use the category id.
-		$canDo = ContentHelper::getActions('com_sdajem', 'category', $this->item->catid);
+		$canDo = ContentHelper::getActions('com_sdajem');
 
 		// Build the actions for new and existing records.
 		if ($isNew) {
 			// For new records, check the create permission.
-			if ($isNew && (count($user->getAuthorisedCategories('com_sdajem.events', 'core.create')) > 0)) {
+			if ($isNew && $canDo->get('core.create')) {
 				ToolbarHelper::apply('event.apply');
 				ToolbarHelper::saveGroup(
 					[
@@ -111,10 +109,6 @@ class HtmlView extends BaseHtmlView
 				$toolbarButtons,
 				'btn-success'
 			);
-
-			if (Associations::isEnabled() && ComponentHelper::isEnabled('com_associations')) {
-				ToolbarHelper::custom('event.editAssociations', 'contract', 'contract', 'JTOOLBAR_ASSOCIATIONS', false, false);
-			}
 
 			ToolbarHelper::cancel('event.cancel', 'JTOOLBAR_CLOSE');
 		}
