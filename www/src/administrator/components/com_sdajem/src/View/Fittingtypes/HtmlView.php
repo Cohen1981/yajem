@@ -112,7 +112,7 @@ class  HtmlView extends BaseHtmlView
 		#$toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
 		$toolbar = Toolbar::getInstance('toolbar');
 
-		ToolbarHelper::title(Text::_('COM_SDAJEM_LOCATIONS'), 'address fittingtypes');
+		ToolbarHelper::title(Text::_('COM_SDAJEM_FITTINGTYPES'), 'address fittingtypes');
 
 		if ($canDo->get('core.create')) {
 			$toolbar->addNew('fittingtype.add');

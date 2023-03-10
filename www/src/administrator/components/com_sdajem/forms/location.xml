@@ -70,17 +70,11 @@
                 label="COM_SDAJEM_FIELD_LOCATION_LATLNG_LABEL"
                 size="255"
         />
-    </fieldset>
-    <fieldset name="language" label="JFIELD_LANGUAGE_LABEL">
         <field
-                name="language"
-                type="contentlanguage"
-                label="JFIELD_LANGUAGE_LABEL"
-        >
-            <option value="*">JALL</option>
-        </field>
-    </fieldset>
-    <fieldset name="publishing" label="JGLOBAL_FIELDSET_PUBLISHING">
+                name="image"
+                type="media"
+                label="COM_SDAJEM_LOCATION_IMAGE_LABEL"
+        />
         <field
                 name="featured"
                 type="list"

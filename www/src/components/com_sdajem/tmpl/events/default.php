@@ -62,18 +62,21 @@ $currentUser = Factory::getApplication()->getIdentity();
                             <?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
                         </button>
                         <?php endif; ?>
+                    </div>
 
-                        <?php if ($canDo->get('core.delete')) : ?>
+                    <?php if ($canDo->get('core.delete')) : ?>
+                    <div class="btn-group sda_button_spacer d-sm-inline-block d-none" role="group" aria-label="Attending group">
                         <button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('event.delete')">
                             <span class="fas fa-trash" aria-hidden="true"></span>
                             <?php echo Text::_('COM_SDAJEM_EVENT_DELETE'); ?>
                         </button>
-                        <?php endif; ?>
                     </div>
+                    <?php endif; ?>
+
                     <?php
                     if ($params->get('sda_use_attending'))
                     {
-	                    echo '<div class="btn-group sda_button_spacer" role="group" aria-label="Attending group">';
+	                    echo '<div class="btn-group sda_button_spacer d-sm-inline-block d-none" role="group" aria-label="Attending group">';
 	                    foreach (AttendingStatusEnum::cases() as $stat)
 	                    {
 		                    if ($stat != AttendingStatusEnum::NA)
@@ -108,21 +111,18 @@ $currentUser = Factory::getApplication()->getIdentity();
                             <thead>
                             <tr>
                                 <?php if (!$currentUser->guest) :?>
-                                <td style="width:1%" class="text-center">
+                                <td style="width:1%" class="text-center d-sm-table-cell d-none">
                                     <?php echo HTMLHelper::_('grid.checkall'); ?>
                                 </td>
                                 <?php endif; ?>
-                                <th scope="col" style="width:1%" class="d-none d-md-table-cell">
+                                <th scope="col" style="width:1%" class=" d-sm-table-cell d-none">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_NAME', 'a.title', $listDirn, $listOrder); ?>
                                 </th>
-                                <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_STARTDATE', 'a.startDateTime', $listDirn, $listOrder); ?>
-                                </th>
-                                <th scope="col" style="width:10%" class="d-none d-md-table-cell">
-                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_ENDDATE', 'a.endDateTime', $listDirn, $listOrder); ?>
+                                <th scope="col" style="width:10%" class="d-none d-sm-table-cell">
+                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_DATE', 'a.startDateTime', $listDirn, $listOrder); ?>
                                 </th>
                                 <?php if (!$currentUser->guest) : ?>
-                                <th class="d-none d-md-table-cell">
+                                <th class="d-none d-sm-table-cell">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLEHEAD_EVENTS_STATUS', 'a.eventStatus', $listDirn, $listOrder); ?>
                                 </th>
                                 <th class="d-none d-md-table-cell">
@@ -140,7 +140,7 @@ $currentUser = Factory::getApplication()->getIdentity();
                                 ?>
                                 <tr class="row<?php echo $i % 2; ?>">
 	                                <?php if (!$currentUser->guest) :?>
-                                    <td class="text-center">
+                                    <td class="text-center d-sm-table-cell d-none">
                                         <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
                                     </td>
                                     <?php endif; ?>
@@ -173,26 +173,17 @@ $currentUser = Factory::getApplication()->getIdentity();
                                         <?php
                                         if ($item->allDayEvent) {
                                             echo HTMLHelper::date($item->startDateTime,'d.m.Y',true);
+	                                        echo ' - ';
+	                                        echo HTMLHelper::date($item->endDateTime, 'd.m.Y', true);
                                         } else {
                                             echo HTMLHelper::date($item->startDateTime,'d.m.Y H:i',true);
+	                                        echo ' - ';
+	                                        echo HTMLHelper::date($item->endDateTime, 'd.m.Y H:i', true);
                                         }
-                                        ?>
-                                    </td>
-                                    <td class="d-none d-md-table-cell">
-                                        <?php
-                                        if ($item->allDayEvent)
-                                        {
-                                            echo HTMLHelper::date($item->endDateTime, 'd.m.Y', true);
-                                        }
-                                        else
-                                        {
-                                            echo HTMLHelper::date($item->endDateTime, 'd.m.Y H:i', true);
-                                        }
-
                                         ?>
                                     </td>
                                     <?php if (!$currentUser->guest) : ?>
-                                    <td class="d-md-table-cell">
+                                    <td class="d-sm-table-cell d-none">
                                         <?php if ($currentUser->id == $item->organizerId || $canDo->get('core.manage')) : ?>
                                         <div class="sda_form">
                                             <?php

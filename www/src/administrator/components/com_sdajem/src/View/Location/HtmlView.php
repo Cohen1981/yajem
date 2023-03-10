@@ -71,7 +71,7 @@ class HtmlView extends BaseHtmlView
 		// Build the actions for new and existing records.
 		if ($isNew) {
 			// For new records, check the create permission.
-			if ($isNew && (count($user->getAuthorisedCategories('com_sdajem.locations', 'core.create')) > 0)) {
+			if ($isNew && $user->authorise('core.create', 'com_sdajem')) {
 				ToolbarHelper::apply('location.apply');
 				ToolbarHelper::saveGroup(
 					[
