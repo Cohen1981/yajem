@@ -13,6 +13,15 @@
       "attributes": {
         "defer": true
       }
+    },
+    {
+      "name": "com_sdajem.calendar",
+      "type": "script",
+      "uri": "com_sdajem/calendar.js",
+      "dependencies": ["core"],
+      "attributes": {
+        "defer": true
+      }
     }
   ]
 }
