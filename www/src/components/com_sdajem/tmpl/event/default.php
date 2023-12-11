@@ -113,7 +113,7 @@ $currentUser = Factory::getApplication()->getIdentity();
                         <ul class="dropdown-menu">
 
 			                <?php foreach (EventStatusEnum::cases() as $status) : ?>
-				                <?php if ($status != EventStatusEnum::from($event->eventStatus) && $status != EventStatusEnum::OPEN) : ?>
+				                <?php if ($status != EventStatusEnum::from($event->eventStatus)) : ?>
                                     <li><?php echo HTMLHelper::_('sdajemIcon.switchEventStatus',$event, $status); ?></li>
 				                <?php endif; ?>
 			                <?php endforeach; ?>
@@ -245,15 +245,21 @@ $currentUser = Factory::getApplication()->getIdentity();
             <h5><?php echo Text::_('COM_SDAJEM_ATTENDESS'); ?></h5>
             <div class="sda_row">
             <?php if (isset($event->attendings)) : ?>
-            <div class="sda_attendee_container">
-                <?php foreach ($event->attendings as $i => $attending) : ?>
-                    <?php if ($tparams->get('sda_avatar_field_name') && $tparams->get('sda_use_avatar')): ?>
-                        <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending), $tparams->get('sda_avatar_field_name')); ?>
-                    <?php else: ?>
-                        <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending)); ?>
-                    <?php endif; ?>
-                <?php endforeach; ?>
-            </div>
+	            <?php if ($event->eventStatus != EventStatusEnum::PLANING->value ||
+		                  $canDo->get('core.manage') ||
+			              $canDo->get('core.edit') ||
+			              ($canDo->get('core.edit.own') && $event->created_by == $currentUser->id)
+                ) : ?>
+                <div class="sda_attendee_container">
+                    <?php foreach ($event->attendings as $i => $attending) : ?>
+                        <?php if ($tparams->get('sda_avatar_field_name') && $tparams->get('sda_use_avatar')): ?>
+                            <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending), $tparams->get('sda_avatar_field_name')); ?>
+                        <?php else: ?>
+                            <?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending)); ?>
+                        <?php endif; ?>
+                    <?php endforeach; ?>
+                </div>
+	            <?php endif; ?>
             <?php endif; ?>
             </div>
             <div class="sda_row">

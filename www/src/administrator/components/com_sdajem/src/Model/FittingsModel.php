@@ -60,7 +60,9 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 					$db->quoteName('a.width'),
 					$db->quoteName('a.standard'),
 					$db->quoteName('a.fittingType'),
-					$db->quoteName('a.user_id')
+					$db->quoteName('a.user_id'),
+					$db->quoteName('a.image'),
+					$db->quoteName('a.needSpace')
 				]
 			)
 		);

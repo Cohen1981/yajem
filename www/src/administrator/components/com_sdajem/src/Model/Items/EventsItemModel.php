@@ -41,6 +41,7 @@ use Joomla\CMS\Date\Date;
  * @property  int       organizerId
  * @property  string    organizerName
  * @property  int       attendeeCount
+ * @property  int       feedbackCount
  */
 class EventsItemModel
 {

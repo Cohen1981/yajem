@@ -23,6 +23,8 @@ namespace Sda\Component\Sdajem\Administrator\Model\Items;
  * @property  int       user_id
  * @property  string    userName
  * @property  int       created_by
+ * @property  string    image
+ * @property  int       needSpace
  */
 class FittingItemModel
 {

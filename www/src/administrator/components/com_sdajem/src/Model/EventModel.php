@@ -30,6 +30,7 @@ use Joomla\CMS\MVC\Model\AdminModel;
  * @property  Date      endDateTime
  * @property  int       allDayEvent
  * @property  string    language
+ * @property  int       eventStatus
  */
 class EventModel extends AdminModel
 {

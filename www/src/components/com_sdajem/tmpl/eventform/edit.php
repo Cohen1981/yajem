@@ -35,6 +35,7 @@ $wa->useScript('com_sdajem.calendar');
 		<?php if (is_null($this->item->id)) : ?>
 			<?php echo $this->form->renderField('alias'); ?>
 		<?php endif; ?>
+        <?php echo $this->form->renderField('eventStatus'); ?>
         <?php echo $this->form->renderField('description'); ?>
 		<?php echo $this->form->renderField('image'); ?>
 		<?php echo $this->form->renderField('url'); ?>

@@ -10,6 +10,7 @@
 namespace Sda\Component\Sdajem\Administrator\Table;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\Helpers\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseDriver;
 use Sda\Component\Sdajem\Administrator\Model\LocationModel;
@@ -78,6 +79,9 @@ class FittingTable extends \Joomla\CMS\Table\Table
 		}
 		if (!$this->published) {
 			$this->published = 1;
+		}
+		if (!$this->created_by) {
+			$this->created_by = Factory::getApplication()->getIdentity()->id;
 		}
 		if (!$this->user_id) {
 			$this->user_id = Factory::getApplication()->getIdentity()->id;

@@ -198,4 +198,35 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 			return false;
 		}
 	}
+
+	public function updateEventAccess(int $pk = null, int $access)
+	{
+		if ($pk != null) {
+			// Initialize variables.
+			$db    = $this->getDatabase();
+			$query = $db->getQuery(true);
+
+			$query->update($db->quoteName('#__sdajem_events'));
+			$query->set($db->quoteName('access') . '=' . $access);
+			$query->where($db->quoteName('id') . '=' . $pk);
+
+			$db->setQuery($query);
+			try {
+				$db->execute();
+			} catch (\RuntimeException $e) {
+				Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+
+				return false;
+			}
+
+			$this->cleanCache();
+
+			return true;
+		} else
+		{
+			Factory::getApplication()->enqueueMessage(Text::sprintf('COM_SDAJEM_MISSING_ID'), 'error');
+
+			return false;
+		}
+	}
 }

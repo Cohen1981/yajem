@@ -11,6 +11,7 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 
 \defined('_JEXEC') or die();
 
+use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
@@ -122,6 +123,15 @@ class EventsModel extends ListModel
 			);
 		$query->select('(' . $attendees . ') AS ' . $db->quoteName('attendeeCount'));
 
+		$feedback = $db->getQuery(true)
+			->select('COUNT(' . $db->quoteName('att.id') . ')')
+			->from($db->quoteName('#__sdajem_attendings', 'att'))
+			->where(
+				[
+					$db->quoteName('att.event_id') . ' = ' . $db->quoteName('a.id'),
+				]
+			);
+		$query->select('(' . $feedback . ') AS ' . $db->quoteName('feedbackCount'));
 		// Join over the asset groups.
 		$query->select($db->quoteName('ag.title', 'access_level'))
 			->join(
@@ -150,9 +160,10 @@ class EventsModel extends ListModel
 			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));
 		}
 		// Filter by access level.
-		if ($access = $this->getState('filter.access'))
+		if ($this->getState('filter.access', true))
 		{
-			$query->where($db->quoteName('a.access') . ' = ' . (int) $access);
+			$groups = $this->getState('filter.viewlevels', Factory::getApplication()->getIdentity()->getAuthorisedViewLevels());
+			$query->whereIn($db->quoteName('a.access'), $groups);
 		}
 		// Filter by published state
 		$published = (string) $this->getState('filter.published');

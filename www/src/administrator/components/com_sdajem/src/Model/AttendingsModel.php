@@ -123,4 +123,30 @@ class AttendingsModel extends ListModel
 
 		return $query;
 	}
+
+	/**
+	 * @param   int|null  $eventId
+	 *
+	 * @return mixed
+	 *
+	 * @since 1.0.8
+	 */
+	public function getAttendingsIdToEvent(int $eventId = null)
+	{
+		// Create a new query object.
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+
+		// Select the required fields from the table.
+		$query->select($db->quoteName('a.id'));
+
+		$query->from($db->quoteName('#__sdajem_attendings', 'a'));
+
+		$query->where($db->quoteName('a.event_id') . '=' . $eventId);
+
+		$db->setQuery($query);
+		$data = $db->loadColumn();
+
+		return $data;
+	}
 }

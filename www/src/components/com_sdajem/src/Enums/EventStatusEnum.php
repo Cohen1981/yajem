@@ -17,6 +17,7 @@ enum EventStatusEnum : int
 	case APPLIED = 1;
 	case CONFIRMED = 2;
 	case CANCELED = 3;
+	case PLANING = 4;
 
 	/**
 	 *
@@ -33,7 +34,8 @@ enum EventStatusEnum : int
 			self::OPEN => 'COM_SDAJEM_EVENT_STATUS_OPEN',
 			self::APPLIED => 'COM_SDAJEM_EVENT_STATUS_APPLIED',
 			self::CONFIRMED => 'COM_SDAJEM_EVENT_STATUS_CONFIRMED',
-			self::CANCELED => 'COM_SDAJEM_EVENT_STATUS_CANCELED'
+			self::CANCELED => 'COM_SDAJEM_EVENT_STATUS_CANCELED',
+			self::PLANING => 'COM_SDAJEM_EVENT_STATUS_PLANING'
 		};
 	}
 
@@ -52,7 +54,8 @@ enum EventStatusEnum : int
 			self::OPEN => 'event.open',
 			self::APPLIED => 'event.applied',
 			self::CONFIRMED => 'event.confirmed',
-			self::CANCELED => 'event.canceled'
+			self::CANCELED => 'event.canceled',
+			self::PLANING => 'event.planing'
 		};
 	}
 
@@ -71,7 +74,8 @@ enum EventStatusEnum : int
 			self::OPEN => 'fas fa-question',
 			self::APPLIED => 'fas fa-clipboard',
 			self::CONFIRMED => 'fas fa-thumbs-up',
-			self::CANCELED => 'fas fa-thumbs-down'
+			self::CANCELED => 'fas fa-thumbs-down',
+			self::PLANING => 'fas fa-question'
 		};
 	}
 
@@ -82,7 +86,8 @@ enum EventStatusEnum : int
 			self::OPEN => '<span class="badge color-neutral eventbatch">' . Text::_('COM_SDAJEM_EVENT_STATUS_OPEN') . '</span>',
 			self::APPLIED => '<span class="badge color-warning eventbatch">' . Text::_('COM_SDAJEM_EVENT_STATUS_APPLIED') . '</span>',
 			self::CONFIRMED => '<span class="badge color-ok eventbatch">' . Text::_('COM_SDAJEM_EVENT_STATUS_CONFIRMED') . '</span>',
-			self::CANCELED => '<span class="badge color-nok eventbatch">' . Text::_('COM_SDAJEM_EVENT_STATUS_CANCELED') . '</span>'
+			self::CANCELED => '<span class="badge color-nok eventbatch">' . Text::_('COM_SDAJEM_EVENT_STATUS_CANCELED') . '</span>',
+			self::PLANING => '<span class="badge color-neutral eventbatch">' . Text::_('COM_SDAJEM_EVENT_STATUS_PLANING') . '</span>'
 		};
 	}
 
@@ -93,7 +98,8 @@ enum EventStatusEnum : int
 			self::OPEN => 'color-neutral',
 			self::APPLIED => 'color-warning',
 			self::CONFIRMED => 'color-ok',
-			self::CANCELED => 'color-nok'
+			self::CANCELED => 'color-nok',
+			self::PLANING => 'color-neutral'
 		};
 	}
 
@@ -104,7 +110,8 @@ enum EventStatusEnum : int
 			self::OPEN => '#c7cfd2',
 			self::APPLIED => '#F9eb53',
 			self::CONFIRMED => '#4db942',
-			self::CANCELED => '#Bd181b'
+			self::CANCELED => '#Bd181b',
+			self::PLANING => '#c7cfd2'
 		};
 	}
 }

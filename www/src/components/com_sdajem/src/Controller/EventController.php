@@ -208,6 +208,18 @@ class EventController extends FormController
 		return base64_decode($return);
 	}
 
+	/**
+	 *
+	 *
+	 * @since 1.0.9
+	 */
+	public function open()
+	{
+		$this->setEventStatus(EventStatusEnum::OPEN);
+		$this->setAccessLevel(1);
+		$this->setRedirect(Route::_($this->getReturnPage(), false));
+	}
+
 	public function applied()
 	{
 		$this->setEventStatus(EventStatusEnum::APPLIED);
@@ -223,6 +235,19 @@ class EventController extends FormController
 	public function confirmed()
 	{
 		$this->setEventStatus(EventStatusEnum::CONFIRMED);
+		$this->
+		$this->setRedirect(Route::_($this->getReturnPage(), false));
+	}
+
+	/**
+	 *
+	 *
+	 * @since 1.0.9
+	 */
+	public function planing()
+	{
+		$this->setEventStatus(EventStatusEnum::PLANING);
+		$this->setAccessLevel(2);
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 
@@ -233,6 +258,16 @@ class EventController extends FormController
 			/* @var EventformModel $event */
 			$event = $this->getModel();
 			$event->updateEventStatus($eventId, $enum);
+		}
+	}
+
+	protected function setAccessLevel(int $access) {
+		$eventId = $this->input->get('eventId');
+
+		if ($eventId != null) {
+			/* @var EventformModel $event */
+			$event = $this->getModel();
+			$event->updateEventAccess($eventId, $access);
 		}
 	}
 

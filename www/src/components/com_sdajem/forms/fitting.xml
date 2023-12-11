@@ -53,9 +53,19 @@
             <option value="1">JYES</option>
         </field>
         <field
-                name="fittingType"
-                type="Fittingtypelist"
-                label="COM_SDAJEM_FIELD_FITTING_TYPE_LABEL"
+                name="needSpace"
+                type="list"
+                label="COM_SDAJEM_FIELD_FT_NEEDSPACE_LABEL"
+                default="1"
+                validate="options"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
+                name="image"
+                type="media"
+                label="COM_SDAJEM_FT_IMAGE_LABEL"
         />
     </fieldset>
     <fieldset name="admin" addfieldprefix="Sda\Component\Sdajem\Administrator\Field">

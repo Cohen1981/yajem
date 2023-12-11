@@ -43,6 +43,8 @@ if ($saveOrder && !empty($this->items)) {
 $params = $params = ComponentHelper::getParams('com_sdajem');
 $currentUser = Factory::getApplication()->getIdentity();
 
+$userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
+
 /* @var \Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel $item */
 ?>
 <div class="sdajem_content_container">
@@ -138,6 +140,7 @@ $currentUser = Factory::getApplication()->getIdentity();
                             $attending = new \Sda\Component\Sdajem\Site\Model\AttendingModel();
                             foreach ($this->items as $i => $item) :
                                 ?>
+                            <?php // if(in_array($item->access, $userAuthorizedViewLevels)) : ?>
                                 <tr class="row<?php echo $i % 2; ?>">
 	                                <?php if (!$currentUser->guest) :?>
                                     <td class="text-center d-sm-table-cell d-none">
@@ -195,7 +198,7 @@ $currentUser = Factory::getApplication()->getIdentity();
                                             <ul class="dropdown-menu">
 
                                             <?php foreach (EventStatusEnum::cases() as $status) : ?>
-                                                <?php if ($status != EventStatusEnum::from($item->eventStatus) && $status != EventStatusEnum::OPEN) : ?>
+                                                <?php if ($status != EventStatusEnum::from($item->eventStatus)) : ?>
                                                     <li><?php echo HTMLHelper::_('sdajemIcon.switchEventStatus',$item, $status); ?></li>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
@@ -208,7 +211,19 @@ $currentUser = Factory::getApplication()->getIdentity();
                                         <?php endif; ?>
                                     </td>
                                     <td class="d-none d-md-table-cell">
-                                        <?php echo $item->attendeeCount; ?>
+                                        <?php
+                                            if ($item->eventStatus <> EventStatusEnum::PLANING->value) {
+                                                echo $item->attendeeCount;
+                                            } else {
+	                                            echo $item->feedbackCount . ' ' . Text::_('COM_SDAJEM_FEEDBACK_COUNT') . '</br>';
+                                                if ($canDo->get('core.manage') ||
+	                                                $canDo->get('core.edit') ||
+	                                                ($canDo->get('core.edit.own') && $item->created_by == $currentUser->id)
+                                                ) {
+	                                                echo $item->attendeeCount . ' ' . Text::_('COM_SDAJEM_ATTENDEE_COUNT');
+                                                }
+                                            }
+                                        ?>
                                     </td>
                                     <?php endif; ?>
                                     <td class="small d-none d-md-table-cell">
@@ -223,6 +238,7 @@ $currentUser = Factory::getApplication()->getIdentity();
                                         <?php endif; ?>
                                     </td>
                                 </tr>
+                            <?php //endif; ?>
                             <?php endforeach; ?>
                             </tbody>
                         </table>

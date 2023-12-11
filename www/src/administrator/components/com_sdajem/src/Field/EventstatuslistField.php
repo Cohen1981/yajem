@@ -5,18 +5,25 @@
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
+ * @since       1.0.1
  */
 
 namespace Sda\Component\Sdajem\Administrator\Field;
 
+defined('_JEXEC') or die();
+
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\Exception\ExecutionFailureException;
+use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
-class FittingtypelistField extends \Joomla\CMS\Form\Field\ListField
+class EventstatuslistField extends ListField
 {
-	protected $type='Fittingtypelist';
+	protected $type='Eventstatuslist';
 
 	/**
 	 * Method to get the field options.
@@ -30,34 +37,11 @@ class FittingtypelistField extends \Joomla\CMS\Form\Field\ListField
 		$options = [];
 
 		$key = 'id';
-		$value = 'title';
-
-		// Get the database object.
-		$db = $this->getDatabase();
-
-		// Get the query object
-		$query = $db->getQuery(true);
-
-		$query->select(
-			[
-				$db->quoteName('ft.id', 'id'),
-				$db->quoteName('ft.title', 'title'),
-			]
-		);
-		$query->from($db->quoteName('#__sdajem_fittingtypes', 'ft'));
-
-		// Set the query and get the result list.
-		$db->setQuery($query);
-
-		try {
-			$items = $db->loadObjectList();
-		} catch (ExecutionFailureException $e) {
-			Factory::getApplication()->enqueueMessage(Text::_('JERROR_AN_ERROR_HAS_OCCURRED'), 'error');
-		}
+		$value= 'title';
 
 		// Add header.
 		if (!$this->element['header']) {
-			$header_title = Text::_('SDAJEM_SELECT_FITTING_TYPE');
+			$header_title = Text::_('SDAJEM_SELECT_EVENT_STATUS');
 		} else {
 			$header_title=$this->element['header'];
 		}
@@ -65,15 +49,19 @@ class FittingtypelistField extends \Joomla\CMS\Form\Field\ListField
 		$options[] = HTMLHelper::_('select.option', '', $header_title);
 
 		// Build the field options.
-		if (!empty($items)) {
-			foreach ($items as $item) {
-				$options[] = HTMLHelper::_('select.option', $item->$key, $item->$value);
-			}
+		$options[] = HTMLHelper::_('select.option',EventStatusEnum::PLANING->value, Text::_(EventStatusEnum::PLANING->getStatusLabel()));
+		$options[] = HTMLHelper::_('select.option',EventStatusEnum::OPEN->value, Text::_(EventStatusEnum::OPEN->getStatusLabel()));
+
+		/*
+		foreach (EventStatusEnum::cases() as $status) {
+			$options[] = HTMLHelper::_('select.option', $status->value, Text::_($status->getStatusLabel()));
 		}
+		*/
 
 		// Merge any additional options in the XML definition.
 		$options = array_merge(parent::getOptions(), $options);
 
 		return $options;
 	}
+
 }

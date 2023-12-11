@@ -18,6 +18,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 /**
  * @since      1.0.0
@@ -120,6 +121,10 @@ class EventTable extends Table
 		}
 		if (!$this->organizerId) {
 			$this->organizerId = null;
+		}
+		if (!$this->eventStatus) {
+			$this->eventStatus = EventStatusEnum::PLANING->value;
+			$this->access = 2;
 		}
 		//if (!$this->checked_out) {
 		$this->checked_out = null;

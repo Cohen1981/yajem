@@ -15,6 +15,10 @@ use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Input\Input;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\CMS\Router\Route;
+use Sda\Component\Sdajem\Administrator\Model\AttendingModel;
+use Sda\Component\Sdajem\Administrator\Model\AttendingsModel;
+use Sda\Component\Sdajem\Administrator\Model\EventModel;
 
 class EventsController extends AdminController
 {
@@ -48,5 +52,40 @@ class EventsController extends AdminController
 	public function getModel($name = 'Event', $prefix = 'Administrator', $config = ['ignore_request' => true])
 	{
 		return parent::getModel($name, $prefix, $config);
+	}
+
+	/**
+	 *
+	 * @return bool
+	 *
+	 * @since 1.0.8
+	 */
+	public function delete()
+	{
+		$pks = $this->input->get('cid');
+
+		$attendingFormModel = new AttendingModel();
+		$attendingsModel = new AttendingsModel();
+
+		foreach ($pks as &$pk) {
+			$attendings = $attendingsModel->getAttendingsIdToEvent($pk);
+			$attResult = $attendingFormModel->delete($attendings);
+		}
+
+		$eventFormModel = new EventModel();
+
+		if ($attResult)
+		{
+			$result = $eventFormModel->delete($pks);
+		}
+
+		$this->setRedirect(
+			Route::_(
+				'index.php?option=' . $this->option . '&view=' . $this->view_list
+				. $this->getRedirectToListAppend(),
+				false
+			)
+		);
+		return $result;
 	}
 }

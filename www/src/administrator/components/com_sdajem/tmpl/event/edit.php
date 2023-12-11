@@ -46,6 +46,7 @@ $tmpl = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
 
         <div class="row">
             <div class="col-lg-9">
+	            <?php echo $this->getForm()->renderField('eventStatus'); ?>
                 <?php echo $this->getForm()->renderField('description'); ?>
                 <?php echo $this->getForm()->renderField('image'); ?>
                 <?php echo $this->getForm()->renderField('url'); ?>

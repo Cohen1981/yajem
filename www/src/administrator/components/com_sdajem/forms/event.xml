@@ -26,6 +26,11 @@
                 size="45"
                 hint="JFIELD_ALIAS_PLACEHOLDER"
         />
+        <field name="eventStatus"
+               type="Eventstatuslist"
+               label="COM_SDAJEM_FIELD_EVENT_STATUS_LABEL"
+               desc="COM_SDAJEM_FIELD_EVENT_STATUS_DESC"
+        />
         <field
                 name="description"
                 type="editor"
