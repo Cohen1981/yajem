@@ -27,6 +27,7 @@
                 name="description"
                 type="editor"
                 label="COM_SDAJEM_FIELD_LOCATION_DESC_LABEL"
+                filter="JComponentHelper::filterText"
         />
         <field
                 name="url"

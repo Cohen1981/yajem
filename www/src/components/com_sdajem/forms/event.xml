@@ -35,6 +35,7 @@
                 name="description"
                 type="editor"
                 label="COM_SDAJEM_FIELD_EVENTDESC_LABEL"
+                filter="JComponentHelper::filterText"
         />
         <field
                 name="image"
