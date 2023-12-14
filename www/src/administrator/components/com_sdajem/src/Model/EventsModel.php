@@ -16,6 +16,7 @@ use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
 
 /**
  * @since       1.0.1
@@ -123,12 +124,23 @@ class EventsModel extends ListModel
 			);
 		$query->select('(' . $attendees . ') AS ' . $db->quoteName('attendeeCount'));
 
-		$feedback = $db->getQuery(true)
-			->select('COUNT(' . $db->quoteName('att.id') . ')')
-			->from($db->quoteName('#__sdajem_attendings', 'att'))
+		$interestCount = $db->getQuery(true)
+			->select('COUNT(' . $db->quoteName('int.id') . ')')
+			->from($db->quoteName('#__sdajem_interest', 'int'))
 			->where(
 				[
-					$db->quoteName('att.event_id') . ' = ' . $db->quoteName('a.id'),
+					$db->quoteName('int.event_id') . ' = ' . $db->quoteName('a.id'),
+					$db->quoteName('int.status') . ' = ' . InterestStatusEnum::INTERESTED->value,
+				]
+			);
+		$query->select('(' . $interestCount . ') AS ' . $db->quoteName('interestCount'));
+
+		$feedback = $db->getQuery(true)
+			->select('COUNT(' . $db->quoteName('i.id') . ')')
+			->from($db->quoteName('#__sdajem_interest', 'i'))
+			->where(
+				[
+					$db->quoteName('i.event_id') . ' = ' . $db->quoteName('a.id'),
 				]
 			);
 		$query->select('(' . $feedback . ') AS ' . $db->quoteName('feedbackCount'));

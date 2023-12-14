@@ -18,8 +18,10 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Session\Session;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
+use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
 
 /* @var \Joomla\CMS\WebAsset\WebAssetManager $wa */
 $wa = $this->document->getWebAssetManager();
@@ -76,6 +78,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                     <?php endif; ?>
 
                     <?php
+                    /*
                     if ($params->get('sda_use_attending'))
                     {
 	                    echo '<div class="btn-group sda_button_spacer d-sm-inline-block d-none" role="group" aria-label="Attending group">';
@@ -91,6 +94,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 	                    }
                         echo '</div>';
                     }
+                    */
                     ?>
                 </div>
             <?php endif; ?>
@@ -159,17 +163,35 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                         </div>
                                         <?php endif; ?>
                                         <?php if ($params->get('sda_use_attending')) :?>
-                                        <div class="small">
-                                            <?php
-                                            if (!$currentUser->guest)
-                                            {
-	                                            $attStatus = (AttendingHelper::getAttendingStatusToEvent($currentUser->id,
-		                                            $item->id)) ? AttendingHelper::getAttendingStatusToEvent($currentUser->id,
-		                                            $item->id)->status : 0;
-	                                            echo AttendingStatusEnum::from($attStatus)->getStatusBadge();
-                                            }
-                                            ?>
-                                        </div>
+                                            <?php if ($item->eventStatus == EventStatusEnum::PLANING->value) :?>
+
+                                                <div class="small">
+                                                    <?php
+                                                    if (!$currentUser->guest)
+                                                    {
+                                                        $attStatus = (InterestHelper::getInterestStatusToEvent($currentUser->id,
+                                                            $item->id)) ? InterestHelper::getInterestStatusToEvent($currentUser->id,
+                                                            $item->id)->status : 0;
+                                                        echo InterestStatusEnum::from($attStatus)->getStatusBadge();
+                                                    }
+                                                    ?>
+                                                </div>
+
+                                            <?php else: ?>
+
+                                            <div class="small">
+                                                <?php
+                                                if (!$currentUser->guest)
+                                                {
+                                                    $attStatus = (AttendingHelper::getAttendingStatusToEvent($currentUser->id,
+                                                        $item->id)) ? AttendingHelper::getAttendingStatusToEvent($currentUser->id,
+                                                        $item->id)->status : 0;
+                                                    echo AttendingStatusEnum::from($attStatus)->getStatusBadge();
+                                                }
+                                                ?>
+                                            </div>
+
+                                            <?php endif; ?>
                                         <?php endif; ?>
                                     </th>
                                     <td class="d-md-table-cell">
@@ -219,7 +241,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                                 if ($canDo->get('core.manage') ||
 	                                                ($canDo->get('core.edit.own') && $item->created_by == $currentUser->id)
                                                 ) {
-	                                                echo $item->attendeeCount . ' ' . Text::_('COM_SDAJEM_ATTENDEE_COUNT');
+	                                                echo $item->interestCount . ' ' . Text::_('COM_SDAJEM_INTEREST_COUNT');
                                                 }
                                             }
                                         ?>

@@ -19,8 +19,10 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
+use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
@@ -281,21 +283,55 @@ class Icon
 		$text .= HTMLHelper::_('form.token');
 		// Test for attending Status
 
-		$attending = AttendingHelper::getAttendingStatusToEvent(Factory::getApplication()->getIdentity()->id, $event->id);
+		if ($event->eventStatus == EventStatusEnum::PLANING->value) {
+			$interest = InterestHelper::getInterestStatusToEvent(Factory::getApplication()->getIdentity()->id,
+				$event->id);
 
-		if ($attending) {
-			$text .= '<input type="hidden" name="attendingId" value="' . $attending->id . '"/>';
-		} else {
-			$attending = new \stdClass();
-			$attending->status = AttendingStatusEnum::NA->value;
-		}
-
-		foreach (AttendingStatusEnum::cases() as $status) {
-			if ($status != AttendingStatusEnum::from($attending->status) && $status != AttendingStatusEnum::NA)
+			if ($interest)
 			{
-				$text .= '<button type="button" class="sda_button_spacer btn ' . $status->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
+				$text .= '<input type="hidden" name="interestId" value="' . $interest->id . '"/>';
+			}
+			else
+			{
+				$interest         = new \stdClass();
+				$interest->status = InterestStatusEnum::NA->value;
+			}
+
+			foreach (InterestStatusEnum::cases() as $status)
+			{
+				if ($status != InterestStatusEnum::from($interest->status) && $status != InterestStatusEnum::NA)
+				{
+					$text .= '<button type="button" class="sda_button_spacer btn ' . $status->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
 						. '<span class="icon-spacer ' . $status->getIcon() . '" aria-hidden="true"></span>';
-				$text .= Text::_($status->getButtonLabel()) . '</button>';
+					$text .= Text::_($status->getButtonLabel()) . '</button>';
+				}
+			}
+
+			//$text .= '<div class="sda_row"><input type="text" name="comment" id="comment" size="40" placeholder="' . Text::_('COM_SDAJEM_INTEREST_COMMENT') . '"/></div>';
+		}
+		else
+		{
+			$interest = AttendingHelper::getAttendingStatusToEvent(Factory::getApplication()->getIdentity()->id,
+				$event->id);
+
+			if ($interest)
+			{
+				$text .= '<input type="hidden" name="attendingId" value="' . $interest->id . '"/>';
+			}
+			else
+			{
+				$interest         = new \stdClass();
+				$interest->status = AttendingStatusEnum::NA->value;
+			}
+
+			foreach (AttendingStatusEnum::cases() as $status)
+			{
+				if ($status != AttendingStatusEnum::from($interest->status) && $status != AttendingStatusEnum::NA)
+				{
+					$text .= '<button type="button" class="sda_button_spacer btn ' . $status->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
+						. '<span class="icon-spacer ' . $status->getIcon() . '" aria-hidden="true"></span>';
+					$text .= Text::_($status->getButtonLabel()) . '</button>';
+				}
 			}
 		}
 
