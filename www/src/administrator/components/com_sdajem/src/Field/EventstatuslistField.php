@@ -61,6 +61,8 @@ class EventstatuslistField extends ListField
 		// Merge any additional options in the XML definition.
 		$options = array_merge(parent::getOptions(), $options);
 
+		$this->value = EventStatusEnum::OPEN->value;
+
 		return $options;
 	}
 

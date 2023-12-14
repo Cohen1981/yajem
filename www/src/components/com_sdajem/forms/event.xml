@@ -27,6 +27,7 @@
                type="Eventstatuslist"
                label="COM_SDAJEM_FIELD_EVENT_STATUS_LABEL"
                desc="COM_SDAJEM_FIELD_EVENT_STATUS_DESC"
+               default="0"
         />
     </fieldset>
     <fieldset name="details">

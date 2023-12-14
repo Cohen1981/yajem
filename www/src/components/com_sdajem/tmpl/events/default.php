@@ -217,7 +217,6 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                             } else {
 	                                            echo $item->feedbackCount . ' ' . Text::_('COM_SDAJEM_FEEDBACK_COUNT') . '</br>';
                                                 if ($canDo->get('core.manage') ||
-	                                                $canDo->get('core.edit') ||
 	                                                ($canDo->get('core.edit.own') && $item->created_by == $currentUser->id)
                                                 ) {
 	                                                echo $item->attendeeCount . ' ' . Text::_('COM_SDAJEM_ATTENDEE_COUNT');

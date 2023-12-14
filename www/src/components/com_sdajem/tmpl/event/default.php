@@ -247,7 +247,6 @@ $currentUser = Factory::getApplication()->getIdentity();
             <?php if (isset($event->attendings)) : ?>
 	            <?php if ($event->eventStatus != EventStatusEnum::PLANING->value ||
 		                  $canDo->get('core.manage') ||
-			              $canDo->get('core.edit') ||
 			              ($canDo->get('core.edit.own') && $event->created_by == $currentUser->id)
                 ) : ?>
                 <div class="sda_attendee_container">

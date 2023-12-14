@@ -123,8 +123,11 @@ class EventTable extends Table
 			$this->organizerId = null;
 		}
 		if (!$this->eventStatus) {
-			$this->eventStatus = EventStatusEnum::PLANING->value;
-			$this->access = 2;
+			$this->eventStatus = EventStatusEnum::OPEN->value;
+			$this->access = 1;
+		}
+		if ($this->eventStatus == EventStatusEnum::PLANING->value) {
+			$this->access =2;
 		}
 		//if (!$this->checked_out) {
 		$this->checked_out = null;
