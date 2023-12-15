@@ -43,12 +43,16 @@ $event = $this->item;
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</div>
-                <div>
+                <div class="sda_row">
+                    <h5><?php echo Text::_('COM_SDAJEM_INTEREST_COMMENTS'); ?></h5>
 	                <?php foreach ($event->interests as $i => $interested) : ?>
                         <?php
                             $interest = new EventInterestModel($interested);
-                            echo '<br class="sda_row"><b>' . $interest->user->username . ':</b></br>';
-                            echo $interest->comment . '</div>';
+                            if ($interest->comment)
+                            {
+	                            echo '<div class="sda_row"><b>' . $interest->user->username . ':</b></br>';
+	                            echo $interest->comment . '</div>';
+                            }
                         ?>
                     <?php endforeach; ?>
                 </div>
