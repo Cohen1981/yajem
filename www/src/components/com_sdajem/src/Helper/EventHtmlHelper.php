@@ -37,6 +37,7 @@ abstract class EventHtmlHelper
 		echo '<div class="card-body">';
 		echo '<h5 class="card-title">' . $interestModel->user->username . '</h5>';
 		echo '<p class="card-text">' . $interestModel->status->getStatusBadge() . '</p>';
+		//echo '<p class="card-text"> ' . $interestModel->comment . '</p>';
 		echo '</div></div>';
 	}
 }

@@ -23,6 +23,7 @@ use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
  * @property  InterestStatusEnum  status
  * @property  array               profile
  * @property  array               userData
+ * @property  string              comment
  */
 class EventInterestModel extends UserModel
 {
@@ -35,5 +36,6 @@ class EventInterestModel extends UserModel
 		$this->event_id = $data->event_id;
 		$this->attendingId = $data->id;
 		$this->status = InterestStatusEnum::tryFrom($data->status);
+		$this->comment = $data->comment;
 	}
 }

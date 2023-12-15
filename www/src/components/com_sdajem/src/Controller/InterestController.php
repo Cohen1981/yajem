@@ -98,7 +98,7 @@ class InterestController extends FormController
 					'event_id'      => $id,
 					'users_user_id' => $currUser->id,
 					'status'        => InterestStatusEnum::INTERESTED->value,
-					'comment'       => $this->input->get('comment')
+					'comment'       => $this->input->getRaw('comment')
 				);
 
 				$this->input->post->set('jform', $data);
@@ -142,7 +142,7 @@ class InterestController extends FormController
 					'event_id'      => $id,
 					'users_user_id' => $currUser->id,
 					'status'        => InterestStatusEnum::NOT_INTERESTED->value,
-					'comment'       => $this->input->get('comment')
+					'comment'       => $this->input->getRaw('comment')
 				);
 
 				$this->input->post->set('jform', $data);

@@ -3,7 +3,7 @@
   <component name="WebServers">
     <option name="servers">
       <webServer id="ba412825-bf78-4599-8a90-3d5b85dd8be3" name="test" url="http://localhost/joomla">
-        <fileTransfer accessType="LOCAL" port="0" />
+        <fileTransfer mountedRoot="\\wsl$\Ubuntu-20.04\home\joomla\development\yajem\www\joomla" accessType="MOUNT" port="0" />
       </webServer>
     </option>
   </component>

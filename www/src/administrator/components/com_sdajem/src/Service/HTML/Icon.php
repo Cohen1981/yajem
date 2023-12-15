@@ -307,7 +307,7 @@ class Icon
 				}
 			}
 
-			//$text .= '<div class="sda_row"><input type="text" name="comment" id="comment" size="40" placeholder="' . Text::_('COM_SDAJEM_INTEREST_COMMENT') . '"/></div>';
+			$text .= '<div class="sda_row"><input type="text" name="comment" id="comment" size="100" placeholder="' . Text::_('COM_SDAJEM_INTEREST_COMMENT') . '"/></div>';
 		}
 		else
 		{

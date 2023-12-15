@@ -43,6 +43,15 @@ $event = $this->item;
 						<?php endif; ?>
 					<?php endforeach; ?>
 				</div>
+                <div>
+	                <?php foreach ($event->interests as $i => $interested) : ?>
+                        <?php
+                            $interest = new EventInterestModel($interested);
+                            echo '<br class="sda_row"><b>' . $interest->user->username . ':</b></br>';
+                            echo $interest->comment . '</div>';
+                        ?>
+                    <?php endforeach; ?>
+                </div>
 			<?php endif; ?>
 		<?php endif; ?>
 	</div>

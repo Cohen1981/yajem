@@ -19,6 +19,11 @@
                 type="Intereststatuslist"
                 label="COM_SDAJEM_FIELD_INTEREST_STATUS_LABEL"
         />
+        <field
+                name="comment"
+                type="text"
+                size="40"
+        />
     </fieldset>
     <fieldset name="admin" addfieldprefix="Sda\Component\Sdajem\Administrator\Field">
         <field
