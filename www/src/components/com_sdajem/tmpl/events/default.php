@@ -162,35 +162,30 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                             <?php echo Text::_('COM_SDAJEM_LOCATION') . ': ' . $this->escape($item->location_name);?>
                                         </div>
                                         <?php endif; ?>
-                                        <?php if ($params->get('sda_use_attending')) :?>
-                                            <?php if ($item->eventStatus == EventStatusEnum::PLANING->value) :?>
+                                        <?php if ($params->get('sda_use_attending') && !$currentUser->guest) :?>
 
+                                            <?php
+                                            $intStatus = (InterestHelper::getInterestStatusToEvent($currentUser->id,
+                                                $item->id)) ? InterestHelper::getInterestStatusToEvent($currentUser->id,
+                                                $item->id)->status : 0;
+
+                                            $attStatus = (AttendingHelper::getAttendingStatusToEvent($currentUser->id,
+                                                $item->id)) ? AttendingHelper::getAttendingStatusToEvent($currentUser->id,
+                                                $item->id)->status : 0;
+	                                        ?>
+
+                                            <?php if ($item->eventStatus == EventStatusEnum::PLANING->value) :?>
+                                                <div class="small">
+                                                    <?php echo InterestStatusEnum::from($intStatus)->getStatusBadge(); ?>
+                                                </div>
+                                            <?php else: ?>
                                                 <div class="small">
                                                     <?php
-                                                    if (!$currentUser->guest)
-                                                    {
-                                                        $attStatus = (InterestHelper::getInterestStatusToEvent($currentUser->id,
-                                                            $item->id)) ? InterestHelper::getInterestStatusToEvent($currentUser->id,
-                                                            $item->id)->status : 0;
-                                                        echo InterestStatusEnum::from($attStatus)->getStatusBadge();
+                                                    if ($intStatus != InterestStatusEnum::NA->value) {
+	                                                    echo InterestStatusEnum::from($intStatus)->getStatusBadge() . ' ';
                                                     }
-                                                    ?>
+                                                    echo AttendingStatusEnum::from($attStatus)->getStatusBadge(); ?>
                                                 </div>
-
-                                            <?php else: ?>
-
-                                            <div class="small">
-                                                <?php
-                                                if (!$currentUser->guest)
-                                                {
-                                                    $attStatus = (AttendingHelper::getAttendingStatusToEvent($currentUser->id,
-                                                        $item->id)) ? AttendingHelper::getAttendingStatusToEvent($currentUser->id,
-                                                        $item->id)->status : 0;
-                                                    echo AttendingStatusEnum::from($attStatus)->getStatusBadge();
-                                                }
-                                                ?>
-                                            </div>
-
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </th>

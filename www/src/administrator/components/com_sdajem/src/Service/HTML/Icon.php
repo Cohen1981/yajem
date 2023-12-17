@@ -377,7 +377,7 @@ class Icon
 		$icon = $action->getIcon();
 
 		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
-			. HTMLHelper::tooltipText(Text::_($action->getStatusLabel()), '', 0, 0) . '"> &nbsp;' . Text::_($action->getStatusLabel()) . '</span> ';
+			. HTMLHelper::tooltipText(Text::_($action->getStatusLabel()), '', 0, 0) . '"><span class="icon-text"> &nbsp;' . Text::_($action->getStatusLabel()) . '</span></span> ';
 		$attribs['title'] = Text::_($action->getStatusLabel());
 		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
 		return $output;

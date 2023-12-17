@@ -43,10 +43,10 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * The item model state
 	 *
-	 * @var    CMSObject
+	 * @var    Registry
 	 * @since  1.0.0
 	 */
-	protected CMSObject $state;
+	protected Registry $state;
 
 	/**
 	 * The item object details
