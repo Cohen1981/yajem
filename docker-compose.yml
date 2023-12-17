@@ -18,7 +18,7 @@ services:
   #
   mysql:
     container_name: "ampp-mysql"
-    image: bitnami/mysql:5.7
+    image: bitnami/mysql:8.2.0
     build: ./build/mysql
     restart: unless-stopped
     environment:
@@ -33,7 +33,7 @@ services:
   #
   php:
     container_name: "ampp-php"
-    image: bitnami/php-fpm:8.2
+    image: bitnami/php-fpm:8.2.13
     restart: unless-stopped
     volumes:
       - ./www:/app:delegated
