@@ -18,13 +18,18 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
+use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingformModel;
 use Sda\Component\Sdajem\Site\Model\AttendingModel;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 use Sda\Component\Sdajem\Site\Model\EventformModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
+use Sda\Component\Sdajem\Site\Model\InterestModel;
 
 class EventController extends FormController
 {
@@ -302,5 +307,119 @@ class EventController extends FormController
 		}
 
 		return true;
+	}
+
+	public function positive($eventId = null, $userId = null)
+	{
+		//$this->option = 'core.manage.attending';
+		$pks = [];
+
+		if ($this->input->get('event_id')) {
+			$pks[0] = $this->input->get('event_id');
+		} else if ($eventId !== null)
+		{
+			$pks[0] = $eventId;
+		} else {
+			$pks = $this->input->get('cid');
+		}
+
+		if (count($pks) >= 0) {
+
+			if ($userId !== null) {
+				$currUser = $userId;
+			} else
+			{
+				$currUser = Factory::getApplication()->getIdentity();
+			}
+
+			foreach ($pks as $id)
+			{
+				$eventModel = new EventModel();
+				/* @var EventModel $event */
+				$event = $eventModel->getItem($id);
+
+				if ($event->eventStatus == EventStatusEnum::PLANING->value)
+				{
+					$interest = InterestHelper::getInterestStatusToEvent($currUser->id, $id);
+					$model = new \Sda\Component\Sdajem\Administrator\Model\InterestModel();
+				} else
+				{
+					$interest = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
+					$model = new \Sda\Component\Sdajem\Administrator\Model\AttendingModel();
+				}
+
+				$data = array(
+					'id'            => $interest->id,
+					'event_id'      => $id,
+					'users_user_id' => $currUser->id,
+					'status'        => IntAttStatusEnum::POSITIVE->value);
+					//'comment'       => $this->input->getRaw('comment')
+//				);
+				if ($event->eventStatus == EventStatusEnum::PLANING->value)
+				{
+					$data['comment'] = $this->input->getRaw('comment');
+				}
+
+				$this->setRedirect(Route::_($this->getReturnPage(), false));
+				return $model->save($data);
+			}
+		}
+	}
+
+	public function negative($eventId = null, $userId = null)
+	{
+		//$this->option = 'core.manage.attending';
+		$pks = [];
+
+		if ($this->input->get('event_id')) {
+			$pks[0] = $this->input->get('event_id');
+		} else if ($eventId !== null)
+		{
+			$pks[0] = $eventId;
+		} else {
+			$pks = $this->input->get('cid');
+		}
+
+		if (count($pks) >= 0) {
+
+			if ($userId !== null) {
+				$currUser = $userId;
+			} else
+			{
+				$currUser = Factory::getApplication()->getIdentity();
+			}
+
+			foreach ($pks as $id)
+			{
+				$eventModel = new EventModel();
+				/* @var EventModel $event */
+				$event = $eventModel->getItem($id);
+
+				if ($event->eventStatus == EventStatusEnum::PLANING->value)
+				{
+					$interest = InterestHelper::getInterestStatusToEvent($currUser->id, $id);
+					$model = new \Sda\Component\Sdajem\Administrator\Model\InterestModel();
+				} else
+				{
+					$interest = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
+					$model = new \Sda\Component\Sdajem\Administrator\Model\AttendingModel();
+				}
+
+				$data = array(
+					'id'            => $interest->id,
+					'event_id'      => $id,
+					'users_user_id' => $currUser->id,
+					'status'        => IntAttStatusEnum::NEGATIVE->value);
+				//'comment'       => $this->input->getRaw('comment')
+//				);
+				if ($event->eventStatus == EventStatusEnum::PLANING->value)
+				{
+					$data['comment'] = $this->input->getRaw('comment');
+				}
+
+				$this->setRedirect(Route::_($this->getReturnPage(), false));
+				return $model->save($data);
+			}
+		}
 	}
 }

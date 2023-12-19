@@ -11,6 +11,7 @@ namespace Sda\Component\Sdajem\Administrator\Helper;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\Database\DatabaseInterface;
 
 abstract class AttendingHelper
 {
@@ -22,7 +23,7 @@ abstract class AttendingHelper
 
 		try
 		{
-			$db    = Factory::getDbo();
+			$db    = Factory::getContainer()->get(DatabaseInterface::class);
 			$query = $db->getQuery(true);
 
 			$query->select('a.*')

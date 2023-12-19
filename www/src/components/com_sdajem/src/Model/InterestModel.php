@@ -37,6 +37,7 @@ use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
  * @property  int       users_user_id
  * @property  string    attendeeName
  * @property  InterestStatusEnum   status
+ * @property  string    comment
  */
 
 class InterestModel extends BaseDatabaseModel

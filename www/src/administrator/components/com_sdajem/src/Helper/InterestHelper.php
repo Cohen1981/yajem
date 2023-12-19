@@ -11,6 +11,9 @@ namespace Sda\Component\Sdajem\Administrator\Helper;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Service\Provider\Database;
+use Joomla\Database\DatabaseInterface;
+use Symfony\Component\VarDumper\Cloner\Data;
 
 abstract class InterestHelper
 {
@@ -22,7 +25,7 @@ abstract class InterestHelper
 
 		try
 		{
-			$db    = Factory::getDbo();
+			$db    = Factory::getContainer()->get(DatabaseInterface::class);
 			$query = $db->getQuery(true);
 
 			$query->select('a.*')

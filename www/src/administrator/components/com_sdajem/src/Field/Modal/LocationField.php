@@ -16,6 +16,7 @@ use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Session\Session;
+use Joomla\Database\DatabaseInterface;
 
 class LocationField extends FormField
 {
@@ -71,7 +72,7 @@ class LocationField extends FormField
 		$modalTitle   = Text::_('COM_SDAJEM_CHANGE_LOCATION');
 		$urlSelect = $linkLocations . '&amp;function=jSelectLocation_' . $this->id;
 		if ($value) {
-			$db    = Factory::getDbo();
+			$db    = Factory::getContainer()->get(DatabaseInterface::class);
 			$query = $db->getQuery(true)
 				->select($db->quoteName('title'))
 				->from($db->quoteName('#__sdajem_locations'))

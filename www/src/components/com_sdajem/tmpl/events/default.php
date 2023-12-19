@@ -21,6 +21,7 @@ use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
 use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
 
 /* @var \Joomla\CMS\WebAsset\WebAssetManager $wa */
@@ -78,13 +79,12 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                     <?php endif; ?>
 
                     <?php
-                    /*
                     if ($params->get('sda_use_attending'))
                     {
 	                    echo '<div class="btn-group sda_button_spacer d-sm-inline-block d-none" role="group" aria-label="Attending group">';
-	                    foreach (AttendingStatusEnum::cases() as $stat)
+	                    foreach (IntAttStatusEnum::cases() as $stat)
 	                    {
-		                    if ($stat != AttendingStatusEnum::NA)
+		                    if ($stat != IntAttStatusEnum::NA)
 		                    {
 			                    $text = '<button type="button" class="btn ' . $stat->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $stat->getAction() . '\')">'
 				                    . '<span class="icon-spacer ' . $stat->getIcon() . '" aria-hidden="true"></span>';
@@ -94,7 +94,6 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 	                    }
                         echo '</div>';
                     }
-                    */
                     ?>
                 </div>
             <?php endif; ?>
