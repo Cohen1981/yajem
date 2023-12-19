@@ -68,7 +68,7 @@ class LocationModel extends BaseDatabaseModel
 	{
 		$app = Factory::getApplication();
 		if ($pk === null)
-			$pk  = $app->input->getInt('id');
+			$pk  = ($pk) ? $pk : $app->input->getInt('id');
 
 		if ($this->_item === null)
 		{
@@ -84,8 +84,9 @@ class LocationModel extends BaseDatabaseModel
 
 				$query->select('*')
 					->from($db->quoteName('#__sdajem_locations', 'a'))
-					->where('a.id = ' . (int) $pk);
+					->where($db->quoteName('a.id') . '= :locationId');
 
+				$query->bind(':locationId', $pk);
 				$db->setQuery($query);
 				$data = $db->loadObject();
 

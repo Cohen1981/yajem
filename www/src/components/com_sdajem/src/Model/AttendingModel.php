@@ -57,7 +57,7 @@ class AttendingModel extends BaseDatabaseModel
 	public function getItem($pk = null)
 	{
 		$app = Factory::getApplication();
-		$pk  = $app->input->getInt('id');
+		$pk  = ($pk) ? $pk : $app->input->getInt('id');
 
 		if ($this->_item === null)
 		{
@@ -73,7 +73,7 @@ class AttendingModel extends BaseDatabaseModel
 
 				$query->select('*')
 					->from($db->quoteName('#__sdajem_attendings', 'a'))
-					->where('a.id = ' . (int) $pk);
+					->where($db->quoteName('a.id') . ' = :attendingId');
 
 				$query->select($db->quoteName('e.title', 'eventTitle'))
 					->join(
@@ -87,6 +87,8 @@ class AttendingModel extends BaseDatabaseModel
 						'LEFT',
 						$db->quoteName('#__users', 'at') . ' ON ' . $db->quoteName('at.id') . ' = ' . $db->quoteName('a.users_user_id')
 					);
+
+				$query->bind(':attendingID', $pk);
 
 				$db->setQuery($query);
 				$data = $db->loadObject();

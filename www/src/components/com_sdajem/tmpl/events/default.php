@@ -173,7 +173,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 
                                             <?php if ($item->eventStatus == EventStatusEnum::PLANING->value) :?>
                                                 <div class="small">
-                                                    <?php echo IntAttStatusEnum::from($intStatus)->getStatusBadge(); ?>
+                                                    <?php echo IntAttStatusEnum::from($intStatus)->getInterestStatusBadge(); ?>
                                                 </div>
                                             <?php else: ?>
                                                 <div class="small">

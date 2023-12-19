@@ -33,7 +33,8 @@ class AttendingsModel extends \Sda\Component\Sdajem\Administrator\Model\Attendin
 		);
 		$query->from($db->quoteName('#__sdajem_attendings', 'a'));
 
-		$query->where($db->quoteName('a.event_id') . '=' . $eventId);
+		$query->where($db->quoteName('a.event_id') . '= :eventId');
+		$query->bind(':eventId', $eventId);
 
 		$db->setQuery($query);
 		$data = $db->loadObjectList();

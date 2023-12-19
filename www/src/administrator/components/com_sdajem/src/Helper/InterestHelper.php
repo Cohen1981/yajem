@@ -28,8 +28,11 @@ abstract class InterestHelper
 
 			$query->select('a.*')
 				->from($db->quoteName('#__sdajem_interest', 'a'))
-				->where('a.users_user_id = ' . (int) $userId)
-				->extendWhere('AND', 'a.event_id = ' . (int) $eventId);
+				->where($db->quoteName('a.users_user_id') . ' = :userId')
+				->extendWhere('AND', $db->quoteName('a.event_id') . ' = :eventId');
+
+			$query->bind(':userId', $userId)
+				->bind(':eventId', $eventId);
 
 			$db->setQuery($query);
 			$data = $db->loadObject();

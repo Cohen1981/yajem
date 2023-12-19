@@ -34,7 +34,9 @@ class InterestsModel extends \Sda\Component\Sdajem\Administrator\Model\Interests
 		);
 		$query->from($db->quoteName('#__sdajem_interest', 'a'));
 
-		$query->where($db->quoteName('a.event_id') . '=' . $eventId);
+		$query->where($db->quoteName('a.event_id') . ' = :eventId');
+
+		$query->bind(':eventId', $eventId);
 
 		$db->setQuery($query);
 		$data = $db->loadObjectList();
