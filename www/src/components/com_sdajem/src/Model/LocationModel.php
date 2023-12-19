@@ -12,8 +12,8 @@ namespace Sda\Component\Sdajem\Site\Model;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
 /**
  * Location model for the Joomla Locations component.

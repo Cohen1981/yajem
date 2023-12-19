@@ -10,7 +10,6 @@
 namespace Sda\Component\Sdajem\Administrator\Table;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\HTML\Helpers\Date;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseDriver;
 use Sda\Component\Sdajem\Administrator\Model\LocationModel;

@@ -12,18 +12,11 @@ namespace Sda\Component\Sdajem\Site\View\Attending;
 defined('_JEXEC') or die();
 
 use Exception;
-use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Object\CMSObject;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
-use Joomla\Component\Contact\Site\Model\ContactModel;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Site\Model\AttendingModel;
-use Sda\Component\Sdajem\Site\Model\AttendingsModel;
-use Sda\Component\Sdajem\Site\Model\EventModel;
-use Sda\Component\Sdajem\Site\Model\LocationModel;
-use Sda\Component\Sdajem\Site\Model\UserModel as SdaUserModel;
 use stdClass;
 
 /**

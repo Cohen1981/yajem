@@ -17,7 +17,6 @@ use Joomla\Component\Contact\Administrator\Model\ContactModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\Model\UserModel;
-use Joomla\CMS\Layout\LayoutHelper;
 
 $wa=$this->document->getWebAssetManager();
 $wa->registerAndUseStyle('sdajem', 'com_sdajem/sdajem.css');

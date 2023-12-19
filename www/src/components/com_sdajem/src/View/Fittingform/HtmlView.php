@@ -13,7 +13,6 @@ namespace Sda\Component\Sdajem\Site\View\Fittingform;
 
 use Exception;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
@@ -31,7 +30,7 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected $form;
 	/**
-	 * @var    object
+	 * @var    mixed | object
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $item;

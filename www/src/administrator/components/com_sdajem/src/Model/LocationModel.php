@@ -87,7 +87,7 @@ class LocationModel extends AdminModel
 
 			// Prime some default values.
 			if ($this->getState('location.id') == 0) {
-				$data->set('catid', $app->input->get('catid', $app->getUserState('com_sdajem.locations.filter.category_id'), 'int'));
+				$data->catid = $app->input->get('catid', $app->getUserState('com_sdajem.locations.filter.category_id'), 'int');
 			}
 		}
 

@@ -13,9 +13,9 @@ namespace Sda\Component\Sdajem\Site\Model;
 
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
-use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Language\Text;
-use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 /**
  * Event model for the Joomla Events component.
@@ -35,7 +35,7 @@ use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
  * @property  string    eventTitle
  * @property  int       users_user_id
  * @property  string    attendeeName
- * @property  AttendingStatusEnum   status
+ * @property  IntAttStatusEnum   status
  */
 
 class AttendingModel extends BaseDatabaseModel
@@ -104,7 +104,7 @@ class AttendingModel extends BaseDatabaseModel
 				$this->_item[$pk] = false;
 			}
 		}
-		$this->_item[$pk]->status = AttendingStatusEnum::from($this->_item[$pk]->status);
+		$this->_item[$pk]->status = IntAttStatusEnum::from($this->_item[$pk]->status);
 
 		return $this->_item[$pk];
 	}

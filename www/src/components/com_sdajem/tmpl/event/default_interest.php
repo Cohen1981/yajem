@@ -10,12 +10,12 @@
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Model\EventInterestModel;
-use Joomla\CMS\Helper\ContentHelper;
 use Sda\Component\Sdajem\Site\Model\EventModel;
 
 $canDo   = ContentHelper::getActions('com_sdajem', 'category', $this->item->catid);

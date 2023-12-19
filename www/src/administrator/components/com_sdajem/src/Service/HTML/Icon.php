@@ -18,14 +18,12 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
-use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
-use Joomla\Registry\Registry;
-use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 
 class Icon
 {
@@ -294,16 +292,16 @@ class Icon
 			else
 			{
 				$interest         = new \stdClass();
-				$interest->status = InterestStatusEnum::NA->value;
+				$interest->status = IntAttStatusEnum::NA->value;
 			}
 
-			foreach (InterestStatusEnum::cases() as $status)
+			foreach (IntAttStatusEnum::cases() as $status)
 			{
-				if ($status != InterestStatusEnum::from($interest->status) && $status != InterestStatusEnum::NA)
+				if ($status != IntAttStatusEnum::from($interest->status) && $status != IntAttStatusEnum::NA)
 				{
 					$text .= '<button type="button" class="sda_button_spacer btn ' . $status->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
 						. '<span class="icon-spacer ' . $status->getIcon() . '" aria-hidden="true"></span>';
-					$text .= Text::_($status->getButtonLabel()) . '</button>';
+					$text .= Text::_($status->getInterestButtonLabel()) . '</button>';
 				}
 			}
 
@@ -321,16 +319,16 @@ class Icon
 			else
 			{
 				$interest         = new \stdClass();
-				$interest->status = AttendingStatusEnum::NA->value;
+				$interest->status = IntAttStatusEnum::NA->value;
 			}
 
-			foreach (AttendingStatusEnum::cases() as $status)
+			foreach (IntAttStatusEnum::cases() as $status)
 			{
-				if ($status != AttendingStatusEnum::from($interest->status) && $status != AttendingStatusEnum::NA)
+				if ($status != IntAttStatusEnum::from($interest->status) && $status != IntAttStatusEnum::NA)
 				{
 					$text .= '<button type="button" class="sda_button_spacer btn ' . $status->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
 						. '<span class="icon-spacer ' . $status->getIcon() . '" aria-hidden="true"></span>';
-					$text .= Text::_($status->getButtonLabel()) . '</button>';
+					$text .= Text::_($status->getAttendingButtonLabel()) . '</button>';
 				}
 			}
 		}

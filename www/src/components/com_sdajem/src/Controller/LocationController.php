@@ -15,9 +15,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Component\Categories\Administrator\Model\CategoryModel;
-use Joomla\Utilities\ArrayHelper;
-use Sda\Component\Sdajem\Site\Model\AttendingModel;
 
 class LocationController extends FormController
 {

@@ -9,8 +9,6 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model\Items;
 
-use Joomla\CMS\Date\Date;
-
 /**
  * @since       version
  * @package     Sda\Component\Sdajem\Administrator\Model

@@ -17,11 +17,7 @@ use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Component\Categories\Administrator\Extension\CategoriesComponent;
-use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
-use Joomla\Component\Contact\Site\Model\CategoryModel;
-use Joomla\Component\Contact\Site\Model\ContactModel;
-use Sda\Component\Sdajem\Administrator\Helper\EventHelper;
+
 /**
  * HTML Event View class for the Event component
  *
@@ -35,7 +31,7 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected $form;
 	/**
-	 * @var    object
+	 * @var    mixed | object
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $item;

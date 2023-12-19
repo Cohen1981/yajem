@@ -11,10 +11,7 @@ namespace Sda\Component\Sdajem\Site\View;
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Uri\Uri;
-use Joomla\Registry\Registry;
 
 class BaseItemsView extends \Joomla\CMS\MVC\View\HtmlView
 {

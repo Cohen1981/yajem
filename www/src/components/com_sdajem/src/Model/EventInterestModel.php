@@ -11,7 +11,7 @@ namespace Sda\Component\Sdajem\Site\Model;
 
 defined('_JEXEC') or die();
 
-use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 /**
  * @since      1.0.0
@@ -20,7 +20,7 @@ use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
  * @property  int                 attendingId
  * @property  int                 event_id
  * @property  int                 users_user_id
- * @property  InterestStatusEnum  status
+ * @property  IntAttStatusEnum  status
  * @property  array               profile
  * @property  array               userData
  * @property  string              comment
@@ -35,7 +35,7 @@ class EventInterestModel extends UserModel
 		}
 		$this->event_id = $data->event_id;
 		$this->attendingId = $data->id;
-		$this->status = InterestStatusEnum::tryFrom($data->status);
+		$this->status = IntAttStatusEnum::tryFrom($data->status);
 		$this->comment = $data->comment;
 	}
 }

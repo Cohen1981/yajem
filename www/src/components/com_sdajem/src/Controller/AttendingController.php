@@ -15,8 +15,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Uri\Uri;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
-use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
-use Sda\Component\Sdajem\Site\Model\AttendingModel;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 /**
  * @since       1.0.0
@@ -95,7 +94,7 @@ class AttendingController extends FormController
 					'id'            => $attending->id,
 					'event_id'      => $id,
 					'users_user_id' => $currUser->id,
-					'status'        => AttendingStatusEnum::ATTENDING->value
+					'status'        => IntAttStatusEnum::POSITIVE->value
 				);
 
 				$this->input->post->set('jform', $data);
@@ -138,7 +137,7 @@ class AttendingController extends FormController
 					'id'            => $attending->id,
 					'event_id'      => $id,
 					'users_user_id' => $currUser->id,
-					'status'        => AttendingStatusEnum::NOT_ATTENDING->value
+					'status'        => IntAttStatusEnum::NEGATIVE->value
 				);
 
 				$this->input->post->set('jform', $data);

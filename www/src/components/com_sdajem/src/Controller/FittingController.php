@@ -9,7 +9,6 @@
 
 namespace Sda\Component\Sdajem\Site\Controller;
 
-use Joomla\CMS\Factory;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 

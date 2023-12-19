@@ -44,10 +44,8 @@ class FittingformModel extends \Sda\Component\Sdajem\Administrator\Model\Fitting
 			return false;
 		}
 		$properties = $table->getProperties();
-		$value      = ArrayHelper::toObject($properties, 'JObject');
-		// Convert field to Registry.
-		#$value->params = new Registry($value->params);
-		return $value;
+
+		return ArrayHelper::toObject($properties, \stdClass::class);
 	}
 	/**
 	 * Get the return URL.

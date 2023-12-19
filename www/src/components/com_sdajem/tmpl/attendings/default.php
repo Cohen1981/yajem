@@ -13,7 +13,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
-use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 defined('_JEXEC') or die();
 
@@ -92,7 +92,7 @@ $params = $this->get('State')->get('params');
 		                                    <?php echo $this->escape($item->attendeeName); ?>
                                         </div>
                                         <div>
-		                                    <?php echo AttendingStatusEnum::from($item->status)->getStatusBadge(); ?>
+		                                    <?php echo IntAttStatusEnum::from($item->status)->getAttendingStatusBadge(); ?>
                                         </div>
                                     </td>
 									<td class="small d-none d-md-table-cell">

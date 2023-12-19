@@ -12,13 +12,10 @@ namespace Sda\Component\Sdajem\Administrator\Field;
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Component\ComponentHelper;
-use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\Database\Exception\ExecutionFailureException;
-use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 class AttendeestatuslistField extends ListField
 {
@@ -48,8 +45,8 @@ class AttendeestatuslistField extends ListField
 		$options[] = HTMLHelper::_('select.option', '', $header_title);
 
 		// Build the field options.
-		foreach (AttendingStatusEnum::cases() as $status) {
-			$options[] = HTMLHelper::_('select.option', $status->value, Text::_($status->getStatusLabel()));
+		foreach (IntAttStatusEnum::cases() as $status) {
+			$options[] = HTMLHelper::_('select.option', $status->value, Text::_($status->getAttendingStatusLabel()));
 		}
 
 		// Merge any additional options in the XML definition.

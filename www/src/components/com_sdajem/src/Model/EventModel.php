@@ -13,8 +13,8 @@ namespace Sda\Component\Sdajem\Site\Model;
 
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
-use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 
 /**
  * Event model for the Joomla Events component.

@@ -11,9 +11,6 @@ namespace Sda\Component\Sdajem\Site\Model;
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Factory;
-use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
-
 class InterestsModel extends \Sda\Component\Sdajem\Administrator\Model\InterestsModel
 {
 	public function getInterestsToEvent(int $eventId = null)

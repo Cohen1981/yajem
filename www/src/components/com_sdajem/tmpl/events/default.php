@@ -13,16 +13,14 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Router\Route;
 use Joomla\CMS\Layout\LayoutHelper;
+use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
-use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
 
 /* @var \Joomla\CMS\WebAsset\WebAssetManager $wa */
 $wa = $this->document->getWebAssetManager();
@@ -175,15 +173,15 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 
                                             <?php if ($item->eventStatus == EventStatusEnum::PLANING->value) :?>
                                                 <div class="small">
-                                                    <?php echo InterestStatusEnum::from($intStatus)->getStatusBadge(); ?>
+                                                    <?php echo IntAttStatusEnum::from($intStatus)->getStatusBadge(); ?>
                                                 </div>
                                             <?php else: ?>
                                                 <div class="small">
                                                     <?php
-                                                    if ($intStatus != InterestStatusEnum::NA->value) {
-	                                                    echo InterestStatusEnum::from($intStatus)->getStatusBadge() . ' ';
+                                                    if ($intStatus != IntAttStatusEnum::NA->value) {
+	                                                    echo IntAttStatusEnum::from($intStatus)->getInterestStatusBadge() . ' ';
                                                     }
-                                                    echo AttendingStatusEnum::from($attStatus)->getStatusBadge(); ?>
+                                                    echo IntAttStatusEnum::from($attStatus)->getAttendingStatusBadge(); ?>
                                                 </div>
                                             <?php endif; ?>
                                         <?php endif; ?>

@@ -14,7 +14,6 @@ namespace Sda\Component\Sdajem\Administrator\Table;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 

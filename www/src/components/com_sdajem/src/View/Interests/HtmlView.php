@@ -12,7 +12,6 @@ namespace Sda\Component\Sdajem\Site\View\Interests;
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Uri\Uri;
-use Sda\Component\Sdajem\Site\View\BaseItemsView;
 
 class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 {

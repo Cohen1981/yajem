@@ -11,9 +11,7 @@ namespace Sda\Component\Sdajem\Administrator\Helper;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Service\Provider\Database;
 use Joomla\Database\DatabaseInterface;
-use Symfony\Component\VarDumper\Cloner\Data;
 
 abstract class InterestHelper
 {

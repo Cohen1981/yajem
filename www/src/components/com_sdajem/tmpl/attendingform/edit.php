@@ -10,8 +10,8 @@
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Router\Route;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
 
 HTMLHelper::_('behavior.keepalive');

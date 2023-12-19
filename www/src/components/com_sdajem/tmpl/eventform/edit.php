@@ -10,10 +10,8 @@
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Router\Route;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Uri\Uri;
-use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
+use Joomla\CMS\Router\Route;
 
 HTMLHelper::_('behavior.keepalive');
 HTMLHelper::_('behavior.formvalidator');

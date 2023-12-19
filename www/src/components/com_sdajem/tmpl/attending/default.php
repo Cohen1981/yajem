@@ -11,7 +11,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Sda\Component\Sdajem\Site\Model\UserModel;
 
 defined('_JEXEC') or die();
 
@@ -47,6 +46,6 @@ $item = $this->item;
 	<div class="Attending">
 		<p><?php echo $item->eventTitle; ?></p>
 		<p><?php echo $item->attendeeName; ?></p>
-		<p><?php echo Text::_($item->status->getStatusLabel()); ?></p>
+		<p><?php echo Text::_($item->status->getAttendingStatusLabel()); ?></p>
 	</div>
 </div>

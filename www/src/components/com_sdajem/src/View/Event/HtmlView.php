@@ -12,9 +12,8 @@ namespace Sda\Component\Sdajem\Site\View\Event;
 defined('_JEXEC') or die();
 
 use Exception;
-use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Factory;
-use Joomla\CMS\Object\CMSObject;
+use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
 use Joomla\Component\Contact\Site\Model\ContactModel;

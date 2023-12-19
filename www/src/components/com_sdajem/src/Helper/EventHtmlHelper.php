@@ -24,7 +24,7 @@ abstract class EventHtmlHelper
 		}
         echo '<div class="card-body">';
 		echo '<h5 class="card-title">' . $attendeeModel->user->username . '</h5>';
-        echo '<p class="card-text">' . $attendeeModel->status->getStatusBadge() . '</p>';
+        echo '<p class="card-text">' . $attendeeModel->status->getAttendingStatusBadge() . '</p>';
         echo '</div></div>';
 	}
 
@@ -36,8 +36,7 @@ abstract class EventHtmlHelper
 		}
 		echo '<div class="card-body">';
 		echo '<h5 class="card-title">' . $interestModel->user->username . '</h5>';
-		echo '<p class="card-text">' . $interestModel->status->getStatusBadge() . '</p>';
-		//echo '<p class="card-text"> ' . $interestModel->comment . '</p>';
+		echo '<p class="card-text">' . $interestModel->status->getInterestStatusBadge() . '</p>';
 		echo '</div></div>';
 	}
 }

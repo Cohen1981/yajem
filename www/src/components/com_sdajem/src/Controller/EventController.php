@@ -11,25 +11,23 @@ namespace Sda\Component\Sdajem\Site\Controller;
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Dispatcher\Dispatcher;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
-use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
-use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingformModel;
-use Sda\Component\Sdajem\Site\Model\AttendingModel;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 use Sda\Component\Sdajem\Site\Model\EventformModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
-use Sda\Component\Sdajem\Site\Model\InterestModel;
+use Sda\Component\Sdajem\Site\Model\InterestformModel;
+use Sda\Component\Sdajem\Site\Model\InterestsModel;
+
+;
 
 class EventController extends FormController
 {
@@ -147,14 +145,19 @@ class EventController extends FormController
 		$attendingFormModel = new AttendingformModel();
 		$attendingsModel = new AttendingsModel();
 
+		$interestFormModel = new InterestformModel();
+		$interestsModel = new InterestsModel();
+
 		foreach ($pks as &$pk) {
 			$attendings = $attendingsModel->getAttendingsIdToEvent($pk);
 			$attResult = $attendingFormModel->delete($attendings);
+			$interests = $interestsModel->getInterestsIdToEvent($pk);
+			$intResult = $interestFormModel->delete($interests);
 		}
 
 		$eventFormModel = new EventformModel();
 
-		if ($attResult)
+		if ($attResult && $intResult)
 		{
 			$result = $eventFormModel->delete($pks);
 		}
@@ -309,6 +312,13 @@ class EventController extends FormController
 		return true;
 	}
 
+	/**
+	 * @param   null  $eventId
+	 * @param   null  $userId
+	 *
+	 * @throws \Exception
+	 * @since 1.1.3
+	 */
 	public function positive($eventId = null, $userId = null)
 	{
 		//$this->option = 'core.manage.attending';
@@ -361,11 +371,18 @@ class EventController extends FormController
 				}
 
 				$this->setRedirect(Route::_($this->getReturnPage(), false));
-				return $model->save($data);
+				$model->save($data);
 			}
 		}
 	}
 
+	/**
+	 * @param   null  $eventId
+	 * @param   null  $userId
+	 *
+	 * @throws \Exception
+	 * @since 1.1.3
+	 */
 	public function negative($eventId = null, $userId = null)
 	{
 		//$this->option = 'core.manage.attending';
@@ -418,7 +435,7 @@ class EventController extends FormController
 				}
 
 				$this->setRedirect(Route::_($this->getReturnPage(), false));
-				return $model->save($data);
+				$model->save($data);
 			}
 		}
 	}

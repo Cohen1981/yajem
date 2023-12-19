@@ -15,8 +15,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
-use Sda\Component\Sdajem\Site\Enums\AttendingStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\InterestStatusEnum;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 /**
  * @since       1.0.1
@@ -119,7 +118,7 @@ class EventsModel extends ListModel
 			->where(
 				[
 					$db->quoteName('att.event_id') . ' = ' . $db->quoteName('a.id'),
-					$db->quoteName('att.status') . ' = ' . AttendingStatusEnum::ATTENDING->value,
+					$db->quoteName('att.status') . ' = ' . IntAttStatusEnum::POSITIVE->value,
 				]
 			);
 		$query->select('(' . $attendees . ') AS ' . $db->quoteName('attendeeCount'));
@@ -130,7 +129,7 @@ class EventsModel extends ListModel
 			->where(
 				[
 					$db->quoteName('int.event_id') . ' = ' . $db->quoteName('a.id'),
-					$db->quoteName('int.status') . ' = ' . InterestStatusEnum::INTERESTED->value,
+					$db->quoteName('int.status') . ' = ' . IntAttStatusEnum::POSITIVE->value,
 				]
 			);
 		$query->select('(' . $interestCount . ') AS ' . $db->quoteName('interestCount'));
