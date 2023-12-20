@@ -18,6 +18,8 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
 use Joomla\Component\Contact\Site\Model\ContactModel;
 use Joomla\Registry\Registry;
+use Sda\Component\Sdajem\Administrator\Model\FittingsModel;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\Model\InterestsModel;
@@ -107,18 +109,30 @@ class HtmlView extends BaseHtmlView
 		}
 
 		if($item->params->get('sda_use_attending')) {
-			/* @var AttendingsModel $attendings */
-			$attendings = new AttendingsModel();
-			$attendees = $attendings->getAttendingsToEvent($item->id);
-			if ($attendees) {
-				$item->attendings = $attendees;
-			}
+			if($item->eventStatus == EventStatusEnum::PLANING->value)
+			{
+				/* @var InterestsModel $interests */
+				$interests  = new InterestsModel();
+				$interested = $interests->getInterestsToEvent($item->id);
+				if ($interested)
+				{
+					$item->interests = $interested;
+				}
+			} else
+			{
+				/* @var AttendingsModel $interests */
+				$interests = new AttendingsModel();
+				$attendees = $interests->getAttendingsToEvent($item->id);
+				if ($attendees)
+				{
+					$item->interests = $attendees;
+				}
 
-			/* @var InterestsModel $interests */
-			$interests = new InterestsModel();
-			$interested = $interests->getInterestsToEvent($item->id);
-			if ($interested) {
-				$item->interests = $interested;
+				$fittingsModel = new FittingsModel();
+				$fittings = $fittingsModel->getFittingsForUser();
+				if ($fittings) {
+					$item->fittings = $fittings;
+				}
 			}
 		}
 

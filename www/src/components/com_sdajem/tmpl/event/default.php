@@ -21,6 +21,9 @@ use Sda\Component\Sdajem\Site\Model\UserModel;
 $wa=$this->document->getWebAssetManager();
 $wa->registerAndUseStyle('sdajem', 'com_sdajem/sdajem.css');
 
+$wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
+$wa->useScript('com_sdajem.checkbox');
+
 $wa->useScript('bootstrap.dropdown');
 $wa->useScript('bootstrap.collapse');
 
@@ -234,17 +237,40 @@ $currentUser = Factory::getApplication()->getIdentity();
                 </div>
             </div>
 	    <?php endif; ?>
-    </div>
 
-    <?php
-        if ($tparams->get('sda_use_attending') && !$user->guest) {
-            if ($event->eventStatus == EventStatusEnum::PLANING->value) {
-	            echo $this->loadTemplate('interest');
-            }
-            else
-            {
-	            echo $this->loadTemplate('attendees');
-            }
-        }
-    ?>
+        <?php if ($tparams->get('sda_use_attending') && !$user->guest): ?>
+        <div class="accordion-item">
+            <h5 class="accordion-header" id="headingAttendings">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttendings" aria-expanded="true" aria-controls="collapseAttendings">
+                    <h5><?php echo Text::_('COM_SDAJEM_FIELD_ATTENDINGS_LABEL'); ?></h5></br>
+                </button>
+            </h5>
+            <div id="collapseAttendings" class="accordion-collapse collapse" aria-labelledby="headingAttendings" data-bs-parent="#accordionEvent">
+                <div class="accordion-body">
+                    <?php
+                    if ($event->eventStatus == EventStatusEnum::PLANING->value) {
+                        echo $this->loadTemplate('interest');
+                    }
+                    else
+                    {
+                        echo $this->loadTemplate('attendees');
+                    }
+                    ?>
+                </div>
+            </div>
+        </div>
+        <?php endif; ?>
+        <div class="accordion-item">
+            <h5 class="accordion-header" id="headingPlaningArea">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlaningArea" aria-expanded="true" aria-controls="collapsePlaningArea">
+                    <h5><?php echo Text::_('COM_SDAJEM_PLANING_AREA_LABEL'); ?></h5></br>
+                </button>
+            </h5>
+            <div id="collapsePlaningArea" class="accordion-collapse collapse" aria-labelledby="headingPlaningArea" data-bs-parent="#accordionEvent">
+                <div class="accordion-body">
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

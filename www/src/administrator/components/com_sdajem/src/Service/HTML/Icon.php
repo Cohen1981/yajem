@@ -21,8 +21,10 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
+use Sda\Component\Sdajem\Administrator\Model\FittingModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
 
 class Icon
@@ -309,8 +311,7 @@ class Icon
 		}
 		else
 		{
-			$interest = AttendingHelper::getAttendingStatusToEvent(Factory::getApplication()->getIdentity()->id,
-				$event->id);
+			$interest = AttendingHelper::getAttendingStatusToEvent($user->id, $event->id);
 
 			if ($interest)
 			{
@@ -330,6 +331,26 @@ class Icon
 						. '<span class="icon-spacer ' . $status->getIcon() . '" aria-hidden="true"></span>';
 					$text .= Text::_($status->getAttendingButtonLabel()) . '</button>';
 				}
+			}
+
+			if(isset($event->fittings) && AttendingHelper::getAttendingStatusToEvent($user->id, $event->id)->status != IntAttStatusEnum::POSITIVE->value) {
+				$text .= '<div class="sda_row"> <div class="sda_attendee_container">';
+				/* @var FittingModel $fitting */
+				foreach ($event->fittings as $i => $fitting) {
+					$text .= '<div class="card" style="width: 120px;">';
+					$text .= HTMLHelper::image($fitting->image,'');
+					$text .= '<div class="card-body">';
+					$text .= '<h5 class="card-title">' . $fitting->title . '</h5>';
+					$text .= '<p class="card-text">' . $fitting->description . '</p>';
+					$text .= '<input type="checkbox" name="fittings[]" value="' . $fitting->id . '"';
+					if ($fitting->standard == 1) {
+						$text .= ' checked="true"/>';
+					} else {
+						$text .= '/>';
+					}
+					$text .= '</div></div>';
+				}
+				$text .= '</div></div>';
 			}
 		}
 

@@ -16,6 +16,7 @@ use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
+use Joomla\Registry\Registry;
 
 /**
  * @since      1.0.0
@@ -33,6 +34,7 @@ use Joomla\Database\DatabaseDriver;
  * @property  int       event_id
  * @property  int       users_user_id
  * @property  int       status
+ * @property  string    fittings
  */
 class AttendingTable extends Table
 {
@@ -91,6 +93,10 @@ class AttendingTable extends Table
 	 */
 	public function store($updateNulls = true)
 	{
+		if (is_array($this->fittings)) {
+			$registry = new Registry($this->fittings);
+			$this->fittings = (string) $registry;
+		}
 		return parent::store($updateNulls);
 	}
 }

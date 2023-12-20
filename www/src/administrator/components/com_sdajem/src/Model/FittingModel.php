@@ -12,6 +12,19 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 
+/**
+ * @since       1.1.1
+ * @package     Sda\Component\Sdajem\Administrator\Model
+ *
+ * @property int    id
+ * @property string title
+ * @property string description
+ * @property double length
+ * @property double width
+ * @property int    standard
+ * @property int    needSpace
+ * @property string image
+ */
 class FittingModel extends \Joomla\CMS\MVC\Model\AdminModel
 {
 

@@ -368,6 +368,8 @@ class EventController extends FormController
 				if ($event->eventStatus == EventStatusEnum::PLANING->value)
 				{
 					$data['comment'] = $this->input->getRaw('comment');
+				} else {
+					$data['fittings'] = $this->input->get('fittings');
 				}
 
 				$this->setRedirect(Route::_($this->getReturnPage(), false));

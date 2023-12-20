@@ -35,9 +35,6 @@ $wa->useScript('com_sdajem.calendar');
 		<?php endif; ?>
         <?php echo $this->form->renderField('eventStatus'); ?>
 
-        <!-- TODO sinnvolle Hilfetexte schreiben und wie im auskommentierten folgenden anzeigen -->
-        <!-- <?php # echo Text::_($this->form->getFieldAttribute('eventStatus', 'desc')); ?> -->
-
         <?php echo $this->form->renderField('description'); ?>
 		<?php echo $this->form->renderField('image'); ?>
 		<?php echo $this->form->renderField('url'); ?>

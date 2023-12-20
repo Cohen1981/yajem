@@ -28,6 +28,7 @@ class AttendingsModel extends \Sda\Component\Sdajem\Administrator\Model\Attendin
 					$db->quoteName('a.event_id'),
 					$db->quoteName('a.users_user_id'),
 					$db->quoteName('a.status'),
+					$db->quoteName('a.fittings'),
 				]
 			)
 		);

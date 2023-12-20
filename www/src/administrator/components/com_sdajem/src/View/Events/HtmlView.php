@@ -13,10 +13,12 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
+use Joomla\CMS\HTML\Helpers\Sidebar;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
+use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 
 #use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
@@ -91,7 +93,7 @@ class HtmlView extends BaseHtmlView
 		// We don't need toolbar in the modal window.
 		if ($this->getLayout() !== 'modal') {
 			$this->addToolbar();
-			$this->sidebar = \JHtmlSidebar::render();
+			$this->sidebar = Sidebar::render();
 		} else {
 			// In article associations modal we need to remove language filter if forcing a language.
 			// We also need to change the category filter to show show categories with All or the forced language.
@@ -119,14 +121,14 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected function addToolbar()
 	{
-		$this->sidebar = \JHtmlSidebar::render();
+		$this->sidebar = Sidebar::render();
 
 		$canDo = ContentHelper::getActions('com_sdajem', 'category', $this->state->get('filter.category_id'));
 		$user  = Factory::getApplication()->getIdentity();
 
 		// Get the toolbar object instance
 		#$toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
-		$toolbar = Toolbar::getInstance('toolbar');
+		$toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
 
 		ToolbarHelper::title(Text::_('COM_SDAJEM_EVENTS'), 'address event');
 

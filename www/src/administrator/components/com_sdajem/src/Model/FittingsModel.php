@@ -9,6 +9,7 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
+use Joomla\CMS\Factory;
 use Joomla\Database\QueryInterface;
 
 class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
@@ -99,5 +100,39 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 		$query->order($db->escape($orderCol . ' ' . $orderDirn));
 
 		return $query;
+	}
+
+	public function getFittingsForUser($userId = null) {
+		$userId = ($userId) ? $userId : Factory::getApplication()->getIdentity()->id;
+
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+
+		$query->select(
+			$this->getState(
+				'list.select',
+				[
+					$db->quoteName('a.id'),
+					$db->quoteName('a.title'),
+					$db->quoteName('a.description'),
+					$db->quoteName('a.length'),
+					$db->quoteName('a.width'),
+					$db->quoteName('a.standard'),
+					$db->quoteName('a.fittingType'),
+					$db->quoteName('a.user_id'),
+					$db->quoteName('a.image'),
+					$db->quoteName('a.needSpace'),
+				]
+			)
+		);
+		$query->from($db->quoteName('#__sdajem_fittings', 'a'));
+
+		$query->where($db->quoteName('a.user_id') . '= :userId');
+		$query->bind(':userId', $userId);
+
+		$db->setQuery($query);
+		$data = $db->loadObjectList();
+
+		return $data;
 	}
 }

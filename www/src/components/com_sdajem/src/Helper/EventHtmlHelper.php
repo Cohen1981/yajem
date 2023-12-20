@@ -11,6 +11,8 @@ namespace Sda\Component\Sdajem\Site\Helper;
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\HTML\HTMLHelper;
+use Sda\Component\Sdajem\Administrator\Model\FittingModel;
 use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
 use Sda\Component\Sdajem\Site\Model\EventInterestModel;
 
@@ -37,6 +39,15 @@ abstract class EventHtmlHelper
 		echo '<div class="card-body">';
 		echo '<h5 class="card-title">' . $interestModel->user->username . '</h5>';
 		echo '<p class="card-text">' . $interestModel->status->getInterestStatusBadge() . '</p>';
+		echo '</div></div>';
+	}
+
+	public static function renderFitting($fitting) {
+		echo '<div class="card" style="width: 120px;">';
+		echo HTMLHelper::image($fitting->image,'');
+		echo '<div class="card-body">';
+		echo '<h5 class="card-title">' . $fitting->title . '</h5>';
+		echo '<p class="card-text">' . $fitting->description . '</p>';
 		echo '</div></div>';
 	}
 }
