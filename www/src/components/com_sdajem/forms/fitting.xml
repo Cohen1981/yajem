@@ -66,6 +66,7 @@
                 name="image"
                 type="media"
                 label="COM_SDAJEM_FT_IMAGE_LABEL"
+                directory="lagerplanung"
         />
     </fieldset>
     <fieldset name="admin" addfieldprefix="Sda\Component\Sdajem\Administrator\Field">

@@ -3,22 +3,28 @@
  * @licence Gnu GPL
  * Load the magic
  */
-function makeDraggable() {
+;(function () {
+    'use strict'
+
+    let selectedElement, offset, transform,
+        bbox, minX, maxX, minY, maxY, confined, elToRotate,
+        rotating;
 
     // var svg = document.getElementById('main_svg');
-    var svg = document.getElementById('main_svg');
+    let svg = document.getElementById('main_svg');
 
-    document.getElementById('toSvg').addEventListener('click', exportSVG);
+    /*document.getElementById('toSvg').addEventListener('click', exportSVG);
     document.getElementById('save').addEventListener('click', exportSVG);
     document.getElementById('toPng').addEventListener('click', exportSVG);
     document.getElementById('messages').hidden = true;
-
+*/
     // Register drag event to all images
-    var images = $(".draggable");
-    for (var i = 0; i < images.length; i++)
+    let images = $(".draggable");
+    for (let i = 0; i < images.length; i++)
     {
-        images[i].addEventListener('click', evaluateDrag);
+        images[i].addEventListener('mousedown', evaluateDrag);
         images[i].addEventListener('mousemove', drag);
+        images[i].addEventListener('mouseup', endDrag);
         images[i].addEventListener('touchstart', evaluateDrag);
         images[i].addEventListener('touchmove', drag);
         images[i].addEventListener('touchend', endDrag);
@@ -28,9 +34,11 @@ function makeDraggable() {
 
     // Register Rotate event to all circles
     var handle = $(".handle");
-    for (var i = 0; i < handle.length; i++)
+    for (let i = 0; i < handle.length; i++)
     {
-        handle[i].addEventListener('click', startRotate);
+     //   handle[i].addEventListener('click', startRotate);
+        handle[i].addEventListener('mousedown', startRotate);
+        //handle[i].addEventListener('mousemove', rotate);
         handle[i].addEventListener('mouseup', endRotate);
         handle[i].addEventListener('mouseleave', endRotate);
         handle[i].addEventListener('touchstart', startRotate);
@@ -39,16 +47,13 @@ function makeDraggable() {
         handle[i].addEventListener('touchcancel', endRotate);
     }
 
-    var selectedElement, offset, transform,
-        bbox, minX, maxX, minY, maxY, confined, elToRotate;
-
-    var boundaryX1 = 0;
-    var boundaryX2 = document.getElementById('boxX').value;
-    var boundaryY1 = 0;
-    var boundaryY2 = document.getElementById('boxY').value;
+    let boundaryX1 = 0;
+    let boundaryX2 = document.getElementById('boxX').value;
+    let boundaryY1 = 0;
+    let boundaryY2 = document.getElementById('boxY').value;
 
     function getMousePosition(evt) {
-        var CTM = svg.getScreenCTM();
+        let CTM = svg.getScreenCTM();
         if (evt.touches) { evt = evt.touches[0]; }
 
         return {
@@ -75,7 +80,7 @@ function makeDraggable() {
                 selectedElement.classList.add('dragged');
 
                 // Make sure the first transform on the element is a translate transform
-                var transforms = selectedElement.transform.baseVal;
+                let transforms = selectedElement.transform.baseVal;
 
                 if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
                     // Create an transform that translates by (0, 0)
@@ -112,13 +117,13 @@ function makeDraggable() {
         if (evt.target.classList.contains('rotate')) {
             offset = getMousePosition(evt);
             selectedElement = evt.target;
-            var elForCenter = selectedElement.parentNode.childNodes.item(0);
+            let elForCenter = selectedElement.parentNode.childNodes.item(0);
             bbox = elForCenter.getBBox();
-            var transforms = elForCenter.transform.baseVal;
+            let transforms = elForCenter.transform.baseVal;
 
             if (transforms.length === 0 || transforms.getItem(0).type !== SVGTransform.SVG_TRANSFORM_TRANSLATE) {
                 // Create an transform that translates by (0, 0)
-                var translate = svg.createSVGTransform();
+                let translate = svg.createSVGTransform();
                 translate.setRotate(0, bbox.width / 2, bbox.height / 2);
                 elForCenter.transform.baseVal.insertItemBefore(translate, 0);
             }
@@ -137,9 +142,9 @@ function makeDraggable() {
         if (selectedElement) {
             evt.preventDefault();
 
-            var coord = getMousePosition(evt);
-            var dx = coord.x - offset.x;
-            var dy = coord.y - offset.y;
+            let coord = getMousePosition(evt);
+            let dx = coord.x - offset.x;
+            let dy = coord.y - offset.y;
 
             if (confined) {
                 if (dx < minX) { dx = minX; }
@@ -168,6 +173,7 @@ function makeDraggable() {
      * @param evt
      */
     function rotate(evt) {
+
         if (selectedElement) {
             evt.preventDefault();
             if (selectedElement.classList.contains('left'))
@@ -179,6 +185,7 @@ function makeDraggable() {
                 transform.setRotate(-5, (bbox.x + bbox.width / 2), (bbox.y + bbox.height / 2));
             }
         }
+
     }
 
     /**
@@ -187,6 +194,7 @@ function makeDraggable() {
      */
     function endRotate(evt) {
         selectedElement = false;
+        rotating = false;
     }
 
     /**
@@ -343,4 +351,4 @@ function makeDraggable() {
         defs.appendChild(s);
         dom.insertBefore(defs, dom.firstChild);
     }
-}
+})();

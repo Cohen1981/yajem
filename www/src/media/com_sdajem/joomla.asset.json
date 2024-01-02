@@ -15,6 +15,16 @@
       }
     },
     {
+      "name": "com_sdajem.planing",
+      "type": "style",
+      "uri": "com_sdajem/planing.css"
+    },
+    {
+      "name": "com_sdajem.sdajem",
+      "type": "style",
+      "uri": "com_sdajem/sdajem.css"
+    },
+    {
       "name": "com_sdajem.checkbox",
       "type": "script",
       "uri": "com_sdajem/checkbox.js",
@@ -27,6 +37,17 @@
       "name": "com_sdajem.calendar",
       "type": "script",
       "uri": "com_sdajem/calendar.js",
+      "dependencies": [
+        "core"
+      ],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_sdajem.draw",
+      "type": "script",
+      "uri": "com_sdajem/draw.js",
       "dependencies": ["core"],
       "attributes": {
         "defer": true

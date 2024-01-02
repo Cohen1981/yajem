@@ -12,12 +12,15 @@ namespace Sda\Component\Sdajem\Site\Controller;
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
+use Sda\Component\Sdajem\Administrator\Model\AttendingModel;
+use Sda\Component\Sdajem\Administrator\Model\InterestModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingformModel;
@@ -351,11 +354,11 @@ class EventController extends FormController
 				if ($event->eventStatus == EventStatusEnum::PLANING->value)
 				{
 					$interest = InterestHelper::getInterestStatusToEvent($currUser->id, $id);
-					$model = new \Sda\Component\Sdajem\Administrator\Model\InterestModel();
+					$model = new InterestModel();
 				} else
 				{
 					$interest = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
-					$model = new \Sda\Component\Sdajem\Administrator\Model\AttendingModel();
+					$model = new AttendingModel();
 				}
 
 				$data = array(
@@ -417,11 +420,11 @@ class EventController extends FormController
 				if ($event->eventStatus == EventStatusEnum::PLANING->value)
 				{
 					$interest = InterestHelper::getInterestStatusToEvent($currUser->id, $id);
-					$model = new \Sda\Component\Sdajem\Administrator\Model\InterestModel();
+					$model = new InterestModel();
 				} else
 				{
 					$interest = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
-					$model = new \Sda\Component\Sdajem\Administrator\Model\AttendingModel();
+					$model = new AttendingModel();
 				}
 
 				$data = array(
@@ -434,6 +437,8 @@ class EventController extends FormController
 				if ($event->eventStatus == EventStatusEnum::PLANING->value)
 				{
 					$data['comment'] = $this->input->getRaw('comment');
+				} else {
+					$data['fittings'] = '';
 				}
 
 				$this->setRedirect(Route::_($this->getReturnPage(), false));

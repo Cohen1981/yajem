@@ -12,6 +12,7 @@ namespace Sda\Component\Sdajem\Administrator\Service\HTML;
 \defined('_JEXEC') or die;
 
 use Joomla\CMS\Application\CMSApplication;
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
@@ -333,19 +334,26 @@ class Icon
 				}
 			}
 
-			if(isset($event->fittings) && AttendingHelper::getAttendingStatusToEvent($user->id, $event->id)->status != IntAttStatusEnum::POSITIVE->value) {
+			$params = ComponentHelper::getParams('com_sdajem');
+			$uf = $params->get('sda_events_use_fittings');
+
+			if ($uf && isset($event->fittings) && AttendingHelper::getAttendingStatusToEvent($user->id, $event->id)->status != IntAttStatusEnum::POSITIVE->value) {
 				$text .= '<div class="sda_row"> <div class="sda_attendee_container">';
 				/* @var FittingModel $fitting */
-				foreach ($event->fittings as $i => $fitting) {
+				foreach ($event->fittings as $i => $fitting)
+				{
 					$text .= '<div class="card" style="width: 120px;">';
-					$text .= HTMLHelper::image($fitting->image,'');
+					$text .= HTMLHelper::image($fitting->image, '');
 					$text .= '<div class="card-body">';
 					$text .= '<h5 class="card-title">' . $fitting->title . '</h5>';
 					$text .= '<p class="card-text">' . $fitting->description . '</p>';
 					$text .= '<input type="checkbox" name="fittings[]" value="' . $fitting->id . '"';
-					if ($fitting->standard == 1) {
+					if ($fitting->standard == 1)
+					{
 						$text .= ' checked="true"/>';
-					} else {
+					}
+					else
+					{
 						$text .= '/>';
 					}
 					$text .= '</div></div>';

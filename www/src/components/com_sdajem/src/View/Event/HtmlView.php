@@ -128,10 +128,19 @@ class HtmlView extends BaseHtmlView
 					$item->interests = $attendees;
 				}
 
-				$fittingsModel = new FittingsModel();
-				$fittings = $fittingsModel->getFittingsForUser();
-				if ($fittings) {
-					$item->fittings = $fittings;
+				if($item->params->get('sda_events_use_fittings'))
+				{
+					$fittingsModel = new FittingsModel();
+					$fittings      = $fittingsModel->getFittingsForUser();
+					if ($fittings)
+					{
+						$item->fittings = $fittings;
+					}
+
+					$eventFittings = $fittingsModel->getFittingsForEvent($item->id);
+					if ($eventFittings) {
+						$item->eventFittings = $eventFittings;
+					}
 				}
 			}
 		}

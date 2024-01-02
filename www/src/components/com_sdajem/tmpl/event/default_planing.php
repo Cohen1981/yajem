@@ -7,28 +7,29 @@
  * @license     A "Slug" license name e.g. GPL2
  */
 
+use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Uri\Uri;
 
-$event = $this->getModel('Event');
-$this->addCssFile('media://com_sdajem/css/sdajem_style.css');
-$this->addJavascriptFile('media://com_sdajem/js/jquery-3.3.1.min.js');
-$this->addJavascriptFile('media://com_sdajem/js/draw.js');
+$wa=$this->document->getWebAssetManager();
+$wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
+$wa->useScript('com_sdajem.draw');
+$wa->useStyle('com_sdajem.sdajem');
+$wa->useStyle('com_sdajem.planing');
+
 $boxX = 40;
 $boxY = 30;
 
+$event = $this->item;
 ?>
 
 <div id="planingTool">
 	<div class="well">
-		<div class="titleContainer">
-			<h2 class="page-title">
-				<?php echo Text::_('COM_SDAJEM_TITLE_PLANINGTOOL_BASIC'); ?>
-			</h2>
-		</div>
-		<div class="buttonsContainer">
-			<button id="toSvg"><?php echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
-			<button id="save"><?php echo Text::_('COM_SDAJEM_PLANING_SAVE') ?></button>
-			<button id="toPng"><?php echo Text::_('COM_SDAJEM_TO_PNG') ?></button>
+		<!--
+        <div class="buttonContainer">
+			<button id="toSvg"><?php //echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
+			<button id="save"><?php //echo Text::_('COM_SDAJEM_PLANING_SAVE') ?></button>
+			<button id="toPng"><?php //echo Text::_('COM_SDAJEM_TO_PNG') ?></button>
 		</div>
 
 		<div id="messages">
@@ -36,6 +37,7 @@ $boxY = 30;
 				<i class="fas fa-times" aria-hidden="true"></i>
 			</button>
 		</div>
+		-->
 	</div>
 
 	<p>
@@ -51,7 +53,6 @@ $boxY = 30;
 	echo "<svg id=\"main_svg\"
 	     xmlns=\"http://www.w3.org/2000/svg\"
          viewBox=\"0 0 $boxX $boxY\"
-        onload=\"makeDraggable(evt)\"
         width='99%'
 	    >";
 
@@ -83,6 +84,7 @@ $boxY = 30;
 
 	$svgString = '';
 	// Do we have a saved setup
+    /*
 	if (count($event->svg) > 0)
 	{
 		foreach ($event->svg as $element)
@@ -91,9 +93,9 @@ $boxY = 30;
 			$svgString = $svgString . $element;
 		}
 	}
-
-	// Do we have Attendees
-	if ($event->attendees)
+*/
+	// Do we have fittings
+	if ($event->eventFittings)
 	{
 		$by = 0;
 
@@ -102,72 +104,62 @@ $boxY = 30;
 
 		// Store elements max width
 		$wx = 0;
-		/** @var \Sda\Jem\Admin\Model\Attendee $attendee */
-		foreach ($event->attendees as $attendee)
+
+        /** @var \Sda\Component\Sdajem\Administrator\Model\FittingModel $fitting */
+		foreach ($event->eventFittings as $fitting)
 		{
-			// Attendee has checked Equipment
-			if (count($attendee->sdaprofilesFittingIds) > 0)
-			{
-				foreach ($attendee->sdaprofilesFittingIds as $fIds)
-				{
-					/** @var \Sda\Profiles\Admin\Model\Fitting $fitting */
-					$fitting = Container::getInstance('com_sdaprofiles')->factory->model('Fitting');
-					$fitting->load($fIds);
+			if ((bool) $fitting->needSpace) {
+                if ($by + $fitting->width > $boxY) {
+                    $by = 0;
+                    $bx = $wx + 1;
+                }
 
-					if ((bool) $fitting->typeModel->needSpace)
-					{
-						if ($by + $fitting->width > $boxY)
-						{
-							$by = 0;
-							$bx = $wx + 1;
-						}
+				if (strpos($svgString, 'img_' . $fitting->id) === false) {
+					echo "<g id=\"index_$fitting->id\" class='draggme'>";
 
-						if (strpos($svgString, 'img_' . $fitting->sdaprofiles_fitting_id) === false)
-						{
-							echo "<g id=\"index_$fitting->sdaprofiles_fitting_id\" class='draggme'>";
-
-							if ($fitting->image->image)
-							{
-								echo "<image id='img_" . $fitting->sdaprofiles_fitting_id .
-									"' xlink:href='" . $fitting->image->getDataURI() .
+                    if ($fitting->image) {
+                        echo "<image id='img_" . $fitting->id .
+									"' href='" . Uri::base() . HTMLHelper::cleanImageURL($fitting->image)->url .
 									"' name='fitting' class='draggable confine' x='" .
 									$bx . "' y='" . $by .
 									"' width='" . $fitting->length .
 									"' height='" . $fitting->width . "'/>";
-							}
-							else
-							{
-								echo "<rect id='img_" . $fitting->sdaprofiles_fitting_id .
-									"' name='fitting' class='draggable confine' x='" .
-									$bx . "' y='" . $by .
-									"' width='" . $fitting->length .
-									"' height='" . $fitting->width . "' fill='green' fill-opacity='0.5' />";
-							}
-							echo "<text x='" .
-								($fitting->length / 2 + $bx - 1) .
-								"' y='" .
-								($fitting->width + 1 + $by) .
-								"' style='font-size:0.6pt;' opacity='0.0'>" . $attendee->user->username . "</text>";
-							echo "<circle name='handle' class='rotate left handle' fill-opacity='0.0' fill='red' cx='" .
-								($fitting->length / 2 + $bx - 1) . "' cy='" . ($fitting->width + 2 + $by) .
-								"' r='0.5'/>";
-							echo "<circle name='handle' class='rotate right handle' fill-opacity='0.0' fill='green' cx='" .
-								($fitting->length / 2 + $bx + 1) . "' cy='" . ($fitting->width + 2 + $by) .
-								"' r='0.5'/>";
-							echo "</g>";
-						}
+                    }
+                    else
+                    {
+                        echo "<rect id='img_" . $fitting->id .
+                            "' name='fitting' class='draggable confine' x='" .
+                            $bx . "' y='" . $by .
+                            "' width='" . $fitting->length .
+                            "' height='" . $fitting->width . "' fill='green' fill-opacity='0.5' />";
+                    }
+                    echo "<text x='" .
+                        ($fitting->length / 2 + $bx - 1) .
+                        "' y='" .
+                        ($fitting->width + 1 + $by) .
+                        "' style='font-size:0.5pt;' opacity='1.0'>" . $fitting->userName . "</text>";
+                    echo "<circle name='handle' class='rotate left handle' fill-opacity='0.5' fill='red' cx='" .
+                        ($fitting->length / 2 + $bx - 1) . "' cy='" . ($fitting->width + 2 + $by) .
+                        "' r='0.5'/>";
+                    echo "<circle name='handle' class='rotate right handle' fill-opacity='0.5' fill='green' cx='" .
+                        ($fitting->length / 2 + $bx + 1) . "' cy='" . ($fitting->width + 2 + $by) .
+                        "' r='0.5'/>";
+                    /*echo "<circle class='rotate-symbol' fill-opacity='0.5' cx='" .
+	                    ($fitting->length / 2 + $bx) . "' cy='" . ($by - 1) .
+	                    "' r='0.5'>&#x21BA;</circle>";
+                    */
+                    echo "</g>";
+                }
 
-						$wx = ($wx < $fitting->width) ? $fitting->width : $wx;
-						$by = $by + $fitting->width + 2;
-					}
-				}
-			}
-		}
+                $wx = ($wx < $fitting->width) ? $fitting->width : $wx;
+                $by = $by + $fitting->width + 2;
+            }
+        }
 	}
 	echo "</svg>";
 	?>
 	<input type="hidden" id="boxX" value="<?php echo $boxX; ?>" />
 	<input type="hidden" id="boxY" value="<?php echo $boxY; ?>" />
-	<input type="hidden" id="eventId" name="eventId" value="<?php echo $event->sdajem_event_id; ?>" />
+	<input type="hidden" id="eventId" name="eventId" value="<?php echo $event->id; ?>" />
 
 </div>

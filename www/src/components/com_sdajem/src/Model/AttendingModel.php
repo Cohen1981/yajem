@@ -36,6 +36,7 @@ use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
  * @property  int       users_user_id
  * @property  string    attendeeName
  * @property  IntAttStatusEnum   status
+ * @property  array     fittings
  */
 
 class AttendingModel extends BaseDatabaseModel
@@ -96,6 +97,10 @@ class AttendingModel extends BaseDatabaseModel
 				if (empty($data))
 				{
 					throw new \Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
+				}
+
+				if (isset($data->fittings)) {
+					$data->fittings = json_decode($data->fittings, true);
 				}
 
 				$this->_item[$pk] = $data;

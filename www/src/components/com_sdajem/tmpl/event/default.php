@@ -260,6 +260,8 @@ $currentUser = Factory::getApplication()->getIdentity();
             </div>
         </div>
         <?php endif; ?>
+
+	    <?php if ($tparams->get('sda_events_use_fittings') && !$user->guest): ?>
         <div class="accordion-item">
             <h5 class="accordion-header" id="headingPlaningArea">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlaningArea" aria-expanded="true" aria-controls="collapsePlaningArea">
@@ -269,8 +271,11 @@ $currentUser = Factory::getApplication()->getIdentity();
             <div id="collapsePlaningArea" class="accordion-collapse collapse" aria-labelledby="headingPlaningArea" data-bs-parent="#accordionEvent">
                 <div class="accordion-body">
 
+                    <?php echo $this->loadTemplate('planing'); ?>
+
                 </div>
             </div>
         </div>
+        <?php endif; ?>
     </div>
 </div>

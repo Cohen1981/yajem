@@ -11,6 +11,8 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 
 use Joomla\CMS\Factory;
 use Joomla\Database\QueryInterface;
+use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 {
@@ -133,6 +135,62 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 		$db->setQuery($query);
 		$data = $db->loadObjectList();
 
+		return $data;
+	}
+
+	/**
+	 * Get all fittings for given event
+	 *
+	 * @param   int  $eventId
+	 * @since   1.1.4
+	 */
+	public function getFittingsForEvent(int $eventId) {
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+
+		$query->select($db->quoteName('att.fittings', 'fittings'));
+		$query->from($db->quoteName('#__sdajem_attendings', 'att'));
+		$query->where($db->quoteName('att.event_id') . '= :eventId');
+		$query->extendWhere('AND', '(' . $db->quoteName('att.status') . ' = ' . IntAttStatusEnum::POSITIVE->value . ')');
+		$query->bind(':eventId', $eventId);
+
+		$db->setQuery($query);
+		$fittings = $db->loadColumn();
+
+		$pks = array();
+		foreach ($fittings as $i => $value) {
+			$ids = json_decode($value, true);
+			$pks = array_merge($pks, $ids);
+		}
+
+		$query = $db->getQuery(true);
+
+		$query->select(
+			$this->getState(
+				'list.select',
+				[
+					$db->quoteName('a.id'),
+					$db->quoteName('a.title'),
+					$db->quoteName('a.description'),
+					$db->quoteName('a.length'),
+					$db->quoteName('a.width'),
+					$db->quoteName('a.standard'),
+					$db->quoteName('a.fittingType'),
+					$db->quoteName('a.user_id'),
+					$db->quoteName('a.image'),
+					$db->quoteName('a.needSpace'),
+				]
+			)
+		);
+		$query->from($db->quoteName('#__sdajem_fittings', 'a'));
+		$query->select($db->quoteName('u.username', 'userName'))
+			->join(
+				'LEFT',
+				$db->quoteName('#__users', 'u') . ' ON ' . $db->quoteName('u.id') . ' = ' . $db->quoteName('a.user_id')
+			);
+		$query->where($db->quoteName('a.id') . ' IN (' . implode(',', ArrayHelper::toInteger($pks)) . ')');
+		$db->setQuery($query);
+		$data = $db->loadObjectList();
 		return $data;
 	}
 }

@@ -12,6 +12,7 @@ namespace Sda\Component\Sdajem\Administrator\Helper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 abstract class AttendingHelper
 {
@@ -44,7 +45,8 @@ abstract class AttendingHelper
 		}
 		catch (\Exception $e)
 		{
-			return null;
+			$data = new \stdClass();
+			return $data->status = IntAttStatusEnum::NA->value;
 		}
 
 		return $data;
