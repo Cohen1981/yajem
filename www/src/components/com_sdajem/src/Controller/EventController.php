@@ -141,7 +141,7 @@ class EventController extends FormController
 	 *
 	 * @since 1.0.1
 	 */
-	public function delete()
+	public function delete(): bool
 	{
 		$pks = $this->input->get('cid');
 

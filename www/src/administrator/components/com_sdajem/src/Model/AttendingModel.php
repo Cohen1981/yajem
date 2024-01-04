@@ -32,6 +32,7 @@ use Joomla\CMS\MVC\Model\AdminModel;
  * @property  int       event_id
  * @property  int       users_user_id
  * @property  int       status
+ * @property  array     fittings
  */
 class AttendingModel extends AdminModel
 {

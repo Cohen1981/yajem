@@ -23,6 +23,7 @@ $wa->registerAndUseStyle('sdajem', 'com_sdajem/sdajem.css');
 
 $canChange = true;
 $canDo = ContentHelper::getActions('com_sdajem');
+$currentUser = Factory::getApplication()->getIdentity();
 
 $listOrder = $this->escape($this->state->get('list.ordering'));
 $listDirn  = $this->escape($this->state->get('list.direction'));
@@ -39,14 +40,20 @@ $params = $this->get('State')->get('params');
 <div class="sdajem_content_container">
 	<form action="<?php echo Route::_('index.php?view=fittings'); ?>" method="post" name="adminForm" id="adminForm">
 		<div>
-			<?php if ($canDo->get('core.create')) : ?>
-				<div class="mb-2">
-					<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('fitting.add')">
-						<span class="fas fa-plus-circle" aria-hidden="true"></span>
-						<?php echo Text::_('COM_SDAJEM_FITTING_ADD'); ?>
-					</button>
-				</div>
-			<?php endif; ?>
+            <div class="mb-2">
+                <?php if ($canDo->get('core.create')) : ?>
+                <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('fitting.add')">
+                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                    <?php echo Text::_('COM_SDAJEM_FITTING_ADD'); ?>
+                </button>
+                <?php endif; ?>
+                <?php if ($canDo->get('core.delete')) : ?>
+                <button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('fitting.delete')">
+                    <span class="fas fa-trash" aria-hidden="true"></span>
+                    <?php echo Text::_('COM_SDAJEM_FITTING_DELETE'); ?>
+                </button>
+                <?php endif; ?>
+            </div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
@@ -63,6 +70,11 @@ $params = $this->get('State')->get('params');
 							</caption>
 							<thead>
 							<tr>
+								<?php if (!$currentUser->guest) :?>
+                                    <td style="width:1%" class="text-center d-sm-table-cell d-none">
+										<?php echo HTMLHelper::_('grid.checkall'); ?>
+                                    </td>
+								<?php endif; ?>
 								<th scope="col" style="width:1%" class="d-none d-md-table-cell">
 									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_FITTING_TITLE', 'title', $listDirn, $listOrder); ?>
 								</th>
@@ -77,6 +89,11 @@ $params = $this->get('State')->get('params');
 							foreach ($this->items as $i => $item) :
 								?>
 								<tr class="row<?php echo $i % 2; ?>">
+									<?php if (!$currentUser->guest) :?>
+                                        <td class="text-center d-sm-table-cell d-none">
+											<?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
+                                        </td>
+									<?php endif; ?>
 									<th scope="row" class="has-context col-4">
 										<div>
 											<?php echo $this->escape($item->title); ?>

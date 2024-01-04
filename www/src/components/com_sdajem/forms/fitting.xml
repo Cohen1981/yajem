@@ -74,6 +74,7 @@
                 name="user_id"
                 type="Userlist"
                 label="COM_SDAJEM_FIELD_USER_TITLE_LABEL"
+                description="COM_SDAJEM_FIELD_USER_DESC_LABEL"
         />
     </fieldset>
 </form>

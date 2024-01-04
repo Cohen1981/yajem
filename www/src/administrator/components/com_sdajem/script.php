@@ -20,7 +20,7 @@ use Joomla\Database\DatabaseInterface;
  *
  * @since  1.0.0
  */
-class Com_SdajemInstallerScript
+class com_sdajemInstallerScript
 {
 	/**
 	 * Minimum Joomla version to check
@@ -47,11 +47,9 @@ class Com_SdajemInstallerScript
 	 */
 	public function install($parent): bool
 	{
-		if ($parent->get('manifest')->version == '1.1.4') {
-			if(is_dir('../../../media/com_sdajem/images/lagerplanung') && !is_dir('../../../images/lagerplanung'))
-			{
-				rename('../../../media/com_sdajem/images/lagerplanung', '../../../images/lagerplanung');
-			}
+		if(is_dir('../../../media/com_sdajem/images/lagerplanung') && !is_dir('../../../images/lagerplanung'))
+		{
+			rename('../../../media/com_sdajem/images/lagerplanung', '../../../images/lagerplanung');
 		}
 
 		echo Text::_('COM_SDAJEM_INSTALLERSCRIPT_INSTALL');
@@ -85,12 +83,11 @@ class Com_SdajemInstallerScript
 	public function update($parent): bool
 	{
 		echo Text::_('COM_SDAJEM_INSTALLERSCRIPT_UPDATE');
-		if ($parent->get('manifest')->version == '1.1.4') {
-			if(is_dir('../../../media/com_sdajem/images/lagerplanung') && !is_dir('../../../images/lagerplanung'))
-			{
-				rename('../../../media/com_sdajem/images/lagerplanung', '../../../images/lagerplanung');
-			}
+		if(is_dir('../../../media/com_sdajem/images/lagerplanung') && !is_dir('../../../images/lagerplanung'))
+		{
+			rename('../../../media/com_sdajem/images/lagerplanung', '../../../images/lagerplanung');
 		}
+
 		return true;
 	}
 	/**

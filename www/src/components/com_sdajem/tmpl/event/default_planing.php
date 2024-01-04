@@ -133,7 +133,7 @@ $event = $this->item;
                             "' width='" . $fitting->length .
                             "' height='" . $fitting->width . "' fill='green' fill-opacity='0.5' />";
                     }
-                    echo "<text x='" .
+                    echo "<text class='rotator' x='" .
                         ($fitting->length / 2 + $bx - 1) .
                         "' y='" .
                         ($fitting->width + 1 + $by) .
@@ -144,10 +144,7 @@ $event = $this->item;
                     echo "<circle name='handle' class='rotate right handle' fill-opacity='0.5' fill='green' cx='" .
                         ($fitting->length / 2 + $bx + 1) . "' cy='" . ($fitting->width + 2 + $by) .
                         "' r='0.5'/>";
-                    /*echo "<circle class='rotate-symbol' fill-opacity='0.5' cx='" .
-	                    ($fitting->length / 2 + $bx) . "' cy='" . ($by - 1) .
-	                    "' r='0.5'>&#x21BA;</circle>";
-                    */
+
                     echo "</g>";
                 }
 
