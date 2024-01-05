@@ -19,7 +19,7 @@
     document.getElementById('messages').hidden = true;
 */
     // Register drag event to all images
-    let images = $(".draggable");
+    let images = $('.draggable');
     for (let i = 0; i < images.length; i++)
     {
         images[i].addEventListener('mousedown', evaluateDrag);
@@ -33,7 +33,7 @@
     }
 
     // Register Rotate event to all circles
-    var handle = $(".handle");
+    var handle = $('.handle');
     for (let i = 0; i < handle.length; i++)
     {
      //   handle[i].addEventListener('click', startRotate);

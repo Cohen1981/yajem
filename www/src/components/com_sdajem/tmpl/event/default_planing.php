@@ -16,6 +16,8 @@ $wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
 $wa->useScript('com_sdajem.draw');
 $wa->useStyle('com_sdajem.sdajem');
 $wa->useStyle('com_sdajem.planing');
+$wa->getRegistry()->addExtensionRegistryFile('vendor');
+$wa->useScript('jquery');
 
 $boxX = 40;
 $boxY = 30;

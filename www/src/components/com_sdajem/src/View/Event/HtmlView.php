@@ -138,9 +138,7 @@ class HtmlView extends BaseHtmlView
 					}
 
 					$eventFittings = $fittingsModel->getFittingsForEvent($item->id);
-					if ($eventFittings) {
-						$item->eventFittings = $eventFittings;
-					}
+					$item->eventFittings = ($eventFittings) ? $eventFittings : false;
 				}
 			}
 		}

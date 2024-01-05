@@ -314,7 +314,7 @@ class Icon
 		{
 			$interest = AttendingHelper::getAttendingStatusToEvent($user->id, $event->id);
 
-			if ($interest)
+			if ($interest->status != IntAttStatusEnum::NA->value)
 			{
 				$text .= '<input type="hidden" name="attendingId" value="' . $interest->id . '"/>';
 			}

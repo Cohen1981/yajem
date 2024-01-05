@@ -160,37 +160,46 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 		$pks = array();
 		foreach ($fittings as $i => $value) {
 			$ids = json_decode($value, true);
-			$pks = array_merge($pks, $ids);
+			if (is_array($ids))
+			{
+				$pks = array_merge($pks, $ids);
+			}
 		}
 
-		$query = $db->getQuery(true);
+		if (count($pks) > 0)
+		{
+			$query = $db->getQuery(true);
 
-		$query->select(
-			$this->getState(
-				'list.select',
-				[
-					$db->quoteName('a.id'),
-					$db->quoteName('a.title'),
-					$db->quoteName('a.description'),
-					$db->quoteName('a.length'),
-					$db->quoteName('a.width'),
-					$db->quoteName('a.standard'),
-					$db->quoteName('a.fittingType'),
-					$db->quoteName('a.user_id'),
-					$db->quoteName('a.image'),
-					$db->quoteName('a.needSpace'),
-				]
-			)
-		);
-		$query->from($db->quoteName('#__sdajem_fittings', 'a'));
-		$query->select($db->quoteName('u.username', 'userName'))
-			->join(
-				'LEFT',
-				$db->quoteName('#__users', 'u') . ' ON ' . $db->quoteName('u.id') . ' = ' . $db->quoteName('a.user_id')
+			$query->select(
+				$this->getState(
+					'list.select',
+					[
+						$db->quoteName('a.id'),
+						$db->quoteName('a.title'),
+						$db->quoteName('a.description'),
+						$db->quoteName('a.length'),
+						$db->quoteName('a.width'),
+						$db->quoteName('a.standard'),
+						$db->quoteName('a.fittingType'),
+						$db->quoteName('a.user_id'),
+						$db->quoteName('a.image'),
+						$db->quoteName('a.needSpace'),
+					]
+				)
 			);
-		$query->where($db->quoteName('a.id') . ' IN (' . implode(',', ArrayHelper::toInteger($pks)) . ')');
-		$db->setQuery($query);
-		$data = $db->loadObjectList();
+			$query->from($db->quoteName('#__sdajem_fittings', 'a'));
+			$query->select($db->quoteName('u.username', 'userName'))
+				->join(
+					'LEFT',
+					$db->quoteName('#__users',
+						'u') . ' ON ' . $db->quoteName('u.id') . ' = ' . $db->quoteName('a.user_id')
+				);
+			$query->where($db->quoteName('a.id') . ' IN (' . implode(',', ArrayHelper::toInteger($pks)) . ')');
+			$db->setQuery($query);
+			$data = $db->loadObjectList();
+		} else {
+			$data = array();
+		}
 		return $data;
 	}
 }

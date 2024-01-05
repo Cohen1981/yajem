@@ -46,7 +46,7 @@ abstract class AttendingHelper
 		catch (\Exception $e)
 		{
 			$data = new \stdClass();
-			return $data->status = IntAttStatusEnum::NA->value;
+			$data->status = IntAttStatusEnum::NA->value;
 		}
 
 		return $data;
