@@ -8,19 +8,18 @@
  */
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
 $wa=$this->document->getWebAssetManager();
 $wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
-$wa->useScript('com_sdajem.draw');
+$wa->useScript('com_sdajem.plan');
 $wa->useStyle('com_sdajem.sdajem');
 $wa->useStyle('com_sdajem.planing');
 $wa->getRegistry()->addExtensionRegistryFile('vendor');
 $wa->useScript('jquery');
 
 $boxX = 40;
-$boxY = 30;
+$boxY = 40;
 
 $event = $this->item;
 ?>
@@ -41,13 +40,6 @@ $event = $this->item;
 		</div>
 		-->
 	</div>
-
-	<p>
-		Element anklicken zum verschieben. Erneut klicken zum loslassen.
-	</p>
-	<p>
-		Rote und grüne Punkte klicken zum Rotieren um 5°.
-	</p>
 
 	<?php
 	$listHtml = "";
@@ -117,14 +109,13 @@ $event = $this->item;
                 }
 
 				if (strpos($svgString, 'img_' . $fitting->id) === false) {
-					echo "<g id=\"index_$fitting->id\" class='draggme'>";
+                    echo "<svg class='dragMe confine' width=\"$fitting->length\" height=\"$fitting->width\" x=\"$bx\" y=\"$by\">";
+					echo "<g id=\"index_$fitting->id\" class='rotateMe'>";
 
                     if ($fitting->image) {
                         echo "<image id='img_" . $fitting->id .
 									"' href='" . Uri::base() . HTMLHelper::cleanImageURL($fitting->image)->url .
-									"' name='fitting' class='draggable confine' x='" .
-									$bx . "' y='" . $by .
-									"' width='" . $fitting->length .
+									"' name='fitting' class='draggable confine' width='" . $fitting->length .
 									"' height='" . $fitting->width . "'/>";
                     }
                     else
@@ -136,18 +127,13 @@ $event = $this->item;
                             "' height='" . $fitting->width . "' fill='green' fill-opacity='0.5' />";
                     }
                     echo "<text class='rotator' x='" .
-                        ($fitting->length / 2 + $bx - 1) .
+                        ($fitting->length / 2 - 1) .
                         "' y='" .
-                        ($fitting->width + 1 + $by) .
-                        "' style='font-size:0.5pt;' opacity='1.0'>" . $fitting->userName . "</text>";
-                    echo "<circle name='handle' class='rotate left handle' fill-opacity='0.5' fill='red' cx='" .
-                        ($fitting->length / 2 + $bx - 1) . "' cy='" . ($fitting->width + 2 + $by) .
-                        "' r='0.5'/>";
-                    echo "<circle name='handle' class='rotate right handle' fill-opacity='0.5' fill='green' cx='" .
-                        ($fitting->length / 2 + $bx + 1) . "' cy='" . ($fitting->width + 2 + $by) .
-                        "' r='0.5'/>";
+                        ($fitting->width + 1) .
+                        "' style='font-size:0.5pt;' opacity='1.0'>&#x21BB; " . $fitting->userName . " &#x21BA;</text>";
 
                     echo "</g>";
+                    echo "</svg>";
                 }
 
                 $wx = ($wx < $fitting->width) ? $fitting->width : $wx;

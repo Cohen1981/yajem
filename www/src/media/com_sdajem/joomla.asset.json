@@ -25,6 +25,11 @@
       "uri": "com_sdajem/sdajem.css"
     },
     {
+      "name": "com_sdajem.svgcss",
+      "type": "style",
+      "uri": "com_sdajem/subjx.css"
+    },
+    {
       "name": "com_sdajem.checkbox",
       "type": "script",
       "uri": "com_sdajem/checkbox.js",
@@ -48,6 +53,15 @@
       "name": "com_sdajem.draw",
       "type": "script",
       "uri": "com_sdajem/draw.js",
+      "dependencies": ["core"],
+      "attributes": {
+        "defer": true
+      }
+    },
+    {
+      "name": "com_sdajem.plan",
+      "type": "script",
+      "uri": "com_sdajem/plan.js",
       "dependencies": ["core"],
       "attributes": {
         "defer": true

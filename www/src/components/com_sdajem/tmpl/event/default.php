@@ -261,7 +261,7 @@ $currentUser = Factory::getApplication()->getIdentity();
         </div>
         <?php endif; ?>
 
-	    <?php if ($tparams->get('sda_events_use_fittings') && !$user->guest && !$event->eventStatus == EventStatusEnum::PLANING->value): ?>
+	    <?php if ($tparams->get('sda_events_use_fittings') && !$user->guest): ?>
         <div class="accordion-item">
             <h5 class="accordion-header" id="headingPlaningArea">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlaningArea" aria-expanded="true" aria-controls="collapsePlaningArea">
