@@ -30,8 +30,6 @@ use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\Model\InterestformModel;
 use Sda\Component\Sdajem\Site\Model\InterestsModel;
 
-;
-
 class EventController extends FormController
 {
 	/**
@@ -444,6 +442,32 @@ class EventController extends FormController
 				$this->setRedirect(Route::_($this->getReturnPage(), false));
 				$model->save($data);
 			}
+		}
+	}
+
+	/**
+	 * Saves a working state of the planingTool
+	 *
+	 * @return void
+	 *
+	 * @since 1.2.0
+	 */
+	public function savePlan()
+	{
+		$svg = $_POST['svg'];
+		/** @var EventModel $event */
+		$event = $this->getModel('Event');
+		$data = $event->getItem($_POST['id']);
+		$data->svg = $svg;
+		$data = is_object($data) ? (array) $data : $data;
+
+		$eventForm = new EventformModel();
+		try
+		{
+			$eventForm->save($data);
+		}
+		catch (\Exception $e)
+		{
 		}
 	}
 }

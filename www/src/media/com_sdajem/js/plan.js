@@ -36,6 +36,10 @@
     document.addEventListener('mousemove', moving);
     document.addEventListener('touchmove', moving);
 
+    document.getElementById('toSvg').addEventListener('click', exportSVG);
+    document.getElementById('save').addEventListener('click', exportSVG);
+    document.getElementById('messages').hidden = true;
+
     function getMousePosition(evt) {
         let CTM = svg.getScreenCTM();
         if (evt.touches) { evt = evt.touches[0]; }
@@ -129,10 +133,7 @@
             let deltaX = offset.x - rotateCenterX;
             let deltaY = offset.y - rotateCenterY;
 
-            console.log(deltaX + ' ' + deltaY);
-
             let angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI) - 90;
-            console.log(angle);
             transform.setRotate(angle, bbox.width/2, bbox.height/2);
         }
     }
@@ -141,6 +142,127 @@
         dragging = false;
         rotating = false;
         el = false;
+    }
+
+    /**
+     * Generate a download link and click it
+     *
+     * @param fileName
+     * @param data
+     */
+    function generateLink(fileName, data) {
+        let evt = new MouseEvent("click", {
+                view: window,
+                bubbles: false,
+                cancelable: true
+            }
+        );
+        let link = document.createElement('a'); // Create a element.
+        link.download = fileName; // Set value as the file name of download file.
+        link.href = data; // Set value as the file content of download file.
+        link.setAttribute("target", '_blank');
+        link.dispatchEvent(evt);
+    }
+
+    /**
+     * Export the SVG
+     */
+    function exportSVG() {
+        styles(svg);
+        let newSvg = svg;
+        let svgString;
+        if (window.ActiveXObject) {
+            svgString = newSvg.xml;
+        }
+        else {
+            let oSerializer = new XMLSerializer();
+            svgString = oSerializer.serializeToString(newSvg);
+        }
+
+        // We want a svg file.
+        if (this.id === 'toSvg') {
+            generateLink('planing.svg', 'data:image/svg+xml;utf8,' + svgString);
+        }
+
+        // We want to save
+        if (this.id === 'save') {
+            let data = new FormData;
+            let elements = document.getElementsByClassName('dragMe');
+
+            let elementArray = {};
+
+            for (let i = 0; i < elements.length; i++)
+            {
+                if (window.ActiveXObject) {
+                    svgString = newSvg.xml;
+                    elementArray[elements[i].id] = elements[i].xml;
+                }
+                else {
+                    let serializer = new XMLSerializer();
+                    elementArray[elements[i].id] = serializer.serializeToString(elements[i]);
+                }
+
+            }
+
+            data.append('svg', JSON.stringify(elementArray));
+            data.append('id', document.getElementById('eventId').value);
+            let xhttp = new XMLHttpRequest();
+            xhttp.onload = function () {
+                if (this.readyState === 4 && this.status === 200) {
+                    let html = xhttp.response;
+                    let message = '';
+                    if (html.toString() === "error") {
+                        message = document.createElement('p');
+                        message.innerHTML = 'An error occured';
+                        document.getElementById('messages').classList.add('failed');
+                    }
+                    else {
+                        message = document.createElement('p');
+                        message.innerHTML = 'Erfolgreich gespeichert';
+                        document.getElementById('messages').classList.add('ok');
+                    }
+
+                    document.getElementById('messages').insertAdjacentElement('afterbegin', message);
+                    document.getElementById('messages').hidden = false;
+                }
+            };
+
+            xhttp.open("POST", "index.php?option=com_sdajem&view=event&task=event.savePlan");
+            xhttp.send(data);
+        }
+    }
+
+    /**
+     * Include styles in the svg
+     * @param dom
+     */
+    function styles(dom) {
+        let used = "";
+        let sheets = document.styleSheets;
+        for (let i = 0; i < sheets.length; i++) {
+            try {
+                let rules = sheets[i].cssRules;
+                for (let j = 0; j < rules.length; j++) {
+                    let rule = rules[j];
+                    if (typeof(rule.style) != "undefined") {
+                        let elems = dom.querySelectorAll(rule.selectorText);
+                        if (elems.length > 0) {
+                            used += rule.selectorText + " { " + rule.style.cssText + " }\n";
+                        }
+                    }
+                }
+            }
+            catch (e) {
+            }
+        }
+
+        let s = document.createElement('style');
+        s.setAttribute('type', 'text/css');
+        s.innerHTML = "<![CDATA[\n" + used + "\n]]>";
+
+        let defs = document.createElement('defs');
+        defs.appendChild(s);
+        dom.insertBefore(defs, dom.firstChild);
     }
 
 })();

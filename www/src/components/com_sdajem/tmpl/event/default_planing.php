@@ -8,6 +8,7 @@
  */
 
 use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 
 $wa=$this->document->getWebAssetManager();
@@ -18,8 +19,9 @@ $wa->useStyle('com_sdajem.planing');
 $wa->getRegistry()->addExtensionRegistryFile('vendor');
 $wa->useScript('jquery');
 
+// ToDo Sollte man im Backend administrieren können.
 $boxX = 40;
-$boxY = 40;
+$boxY = 30;
 
 $event = $this->item;
 ?>
@@ -28,9 +30,8 @@ $event = $this->item;
 	<div class="well">
 
         <div class="buttonContainer">
-			<button id="toSvg"><?php //echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
-			<button id="save"><?php //echo Text::_('COM_SDAJEM_PLANING_SAVE') ?></button>
-			<button id="toPng"><?php //echo Text::_('COM_SDAJEM_TO_PNG') ?></button>
+			<button id="toSvg" class="btn me-2 btn-primary col-auto"><?php echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
+			<button id="save" class="btn me-2 btn-primary col-auto"><?php echo Text::_('COM_SDAJEM_PLANING_SAVE') ?></button>
 		</div>
 
 		<div id="messages">
@@ -78,7 +79,7 @@ $event = $this->item;
 
 	$svgString = '';
 	// Do we have a saved setup
-    /*
+
 	if (count($event->svg) > 0)
 	{
 		foreach ($event->svg as $element)
@@ -87,7 +88,7 @@ $event = $this->item;
 			$svgString = $svgString . $element;
 		}
 	}
-*/
+
 	// Do we have fittings
 	if ($event->eventFittings)
 	{

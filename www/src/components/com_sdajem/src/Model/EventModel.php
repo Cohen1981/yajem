@@ -97,6 +97,8 @@ class EventModel extends BaseDatabaseModel
 					throw new \Exception(Text::_('COM_SDAJEM_ERROR_EVENT_NOT_FOUND'), 404);
 				}
 
+				if($data->svg)
+					$data->svg = (array) json_decode($data->svg);
 				$this->_item[$pk] = $data;
 			}
 			catch (\Exception $e)
