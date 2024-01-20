@@ -134,7 +134,7 @@ class HtmlView extends BaseHtmlView
 		} else if ($app->get('sitename_pagetitles', 0) == 2) {
 			$title = Text::sprintf('JPAGETITLE', $title, $app->get('sitename'));
 		}
-		$this->document->setTitle($title);
+		$this->getDocument()->setTitle($title);
 		$pathway = $app->getPathWay();
 		$pathway->addItem($title, '');
 	}

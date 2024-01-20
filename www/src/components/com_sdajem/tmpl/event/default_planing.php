@@ -26,7 +26,7 @@ $event = $this->item;
 
 <div id="planingTool">
 	<div class="well">
-		<!--
+
         <div class="buttonContainer">
 			<button id="toSvg"><?php //echo Text::_('COM_SDAJEM_TO_SVG') ?></button>
 			<button id="save"><?php //echo Text::_('COM_SDAJEM_PLANING_SAVE') ?></button>
@@ -38,7 +38,7 @@ $event = $this->item;
 				<i class="fas fa-times" aria-hidden="true"></i>
 			</button>
 		</div>
-		-->
+
 	</div>
 
 	<?php

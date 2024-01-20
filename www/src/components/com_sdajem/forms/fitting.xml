@@ -19,14 +19,15 @@
         <field
                 name="alias"
                 type="text"
-                label="JFIELD_ALIAS_LABEL"
                 size="45"
                 hint="JFIELD_ALIAS_PLACEHOLDER"
+                class="hidden"
         />
         <field
-                name="description"
-                type="editor"
-                label="COM_SDAJEM_FIELD_FITTING_DESC_LABEL"
+                name="image"
+                type="media"
+                label="COM_SDAJEM_FT_IMAGE_LABEL"
+                directory="lagerplanung"
         />
         <field
                 name="length"
@@ -34,6 +35,7 @@
                 label="COM_SDAJEM_FIELD_FITTING_LENGTH_LABEL"
                 default="0"
                 step="0.5"
+                description="COM_SDAJEM_FIELD_FITTING_LENGTH_DESC"
         />
         <field
                 name="width"
@@ -41,6 +43,7 @@
                 label="COM_SDAJEM_FIELD_FITTING_WIDTH_LABEL"
                 default="0"
                 step="0.5"
+                description="COM_SDAJEM_FIELD_FITTING_WIDTH_DESC"
         />
         <field
                 name="standard"
@@ -63,10 +66,9 @@
             <option value="1">JYES</option>
         </field>
         <field
-                name="image"
-                type="media"
-                label="COM_SDAJEM_FT_IMAGE_LABEL"
-                directory="lagerplanung"
+                name="description"
+                type="editor"
+                label="COM_SDAJEM_FIELD_FITTING_DESC_LABEL"
         />
     </fieldset>
     <fieldset name="admin" addfieldprefix="Sda\Component\Sdajem\Administrator\Field">
