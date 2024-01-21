@@ -22,6 +22,8 @@
                 label="JFIELD_ALIAS_LABEL"
                 size="45"
                 hint="JFIELD_ALIAS_PLACEHOLDER"
+                class="hidden"
+                hidden="true"
         />
         <field name="eventStatus"
                type="Eventstatuslist"
@@ -77,6 +79,7 @@
                 todaybutton="true"
                 required="true"
                 size="22"
+                description="COM_SDAJEM_FIELD_STARTDATETIME_DESC"
         />
         <field
                 name="endDateTime"
@@ -87,6 +90,7 @@
                 todaybutton="true"
                 required="true"
                 size="22"
+                description="COM_SDAJEM_FIELD_STARTDATETIME_DESC"
         />
         <!--
         <field

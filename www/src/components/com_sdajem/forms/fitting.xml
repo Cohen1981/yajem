@@ -28,6 +28,7 @@
                 type="media"
                 label="COM_SDAJEM_FT_IMAGE_LABEL"
                 directory="lagerplanung"
+                description="COM_SDAJEM_FT_IMAGE_DESC"
         />
         <field
                 name="length"
@@ -51,6 +52,7 @@
                 label="COM_SDAJEM_FIELD_FITTING_STANDARD_LABEL"
                 default="1"
                 validate="options"
+                description="COM_SDAJEM_FIELD_FITTING_STANDARD_DESC"
         >
             <option value="0">JNO</option>
             <option value="1">JYES</option>
@@ -61,6 +63,7 @@
                 label="COM_SDAJEM_FIELD_FT_NEEDSPACE_LABEL"
                 default="1"
                 validate="options"
+                description="COM_SDAJEM_FIELD_FT_NEEDSPACE_DESC"
         >
             <option value="0">JNO</option>
             <option value="1">JYES</option>

@@ -18,10 +18,10 @@ $wa->useStyle('com_sdajem.sdajem');
 $wa->useStyle('com_sdajem.planing');
 $wa->getRegistry()->addExtensionRegistryFile('vendor');
 $wa->useScript('jquery');
+$tparams = $this->item->params;
 
-// ToDo Sollte man im Backend administrieren können.
-$boxX = 40;
-$boxY = 30;
+$boxX = $tparams->get('sda_planing_x');
+$boxY = $tparams->get('sda_planing_y');
 
 $event = $this->item;
 ?>
@@ -55,25 +55,25 @@ $event = $this->item;
 
 	echo "<text x='-0.5' y='1.2' style='font-size:0.4pt; fill:black' transform=\"rotate(-45)\">m/m</text>";
 
-	for ($runX = 1; $runX <= $boxX; $runX++)
+	for ($runX = 0; $runX < $boxX; $runX++)
 	{
 		echo "<line x1=\"$runX\" y1=\"0\" x2=\"$runX\" y2=\"$boxY\" stroke='blue' stroke-width='0.1' stroke-opacity='0.1' />";
 
 		if ($runX > 1)
 		{
 			echo "<line x1=\"$runX\" y1=\"0\" x2=\"$runX\" y2=\"1\" stroke='black' stroke-width='0.1' />";
-			echo "<text x='" . ($runX + 0.2) . "' y=\"0.8\" style='font-size:0.4pt; fill:black'>" . ($runX + 1) . "</text>";
+			echo "<text x='" . ($runX + 0.2) . "' y=\"0.8\" style='font-size:0.4pt; fill:black'>" . ($runX) . "</text>";
 		}
 	}
 
-	for ($runY = 1; $runY <= $boxY; $runY++)
+	for ($runY = 0; $runY < $boxY; $runY++)
 	{
 		echo "<line x1=\"0\" y1=\"$runY\" x2=\"$boxX\" y2=\"$runY\" stroke='blue' stroke-width='0.1' stroke-opacity='0.1' />";
 
 		if ($runY > 1)
 		{
 			echo "<line x1=\"0\" y1=\"$runY\" x2=\"1\" y2=\"$runY\" stroke='black' stroke-width='0.1' />";
-			echo "<text x='0.2' y='" . ($runY + 0.8) . "' style='font-size:0.4pt; fill:black'>" . ($runY + 1) . "</text>";
+			echo "<text x='0.2' y='" . ($runY + 0.8) . "' style='font-size:0.4pt; fill:black'>" . ($runY) . "</text>";
 		}
 	}
 
