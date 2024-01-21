@@ -125,6 +125,9 @@ $currentUser = Factory::getApplication()->getIdentity();
 	                <?php endif; ?>
                 </h5>
                 <?php endif; ?>
+	            <?php if($tparams->get('sda_use_organizer') && isset($organizer) && !$user->guest) : ?>
+                    <h6><?php echo Text::_('COM_SDAJEM_FIELD_ORGANIZER_LABEL'); ?>: <?php echo $organizer->user->name; ?></h6>
+	            <?php endif; ?>
             </div>
             <?php if (!empty($canEdit))
             {
@@ -199,20 +202,7 @@ $currentUser = Factory::getApplication()->getIdentity();
             </div>
         </div>
 	    <?php endif; ?>
-	    <?php if($tparams->get('sda_use_organizer') && isset($organizer) && !$user->guest) : ?>
-            <div class="accordion-item">
-                <h5 class="accordion-header" id="headingOrganizer">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOrganizer" aria-expanded="true" aria-controls="collapseOrganizer">
-                        <h5><?php echo Text::_('COM_SDAJEM_FIELD_ORGANIZER_LABEL'); ?>: <?php echo $organizer->user->name; ?></h5>
-                    </button>
-                </h5>
-                <div id="collapseOrganizer" class="accordion-collapse collapse" aria-labelledby="headingOrganizer" data-bs-parent="#accordionEvent">
-                    <div class="accordion-body">
-                        <p><?php echo $organizer->user->email; ?></p>
-                    </div>
-                </div>
-            </div>
-	    <?php endif; ?>
+
 	    <?php if(isset($event->hostId)) : ?>
             <div class="accordion-item">
                 <h5 class="accordion-header" id="headingHost">

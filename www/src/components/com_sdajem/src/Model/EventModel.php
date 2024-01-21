@@ -99,6 +99,8 @@ class EventModel extends BaseDatabaseModel
 
 				if($data->svg)
 					$data->svg = (array) json_decode($data->svg);
+				else
+					$data->svg = array();
 				$this->_item[$pk] = $data;
 			}
 			catch (\Exception $e)

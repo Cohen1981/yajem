@@ -191,6 +191,7 @@
 
             let elementArray = {};
 
+            let serializer = new XMLSerializer();
             for (let i = 0; i < elements.length; i++)
             {
                 if (window.ActiveXObject) {
@@ -198,7 +199,6 @@
                     elementArray[elements[i].id] = elements[i].xml;
                 }
                 else {
-                    let serializer = new XMLSerializer();
                     elementArray[elements[i].id] = serializer.serializeToString(elements[i]);
                 }
 

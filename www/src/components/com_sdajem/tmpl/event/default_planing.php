@@ -110,8 +110,8 @@ $event = $this->item;
                 }
 
 				if (strpos($svgString, 'img_' . $fitting->id) === false) {
-                    echo "<svg class='dragMe confine' width=\"$fitting->length\" height=\"$fitting->width\" x=\"$bx\" y=\"$by\">";
-					echo "<g id=\"index_$fitting->id\" class='rotateMe'>";
+                    echo "<svg id=\"index_$fitting->id\" class='dragMe confine' width=\"$fitting->length\" height=\"$fitting->width\" x=\"$bx\" y=\"$by\">";
+					echo "<g id=\"g_index_$fitting->id\" class='rotateMe'>";
 
                     if ($fitting->image) {
                         echo "<image id='img_" . $fitting->id .
