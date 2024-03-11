@@ -123,6 +123,30 @@ class EventsModel extends ListModel
 			);
 		$query->select('(' . $attendees . ') AS ' . $db->quoteName('attendeeCount'));
 
+		//Get the guest count
+		$guests = $db->getQuery(true)
+			->select('COUNT(' . $db->quoteName('g.id') . ')')
+			->from($db->quoteName('#__sdajem_attendings', 'g'))
+			->where(
+				[
+					$db->quoteName('g.event_id') . ' = ' . $db->quoteName('a.id'),
+					$db->quoteName('g.status') . ' = ' . IntAttStatusEnum::GUEST->value,
+				]
+			);
+		$query->select('(' . $guests . ') AS ' . $db->quoteName('guestCount'));
+
+		//Get the Attendee feedback count
+		$attendeesf = $db->getQuery(true)
+			->select('COUNT(' . $db->quoteName('atte.id') . ')')
+			->from($db->quoteName('#__sdajem_attendings', 'atte'))
+			->where(
+				[
+					$db->quoteName('atte.event_id') . ' = ' . $db->quoteName('a.id'),
+					$db->quoteName('atte.status') . ' IN( ' . IntAttStatusEnum::POSITIVE->value . ', ' . IntAttStatusEnum::NEGATIVE->value . ', ' . IntAttStatusEnum::GUEST->value . ')',
+				]
+			);
+		$query->select('(' . $attendeesf . ') AS ' . $db->quoteName('attendeeFeedbackCount'));
+
 		$interestCount = $db->getQuery(true)
 			->select('COUNT(' . $db->quoteName('int.id') . ')')
 			->from($db->quoteName('#__sdajem_interest', 'int'))

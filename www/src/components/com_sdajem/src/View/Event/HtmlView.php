@@ -21,6 +21,7 @@ use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Model\FittingsModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
+use Sda\Component\Sdajem\Site\Model\CommentsModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\Model\InterestsModel;
 use Sda\Component\Sdajem\Site\Model\LocationModel;
@@ -106,6 +107,11 @@ class HtmlView extends BaseHtmlView
 			$temp->slug = $temp->alias ? ($temp->id . ':' . $temp->alias) : $temp->id;
 			$item->host = $temp;
 
+		}
+
+		if($item->params->get('sda_events_use_comments')) {
+			$commentsModel = new CommentsModel();
+			$item->comments = $commentsModel->getCommentsToEvent($item->id);
 		}
 
 		if($item->params->get('sda_use_attending')) {

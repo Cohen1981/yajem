@@ -128,9 +128,6 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                 <th class="d-none d-sm-table-cell">
                                     <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLEHEAD_EVENTS_STATUS', 'a.eventStatus', $listDirn, $listOrder); ?>
                                 </th>
-                                <th class="d-none d-md-table-cell">
-                                    <?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLEHEAD_EVENTS_ATTENDEE_COUNT', 'attendeeCount', $listDirn, $listOrder); ?>
-                                </th>
                                 <?php endif; ?>
                             </tr>
                             </thead>
@@ -186,7 +183,8 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                             <?php endif; ?>
                                         <?php endif; ?>
                                     </th>
-                                    <td class="d-md-table-cell">
+                                    <td class="col-3">
+                                        <div>
                                         <?php
                                         if ($item->allDayEvent) {
                                             echo HTMLHelper::date($item->startDateTime,'d.m.Y',true);
@@ -198,6 +196,29 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 	                                        echo HTMLHelper::date($item->endDateTime, 'd.m.Y H:i', true);
                                         }
                                         ?>
+                                        </div>
+                                        <div>
+	                                        <?php
+	                                        if (!$currentUser->guest)
+	                                        {
+		                                        if ($item->eventStatus <> EventStatusEnum::PLANING->value)
+		                                        {
+			                                        echo $item->attendeeFeedbackCount . ' ' . Text::_('COM_SDAJEM_FEEDBACK_COUNT') . '</br>';
+			                                        echo $item->attendeeCount . ' ' . Text::_('COM_SDAJEM_ATTENDEE_COUNT') . ' / ' . $item->guestCount . ' ' . Text::_('COM_SDAJEM_GUEST_COUNT');
+		                                        }
+		                                        else
+		                                        {
+			                                        echo $item->feedbackCount . ' ' . Text::_('COM_SDAJEM_FEEDBACK_COUNT') . '</br>';
+			                                        if ($canDo->get('core.manage') ||
+				                                        ($canDo->get('core.edit.own') && $item->created_by == $currentUser->id)
+			                                        )
+			                                        {
+				                                        echo $item->interestCount . ' ' . Text::_('COM_SDAJEM_INTEREST_COUNT') . ' / ' . $item->guestCount . ' ' . Text::_('COM_SDAJEM_GUEST_COUNT');
+			                                        }
+		                                        }
+	                                        }
+	                                        ?>
+                                        </div>
                                     </td>
                                     <?php if (!$currentUser->guest) : ?>
                                     <td class="d-sm-table-cell d-none">
@@ -223,20 +244,6 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 		                                    <?php echo EventStatusEnum::from($item->eventStatus)->getStatusBadge(); ?>
                                         </div>
                                         <?php endif; ?>
-                                    </td>
-                                    <td class="d-none d-md-table-cell">
-                                        <?php
-                                            if ($item->eventStatus <> EventStatusEnum::PLANING->value) {
-                                                echo $item->attendeeCount;
-                                            } else {
-	                                            echo $item->feedbackCount . ' ' . Text::_('COM_SDAJEM_FEEDBACK_COUNT') . '</br>';
-                                                if ($canDo->get('core.manage') ||
-	                                                ($canDo->get('core.edit.own') && $item->created_by == $currentUser->id)
-                                                ) {
-	                                                echo $item->interestCount . ' ' . Text::_('COM_SDAJEM_INTEREST_COUNT');
-                                                }
-                                            }
-                                        ?>
                                     </td>
                                     <?php endif; ?>
                                     <td class="small d-none d-md-table-cell">

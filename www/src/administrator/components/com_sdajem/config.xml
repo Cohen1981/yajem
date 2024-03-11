@@ -134,6 +134,15 @@
             <option value="0">JNO</option>
             <option value="1">JYES</option>
         </field>
+        <field
+                name="sda_events_use_comments"
+                type="list"
+                label="COM_SDAJEM_FIELD_EVENTS_USE_COMMENTS_LABEL"
+                default="0"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
     </fieldset>
     <fieldset
             name="attendings"

@@ -446,6 +446,70 @@ class EventController extends FormController
 	}
 
 	/**
+	 * @param   null  $eventId
+	 * @param   null  $userId
+	 *
+	 * @throws \Exception
+	 * @since 1.1.3
+	 */
+	public function guest($eventId = null, $userId = null)
+	{
+		//$this->option = 'core.manage.attending';
+		$pks = [];
+
+		if ($this->input->get('event_id')) {
+			$pks[0] = $this->input->get('event_id');
+		} else if ($eventId !== null)
+		{
+			$pks[0] = $eventId;
+		} else {
+			$pks = $this->input->get('cid');
+		}
+
+		if (count($pks) >= 0) {
+
+			if ($userId !== null) {
+				$currUser = $userId;
+			} else
+			{
+				$currUser = Factory::getApplication()->getIdentity();
+			}
+
+			foreach ($pks as $id)
+			{
+				$eventModel = new EventModel();
+				/* @var EventModel $event */
+				$event = $eventModel->getItem($id);
+
+				if ($event->eventStatus == EventStatusEnum::PLANING->value)
+				{
+					$interest = InterestHelper::getInterestStatusToEvent($currUser->id, $id);
+					$model = new InterestModel();
+				} else
+				{
+					$interest = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
+					$model = new AttendingModel();
+				}
+
+				$data = array(
+					'id'            => $interest->id,
+					'event_id'      => $id,
+					'users_user_id' => $currUser->id,
+					'status'        => IntAttStatusEnum::GUEST->value);
+				if ($event->eventStatus == EventStatusEnum::PLANING->value)
+				{
+					$data['comment'] = $this->input->getRaw('comment');
+				} else {
+					$data['fittings'] = '';
+				}
+
+				$this->setRedirect(Route::_($this->getReturnPage(), false));
+				$model->save($data);
+			}
+		}
+	}
+
+	/**
 	 * Saves a working state of the planingTool
 	 *
 	 * @return void

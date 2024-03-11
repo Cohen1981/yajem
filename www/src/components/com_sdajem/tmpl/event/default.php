@@ -267,5 +267,22 @@ $currentUser = Factory::getApplication()->getIdentity();
             </div>
         </div>
         <?php endif; ?>
+
+	    <?php if ($tparams->get('sda_events_use_comments') && !$user->guest): ?>
+            <div class="accordion-item">
+                <h5 class="accordion-header" id="headingCommentArea">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentArea" aria-expanded="true" aria-controls="collapseCommentArea">
+                        <h5><?php echo Text::_('COM_SDAJEM_COMMENT_AREA_LABEL'); ?></h5></br>
+                    </button>
+                </h5>
+                <div id="collapseCommentArea" class="accordion-collapse collapse" aria-labelledby="headingCommentArea" data-bs-parent="#accordionEvent">
+                    <div class="accordion-body">
+
+					    <?php echo $this->loadTemplate('comments'); ?>
+
+                    </div>
+                </div>
+            </div>
+	    <?php endif; ?>
     </div>
 </div>

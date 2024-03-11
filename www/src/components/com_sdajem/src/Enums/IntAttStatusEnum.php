@@ -22,6 +22,7 @@ enum IntAttStatusEnum: int
 	case NA = 0;
 	case POSITIVE = 1;
 	case NEGATIVE = 2;
+	case GUEST = 3;
 
 	/**
 	 *
@@ -37,7 +38,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => 'COM_SDAJEM_INTEREST_NA',
 			self::POSITIVE => 'COM_SDAJEM_POSITIVE',
-			self::NEGATIVE => 'COM_SDAJEM_NEGATIVE'
+			self::NEGATIVE => 'COM_SDAJEM_NEGATIVE',
+			self::GUEST => 'COM_SDAJEM_GUEST'
 		};
 	}
 
@@ -47,7 +49,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => '<span class="badge color-neutral">' . Text::_('COM_SDAJEM_INTEREST_NA') . '</span>',
 			self::POSITIVE => '<span class="badge color-ok">' . Text::_('COM_SDAJEM_POSITIVE') . '</span>',
-			self::NEGATIVE => '<span class="badge color-nok">' . Text::_('COM_SDAJEM_NEGATIVE') . '</span>'
+			self::NEGATIVE => '<span class="badge color-nok">' . Text::_('COM_SDAJEM_NEGATIVE') . '</span>',
+			self::GUEST => '<span class="badge color-neutral">' . Text::_('COM_SDAJEM_GUEST') . '</span>'
 		};
 	}
 
@@ -65,7 +68,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => 'COM_SDAJEM_INTEREST_NA',
 			self::POSITIVE => 'COM_SDAJEM_POSITIVE',
-			self::NEGATIVE => 'COM_SDAJEM_NEGATIVE'
+			self::NEGATIVE => 'COM_SDAJEM_NEGATIVE',
+			self::GUEST => 'COM_SDAJEM_GUEST'
 		};
 	}
 
@@ -75,7 +79,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => 'COM_SDAJEM_ATTENDING_NA',
 			self::POSITIVE => 'COM_SDAJEM_ATTENDING_ATTEND',
-			self::NEGATIVE => 'COM_SDAJEM_ATTENDING_NOT_ATTENDING'
+			self::NEGATIVE => 'COM_SDAJEM_ATTENDING_NOT_ATTENDING',
+			self::GUEST => 'COM_SDAJEM_GUEST'
 		};
 	}
 
@@ -85,7 +90,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => '<span class="badge color-neutral">' . Text::_('COM_SDAJEM_ATTENDING_NA') . '</span>',
 			self::POSITIVE => '<span class="badge color-ok">' . Text::_('COM_SDAJEM_ATTENDING_ATTEND') . '</span>',
-			self::NEGATIVE => '<span class="badge color-nok">' . Text::_('COM_SDAJEM_ATTENDING_NOT_ATTENDING') . '</span>'
+			self::NEGATIVE => '<span class="badge color-nok">' . Text::_('COM_SDAJEM_ATTENDING_NOT_ATTENDING') . '</span>',
+			self::GUEST => '<span class="badge color-neutral">' . Text::_('COM_SDAJEM_GUEST') . '</span>'
 		};
 	}
 
@@ -103,7 +109,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => 'COM_SDAJEM_ATTENDING_STATUS_NA',
 			self::POSITIVE => 'COM_SDAJEM_ATTENDING_STATUS_ATTENDING',
-			self::NEGATIVE => 'COM_SDAJEM_ATTENDING_STATUS_NOT_ATTENDING'
+			self::NEGATIVE => 'COM_SDAJEM_ATTENDING_STATUS_NOT_ATTENDING',
+			self::GUEST => 'COM_SDAJEM_GUEST'
 		};
 	}
 
@@ -123,7 +130,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => '<span class="badge color-neutral">' . Text::_('COM_SDAJEM_INTEREST_NA') . '</span>',
 			self::POSITIVE => '<span class="badge color-ok">' . Text::_('COM_SDAJEM_INTERESTED') . '</span>',
-			self::NEGATIVE => '<span class="badge color-nok">' . Text::_('COM_SDAJEM_NOT_INTERESTED') . '</span>'
+			self::NEGATIVE => '<span class="badge color-nok">' . Text::_('COM_SDAJEM_NOT_INTERESTED') . '</span>',
+			self::GUEST => '<span class="badge color-neutral">' . Text::_('COM_SDAJEM_GUEST') . '</span>'
 		};
 	}
 
@@ -141,7 +149,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => 'COM_SDAJEM_INTEREST_NA',
 			self::POSITIVE => 'COM_SDAJEM_INTERESTED',
-			self::NEGATIVE => 'COM_SDAJEM_NOT_INTERESTED'
+			self::NEGATIVE => 'COM_SDAJEM_NOT_INTERESTED',
+			self::GUEST => 'COM_SDAJEM_GUEST'
 		};
 	}
 
@@ -159,7 +168,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => 'COM_SDAJEM_POSITIVE_NA',
 			self::POSITIVE => 'event.positive',
-			self::NEGATIVE => 'event.negative'
+			self::NEGATIVE => 'event.negative',
+			self::GUEST => 'event.guest'
 		};
 	}
 
@@ -177,7 +187,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => 'fas fa-question',
 			self::POSITIVE => 'fas fa-thumbs-up',
-			self::NEGATIVE => 'fas fa-thumbs-down'
+			self::NEGATIVE => 'fas fa-thumbs-down',
+			self::GUEST => 'fas fa-hand-point-up'
 		};
 	}
 
@@ -187,7 +198,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => 'fas fa-question',
 			self::POSITIVE => 'btn-success',
-			self::NEGATIVE => 'btn-danger'
+			self::NEGATIVE => 'btn-danger',
+			self::GUEST => 'btn-secondary'
 		};
 	}
 
