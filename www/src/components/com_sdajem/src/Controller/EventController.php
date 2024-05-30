@@ -11,6 +11,7 @@ namespace Sda\Component\Sdajem\Site\Controller;
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Controller\FormController;
@@ -218,6 +219,15 @@ class EventController extends FormController
 	}
 
 	/**
+	 * @since 1.2.4
+	 */
+	private function setViewLevel()
+	{
+		$params = ComponentHelper::getParams('com_sdajem');
+		$this->setAccessLevel($params->get('sda_public_planing'));
+	}
+
+	/**
 	 *
 	 *
 	 * @since 1.0.9
@@ -225,26 +235,28 @@ class EventController extends FormController
 	public function open()
 	{
 		$this->setEventStatus(EventStatusEnum::OPEN);
-		$this->setAccessLevel(1);
+		$this->setViewLevel();
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 
 	public function applied()
 	{
 		$this->setEventStatus(EventStatusEnum::APPLIED);
+		$this->setViewLevel();
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 
 	public function canceled()
 	{
 		$this->setEventStatus(EventStatusEnum::CANCELED);
+		$this->setViewLevel();
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 
 	public function confirmed()
 	{
 		$this->setEventStatus(EventStatusEnum::CONFIRMED);
-		$this->
+		$this->setAccessLevel(1);
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 
@@ -256,7 +268,7 @@ class EventController extends FormController
 	public function planing()
 	{
 		$this->setEventStatus(EventStatusEnum::PLANING);
-		$this->setAccessLevel(2);
+		$this->setViewLevel();
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 

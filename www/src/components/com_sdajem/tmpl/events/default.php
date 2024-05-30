@@ -41,7 +41,7 @@ if ($saveOrder && !empty($this->items)) {
 	$saveOrderingUrl = 'index.php?option=com_sdajem&task=events.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 }
 
-$params = $params = ComponentHelper::getParams('com_sdajem');
+$params = ComponentHelper::getParams('com_sdajem');
 $currentUser = Factory::getApplication()->getIdentity();
 
 $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
@@ -136,9 +136,8 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                             <?php
                             $n = count($this->items);
                             $attending = new \Sda\Component\Sdajem\Site\Model\AttendingModel();
-                            foreach ($this->items as $i => $item) :
-                                ?>
-                            <?php // if(in_array($item->access, $userAuthorizedViewLevels)) : ?>
+                            foreach ($this->items as $i => $item) : ?>
+                            <?php //if(in_array($item->access, $userAuthorizedViewLevels)) : ?>
                                 <tr class="row<?php echo $i % 2; ?>">
 	                                <?php if (!$currentUser->guest) :?>
                                     <td class="text-center d-sm-table-cell d-none">
@@ -222,6 +221,9 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                     </td>
                                     <?php if (!$currentUser->guest) : ?>
                                     <td class="d-sm-table-cell d-none">
+                                        <?php if($item->organizerName): ?>
+                                        <div><?php echo Text::_('COM_SDAJEM_ORGANIZIG') . ': ' . $item->organizerName ?></div>
+                                        <?php endif; ?>
                                         <?php if ($currentUser->id == $item->organizerId || $canDo->get('core.manage')) : ?>
                                         <div class="sda_form">
                                             <?php

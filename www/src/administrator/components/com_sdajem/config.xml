@@ -72,6 +72,17 @@
             description="COM_SDAJEM_FIELDS_EVENT_CONFIG_DESC"
     >
         <field
+                name="sda_public_planing"
+                type="sql"
+                label="COM_SDAJEM_VIEWLEVEL_NAME"
+                sql_select="vl.*"
+                sql_from="#__viewlevels AS vl"
+                key_field="id"
+                value_field="title"
+                description="COM_SDAJEM_VIEWLEVEL_DESC"
+                default="2"
+        />
+        <field
                 name="sda_use_attending"
                 type="list"
                 label="COM_SDAJEM_FIELD_USE_ATTENDING_LABEL"
