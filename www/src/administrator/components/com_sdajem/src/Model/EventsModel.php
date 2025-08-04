@@ -198,12 +198,7 @@ class EventsModel extends ListModel
 		{
 			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));
 		}
-		// Filter startDateTime
-		if ($params->get('sda_show_old_events') == false)
-		{
-			$date = new Date();
-			$query->where($db->quoteName('a.startDateTime') . ' >= ' . $db->quote($date->format('Y-m-d')));
-		}
+
 		// Filter by access level.
 		if ($this->getState('filter.access', true))
 		{

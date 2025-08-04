@@ -49,59 +49,76 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 /* @var \Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel $item */
 ?>
 <div class="sdajem_content_container">
+    <div class="accordion" id="accordionEvents">
+
     <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="adminForm" id="adminForm">
         <div>
-            <?php if ($canDo->get('core.create')) : ?>
-                <div class="mb-2">
-                    <div class="btn-group sda_button_spacer" role="group" aria-label="basic group">
-                        <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('event.add')">
-                            <span class="fas fa-plus-circle" aria-hidden="true"></span>
-                            <?php echo Text::_('COM_SDAJEM_EVENT_ADD'); ?>
-                        </button>
+            <div class="accordion-item">
+                <h5 class="accordion-header" id="headingControls">
+                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseControls" aria-expanded="true" aria-controls="collapseControls">
+                        <h5><?php echo Text::_('COM_SDAJEM_CONTROLS'); ?></h5>
+                    </button>
+                </h5>
 
-                        <?php if ($params->get('sda_events_new_location')) :?>
-                        <button type="button" class="btn btn-secondary" onclick="Joomla.submitbutton('location.add')">
-                            <span class="fas fa-plus-circle" aria-hidden="true"></span>
-                            <?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
-                        </button>
-                        <?php endif; ?>
-                    </div>
+                <div id="collapseControls" class="accordion-collapse collapse" aria-labelledby="headingControls" data-bs-parent="#accordionEvents">
+                    <div class="accordion-body clearfix">
+                    <?php if ($canDo->get('core.create')) : ?>
 
-                    <?php if ($canDo->get('core.delete')) : ?>
-                    <div class="btn-group sda_button_spacer d-sm-inline-block d-none" role="group" aria-label="Attending group">
-                        <button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('event.delete')">
-                            <span class="fas fa-trash" aria-hidden="true"></span>
-                            <?php echo Text::_('COM_SDAJEM_EVENT_DELETE'); ?>
-                        </button>
-                    </div>
+                        <div class="mb-2">
+                            <div class="btn-group sda_button_spacer" role="group" aria-label="basic group">
+                                <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('event.add')">
+                                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                                    <?php echo Text::_('COM_SDAJEM_EVENT_ADD'); ?>
+                                </button>
+
+                                <?php if ($params->get('sda_events_new_location')) :?>
+                                <button type="button" class="btn btn-secondary" onclick="Joomla.submitbutton('location.add')">
+                                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                                    <?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
+                                </button>
+                                <?php endif; ?>
+                            </div>
+
+                            <?php if ($canDo->get('core.delete')) : ?>
+                            <div class="btn-group sda_button_spacer d-sm-inline-block d-none" role="group" aria-label="Attending group">
+                                <button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('event.delete')">
+                                    <span class="fas fa-trash" aria-hidden="true"></span>
+                                    <?php echo Text::_('COM_SDAJEM_EVENT_DELETE'); ?>
+                                </button>
+                            </div>
+                            <?php endif; ?>
+
+                            <?php
+                            if ($params->get('sda_use_attending'))
+                            {
+                                echo '<div class="btn-group sda_button_spacer d-sm-inline-block d-none" role="group" aria-label="Attending group">';
+                                foreach (IntAttStatusEnum::cases() as $stat)
+                                {
+                                    if ($stat != IntAttStatusEnum::NA)
+                                    {
+                                        $text = '<button type="button" class="btn ' . $stat->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $stat->getAction() . '\')">'
+                                            . '<span class="icon-spacer ' . $stat->getIcon() . '" aria-hidden="true"></span>';
+                                        $text .= Text::_($stat->getButtonLabel()) . '</button>';
+                                        echo $text;
+                                    }
+                                }
+                                echo '</div>';
+                            }
+                            ?>
+                        </div>
+
                     <?php endif; ?>
-
-                    <?php
-                    if ($params->get('sda_use_attending'))
-                    {
-	                    echo '<div class="btn-group sda_button_spacer d-sm-inline-block d-none" role="group" aria-label="Attending group">';
-	                    foreach (IntAttStatusEnum::cases() as $stat)
-	                    {
-		                    if ($stat != IntAttStatusEnum::NA)
-		                    {
-			                    $text = '<button type="button" class="btn ' . $stat->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $stat->getAction() . '\')">'
-				                    . '<span class="icon-spacer ' . $stat->getIcon() . '" aria-hidden="true"></span>';
-			                    $text .= Text::_($stat->getButtonLabel()) . '</button>';
-			                    echo $text;
-		                    }
-	                    }
-                        echo '</div>';
-                    }
-                    ?>
+                    <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="adminForm1" id="adminForm1">
+		            <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
+                    </div>
                 </div>
-            <?php endif; ?>
+            </div>
         </div>
 
         <div class="row">
             <div class="col-md-12">
                 <div id="j-main-container" class="j-main-container">
-                    <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="adminForm1" id="adminForm1">
-                    <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
+
                     <?php if (empty($this->items)) : ?>
                         <div class="alert alert-warning">
                             <?php echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
@@ -137,7 +154,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                             $n = count($this->items);
                             $attending = new \Sda\Component\Sdajem\Site\Model\AttendingModel();
                             foreach ($this->items as $i => $item) : ?>
-                            <?php //if(in_array($item->access, $userAuthorizedViewLevels)) : ?>
+                            <?php if($item->eventStatus == EventStatusEnum::CONFIRMED->value || in_array($params->get('sda_public_planing'), $userAuthorizedViewLevels)) : ?>
                                 <tr class="row<?php echo $i % 2; ?>">
 	                                <?php if (!$currentUser->guest) :?>
                                     <td class="text-center d-sm-table-cell d-none">
@@ -260,7 +277,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                         <?php endif; ?>
                                     </td>
                                 </tr>
-                            <?php //endif; ?>
+                            <?php endif; ?>
                             <?php endforeach; ?>
                             </tbody>
                         </table>
@@ -277,4 +294,6 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 	    <?php echo HTMLHelper::_('form.token'); ?>
 
     </form>
+
+    </div>
 </div>
