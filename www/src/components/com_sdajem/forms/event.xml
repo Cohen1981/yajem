@@ -108,6 +108,17 @@
                label="COM_SDAJEM_FIELD_ORGANIZER_LABEL"
                desc=""
         />
+        <field
+                name="registerUntil"
+                type="calendar"
+                label="COM_SDAJEM_FIELD_REGISTERUNTIL_LABEL"
+                showtime="false"
+                translateformat="true"
+                todaybutton="true"
+                required="false"
+                size="22"
+                description="COM_SDAJEM_FIELD_REGISTERUNTIL_DESC"
+        />
         <field name="hostId"
                type="Contactlist"
                label="COM_SDAJEM_FIELD_HOST_LABEL"

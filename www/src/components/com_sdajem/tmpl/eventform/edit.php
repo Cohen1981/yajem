@@ -49,6 +49,7 @@ $wa->useScript('com_sdajem.calendar');
 
 		<?php if ($this->params['sda_use_organizer']): ?>
 			<?php echo $this->form->renderField('organizerId'); ?>
+			<?php echo $this->form->renderField('registerUntil'); ?>
 		<?php endif; ?>
 
 		<?php if ($this->params['sda_use_host']): ?>

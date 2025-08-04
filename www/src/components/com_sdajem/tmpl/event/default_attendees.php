@@ -9,14 +9,12 @@
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
-use Sda\Component\Sdajem\Administrator\Model\FittingModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
@@ -33,6 +31,12 @@ $tparams = $this->item->params;
 /* @var EventModel $event */
 $event = $this->item;
 
+if (isset($event->registerUntil))
+{
+	$canRegister = ($event->registerUntil <= (new Date)->format('Y-m-d'));
+} else {
+    $canRegister = true;
+}
 ?>
 <div id="attendings" class="sda_row">
             <h5><?php echo Text::_('COM_SDAJEM_ATTENDESS'); ?></h5>
@@ -54,8 +58,10 @@ $event = $this->item;
 		<?php endif; ?>
 	<?php endif; ?>
 </div>
-<div class="sda_row">
-	<?= HTMLHelper::_('form.token'); ?>
-	<?php echo HTMLHelper::_('sdajemIcon.register', $event, $tparams); ?>
-</div>
+<?php if($canRegister) :?>
+    <div class="sda_row">
+        <?= HTMLHelper::_('form.token'); ?>
+        <?php echo HTMLHelper::_('sdajemIcon.register', $event, $tparams); ?>
+    </div>
+<?php endif; ?>
 </div>

@@ -51,6 +51,7 @@ use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
  * @property  int       eventStatus
  * @property  int       catid
  * @property  string    svg
+ * @property  Date      registerUntil
  */
 class EventTable extends Table
 {
@@ -128,6 +129,9 @@ class EventTable extends Table
 		}
 		if ($this->eventStatus == EventStatusEnum::PLANING->value) {
 			$this->access =2;
+		}
+		if (!$this->registerUntil) {
+			$this->registerUntil = null;
 		}
 		//if (!$this->checked_out) {
 		$this->checked_out = null;

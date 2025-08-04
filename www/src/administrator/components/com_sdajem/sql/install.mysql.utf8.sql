@@ -51,6 +51,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
 	`catid` INT(10) unsigned,
 	`params` text,
 	`svg` BLOB NULL DEFAULT NULL,
+	`registerUntil` DATETIME NULL,
   PRIMARY KEY (`id`),
   KEY `idx_state` (`published`),
   KEY `idx_organizer` (`organizerId`),

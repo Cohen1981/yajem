@@ -11,11 +11,13 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 
 \defined('_JEXEC') or die();
 
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Joomla\CMS\Component\ComponentHelper;
 
 /**
  * @since       1.0.1
@@ -57,6 +59,7 @@ class EventsModel extends ListModel
 	 */
 	protected function getListQuery()
 	{
+		$params = ComponentHelper::getParams('com_sdajem');
 		// Create a new query object.
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
@@ -92,7 +95,8 @@ class EventsModel extends ListModel
 					$db->quoteName('a.sdajem_location_id'),
 					$db->quoteName('a.image'),
 					$db->quoteName('a.eventStatus'),
-					$db->quoteName('a.organizerId')
+					$db->quoteName('a.organizerId'),
+					$db->quoteName('a.registerUntil')
 				]
 			)
 		);
@@ -193,6 +197,12 @@ class EventsModel extends ListModel
 		if ($language = $this->getState('filter.language'))
 		{
 			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));
+		}
+		// Filter startDateTime
+		if ($params->get('sda_show_old_events') == false)
+		{
+			$date = new Date();
+			$query->where($db->quoteName('a.startDateTime') . ' >= ' . $db->quote($date->format('Y-m-d')));
 		}
 		// Filter by access level.
 		if ($this->getState('filter.access', true))

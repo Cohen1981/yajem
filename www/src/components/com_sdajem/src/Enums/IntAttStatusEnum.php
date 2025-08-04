@@ -120,7 +120,8 @@ enum IntAttStatusEnum: int
 		{
 			self::NA => 'COM_SDAJEM_INTEREST_NA',
 			self::POSITIVE => 'COM_SDAJEM_INTERESTED',
-			self::NEGATIVE => 'COM_SDAJEM_NOT_INTERESTED'
+			self::NEGATIVE => 'COM_SDAJEM_NOT_INTERESTED',
+			self::GUEST => 'COM_SDAJEM_INTERESTED_GUEST'
 		};
 	}
 

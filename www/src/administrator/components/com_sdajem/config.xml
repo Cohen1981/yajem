@@ -146,6 +146,16 @@
             <option value="1">JYES</option>
         </field>
         <field
+                name="sda_show_old_events"
+                type="list"
+                label="COM_SDAJEM_FIELD_SHOW_OLD_EVENTS_LABEL"
+                default="0"
+                description="COM_SDAJEM_FIELD_SHOW_OLD_EVENTS_DESC"
+        >
+            <option value="0">JNO</option>
+            <option value="1">JYES</option>
+        </field>
+        <field
                 name="sda_events_use_comments"
                 type="list"
                 label="COM_SDAJEM_FIELD_EVENTS_USE_COMMENTS_LABEL"

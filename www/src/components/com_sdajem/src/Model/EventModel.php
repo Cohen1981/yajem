@@ -48,6 +48,7 @@ use Joomla\CMS\MVC\Model\BaseDatabaseModel;
  * @property  int       eventStatus
  * @property  int       catid
  * @property  string    svg
+ * @property  Date      registerUntil
    */
 
 class EventModel extends BaseDatabaseModel
