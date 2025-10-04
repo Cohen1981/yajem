@@ -1,3 +1,5 @@
-www/joomla
-/mysql/data/*
 /vendor/
+/db_data/*
+/joomla_data/*
+db_data
+joomla_data
