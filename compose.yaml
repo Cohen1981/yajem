@@ -22,7 +22,13 @@ services:
         condition: service_healthy
     user: ${UID:-1000}:${GID:-1000}
     volumes:
-      - ./joomla_data:/var/www/html
+      - joomla_data:/var/www/html
+      - ./src/administrator/components/com_sdajem:/var/www/html/administrator/components/com_sdajem
+      - ./src/components/com_sdajem:/var/www/html/components/com_sdajem
+      - ./src/media/com_sdajem:/var/www/html/media/com_sdajem
+      - ./src/media/templates/site/survivants:/var/www/html/media/templates/site/survivants
+      - ./src/templates/survivants:/var/www/html/templates/survivants
+      - php:/usr/local/etc/php
       - ./config/php.ini:/usr/local/etc/php/php.ini
     networks:
       - joomla_network
@@ -44,7 +50,7 @@ services:
       retries: 10
     user: ${UID:-1000}:${GID:-1000}
     volumes:
-      - ./db_data:/var/lib/mysql
+      - db_data:/var/lib/mysql
     networks:
       - joomla_network
 
