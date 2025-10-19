@@ -1,25 +1,27 @@
 rm -Rf ./target/*
+rm -Rf ./temp/*
 
-mkdir temp
-mkdir temp/template
-mkdir temp/template/media
-cp -Rf ./www/src/templates/survivants/* ./temp/template
-cp -Rf ./www/src/media/templates/site/survivants/* ./temp/template/media
+mkdir -p target
+mkdir -p temp
+mkdir -p temp/template
+mkdir -p temp/template/media
+cp -Rf ./src/templates/survivants/* ./temp/template
+cp -Rf ./src/media/templates/site/survivants/* ./temp/template/media
 cd temp/template || exit
 zip -r ../../target/survivants.zip *
 cd ../..
 
-mkdir temp/comp
-mkdir temp/comp/media
-mkdir temp/comp/components
-mkdir temp/comp/administrator
-mkdir temp/comp/administrator/components
-cp -Rf ./www/src/administrator/components/com_sdajem ./temp/comp/administrator/components
-cp -Rf ./www/src/components/com_sdajem ./temp/comp/components
-cp -Rf ./www/src/media/com_sdajem ./temp/comp/media
+mkdir -p temp/comp
+mkdir -p temp/comp/media
+mkdir -p temp/comp/components
+mkdir -p temp/comp/administrator
+mkdir -p temp/comp/administrator/components
+cp -Rf ./src/administrator/components/com_sdajem ./temp/comp/administrator/components
+cp -Rf ./src/components/com_sdajem ./temp/comp/components
+cp -Rf ./src/media/com_sdajem ./temp/comp/media
 cp -Rf ./temp/comp/administrator/components/com_sdajem/sdajem.xml ./temp/comp
 cd temp/comp || exit
 zip -r ../../target/sdajem.zip *
-cd ../..
+cd ..
 
 rm -Rf temp

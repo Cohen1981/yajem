@@ -13,23 +13,19 @@ services:
       - JOOMLA_DB_PASSWORD=${DB_PASSWORD:-examplepass}
       - JOOMLA_DB_USER=${DB_USER:-joomla}
       - JOOMLA_SITE_NAME=${JOOMLA_SITE_NAME:-Joomla}
-      - JOOMLA_ADMIN_USER=${JOOMLA_ADMIN_USER:-Joomla Hero}
-      - JOOMLA_ADMIN_USERNAME=${JOOMLA_ADMIN_USERNAME:-joomla}
-      - JOOMLA_ADMIN_PASSWORD=${JOOMLA_ADMIN_PASSWORD:-joomla@secured}
+      - JOOMLA_ADMIN_USER=${JOOMLA_ADMIN_USER:-Joomla Admin}
+      - JOOMLA_ADMIN_USERNAME=${JOOMLA_ADMIN_USERNAME:-admin}
+      - JOOMLA_ADMIN_PASSWORD=${JOOMLA_ADMIN_PASSWORD:-admin@secured}
       - JOOMLA_ADMIN_EMAIL=${JOOMLA_ADMIN_EMAIL:-joomla@example.com}
     depends_on:
       joomladb:
         condition: service_healthy
     user: ${UID:-1000}:${GID:-1000}
     volumes:
-      - joomla_data:/var/www/html
-      - ./src/administrator/components/com_sdajem:/var/www/html/administrator/components/com_sdajem
-      - ./src/components/com_sdajem:/var/www/html/components/com_sdajem
-      - ./src/media/com_sdajem:/var/www/html/media/com_sdajem
-      - ./src/media/templates/site/survivants:/var/www/html/media/templates/site/survivants
-      - ./src/templates/survivants:/var/www/html/templates/survivants
-      - php:/usr/local/etc/php
-      - ./config/php.ini:/usr/local/etc/php/php.ini
+      - ./joomla_data:/var/www/html
+      - ./src:/var/www/src
+      - ./config/php/php.ini:/usr/local/etc/php/php.ini
+      - ./config/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
     networks:
       - joomla_network
 
@@ -38,7 +34,7 @@ services:
     container_name: ${CONTAINER_PREFIX:-joomla}-db
     restart: always
     ports:
-      - ${MYSQL_PORT-:3306}:3306
+      - ${MYSQL_PORT:-3306}:3306
     environment:
       - MYSQL_DATABASE=${DB_NAME:-joomla}
       - MYSQL_PASSWORD=${DB_PASSWORD:-examplepass}
@@ -50,13 +46,24 @@ services:
       retries: 10
     user: ${UID:-1000}:${GID:-1000}
     volumes:
-      - db_data:/var/lib/mysql
+      - ./db_data:/var/lib/mysql
     networks:
       - joomla_network
 
-volumes:
-  joomla_data:
-  db_data:
+  composer:
+    image: composer:${COMPOSER_VERSION:-2.8.12}
+    container_name: ${CONTAINER_PREFIX:-joomla}-composer
+    command: [ "composer", "update" ]
+    volumes:
+      - .:/app
+    networks:
+      - joomla_network
+
+  sass:
+    image: banderson/sass
+    container_name: ${CONTAINER_PREFIX:-joomla}-sass
+    volumes:
+      - ./src:/src
 
 networks:
   joomla_network:
