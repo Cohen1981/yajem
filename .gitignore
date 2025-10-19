@@ -6,3 +6,4 @@ joomla_data
 php
 target
 temp
+composer.lock
