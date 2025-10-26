@@ -30,13 +30,13 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_events` (
 	`svg` BLOB NULL DEFAULT NULL,
 	`registerUntil` DATETIME NULL,
   PRIMARY KEY (`id`),
-  KEY `idx_state` (`published`),
-  KEY `idx_organizer` (`organizerId`),
-  KEY `idx_location` (`sdajem_location_id`),
-  KEY `idx_created_by` (`created_by`),
-  KEY `idx_catid` (`catid`),
-  KEY `idx_language` (`language`),
-  KEY `idx_startDateTime` (`startDateTime`)	
+  KEY `idx_events_state` (`published`),
+  KEY `idx_events_organizer` (`organizerId`),
+  KEY `idx_events_location` (`sdajem_location_id`),
+  KEY `idx_events_created_by` (`created_by`),
+  KEY `idx_events_catid` (`catid`),
+  KEY `idx_events_language` (`language`),
+  KEY `idx_events_startDateTime` (`startDateTime`)	
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   DEFAULT COLLATE=utf8mb4_unicode_ci;
@@ -69,10 +69,10 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_locations` (
   	`image` VARCHAR(1024) NULL COMMENT 'Optional teaser image',
   	`catid` INT(10) unsigned,
 	PRIMARY KEY (`id`),
-	KEY `idx_state` (`published`),
-	KEY `idx_created_by` (`created_by`),
-	KEY `idx_language` (`language`),
-	KEY `idx_catid` (`catid`)
+	KEY `idx_locations_state` (`published`),
+	KEY `idx_locations_created_by` (`created_by`),
+	KEY `idx_locations_language` (`language`),
+	KEY `idx_locations_catid` (`catid`)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   DEFAULT COLLATE=utf8mb4_unicode_ci;
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_attendings` (
   	`status` TINYINT(1) NOT NULL DEFAULT 0,
   	`fittings` varchar(50),
 	PRIMARY KEY (`id`),
-	KEY `idx_created_by` (`created_by`)
+	KEY `idx_attendings_created_by` (`created_by`)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   DEFAULT COLLATE=utf8mb4_unicode_ci;
@@ -110,7 +110,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_interest` (
   	`status` TINYINT(1) NOT NULL DEFAULT 0,
   	`comment` MEDIUMTEXT  NULL,
 	PRIMARY KEY (`id`),
-	KEY `idx_created_by` (`created_by`)
+	KEY `idx_interest_created_by` (`created_by`)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   DEFAULT COLLATE=utf8mb4_unicode_ci;
@@ -137,8 +137,8 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_fittings` (
   	`image` VARCHAR(1024) null,
   	`needSpace` tinyint(1),
 	PRIMARY KEY (`id`),
-	KEY `idx_state` (`published`),
-	KEY `idx_created_by` (`created_by`),
+	KEY `idx_fittings_state` (`published`),
+	KEY `idx_fittings_created_by` (`created_by`)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   DEFAULT COLLATE=utf8mb4_unicode_ci;

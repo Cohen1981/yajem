@@ -10,12 +10,12 @@
     }
   ],
   "require": {
-    "squizlabs/php_codesniffer": "2.9.2",
+    "squizlabs/php_codesniffer": "^4.0",
     "ext-json": "*",
     "ext-simplexml": "*"
   },
   "require-dev": {
-    "phing/phing": "2.*",
+    "phing/phing": "3.1.0",
     "joomla/coding-standards": "2.0-rc4"
   },
   "scripts": {

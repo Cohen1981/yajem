@@ -1,6 +1,10 @@
+# Update the package lists.
+apt update
 apt install make
 apt install docker.io
 apt install zip
+# Install PHP.
+apt install -y php
 usermod -aG docker $USER
 newgrp docker
 

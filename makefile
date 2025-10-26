@@ -45,9 +45,8 @@ stop:
 up:
 	-@mkdir -p db_data joomla_data
 	@UID=$$(id -u) GID=$$(id -g) docker compose up --detach --build
-	-@sleep 5
-	-@if [ -L ./joomla_data/administrator/components/com_sdajem ] ; then echo "already linked";else ln -sr ./src/administrator/components/com_sdajem ./joomla_data/administrator/components/com_sdajem;echo "now linked";fi
-	-@if [ -L ./joomla_data/components/com_sdajem ] ; then echo "already linked";else ln -sr ./src/components/com_sdajem ./joomla_data/components/com_sdajem;echo "now linked";fi
-	-@if [ -L ./joomla_data/media/com_sdajem ] ; then echo "already linked";else ln -sr ./src/media/com_sdajem ./joomla_data/media/com_sdajem;echo "now linked";fi
-	-@if [ -L ./joomla_data/templates/survivants ] ; then echo "already linked";else ln -sr ./src/templates/survivants ./joomla_data/templates/survivants;echo "now linked";fi
-	-@if [ -L ./joomla_data/media/templates/site/survivants ] ; then echo "already linked";else ln -sr ./src/media/templates/site/survivants ./joomla_data/media/templates/site/survivants;echo "now linked";fi
+	-@if [ -L ./joomla_data/administrator/components/com_sdajem ] ; then echo "already linked";else sleep 10;ln -sr ./src/administrator/components/com_sdajem ./joomla_data/administrator/components/com_sdajem;echo "admin now linked";fi
+	-@if [ -L ./joomla_data/components/com_sdajem ] ; then echo "already linked";else ln -sr ./src/components/com_sdajem ./joomla_data/components/com_sdajem;echo "component now linked";fi
+	-@if [ -L ./joomla_data/media/com_sdajem ] ; then echo "already linked";else ln -sr ./src/media/com_sdajem ./joomla_data/media/com_sdajem;echo "component media now linked";fi
+	-@if [ -L ./joomla_data/templates/survivants ] ; then echo "already linked";else ln -sr ./src/templates/survivants ./joomla_data/templates/survivants;echo "template now linked";fi
+	-@if [ -L ./joomla_data/media/templates/site/survivants ] ; then echo "already linked";else ln -sr ./src/media/templates/site/survivants ./joomla_data/media/templates/site/survivants;echo "template media now linked";fi
