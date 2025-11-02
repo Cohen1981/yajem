@@ -47,11 +47,12 @@ class BaseItemsView extends \Joomla\CMS\MVC\View\HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		$this->items = $this->get('Items');
-		$this->pagination = $this->get('Pagination');
-		$this->filterForm = $this->get('FilterForm');
-		$this->activeFilters = $this->get('ActiveFilters');
-		$this->state = $this->get('State');
+		$model = $this->getModel();
+		$this->items = $model->getItems();
+		$this->pagination = $model->getPagination();
+		$this->filterForm = $model->getFilterForm();
+		$this->activeFilters = $model->getActiveFilters();
+		$this->state = $model->getState();
 		$this->return_page = base64_encode(Uri::getInstance());
 
 		// Preprocess the list of items to find ordering divisions.

@@ -17,6 +17,7 @@ use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
+use Sda\Component\Sdajem\Site\Model\EventformModel;
 
 /**
  * HTML Event View class for the Event component
@@ -69,11 +70,12 @@ class HtmlView extends BaseHtmlView
 	{
 		$user = Factory::getApplication()->getIdentity();
 		$app  = Factory::getApplication();
-		// Get model data.
-		$this->state = $this->get('State');
-		$this->item = $this->get('Item');
-		$this->form = $this->get('Form');
-		$this->return_page = $this->get('ReturnPage');
+		/** @var EventformModel $model */
+		$model = $this->getModel();
+		$this->state = $model->getState();
+		$this->item = $model->getItem();
+		$this->form = $model->getForm();
+		$this->return_page = $model->getReturnPage();
 		if (empty($this->item->id)) {
 			$authorised = $user->authorise('core.create', 'com_sdajem');
 		} else {

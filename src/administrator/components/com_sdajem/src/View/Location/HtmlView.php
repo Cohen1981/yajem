@@ -15,6 +15,7 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Sda\Component\Sdajem\Administrator\Model\LocationModel;
 
 class HtmlView extends BaseHtmlView
 {
@@ -41,8 +42,10 @@ class HtmlView extends BaseHtmlView
 	 */
 	public function display($tpl = null)
 	{
-		$this->form  = $this->get('Form');
-		$this->item = $this->get('Item');
+		/** @var LocationModel $model */
+		$model = $this->getModel();
+		$this->form  = $model->getForm();
+		$this->item = $model->getItem();
 
 		$this->addToolbar();
 		return parent::display($tpl);

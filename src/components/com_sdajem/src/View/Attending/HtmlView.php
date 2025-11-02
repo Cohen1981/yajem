@@ -60,10 +60,11 @@ class HtmlView extends BaseHtmlView
 	 */
 	public function display($tpl = null)
 	{
-		/* @var AttendingModel $item */
-		$item = $this->item = $this->get('Item');
+		/* @var AttendingModel $model */
+		$model = $this->getModel();
+		$item = $this->item = $model->getItem();
 
-		$state = $this->state = $this->get('State');
+		$state = $this->state = $model->getState();
 		$params = $this->params = $state->get('params');
 
 		/**

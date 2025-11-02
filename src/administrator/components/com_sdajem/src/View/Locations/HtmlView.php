@@ -88,7 +88,7 @@ class  HtmlView extends BaseHtmlView
 			$item->order_dn = true;
 		}
 
-		if (!count($this->items) && $this->get('IsEmptyState')) {
+		if (!count($this->items) && $model->getIsEmptyState()) {
 			$this->setLayout('emptystate');
 		}
 

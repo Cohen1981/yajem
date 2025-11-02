@@ -17,6 +17,7 @@ use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
+use Sda\Component\Sdajem\Site\Model\LocationformModel;
 
 /**
  * HTML Location View class
@@ -69,11 +70,12 @@ class HtmlView extends BaseHtmlView
 	{
 		$user = Factory::getApplication()->getIdentity();
 		$app  = Factory::getApplication();
-		// Get model data.
-		$this->state = $this->get('State');
-		$this->item = $this->get('Item');
-		$this->form = $this->get('Form');
-		$this->return_page = $this->get('ReturnPage');
+		/** @var LocationformModel $model */
+		$model = $this->getModel();
+		$this->state = $model->getState();
+		$this->item = $model->getItem();
+		$this->form = $model->getForm();
+		$this->return_page = $model->getReturnPage();
 		if (empty($this->item->id)) {
 			$authorised = $user->authorise('core.create', 'com_sdajem');
 		} else {
@@ -96,7 +98,7 @@ class HtmlView extends BaseHtmlView
 		#$this->params->merge($this->item->params);
 		// Propose current language as default when creating new location
 		if (empty($this->item->id) && Multilanguage::isEnabled()) {
-			$lang = Factory::getLanguage()->getTag();
+			$lang = Factory::getApplication()->getLanguage()->getTag();
 			$this->form->setFieldAttribute('language', 'default', $lang);
 		}
 

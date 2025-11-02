@@ -12,6 +12,7 @@ namespace Sda\Component\Sdajem\Site\View\Attendings;
 defined('_JEXEC') or die();
 
 use Joomla\CMS\Uri\Uri;
+use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 
 class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 {
@@ -47,11 +48,13 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 	 */
 	public function display($tpl = null)
 	{
-		$this->items = $this->get('Items');
-		$this->pagination = $this->get('Pagination');
-		$this->filterForm = $this->get('FilterForm');
-		$this->activeFilters = $this->get('ActiveFilters');
-		$this->state = $this->get('State');
+		/** @var AttendingsModel $model */
+		$model = $this->getModel();
+		$this->items = $model->getItems();
+		$this->pagination = $model->getPagination();
+		$this->filterForm = $model->getFilterForm();
+		$this->activeFilters = $model->getActiveFilters();
+		$this->state = $model->getState();
 		$this->return_page = base64_encode(Uri::getInstance());
 
 		return parent::display($tpl);
