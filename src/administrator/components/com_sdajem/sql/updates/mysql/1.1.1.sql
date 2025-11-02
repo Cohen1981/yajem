@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_interest` (
 INSERT INTO `#__sdajem_interest` (id, access, alias, created, created_by, created_by_alias, state, ordering, event_id, users_user_id, status, comment)
 SELECT id,
        access,
-       'iterest',
+       'interest',
        created,
        created_by,
        created_by_alias,

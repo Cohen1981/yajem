@@ -20,6 +20,7 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Sda\Component\Sdajem\Administrator\Model\EventsModel;
 
 #use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 
@@ -69,11 +70,13 @@ class HtmlView extends BaseHtmlView
 	 */
 	public function display($tpl = null): void
 	{
-		$this->items = $this->get('Items');
+        /** @var EventsModel $model */
+        $model = $this->getModel();
 
-		$this->filterForm = $this->get('FilterForm');
-		$this->activeFilters = $this->get('ActiveFilters');
-		$this->state = $this->get('State');
+        $this->items = $model->getItems();
+		$this->filterForm = $model->getFilterForm();;
+		$this->activeFilters = $model->getActiveFilters();
+		$this->state = $model->getState();
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {
@@ -86,7 +89,7 @@ class HtmlView extends BaseHtmlView
 			$item->order_dn = true;
 		}
 
-		if (!count($this->items) && $this->get('IsEmptyState')) {
+		if (!count($this->items) && $model->getIsEmptyState()) {
 			$this->setLayout('emptystate');
 		}
 
@@ -128,7 +131,8 @@ class HtmlView extends BaseHtmlView
 
 		// Get the toolbar object instance
 		#$toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
-		$toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
+		#$toolbar = Factory::getContainer()->get(ToolbarFactoryInterface::class)->createToolbar('toolbar');
+        $toolbar = $this->getDocument()->getToolbar();
 
 		ToolbarHelper::title(Text::_('COM_SDAJEM_EVENTS'), 'address event');
 

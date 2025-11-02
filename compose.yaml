@@ -64,6 +64,8 @@ services:
     container_name: ${CONTAINER_PREFIX:-joomla}-sass
     volumes:
       - ./src:/src
+    networks:
+      - joomla_network
 
 networks:
   joomla_network:

@@ -3,7 +3,6 @@
 /joomla_data/*
 db_data
 joomla_data
-php
 target
 temp
 composer.lock

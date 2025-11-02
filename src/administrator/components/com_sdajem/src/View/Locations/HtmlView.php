@@ -19,6 +19,7 @@ use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\Toolbar;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Sda\Component\Sdajem\Administrator\Model\LocationsModel;
 
 #use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 
@@ -68,11 +69,13 @@ class  HtmlView extends BaseHtmlView
 	 */
 	public function display($tpl = null): void
 	{
-		$this->items = $this->get('Items');
+        /** @var LocationsModel $model */
+        $model = $this->getModel();
 
-		$this->filterForm = $this->get('FilterForm');
-		$this->activeFilters = $this->get('ActiveFilters');
-		$this->state = $this->get('State');
+        $this->items = $model->getItems();
+        $this->filterForm = $model->getFilterForm();;
+        $this->activeFilters = $model->getActiveFilters();
+        $this->state = $model->getState();
 
 		// Check for errors.
 		if (count($errors = $this->get('Errors'))) {

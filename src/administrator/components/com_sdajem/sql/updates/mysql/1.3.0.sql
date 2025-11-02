@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `#__sdajem_comments` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'Primary Key',
   `users_user_id` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__users',
-  `sdajem_event_id` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__yajame_events',
+  `sdajem_event_id` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__yajem_events',
   `comment` MEDIUMTEXT NOT NULL ,
   `timestamp` DATETIME,
   `commentReadBy` varchar(255) DEFAULT NULL NULL,

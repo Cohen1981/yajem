@@ -238,6 +238,12 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                     </td>
                                     <?php if (!$currentUser->guest) : ?>
                                     <td class="d-sm-table-cell d-none">
+                                        <div>
+                                            <?php if($item->registerUntil):
+                                                echo Text::_('COM_SDAJEM_REGISTER_UNTIL') . ': <br>';
+                                                echo HTMLHelper::date($item->registerUntil, 'd.m.Y', true);
+                                            endif ?>
+                                        </div>
                                         <?php if($item->organizerName): ?>
                                         <div><?php echo Text::_('COM_SDAJEM_ORGANIZIG') . ': ' . $item->organizerName ?></div>
                                         <?php endif; ?>

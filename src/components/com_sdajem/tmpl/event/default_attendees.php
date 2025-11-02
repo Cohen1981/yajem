@@ -33,7 +33,7 @@ $event = $this->item;
 
 if (isset($event->registerUntil))
 {
-	$canRegister = ($event->registerUntil <= (new Date)->format('Y-m-d'));
+	$canRegister = $event->registerUntil <= new DateTime('now');
 } else {
     $canRegister = true;
 }
