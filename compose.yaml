@@ -2,11 +2,17 @@ name: ${PROJECT_NAME:-your-project-name}
 
 services:
   joomla:
-    image: joomla:${JOOMLA_VERSION:-latest}
+    build:
+      context: .
+      args:
+        JOOMLA_VERSION: ${JOOMLA_VERSION:-latest}
+      dockerfile: config/Dockerfile
     container_name: ${CONTAINER_PREFIX:-joomla}-app
     restart: always
     ports:
       - ${WEB_PORT:-8080}:80
+    extra_hosts:
+      host.docker.internal: host-gateway
     environment:
       - JOOMLA_DB_HOST=joomladb
       - JOOMLA_DB_NAME=${DB_NAME:-joomla}
@@ -17,6 +23,7 @@ services:
       - JOOMLA_ADMIN_USERNAME=${JOOMLA_ADMIN_USERNAME:-admin}
       - JOOMLA_ADMIN_PASSWORD=${JOOMLA_ADMIN_PASSWORD:-admin@secured}
       - JOOMLA_ADMIN_EMAIL=${JOOMLA_ADMIN_EMAIL:-joomla@example.com}
+      - XDEBUG_CONFIG=remote_host=host.docker.internal
     depends_on:
       joomladb:
         condition: service_healthy
@@ -26,6 +33,7 @@ services:
       - ./src:/var/www/src
       - ./config/php/php.ini:/usr/local/etc/php/php.ini
       - ./config/apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+      - ./config/php/docker-php-ext-xdebug.ini:/usr/local/etc/php/conf.d/docker-php-ext-xdebug.ini
     networks:
       - joomla_network
 
@@ -47,23 +55,6 @@ services:
     user: ${UID:-1000}:${GID:-1000}
     volumes:
       - ./db_data:/var/lib/mysql
-    networks:
-      - joomla_network
-
-  composer:
-    image: composer:${COMPOSER_VERSION:-2.8.12}
-    container_name: ${CONTAINER_PREFIX:-joomla}-composer
-    command: [ "composer", "update" ]
-    volumes:
-      - .:/app
-    networks:
-      - joomla_network
-
-  sass:
-    image: banderson/sass
-    container_name: ${CONTAINER_PREFIX:-joomla}-sass
-    volumes:
-      - ./src:/src
     networks:
       - joomla_network
 

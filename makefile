@@ -1,4 +1,6 @@
--include .env
+.EXPORT_ALL_VARIABLES:
+vpath ./config
+-include ./config/.env
 
 config:
 	@UID=$$(id -u) GID=$$(id -g) docker compose config
@@ -12,7 +14,7 @@ log:
 reset: down
 	-@rm -rf db_data joomla_data
 
-start:
+start: up
 	@clear
 	@printf "\033[1;33m%s\033[0m\n\n" "To start your site, please jump to http://127.0.0.1:${WEB_PORT}"
 	@printf "\033[1;33m%s\033[0m\n\n" "Go to http://127.0.0.1:${WEB_PORT}/administrator to open your backend."
@@ -45,8 +47,28 @@ stop:
 up:
 	-@mkdir -p db_data joomla_data
 	@UID=$$(id -u) GID=$$(id -g) docker compose up --detach --build
-	-@if [ -L ./joomla_data/administrator/components/com_sdajem ] ; then echo "already linked";else sleep 10;ln -sr ./src/administrator/components/com_sdajem ./joomla_data/administrator/components/com_sdajem;echo "admin now linked";fi
-	-@if [ -L ./joomla_data/components/com_sdajem ] ; then echo "already linked";else ln -sr ./src/components/com_sdajem ./joomla_data/components/com_sdajem;echo "component now linked";fi
-	-@if [ -L ./joomla_data/media/com_sdajem ] ; then echo "already linked";else ln -sr ./src/media/com_sdajem ./joomla_data/media/com_sdajem;echo "component media now linked";fi
-	-@if [ -L ./joomla_data/templates/survivants ] ; then echo "already linked";else ln -sr ./src/templates/survivants ./joomla_data/templates/survivants;echo "template now linked";fi
-	-@if [ -L ./joomla_data/media/templates/site/survivants ] ; then echo "already linked";else ln -sr ./src/media/templates/site/survivants ./joomla_data/media/templates/site/survivants;echo "template media now linked";fi
+	-@if [ -L ./joomla_data/administrator/components/com_${COMPONENT_NAME} ] ; then echo "already linked";else sleep 10;ln -sr ./src/administrator/components/com_${COMPONENT_NAME} ./joomla_data/administrator/components/com_${COMPONENT_NAME};echo "admin now linked";fi
+	-@if [ -L ./joomla_data/components/com_${COMPONENT_NAME} ] ; then echo "already linked";else ln -sr ./src/components/com_${COMPONENT_NAME} ./joomla_data/components/com_${COMPONENT_NAME};echo "component now linked";fi
+	-@if [ -L ./joomla_data/media/com_${COMPONENT_NAME} ] ; then echo "already linked";else ln -sr ./src/media/com_${COMPONENT_NAME} ./joomla_data/media/com_${COMPONENT_NAME};echo "component media now linked";fi
+	-@if [ -L ./joomla_data/templates/${TEMPLATE_NAME} ] ; then echo "already linked";else ln -sr ./src/templates/${TEMPLATE_NAME} ./joomla_data/templates/${TEMPLATE_NAME};echo "template now linked";fi
+	-@if [ -L ./joomla_data/media/templates/site/${TEMPLATE_NAME} ] ; then echo "already linked";else ln -sr ./src/media/templates/site/${TEMPLATE_NAME} ./joomla_data/media/templates/site/${TEMPLATE_NAME};echo "template media now linked";fi
+
+build:
+	-@rm -Rf ./target/*
+
+	@mkdir -p target temp
+
+	@mkdir -p temp/template temp/template/media
+	@cp -Rf ./src/templates/${TEMPLATE_NAME}/* ./temp/template
+	@cp -Rf ./src/media/templates/site/${TEMPLATE_NAME}/* ./temp/template/media
+	@cd temp/template; zip -r ../../target/${TEMPLATE_NAME}.zip *
+
+	@mkdir -p temp/comp temp/comp/media temp/comp/components temp/comp/administrator temp/comp/administrator/components
+	@cp -Rf ./src/administrator/components/com_${COMPONENT_NAME} ./temp/comp/administrator/components
+	@cp -Rf ./src/components/com_${COMPONENT_NAME} ./temp/comp/components
+	@cp -Rf ./src/media/com_${COMPONENT_NAME} ./temp/comp/media
+	@cp -Rf ./temp/comp/administrator/components/com_${COMPONENT_NAME}/${COMPONENT_NAME}.xml ./temp/comp/*
+
+	@cd temp/comp; zip -r ../../target/${COMPONENT_NAME}.zip *
+
+	@rm -rf ./temp

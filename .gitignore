@@ -1,8 +1,8 @@
 /vendor/
 /db_data/*
 /joomla_data/*
-db_data
-joomla_data
-target
-temp
+/db_data
+/joomla_data
+/target
+/temp
 composer.lock

@@ -49,6 +49,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 /* @var \Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel $item */
 ?>
 <div class="sdajem_content_container">
+
     <div class="accordion" id="accordionEvents">
 
     <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="adminForm" id="adminForm">
