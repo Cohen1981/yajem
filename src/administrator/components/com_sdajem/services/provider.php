@@ -21,7 +21,7 @@ use Joomla\DI\Container;
 use Joomla\DI\ServiceProviderInterface;
 use Sda\Component\Sdajem\Administrator\Extension\SdajemComponent;
 
-return new class implements ServiceProviderInterface {
+return new class () implements ServiceProviderInterface {
 
 	public function register(Container $container): void {
 		$container->registerServiceProvider(new CategoryFactory('\\Sda\\Component\\Sdajem'));
