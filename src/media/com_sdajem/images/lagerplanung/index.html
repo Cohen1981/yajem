@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Lagerplanung</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+
+
+<div class="dropdown">
+  <button class="dropbtn" id="burger-icon" onclick="toggleMenu()">&#9776;</button>
+  <div class="dropdown-content" id="menu">
+  <label class="menuheadline">Zelte, etc. im Lager</label><br/>
+  <input type="checkbox" name="ZeltAlexB" value="bild-box AlexB" id="check1" onchange="toggleVisibility('bild-box AlexB')">
+	<label for="check1">Zelt AlexB</label><br/>
+  <input type="checkbox" name="ZeltAlexE" value="bild-box AlexE" id="check2" onchange="toggleVisibility('bild-box AlexE')">
+	<label for="check2">Zelt AlexE</label><br/>
+  <input type="checkbox" name="ZeltArne" value="bild-box Arne" id="check3" onchange="toggleVisibility('bild-box Arne')">
+	<label for="check3">Zelt Arne</label><br/>
+  <input type="checkbox" name="ZeltChristian" value="bild-box Christian" id="check4" onchange="toggleVisibility('bild-box Christian')">
+	<label for="check4">Zelt Christian</label><br/>
+  <input type="checkbox" name="ZeltKay" value="bild-box Kay" id="check5" onchange="toggleVisibility('bild-box Kay')">
+	<label for="check5">Zelt Kay</label><br/>
+  <input type="checkbox" name="ZeltKay2Mast" value="bild-box Kay2Mast" id="check6" onchange="toggleVisibility('bild-box Kay2Mast')">
+	<label for="check6">Zelt 2 Mastzelt Kay</label><br/>
+  <input type="checkbox" name="ZeltKerstin" value="bild-box Kerstin" id="check7" onchange="toggleVisibility('bild-box Kerstin')">
+	<label for="check7">Zelt Kerstin</label><br/>
+  <input type="checkbox" name="ZeltSoeren" value="bild-box Soeren" id="check8" onchange="toggleVisibility('bild-box Soeren')">
+	<label for="check8">Zelt Sören</label><br/>
+  <input type="checkbox" name="ZeltWinnie" value="bild-box Winnie" id="check9" onchange="toggleVisibility('bild-box Winnie')">
+	<label for="check9">Zelt Winnie</label><br/>
+  <input type="checkbox" name="ZeltWinnie2" value="bild-box Winnie2" id="check10" onchange="toggleVisibility('bild-box Winnie2')">
+	<label for="check10">Rundzelt Winnie</label><br/>
+  <input type="checkbox" name="Sonnensegel55" value="bild-box Sonnensegel55" id="check11" onchange="toggleVisibility('bild-box Sonnensegel55')">
+	<label for="check11">Zelt Sonnensegel 5x5</label><br/>
+  <input type="checkbox" name="Sonnensegel56" value="bild-box Sonnensegel56" id="check12" onchange="toggleVisibility('bild-box Sonnensegel56')">
+	<label for="check12">Sonnensegel 5x6</label><br/>
+  <input type="checkbox" name="Feuerstelle" value="bild-box Feuerstelle" id="check13" onchange="toggleVisibility('bild-box Feuerstelle')">
+	<label for="check13">Feuerstelle</label><br/>
+  <input type="checkbox" name="Kueche" value="bild-box Kueche" id="check14" onchange="toggleVisibility('bild-box Kueche')">
+	<label for="check14">Küche</label><br/>
+  <input type="checkbox" name="Altar" value="bild-box Altar" id="check15" onchange="toggleVisibility('bild-box Altar')">
+	<label for="check15">Altar</label><br/> 
+  <input type="checkbox" name="Waffenstaender" value="bild-box Waffenstaender" id="check16" onchange="toggleVisibility('bild-box Waffenstaender')">
+	<label for="check16">Waffenständer</label><br/>
+  <button onclick="checkAll()" class="spacer">Alle</button>
+  <button onclick="uncheckAll()">Keine</button>
+  </div>
+</div>
+<div class="tabelle">
+    <table>
+        <tbody id="table-body"></tbody>
+    </table>
+</div>
+<div class="message-box" id="notification-box">
+  <span class="noticlose-btn" onclick="closeNotification()">&times;</span>
+  <div class="pfeil">&#10154;</div>
+  <p>Hier verstecken sich die Gegenstände, die du für die Lagerplanung brauchst</p>
+</div>
+
+<div class="mobile hidden">
+  <p>Bitte plant auf einen PC oder Notebook.</br>
+  Touchgeräte werden nicht unterstützt</p>
+</div>
+
+
+<div class="headline">Lagerplanung Survivants d'Acre</div>
+
+<div class="bild-box AlexB hidden">
+  <img src="AlexB.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol" id="rotate-symbol">&#x21BA;</div>
+    <img src="AlexB.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box AlexE hidden">
+  <img src="AlexE.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="AlexE.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Arne hidden">
+  <img src="Arne.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Arne.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Christian hidden">
+  <img src="Christian.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Christian.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Kay hidden">
+  <img src="Kay.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Kay.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Kay2Mast hidden">
+  <img src="Kay2Mast.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Kay2Mast.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Winnie hidden">
+  <img src="Winnie.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Winnie.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Winnie2 hidden">
+  <img src="Winnie2.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Winnie2.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Kerstin hidden">
+  <img src="Kerstin.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Kerstin.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Soeren hidden">
+  <img src="Soeren.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Soeren.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Feuerstelle hidden">
+  <img src="Feuerstelle.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Feuerstelle.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Sonnensegel55 hidden">
+  <img src="Sonnensegel55.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Sonnensegel55.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Sonnensegel56 hidden">
+  <img src="Sonnensegel56.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Sonnensegel56.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Altar hidden">
+  <img src="Altar.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Altar.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Waffenstaender hidden">
+  <img src="Waffenstaender.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Waffenstaender.svg" style="opacity:0">
+  </div>
+</div>
+<div class="bild-box Kueche hidden">
+  <img src="Kueche.svg" style="opacity:1">
+  <div class="container">
+	<div class="strich"></div>
+    <div class="rotate-symbol">&#x21BA;</div>
+    <img src="Kueche.svg" style="opacity:0">
+  </div>
+</div>
+
+  <script src="script.js"></script>
+  
+</body>
+</html>
