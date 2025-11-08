@@ -9,7 +9,7 @@
 
 namespace Sda\Component\Sdajem\Site\Helper;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Categories\CategoryNode;
 use Joomla\CMS\Language\Multilanguage;
@@ -30,7 +30,7 @@ abstract class RouteHelper
 	public static function getEventsRoute($id, $catid, $language = 0)
 	{
 		// Create the link
-		$link = 'index.php?option=com_sdajem&view=events&id=' . $id;
+		$link = '?option=com_sdajem&view=events&id=' . $id;
 
 		if ($catid > 1) {
 			$link .= '&catid=' . $catid;
@@ -57,7 +57,7 @@ abstract class RouteHelper
 	public static function getEventRoute($id, $catid, $language = 0)
 	{
 		// Create the link
-		$link = 'index.php?option=com_sdajem&view=event&id=' . $id;
+		$link = '?option=com_sdajem&view=event&id=' . $id;
 
 		if ($catid > 1) {
 			$link .= '&catid=' . $catid;
@@ -84,7 +84,7 @@ abstract class RouteHelper
 	public static function getLocationRoute($id, $catid, $language = 0)
 	{
 		// Create the link
-		$link = 'index.php?option=com_sdajem&view=location&id=' . $id;
+		$link = '?option=com_sdajem&view=location&id=' . $id;
 
 		if ($catid > 1) {
 			$link .= '&catid=' . $catid;
@@ -119,7 +119,7 @@ abstract class RouteHelper
 			$link = '';
 		} else {
 			// Create the link
-			$link = 'index.php?option=com_sdajem&view=category&id=' . $id;
+			$link = '?option=com_sdajem&view=category&id=' . $id;
 
 			if ($language && $language !== '*' && Multilanguage::isEnabled()) {
 				$link .= '&lang=' . $language;

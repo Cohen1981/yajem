@@ -9,12 +9,15 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Sda\Component\Sdajem\Administrator\Table\AttendingTable;
+use function defined;
+
+defined('_JEXEC') or die;
 
 /**
  * @since       1.0.0
@@ -59,7 +62,7 @@ class AttendingModel extends AdminModel
 		{
 			$form = $this->loadForm($this->typeAlias, 'attending', ['control' => 'jform', 'load_data' => $loadData]);
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			return false;
 		}
@@ -111,7 +114,7 @@ class AttendingModel extends AdminModel
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
-	 * @param   \Sda\Component\Sdajem\Administrator\Table\AttendingTable  $table  The Table object
+	 * @param   AttendingTable  $table  The Table object
 	 *
 	 * @return  void
 	 *

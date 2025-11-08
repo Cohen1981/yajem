@@ -10,11 +10,17 @@
 namespace Sda\Component\Sdajem\Administrator\Model;
 
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use function defined;
 
-class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
+class FittingsModel extends ListModel
 {
 	public function __construct($config = array())
 	{

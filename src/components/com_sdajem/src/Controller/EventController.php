@@ -11,10 +11,12 @@ namespace Sda\Component\Sdajem\Site\Controller;
 
 defined('_JEXEC') or die();
 
+use Exception;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\Registry;
 use Joomla\CMS\MVC\Controller\FormController;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
@@ -47,7 +49,7 @@ class EventController extends FormController
 	 * @param   string  $prefix  The class prefix. Optional.
 	 * @param   array   $config  Configuration array for model. Optional.
 	 *
-	 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel  The model.
+	 * @return  BaseDatabaseModel  The model.
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -329,7 +331,7 @@ class EventController extends FormController
 	 * @param   null  $eventId
 	 * @param   null  $userId
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since 1.1.3
 	 */
 	public function positive($eventId = null, $userId = null)
@@ -395,7 +397,7 @@ class EventController extends FormController
 	 * @param   null  $eventId
 	 * @param   null  $userId
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since 1.1.3
 	 */
 	public function negative($eventId = null, $userId = null)
@@ -461,7 +463,7 @@ class EventController extends FormController
 	 * @param   null  $eventId
 	 * @param   null  $userId
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since 1.1.3
 	 */
 	public function guest($eventId = null, $userId = null)
@@ -542,7 +544,7 @@ class EventController extends FormController
 		{
 			$eventForm->save($data);
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 		}
 	}

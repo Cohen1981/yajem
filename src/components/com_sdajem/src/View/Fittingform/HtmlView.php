@@ -9,14 +9,19 @@
 
 namespace Sda\Component\Sdajem\Site\View\Fittingform;
 
-\defined('_JEXEC') or die;
-
 use Exception;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Site\Model\FittingformModel;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * HTML Location View class
@@ -26,7 +31,7 @@ use Sda\Component\Sdajem\Site\Model\FittingformModel;
 class HtmlView extends BaseHtmlView
 {
 	/**
-	 * @var    \Joomla\CMS\Form\Form
+	 * @var    Form
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $form;
@@ -46,12 +51,12 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected $pageclass_sfx;
 	/**
-	 * @var    \Joomla\Registry\Registry
+	 * @var    Registry
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $state;
 	/**
-	 * @var    \Joomla\Registry\Registry
+	 * @var    Registry
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $params;
@@ -88,11 +93,6 @@ class HtmlView extends BaseHtmlView
 
 		if ($authorised !== true) {
 			$app->redirect('index.php?option=com_users&view=login');
-		}
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			$app->enqueueMessage(implode("\n", $errors), 'error');
-			return false;
 		}
 		// Create a shortcut to the parameters.
 		$this->params = $this->state->params;

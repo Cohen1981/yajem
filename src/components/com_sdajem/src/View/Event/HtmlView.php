@@ -12,6 +12,10 @@ namespace Sda\Component\Sdajem\Site\View\Event;
 defined('_JEXEC') or die();
 
 use Exception;
+use Joomla\CMS\Event\Content\AfterDisplayEvent;
+use Joomla\CMS\Event\Content\AfterTitleEvent;
+use Joomla\CMS\Event\Content\BeforeDisplayEvent;
+use Joomla\CMS\Event\Content\ContentPrepareEvent;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
@@ -118,7 +122,6 @@ class HtmlView extends BaseHtmlView
 		if($item->params->get('sda_use_attending')) {
 			if($item->eventStatus == EventStatusEnum::PLANING->value)
 			{
-				/* @var InterestsModel $interests */
 				$interests  = new InterestsModel();
 				$interested = $interests->getInterestsToEvent($item->id);
 				if ($interested)
@@ -127,7 +130,6 @@ class HtmlView extends BaseHtmlView
 				}
 			} else
 			{
-				/* @var AttendingsModel $interests */
 				$interests = new AttendingsModel();
 				$attendees = $interests->getAttendingsToEvent($item->id);
 				if ($attendees)
@@ -168,18 +170,29 @@ class HtmlView extends BaseHtmlView
 			$this->setLayout($active->query['layout']);
 		}
 
-		Factory::getApplication()->triggerEvent('onContentPrepare', ['com_sdajem.event', &$item, &$item->params]);
+		$contentEventArguments = [
+			'context' => 'com_sdajem.event',
+			'subject' => &$item,
+			'params'  => &$item->params
+		];
+
+		$dispatcher = $this->getDispatcher();
+		$dispatcher->dispatch('onContentPrepare', new ContentPrepareEvent('onContentPrepare', $contentEventArguments));
 
 		// Store the events for later
 		$item->event = new stdClass;
-		$results = Factory::getApplication()->triggerEvent('onContentAfterTitle', ['com_sdajem.event', &$item, &$item->params]);
-		$item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-		$results = Factory::getApplication()->triggerEvent('onContentBeforeDisplay', ['com_sdajem.event', &$item, &$item->params]);
-		$item->event->beforeDisplayContent = trim(implode("\n", $results));
+		$contentEvents = [
+			'afterDisplayTitle'    => new AfterTitleEvent('onContentAfterTitle', $contentEventArguments),
+			'beforeDisplayContent' => new BeforeDisplayEvent('onContentBeforeDisplay', $contentEventArguments),
+			'afterDisplayContent'  => new AfterDisplayEvent('onContentAfterDisplay', $contentEventArguments),
+		];
 
-		$results = Factory::getApplication()->triggerEvent('onContentAfterDisplay', ['com_sdajem.event', &$item, &$item->params]);
-		$item->event->afterDisplayContent = trim(implode("\n", $results));
+		foreach ($contentEvents as $resultKey => $event) {
+			$results = $dispatcher->dispatch($event->getName(), $event)->getArgument('result', []);
+
+			$item->event->{$resultKey} = $results ? trim(implode("\n", $results)) : '';
+		}
 
 		$this->return_page = base64_encode(Uri::getInstance());
 

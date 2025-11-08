@@ -9,12 +9,17 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Sda\Component\Sdajem\Administrator\Table\InterestTable;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since       1.0.0
@@ -49,6 +54,7 @@ class InterestModel extends AdminModel
 	 * @param   bool   $loadData
 	 *
 	 * @return Form|false
+	 * @throws Exception
 	 *
 	 * @since 1.0.0
 	 */
@@ -59,8 +65,9 @@ class InterestModel extends AdminModel
 		{
 			$form = $this->loadForm($this->typeAlias, 'interest', ['control' => 'jform', 'load_data' => $loadData]);
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 			return false;
 		}
 		if (empty($form)) {
@@ -111,7 +118,7 @@ class InterestModel extends AdminModel
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
-	 * @param   \Sda\Component\Sdajem\Administrator\Table\InterestTable  $table  The Table object
+	 * @param   InterestTable  $table  The Table object
 	 *
 	 * @return  void
 	 *

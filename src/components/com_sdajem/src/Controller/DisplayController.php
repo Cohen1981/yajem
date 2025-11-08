@@ -9,11 +9,15 @@
 
 namespace Sda\Component\Sdajem\Site\Controller;
 
-\defined('_JEXEC') or die;
-
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\MVC\Controller\BaseController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
+use Joomla\Input\Input;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 class DisplayController extends BaseController
 {
@@ -25,7 +29,7 @@ class DisplayController extends BaseController
 	 * 'view_path' (this list is not meant to be comprehensive).
 	 * @param   MVCFactoryInterface  $factory  The factory.
 	 * @param   CMSApplication       $app      The JApplication for the dispatcher
-	 * @param   \JInput              $input    Input
+	 * @param   Input                $input    Input
 	 *
 	 * @since   1.0.0
 	 */

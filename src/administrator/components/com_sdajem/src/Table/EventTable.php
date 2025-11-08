@@ -9,8 +9,7 @@
 
 namespace Sda\Component\Sdajem\Administrator\Table;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
@@ -19,6 +18,11 @@ use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since      1.0.0
@@ -90,15 +94,17 @@ class EventTable extends Table
 
 	public function check()
 	{
+		$app = Factory::getApplication();
+
 		try {
 			parent::check();
-		} catch (\Exception $e) {
-			$this->setError($e->getMessage());
+		} catch (Exception $e) {
+			$app->enqueueMessage($e->getMessage(),'error');;
 			return false;
 		}
 		// Check the publish down date is not earlier than publish up.
-		if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up) {
-			$this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
+		if ($this->publish_down > $this->getDatabase()->getNullDate() && $this->publish_down < $this->publish_up) {
+			$app->enqueueMessage(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'),'warning');
 			return false;
 		}
 		if (!$this->created_by) {

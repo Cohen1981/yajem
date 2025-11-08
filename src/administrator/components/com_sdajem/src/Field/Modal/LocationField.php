@@ -9,14 +9,16 @@
 
 namespace Sda\Component\Sdajem\Administrator\Field\Modal;
 
-\defined('_JEXEC') or die();
-
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\FormField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Session\Session;
+use Joomla\CMS\WebAsset\WebAssetManager;
 use Joomla\Database\DatabaseInterface;
+use RuntimeException;
+
+defined('_JEXEC') or die();
 
 class LocationField extends FormField
 {
@@ -43,7 +45,7 @@ class LocationField extends FormField
 		// Create the modal id.
 		$modalId = 'Location_' . $this->id;
 		// Add the modal field script to the document head.
-		/** @var \Joomla\CMS\WebAsset\WebAssetManager $wa */
+		/** @var WebAssetManager $wa */
 		$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
 		// Add the modal field script to the document head.
 		$wa->useScript('field.modal-fields');
@@ -65,9 +67,9 @@ class LocationField extends FormField
 			}
 		}
 		// Setup variables for display.
-		$linkLocations = 'index.php?option=com_sdajem&amp;view=locations&amp;layout=modal&amp;tmpl=component&amp;'
+		$linkLocations = '?option=com_sdajem&amp;view=locations&amp;layout=modal&amp;tmpl=component&amp;'
 			. Session::getFormToken() . '=1';
-		$linkLocation  = 'index.php?option=com_sdajem&amp;view=location&amp;layout=modal&amp;tmpl=component&amp;'
+		$linkLocation  = '?option=com_sdajem&amp;view=location&amp;layout=modal&amp;tmpl=component&amp;'
 			. Session::getFormToken() . '=1';
 		$modalTitle   = Text::_('COM_SDAJEM_CHANGE_LOCATION');
 		$urlSelect = $linkLocations . '&amp;function=jSelectLocation_' . $this->id;
@@ -80,7 +82,7 @@ class LocationField extends FormField
 			$db->setQuery($query);
 			try {
 				$title = $db->loadResult();
-			} catch (\RuntimeException $e) {
+			} catch (RuntimeException $e) {
 				Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 			}
 		}

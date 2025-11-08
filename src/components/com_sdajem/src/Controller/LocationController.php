@@ -13,6 +13,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 
@@ -32,7 +33,7 @@ class LocationController extends FormController
 	 * @param   string  $prefix  The class prefix. Optional.
 	 * @param   array   $config  Configuration array for model. Optional.
 	 *
-	 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel  The model.
+	 * @return  BaseDatabaseModel  The model.
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */

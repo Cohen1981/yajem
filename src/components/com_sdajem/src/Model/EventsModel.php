@@ -169,7 +169,7 @@ class EventsModel extends \Sda\Component\Sdajem\Administrator\Model\EventsModel
 			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));
 		}
 		// Filter startDateTime
-		if ($params->get('sda_show_old_events') == false)
+		if (!$params->get('sda_show_old_events'))
 		{
 			$date = new Date();
 			$query->where($db->quoteName('a.startDateTime') . ' >= ' . $db->quote($date->format('Y-m-d')));

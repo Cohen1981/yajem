@@ -26,6 +26,13 @@ use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
  */
 class EventAttendeeModel extends UserModel
 {
+	public int $attendingId;
+	public int $event_id;
+	protected int $users_user_id;
+	public IntAttStatusEnum $status;
+	public array $profile;
+	public array $userData;
+
 	public function __construct($data)
 	{
 		if (isset($data->users_user_id)) {

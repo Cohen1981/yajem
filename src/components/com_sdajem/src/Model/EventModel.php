@@ -9,12 +9,16 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * Event model for the Joomla Events component.
@@ -59,15 +63,15 @@ class EventModel extends BaseDatabaseModel
 	 */
 	protected $_item = null;
 	/**
-	 * Gets a event
+	 * Gets an event
 	 *
-	 * @param   integer  $pk  Id for the event
+	 * @param   int  $pk  pk for the event
 	 *
-	 * @return  mixed Object or null
+	 * @return  Object|null or null
 	 *
 	 * @since   1.0.0
 	 */
-	public function getItem($pk = null)
+	public function getItem(int $pk = null): ?object
 	{
 		$app = Factory::getApplication();
 		$pk  = ($pk) ? $pk : $app->input->getInt('id');
@@ -95,7 +99,7 @@ class EventModel extends BaseDatabaseModel
 
 				if (empty($data))
 				{
-					throw new \Exception(Text::_('COM_SDAJEM_ERROR_EVENT_NOT_FOUND'), 404);
+					throw new Exception(Text::_('COM_SDAJEM_ERROR_EVENT_NOT_FOUND'), 404);
 				}
 
 				if($data->svg)
@@ -104,9 +108,9 @@ class EventModel extends BaseDatabaseModel
 					$data->svg = array();
 				$this->_item[$pk] = $data;
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
-				$this->setError($e);
+				$app->enqueueMessage($e->getMessage(),'error');
 				$this->_item[$pk] = false;
 			}
 		}
@@ -115,11 +119,13 @@ class EventModel extends BaseDatabaseModel
 	}
 
 	/**
-	 * Method to auto-populate the model state.
+	 * Method to autopopulate the model state.
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
 	 * @return  void
+	 *
+	 * @throws Exception
 	 *
 	 * @since   1.0.0
 	 */

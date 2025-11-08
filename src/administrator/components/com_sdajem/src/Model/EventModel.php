@@ -9,12 +9,17 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Sda\Component\Sdajem\Administrator\Table\EventTable;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since       1.0.0
@@ -50,14 +55,14 @@ class EventModel extends AdminModel
 	 *
 	 * @since 1.0.0
 	 */
-	public function getForm($data = array(), $loadData = true)
+	public function getForm($data = array(), $loadData = true):Form|false
 	{
 		// Get the form.
 		try
 		{
 			$form = $this->loadForm($this->typeAlias, 'event', ['control' => 'jform', 'load_data' => $loadData]);
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			return false;
 		}
@@ -114,7 +119,7 @@ class EventModel extends AdminModel
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
-	 * @param   \Sda\Component\Sdajem\Administrator\Table\EventTable  $table  The Table object
+	 * @param   EventTable  $table  The Table object
 	 *
 	 * @return  void
 	 *

@@ -9,52 +9,25 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Sda\Component\Sdajem\Administrator\Model\Item\LocationItem;
+use Sda\Component\Sdajem\Administrator\Table\LocationTable;
 
 /**
  * Location model for the Joomla Locations component.
  *
  * @since  1.0.0
- *
- * @property  int       id
- * @property  string    title
- * @property  string    alias
- * @property  string    description
- * @property  string    url
- * @property  int       catid
- * @property  string    language
- * @property  string    street
- * @property  string    postalCode
- * @property  string    city
- * @property  string    stateAddress
- * @property  string    country
- * @property  string    latlng
- * @property  string    image
-  */
-
+ */
 class LocationModel extends BaseDatabaseModel
 {
-	/**
-	 * Linkt to com_contact
-	 * @since 1.0.0
-	 * @var int
-	 */
-	public int $organizerId;
-	/**
-	 * Link to com_users
-	 * @since 1.0.0
-	 * @var int
-	 */
-	public int $hostId;
-	/**
-	 * @var string item
-	 * @since 1.0.0
-	 */
-	protected $_item = null;
+
+	protected LocationItem|null $_item = null;
+
 	/**
 	 * Gets a location
 	 *
@@ -62,20 +35,16 @@ class LocationModel extends BaseDatabaseModel
 	 *
 	 * @return  mixed Object or null
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
 	{
 		$app = Factory::getApplication();
-		if ($pk === null)
-			$pk  = ($pk) ? $pk : $app->input->getInt('id');
 
-		if ($this->_item === null)
-		{
-			$this->_item = [];
-		}
+		$pk  = !$pk ? $app->input->getInt('id') : $pk;
 
-		if (!isset($this->_item[$pk]))
+		if ($this->_item === null && $pk !== null)
 		{
 			try
 			{
@@ -92,19 +61,22 @@ class LocationModel extends BaseDatabaseModel
 
 				if (empty($data))
 				{
-					throw new \Exception(Text::_('COM_SDAJEM_ERROR_LOCATION_NOT_FOUND'), 404);
+					throw new Exception(Text::_('COM_SDAJEM_ERROR_LOCATION_NOT_FOUND'), 404);
 				}
 
-				$this->_item[$pk] = $data;
+				$this->_item = LocationItem::createFromObject($data);
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
-				$this->setError($e);
-				$this->_item[$pk] = false;
+				$app->enqueueMessage($e->getMessage(), 'error');
+				$this->_item->id = null;
 			}
 		}
+		else {
+			$this->_item = new LocationItem();
+		}
 
-		return $this->_item[$pk];
+		return $this->_item;
 	}
 
 	/**

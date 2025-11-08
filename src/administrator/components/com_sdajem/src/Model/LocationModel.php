@@ -9,29 +9,18 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Sda\Component\Sdajem\Administrator\Model\Item\LocationItem;
+use Sda\Component\Sdajem\Administrator\Table\LocationTable;
 
 /**
  * @since       1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Model
- *
- * @property  int       id
- * @property  string    title
- * @property  string    alias
- * @property  string    description
- * @property  string    url
- * @property  int       catid
- * @property  string    language
- * @property  string    street
- * @property  string    postalCode
- * @property  string    city
- * @property  string    stateAddress
- * @property  string    country
- * @property  string    latlng
  */
 class LocationModel extends AdminModel
 {
@@ -58,7 +47,7 @@ class LocationModel extends AdminModel
 		{
 			$form = $this->loadForm($this->typeAlias, 'location', ['control' => 'jform', 'load_data' => $loadData]);
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			return false;
 		}
@@ -115,7 +104,7 @@ class LocationModel extends AdminModel
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
-	 * @param   \Sda\Component\Sdajem\Administrator\Table\LocationTable  $table  The Table object
+	 * @param   LocationTable  $table  The Table object
 	 *
 	 * @return  void
 	 *

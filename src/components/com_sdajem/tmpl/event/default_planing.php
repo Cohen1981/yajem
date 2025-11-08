@@ -10,6 +10,7 @@
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
+use Sda\Component\Sdajem\Administrator\Model\FittingModel;
 
 $wa=$this->document->getWebAssetManager();
 $wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
@@ -100,7 +101,7 @@ $event = $this->item;
 		// Store elements max width
 		$wx = 0;
 
-        /** @var \Sda\Component\Sdajem\Administrator\Model\FittingModel $fitting */
+        /** @var FittingModel $fitting */
 		foreach ($event->eventFittings as $fitting)
 		{
 			if ((bool) $fitting->needSpace) {

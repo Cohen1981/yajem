@@ -9,10 +9,17 @@
 
 namespace Sda\Component\Sdajem\Administrator\Table;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Sda\Component\Sdajem\Administrator\Model\LocationModel;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since       version
@@ -20,7 +27,7 @@ use Sda\Component\Sdajem\Administrator\Model\LocationModel;
  *
  * @property  int   user_id
  */
-class FittingTable extends \Joomla\CMS\Table\Table
+class FittingTable extends Table
 {
 	/**
 	 * Constructor
@@ -58,15 +65,16 @@ class FittingTable extends \Joomla\CMS\Table\Table
 
 	public function check()
 	{
+		$app = Factory::getApplication();
 		try {
 			parent::check();
-		} catch (\Exception $e) {
-			$this->setError($e->getMessage());
+		} catch (Exception $e) {
+			$app->enqueueMessage($e->getMessage(),'error');
 			return false;
 		}
 		// Check the publish down date is not earlier than publish up.
-		if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up) {
-			$this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
+		if ($this->publish_down > $this->getDatabase()->getNullDate() && $this->publish_down < $this->publish_up) {
+			$app->enqueueMessage(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'),'warning');
 			return false;
 		}
 		// Set publish_up, publish_down to null if not set

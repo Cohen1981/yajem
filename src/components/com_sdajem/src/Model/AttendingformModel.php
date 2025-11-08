@@ -12,11 +12,13 @@ namespace Sda\Component\Sdajem\Site\Model;
 defined('_JEXEC') or die();
 
 use Exception;
+use JForm;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
+use stdClass;
 
 class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\AttendingModel
 {
@@ -40,7 +42,7 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 	 * @param   array    $data      Data for the form.
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return  \JForm|boolean  A \JForm object on success, false on failure
+	 * @return  JForm|boolean  A \JForm object on success, false on failure
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -53,7 +55,7 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 	/**
 	 * Method to get attending data.
 	 *
-	 * @param   integer  $itemId  The id of the attending.
+	 * @param   int|null  $itemId  The id of the attending.
 	 *
 	 * @return  mixed  Event item data object on success, false on failure.
 	 *
@@ -61,7 +63,7 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getItem($itemId = null)
+	public function getItem(int $itemId = null): mixed
 	{
 		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('attending.id');
 		// Get a row instance.
@@ -77,7 +79,7 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 		}
 		$properties = $table->getProperties();
 
-		return ArrayHelper::toObject($properties, \stdClass::class);
+		return ArrayHelper::toObject($properties, stdClass::class);
 	}
 	/**
 	 * Get the return URL.
@@ -137,6 +139,8 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 	 *
 	 * @return Form|void
 	 *
+	 * @throws Exception
+	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function preprocessForm(Form $form, $data, $group = 'attending')
@@ -157,7 +161,7 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 	 * @return  Table  A Table object
 	 *
 	 * @since   __DEPLOY_VERSION__
-	 * @throws  \Exception
+	 * @throws  Exception
 	 */
 	public function getTable($name = 'Attending', $prefix = 'Administrator', $options = [])
 	{

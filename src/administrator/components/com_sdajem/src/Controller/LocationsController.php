@@ -9,10 +9,11 @@
 
 namespace Sda\Component\Sdajem\Administrator\Controller;
 
-\defined('_JEXEC') or die();
+defined('_JEXEC') or die();
 
 use Joomla\CMS\Application\CMSApplication;
-use Joomla\CMS\Input\Input;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\Input\Input;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 
@@ -41,7 +42,7 @@ class LocationsController extends AdminController
 	 * @param   string  $prefix  The prefix for the PHP class name.
 	 * @param   array   $config  Array of configuration parameters.
 	 *
-	 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel
+	 * @return  BaseDatabaseModel
 	 *
 	 * @since   1.0.0
 	 */

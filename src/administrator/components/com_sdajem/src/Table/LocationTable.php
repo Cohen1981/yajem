@@ -9,8 +9,9 @@
 
 namespace Sda\Component\Sdajem\Administrator\Table;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
+use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
@@ -22,34 +23,8 @@ use Sda\Component\Sdajem\Administrator\Model\LocationModel;
 /**
  * @since      1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Table
- *
- * @property  int       id
- * @property  int       $access
- * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
- * @property  int       checked_out
- * @property  Date      checked_out_time
- * @property  int       published
- * @property  Date      publish_up
- * @property  Date      publish_down
- * @property  int       state
- * @property  int       ordering
- * @property  string    language
- * @property  string    title
- * @property  string    description
- * @property  string    url
- * @property  string    street
- * @property  string    postalCode
- * @property  string    city
- * @property  string    stateAddress
- * @property  string    country
- * @property  string    latlng
- * @property  int       contactId
- * @property  string    image
- * @property  int       catid
  */
+
 class LocationTable extends Table
 {
 	/**
@@ -86,21 +61,28 @@ class LocationTable extends Table
 		return $this->alias;
 	}
 
+	/**
+	 * @return bool
+	 *
+	 * @throws Exception
+	 * @since 1.0.0
+	 */
 	public function check()
 	{
+		$app = Factory::getApplication();
 		try {
 			parent::check();
-		} catch (\Exception $e) {
-			$this->setError($e->getMessage());
+		} catch (Exception $e) {
+			$app->enqueueMessage($e->getMessage(), 'error');
 			return false;
 		}
 		// Check the publish down date is not earlier than publish up.
-		if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up) {
-			$this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
+		if ($this->publish_down > $this->getDatabase()->getNullDate() && $this->publish_down < $this->publish_up) {
+			$app->enqueueMessage(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'), 'warning');
 			return false;
 		}
 		if (!$this->created_by) {
-			$this->created_by = Factory::getApplication()->getIdentity()->id;
+			$this->created_by = $app->getIdentity()->id;
 		}
 		if (!$this->created) {
 			$this->created = Date::getInstance()->toSql();

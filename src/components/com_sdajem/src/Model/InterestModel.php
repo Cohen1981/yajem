@@ -9,13 +9,17 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * Event model for the Joomla Events component.
@@ -96,14 +100,14 @@ class InterestModel extends BaseDatabaseModel
 
 				if (empty($data))
 				{
-					throw new \Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
+					throw new Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
 				}
 
 				$this->_item[$pk] = $data;
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
-				$this->setError($e);
+				$app->enqueueMessage($e->getMessage(), 'error');
 				$this->_item[$pk] = false;
 			}
 		}

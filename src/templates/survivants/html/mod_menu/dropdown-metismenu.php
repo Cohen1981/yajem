@@ -11,9 +11,9 @@
 defined('_JEXEC') or die;
 
 use Joomla\CMS\Helper\ModuleHelper;
+use Joomla\CMS\WebAsset\WebAssetManager;
 use Joomla\Utilities\ArrayHelper;
 
-/** @var \Joomla\CMS\WebAsset\WebAssetManager $wa */
 $wa = $app->getDocument()->getWebAssetManager();
 $wa->registerAndUseScript('metismenu', 'media/templates/site/survivants/js/mod_menu/menu-metismenu.min.js', [], ['defer' => true], ['metismenujs']);
 

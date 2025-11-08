@@ -11,22 +11,25 @@ namespace Sda\Component\Sdajem\Site\View\Events;
 
 defined('_JEXEC') or die();
 
+use Exception;
+use JObject;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Site\Model\EventsModel;
 
 class HtmlView extends \Joomla\CMS\MVC\View\HtmlView {
 	/**
 	 * The page parameters
 	 *
-	 * @var    \Joomla\Registry\Registry|null
+	 * @var    Registry|null
 	 * @since  1.0.0
 	 */
-	protected $params = null;
+	protected Registry|null $params = null;
 
 	/**
 	 * The item model state
 	 *
-	 * @var    \Joomla\Registry\Registry
+	 * @var    Registry
 	 * @since  1.0.0
 	 */
 	protected $state;
@@ -34,7 +37,7 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView {
 	/**
 	 * The item object details
 	 *
-	 * @var    \JObject
+	 * @var    JObject
 	 * @since  1.0.0
 	 */
 	protected $items;
@@ -42,7 +45,7 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView {
 	 * @param   null  $tpl
 	 *
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since 1.0.0
 	 */
 	public function display($tpl = null)
@@ -62,6 +65,6 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView {
 			$item->order_dn = true;
 		}
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 }

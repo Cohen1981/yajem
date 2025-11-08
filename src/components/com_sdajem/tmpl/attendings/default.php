@@ -13,6 +13,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
+use Sda\Component\Sdajem\Administrator\Model\Items\AttendingsItemModel;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 defined('_JEXEC') or die();
@@ -34,7 +35,7 @@ if ($saveOrder && !empty($this->items)) {
 */
 $params = $this->get('State')->get('params');
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\Items\AttendingsItemModel $item */
+/* @var AttendingsItemModel $item */
 ?>
 
 <div class="sdajem_content_container">

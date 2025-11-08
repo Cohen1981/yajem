@@ -9,8 +9,7 @@
 
 namespace Sda\Component\Sdajem\Administrator\Service\HTML;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -19,6 +18,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\User\User;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
@@ -27,6 +27,12 @@ use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
+use stdClass;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 class Icon
 {
@@ -66,6 +72,9 @@ class Icon
 	 */
 	public static function edit($event, $params, $attribs = [], $legacy = false)
 	{
+		/**
+		 * @var User $user
+		 */
 		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
 		// Ignore if in a popup window.
@@ -82,7 +91,7 @@ class Icon
 		if (property_exists($event, 'checked_out')
 			&& property_exists($event, 'checked_out_time')
 			&& $event->checked_out > 0
-			&& $event->checked_out != $user->get('id')) {
+			&& $event->checked_out != $user->id) {
 			$checkoutUser = Factory::getApplication()->getIdentity($event->checked_out);
 			$date         = HTMLHelper::_('date', $event->checked_out_time);
 			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_FOOS_CHECKED_OUT_BY', $checkoutUser->name)
@@ -214,7 +223,7 @@ class Icon
 	 *
 	 * @return mixed|string
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since 1.0.1
 	 */
 	public static function editAttending($attending, $params, $attribs = [], $legacy = false) {
@@ -251,7 +260,7 @@ class Icon
 	 *
 	 * @return string
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since 1.0.0
 	 *
 	 */
@@ -294,7 +303,7 @@ class Icon
 			}
 			else
 			{
-				$interest         = new \stdClass();
+				$interest         = new stdClass();
 				$interest->status = IntAttStatusEnum::NA->value;
 			}
 
@@ -320,7 +329,7 @@ class Icon
 			}
 			else
 			{
-				$interest         = new \stdClass();
+				$interest         = new stdClass();
 				$interest->status = IntAttStatusEnum::NA->value;
 			}
 

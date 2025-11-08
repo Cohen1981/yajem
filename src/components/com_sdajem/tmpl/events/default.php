@@ -7,7 +7,7 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -16,13 +16,16 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
+use Joomla\CMS\WebAsset\WebAssetManager;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
+use Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Site\Model\AttendingModel;
 
-/* @var \Joomla\CMS\WebAsset\WebAssetManager $wa */
+/* @var WebAssetManager $wa */
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('bootstrap.dropdown');
 $wa->useScript('bootstrap.collapse');
@@ -46,7 +49,7 @@ $currentUser = Factory::getApplication()->getIdentity();
 
 $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel $item */
+/* @var EventsItemModel $item */
 ?>
 <div class="sdajem_content_container">
 
@@ -153,7 +156,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                             <tbody>
                             <?php
                             $n = count($this->items);
-                            $attending = new \Sda\Component\Sdajem\Site\Model\AttendingModel();
+                            $attending = new AttendingModel();
                             foreach ($this->items as $i => $item) : ?>
                             <?php if($item->eventStatus == EventStatusEnum::CONFIRMED->value || in_array($params->get('sda_public_planing'), $userAuthorizedViewLevels)) : ?>
                                 <tr class="row<?php echo $i % 2; ?>">
@@ -164,7 +167,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                     <?php endif; ?>
                                     <th scope="row" class="has-context col-4">
                                         <div>
-                                        <a href="<?php echo Route::_('index.php?option=com_sdajem&view=event&id=' . (int) $item->id); ?>">
+                                        <a href="<?php echo Route::_('?option=com_sdajem&view=event&id=' . (int) $item->id); ?>">
                                             <?php echo $this->escape($item->title); ?>
                                         </a>
                                         </div>

@@ -2,12 +2,17 @@
 
 namespace Sda\Component\Sdajem\Site\View\Locations;
 
-\defined('_JEXEC') or die();
+defined('_JEXEC') or die();
 
+use Exception;
+use JForm;
+use JObject;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
 use Sda\Component\Sdajem\Site\Model\LocationsModel;
+use SimpleXMLElement;
 
 /**
  * @package     ${NAMESPACE}
@@ -31,7 +36,7 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * The model state
 	 *
-	 * @var  \JObject
+	 * @var  JObject
 	 * @since 1.0.0
 	 */
 	protected $state;
@@ -39,7 +44,7 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * Form object for search filters
 	 *
-	 * @var  \JForm
+	 * @var  Form
 	 * @since 1.0.0
 	 */
 	public $filterForm;
@@ -59,7 +64,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @return  void
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	public function display($tpl = null): void
@@ -80,20 +85,20 @@ class HtmlView extends BaseHtmlView
 		#}
 
 		// Preprocess the list of items to find ordering divisions.
-		#foreach ($this->items as &$item) {
-		#	$item->order_up = true;
-		#	$item->order_dn = true;
-		#}
+		foreach ($this->items as &$item) {
+			$item->order_up = true;
+			$item->order_dn = true;
+		}
 
-		#if (!count($this->items) && $this->get('IsEmptyState')) {
-		#	$this->setLayout('emptystate');
-		#}
+		if (!count($this->items) && $model->getIsEmptyState()) {
+			$this->setLayout('emptystate');
+		}
 
 		// In article associations modal we need to remove language filter if forcing a language.
 		// We also need to change the category filter to show show categories with All or the forced language.
 		if ($forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'CMD')) {
 			// If the language is forced we can't allow to select the language, so transform the language selector filter into a hidden field.
-			$languageXml = new \SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
+			$languageXml = new SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
 			$this->filterForm->setField($languageXml, 'filter', true);
 
 			// Also, unset the active language filter so the search tools is not open by default with this filter.

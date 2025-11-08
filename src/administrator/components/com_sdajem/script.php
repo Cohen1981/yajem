@@ -6,7 +6,7 @@
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Installer\InstallerAdapter;
@@ -142,13 +142,6 @@ class com_sdajemInstallerScript
 	{
 		echo Text::_('COM_SDAJEM_INSTALLERSCRIPT_POSTFLIGHT');
 
-		$assetId = $this->getAssetId();
-
-		// Initialize a new category.
-		$category = Table::getInstance('Category');
-
-		//$this->setupData($category, 'com_sdajem.events', 'Märkte', ApplicationHelper::stringURLSafe('EventMärkte'), $assetId);
-		//$this->setupData($category, 'com_sdajem.locations', 'Orte', ApplicationHelper::stringURLSafe('EventOrte'), $assetId);
 		return true;
 	}
 
@@ -179,7 +172,7 @@ class com_sdajemInstallerScript
 			);
 		$db->setQuery($query);
 		$id = $db->loadResult();
-		if (!$id || $id instanceof \Exception)
+		if (!$id || $id instanceof Exception)
 		{
 			return false;
 		}
@@ -248,7 +241,7 @@ class com_sdajemInstallerScript
 			);
 		$db->setQuery($query);
 		$id = $db->loadResult();
-		if (!$id || $id instanceof \Exception)
+		if (!$id || $id instanceof Exception)
 		{
 			return false;
 		}

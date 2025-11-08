@@ -9,9 +9,12 @@
 
 namespace Sda\Component\Sdajem\Administrator\Helper;
 
-\defined('_JEXEC') or die();
-
 use Joomla\CMS\Helper\ContentHelper;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 class EventHelper extends ContentHelper
 {

@@ -1,12 +1,11 @@
 .EXPORT_ALL_VARIABLES:
-vpath ./config
--include ./config/.env
+-include .env
 
 config:
 	@UID=$$(id -u) GID=$$(id -g) docker compose config
 
 down: stop
-	-@UID=$$(id -u) GID=$$(id -g) docker compose down
+	-@UID=$$(id -u) GID=$$(id -g) docker compose down --remove-orphans
 
 log:
 	-@UID=$$(id -u) GID=$$(id -g) docker compose logs
@@ -46,7 +45,7 @@ stop:
 
 up:
 	-@mkdir -p db_data joomla_data
-	@UID=$$(id -u) GID=$$(id -g) docker compose up --detach --build
+	@UID=$$(id -u) GID=$$(id -g) docker compose up --detach --build --remove-orphans
 	-@if [ -L ./joomla_data/administrator/components/com_${COMPONENT_NAME} ] ; then echo "already linked";else sleep 10;ln -sr ./src/administrator/components/com_${COMPONENT_NAME} ./joomla_data/administrator/components/com_${COMPONENT_NAME};echo "admin now linked";fi
 	-@if [ -L ./joomla_data/components/com_${COMPONENT_NAME} ] ; then echo "already linked";else ln -sr ./src/components/com_${COMPONENT_NAME} ./joomla_data/components/com_${COMPONENT_NAME};echo "component now linked";fi
 	-@if [ -L ./joomla_data/media/com_${COMPONENT_NAME} ] ; then echo "already linked";else ln -sr ./src/media/com_${COMPONENT_NAME} ./joomla_data/media/com_${COMPONENT_NAME};echo "component media now linked";fi

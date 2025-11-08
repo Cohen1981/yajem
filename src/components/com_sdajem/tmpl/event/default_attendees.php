@@ -14,12 +14,13 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\WebAsset\WebAssetManager;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
 
-/* @var \Joomla\CMS\WebAsset\WebAssetManager $wa*/
+/* @var WebAssetManager $wa*/
 $wa=$this->document->getWebAssetManager();
 $wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
 $wa->registerAndUseScript('com_sdajem.checkbox', 'com_sdajem/checkbox.js');

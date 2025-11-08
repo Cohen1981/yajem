@@ -9,13 +9,14 @@
 
 namespace Sda\Component\Sdajem\Administrator\Table;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
+
+defined('_JEXEC') or die();
 
 /**
  * @since      1.0.0
@@ -70,15 +71,16 @@ class InterestTable extends Table
 
 	public function check()
 	{
+		$app = Factory::getApplication();
 		try {
 			parent::check();
-		} catch (\Exception $e) {
-			$this->setError($e->getMessage());
+		} catch (Exception $e) {
+			$app->enqueueMessage($e->getMessage(), 'error');
 			return false;
 		}
 
 		if (!$this->users_user_id) {
-			$this->users_user_id = Factory::getApplication()->getIdentity()->id;
+			$this->users_user_id = $app->getIdentity()->id;
 		}
 		return true;
 	}

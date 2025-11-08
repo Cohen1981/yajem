@@ -9,7 +9,15 @@
 
 namespace Sda\Component\Sdajem\Administrator\Controller;
 
-class FittingtypesController extends \Joomla\CMS\MVC\Controller\AdminController
+use Joomla\CMS\MVC\Controller\AdminController;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
+class FittingtypesController extends AdminController
 {
 	/**
 	 * Proxy for getModel.
@@ -18,7 +26,7 @@ class FittingtypesController extends \Joomla\CMS\MVC\Controller\AdminController
 	 * @param   string  $prefix  The prefix for the PHP class name.
 	 * @param   array   $config  Array of configuration parameters.
 	 *
-	 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel
+	 * @return  BaseDatabaseModel
 	 *
 	 * @since   1.0.0
 	 */

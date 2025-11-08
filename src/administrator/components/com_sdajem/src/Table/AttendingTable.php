@@ -9,14 +9,18 @@
 
 namespace Sda\Component\Sdajem\Administrator\Table;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since      1.0.0
@@ -73,8 +77,9 @@ class AttendingTable extends Table
 	{
 		try {
 			parent::check();
-		} catch (\Exception $e) {
-			$this->setError($e->getMessage());
+		} catch (Exception $e) {
+			$app = Factory::getApplication();
+			$app->enqueueMessage($e->getMessage(),'error');
 			return false;
 		}
 

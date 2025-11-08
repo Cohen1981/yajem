@@ -16,6 +16,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\Component\Contact\Administrator\Model\ContactModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\EventModel;
+use Sda\Component\Sdajem\Site\Model\LocationModel;
 use Sda\Component\Sdajem\Site\Model\UserModel;
 
 $wa=$this->document->getWebAssetManager();
@@ -49,7 +50,7 @@ if (isset($event->organizer))
 if (isset($event->host))
 	$host = $event->host;
 
-/* @var \Sda\Component\Sdajem\Site\Model\LocationModel $location */
+/* @var LocationModel $location */
 if (isset($event->location))
 {
 	$location = $event->location;
@@ -68,7 +69,6 @@ $uAdressString = null;
 
 if (!$user->guest)
 {
-	/** @var UserModel $userModel */
     $userModel = new UserModel($user->id);
 
 	$uAdressString = urlencode($userModel->profile['address1']) . "+" .

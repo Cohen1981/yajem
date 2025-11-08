@@ -9,16 +9,20 @@
 
 namespace Sda\Component\Sdajem\Administrator\Controller;
 
-\defined('_JEXEC') or die();
-
 use Joomla\CMS\Application\CMSApplication;
-use Joomla\CMS\Input\Input;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\Input\Input;
 use Joomla\CMS\MVC\Controller\AdminController;
 use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\Router\Route;
 use Sda\Component\Sdajem\Administrator\Model\AttendingModel;
 use Sda\Component\Sdajem\Administrator\Model\AttendingsModel;
 use Sda\Component\Sdajem\Administrator\Model\EventModel;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 class EventsController extends AdminController
 {
@@ -45,7 +49,7 @@ class EventsController extends AdminController
 	 * @param   string  $prefix  The prefix for the PHP class name.
 	 * @param   array   $config  Array of configuration parameters.
 	 *
-	 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel
+	 * @return  BaseDatabaseModel
 	 *
 	 * @since   1.0.0
 	 */

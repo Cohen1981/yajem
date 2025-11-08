@@ -9,8 +9,6 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-\defined('_JEXEC') or die();
-
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
@@ -18,6 +16,11 @@ use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use Joomla\CMS\Component\ComponentHelper;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since       1.0.1

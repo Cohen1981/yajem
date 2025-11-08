@@ -21,23 +21,23 @@ use Joomla\Component\Users\Site\Model\ProfileModel;
 /**
  * @since       1.0.0
  * @package     Sda\Component\Sdajem\Site\Model
- *
- * @property int            id
- * @property User           user
- * @property ProfileModel   profile
- * @property array          userData
- */
+*/
 class UserModel
 {
+	protected int $id;
+	public array $userData;
+	public array $profile;
+	public User $user;
+
 	public function __construct(int $userId)
 	{
 		if (isset($userId)) {
 			$this->user = Factory::getContainer()->get(UserFactoryInterface::class)->loadUserById($userId);
 
-			$this->profile = UserHelper::getProfile($userId)->get('profile');
+			$this->profile = UserHelper::getProfile($userId)->profile;
 
 			$userdata = FieldsHelper::getFields('com_users.user', $this->user, true);
-			$tmp          = isset($userdata) ? $userdata : array();
+			$tmp          = $userdata ?? array();
 			$customFields = array();
 
 			foreach ($tmp as $customField)

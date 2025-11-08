@@ -11,6 +11,7 @@ namespace Sda\Component\Sdajem\Site\Controller;
 
 defined('_JEXEC') or die();
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Uri\Uri;
@@ -38,6 +39,7 @@ class AttendingController extends FormController
 	 * @return bool
 	 *
 	 * @since 1.0.1
+	 * @throws Exception
 	 */
 	public function save($key = null, $urlVar = null)
 	{
@@ -61,6 +63,13 @@ class AttendingController extends FormController
 		return parent::save($key, $urlVar);
 	}
 
+	/**
+	 * @param null $eventId
+	 * @param null $userId
+	 *
+	 * @throws Exception
+	 * @since 1.0.1
+	 */
 	public function attend($eventId = null, $userId = null)
 	{
 		//$this->option = 'core.manage.attending';
@@ -104,6 +113,13 @@ class AttendingController extends FormController
 		}
 	}
 
+	/**
+	 * @param null $eventId
+	 * @param null $userId
+	 *
+	 * @throws Exception
+	 * @since 1.0.1
+	 */
 	public function unattend($eventId = null, $userId = null)
 	{
 		//$this->option = 'core.manage.attending';
