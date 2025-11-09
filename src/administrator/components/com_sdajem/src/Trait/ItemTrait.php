@@ -3,6 +3,7 @@
 namespace Sda\Component\Sdajem\Administrator\Trait;
 
 use ReflectionObject;
+use stdClass;
 
 /**
  * @author Alexander Bahlo
@@ -13,21 +14,7 @@ use ReflectionObject;
  */
 trait ItemTrait
 {
-	public ?string $typeAlias;
-	public ?int $id;
-	public ?int $access;
-	public ?string $alias;
-	public ?string $created;
-	public ?int $created_by;
-	public ?string $created_by_alias;
-	public ?int $checked_out;
-	public ?string $checked_out_time;
-	public ?int $published;
-	public ?string  $publish_up;
-	public ?string $publish_down;
-	public ?int $state;
-	public ?int $ordering;
-	public ?string $language;
+	public ?stdClass $event;
 	public function __construct()
 	{
 		$selfReflection = new ReflectionObject($this);
@@ -51,7 +38,7 @@ trait ItemTrait
 		return $item;
 	}
 
-	public static function createFromObject(\stdClass $data): self
+	public static function createFromObject(stdClass $data): self
 	{
 		return self::createFromArray((array) $data);
 	}

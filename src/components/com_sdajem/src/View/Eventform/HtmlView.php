@@ -17,6 +17,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
+use Sda\Component\Sdajem\Site\Model\Item\EventItem;
 use Sda\Component\Sdajem\Site\Model\EventformModel;
 use function defined;
 
@@ -36,11 +37,8 @@ class HtmlView extends BaseHtmlView
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $form;
-	/**
-	 * @var    mixed | object
-	 * @since  __DEPLOY_VERSION__
-	 */
-	protected $item;
+
+	protected EventItem $item;
 	/**
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__

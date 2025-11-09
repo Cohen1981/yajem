@@ -1,12 +1,12 @@
 <?php
 
-namespace Sda\Component\Sdajem\Administrator\Model\Item;
+namespace Sda\Component\Sdajem\Site\Model\Item;
 
 use Sda\Component\Sdajem\Administrator\Trait\ItemTrait;
 
 /**
  * @since       1.4.0
- * @package     Sda\Component\Sdajem\Administrator\Model\Item
+ * @package     Sda\Component\Sdajem\Site\Model\Item
  *
  * For programming convenience, the class gives type hinting for the class properties.
  */
@@ -26,5 +26,21 @@ class LocationItem extends \stdClass
 	public ?int $contactId;
 	public ?string $image;
 	public ?int $catid;
+
+	public ?string $typeAlias;
+	public ?int $id;
+	public ?int $access;
+	public ?string $alias;
+	public ?string $created;
+	public ?int $created_by;
+	public ?string $created_by_alias;
+	public ?int $checked_out;
+	public ?string $checked_out_time;
+	public ?int $published;
+	public ?string  $publish_up;
+	public ?string $publish_down;
+	public ?int $state;
+	public ?int $ordering;
+	public ?string $language;
 
 }

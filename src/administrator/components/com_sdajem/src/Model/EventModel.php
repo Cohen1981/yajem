@@ -25,17 +25,6 @@ defined('_JEXEC') or die;
  * @since       1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Model
  *
- * @property  int       id
- * @property  string    title
- * @property  string    alias
- * @property  string    description
- * @property  string    url
- * @property  int       catid
- * @property  Date      startDateTime
- * @property  Date      endDateTime
- * @property  int       allDayEvent
- * @property  string    language
- * @property  int       eventStatus
  */
 class EventModel extends AdminModel
 {

@@ -20,6 +20,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
+use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
 use Sda\Component\Sdajem\Site\Model\LocationModel;
 use stdClass;
 
@@ -45,13 +46,7 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected Registry $state;
 
-	/**
-	 * The item object details
-	 *
-	 * @var    stdClass
-	 * @since  1.0.0
-	 */
-	protected stdClass $item;
+	public LocationItem $item;
 
 	/**
 	 * Execute and display a template script.

@@ -19,7 +19,9 @@ use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\Model\LocationModel;
 use Sda\Component\Sdajem\Site\Model\UserModel;
 
-$wa=$this->document->getWebAssetManager();
+/** @var \Sda\Component\Sdajem\Site\View\Event\HtmlView $this */
+
+$wa=$this->getDocument()->getWebAssetManager();
 
 $wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
 $wa->useStyle('com_sdajem.sdajem');
@@ -37,23 +39,19 @@ try
 catch (Exception $e)
 {
 }
-$tparams = $this->item->params;
+$tparams = $this->item->paramsRegistry;
 
-/* @var EventModel $event */
 $event = $this->item;
 
-/* @var UserModel $organizer */
-if (isset($event->organizer))
-	$organizer = $event->organizer;
+if (isset($this->organizer))
+	$organizer = $this->organizer;
 
-/* @var ContactModel $host */
-if (isset($event->host))
-	$host = $event->host;
+if (isset($this->host))
+	$host = $this->host;
 
-/* @var LocationModel $location */
-if (isset($event->location))
+if (isset($this->location))
 {
-	$location = $event->location;
+	$location = $this->location;
 
 	if ($location->latlng)
 	{

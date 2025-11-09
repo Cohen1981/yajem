@@ -15,8 +15,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Sda\Component\Sdajem\Administrator\Model\Item\LocationItem;
-use Sda\Component\Sdajem\Administrator\Table\LocationTable;
+use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
 
 /**
  * Location model for the Joomla Locations component.
@@ -38,7 +37,7 @@ class LocationModel extends BaseDatabaseModel
 	 * @throws Exception
 	 * @since   1.0.0
 	 */
-	public function getItem($pk = null)
+	public function getItem($pk = null): LocationItem
 	{
 		$app = Factory::getApplication();
 

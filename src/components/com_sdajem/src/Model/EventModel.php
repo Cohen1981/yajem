@@ -10,10 +10,10 @@
 namespace Sda\Component\Sdajem\Site\Model;
 
 use Exception;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Sda\Component\Sdajem\Site\Model\Item\EventItem;
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -24,44 +24,11 @@ defined('_JEXEC') or die;
  * Event model for the Joomla Events component.
  *
  * @since  1.0.0
- *
- * @property  int       id
- * @property  int       access
- * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
- * @property  int       checked_out
- * @property  Date      checked_out_time
- * @property  int       published
- * @property  Date      publish_up
- * @property  Date      publish_down
- * @property  int       state
- * @property  int       ordering
- * @property  string    language
- * @property  string    title
- * @property  string    description
- * @property  string    url
- * @property  string    image
- * @property  int       sdajem_location_id fk to locations table
- * @property  int       hostId
- * @property  int       organizerId
- * @property  Date      startDateTime
- * @property  Date      endDateTime
- * @property  int       allDayEvent
- * @property  int       eventStatus
- * @property  int       catid
- * @property  string    svg
- * @property  Date      registerUntil
-   */
+ */
 
 class EventModel extends BaseDatabaseModel
 {
-	/**
-	 * @var string item
-	 * @since 1.0.0
-	 */
-	protected $_item = null;
+	protected EventItem|null $_item = null;
 	/**
 	 * Gets an event
 	 *
@@ -71,17 +38,12 @@ class EventModel extends BaseDatabaseModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getItem(int $pk = null): ?object
+	public function getItem(int $pk = null): EventItem
 	{
 		$app = Factory::getApplication();
 		$pk  = ($pk) ? $pk : $app->input->getInt('id');
 
-		if ($this->_item === null)
-		{
-			$this->_item = [];
-		}
-
-		if (!isset($this->_item[$pk]))
+		if ($this->_item === null && $pk !== null)
 		{
 			try
 			{
@@ -106,16 +68,16 @@ class EventModel extends BaseDatabaseModel
 					$data->svg = (array) json_decode($data->svg);
 				else
 					$data->svg = array();
-				$this->_item[$pk] = $data;
+				$this->_item = EventItem::createFromObject($data);
 			}
 			catch (Exception $e)
 			{
 				$app->enqueueMessage($e->getMessage(),'error');
-				$this->_item[$pk] = false;
+				$this->_item = new EventItem();
 			}
 		}
 
-		return $this->_item[$pk];
+		return $this->_item;
 	}
 
 	/**

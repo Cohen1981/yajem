@@ -16,8 +16,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Table\Table;
-use Joomla\Utilities\ArrayHelper;
-use Sda\Component\Sdajem\Administrator\Model\Item\LocationItem;
+use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
 use stdClass;
 
 class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\LocationModel

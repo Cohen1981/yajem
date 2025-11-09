@@ -12,6 +12,7 @@ namespace Sda\Component\Sdajem\Site\View\Event;
 defined('_JEXEC') or die();
 
 use Exception;
+use Joomla\CMS\Document\Document;
 use Joomla\CMS\Event\Content\AfterDisplayEvent;
 use Joomla\CMS\Event\Content\AfterTitleEvent;
 use Joomla\CMS\Event\Content\BeforeDisplayEvent;
@@ -23,6 +24,8 @@ use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
 use Joomla\Component\Contact\Site\Model\ContactModel;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Model\FittingsModel;
+use Sda\Component\Sdajem\Site\Model\Item\EventItem;
+use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 use Sda\Component\Sdajem\Site\Model\CommentsModel;
@@ -57,10 +60,17 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * The item object details
 	 *
-	 * @var    stdClass
+	 * @var    EventItem
 	 * @since  1.0.0
 	 */
-	protected stdClass $item;
+	public EventItem $item;
+	public LocationItem $location;
+	public SdaUserModel $organizer;
+	public ContactModel $host;
+	public array $interests;
+	public array $userFittings;
+	public array $eventFittings;
+	public array $comments;
 
 	/**
 	 * Execute and display a template script.
@@ -92,11 +102,11 @@ class HtmlView extends BaseHtmlView
 
 		// Merge so that foo params take priority
 		$temp->merge($itemparams);
-		$item->params = $temp;
+		$item->paramsRegistry = $temp;
 
 		if (isset($item->organizerId))
 		{
-			$item->organizer = new SdaUserModel($item->organizerId);
+			$this->organizer = new SdaUserModel($item->organizerId);
 		}
 
 		if (isset($item->hostId))
@@ -110,23 +120,23 @@ class HtmlView extends BaseHtmlView
 
 			$temp = $contactModel->getItem($item->hostId);
 			$temp->slug = $temp->alias ? ($temp->id . ':' . $temp->alias) : $temp->id;
-			$item->host = $temp;
+			$this->host = $temp;
 
 		}
 
-		if($item->params->get('sda_events_use_comments')) {
+		if($item->paramsRegistry->get('sda_events_use_comments')) {
 			$commentsModel = new CommentsModel();
-			$item->comments = $commentsModel->getCommentsToEvent($item->id);
+			$this->comments = $commentsModel->getCommentsToEvent($item->id);
 		}
 
-		if($item->params->get('sda_use_attending')) {
+		if($item->paramsRegistry->get('sda_use_attending')) {
 			if($item->eventStatus == EventStatusEnum::PLANING->value)
 			{
 				$interests  = new InterestsModel();
 				$interested = $interests->getInterestsToEvent($item->id);
 				if ($interested)
 				{
-					$item->interests = $interested;
+					$this->interests = $interested;
 				}
 			} else
 			{
@@ -134,27 +144,26 @@ class HtmlView extends BaseHtmlView
 				$attendees = $interests->getAttendingsToEvent($item->id);
 				if ($attendees)
 				{
-					$item->interests = $attendees;
+					$this->interests = $attendees;
 				}
 
-				if($item->params->get('sda_events_use_fittings'))
+				if($item->paramsRegistry->get('sda_events_use_fittings'))
 				{
 					$fittingsModel = new FittingsModel();
 					$fittings      = $fittingsModel->getFittingsForUser();
 					if ($fittings)
 					{
-						$item->fittings = $fittings;
+						$this->userFittings = $fittings;
 					}
 
-					$eventFittings = $fittingsModel->getFittingsForEvent($item->id);
-					$item->eventFittings = ($eventFittings) ? $eventFittings : false;
+					$this->eventFittings = $fittingsModel->getFittingsForEvent($item->id);
 				}
 			}
 		}
 
 		if (isset($item->sdajem_location_id)) {
 			$locationModel = new LocationModel();
-			$item->location = $locationModel->getItem($item->sdajem_location_id);
+			$this->location = $locationModel->getItem($item->sdajem_location_id);
 		}
 
 		$active = Factory::getApplication()->getMenu()->getActive();
@@ -162,7 +171,7 @@ class HtmlView extends BaseHtmlView
 		// Override the layout only if this is not the active menu item
 		// If it is the active menu item, then the view and item id will match
 		if ((!$active) || ((strpos($active->link, 'view=event') === false) || (strpos($active->link, '&id=' . (string) $this->item->id) === false))) {
-			if (($layout = $item->params->get('events_layout'))) {
+			if (($layout = $item->paramsRegistry->get('events_layout'))) {
 				$this->setLayout($layout);
 			}
 		} else if (isset($active->query['layout'])) {
@@ -173,7 +182,7 @@ class HtmlView extends BaseHtmlView
 		$contentEventArguments = [
 			'context' => 'com_sdajem.event',
 			'subject' => &$item,
-			'params'  => &$item->params
+			'params'  => &$item->paramsRegistry
 		];
 
 		$dispatcher = $this->getDispatcher();
@@ -197,5 +206,10 @@ class HtmlView extends BaseHtmlView
 		$this->return_page = base64_encode(Uri::getInstance());
 
 		return parent::display($tpl);
+	}
+
+	public function getDocument():Document
+	{
+		return parent::getDocument();
 	}
 }

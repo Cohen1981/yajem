@@ -12,14 +12,16 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Uri\Uri;
 use Sda\Component\Sdajem\Administrator\Model\FittingModel;
 
-$wa=$this->document->getWebAssetManager();
+/** @var \Sda\Component\Sdajem\Site\View\Event\HtmlView $this */
+
+$wa=$this->getDocument()->getWebAssetManager();
 $wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
 $wa->useScript('com_sdajem.plan');
 $wa->useStyle('com_sdajem.sdajem');
 $wa->useStyle('com_sdajem.planing');
 $wa->getRegistry()->addExtensionRegistryFile('vendor');
 $wa->useScript('jquery');
-$tparams = $this->item->params;
+$tparams = $this->item->paramsRegistry;
 
 $boxX = $tparams->get('sda_planing_x');
 $boxY = $tparams->get('sda_planing_y');
@@ -91,7 +93,7 @@ $event = $this->item;
 	}
 
 	// Do we have fittings
-	if ($event->eventFittings)
+	if ($this->eventFittings)
 	{
 		$by = 0;
 
@@ -102,7 +104,7 @@ $event = $this->item;
 		$wx = 0;
 
         /** @var FittingModel $fitting */
-		foreach ($event->eventFittings as $fitting)
+		foreach ($this->eventFittings as $fitting)
 		{
 			if ((bool) $fitting->needSpace) {
                 if ($by + $fitting->width > $boxY) {

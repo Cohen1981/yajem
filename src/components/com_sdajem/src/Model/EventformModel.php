@@ -10,16 +10,14 @@
 namespace Sda\Component\Sdajem\Site\Model;
 
 use Exception;
-use JForm;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
-use Joomla\Utilities\ArrayHelper;
 use RuntimeException;
+use Sda\Component\Sdajem\Site\Model\Item\EventItem;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
-use stdClass;
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -42,22 +40,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $formName = 'form';
-	/**
-	 * Method to get the row form.
-	 *
-	 * @param   array    $data      Data for the form.
-	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
-	 *
-	 * @return  JForm|boolean  A \JForm object on success, false on failure
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function getForm($data = [], $loadData = true)
-	{
-		$form = parent::getForm($data, $loadData);
 
-		return $form;
-	}
 	/**
 	 * Method to get event data.
 	 *
@@ -69,7 +52,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getItem($itemId = null)
+	public function getItem($itemId = null):EventItem
 	{
 		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('event.id');
 		// Get a row instance.
@@ -83,9 +66,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 			Factory::getApplication()->enqueueMessage($e->getMessage());
 			return false;
 		}
-		$properties = $table->getProperties();
-
-		return ArrayHelper::toObject($properties, stdClass::class);
+		 return EventItem::createFromObject($table);
 	}
 	/**
 	 * Get the return URL.

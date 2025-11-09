@@ -17,8 +17,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
-use Sda\Component\Sdajem\Administrator\Model\Item\LocationItem;
-use Sda\Component\Sdajem\Administrator\Table\LocationTable;
+use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
 use Sda\Component\Sdajem\Site\Model\LocationformModel;
 use function defined;
 
