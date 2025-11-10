@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     ${NAMESPACE}
  * @subpackage

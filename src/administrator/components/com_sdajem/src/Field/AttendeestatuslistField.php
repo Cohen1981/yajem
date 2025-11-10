@@ -1,4 +1,10 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection ALL */
+/** @noinspection ALL */
+/** @noinspection ALL */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Field
  * @subpackage

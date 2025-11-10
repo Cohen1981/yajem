@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 
 namespace Sda\Component\Sdajem\Site\Model\Item;
 
@@ -10,7 +13,7 @@ use Sda\Component\Sdajem\Administrator\Trait\ItemTrait;
  *
  * For programming convenience, the class gives type hinting for the class properties.
  */
-class LocationItem extends \stdClass
+class Location extends \stdClass
 {
 	use ItemTrait;
 

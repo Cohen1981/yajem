@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Table
  * @subpackage
@@ -11,8 +12,6 @@ namespace Sda\Component\Sdajem\Administrator\Table;
 
 use DateTime;
 use Exception;
-use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;

@@ -1,4 +1,13 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -13,10 +22,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\Component\Contact\Administrator\Model\ContactModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
-use Sda\Component\Sdajem\Site\Model\EventModel;
-use Sda\Component\Sdajem\Site\Model\LocationModel;
 use Sda\Component\Sdajem\Site\Model\UserModel;
 
 /** @var \Sda\Component\Sdajem\Site\View\Event\HtmlView $this */
@@ -151,7 +157,7 @@ $currentUser = Factory::getApplication()->getIdentity();
     </div>
 
     <div class="accordion" id="accordionEvent">
-	    <?php if (isset($event->location)) : ?>
+	    <?php if (isset($this->location)) : ?>
         <div class="accordion-item">
             <h5 class="accordion-header" id="headingLocation">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocation" aria-expanded="true" aria-controls="collapseLocation">
@@ -205,7 +211,7 @@ $currentUser = Factory::getApplication()->getIdentity();
             <div class="accordion-item">
                 <h5 class="accordion-header" id="headingHost">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHost" aria-expanded="true" aria-controls="collapseHost">
-                        <h5><?php echo Text::_('COM_SDAJEM_FIELD_HOST_LABEL'); ?>: <?php echo $host->get('name'); ?></h5>
+                        <h5><?php echo Text::_('COM_SDAJEM_FIELD_HOST_LABEL'); ?>: <?php echo $host->getName(); ?></h5>
                     </button>
                 </h5>
                 <div id="collapseHost" class="accordion-collapse collapse" aria-labelledby="headingHost" data-bs-parent="#accordionEvent">
@@ -249,7 +255,7 @@ $currentUser = Factory::getApplication()->getIdentity();
         </div>
         <?php endif; ?>
 
-	    <?php if ($tparams->get('sda_events_use_fittings') && !$user->guest): ?>
+	    <?php if ($tparams->get('sda_events_use_fittings') && !$user->guest && isset($this->eventFittings)): ?>
         <div class="accordion-item">
             <h5 class="accordion-header" id="headingPlaningArea">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlaningArea" aria-expanded="true" aria-controls="collapsePlaningArea">

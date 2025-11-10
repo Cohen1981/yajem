@@ -1,4 +1,10 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -35,6 +41,7 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $formName = 'form';
+
 	/**
 	 * Method to get the row form.
 	 *
@@ -43,6 +50,7 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 	 *
 	 * @return  Form|boolean  A \JForm object on success, false on failure
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function getForm($data = [], $loadData = true)
@@ -129,6 +137,7 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 		$this->setState('params', $params);
 		$this->setState('layout', $app->input->getString('layout'));
 	}
+
 	/**
 	 * Allows preprocessing of the JForm object.
 	 *
@@ -136,8 +145,9 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 	 * @param   array   $data   The data to be merged into the form object
 	 * @param   string  $group  The plugin group to be executed
 	 *
-	 * @return Form|void
+	 * @return void
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function preprocessForm(Form $form, $data, $group = 'interest')
@@ -146,7 +156,7 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 			$form->setFieldAttribute('language', 'type', 'hidden');
 			$form->setFieldAttribute('language', 'default', '*');
 		}
-		return parent::preprocessForm($form, $data, $group);
+		parent::preprocessForm($form, $data, $group);
 	}
 	/**
 	 * Method to get a table object, load it if necessary.

@@ -1,4 +1,13 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -16,13 +25,13 @@ use Joomla\CMS\Language\Text;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Model\EventInterestModel;
-use Sda\Component\Sdajem\Site\Model\EventModel;
+
+/** @var \Sda\Component\Sdajem\Site\View\Event\HtmlView $this */
 
 $canDo   = ContentHelper::getActions('com_sdajem', 'category', $this->item->catid);
 $user = Factory::getApplication()->getIdentity();
-$tparams = $this->item->params;
+$tparams = $this->item->paramsRegistry;
 
-/* @var EventModel $event */
 $event = $this->item;
 
 ?>
@@ -61,6 +70,6 @@ $event = $this->item;
 	</div>
 	<div class="sda_row">
 		<?= HTMLHelper::_('form.token'); ?>
-		<?php echo HTMLHelper::_('sdajemIcon.register', $event, $tparams); ?>
+		<?php echo HTMLHelper::_('sdajemIcon.register', $event, null, $tparams); ?>
 	</div>
 </div>

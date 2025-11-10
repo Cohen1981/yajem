@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Controller
  * @subpackage

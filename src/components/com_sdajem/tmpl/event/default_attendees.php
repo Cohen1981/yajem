@@ -1,4 +1,13 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -9,16 +18,13 @@
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\WebAsset\WebAssetManager;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
-use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\View\Event\HtmlView;
 
 /** @var HtmlView $this */
@@ -63,7 +69,7 @@ if (isset($event->registerUntil))
 <?php if($canRegister) :?>
     <div class="sda_row">
         <?= HTMLHelper::_('form.token'); ?>
-        <?php echo HTMLHelper::_('sdajemIcon.register', $event, $tparams); ?>
+        <?php echo HTMLHelper::_('sdajemIcon.register', $event, $this->userFittings, $tparams); ?>
     </div>
 <?php endif; ?>
 </div>

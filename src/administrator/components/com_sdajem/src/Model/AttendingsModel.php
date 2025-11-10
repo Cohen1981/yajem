@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -42,6 +43,7 @@ class AttendingsModel extends ListModel
 	 *
 	 * @return  QueryInterface
 	 *
+	 * @throws \Exception
 	 * @since   1.0.0
 	 */
 	protected function getListQuery()

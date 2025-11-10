@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\View\Attendings
  * @subpackage
@@ -12,7 +15,6 @@ namespace Sda\Component\Sdajem\Site\View\Interests;
 defined('_JEXEC') or die();
 
 use Exception;
-use JObject;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Site\Model\InterestsModel;
@@ -38,7 +40,7 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 	/**
 	 * The item object details
 	 *
-	 * @var    JObject
+	 * @var    \stdClass
 	 * @since  1.0.0
 	 */
 	protected $items;
@@ -60,7 +62,7 @@ class HtmlView extends \Joomla\CMS\MVC\View\HtmlView
 		$this->state = $model->getState();
 		$this->return_page = base64_encode(Uri::getInstance());
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 
 }

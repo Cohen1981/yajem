@@ -1,4 +1,9 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
@@ -17,7 +22,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
-use Sda\Component\Sdajem\Site\Model\Item\EventItem;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
 use Sda\Component\Sdajem\Site\Model\EventformModel;
 use function defined;
 
@@ -38,7 +43,7 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected $form;
 
-	protected EventItem $item;
+	protected Event $item;
 	/**
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
@@ -120,7 +125,6 @@ class HtmlView extends BaseHtmlView
 	{
 		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
-		$title = null;
 		// Because the application sets a default page title,
 		// we need to get it from the menu item itself
 		$menu = $menus->getActive();

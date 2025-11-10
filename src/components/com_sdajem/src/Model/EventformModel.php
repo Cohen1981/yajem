@@ -1,4 +1,14 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -16,7 +26,7 @@ use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
 use RuntimeException;
-use Sda\Component\Sdajem\Site\Model\Item\EventItem;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use function defined;
 
@@ -52,7 +62,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getItem($itemId = null):EventItem
+	public function getItem($itemId = null):Event
 	{
 		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('event.id');
 		// Get a row instance.
@@ -66,7 +76,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 			Factory::getApplication()->enqueueMessage($e->getMessage());
 			return false;
 		}
-		 return EventItem::createFromObject($table);
+		 return Event::createFromObject($table);
 	}
 	/**
 	 * Get the return URL.
@@ -118,6 +128,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 		$this->setState('params', $params);
 		$this->setState('layout', $app->input->getString('layout'));
 	}
+
 	/**
 	 * Allows preprocessing of the JForm object.
 	 *
@@ -127,6 +138,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	 *
 	 * @return Form|void
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function preprocessForm(Form $form, $data, $group = 'event')
@@ -135,7 +147,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 			$form->setFieldAttribute('language', 'type', 'hidden');
 			$form->setFieldAttribute('language', 'default', '*');
 		}
-		return parent::preprocessForm($form, $data, $group);
+		parent::preprocessForm($form, $data, $group);
 	}
 	/**
 	 * Method to get a table object, load it if necessary.

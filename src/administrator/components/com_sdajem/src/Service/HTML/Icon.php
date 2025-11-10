@@ -1,4 +1,32 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Service\HTML
  * @subpackage
@@ -25,8 +53,8 @@ use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
 use Sda\Component\Sdajem\Administrator\Model\FittingModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
-use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
 use stdClass;
 use function defined;
 
@@ -55,19 +83,21 @@ class Icon
 	{
 		$this->application = $application;
 	}
+
 	/**
 	 * Display an edit icon for the event.
 	 *
 	 * This icon will not display in a popup window, nor if the event is trashed.
 	 * Edit access checks must be performed in the calling code.
 	 *
-	 * @param   object    $event  The event information
+	 * @param   object    $event    The event information
 	 * @param   Registry  $params   The item parameters
 	 * @param   array     $attribs  Optional attributes for the link
 	 * @param   boolean   $legacy   True to use legacy images, false to use icomoon based graphic
 	 *
 	 * @return  string   The HTML for the event edit icon.
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public static function edit($event, $params, $attribs = [], $legacy = false)
@@ -144,12 +174,13 @@ class Icon
 	 * Edit access checks must be performed in the calling code.
 	 *
 	 * @param   object    $location  The event information
-	 * @param   Registry  $params   The item parameters
-	 * @param   array     $attribs  Optional attributes for the link
-	 * @param   boolean   $legacy   True to use legacy images, false to use icomoon based graphic
+	 * @param   Registry  $params    The item parameters
+	 * @param   array     $attribs   Optional attributes for the link
+	 * @param   boolean   $legacy    True to use legacy images, false to use icomoon based graphic
 	 *
 	 * @return  string   The HTML for the event edit icon.
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public static function editLocation($location, $params, $attribs = [], $legacy = false)
@@ -169,7 +200,7 @@ class Icon
 		if (property_exists($location, 'checked_out')
 			&& property_exists($location, 'checked_out_time')
 			&& $location->checked_out > 0
-			&& $location->checked_out != $user->get('id')) {
+			&& $location->checked_out != $user->id) {
 			$checkoutUser = Factory::getApplication()->getIdentity($location->checked_out);
 			$date         = HTMLHelper::_('date', $location->checked_out_time);
 			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_FOOS_CHECKED_OUT_BY', $checkoutUser->name)
@@ -253,7 +284,8 @@ class Icon
 	}
 
 	/**
-	 * @param          $event
+	 * @param   Event  $event
+	 * @param          $fittings
 	 * @param          $params
 	 * @param   array  $attribs
 	 * @param   false  $legacy
@@ -262,9 +294,8 @@ class Icon
 	 *
 	 * @throws Exception
 	 * @since 1.0.0
-	 *
 	 */
-	public static function register($event, $params, $attribs = [], $legacy = false)
+	public static function register(Event $event, $fittings, $params, $attribs = [], $legacy = false)
 	{
 		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
@@ -346,10 +377,10 @@ class Icon
 			$params = ComponentHelper::getParams('com_sdajem');
 			$uf = $params->get('sda_events_use_fittings');
 
-			if ($uf && isset($event->fittings) && AttendingHelper::getAttendingStatusToEvent($user->id, $event->id)->status != IntAttStatusEnum::POSITIVE->value) {
+			if ($uf && isset($fittings) && AttendingHelper::getAttendingStatusToEvent($user->id, $event->id)->status != IntAttStatusEnum::POSITIVE->value) {
 				$text .= '<div class="sda_row"> <div class="sda_attendee_container">';
 				/* @var FittingModel $fitting */
-				foreach ($event->fittings as $i => $fitting)
+				foreach ($fittings as $i => $fitting)
 				{
 					$text .= '<div class="card" style="width: 120px;">';
 					$text .= HTMLHelper::image($fitting->image, '');

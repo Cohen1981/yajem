@@ -1,4 +1,9 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
@@ -20,7 +25,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
-use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
+use Sda\Component\Sdajem\Site\Model\Item\Location;
 use Sda\Component\Sdajem\Site\Model\LocationModel;
 use stdClass;
 
@@ -46,14 +51,13 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected Registry $state;
 
-	public LocationItem $item;
+	public Location $item;
 
 	/**
 	 * Execute and display a template script.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise an Error object.
 	 * @throws Exception
 	 * @since 1.0.0
 	 */
@@ -115,6 +119,6 @@ class HtmlView extends BaseHtmlView
 
 		$this->return_page = base64_encode(Uri::getInstance());
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 }

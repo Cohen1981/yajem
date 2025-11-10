@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_sdajem
@@ -185,7 +185,7 @@ class com_sdajemInstallerScript
 	 * @param string    $title
 	 * @param string    $alias
 	 *
-	 * @return false|void
+	 * @return bool
 	 *
 	 * @since 1.0.0
 	 */

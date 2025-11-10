@@ -1,4 +1,12 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -9,7 +17,6 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
@@ -58,6 +65,7 @@ class EventsModel extends ListModel
 	 *
 	 * @return  QueryInterface
 	 *
+	 * @throws \Exception
 	 * @since   1.0.0
 	 */
 	protected function getListQuery()

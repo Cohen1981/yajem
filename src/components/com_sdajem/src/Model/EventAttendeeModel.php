@@ -1,4 +1,11 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -26,12 +33,12 @@ use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
  */
 class EventAttendeeModel extends UserModel
 {
-	public int $attendingId;
-	public int $event_id;
-	protected int $users_user_id;
-	public IntAttStatusEnum $status;
-	public array $profile;
-	public array $userData;
+	public ?int $attendingId;
+	public ?int $event_id;
+	protected ?int $users_user_id;
+	public ?IntAttStatusEnum $status;
+	public ?array $profile;
+	public ?array $userData;
 
 	public function __construct($data)
 	{

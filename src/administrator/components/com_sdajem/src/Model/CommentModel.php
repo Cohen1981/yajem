@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -68,6 +69,7 @@ class CommentModel extends AdminModel
 	 *
 	 * @return  mixed  The data for the form.
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function loadFormData()

@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -110,7 +113,8 @@ class FittingsModel extends ListModel
 		return $query;
 	}
 
-	public function getFittingsForUser($userId = null) {
+	public function getFittingsForUser($userId = null)
+	{
 		$userId = ($userId) ? $userId : Factory::getApplication()->getIdentity()->id;
 
 		$db = $this->getDatabase();
@@ -148,9 +152,11 @@ class FittingsModel extends ListModel
 	 * Get all fittings for given event
 	 *
 	 * @param   int  $eventId
+	 * @return  array|null
 	 * @since   1.1.4
 	 */
-	public function getFittingsForEvent(int $eventId) {
+	public function getFittingsForEvent(int $eventId):?array
+	{
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
 
@@ -204,7 +210,7 @@ class FittingsModel extends ListModel
 			$db->setQuery($query);
 			$data = $db->loadObjectList();
 		} else {
-			$data = array();
+			$data = null;
 		}
 		return $data;
 	}

@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -62,6 +65,7 @@ class LocationModel extends AdminModel
 	 *
 	 * @return  mixed  The data for the form.
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function loadFormData()

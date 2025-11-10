@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -93,7 +96,7 @@ $event = $this->item;
 	}
 
 	// Do we have fittings
-	if ($this->eventFittings)
+	if (isset($this->eventFittings))
 	{
 		$by = 0;
 

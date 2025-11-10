@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -16,7 +17,6 @@ use Joomla\CMS\User\User;
 use Joomla\CMS\User\UserFactoryInterface;
 use Joomla\CMS\User\UserHelper;
 use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
-use Joomla\Component\Users\Site\Model\ProfileModel;
 
 /**
  * @since       1.0.0
@@ -24,12 +24,12 @@ use Joomla\Component\Users\Site\Model\ProfileModel;
 */
 class UserModel
 {
-	protected int $id;
-	public array $userData;
-	public array $profile;
-	public User $user;
+	protected ?int $id;
+	public ?array $userData;
+	public ?array $profile;
+	public ?User $user;
 
-	public function __construct(int $userId)
+	public function __construct(int $userId = null)
 	{
 		if (isset($userId)) {
 			$this->user = Factory::getContainer()->get(UserFactoryInterface::class)->loadUserById($userId);
@@ -45,6 +45,12 @@ class UserModel
 				$customFields[$customField->name] = $customField;
 			}
 			$this->userData = $customFields;
+		}
+		else {
+			$this->id = null;
+			$this->userData = null;
+			$this->profile = null;
+			$this->user = null;
 		}
 	}
 }

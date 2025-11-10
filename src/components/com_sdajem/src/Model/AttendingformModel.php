@@ -1,4 +1,10 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -52,20 +58,20 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 
 		return $form;
 	}
+
 	/**
 	 * Method to get attending data.
 	 *
-	 * @param   int|null  $itemId  The id of the attending.
+	 * @param   null  $pk
 	 *
 	 * @return  mixed  Event item data object on success, false on failure.
 	 *
-	 * @throws  Exception
-	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getItem(int $itemId = null): mixed
+	public function getItem($pk = null): mixed
 	{
-		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('attending.id');
+		$itemId = (int) (!empty($pk)) ? $pk : $this->getState('attending.id');
 		// Get a row instance.
 		$table = $this->getTable();
 		// Attempt to load the row.
@@ -137,19 +143,19 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 	 * @param   array   $data   The data to be merged into the form object
 	 * @param   string  $group  The plugin group to be executed
 	 *
-	 * @return Form|void
+	 * @return void
 	 *
 	 * @throws Exception
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	protected function preprocessForm(Form $form, $data, $group = 'attending')
+	protected function preprocessForm(Form $form, $data, $group = 'attending'): void
 	{
 		if (!Multilanguage::isEnabled()) {
 			$form->setFieldAttribute('language', 'type', 'hidden');
 			$form->setFieldAttribute('language', 'default', '*');
 		}
-		return parent::preprocessForm($form, $data, $group);
+		parent::preprocessForm($form, $data, $group);
 	}
 	/**
 	 * Method to get a table object, load it if necessary.

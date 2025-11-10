@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -10,7 +13,6 @@
 namespace Sda\Component\Sdajem\Administrator\Model;
 
 use Exception;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
@@ -66,6 +68,7 @@ class EventModel extends AdminModel
 	 *
 	 * @return  mixed  The data for the form.
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function loadFormData()

@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Field
  * @subpackage
@@ -29,6 +30,7 @@ class UserlistField extends ListField
 	 *
 	 * @return  array  The field option objects.
 	 *
+	 * @throws \Exception
 	 * @since   1.0.1
 	 */
 	protected function getOptions()

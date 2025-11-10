@@ -1,4 +1,25 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
@@ -24,8 +45,8 @@ use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
 use Joomla\Component\Contact\Site\Model\ContactModel;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Model\FittingsModel;
-use Sda\Component\Sdajem\Site\Model\Item\EventItem;
-use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
+use Sda\Component\Sdajem\Site\Model\Item\Location;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 use Sda\Component\Sdajem\Site\Model\CommentsModel;
@@ -57,20 +78,14 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected Registry $state;
 
-	/**
-	 * The item object details
-	 *
-	 * @var    EventItem
-	 * @since  1.0.0
-	 */
-	public EventItem $item;
-	public LocationItem $location;
-	public SdaUserModel $organizer;
-	public ContactModel $host;
-	public array $interests;
-	public array $userFittings;
-	public array $eventFittings;
-	public array $comments;
+	public ?Event $item;
+	public ?Location $location;
+	public ?SdaUserModel $organizer;
+	public ?ContactModel $host;
+	public ?array $interests;
+	public ?array $userFittings;
+	public ?array $eventFittings;
+	public ?array $comments;
 
 	/**
 	 * Execute and display a template script.
@@ -85,6 +100,7 @@ class HtmlView extends BaseHtmlView
 	{
 		/* @var EventModel $model */
 		$model = $this->getModel();
+
 		$item = $this->item = $model->getItem();
 
 		$state = $this->state = $model->getState();
@@ -114,7 +130,6 @@ class HtmlView extends BaseHtmlView
 			/** @var ContactComponent $contactComponent */
 			$contactComponent = Factory::getApplication()->bootComponent('com_contact');
 
-			/** @var ContactModel $contactModel */
 			$contactModel = $contactComponent->getMVCFactory()
 				->createModel('Contact', 'Administrator', ['ignore_request' => true]);
 
@@ -125,45 +140,36 @@ class HtmlView extends BaseHtmlView
 		}
 
 		if($item->paramsRegistry->get('sda_events_use_comments')) {
-			$commentsModel = new CommentsModel();
-			$this->comments = $commentsModel->getCommentsToEvent($item->id);
+			$this->setModel(new CommentsModel());
+			$this->comments = $this->getModel('comments')->getCommentsToEvent($item->id);
 		}
 
 		if($item->paramsRegistry->get('sda_use_attending')) {
 			if($item->eventStatus == EventStatusEnum::PLANING->value)
 			{
-				$interests  = new InterestsModel();
-				$interested = $interests->getInterestsToEvent($item->id);
+				$this->setModel(new InterestsModel());
+				$interested = $this->getModel('interests')->getInterestsToEvent($item->id);
 				if ($interested)
 				{
 					$this->interests = $interested;
 				}
 			} else
 			{
-				$interests = new AttendingsModel();
-				$attendees = $interests->getAttendingsToEvent($item->id);
-				if ($attendees)
-				{
-					$this->interests = $attendees;
-				}
+				$this->setModel(new AttendingsModel());
+				$this->interests = $this->getModel('attendings')->getAttendingsToEvent($item->id);
 
 				if($item->paramsRegistry->get('sda_events_use_fittings'))
 				{
-					$fittingsModel = new FittingsModel();
-					$fittings      = $fittingsModel->getFittingsForUser();
-					if ($fittings)
-					{
-						$this->userFittings = $fittings;
-					}
-
-					$this->eventFittings = $fittingsModel->getFittingsForEvent($item->id);
+					$this->setModel(new FittingsModel());
+					$this->userFittings = $this->getModel('fittings')->getFittingsForUser();
+					$this->eventFittings = $this->getModel('fittings')->getFittingsForEvent($item->id);
 				}
 			}
 		}
 
 		if (isset($item->sdajem_location_id)) {
-			$locationModel = new LocationModel();
-			$this->location = $locationModel->getItem($item->sdajem_location_id);
+			$this->setModel(new LocationModel());
+			$this->location = $this->getModel('location')->getItem($item->sdajem_location_id);
 		}
 
 		$active = Factory::getApplication()->getMenu()->getActive();
@@ -205,7 +211,7 @@ class HtmlView extends BaseHtmlView
 
 		$this->return_page = base64_encode(Uri::getInstance());
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 
 	public function getDocument():Document

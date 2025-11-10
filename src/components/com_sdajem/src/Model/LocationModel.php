@@ -1,4 +1,9 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -15,7 +20,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
+use Sda\Component\Sdajem\Site\Model\Item\Location;
 
 /**
  * Location model for the Joomla Locations component.
@@ -25,7 +30,7 @@ use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
 class LocationModel extends BaseDatabaseModel
 {
 
-	protected LocationItem|null $_item = null;
+	protected Location|null $_item = null;
 
 	/**
 	 * Gets a location
@@ -37,7 +42,7 @@ class LocationModel extends BaseDatabaseModel
 	 * @throws Exception
 	 * @since   1.0.0
 	 */
-	public function getItem($pk = null): LocationItem
+	public function getItem($pk = null): Location
 	{
 		$app = Factory::getApplication();
 
@@ -63,7 +68,7 @@ class LocationModel extends BaseDatabaseModel
 					throw new Exception(Text::_('COM_SDAJEM_ERROR_LOCATION_NOT_FOUND'), 404);
 				}
 
-				$this->_item = LocationItem::createFromObject($data);
+				$this->_item = Location::createFromObject($data);
 			}
 			catch (Exception $e)
 			{
@@ -72,7 +77,7 @@ class LocationModel extends BaseDatabaseModel
 			}
 		}
 		else {
-			$this->_item = new LocationItem();
+			$this->_item = new Location();
 		}
 
 		return $this->_item;
@@ -85,6 +90,7 @@ class LocationModel extends BaseDatabaseModel
 	 *
 	 * @return  void
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function populateState()

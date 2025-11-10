@@ -1,4 +1,12 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -16,8 +24,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Table\Table;
-use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
-use stdClass;
+use Sda\Component\Sdajem\Site\Model\Item\Location;
 
 class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\LocationModel
 {
@@ -79,7 +86,7 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 		$properties = $table->getProperties();
 
 		//return ArrayHelper::toObject($properties, stdClass::class);
-		return LocationItem::createFromArray($properties);
+		return Location::createFromArray($properties);
 		//return $table;
 	}
 	/**
@@ -132,6 +139,7 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 		$this->setState('params', $params);
 		$this->setState('layout', $app->input->getString('layout'));
 	}
+
 	/**
 	 * Allows preprocessing of the JForm object.
 	 *
@@ -139,8 +147,9 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 	 * @param   array   $data   The data to be merged into the form object
 	 * @param   string  $group  The plugin group to be executed
 	 *
-	 * @return Form|void
+	 * @return void
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function preprocessForm(Form $form, $data, $group = 'location')
@@ -149,7 +158,7 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 			$form->setFieldAttribute('language', 'type', 'hidden');
 			$form->setFieldAttribute('language', 'default', '*');
 		}
-		return parent::preprocessForm($form, $data, $group);
+		parent::preprocessForm($form, $data, $group);
 	}
 	/**
 	 * Method to get a table object, load it if necessary.

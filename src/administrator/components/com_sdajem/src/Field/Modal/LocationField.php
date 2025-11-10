@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Field\Modal
  * @subpackage
@@ -29,17 +30,21 @@ class LocationField extends FormField
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected $type = 'Modal_Location';
+
 	/**
 	 * Method to get the field input markup.
 	 *
 	 * @return  string  The field input markup.
 	 *
+	 * @throws \Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function getInput()
 	{
 		$allowClear  = ((string) $this->element['clear'] != 'false');
 		$allowSelect = ((string) $this->element['select'] != 'false');
+		$allowNew    = ((string) $this->element['new'] != 'false');
+		$allowEdit   = ((string) $this->element['edit'] != 'false');
 		// The active location id field.
 		$value = (int) $this->value > 0 ? (int) $this->value : '';
 		// Create the modal id.

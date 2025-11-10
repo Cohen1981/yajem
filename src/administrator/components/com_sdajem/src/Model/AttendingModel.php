@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -77,6 +80,7 @@ class AttendingModel extends AdminModel
 	 *
 	 * @return  mixed  The data for the form.
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function loadFormData()
@@ -104,7 +108,7 @@ class AttendingModel extends AdminModel
 	 *
 	 * @since   1.0.0
 	 */
-	public function getItem($pk = null)
+	public function getItem($pk = null):mixed
 	{
 		$item = parent::getItem($pk);
 

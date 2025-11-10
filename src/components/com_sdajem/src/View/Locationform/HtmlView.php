@@ -1,4 +1,10 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
@@ -17,7 +23,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
-use Sda\Component\Sdajem\Site\Model\Item\LocationItem;
+use Sda\Component\Sdajem\Site\Model\Item\Location;
 use Sda\Component\Sdajem\Site\Model\LocationformModel;
 use function defined;
 
@@ -38,10 +44,10 @@ class HtmlView extends BaseHtmlView
 	 */
 	public Form$form;
 	/**
-	 * @var    LocationItem
+	 * @var    Location
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public LocationItem $item;
+	public Location $item;
 	/**
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__

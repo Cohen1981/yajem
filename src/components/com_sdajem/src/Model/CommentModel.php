@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -11,11 +12,9 @@ namespace Sda\Component\Sdajem\Site\Model;
 
 use DateTime;
 use Exception;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -43,13 +42,15 @@ class CommentModel extends BaseDatabaseModel
 	 * @since 1.0.0
 	 */
 	protected $_item = null;
+
 	/**
 	 * Gets a event
 	 *
-	 * @param   integer  $pk  Id for the event
+	 * @param   null  $pk  Id for the event
 	 *
 	 * @return  mixed Object or null
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
@@ -115,6 +116,7 @@ class CommentModel extends BaseDatabaseModel
 	 *
 	 * @return  void
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function populateState()

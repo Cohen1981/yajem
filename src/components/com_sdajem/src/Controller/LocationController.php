@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Controller
  * @subpackage
@@ -41,6 +42,7 @@ class LocationController extends FormController
 	{
 		return parent::getModel($name, $prefix, ['ignore_request' => false]);
 	}
+
 	/**
 	 * Method override to check if you can add a new record.
 	 *
@@ -48,6 +50,7 @@ class LocationController extends FormController
 	 *
 	 * @return  boolean
 	 *
+	 * @throws \Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function allowAdd($data = [])
@@ -57,6 +60,7 @@ class LocationController extends FormController
 		return $user->authorise('core.create', 'com_sdajem');
 
 	}
+
 	/**
 	 * Method override to check if you can edit an existing record.
 	 *
@@ -65,6 +69,7 @@ class LocationController extends FormController
 	 *
 	 * @return  boolean
 	 *
+	 * @throws \Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function allowEdit($data = [], $key = 'id')

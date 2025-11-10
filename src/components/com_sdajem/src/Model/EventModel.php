@@ -1,4 +1,10 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -13,7 +19,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Sda\Component\Sdajem\Site\Model\Item\EventItem;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -28,17 +34,19 @@ defined('_JEXEC') or die;
 
 class EventModel extends BaseDatabaseModel
 {
-	protected EventItem|null $_item = null;
+	protected Event|null $_item = null;
+
 	/**
 	 * Gets an event
 	 *
-	 * @param   int  $pk  pk for the event
+	 * @param   int|null  $pk  pk for the event
 	 *
-	 * @return  Object|null or null
+	 * @return Event or null
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
-	public function getItem(int $pk = null): EventItem
+	public function getItem(int $pk = null): Event
 	{
 		$app = Factory::getApplication();
 		$pk  = ($pk) ? $pk : $app->input->getInt('id');
@@ -68,12 +76,12 @@ class EventModel extends BaseDatabaseModel
 					$data->svg = (array) json_decode($data->svg);
 				else
 					$data->svg = array();
-				$this->_item = EventItem::createFromObject($data);
+				$this->_item = Event::createFromObject($data);
 			}
 			catch (Exception $e)
 			{
 				$app->enqueueMessage($e->getMessage(),'error');
-				$this->_item = new EventItem();
+				$this->_item = new Event();
 			}
 		}
 

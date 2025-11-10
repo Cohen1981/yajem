@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Enums
  * @subpackage
@@ -71,11 +72,10 @@ enum EventStatusEnum : int
 	{
 		return match($this)
 		{
-			self::OPEN => 'fas fa-question',
+			self::OPEN, self::PLANING => 'fas fa-question',
 			self::APPLIED => 'fas fa-clipboard',
 			self::CONFIRMED => 'fas fa-thumbs-up',
-			self::CANCELED => 'fas fa-thumbs-down',
-			self::PLANING => 'fas fa-question'
+			self::CANCELED => 'fas fa-thumbs-down'
 		};
 	}
 
@@ -95,11 +95,10 @@ enum EventStatusEnum : int
 	{
 		return match($this)
 		{
-			self::OPEN => 'color-neutral',
+			self::OPEN, self::PLANING => 'color-neutral',
 			self::APPLIED => 'color-warning',
 			self::CONFIRMED => 'color-ok',
-			self::CANCELED => 'color-nok',
-			self::PLANING => 'color-neutral'
+			self::CANCELED => 'color-nok'
 		};
 	}
 
@@ -107,11 +106,10 @@ enum EventStatusEnum : int
 	{
 		return match($this)
 		{
-			self::OPEN => '#c7cfd2',
+			self::OPEN, self::PLANING => '#c7cfd2',
 			self::APPLIED => '#F9eb53',
 			self::CONFIRMED => '#4db942',
-			self::CANCELED => '#Bd181b',
-			self::PLANING => '#c7cfd2'
+			self::CANCELED => '#Bd181b'
 		};
 	}
 }

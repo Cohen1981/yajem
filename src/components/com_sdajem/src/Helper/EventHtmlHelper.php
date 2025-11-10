@@ -1,4 +1,9 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Helper
  * @subpackage
@@ -12,7 +17,6 @@ namespace Sda\Component\Sdajem\Site\Helper;
 defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
-use Sda\Component\Sdajem\Administrator\Model\FittingModel;
 use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
 use Sda\Component\Sdajem\Site\Model\EventInterestModel;
 

@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
@@ -68,6 +69,6 @@ class BaseItemsView extends HtmlView
 			$item->order_dn = true;
 		}
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 }

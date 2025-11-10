@@ -1,4 +1,8 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -48,13 +52,15 @@ class AttendingModel extends BaseDatabaseModel
 	 * @since 1.0.0
 	 */
 	protected $_item = null;
+
 	/**
 	 * Gets a event
 	 *
-	 * @param   integer  $pk  Id for the event
+	 * @param   null  $pk  Id for the event
 	 *
 	 * @return  mixed Object or null
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
@@ -125,6 +131,7 @@ class AttendingModel extends BaseDatabaseModel
 	 *
 	 * @return  void
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function populateState()

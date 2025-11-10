@@ -1,12 +1,13 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 
 namespace Sda\Component\Sdajem\Site\View\Locations;
 
 defined('_JEXEC') or die();
 
 use Exception;
-use JForm;
-use JObject;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
@@ -36,7 +37,7 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * The model state
 	 *
-	 * @var  JObject
+	 * @var  \stdClass
 	 * @since 1.0.0
 	 */
 	protected $state;

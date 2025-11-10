@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /** * @package     Sda\Component\Sdajem\Administrator\View\Locations
  * @subpackage
  *
@@ -41,7 +44,6 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise an Error object.
 	 * @throws Exception
 	 * @since   1.0.0
 	 */
@@ -53,13 +55,15 @@ class HtmlView extends BaseHtmlView
 		$this->item = $model->getItem();
 
 		$this->addToolbar();
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
+
 	/**
 	 * Add the page title and toolbar.
 	 *
 	 * @return  void
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function addToolbar()
