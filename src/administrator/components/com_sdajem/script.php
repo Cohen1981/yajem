@@ -10,6 +10,7 @@ defined('_JEXEC') or die;
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\Installer\InstallerAdapter;
+use Joomla\CMS\Installer\InstallerScriptInterface;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Log\Log;
 use Joomla\CMS\Table\Table;
@@ -20,7 +21,7 @@ use Joomla\Database\DatabaseInterface;
  *
  * @since  1.0.0
  */
-class com_sdajemInstallerScript
+class com_sdajemInstallerScript implements InstallerScriptInterface
 {
 	/**
 	 * Minimum Joomla version to check
@@ -138,7 +139,7 @@ class com_sdajemInstallerScript
 	 * @since  1.0.0
 	 *
 	 */
-	public function postflight($type, $parent)
+	public function postflight($type, $parent):bool
 	{
 		echo Text::_('COM_SDAJEM_INSTALLERSCRIPT_POSTFLIGHT');
 

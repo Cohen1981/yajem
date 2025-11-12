@@ -34,9 +34,9 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * The active item
 	 *
-	 * @var  object
+	 * @var  \stdClass
 	 */
-	protected object $item;
+	protected \stdClass $item;
 
 	/**
 	 * Display the view.

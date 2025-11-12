@@ -42,7 +42,7 @@ class BaseItemsView extends HtmlView
 	/**
 	 * The item object details
 	 *
-	 * @var    JObject
+	 * @var    \stdClass
 	 * @since  1.0.0
 	 */
 	protected $items;
