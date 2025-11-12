@@ -9,7 +9,9 @@
     <version>1.4.0</version>
     <description>COM_SDAJEM_XML_DESCRIPTION</description>
     <namespace path="src">Sda\Component\Sdajem</namespace>
+
     <scriptfile>script.php</scriptfile>
+
     <install> <!-- Runs on install -->
         <sql>
             <file driver="mysql" charset="utf8">sql/install.mysql.utf8.sql</file>

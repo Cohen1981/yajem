@@ -28,14 +28,14 @@ class com_sdajemInstallerScript
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	private $minimumJoomlaVersion = '4.0';
+	private $minimumJoomlaVersion = '5.4';
 	/**
 	 * Minimum PHP version to check
 	 *
 	 * @var    string
 	 * @since  1.0.0
 	 */
-	private $minimumPHPVersion = '8.1';
+	private $minimumPHPVersion = '8.3';
 	/**
 	 * Method to install the extension
 	 *

@@ -38,8 +38,6 @@ defined('_JEXEC') or die;
  * @property  Date      created
  * @property  int       created_by
  * @property  string    created_by_alias
- * @property  int       checked_out
- * @property  Date      checked_out_time
  * @property  int       published
  * @property  Date      publish_up
  * @property  Date      publish_down
@@ -143,10 +141,7 @@ class EventTable extends Table
 		if (!$this->registerUntil) {
 			$this->registerUntil = null;
 		}
-		//if (!$this->checked_out) {
-		$this->checked_out = null;
-		$this->checked_out_time = null;
-		//}
+
 		return true;
 	}
 

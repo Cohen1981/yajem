@@ -151,18 +151,6 @@
         />
 
         <field
-                name="checked_out"
-                type="hidden"
-                filter="unset"
-        />
-
-        <field
-                name="checked_out_time"
-                type="hidden"
-                filter="unset"
-        />
-
-        <field
                 name="ordering"
                 type="ordering"
                 label="JFIELD_ORDERING_LABEL"

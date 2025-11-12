@@ -117,19 +117,7 @@ class Icon
 		}
 		// Set the link class
 		$attribs['class'] = 'dropdown-item';
-		// Show checked_out icon if the event is checked out by a different user
-		if (property_exists($event, 'checked_out')
-			&& property_exists($event, 'checked_out_time')
-			&& $event->checked_out > 0
-			&& $event->checked_out != $user->id) {
-			$checkoutUser = Factory::getApplication()->getIdentity($event->checked_out);
-			$date         = HTMLHelper::_('date', $event->checked_out_time);
-			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_FOOS_CHECKED_OUT_BY', $checkoutUser->name)
-				. ' <br /> ' . $date;
-			$text = LayoutHelper::render('joomla.content.icons.edit_lock', ['tooltip' => $tooltip, 'legacy' => $legacy]);
-			$output = HTMLHelper::_('link', '#', $text, $attribs);
-			return $output;
-		}
+
 		if (!isset($event->slug)) {
 			$event->slug = "";
 		}
@@ -196,19 +184,6 @@ class Icon
 			return '';
 		}
 
-		// Show checked_out icon if the event is checked out by a different user
-		if (property_exists($location, 'checked_out')
-			&& property_exists($location, 'checked_out_time')
-			&& $location->checked_out > 0
-			&& $location->checked_out != $user->id) {
-			$checkoutUser = Factory::getApplication()->getIdentity($location->checked_out);
-			$date         = HTMLHelper::_('date', $location->checked_out_time);
-			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_FOOS_CHECKED_OUT_BY', $checkoutUser->name)
-				. ' <br /> ' . $date;
-			$text = LayoutHelper::render('joomla.content.icons.edit_lock', ['tooltip' => $tooltip, 'legacy' => $legacy]);
-			$output = HTMLHelper::_('link', '#', $text, $attribs);
-			return $output;
-		}
 		if (!isset($location->slug)) {
 			$location->slug = "";
 		}

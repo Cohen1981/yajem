@@ -12,6 +12,7 @@ log:
 
 reset: down
 	-@rm -rf db_data joomla_data
+	-@docker system prune --volumes
 
 start: up
 	@clear

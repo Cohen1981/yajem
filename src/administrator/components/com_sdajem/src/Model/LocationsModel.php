@@ -64,8 +64,6 @@ class LocationsModel extends ListModel
 					$db->quoteName('a.created'),
 					$db->quoteName('a.created_by'),
 					$db->quoteName('a.created_by_alias'),
-					$db->quoteName('a.checked_out'),
-					$db->quoteName('a.checked_out_time'),
 					$db->quoteName('a.published'),
 					$db->quoteName('a.publish_up'),
 					$db->quoteName('a.publish_down'),

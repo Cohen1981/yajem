@@ -100,10 +100,7 @@ class LocationTable extends Table
 		if (!$this->published) {
 			$this->published = 1;
 		}
-		//if (!$this->checked_out) {
-		$this->checked_out = null;
-		$this->checked_out_time = null;
-		//}
+
 		return true;
 	}
 
