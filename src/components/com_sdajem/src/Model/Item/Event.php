@@ -1,6 +1,4 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-
+<?php
 /** @noinspection PhpMultipleClassDeclarationsInspection */
 
 namespace Sda\Component\Sdajem\Site\Model\Item;
@@ -43,8 +41,6 @@ class Event extends \stdClass
 	public ?string $created;
 	public ?int $created_by;
 	public ?string $created_by_alias;
-	public ?int $checked_out;
-	public ?string $checked_out_time;
 	public ?int $published;
 	public ?string  $publish_up;
 	public ?string $publish_down;

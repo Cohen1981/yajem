@@ -1,10 +1,10 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
 
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
+ * @copyright   Survivants d'Acre
+ * @license     GNU General Public License version 2 or later;
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
@@ -12,6 +12,7 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
@@ -45,7 +46,7 @@ class FittingsModel extends ListModel
 	 *
 	 * @since   1.0.0
 	 */
-	protected function getListQuery()
+	protected function getListQuery():QueryInterface
 	{
 		// Create a new query object.
 		$db = $this->getDatabase();
@@ -113,9 +114,16 @@ class FittingsModel extends ListModel
 		return $query;
 	}
 
-	public function getFittingsForUser($userId = null)
+	/**
+	 * @param $userId
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 * @since
+	 */
+	public function getFittingsForUser($userId = null):mixed
 	{
-		$userId = ($userId) ? $userId : Factory::getApplication()->getIdentity()->id;
+		$userId = !$userId ? Factory::getApplication()->getIdentity()->id : $userId;
 
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
@@ -143,13 +151,12 @@ class FittingsModel extends ListModel
 		$query->bind(':userId', $userId);
 
 		$db->setQuery($query);
-		$data = $db->loadObjectList();
 
-		return $data;
+		return $db->loadObjectList();
 	}
 
 	/**
-	 * Get all fittings for given event
+	 * Get all fittings for a given event
 	 *
 	 * @param   int  $eventId
 	 * @return  array|null

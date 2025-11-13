@@ -32,32 +32,6 @@ defined('_JEXEC') or die;
  * @since      1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Table
  *
- * @property  int       id
- * @property  int       $access
- * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
- * @property  int       published
- * @property  Date      publish_up
- * @property  Date      publish_down
- * @property  int       state
- * @property  int       ordering
- * @property  string    language
- * @property  string    title
- * @property  string    description
- * @property  string    url
- * @property  string    image
- * @property  int       sdajem_location_id fk to locations table
- * @property  int       hostId
- * @property  int       organizerId
- * @property  Date      startDateTime
- * @property  Date      endDateTime
- * @property  int       allDayEvent
- * @property  int       eventStatus
- * @property  int       catid
- * @property  string    svg
- * @property  Date      registerUntil
  */
 class EventTable extends Table
 {
@@ -82,7 +56,7 @@ class EventTable extends Table
 	 *
 	 * @since   1.0.0
 	 */
-	public function generateAlias()
+	public function generateAlias():string
 	{
 		if (empty($this->alias)) {
 			$this->alias = $this->title;
@@ -117,7 +91,7 @@ class EventTable extends Table
 		}
 		// Set publish_up, publish_down to null if not set
 		if (!$this->publish_up) {
-			$this->publish_up = null;
+			$this->publish_up = Date::getInstance()->toSql();
 		}
 		if (!$this->publish_down) {
 			$this->publish_down = null;

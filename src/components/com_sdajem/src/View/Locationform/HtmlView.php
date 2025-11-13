@@ -101,7 +101,10 @@ class HtmlView extends BaseHtmlView
 		// Create a shortcut to the parameters.
 		$this->params = $this->state->params;
 		// Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		if ($this->params->get('pageclass_sfx'))
+		{
+			$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		}
 		// Override global params with location specific params
 		#$this->params->merge($this->item->params);
 		// Propose current language as default when creating new location

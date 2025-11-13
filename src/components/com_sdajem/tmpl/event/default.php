@@ -1,13 +1,4 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -24,8 +15,9 @@ use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\UserModel;
+use Sda\Component\Sdajem\Site\View\Event\HtmlView;
 
-/** @var \Sda\Component\Sdajem\Site\View\Event\HtmlView $this */
+/** @var HtmlView $this */
 
 $wa=$this->getDocument()->getWebAssetManager();
 
@@ -38,6 +30,7 @@ $wa->useScript('bootstrap.collapse');
 
 $canDo   = ContentHelper::getActions('com_sdajem', 'category', $this->item->catid);
 $user = Factory::getApplication()->getIdentity();
+$canEdit = false;
 try
 {
 	$canEdit = $canDo->get('core.edit') || ($canDo->get('core.edit.own') && $this->item->created_by == $user->id);
@@ -52,9 +45,11 @@ $event = $this->item;
 if (isset($this->organizer))
 	$organizer = $this->organizer;
 
+$host = null;
 if (isset($this->host))
 	$host = $this->host;
 
+$location = null;
 if (isset($this->location))
 {
 	$location = $this->location;
@@ -75,9 +70,12 @@ if (!$user->guest)
 {
     $userModel = new UserModel($user->id);
 
-	$uAdressString = urlencode($userModel->profile['address1']) . "+" .
-        	urlencode($userModel->profile['postal_code']) . "+" .
-			urlencode($userModel->profile['city']);
+    if ($userModel->profile)
+    {
+        $uAdressString = urlencode($userModel->profile['address1']) . "+" .
+                urlencode($userModel->profile['postal_code']) . "+" .
+                urlencode($userModel->profile['city']);
+    }
 }
 
 $currentUser = Factory::getApplication()->getIdentity();
@@ -93,13 +91,13 @@ $currentUser = Factory::getApplication()->getIdentity();
                 <h4>
                     <?php
                     if ($event->allDayEvent) {
-                        echo HTMLHelper::date($event->startDateTime,'d.m.Y',true);
+                        echo HTMLHelper::date($event->startDateTime,'d.m.Y');
                         echo ' - ';
-                        echo HTMLHelper::date($event->endDateTime,'d.m.Y',true);
+                        echo HTMLHelper::date($event->endDateTime,'d.m.Y');
                     } else {
-                        echo HTMLHelper::date($event->startDateTime,'d.m.Y H:i',true);
+                        echo HTMLHelper::date($event->startDateTime,'d.m.Y H:i');
                         echo ' - ';
-                        echo HTMLHelper::date($event->endDateTime,'d.m.Y H:i',true);
+                        echo HTMLHelper::date($event->endDateTime,'d.m.Y H:i');
                     }
                     ?>
                 </h4>
@@ -133,14 +131,11 @@ $currentUser = Factory::getApplication()->getIdentity();
                     <h6><?php echo Text::_('COM_SDAJEM_FIELD_ORGANIZER_LABEL'); ?>: <?php echo $organizer->user->name; ?></h6>
 	            <?php endif; ?>
             </div>
-            <?php if (!empty($canEdit))
-            {
-                if ($canEdit) : ?>
-                    <div class="icons">
-                        <?php echo HTMLHelper::_('sdajemIcon.edit', $event, $tparams); ?>
-                    </div>
-                <?php endif;
-            } ?>
+            <?php if ($canEdit) : ?>
+                <div class="icons">
+                    <?php echo HTMLHelper::_('sdajemIcon.edit', $event, $tparams); ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 
@@ -159,11 +154,11 @@ $currentUser = Factory::getApplication()->getIdentity();
     <div class="accordion" id="accordionEvent">
 	    <?php if (isset($this->location)) : ?>
         <div class="accordion-item">
-            <h5 class="accordion-header" id="headingLocation">
+            <div class="accordion-header" id="headingLocation">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocation" aria-expanded="true" aria-controls="collapseLocation">
-                    <h5><?php echo Text::_('COM_SDAJEM_LOCATION'); ?>: <?php echo $location->title; ?></h5>
+                    <?php echo Text::_('COM_SDAJEM_LOCATION'); ?>: <?php echo $location->title; ?>
                 </button>
-            </h5>
+            </div>
 
             <div id="collapseLocation" class="accordion-collapse collapse show" aria-labelledby="headingLocation" data-bs-parent="#accordionEvent">
                 <div class="accordion-body clearfix">
@@ -209,21 +204,18 @@ $currentUser = Factory::getApplication()->getIdentity();
 
 	    <?php if(isset($event->hostId)) : ?>
             <div class="accordion-item">
-                <h5 class="accordion-header" id="headingHost">
+                <div class="accordion-header" id="headingHost">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHost" aria-expanded="true" aria-controls="collapseHost">
-                        <h5><?php echo Text::_('COM_SDAJEM_FIELD_HOST_LABEL'); ?>: <?php echo $host->getName(); ?></h5>
+                        <?php echo Text::_('COM_SDAJEM_FIELD_HOST_LABEL'); ?>: <?php echo $host->getName(); ?>
                     </button>
-                </h5>
+                </div>
                 <div id="collapseHost" class="accordion-collapse collapse" aria-labelledby="headingHost" data-bs-parent="#accordionEvent">
                     <div class="accordion-body">
-	                    <?php if (!empty($canEdit))
-	                    {
-		                    if ($canEdit) : ?>
-                                <div class="icons float-end">
-				                    <?php echo HTMLHelper::_('contacticon.edit', $host, $tparams); ?>
-                                </div>
-		                    <?php endif;
-	                    } ?>
+	                    <?php if ($canEdit) : ?>
+                            <div class="icons float-end">
+                                <?php echo HTMLHelper::_('contacticon.edit', $host, $tparams); ?>
+                            </div>
+                        <?php endif;?>
                         <p><?php echo $host->get('telephone'); ?></p>
                         <p><?php echo $host->get('email_to'); ?></p>
                         <p><?php echo $host->get('mobile'); ?></p>
@@ -236,7 +228,7 @@ $currentUser = Factory::getApplication()->getIdentity();
         <div class="accordion-item">
             <h5 class="accordion-header" id="headingAttendings">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttendings" aria-expanded="true" aria-controls="collapseAttendings">
-                    <h5><?php echo Text::_('COM_SDAJEM_FIELD_ATTENDINGS_LABEL'); ?></h5></br>
+                    <?php echo Text::_('COM_SDAJEM_FIELD_ATTENDINGS_LABEL'); ?><br>
                 </button>
             </h5>
             <div id="collapseAttendings" class="accordion-collapse collapse" aria-labelledby="headingAttendings" data-bs-parent="#accordionEvent">
@@ -259,7 +251,7 @@ $currentUser = Factory::getApplication()->getIdentity();
         <div class="accordion-item">
             <h5 class="accordion-header" id="headingPlaningArea">
                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlaningArea" aria-expanded="true" aria-controls="collapsePlaningArea">
-                    <h5><?php echo Text::_('COM_SDAJEM_PLANING_AREA_LABEL'); ?></h5></br>
+                    <?php echo Text::_('COM_SDAJEM_PLANING_AREA_LABEL'); ?><br>
                 </button>
             </h5>
             <div id="collapsePlaningArea" class="accordion-collapse collapse" aria-labelledby="headingPlaningArea" data-bs-parent="#accordionEvent">
@@ -276,7 +268,7 @@ $currentUser = Factory::getApplication()->getIdentity();
             <div class="accordion-item">
                 <h5 class="accordion-header" id="headingCommentArea">
                     <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentArea" aria-expanded="true" aria-controls="collapseCommentArea">
-                        <h5><?php echo Text::_('COM_SDAJEM_COMMENT_AREA_LABEL'); ?></h5></br>
+                        <?php echo Text::_('COM_SDAJEM_COMMENT_AREA_LABEL'); ?><br>
                     </button>
                 </h5>
                 <div id="collapseCommentArea" class="accordion-collapse collapse" aria-labelledby="headingCommentArea" data-bs-parent="#accordionEvent">

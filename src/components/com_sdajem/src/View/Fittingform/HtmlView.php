@@ -100,7 +100,10 @@ class HtmlView extends BaseHtmlView
 		// Create a shortcut to the parameters.
 		$this->params = $this->state->params;
 		// Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		if ($this->params->get('pageclass_sfx'))
+		{
+			$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		}
 
 		$this->return_page_edit = base64_encode(Uri::getInstance());
 

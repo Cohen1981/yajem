@@ -1,28 +1,4 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_sdajem
@@ -97,12 +73,14 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                 <button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('event.add')">
                                     <span class="fas fa-plus-circle" aria-hidden="true"></span>
                                     <?php echo Text::_('COM_SDAJEM_EVENT_ADD'); ?>
+                                    <span class="fa fa-calendar-plus-o" aria-hidden="true"></span>
                                 </button>
 
                                 <?php if ($params->get('sda_events_new_location')) :?>
                                 <button type="button" class="btn btn-secondary" onclick="Joomla.submitbutton('location.add')">
-                                    <span class="fas fa-plus-circle" aria-hidden="true"></span>
+                                    <span class="fas fa-plus-circle-o" aria-hidden="true"></span>
                                     <?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
+                                    <span class="fas fa-map-marker-alt" aria-hidden="true"></span>
                                 </button>
                                 <?php endif; ?>
                             </div>
@@ -112,6 +90,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                 <button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('event.delete')">
                                     <span class="fas fa-trash" aria-hidden="true"></span>
                                     <?php echo Text::_('COM_SDAJEM_EVENT_DELETE'); ?>
+                                    <span class="fa fa-calendar-minus-o" aria-hidden="true"></span>
                                 </button>
                             </div>
                             <?php endif; ?>

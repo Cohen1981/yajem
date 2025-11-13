@@ -27,7 +27,7 @@ use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
  * @property  int                 attendingId
  * @property  int                 event_id
  * @property  int                 users_user_id
- * @property  IntAttStatusEnum status
+ * @property  IntAttStatusEnum    status
  * @property  array               profile
  * @property  array               userData
  */
@@ -37,7 +37,7 @@ class EventAttendeeModel extends UserModel
 	public ?int $event_id;
 	protected ?int $users_user_id;
 	public ?IntAttStatusEnum $status;
-	public ?array $profile;
+	public ?\stdClass $profile;
 	public ?array $userData;
 
 	public function __construct($data)

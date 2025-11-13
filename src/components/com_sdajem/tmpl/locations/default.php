@@ -21,8 +21,11 @@ use Sda\Component\Sdajem\Administrator\Model\Items\LocationsItemModel;
 defined('_JEXEC') or die();
 
 $wa = $this->document->getWebAssetManager();
+$wa->useScript('bootstrap.dropdown');
+$wa->useScript('bootstrap.collapse');
 $wa->useScript('table.columns');
 $wa->useScript('form.validate');
+$wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
 $wa->registerAndUseStyle('sdajem', 'com_sdajem/sdajem.css');
 
 $canChange = true;
@@ -43,14 +46,25 @@ $params = $this->get('State')->get('params');
 <div class="sdajem_content_container">
 	<form action="<?php echo Route::_('index.php?view=locations'); ?>" method="post" name="adminForm" id="adminForm">
 		<div>
-            <?php if ($canDo->get('core.create')) : ?>
-                <div class="mb-2">
+            <div class="mb-2">
+                <div class="sda_button_group sda_button_group_right" role="group" aria-label="basic group">
+                <?php if ($canDo->get('core.create')) : ?>
+
 					<button type="button" class="btn btn-primary" onclick="Joomla.submitbutton('location.add')">
 						<span class="fas fa-plus-circle" aria-hidden="true"></span>
 						<?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
 					</button>
-				</div>
-			<?php endif; ?>
+
+			    <?php endif; ?>
+                <?php if ($canDo->get('core.delete')) : ?>
+
+                    <button type="button" class="btn btn-danger" onclick="Joomla.submitbutton('location.delete')">
+                        <span class="fas fa-trash" aria-hidden="true"></span>
+                        <?php echo Text::_('COM_SDAJEM_LOCATION_DELETE'); ?>
+                    </button>
+                <?php endif; ?>
+                </div>
+            </div>
 		</div>
 		<div class="row">
 			<div class="col-md-12">
@@ -67,6 +81,11 @@ $params = $this->get('State')->get('params');
 							</caption>
 							<thead>
 							<tr>
+                                <?php if (!Factory::getApplication()->getIdentity()->guest) :?>
+                                    <td style="width:1%" class="text-center d-sm-table-cell d-none">
+                                        <?php echo HTMLHelper::_('grid.checkall'); ?>
+                                    </td>
+                                <?php endif; ?>
 								<th scope="col" style="width:1%" class="d-none d-md-table-cell">
 									<?php echo HTMLHelper::_('searchtools.sort', 'COM_SDAJEM_TABLE_TABLEHEAD_LOCATION', 'a.title', $listDirn, $listOrder); ?>
 								</th>
@@ -81,6 +100,11 @@ $params = $this->get('State')->get('params');
 							foreach ($this->items as $i => $item) :
 								?>
 								<tr class="row<?php echo $i % 2; ?>">
+                                    <?php if (!Factory::getApplication()->getIdentity()->guest) :?>
+                                        <td class="text-center d-sm-table-cell d-none">
+                                            <?php echo HTMLHelper::_('grid.id', $i, $item->id); ?>
+                                        </td>
+                                    <?php endif; ?>
 									<th scope="row" class="has-context col-4">
 										<div>
 											<a href="<?php echo Route::_('index.php?option=com_sdajem&view=location&id=' . (int) $item->id); ?>">

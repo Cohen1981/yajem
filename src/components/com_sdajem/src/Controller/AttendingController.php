@@ -40,6 +40,20 @@ class AttendingController extends FormController
 		return parent::getModel($name, $prefix, ['ignore_request' => false]);
 	}
 
+	private function getPks()
+	{
+		$pks = [];
+
+		if ($this->input->get('event_id')) {
+			$pks[0] = $this->input->get('event_id');
+		} else if ($eventId !== null)
+		{
+			$pks[0] = $eventId;
+		} else {
+			$pks = $this->input->get('cid');
+		}
+		return $pks;
+	}
 	/**
 	 * @param   null  $key
 	 * @param   null  $urlVar
@@ -81,7 +95,7 @@ class AttendingController extends FormController
 	public function attend($eventId = null, $userId = null)
 	{
 		//$this->option = 'core.manage.attending';
-		$pks = [];
+		$pks = $this->getPks();
 
 		if ($this->input->get('event_id')) {
 			$pks[0] = $this->input->get('event_id');
@@ -131,16 +145,7 @@ class AttendingController extends FormController
 	public function unattend($eventId = null, $userId = null)
 	{
 		//$this->option = 'core.manage.attending';
-		$pks = [];
-
-		if ($this->input->get('event_id')) {
-			$pks[0] = $this->input->get('event_id');
-		} else if ($eventId !== null)
-		{
-			$pks[0] = $eventId;
-		} else {
-			$pks = $this->input->get('cid');
-		}
+		$pks = $this->getPks();
 
 		if (count($pks) >= 0) {
 

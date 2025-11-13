@@ -17,6 +17,9 @@ use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Language\Text;
+use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Site\Model\LocationModel;
 
 class LocationController extends FormController
 {
@@ -158,6 +161,46 @@ class LocationController extends FormController
 		}
 		return $append;
 	}
+
+	public function delete(): bool
+	{
+		$pks = ArrayHelper::toInteger($this->input->get('cid'));
+
+		// ToDo check for location usage in events before delete
+		/** @var LocationModel $model */
+		$model = $this->getModel('location');
+		foreach ($pks as &$pk) {
+			if ($model->countUsage($pk) > 0) {
+				$item = $model->getItem($pk);
+				$this->app->enqueueMessage($item->title .' '. Text::_('COM_SDAEJEM_LOCATION_IN_EVENTS'), 'error');
+			}
+			else
+			{
+				$this->getModel()->delete($pk);
+			}
+		}
+
+/*
+		foreach ($pks as &$pk) {
+			$attendings = $attendingsModel->getAttendingsIdToEvent($pk);
+			$attResult = $attendingFormModel->delete($attendings);
+			$interests = $interestsModel->getInterestsIdToEvent($pk);
+			$intResult = $interestFormModel->delete($interests);
+		}
+
+		$eventFormModel = new EventformModel();
+
+		if ($attResult && $intResult)
+		{
+			$result = $eventFormModel->delete($pks);
+		}
+*/
+		$this->setRedirect(Route::_($this->getReturnPage(), false));
+		//return $result;
+
+		return true;
+	}
+
 	/**
 	 * Get the return URL.
 	 *

@@ -1,8 +1,4 @@
 <?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
 
 /**
  * @package     Sda\Component\Sdajem\Site\Model
@@ -81,6 +77,16 @@ class LocationModel extends BaseDatabaseModel
 		}
 
 		return $this->_item;
+	}
+
+	public function countUsage(int $pk):int
+	{
+		$query = $this->getDatabase()->getQuery(true);
+		$query->select('COUNT(DISTINCT(id))')->from('#__sdajem_events')->where('sdajem_location_id = :locationId');
+		$query->bind(':locationId', $pk);
+		$result = (int) $this->getDatabase()->setQuery($query)->loadResult();
+
+		return $result;
 	}
 
 	/**

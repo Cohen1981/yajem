@@ -24,17 +24,18 @@ use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
 */
 class UserModel
 {
-	protected ?int $id;
-	public ?array $userData;
-	public ?array $profile;
-	public ?User $user;
+	protected ?int $id = null;
+	public ?array $userData = [];
+	public ?\stdClass $profile = null;
+	public ?User $user = null;
 
 	public function __construct(int $userId = null)
 	{
 		if (isset($userId)) {
 			$this->user = Factory::getContainer()->get(UserFactoryInterface::class)->loadUserById($userId);
 
-			$this->profile = UserHelper::getProfile($userId)->profile;
+			if (!empty(UserHelper::getProfile($userId)->profile))
+				$this->profile = UserHelper::getProfile($userId)->profile;
 
 			$userdata = FieldsHelper::getFields('com_users.user', $this->user, true);
 			$tmp          = $userdata ?? array();
@@ -45,12 +46,6 @@ class UserModel
 				$customFields[$customField->name] = $customField;
 			}
 			$this->userData = $customFields;
-		}
-		else {
-			$this->id = null;
-			$this->userData = null;
-			$this->profile = null;
-			$this->user = null;
 		}
 	}
 }

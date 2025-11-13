@@ -1,31 +1,4 @@
 <?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
 
 /**
  * @package     Sda\Component\Sdajem\Administrator\Service\HTML
@@ -43,7 +16,6 @@ use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\User;
@@ -67,7 +39,7 @@ class Icon
 	/**
 	 * The application
 	 *
-	 * @var    CMSApplication
+	 * @var    CMSApplication $application
 	 *
 	 * @since  __DEPLOY_VERSION__
 	 */
@@ -100,7 +72,7 @@ class Icon
 	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public static function edit($event, $params, $attribs = [], $legacy = false)
+	public static function edit(stdClass $event, $params, $attribs = [], $legacy = false)
 	{
 		/**
 		 * @var User $user
@@ -143,8 +115,10 @@ class Icon
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= Text::sprintf('COM_FOOS_WRITTEN_BY', htmlspecialchars($author, ENT_COMPAT, 'UTF-8'));
 		$icon = $event->published ? 'edit' : 'eye-slash';
-		if ((strtotime($event->publish_up) > strtotime(Factory::getDate()) && $event->publish_up != null)
-			|| ((strtotime($event->publish_down) < strtotime(Factory::getDate())) && $event->publish_down != null)) {
+
+		$currentTimestamp = Factory::getDate()->format('Y-m-d H:i:s');
+		if ((($event->publish_up > $currentTimestamp) && $event->publish_up != null)
+			|| (($event->publish_down < $currentTimestamp) && $event->publish_down != null)) {
 			$icon = 'eye-slash';
 		}
 		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
@@ -173,7 +147,6 @@ class Icon
 	 */
 	public static function editLocation($location, $params, $attribs = [], $legacy = false)
 	{
-		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
 		// Ignore if in a popup window.
 		if ($params && $params->get('popup')) {
@@ -209,8 +182,9 @@ class Icon
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= Text::sprintf('COM_FOOS_WRITTEN_BY', htmlspecialchars($author, ENT_COMPAT, 'UTF-8'));
 		$icon = $location->published ? 'edit' : 'eye-slash';
-		if ((strtotime($location->publish_up) > strtotime(Factory::getDate()) && $location->publish_up != null)
-			|| ((strtotime($location->publish_down) < strtotime(Factory::getDate())) && $location->publish_down != null)) {
+		$currentTimestamp = Factory::getDate()->format('Y-m-d H:i:s');
+		if ((($location->publish_up > $currentTimestamp) && $location->publish_up != null)
+			|| (($location->publish_down < $currentTimestamp) && $location->publish_down != null)) {
 			$icon = 'eye-slash';
 		}
 		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'

@@ -119,6 +119,7 @@ class EventModel extends AdminModel
 	 */
 	protected function prepareTable($table)
 	{
+		$table->check();
 		$table->generateAlias();
 	}
 }

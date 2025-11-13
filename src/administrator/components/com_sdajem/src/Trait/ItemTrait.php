@@ -2,6 +2,7 @@
 
 namespace Sda\Component\Sdajem\Administrator\Trait;
 
+use Joomla\CMS\Factory;
 use ReflectionObject;
 use stdClass;
 

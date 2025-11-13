@@ -40,7 +40,7 @@ services:
   joomladb:
     image: mysql:${MYSQL_VERSION:-latest}
     container_name: ${CONTAINER_PREFIX:-joomla}-db
-    restart: unless-stopped
+    restart: on-failure
     ports:
       - ${MYSQL_PORT:-3306}:3306
     environment:

@@ -75,24 +75,6 @@ class FittingTable extends Table
 			$app->enqueueMessage($e->getMessage(),'error');
 			return false;
 		}
-		// Check the publish down date is not earlier than publish up.
-		if ($this->publish_down > $this->getDatabase()->getNullDate() && $this->publish_down < $this->publish_up) {
-			$app->enqueueMessage(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'),'warning');
-			return false;
-		}
-		// Set publish_up, publish_down to null if not set
-		if (!$this->publish_up) {
-			$this->publish_up = null;
-		}
-		if (!$this->publish_down) {
-			$this->publish_down = null;
-		}
-		if (!$this->published) {
-			$this->published = 1;
-		}
-		if (!$this->created_by) {
-			$this->created_by = Factory::getApplication()->getIdentity()->id;
-		}
 		if (!$this->user_id) {
 			$this->user_id = Factory::getApplication()->getIdentity()->id;
 		}

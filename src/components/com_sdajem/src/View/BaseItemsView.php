@@ -29,7 +29,7 @@ class BaseItemsView extends HtmlView
 	 * @var    Registry|null
 	 * @since  1.0.0
 	 */
-	protected $params = null;
+	protected Registry  |null $params = null;
 
 	/**
 	 * The item model state

@@ -30,9 +30,6 @@ defined('_JEXEC') or die;
  * @property  int       id
  * @property  int       $access
  * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
  * @property  int       state
  * @property  int       ordering
  * @property  int       event_id
