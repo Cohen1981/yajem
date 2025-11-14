@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -9,11 +10,12 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-\defined('_JEXEC') or die();
-
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
+use function defined;
+
+defined('_JEXEC') or die();
 
 class AttendingsModel extends ListModel
 {
@@ -41,6 +43,7 @@ class AttendingsModel extends ListModel
 	 *
 	 * @return  QueryInterface
 	 *
+	 * @throws \Exception
 	 * @since   1.0.0
 	 */
 	protected function getListQuery()

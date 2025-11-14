@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Controller
  * @subpackage
@@ -13,8 +14,12 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
+use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\Language\Text;
+use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Site\Model\LocationModel;
 
 class LocationController extends FormController
 {
@@ -32,7 +37,7 @@ class LocationController extends FormController
 	 * @param   string  $prefix  The class prefix. Optional.
 	 * @param   array   $config  Configuration array for model. Optional.
 	 *
-	 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel  The model.
+	 * @return  BaseDatabaseModel  The model.
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -40,6 +45,7 @@ class LocationController extends FormController
 	{
 		return parent::getModel($name, $prefix, ['ignore_request' => false]);
 	}
+
 	/**
 	 * Method override to check if you can add a new record.
 	 *
@@ -47,6 +53,7 @@ class LocationController extends FormController
 	 *
 	 * @return  boolean
 	 *
+	 * @throws \Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function allowAdd($data = [])
@@ -56,6 +63,7 @@ class LocationController extends FormController
 		return $user->authorise('core.create', 'com_sdajem');
 
 	}
+
 	/**
 	 * Method override to check if you can edit an existing record.
 	 *
@@ -64,6 +72,7 @@ class LocationController extends FormController
 	 *
 	 * @return  boolean
 	 *
+	 * @throws \Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function allowEdit($data = [], $key = 'id')
@@ -152,6 +161,46 @@ class LocationController extends FormController
 		}
 		return $append;
 	}
+
+	public function delete(): bool
+	{
+		$pks = ArrayHelper::toInteger($this->input->get('cid'));
+
+		// ToDo check for location usage in events before delete
+		/** @var LocationModel $model */
+		$model = $this->getModel('location');
+		foreach ($pks as &$pk) {
+			if ($model->countUsage($pk) > 0) {
+				$item = $model->getItem($pk);
+				$this->app->enqueueMessage($item->title .' '. Text::_('COM_SDAEJEM_LOCATION_IN_EVENTS'), 'error');
+			}
+			else
+			{
+				$this->getModel()->delete($pk);
+			}
+		}
+
+/*
+		foreach ($pks as &$pk) {
+			$attendings = $attendingsModel->getAttendingsIdToEvent($pk);
+			$attResult = $attendingFormModel->delete($attendings);
+			$interests = $interestsModel->getInterestsIdToEvent($pk);
+			$intResult = $interestFormModel->delete($interests);
+		}
+
+		$eventFormModel = new EventformModel();
+
+		if ($attResult && $intResult)
+		{
+			$result = $eventFormModel->delete($pks);
+		}
+*/
+		$this->setRedirect(Route::_($this->getReturnPage(), false));
+		//return $result;
+
+		return true;
+	}
+
 	/**
 	 * Get the return URL.
 	 *

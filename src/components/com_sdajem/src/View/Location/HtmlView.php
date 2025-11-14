@@ -1,4 +1,9 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
@@ -12,10 +17,15 @@ namespace Sda\Component\Sdajem\Site\View\Location;
 defined('_JEXEC') or die();
 
 use Exception;
+use Joomla\CMS\Event\Content\AfterDisplayEvent;
+use Joomla\CMS\Event\Content\AfterTitleEvent;
+use Joomla\CMS\Event\Content\BeforeDisplayEvent;
+use Joomla\CMS\Event\Content\ContentPrepareEvent;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
+use Sda\Component\Sdajem\Site\Model\Item\Location;
 use Sda\Component\Sdajem\Site\Model\LocationModel;
 use stdClass;
 
@@ -41,20 +51,13 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected Registry $state;
 
-	/**
-	 * The item object details
-	 *
-	 * @var    stdClass
-	 * @since  1.0.0
-	 */
-	protected stdClass $item;
+	public Location $item;
 
 	/**
 	 * Execute and display a template script.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise an Error object.
 	 * @throws Exception
 	 * @since 1.0.0
 	 */
@@ -90,21 +93,32 @@ class HtmlView extends BaseHtmlView
 			$this->setLayout($active->query['layout']);
 		}
 
-		Factory::getApplication()->triggerEvent('onContentPrepare', ['com_sdajem.location', &$item, &$item->params]);
+		$contentEventArguments = [
+			'context' => 'com_sdajem.location',
+			'subject' => &$item,
+			'params'  => &$item->params
+		];
+
+		$dispatcher = $this->getDispatcher();
+		$dispatcher->dispatch('onContentPrepare', new ContentPrepareEvent('onContentPrepare', $contentEventArguments));
 
 		// Store the events for later
 		$item->event = new stdClass;
-		$results = Factory::getApplication()->triggerEvent('onContentAfterTitle', ['com_sdajem.location', &$item, &$item->params]);
-		$item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-		$results = Factory::getApplication()->triggerEvent('onContentBeforeDisplay', ['com_sdajem.location', &$item, &$item->params]);
-		$item->event->beforeDisplayContent = trim(implode("\n", $results));
+		$contentEvents = [
+			'afterDisplayTitle'    => new AfterTitleEvent('onContentAfterTitle', $contentEventArguments),
+			'beforeDisplayContent' => new BeforeDisplayEvent('onContentBeforeDisplay', $contentEventArguments),
+			'afterDisplayContent'  => new AfterDisplayEvent('onContentAfterDisplay', $contentEventArguments),
+		];
 
-		$results = Factory::getApplication()->triggerEvent('onContentAfterDisplay', ['com_sdajem.location', &$item, &$item->params]);
-		$item->event->afterDisplayContent = trim(implode("\n", $results));
+		foreach ($contentEvents as $resultKey => $event) {
+			$results = $dispatcher->dispatch($event->getName(), $event)->getArgument('result', []);
+
+			$item->event->{$resultKey} = $results ? trim(implode("\n", $results)) : '';
+		}
 
 		$this->return_page = base64_encode(Uri::getInstance());
 
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
 }

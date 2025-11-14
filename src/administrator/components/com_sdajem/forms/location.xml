@@ -123,15 +123,5 @@
                 label="JFIELD_ACCESS_LABEL"
                 size="1"
         />
-        <field
-                name="checked_out"
-                type="hidden"
-                filter="unset"
-        />
-        <field
-                name="checked_out_time"
-                type="hidden"
-                filter="unset"
-        />
     </fieldset>
 </form>

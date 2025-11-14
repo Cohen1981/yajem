@@ -1,4 +1,8 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -13,8 +17,15 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Administrator\Model\FittingModel;
+use stdClass;
+use function defined;
 
-class FittingformModel extends \Sda\Component\Sdajem\Administrator\Model\FittingModel
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
+class FittingformModel extends FittingModel
 {
 	protected $formName = 'form';
 
@@ -25,7 +36,7 @@ class FittingformModel extends \Sda\Component\Sdajem\Administrator\Model\Fitting
 	 *
 	 * @return  mixed  Event item data object on success, false on failure.
 	 *
-	 * @throws  Exception|\Exception
+	 * @throws  Exception|Exception
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -45,7 +56,7 @@ class FittingformModel extends \Sda\Component\Sdajem\Administrator\Model\Fitting
 		}
 		$properties = $table->getProperties();
 
-		return ArrayHelper::toObject($properties, \stdClass::class);
+		return ArrayHelper::toObject($properties, stdClass::class);
 	}
 	/**
 	 * Get the return URL.
@@ -94,7 +105,7 @@ class FittingformModel extends \Sda\Component\Sdajem\Administrator\Model\Fitting
 	 * @return  Table  A Table object
 	 *
 	 * @since   __DEPLOY_VERSION__
-	 * @throws  \Exception
+	 * @throws  Exception
 	 */
 	public function getTable($name = 'Fitting', $prefix = 'Administrator', $options = [])
 	{

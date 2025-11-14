@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Table
  * @subpackage
@@ -9,10 +12,17 @@
 
 namespace Sda\Component\Sdajem\Administrator\Table;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Sda\Component\Sdajem\Administrator\Model\LocationModel;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since       version
@@ -20,7 +30,7 @@ use Sda\Component\Sdajem\Administrator\Model\LocationModel;
  *
  * @property  int   user_id
  */
-class FittingTable extends \Joomla\CMS\Table\Table
+class FittingTable extends Table
 {
 	/**
 	 * Constructor
@@ -58,29 +68,12 @@ class FittingTable extends \Joomla\CMS\Table\Table
 
 	public function check()
 	{
+		$app = Factory::getApplication();
 		try {
 			parent::check();
-		} catch (\Exception $e) {
-			$this->setError($e->getMessage());
+		} catch (Exception $e) {
+			$app->enqueueMessage($e->getMessage(),'error');
 			return false;
-		}
-		// Check the publish down date is not earlier than publish up.
-		if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up) {
-			$this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
-			return false;
-		}
-		// Set publish_up, publish_down to null if not set
-		if (!$this->publish_up) {
-			$this->publish_up = null;
-		}
-		if (!$this->publish_down) {
-			$this->publish_down = null;
-		}
-		if (!$this->published) {
-			$this->published = 1;
-		}
-		if (!$this->created_by) {
-			$this->created_by = Factory::getApplication()->getIdentity()->id;
 		}
 		if (!$this->user_id) {
 			$this->user_id = Factory::getApplication()->getIdentity()->id;

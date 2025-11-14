@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -9,8 +10,11 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
+use DateTime;
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
+use Joomla\CMS\MVC\Model\AdminModel;
 
 /**
  * @since       1.1.1
@@ -21,10 +25,10 @@ use Joomla\CMS\Form\Form;
  * @property  int       users_user_id
  * @property  int       sdajem_event_id
  * @property  string    comment
- * @property  \DateTime timestamp
+ * @property  DateTime timestamp
  * @property  string    commentReadBy
  */
-class CommentModel extends \Joomla\CMS\MVC\Model\AdminModel
+class CommentModel extends AdminModel
 {
 
 	/**
@@ -50,7 +54,7 @@ class CommentModel extends \Joomla\CMS\MVC\Model\AdminModel
 		{
 			$form = $this->loadForm($this->typeAlias, 'comment', ['control' => 'jform', 'load_data' => $loadData]);
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			return false;
 		}
@@ -65,6 +69,7 @@ class CommentModel extends \Joomla\CMS\MVC\Model\AdminModel
 	 *
 	 * @return  mixed  The data for the form.
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function loadFormData()

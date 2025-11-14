@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -13,6 +15,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
+use Sda\Component\Sdajem\Administrator\Model\Items\FittingItemModel;
 
 defined('_JEXEC') or die();
 
@@ -34,7 +37,7 @@ if ($saveOrder && !empty($this->items)) {
 */
 $params = $this->get('State')->get('params');
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\Items\FittingItemModel $item */
+/* @var FittingItemModel $item */
 ?>
 
 <div class="sdajem_content_container">

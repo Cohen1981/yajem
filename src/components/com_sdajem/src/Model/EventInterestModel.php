@@ -1,4 +1,10 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -17,16 +23,17 @@ use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
  * @since      1.0.0
  * @package     Sda\Component\Sdajem\Site\Model
  *
- * @property  int                 attendingId
- * @property  int                 event_id
- * @property  int                 users_user_id
- * @property  IntAttStatusEnum  status
- * @property  array               profile
- * @property  array               userData
- * @property  string              comment
  */
 class EventInterestModel extends UserModel
 {
+	public int $attendingId;
+	public int $event_id;
+	protected int $users_user_id;
+	public IntAttStatusEnum $status;
+	public string $comment;
+	public ?array $profile;
+	public ?array $userData;
+
 	public function __construct($data)
 	{
 		if (isset($data->users_user_id)) {

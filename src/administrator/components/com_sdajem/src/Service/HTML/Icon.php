@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Service\HTML
  * @subpackage
@@ -9,31 +10,36 @@
 
 namespace Sda\Component\Sdajem\Administrator\Service\HTML;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Application\CMSApplication;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\User\User;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
 use Sda\Component\Sdajem\Administrator\Model\FittingModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
-use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
+use stdClass;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 class Icon
 {
 	/**
 	 * The application
 	 *
-	 * @var    CMSApplication
+	 * @var    CMSApplication $application
 	 *
 	 * @since  __DEPLOY_VERSION__
 	 */
@@ -49,23 +55,28 @@ class Icon
 	{
 		$this->application = $application;
 	}
+
 	/**
 	 * Display an edit icon for the event.
 	 *
 	 * This icon will not display in a popup window, nor if the event is trashed.
 	 * Edit access checks must be performed in the calling code.
 	 *
-	 * @param   object    $event  The event information
+	 * @param   object    $event    The event information
 	 * @param   Registry  $params   The item parameters
 	 * @param   array     $attribs  Optional attributes for the link
 	 * @param   boolean   $legacy   True to use legacy images, false to use icomoon based graphic
 	 *
 	 * @return  string   The HTML for the event edit icon.
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public static function edit($event, $params, $attribs = [], $legacy = false)
+	public static function edit(stdClass $event, $params, $attribs = [], $legacy = false)
 	{
+		/**
+		 * @var User $user
+		 */
 		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
 		// Ignore if in a popup window.
@@ -78,19 +89,7 @@ class Icon
 		}
 		// Set the link class
 		$attribs['class'] = 'dropdown-item';
-		// Show checked_out icon if the event is checked out by a different user
-		if (property_exists($event, 'checked_out')
-			&& property_exists($event, 'checked_out_time')
-			&& $event->checked_out > 0
-			&& $event->checked_out != $user->get('id')) {
-			$checkoutUser = Factory::getApplication()->getIdentity($event->checked_out);
-			$date         = HTMLHelper::_('date', $event->checked_out_time);
-			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_FOOS_CHECKED_OUT_BY', $checkoutUser->name)
-				. ' <br /> ' . $date;
-			$text = LayoutHelper::render('joomla.content.icons.edit_lock', ['tooltip' => $tooltip, 'legacy' => $legacy]);
-			$output = HTMLHelper::_('link', '#', $text, $attribs);
-			return $output;
-		}
+
 		if (!isset($event->slug)) {
 			$event->slug = "";
 		}
@@ -116,8 +115,10 @@ class Icon
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= Text::sprintf('COM_FOOS_WRITTEN_BY', htmlspecialchars($author, ENT_COMPAT, 'UTF-8'));
 		$icon = $event->published ? 'edit' : 'eye-slash';
-		if ((strtotime($event->publish_up) > strtotime(Factory::getDate()) && $event->publish_up != null)
-			|| ((strtotime($event->publish_down) < strtotime(Factory::getDate())) && $event->publish_down != null)) {
+
+		$currentTimestamp = Factory::getDate()->format('Y-m-d H:i:s');
+		if ((($event->publish_up > $currentTimestamp) && $event->publish_up != null)
+			|| (($event->publish_down < $currentTimestamp) && $event->publish_down != null)) {
 			$icon = 'eye-slash';
 		}
 		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
@@ -135,17 +136,17 @@ class Icon
 	 * Edit access checks must be performed in the calling code.
 	 *
 	 * @param   object    $location  The event information
-	 * @param   Registry  $params   The item parameters
-	 * @param   array     $attribs  Optional attributes for the link
-	 * @param   boolean   $legacy   True to use legacy images, false to use icomoon based graphic
+	 * @param   Registry  $params    The item parameters
+	 * @param   array     $attribs   Optional attributes for the link
+	 * @param   boolean   $legacy    True to use legacy images, false to use icomoon based graphic
 	 *
 	 * @return  string   The HTML for the event edit icon.
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public static function editLocation($location, $params, $attribs = [], $legacy = false)
 	{
-		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
 		// Ignore if in a popup window.
 		if ($params && $params->get('popup')) {
@@ -156,19 +157,6 @@ class Icon
 			return '';
 		}
 
-		// Show checked_out icon if the event is checked out by a different user
-		if (property_exists($location, 'checked_out')
-			&& property_exists($location, 'checked_out_time')
-			&& $location->checked_out > 0
-			&& $location->checked_out != $user->get('id')) {
-			$checkoutUser = Factory::getApplication()->getIdentity($location->checked_out);
-			$date         = HTMLHelper::_('date', $location->checked_out_time);
-			$tooltip      = Text::_('JLIB_HTML_CHECKED_OUT') . ' :: ' . Text::sprintf('COM_FOOS_CHECKED_OUT_BY', $checkoutUser->name)
-				. ' <br /> ' . $date;
-			$text = LayoutHelper::render('joomla.content.icons.edit_lock', ['tooltip' => $tooltip, 'legacy' => $legacy]);
-			$output = HTMLHelper::_('link', '#', $text, $attribs);
-			return $output;
-		}
 		if (!isset($location->slug)) {
 			$location->slug = "";
 		}
@@ -194,8 +182,9 @@ class Icon
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= Text::sprintf('COM_FOOS_WRITTEN_BY', htmlspecialchars($author, ENT_COMPAT, 'UTF-8'));
 		$icon = $location->published ? 'edit' : 'eye-slash';
-		if ((strtotime($location->publish_up) > strtotime(Factory::getDate()) && $location->publish_up != null)
-			|| ((strtotime($location->publish_down) < strtotime(Factory::getDate())) && $location->publish_down != null)) {
+		$currentTimestamp = Factory::getDate()->format('Y-m-d H:i:s');
+		if ((($location->publish_up > $currentTimestamp) && $location->publish_up != null)
+			|| (($location->publish_down < $currentTimestamp) && $location->publish_down != null)) {
 			$icon = 'eye-slash';
 		}
 		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
@@ -214,7 +203,7 @@ class Icon
 	 *
 	 * @return mixed|string
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since 1.0.1
 	 */
 	public static function editAttending($attending, $params, $attribs = [], $legacy = false) {
@@ -244,18 +233,18 @@ class Icon
 	}
 
 	/**
-	 * @param          $event
+	 * @param   Event  $event
+	 * @param          $fittings
 	 * @param          $params
 	 * @param   array  $attribs
 	 * @param   false  $legacy
 	 *
 	 * @return string
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since 1.0.0
-	 *
 	 */
-	public static function register($event, $params, $attribs = [], $legacy = false)
+	public static function register(Event $event, $fittings, $params, $attribs = [], $legacy = false)
 	{
 		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
@@ -294,7 +283,7 @@ class Icon
 			}
 			else
 			{
-				$interest         = new \stdClass();
+				$interest         = new stdClass();
 				$interest->status = IntAttStatusEnum::NA->value;
 			}
 
@@ -320,7 +309,7 @@ class Icon
 			}
 			else
 			{
-				$interest         = new \stdClass();
+				$interest         = new stdClass();
 				$interest->status = IntAttStatusEnum::NA->value;
 			}
 
@@ -337,10 +326,10 @@ class Icon
 			$params = ComponentHelper::getParams('com_sdajem');
 			$uf = $params->get('sda_events_use_fittings');
 
-			if ($uf && isset($event->fittings) && AttendingHelper::getAttendingStatusToEvent($user->id, $event->id)->status != IntAttStatusEnum::POSITIVE->value) {
+			if ($uf && isset($fittings) && AttendingHelper::getAttendingStatusToEvent($user->id, $event->id)->status != IntAttStatusEnum::POSITIVE->value) {
 				$text .= '<div class="sda_row"> <div class="sda_attendee_container">';
 				/* @var FittingModel $fitting */
-				foreach ($event->fittings as $i => $fitting)
+				foreach ($fittings as $i => $fitting)
 				{
 					$text .= '<div class="card" style="width: 120px;">';
 					$text .= HTMLHelper::image($fitting->image, '');

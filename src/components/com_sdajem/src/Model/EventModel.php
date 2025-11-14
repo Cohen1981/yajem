@@ -1,4 +1,10 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -9,75 +15,43 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-\defined('_JEXEC') or die;
-
-use Joomla\CMS\Date\Date;
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * Event model for the Joomla Events component.
  *
  * @since  1.0.0
- *
- * @property  int       id
- * @property  int       access
- * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
- * @property  int       checked_out
- * @property  Date      checked_out_time
- * @property  int       published
- * @property  Date      publish_up
- * @property  Date      publish_down
- * @property  int       state
- * @property  int       ordering
- * @property  string    language
- * @property  string    title
- * @property  string    description
- * @property  string    url
- * @property  string    image
- * @property  int       sdajem_location_id fk to locations table
- * @property  int       hostId
- * @property  int       organizerId
- * @property  Date      startDateTime
- * @property  Date      endDateTime
- * @property  int       allDayEvent
- * @property  int       eventStatus
- * @property  int       catid
- * @property  string    svg
- * @property  Date      registerUntil
-   */
+ */
 
 class EventModel extends BaseDatabaseModel
 {
+	protected Event|null $_item = null;
+
 	/**
-	 * @var string item
-	 * @since 1.0.0
-	 */
-	protected $_item = null;
-	/**
-	 * Gets a event
+	 * Gets an event
 	 *
-	 * @param   integer  $pk  Id for the event
+	 * @param   int|null  $pk  pk for the event
 	 *
-	 * @return  mixed Object or null
+	 * @return Event or null
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
-	public function getItem($pk = null)
+	public function getItem(int $pk = null): Event
 	{
 		$app = Factory::getApplication();
 		$pk  = ($pk) ? $pk : $app->input->getInt('id');
 
-		if ($this->_item === null)
-		{
-			$this->_item = [];
-		}
-
-		if (!isset($this->_item[$pk]))
+		if ($this->_item === null && $pk !== null)
 		{
 			try
 			{
@@ -95,31 +69,33 @@ class EventModel extends BaseDatabaseModel
 
 				if (empty($data))
 				{
-					throw new \Exception(Text::_('COM_SDAJEM_ERROR_EVENT_NOT_FOUND'), 404);
+					throw new Exception(Text::_('COM_SDAJEM_ERROR_EVENT_NOT_FOUND'), 404);
 				}
 
 				if($data->svg)
 					$data->svg = (array) json_decode($data->svg);
 				else
 					$data->svg = array();
-				$this->_item[$pk] = $data;
+				$this->_item = Event::createFromObject($data);
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
-				$this->setError($e);
-				$this->_item[$pk] = false;
+				$app->enqueueMessage($e->getMessage(),'error');
+				$this->_item = new Event();
 			}
 		}
 
-		return $this->_item[$pk];
+		return $this->_item;
 	}
 
 	/**
-	 * Method to auto-populate the model state.
+	 * Method to autopopulate the model state.
 	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
 	 * @return  void
+	 *
+	 * @throws Exception
 	 *
 	 * @since   1.0.0
 	 */

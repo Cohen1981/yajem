@@ -1,4 +1,12 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -9,15 +17,17 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-\defined('_JEXEC') or die();
-
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use Joomla\CMS\Component\ComponentHelper;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since       1.0.1
@@ -55,6 +65,7 @@ class EventsModel extends ListModel
 	 *
 	 * @return  QueryInterface
 	 *
+	 * @throws \Exception
 	 * @since   1.0.0
 	 */
 	protected function getListQuery()
@@ -77,8 +88,6 @@ class EventsModel extends ListModel
 					$db->quoteName('a.created'),
 					$db->quoteName('a.created_by'),
 					$db->quoteName('a.created_by_alias'),
-					$db->quoteName('a.checked_out'),
-					$db->quoteName('a.checked_out_time'),
 					$db->quoteName('a.published'),
 					$db->quoteName('a.publish_up'),
 					$db->quoteName('a.publish_down'),

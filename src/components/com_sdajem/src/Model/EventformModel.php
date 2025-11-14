@@ -1,4 +1,14 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -9,16 +19,20 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-\defined('_JEXEC') or die;
-
 use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
-use Joomla\Utilities\ArrayHelper;
+use RuntimeException;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventModel
 {
@@ -36,22 +50,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $formName = 'form';
-	/**
-	 * Method to get the row form.
-	 *
-	 * @param   array    $data      Data for the form.
-	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
-	 *
-	 * @return  \JForm|boolean  A \JForm object on success, false on failure
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function getForm($data = [], $loadData = true)
-	{
-		$form = parent::getForm($data, $loadData);
 
-		return $form;
-	}
 	/**
 	 * Method to get event data.
 	 *
@@ -63,7 +62,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getItem($itemId = null)
+	public function getItem($itemId = null):Event
 	{
 		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('event.id');
 		// Get a row instance.
@@ -77,9 +76,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 			Factory::getApplication()->enqueueMessage($e->getMessage());
 			return false;
 		}
-		$properties = $table->getProperties();
-
-		return ArrayHelper::toObject($properties, \stdClass::class);
+		 return Event::createFromObject($table);
 	}
 	/**
 	 * Get the return URL.
@@ -131,6 +128,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 		$this->setState('params', $params);
 		$this->setState('layout', $app->input->getString('layout'));
 	}
+
 	/**
 	 * Allows preprocessing of the JForm object.
 	 *
@@ -140,6 +138,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	 *
 	 * @return Form|void
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function preprocessForm(Form $form, $data, $group = 'event')
@@ -148,7 +147,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 			$form->setFieldAttribute('language', 'type', 'hidden');
 			$form->setFieldAttribute('language', 'default', '*');
 		}
-		return parent::preprocessForm($form, $data, $group);
+		parent::preprocessForm($form, $data, $group);
 	}
 	/**
 	 * Method to get a table object, load it if necessary.
@@ -160,7 +159,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	 * @return  Table  A Table object
 	 *
 	 * @since   __DEPLOY_VERSION__
-	 * @throws  \Exception
+	 * @throws  Exception
 	 */
 	public function getTable($name = 'Event', $prefix = 'Administrator', $options = [])
 	{
@@ -181,7 +180,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 			$db->setQuery($query);
 			try {
 				$db->execute();
-			} catch (\RuntimeException $e) {
+			} catch (RuntimeException $e) {
 				Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 
 				return false;
@@ -212,7 +211,7 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 			$db->setQuery($query);
 			try {
 				$db->execute();
-			} catch (\RuntimeException $e) {
+			} catch (RuntimeException $e) {
 				Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 
 				return false;

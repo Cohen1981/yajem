@@ -1,4 +1,8 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -9,13 +13,15 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use function defined;
+
+defined('_JEXEC') or die;
 
 /**
  * Event model for the Joomla Events component.
@@ -46,19 +52,21 @@ class AttendingModel extends BaseDatabaseModel
 	 * @since 1.0.0
 	 */
 	protected $_item = null;
+
 	/**
 	 * Gets a event
 	 *
-	 * @param   integer  $pk  Id for the event
+	 * @param   null  $pk  Id for the event
 	 *
 	 * @return  mixed Object or null
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
 	{
 		$app = Factory::getApplication();
-		$pk  = ($pk) ? $pk : $app->input->getInt('id');
+		$pk  = ($pk) ?: $app->input->getInt('id');
 
 		if ($this->_item === null)
 		{
@@ -96,7 +104,7 @@ class AttendingModel extends BaseDatabaseModel
 
 				if (empty($data))
 				{
-					throw new \Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
+					throw new Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
 				}
 
 				if (isset($data->fittings)) {
@@ -105,9 +113,9 @@ class AttendingModel extends BaseDatabaseModel
 
 				$this->_item[$pk] = $data;
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
-				$this->setError($e);
+				$app->enqueueMessage($e->getMessage(),'error');
 				$this->_item[$pk] = false;
 			}
 		}
@@ -123,6 +131,7 @@ class AttendingModel extends BaseDatabaseModel
 	 *
 	 * @return  void
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function populateState()

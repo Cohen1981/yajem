@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -9,7 +10,7 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-\defined('_JEXEC') or die();
+defined('_JEXEC') or die();
 
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
@@ -63,8 +64,6 @@ class LocationsModel extends ListModel
 					$db->quoteName('a.created'),
 					$db->quoteName('a.created_by'),
 					$db->quoteName('a.created_by_alias'),
-					$db->quoteName('a.checked_out'),
-					$db->quoteName('a.checked_out_time'),
 					$db->quoteName('a.published'),
 					$db->quoteName('a.publish_up'),
 					$db->quoteName('a.publish_down'),

@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Table
  * @subpackage
@@ -9,14 +10,18 @@
 
 namespace Sda\Component\Sdajem\Administrator\Table;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since      1.0.0
@@ -26,9 +31,6 @@ use Joomla\Registry\Registry;
  * @property  int       id
  * @property  int       $access
  * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
  * @property  int       state
  * @property  int       ordering
  * @property  int       event_id
@@ -73,8 +75,9 @@ class AttendingTable extends Table
 	{
 		try {
 			parent::check();
-		} catch (\Exception $e) {
-			$this->setError($e->getMessage());
+		} catch (Exception $e) {
+			$app = Factory::getApplication();
+			$app->enqueueMessage($e->getMessage(),'error');
 			return false;
 		}
 

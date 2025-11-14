@@ -1,7 +1,10 @@
 <?php
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
+ * @copyright   Survivants d'Acre
+ * @license     GNU General Public License version 2 or later;
  *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
@@ -9,12 +12,19 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
+use Exception;
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use function defined;
 
-class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
+class FittingsModel extends ListModel
 {
 	public function __construct($config = array())
 	{
@@ -36,7 +46,7 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 	 *
 	 * @since   1.0.0
 	 */
-	protected function getListQuery()
+	protected function getListQuery():QueryInterface
 	{
 		// Create a new query object.
 		$db = $this->getDatabase();
@@ -50,11 +60,6 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 					$db->quoteName('a.id'),
 					$db->quoteName('a.access'),
 					$db->quoteName('a.alias'),
-					$db->quoteName('a.created_by'),
-					$db->quoteName('a.created_by_alias'),
-					$db->quoteName('a.published'),
-					$db->quoteName('a.publish_up'),
-					$db->quoteName('a.publish_down'),
 					$db->quoteName('a.state'),
 					$db->quoteName('a.ordering'),
 					$db->quoteName('a.title'),
@@ -104,8 +109,16 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 		return $query;
 	}
 
-	public function getFittingsForUser($userId = null) {
-		$userId = ($userId) ? $userId : Factory::getApplication()->getIdentity()->id;
+	/**
+	 * @param $userId
+	 *
+	 * @return mixed
+	 * @throws Exception
+	 * @since
+	 */
+	public function getFittingsForUser($userId = null):mixed
+	{
+		$userId = !$userId ? Factory::getApplication()->getIdentity()->id : $userId;
 
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
@@ -133,18 +146,19 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 		$query->bind(':userId', $userId);
 
 		$db->setQuery($query);
-		$data = $db->loadObjectList();
 
-		return $data;
+		return $db->loadObjectList();
 	}
 
 	/**
-	 * Get all fittings for given event
+	 * Get all fittings for a given event
 	 *
 	 * @param   int  $eventId
+	 * @return  array|null
 	 * @since   1.1.4
 	 */
-	public function getFittingsForEvent(int $eventId) {
+	public function getFittingsForEvent(int $eventId):?array
+	{
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
 
@@ -159,10 +173,12 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 
 		$pks = array();
 		foreach ($fittings as $i => $value) {
-			$ids = json_decode($value, true);
-			if (is_array($ids))
-			{
-				$pks = array_merge($pks, $ids);
+			if (!empty($value)) {
+				$ids = json_decode($value, true);
+				if (is_array($ids))
+				{
+					$pks = array_merge($pks, $ids);
+				}
 			}
 		}
 
@@ -198,7 +214,7 @@ class FittingsModel extends \Joomla\CMS\MVC\Model\ListModel
 			$db->setQuery($query);
 			$data = $db->loadObjectList();
 		} else {
-			$data = array();
+			$data = null;
 		}
 		return $data;
 	}

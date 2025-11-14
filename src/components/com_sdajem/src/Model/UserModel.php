@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -16,28 +17,28 @@ use Joomla\CMS\User\User;
 use Joomla\CMS\User\UserFactoryInterface;
 use Joomla\CMS\User\UserHelper;
 use Joomla\Component\Fields\Administrator\Helper\FieldsHelper;
-use Joomla\Component\Users\Site\Model\ProfileModel;
 
 /**
  * @since       1.0.0
  * @package     Sda\Component\Sdajem\Site\Model
- *
- * @property int            id
- * @property User           user
- * @property ProfileModel   profile
- * @property array          userData
- */
+*/
 class UserModel
 {
-	public function __construct(int $userId)
+	protected ?int $id = null;
+	public ?array $userData = [];
+	public ?array $profile = [];
+	public ?User $user = null;
+
+	public function __construct(int $userId = null)
 	{
 		if (isset($userId)) {
 			$this->user = Factory::getContainer()->get(UserFactoryInterface::class)->loadUserById($userId);
 
-			$this->profile = UserHelper::getProfile($userId)->get('profile');
+			if (!empty(UserHelper::getProfile($userId)->profile))
+				$this->profile = UserHelper::getProfile($userId)->profile;
 
 			$userdata = FieldsHelper::getFields('com_users.user', $this->user, true);
-			$tmp          = isset($userdata) ? $userdata : array();
+			$tmp          = $userdata ?? array();
 			$customFields = array();
 
 			foreach ($tmp as $customField)

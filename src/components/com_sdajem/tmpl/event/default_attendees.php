@@ -1,4 +1,13 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -9,7 +18,6 @@
 
 defined('_JEXEC') or die();
 
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
@@ -17,18 +25,18 @@ use Joomla\CMS\Language\Text;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
-use Sda\Component\Sdajem\Site\Model\EventModel;
+use Sda\Component\Sdajem\Site\View\Event\HtmlView;
 
-/* @var \Joomla\CMS\WebAsset\WebAssetManager $wa*/
-$wa=$this->document->getWebAssetManager();
+/** @var HtmlView $this */
+
+$wa=$this->getDocument()->getWebAssetManager();
 $wa->getRegistry()->addExtensionRegistryFile('com_sdajem');
 $wa->registerAndUseScript('com_sdajem.checkbox', 'com_sdajem/checkbox.js');
 
 $canDo   = ContentHelper::getActions('com_sdajem', 'category', $this->item->catid);
 $user = Factory::getApplication()->getIdentity();
-$tparams = $this->item->params;
+$tparams = $this->item->paramsRegistry;
 
-/* @var EventModel $event */
 $event = $this->item;
 
 if (isset($event->registerUntil))
@@ -41,13 +49,13 @@ if (isset($event->registerUntil))
 <div id="attendings" class="sda_row">
             <h5><?php echo Text::_('COM_SDAJEM_ATTENDESS'); ?></h5>
 <div class="sda_row">
-	<?php if (isset($event->interests)) : ?>
+	<?php if (isset($this->interests)) : ?>
 		<?php if ($event->eventStatus != EventStatusEnum::PLANING->value ||
 			$canDo->get('core.manage') ||
 			($canDo->get('core.edit.own') && $event->created_by == $user->id)
 		) : ?>
 			<div class="sda_attendee_container">
-				<?php foreach ($event->interests as $i => $attending) : ?>
+				<?php foreach ($this->interests as $i => $attending) : ?>
 					<?php if ($tparams->get('sda_avatar_field_name') && $tparams->get('sda_use_avatar')): ?>
 						<?php EventHtmlHelper::renderAttendee(new EventAttendeeModel($attending), $tparams->get('sda_avatar_field_name')); ?>
 					<?php else: ?>
@@ -61,7 +69,7 @@ if (isset($event->registerUntil))
 <?php if($canRegister) :?>
     <div class="sda_row">
         <?= HTMLHelper::_('form.token'); ?>
-        <?php echo HTMLHelper::_('sdajemIcon.register', $event, $tparams); ?>
+        <?php echo HTMLHelper::_('sdajemIcon.register', $event, $this->userFittings, $tparams); ?>
     </div>
 <?php endif; ?>
 </div>

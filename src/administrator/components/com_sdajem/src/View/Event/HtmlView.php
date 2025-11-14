@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /** * @package     Sda\Component\Sdajem\Administrator\View\Events
  * @subpackage
  *
@@ -10,7 +13,9 @@ namespace Sda\Component\Sdajem\Administrator\View\Event;
 
 defined('_JEXEC') or die();
 
+use Exception;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
@@ -22,24 +27,24 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * The \JForm object
 	 *
-	 * @var  \JForm
+	 * @var  Form
 	 * @since 1.0.0
 	 */
 	protected mixed $form;
 	/**
 	 * The active item
 	 *
-	 * @var  object
+	 * @var  \stdClass
 	 */
-	protected object $item;
+	protected \stdClass $item;
 
 	/**
 	 * Display the view.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise an Error object.
-	 * @throws \Exception
+	 * @throws Exception
+	 * @since   1.0.0
 	 */
 	public function display($tpl = null)
 	{
@@ -49,13 +54,15 @@ class HtmlView extends BaseHtmlView
 		$this->item = $model->getItem();
 
 		$this->addToolbar();
-		return parent::display($tpl);
+		parent::display($tpl);
 	}
+
 	/**
 	 * Add the page title and toolbar.
 	 *
 	 * @return  void
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function addToolbar()

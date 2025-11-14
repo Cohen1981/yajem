@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -9,8 +10,15 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
+use Joomla\CMS\MVC\Model\AdminModel;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since       1.1.1
@@ -25,7 +33,7 @@ use Joomla\CMS\Form\Form;
  * @property int    needSpace
  * @property string image
  */
-class FittingModel extends \Joomla\CMS\MVC\Model\AdminModel
+class FittingModel extends AdminModel
 {
 
 	/**
@@ -51,7 +59,7 @@ class FittingModel extends \Joomla\CMS\MVC\Model\AdminModel
 		{
 			$form = $this->loadForm($this->typeAlias, 'fitting', ['control' => 'jform', 'load_data' => $loadData]);
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			return false;
 		}
@@ -66,6 +74,7 @@ class FittingModel extends \Joomla\CMS\MVC\Model\AdminModel
 	 *
 	 * @return  mixed  The data for the form.
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function loadFormData()

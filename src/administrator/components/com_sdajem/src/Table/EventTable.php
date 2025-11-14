@@ -1,4 +1,8 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Table
  * @subpackage
@@ -9,8 +13,7 @@
 
 namespace Sda\Component\Sdajem\Administrator\Table;
 
-\defined('_JEXEC') or die;
-
+use Exception;
 use Joomla\CMS\Application\ApplicationHelper;
 use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
@@ -19,39 +22,16 @@ use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since      1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Table
  *
- * @property  int       id
- * @property  int       $access
- * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
- * @property  int       checked_out
- * @property  Date      checked_out_time
- * @property  int       published
- * @property  Date      publish_up
- * @property  Date      publish_down
- * @property  int       state
- * @property  int       ordering
- * @property  string    language
- * @property  string    title
- * @property  string    description
- * @property  string    url
- * @property  string    image
- * @property  int       sdajem_location_id fk to locations table
- * @property  int       hostId
- * @property  int       organizerId
- * @property  Date      startDateTime
- * @property  Date      endDateTime
- * @property  int       allDayEvent
- * @property  int       eventStatus
- * @property  int       catid
- * @property  string    svg
- * @property  Date      registerUntil
  */
 class EventTable extends Table
 {
@@ -76,7 +56,7 @@ class EventTable extends Table
 	 *
 	 * @since   1.0.0
 	 */
-	public function generateAlias()
+	public function generateAlias():string
 	{
 		if (empty($this->alias)) {
 			$this->alias = $this->title;
@@ -90,15 +70,17 @@ class EventTable extends Table
 
 	public function check()
 	{
+		$app = Factory::getApplication();
+
 		try {
 			parent::check();
-		} catch (\Exception $e) {
-			$this->setError($e->getMessage());
+		} catch (Exception $e) {
+			$app->enqueueMessage($e->getMessage(),'error');;
 			return false;
 		}
 		// Check the publish down date is not earlier than publish up.
-		if ($this->publish_down > $this->_db->getNullDate() && $this->publish_down < $this->publish_up) {
-			$this->setError(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'));
+		if ($this->publish_down > $this->getDatabase()->getNullDate() && $this->publish_down < $this->publish_up) {
+			$app->enqueueMessage(Text::_('JGLOBAL_START_PUBLISH_AFTER_FINISH'),'warning');
 			return false;
 		}
 		if (!$this->created_by) {
@@ -109,7 +91,7 @@ class EventTable extends Table
 		}
 		// Set publish_up, publish_down to null if not set
 		if (!$this->publish_up) {
-			$this->publish_up = null;
+			$this->publish_up = Date::getInstance()->toSql();
 		}
 		if (!$this->publish_down) {
 			$this->publish_down = null;
@@ -133,10 +115,7 @@ class EventTable extends Table
 		if (!$this->registerUntil) {
 			$this->registerUntil = null;
 		}
-		//if (!$this->checked_out) {
-		$this->checked_out = null;
-		$this->checked_out_time = null;
-		//}
+
 		return true;
 	}
 

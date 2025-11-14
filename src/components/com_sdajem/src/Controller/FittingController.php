@@ -1,4 +1,10 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Controller
  * @subpackage
@@ -9,17 +15,22 @@
 
 namespace Sda\Component\Sdajem\Site\Controller;
 
+use Exception;
 use Joomla\CMS\Factory;
+use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
 use Sda\Component\Sdajem\Site\Model\AttendingformModel;
-use Sda\Component\Sdajem\Site\Model\AttendingModel;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 use Sda\Component\Sdajem\Site\Model\FittingformModel;
-use Sda\Component\Sdajem\Site\Model\FittingsModel;
+use function defined;
 
-class FittingController extends \Joomla\CMS\MVC\Controller\FormController
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
+class FittingController extends FormController
 {
 	/**
 	 * The URL view item variable.
@@ -35,7 +46,7 @@ class FittingController extends \Joomla\CMS\MVC\Controller\FormController
 	 * @param   string  $prefix  The class prefix. Optional.
 	 * @param   array   $config  Configuration array for model. Optional.
 	 *
-	 * @return  \Joomla\CMS\MVC\Model\BaseDatabaseModel  The model.
+	 * @return  BaseDatabaseModel  The model.
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -104,7 +115,7 @@ class FittingController extends \Joomla\CMS\MVC\Controller\FormController
 			}
 
 			// Grant if current user is owner of the record
-			return $user->get('id') == $record->user_id;
+			return $user->id == $record->user_id;
 		}
 
 		return false;
@@ -168,7 +179,7 @@ class FittingController extends \Joomla\CMS\MVC\Controller\FormController
 	 * @param   BaseDatabaseModel  $model
 	 * @param   array              $validData
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since   1.1.5
 	 */
 	protected function postSaveHook(BaseDatabaseModel $model, $validData = [])
@@ -205,7 +216,7 @@ class FittingController extends \Joomla\CMS\MVC\Controller\FormController
 	/**
 	 * Delete fitting after checking all attendings and deleting the fitting there
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 *
 	 * @since  1.1.5
 	 */
@@ -232,7 +243,7 @@ class FittingController extends \Joomla\CMS\MVC\Controller\FormController
 						{
 							$afM->save($attArray);
 						}
-						catch (\Exception $e)
+						catch (Exception $e)
 						{
 						}
 					}

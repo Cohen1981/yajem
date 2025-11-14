@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -9,13 +10,16 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-\defined('_JEXEC') or die;
-
-use Joomla\CMS\Date\Date;
+use DateTime;
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * Event model for the Joomla Events component.
@@ -27,7 +31,7 @@ use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
  * @property  int       users_user_id
  * @property  int       sdajem_event_id
  * @property  string    comment
- * @property  \DateTime timestamp
+ * @property  DateTime timestamp
  * @property  string    commentReadBy
  */
 
@@ -38,13 +42,15 @@ class CommentModel extends BaseDatabaseModel
 	 * @since 1.0.0
 	 */
 	protected $_item = null;
+
 	/**
 	 * Gets a event
 	 *
-	 * @param   integer  $pk  Id for the event
+	 * @param   null  $pk  Id for the event
 	 *
 	 * @return  mixed Object or null
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
@@ -88,14 +94,14 @@ class CommentModel extends BaseDatabaseModel
 
 				if (empty($data))
 				{
-					throw new \Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
+					throw new Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
 				}
 
 				$this->_item[$pk] = $data;
 			}
-			catch (\Exception $e)
+			catch (Exception $e)
 			{
-				$this->setError($e);
+				$app->enqueueMessage($e->getMessage(),'error');
 				$this->_item[$pk] = false;
 			}
 		}
@@ -110,6 +116,7 @@ class CommentModel extends BaseDatabaseModel
 	 *
 	 * @return  void
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function populateState()

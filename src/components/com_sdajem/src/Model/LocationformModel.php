@@ -1,4 +1,12 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -9,14 +17,14 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Table\Table;
-use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Site\Model\Item\Location;
 
 class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\LocationModel
 {
@@ -40,7 +48,7 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 	 * @param   array    $data      Data for the form.
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return  \JForm|boolean  A \JForm object on success, false on failure
+	 * @return  Form|boolean  A \JForm object on success, false on failure
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -77,7 +85,9 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 		}
 		$properties = $table->getProperties();
 
-		return ArrayHelper::toObject($properties, \stdClass::class);
+		//return ArrayHelper::toObject($properties, stdClass::class);
+		return Location::createFromArray($properties);
+		//return $table;
 	}
 	/**
 	 * Get the return URL.
@@ -129,6 +139,7 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 		$this->setState('params', $params);
 		$this->setState('layout', $app->input->getString('layout'));
 	}
+
 	/**
 	 * Allows preprocessing of the JForm object.
 	 *
@@ -136,8 +147,9 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 	 * @param   array   $data   The data to be merged into the form object
 	 * @param   string  $group  The plugin group to be executed
 	 *
-	 * @return Form|void
+	 * @return void
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function preprocessForm(Form $form, $data, $group = 'location')
@@ -146,7 +158,7 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 			$form->setFieldAttribute('language', 'type', 'hidden');
 			$form->setFieldAttribute('language', 'default', '*');
 		}
-		return parent::preprocessForm($form, $data, $group);
+		parent::preprocessForm($form, $data, $group);
 	}
 	/**
 	 * Method to get a table object, load it if necessary.
@@ -158,7 +170,7 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 	 * @return  Table  A Table object
 	 *
 	 * @since   __DEPLOY_VERSION__
-	 * @throws  \Exception
+	 * @throws  Exception
 	 */
 	public function getTable($name = 'Location', $prefix = 'Administrator', $options = [])
 	{

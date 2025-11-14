@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Controller
  * @subpackage
@@ -9,7 +10,14 @@
 
 namespace Sda\Component\Sdajem\Administrator\Controller;
 
-class FittingtypeController extends \Joomla\CMS\MVC\Controller\FormController
+use Joomla\CMS\MVC\Controller\FormController;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
+
+class FittingtypeController extends FormController
 {
 
 }

@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Controller
  * @subpackage
@@ -11,6 +12,7 @@ namespace Sda\Component\Sdajem\Administrator\Controller;
 
 defined('_JEXEC') or die();
 
+use Exception;
 use Joomla\CMS\MVC\Controller\BaseController;
 
 class DisplayController extends BaseController
@@ -32,7 +34,7 @@ class DisplayController extends BaseController
 	 *
 	 * @since   1.0.0
 	 *
-	 * @throws  \Exception
+	 * @throws  Exception
 	 */
 	public function display($cachable = false, $urlparams = [])
 	{

@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_sdajem
@@ -7,13 +8,14 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
+use Sda\Component\Sdajem\Administrator\Model\Items\LocationsItemModel;
 
 $wa = $this->document->getWebAssetManager();
 $wa->useScript('table.columns');
@@ -26,7 +28,7 @@ if ($saveOrder && !empty($this->items)) {
 	$saveOrderingUrl = 'index.php?option=com_sdajem&task=locations.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 }
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\Items\LocationsItemModel $item */
+/* @var LocationsItemModel $item */
 ?>
 <form action="<?php echo Route::_('index.php?option=com_sdajem&view=locations'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">

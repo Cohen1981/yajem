@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model
  * @subpackage
@@ -9,28 +12,21 @@
 
 namespace Sda\Component\Sdajem\Administrator\Model;
 
-\defined('_JEXEC') or die;
-
-use Joomla\CMS\Date\Date;
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Sda\Component\Sdajem\Administrator\Table\EventTable;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since       1.0.0
  * @package     Sda\Component\Sdajem\Administrator\Model
  *
- * @property  int       id
- * @property  string    title
- * @property  string    alias
- * @property  string    description
- * @property  string    url
- * @property  int       catid
- * @property  Date      startDateTime
- * @property  Date      endDateTime
- * @property  int       allDayEvent
- * @property  string    language
- * @property  int       eventStatus
  */
 class EventModel extends AdminModel
 {
@@ -50,14 +46,14 @@ class EventModel extends AdminModel
 	 *
 	 * @since 1.0.0
 	 */
-	public function getForm($data = array(), $loadData = true)
+	public function getForm($data = array(), $loadData = true):Form|false
 	{
 		// Get the form.
 		try
 		{
 			$form = $this->loadForm($this->typeAlias, 'event', ['control' => 'jform', 'load_data' => $loadData]);
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			return false;
 		}
@@ -72,6 +68,7 @@ class EventModel extends AdminModel
 	 *
 	 * @return  mixed  The data for the form.
 	 *
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function loadFormData()
@@ -114,7 +111,7 @@ class EventModel extends AdminModel
 	/**
 	 * Prepare and sanitise the table prior to saving.
 	 *
-	 * @param   \Sda\Component\Sdajem\Administrator\Table\EventTable  $table  The Table object
+	 * @param   EventTable  $table  The Table object
 	 *
 	 * @return  void
 	 *
@@ -122,6 +119,7 @@ class EventModel extends AdminModel
 	 */
 	protected function prepareTable($table)
 	{
+		$table->check();
 		$table->generateAlias();
 	}
 }

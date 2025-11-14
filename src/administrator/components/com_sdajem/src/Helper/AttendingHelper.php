@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Helper
  * @subpackage
@@ -9,10 +12,12 @@
 
 namespace Sda\Component\Sdajem\Administrator\Helper;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use stdClass;
 
 abstract class AttendingHelper
 {
@@ -40,12 +45,12 @@ abstract class AttendingHelper
 
 			if (empty($data))
 			{
-				throw new \Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
+				throw new Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
 			}
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
-			$data = new \stdClass();
+			$data = new stdClass();
 			$data->status = IntAttStatusEnum::NA->value;
 		}
 

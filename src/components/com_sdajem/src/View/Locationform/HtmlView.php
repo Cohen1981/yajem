@@ -1,4 +1,10 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
@@ -9,15 +15,21 @@
 
 namespace Sda\Component\Sdajem\Site\View\Locationform;
 
-\defined('_JEXEC') or die;
-
 use Exception;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
+use Sda\Component\Sdajem\Site\Model\Item\Location;
 use Sda\Component\Sdajem\Site\Model\LocationformModel;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * HTML Location View class
@@ -27,35 +39,36 @@ use Sda\Component\Sdajem\Site\Model\LocationformModel;
 class HtmlView extends BaseHtmlView
 {
 	/**
-	 * @var    \Joomla\CMS\Form\Form
+	 * @var    Form
 	 * @since  __DEPLOY_VERSION__
 	 */
-	protected $form;
+	public Form$form;
 	/**
-	 * @var    object
+	 * @var    Location
 	 * @since  __DEPLOY_VERSION__
 	 */
-	protected $item;
+	public Location $item;
 	/**
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
 	 */
-	protected $return_page;
+	public $return_page;
 	/**
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $pageclass_sfx;
 	/**
-	 * @var    \Joomla\Registry\Registry
+	 * @var    Registry
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $state;
 	/**
-	 * @var    \Joomla\Registry\Registry
+	 * @var    Registry
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $params;
+
 	/**
 	 * Execute and display a template script.
 	 *
@@ -85,15 +98,13 @@ class HtmlView extends BaseHtmlView
 		if ($authorised !== true) {
 			$app->redirect('index.php?option=com_users&view=login');
 		}
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			$app->enqueueMessage(implode("\n", $errors), 'error');
-			return false;
-		}
 		// Create a shortcut to the parameters.
 		$this->params = $this->state->params;
 		// Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		if ($this->params->get('pageclass_sfx'))
+		{
+			$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		}
 		// Override global params with location specific params
 		#$this->params->merge($this->item->params);
 		// Propose current language as default when creating new location

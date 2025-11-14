@@ -1,4 +1,9 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
@@ -9,15 +14,21 @@
 
 namespace Sda\Component\Sdajem\Site\View\Eventform;
 
-\defined('_JEXEC') or die;
-
 use Exception;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
+use Joomla\Registry\Registry;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
 use Sda\Component\Sdajem\Site\Model\EventformModel;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * HTML Event View class for the Event component
@@ -27,15 +38,12 @@ use Sda\Component\Sdajem\Site\Model\EventformModel;
 class HtmlView extends BaseHtmlView
 {
 	/**
-	 * @var    \Joomla\CMS\Form\Form
+	 * @var    Form
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $form;
-	/**
-	 * @var    mixed | object
-	 * @since  __DEPLOY_VERSION__
-	 */
-	protected $item;
+
+	protected Event $item;
 	/**
 	 * @var    string
 	 * @since  __DEPLOY_VERSION__
@@ -47,12 +55,12 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected $pageclass_sfx;
 	/**
-	 * @var    \Joomla\Registry\Registry
+	 * @var    Registry
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $state;
 	/**
-	 * @var    \Joomla\Registry\Registry
+	 * @var    Registry
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $params;
@@ -85,20 +93,19 @@ class HtmlView extends BaseHtmlView
 		if ($authorised !== true) {
 			$app->redirect('index.php?option=com_users&view=login');
 		}
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			$app->enqueueMessage(implode("\n", $errors), 'error');
-			return false;
-		}
+
 		// Create a shortcut to the parameters.
 		$this->params = $this->state->params;
 		// Escape strings for HTML output
-		$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		if ($this->params->get('pageclass_sfx'))
+		{
+			$this->pageclass_sfx = htmlspecialchars($this->params->get('pageclass_sfx'));
+		}
 		// Override global params with event specific params
 		#$this->params->merge($this->item->params);
 		// Propose current language as default when creating new event
 		if (empty($this->item->id) && Multilanguage::isEnabled()) {
-			$lang = Factory::getLanguage()->getTag();
+			$lang = Factory::getApplication()->getLanguage()->getTag();
 			$this->form->setFieldAttribute('language', 'default', $lang);
 		}
 
@@ -121,7 +128,6 @@ class HtmlView extends BaseHtmlView
 	{
 		$app   = Factory::getApplication();
 		$menus = $app->getMenu();
-		$title = null;
 		// Because the application sets a default page title,
 		// we need to get it from the menu item itself
 		$menu = $menus->getActive();

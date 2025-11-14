@@ -1,4 +1,8 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -11,6 +15,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Sda\Component\Sdajem\Site\Model\LocationModel;
 use Sda\Component\Sdajem\Site\Model\UserModel;
 
 defined('_JEXEC') or die();
@@ -29,7 +34,7 @@ catch (Exception $e)
 }
 $params = $this->item->params;
 
-/* @var \Sda\Component\Sdajem\Site\Model\LocationModel $item */
+/* @var LocationModel $item */
 $item = $this->item;
 
 if ($item->latlng)
@@ -45,7 +50,6 @@ $uAdressString = null;
 
 if (!$user->guest)
 {
-	/** @var UserModel $userModel */
 	$userModel = new UserModel($user->id);
 
 	$uAdressString = urlencode($userModel->profile['address1']) . "+" .

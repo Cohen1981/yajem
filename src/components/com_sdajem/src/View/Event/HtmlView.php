@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
@@ -12,6 +13,11 @@ namespace Sda\Component\Sdajem\Site\View\Event;
 defined('_JEXEC') or die();
 
 use Exception;
+use Joomla\CMS\Document\Document;
+use Joomla\CMS\Event\Content\AfterDisplayEvent;
+use Joomla\CMS\Event\Content\AfterTitleEvent;
+use Joomla\CMS\Event\Content\BeforeDisplayEvent;
+use Joomla\CMS\Event\Content\ContentPrepareEvent;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
@@ -19,6 +25,8 @@ use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
 use Joomla\Component\Contact\Site\Model\ContactModel;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Model\FittingsModel;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
+use Sda\Component\Sdajem\Site\Model\Item\Location;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 use Sda\Component\Sdajem\Site\Model\CommentsModel;
@@ -50,20 +58,20 @@ class HtmlView extends BaseHtmlView
 	 */
 	protected Registry $state;
 
-	/**
-	 * The item object details
-	 *
-	 * @var    stdClass
-	 * @since  1.0.0
-	 */
-	protected stdClass $item;
+	public ?Event $item;
+	public ?Location $location;
+	public ?SdaUserModel $organizer;
+	public ?ContactModel $host;
+	public ?array $interests = [];
+	public ?array $userFittings = [];
+	public ?array $eventFittings =[];
+	public ?array $comments;
 
 	/**
 	 * Execute and display a template script.
 	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
-	 * @return  mixed  A string if successful, otherwise an Error object.
 	 * @throws Exception
 	 * @since 1.0.0
 	 */
@@ -71,6 +79,7 @@ class HtmlView extends BaseHtmlView
 	{
 		/* @var EventModel $model */
 		$model = $this->getModel();
+
 		$item = $this->item = $model->getItem();
 
 		$state = $this->state = $model->getState();
@@ -88,11 +97,11 @@ class HtmlView extends BaseHtmlView
 
 		// Merge so that foo params take priority
 		$temp->merge($itemparams);
-		$item->params = $temp;
+		$item->paramsRegistry = $temp;
 
 		if (isset($item->organizerId))
 		{
-			$item->organizer = new SdaUserModel($item->organizerId);
+			$this->organizer = new SdaUserModel($item->organizerId);
 		}
 
 		if (isset($item->hostId))
@@ -100,59 +109,46 @@ class HtmlView extends BaseHtmlView
 			/** @var ContactComponent $contactComponent */
 			$contactComponent = Factory::getApplication()->bootComponent('com_contact');
 
-			/** @var ContactModel $contactModel */
 			$contactModel = $contactComponent->getMVCFactory()
 				->createModel('Contact', 'Administrator', ['ignore_request' => true]);
 
 			$temp = $contactModel->getItem($item->hostId);
 			$temp->slug = $temp->alias ? ($temp->id . ':' . $temp->alias) : $temp->id;
-			$item->host = $temp;
+			$this->host = $temp;
 
 		}
 
-		if($item->params->get('sda_events_use_comments')) {
-			$commentsModel = new CommentsModel();
-			$item->comments = $commentsModel->getCommentsToEvent($item->id);
+		if($item->paramsRegistry->get('sda_events_use_comments')) {
+			$this->setModel(new CommentsModel());
+			$this->comments = $this->getModel('comments')->getCommentsToEvent($item->id);
 		}
 
-		if($item->params->get('sda_use_attending')) {
+		if($item->paramsRegistry->get('sda_use_attending')) {
 			if($item->eventStatus == EventStatusEnum::PLANING->value)
 			{
-				/* @var InterestsModel $interests */
-				$interests  = new InterestsModel();
-				$interested = $interests->getInterestsToEvent($item->id);
+				$this->setModel(new InterestsModel());
+				$interested = $this->getModel('interests')->getInterestsToEvent($item->id);
 				if ($interested)
 				{
-					$item->interests = $interested;
+					$this->interests = $interested;
 				}
 			} else
 			{
-				/* @var AttendingsModel $interests */
-				$interests = new AttendingsModel();
-				$attendees = $interests->getAttendingsToEvent($item->id);
-				if ($attendees)
-				{
-					$item->interests = $attendees;
-				}
+				$this->setModel(new AttendingsModel());
+				$this->interests = $this->getModel('attendings')->getAttendingsToEvent($item->id);
 
-				if($item->params->get('sda_events_use_fittings'))
+				if($item->paramsRegistry->get('sda_events_use_fittings'))
 				{
-					$fittingsModel = new FittingsModel();
-					$fittings      = $fittingsModel->getFittingsForUser();
-					if ($fittings)
-					{
-						$item->fittings = $fittings;
-					}
-
-					$eventFittings = $fittingsModel->getFittingsForEvent($item->id);
-					$item->eventFittings = ($eventFittings) ? $eventFittings : false;
+					$this->setModel(new FittingsModel());
+					$this->userFittings = $this->getModel('fittings')->getFittingsForUser();
+					$this->eventFittings = $this->getModel('fittings')->getFittingsForEvent($item->id);
 				}
 			}
 		}
 
 		if (isset($item->sdajem_location_id)) {
-			$locationModel = new LocationModel();
-			$item->location = $locationModel->getItem($item->sdajem_location_id);
+			$this->setModel(new LocationModel());
+			$this->location = $this->getModel('location')->getItem($item->sdajem_location_id);
 		}
 
 		$active = Factory::getApplication()->getMenu()->getActive();
@@ -160,7 +156,7 @@ class HtmlView extends BaseHtmlView
 		// Override the layout only if this is not the active menu item
 		// If it is the active menu item, then the view and item id will match
 		if ((!$active) || ((strpos($active->link, 'view=event') === false) || (strpos($active->link, '&id=' . (string) $this->item->id) === false))) {
-			if (($layout = $item->params->get('events_layout'))) {
+			if (($layout = $item->paramsRegistry->get('events_layout'))) {
 				$this->setLayout($layout);
 			}
 		} else if (isset($active->query['layout'])) {
@@ -168,21 +164,37 @@ class HtmlView extends BaseHtmlView
 			$this->setLayout($active->query['layout']);
 		}
 
-		Factory::getApplication()->triggerEvent('onContentPrepare', ['com_sdajem.event', &$item, &$item->params]);
+		$contentEventArguments = [
+			'context' => 'com_sdajem.event',
+			'subject' => &$item,
+			'params'  => &$item->paramsRegistry
+		];
+
+		$dispatcher = $this->getDispatcher();
+		$dispatcher->dispatch('onContentPrepare', new ContentPrepareEvent('onContentPrepare', $contentEventArguments));
 
 		// Store the events for later
 		$item->event = new stdClass;
-		$results = Factory::getApplication()->triggerEvent('onContentAfterTitle', ['com_sdajem.event', &$item, &$item->params]);
-		$item->event->afterDisplayTitle = trim(implode("\n", $results));
 
-		$results = Factory::getApplication()->triggerEvent('onContentBeforeDisplay', ['com_sdajem.event', &$item, &$item->params]);
-		$item->event->beforeDisplayContent = trim(implode("\n", $results));
+		$contentEvents = [
+			'afterDisplayTitle'    => new AfterTitleEvent('onContentAfterTitle', $contentEventArguments),
+			'beforeDisplayContent' => new BeforeDisplayEvent('onContentBeforeDisplay', $contentEventArguments),
+			'afterDisplayContent'  => new AfterDisplayEvent('onContentAfterDisplay', $contentEventArguments),
+		];
 
-		$results = Factory::getApplication()->triggerEvent('onContentAfterDisplay', ['com_sdajem.event', &$item, &$item->params]);
-		$item->event->afterDisplayContent = trim(implode("\n", $results));
+		foreach ($contentEvents as $resultKey => $event) {
+			$results = $dispatcher->dispatch($event->getName(), $event)->getArgument('result', []);
+
+			$item->event->{$resultKey} = $results ? trim(implode("\n", $results)) : '';
+		}
 
 		$this->return_page = base64_encode(Uri::getInstance());
 
-		return parent::display($tpl);
+		parent::display($tpl);
+	}
+
+	public function getDocument():Document
+	{
+		return parent::getDocument();
 	}
 }

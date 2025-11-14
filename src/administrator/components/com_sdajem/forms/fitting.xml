@@ -60,38 +60,6 @@
     </fieldset>
     <fieldset name="publishing" label="JGLOBAL_FIELDSET_PUBLISHING">
         <field
-                name="published"
-                type="list"
-                label="JSTATUS"
-                default="1"
-                id="published"
-                class="custom-select-color-state"
-                size="1"
-        >
-            <option value="1">JPUBLISHED</option>
-            <option value="0">JUNPUBLISHED</option>
-            <option value="2">JARCHIVED</option>
-            <option value="-2">JTRASHED</option>
-        </field>
-        <field
-                name="publish_up"
-                type="calendar"
-                label="COM_SDAJEM_FIELD_PUBLISH_UP_LABEL"
-                translateformat="true"
-                showtime="true"
-                size="22"
-                filter="user_utc"
-        />
-        <field
-                name="publish_down"
-                type="calendar"
-                label="COM_SDAJEM_FIELD_PUBLISH_DOWN_LABEL"
-                translateformat="true"
-                showtime="true"
-                size="22"
-                filter="user_utc"
-        />
-        <field
                 name="access"
                 type="accesslevel"
                 label="JFIELD_ACCESS_LABEL"

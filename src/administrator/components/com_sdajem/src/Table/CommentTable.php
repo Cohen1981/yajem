@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Table
  * @subpackage
@@ -9,13 +10,16 @@
 
 namespace Sda\Component\Sdajem\Administrator\Table;
 
-\defined('_JEXEC') or die;
-
-use Joomla\CMS\Application\ApplicationHelper;
-use Joomla\CMS\Date\Date;
+use DateTime;
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
+use function defined;
+
+// phpcs:disable PSR1.Files.SideEffects
+defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
 /**
  * @since      1.0.0
@@ -26,7 +30,7 @@ use Joomla\Database\DatabaseDriver;
  * @property  int       users_user_id
  * @property  int       sdajem_event_id
  * @property  string    comment
- * @property  \DateTime timestamp
+ * @property  DateTime timestamp
  * @property  string    commentReadBy
  *
  */
@@ -49,8 +53,9 @@ class CommentTable extends Table
 	{
 		try {
 			parent::check();
-		} catch (\Exception $e) {
-			$this->setError($e->getMessage());
+		} catch (Exception $e) {
+			$app = Factory::getApplication();
+			$app->enqueueMessage($e->getMessage(),'error');
 			return false;
 		}
 

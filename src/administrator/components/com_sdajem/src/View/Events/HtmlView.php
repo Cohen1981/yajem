@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\View\Events
  * @subpackage
@@ -11,16 +14,17 @@ namespace Sda\Component\Sdajem\Administrator\View\Events;
 
 defined('_JEXEC') or die();
 
+use Exception;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\Form;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\Helpers\Sidebar;
 use Joomla\CMS\Language\Text;
-use Joomla\CMS\MVC\View\GenericDataException;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
-use Joomla\CMS\Toolbar\Toolbar;
-use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Model\EventsModel;
+use SimpleXMLElement;
 
 #use Joomla\CMS\Toolbar\ToolbarFactoryInterface;
 
@@ -37,7 +41,7 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * The model state
 	 *
-	 * @var  \JObject
+	 * @var  Registry
 	 * @since 1.0.0
 	 */
 	protected $state;
@@ -45,7 +49,7 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * Form object for search filters
 	 *
-	 * @var  \JForm
+	 * @var  Form
 	 * @since 1.0.0
 	 */
 	public $filterForm;
@@ -65,7 +69,7 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @return  void
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	public function display($tpl = null): void
@@ -78,11 +82,6 @@ class HtmlView extends BaseHtmlView
 		$this->activeFilters = $model->getActiveFilters();
 		$this->state = $model->getState();
 
-		// Check for errors.
-		if (count($errors = $this->get('Errors'))) {
-			throw new GenericDataException(implode("\n", $errors), 500);
-		}
-
 		// Preprocess the list of items to find ordering divisions.
 		foreach ($this->items as &$item) {
 			$item->order_up = true;
@@ -93,7 +92,7 @@ class HtmlView extends BaseHtmlView
 			$this->setLayout('emptystate');
 		}
 
-		// We don't need toolbar in the modal window.
+		// We don't need a toolbar in the modal window.
 		if ($this->getLayout() !== 'modal') {
 			$this->addToolbar();
 			$this->sidebar = Sidebar::render();
@@ -102,7 +101,7 @@ class HtmlView extends BaseHtmlView
 			// We also need to change the category filter to show show categories with All or the forced language.
 			if ($forcedLanguage = Factory::getApplication()->input->get('forcedLanguage', '', 'CMD')) {
 				// If the language is forced we can't allow to select the language, so transform the language selector filter into a hidden field.
-				$languageXml = new \SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
+				$languageXml = new SimpleXMLElement('<field name="language" type="hidden" default="' . $forcedLanguage . '" />');
 				$this->filterForm->setField($languageXml, 'filter', true);
 
 				// Also, unset the active language filter so the search tools is not open by default with this filter.
@@ -119,14 +118,14 @@ class HtmlView extends BaseHtmlView
 	 *
 	 * @return  void
 	 *
-	 * @throws \Exception
+	 * @throws Exception
 	 * @since   1.0.0
 	 */
 	protected function addToolbar()
 	{
 		$this->sidebar = Sidebar::render();
 
-		$canDo = ContentHelper::getActions('com_sdajem', 'category', $this->state->get('filter.category_id'));
+		$canDo = ContentHelper::getActions('com_sdajem', 'event');
 		$user  = Factory::getApplication()->getIdentity();
 
 		// Get the toolbar object instance

@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -11,6 +13,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
+use Sda\Component\Sdajem\Site\Model\AttendingModel;
 
 defined('_JEXEC') or die();
 
@@ -28,7 +31,7 @@ catch (Exception $e)
 }
 $params = $this->item->params;
 
-/* @var \Sda\Component\Sdajem\Site\Model\AttendingModel $item */
+/* @var AttendingModel $item */
 $item = $this->item;
 
 ?>

@@ -1,4 +1,8 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -14,6 +18,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Administrator\Model\CommentModel;
+use stdClass;
 
 class CommentformModel extends CommentModel
 {
@@ -26,7 +31,7 @@ class CommentformModel extends CommentModel
 	 *
 	 * @return  mixed  Event item data object on success, false on failure.
 	 *
-	 * @throws  Exception|\Exception
+	 * @throws  Exception|Exception
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
@@ -46,7 +51,7 @@ class CommentformModel extends CommentModel
 		}
 		$properties = $table->getProperties();
 
-		return ArrayHelper::toObject($properties, \stdClass::class);
+		return ArrayHelper::toObject($properties, stdClass::class);
 	}
 	/**
 	 * Get the return URL.
@@ -95,7 +100,7 @@ class CommentformModel extends CommentModel
 	 * @return  Table  A Table object
 	 *
 	 * @since   __DEPLOY_VERSION__
-	 * @throws  \Exception
+	 * @throws  Exception
 	 */
 	public function getTable($name = 'Comment', $prefix = 'Administrator', $options = [])
 	{

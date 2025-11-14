@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Helper
  * @subpackage
@@ -9,6 +10,7 @@
 
 namespace Sda\Component\Sdajem\Administrator\Helper;
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
@@ -39,10 +41,10 @@ abstract class InterestHelper
 
 			if (empty($data))
 			{
-				throw new \Exception(Text::_('COM_SDAJEM_ERROR_INTEREST_NOT_FOUND'), 404);
+				throw new Exception(Text::_('COM_SDAJEM_ERROR_INTEREST_NOT_FOUND'), 404);
 			}
 		}
-		catch (\Exception $e)
+		catch (Exception $e)
 		{
 			return null;
 		}

@@ -1,4 +1,12 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Controller
  * @subpackage
@@ -11,6 +19,7 @@ namespace Sda\Component\Sdajem\Site\Controller;
 
 defined('_JEXEC') or die();
 
+use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Uri\Uri;
@@ -31,6 +40,20 @@ class AttendingController extends FormController
 		return parent::getModel($name, $prefix, ['ignore_request' => false]);
 	}
 
+	private function getPks()
+	{
+		$pks = [];
+
+		if ($this->input->get('event_id')) {
+			$pks[0] = $this->input->get('event_id');
+		} else if ($eventId !== null)
+		{
+			$pks[0] = $eventId;
+		} else {
+			$pks = $this->input->get('cid');
+		}
+		return $pks;
+	}
 	/**
 	 * @param   null  $key
 	 * @param   null  $urlVar
@@ -38,6 +61,7 @@ class AttendingController extends FormController
 	 * @return bool
 	 *
 	 * @since 1.0.1
+	 * @throws Exception
 	 */
 	public function save($key = null, $urlVar = null)
 	{
@@ -61,10 +85,17 @@ class AttendingController extends FormController
 		return parent::save($key, $urlVar);
 	}
 
+	/**
+	 * @param null $eventId
+	 * @param null $userId
+	 *
+	 * @throws Exception
+	 * @since 1.0.1
+	 */
 	public function attend($eventId = null, $userId = null)
 	{
 		//$this->option = 'core.manage.attending';
-		$pks = [];
+		$pks = $this->getPks();
 
 		if ($this->input->get('event_id')) {
 			$pks[0] = $this->input->get('event_id');
@@ -104,19 +135,17 @@ class AttendingController extends FormController
 		}
 	}
 
+	/**
+	 * @param null $eventId
+	 * @param null $userId
+	 *
+	 * @throws Exception
+	 * @since 1.0.1
+	 */
 	public function unattend($eventId = null, $userId = null)
 	{
 		//$this->option = 'core.manage.attending';
-		$pks = [];
-
-		if ($this->input->get('event_id')) {
-			$pks[0] = $this->input->get('event_id');
-		} else if ($eventId !== null)
-		{
-			$pks[0] = $eventId;
-		} else {
-			$pks = $this->input->get('cid');
-		}
+		$pks = $this->getPks();
 
 		if (count($pks) >= 0) {
 

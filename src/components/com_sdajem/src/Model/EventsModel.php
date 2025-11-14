@@ -1,4 +1,13 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -25,6 +34,7 @@ class EventsModel extends \Sda\Component\Sdajem\Administrator\Model\EventsModel
 	 *
 	 * @return  QueryInterface
 	 *
+	 * @throws \Exception
 	 * @since   1.0.0
 	 */
 	protected function getListQuery()
@@ -47,8 +57,6 @@ class EventsModel extends \Sda\Component\Sdajem\Administrator\Model\EventsModel
 					$db->quoteName('a.created'),
 					$db->quoteName('a.created_by'),
 					$db->quoteName('a.created_by_alias'),
-					$db->quoteName('a.checked_out'),
-					$db->quoteName('a.checked_out_time'),
 					$db->quoteName('a.published'),
 					$db->quoteName('a.publish_up'),
 					$db->quoteName('a.publish_down'),
@@ -169,7 +177,7 @@ class EventsModel extends \Sda\Component\Sdajem\Administrator\Model\EventsModel
 			$query->where($db->quoteName('a.language') . ' = ' . $db->quote($language));
 		}
 		// Filter startDateTime
-		if ($params->get('sda_show_old_events') == false)
+		if (!$params->get('sda_show_old_events'))
 		{
 			$date = new Date();
 			$query->where($db->quoteName('a.startDateTime') . ' >= ' . $db->quote($date->format('Y-m-d')));

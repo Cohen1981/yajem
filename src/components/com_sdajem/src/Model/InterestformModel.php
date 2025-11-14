@@ -1,4 +1,10 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
@@ -17,6 +23,7 @@ use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
+use stdClass;
 
 class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\InterestModel
 {
@@ -34,14 +41,16 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $formName = 'form';
+
 	/**
 	 * Method to get the row form.
 	 *
 	 * @param   array    $data      Data for the form.
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
 	 *
-	 * @return  \JForm|boolean  A \JForm object on success, false on failure
+	 * @return  Form|boolean  A \JForm object on success, false on failure
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	public function getForm($data = [], $loadData = true)
@@ -77,7 +86,7 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 		}
 		$properties = $table->getProperties();
 
-		return ArrayHelper::toObject($properties, \stdClass::class);
+		return ArrayHelper::toObject($properties, stdClass::class);
 	}
 	/**
 	 * Get the return URL.
@@ -128,6 +137,7 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 		$this->setState('params', $params);
 		$this->setState('layout', $app->input->getString('layout'));
 	}
+
 	/**
 	 * Allows preprocessing of the JForm object.
 	 *
@@ -135,8 +145,9 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 	 * @param   array   $data   The data to be merged into the form object
 	 * @param   string  $group  The plugin group to be executed
 	 *
-	 * @return Form|void
+	 * @return void
 	 *
+	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function preprocessForm(Form $form, $data, $group = 'interest')
@@ -145,7 +156,7 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 			$form->setFieldAttribute('language', 'type', 'hidden');
 			$form->setFieldAttribute('language', 'default', '*');
 		}
-		return parent::preprocessForm($form, $data, $group);
+		parent::preprocessForm($form, $data, $group);
 	}
 	/**
 	 * Method to get a table object, load it if necessary.
@@ -157,7 +168,7 @@ class InterestformModel extends \Sda\Component\Sdajem\Administrator\Model\Intere
 	 * @return  Table  A Table object
 	 *
 	 * @since   __DEPLOY_VERSION__
-	 * @throws  \Exception
+	 * @throws  Exception
 	 */
 	public function getTable($name = 'Interest', $prefix = 'Administrator', $options = [])
 	{

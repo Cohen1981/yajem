@@ -1,4 +1,5 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+
 /**
  * @package     Sda\Component\Sdajem\Administrator\Field
  * @subpackage
@@ -18,6 +19,7 @@ use Joomla\CMS\Form\Field\ListField;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\Exception\ExecutionFailureException;
+use SimpleXMLElement;
 
 class UserlistField extends ListField
 {
@@ -28,6 +30,7 @@ class UserlistField extends ListField
 	 *
 	 * @return  array  The field option objects.
 	 *
+	 * @throws \Exception
 	 * @since   1.0.1
 	 */
 	protected function getOptions()
@@ -70,7 +73,7 @@ class UserlistField extends ListField
 
 		$query->where($db->quoteName('ug.id') . ' = ' . (int) $params->get('sda_user_group_name'));
 
-		if ($this->element instanceof \SimpleXMLElement)
+		if ($this->element instanceof SimpleXMLElement)
 		{
 			$attr = $this->element->attributes();
 			$params = ComponentHelper::getParams('com_sdajem');

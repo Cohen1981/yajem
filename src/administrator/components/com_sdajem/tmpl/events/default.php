@@ -1,4 +1,7 @@
-<?php
+<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+/** @noinspection PhpMultipleClassDeclarationsInspection */
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_sdajem
@@ -7,13 +10,15 @@
  * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-\defined('_JEXEC') or die;
+defined('_JEXEC') or die;
 
+use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
+use Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 
 ;
@@ -29,9 +34,9 @@ if ($saveOrder && !empty($this->items)) {
 	$saveOrderingUrl = 'index.php?option=com_sdajem&task=events.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 }
 
-$params = \Joomla\CMS\Component\ComponentHelper::getParams('com_sdajem');
+$params = ComponentHelper::getParams('com_sdajem');
 
-/* @var \Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel $item */
+/* @var EventsItemModel $item */
 ?>
 <form action="<?php echo Route::_('index.php?option=com_sdajem'); ?>" method="post" name="adminForm" id="adminForm">
     <div class="row">
