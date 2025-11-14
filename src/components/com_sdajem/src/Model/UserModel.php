@@ -26,7 +26,7 @@ class UserModel
 {
 	protected ?int $id = null;
 	public ?array $userData = [];
-	public ?\stdClass $profile = null;
+	public ?array $profile = [];
 	public ?User $user = null;
 
 	public function __construct(int $userId = null)

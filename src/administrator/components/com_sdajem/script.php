@@ -10,6 +10,7 @@ use Joomla\DI\ServiceProviderInterface;
 use Joomla\Filesystem\File;
 use Joomla\Filesystem\Exception\FilesystemException;
 use Joomla\CMS\Log\Log;
+use Joomla\Filesystem\Folder;
 
 // phpcs:disable PSR1.Files.SideEffects
 \defined('_JEXEC') or die;
@@ -48,33 +49,28 @@ return new class () implements ServiceProviderInterface {
 					$this->db  = $db;
 				}
 
-				public function install(InstallerAdapter $parent): bool
+				public function install(InstallerAdapter $adapter): bool
 				{
-					if(is_dir('../../../media/com_sdajem/images/lagerplanung') && !is_dir('../../../images/lagerplanung'))
-					{
-						rename('../../../media/com_sdajem/images/lagerplanung', '../../../images/lagerplanung');
-					}
-
 					$this->app->enqueueMessage(Text::_('COM_SDAJEM_INSTALLERSCRIPT_INSTALL'));
 
 					return true;
 				}
 
-				public function update(InstallerAdapter $parent): bool
+				public function update(InstallerAdapter $adapter): bool
 				{
 					$this->app->enqueueMessage(Text::_('COM_SDAJEM_INSTALLERSCRIPT_UPDATE'));
 
 					return true;
 				}
 
-				public function uninstall(InstallerAdapter $parent): bool
+				public function uninstall(InstallerAdapter $adapter): bool
 				{
 					$this->app->enqueueMessage(Text::_('COM_SDAJEM_INSTALLERSCRIPT_UNINSTALL'));
 
 					return true;
 				}
 
-				public function preflight(string $type, InstallerAdapter $parent): bool
+				public function preflight(string $type, InstallerAdapter $adapter): bool
 				{
 					if ($type !== 'uninstall') {
 						// Check for the minimum PHP version before continuing
@@ -101,9 +97,29 @@ return new class () implements ServiceProviderInterface {
 					return true;
 				}
 
-				public function postflight(string $type, InstallerAdapter $parent): bool
+				public function postflight(string $type, InstallerAdapter $adapter): bool
 				{
 					$this->app->enqueueMessage(Text::_('COM_SDAJEM_INSTALLERSCRIPT_POSTFLIGHT'));
+
+					$destinationFolder = JPATH_SITE . '/' . "images/lagerplanung";
+					$sourceFolder = JPATH_SITE . '/media/com_sdajem/images/lagerplanung';
+
+					if(is_dir($sourceFolder) && !is_dir($destinationFolder))
+					{
+						try
+						{
+							Folder::create($destinationFolder);
+						} catch (FilesystemException $e) {
+							$this->app->enqueueMessage($e->getMessage(), 'error');
+						}
+					}
+
+					try
+					{
+						Folder::copy($sourceFolder, $destinationFolder,null,true,true);
+					} catch (FilesystemException $e) {
+						$this->app->enqueueMessage($e->getMessage(), 'error');
+					}
 
 					$this->deleteUnexistingFiles();
 

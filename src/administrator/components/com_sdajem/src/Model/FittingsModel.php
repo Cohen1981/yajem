@@ -60,11 +60,6 @@ class FittingsModel extends ListModel
 					$db->quoteName('a.id'),
 					$db->quoteName('a.access'),
 					$db->quoteName('a.alias'),
-					$db->quoteName('a.created_by'),
-					$db->quoteName('a.created_by_alias'),
-					$db->quoteName('a.published'),
-					$db->quoteName('a.publish_up'),
-					$db->quoteName('a.publish_down'),
 					$db->quoteName('a.state'),
 					$db->quoteName('a.ordering'),
 					$db->quoteName('a.title'),
@@ -178,10 +173,12 @@ class FittingsModel extends ListModel
 
 		$pks = array();
 		foreach ($fittings as $i => $value) {
-			$ids = json_decode($value, true);
-			if (is_array($ids))
-			{
-				$pks = array_merge($pks, $ids);
+			if (!empty($value)) {
+				$ids = json_decode($value, true);
+				if (is_array($ids))
+				{
+					$pks = array_merge($pks, $ids);
+				}
 			}
 		}
 

@@ -37,7 +37,7 @@ class EventAttendeeModel extends UserModel
 	public ?int $event_id;
 	protected ?int $users_user_id;
 	public ?IntAttStatusEnum $status;
-	public ?\stdClass $profile;
+	public ?array $profile;
 	public ?array $userData;
 
 	public function __construct($data)
