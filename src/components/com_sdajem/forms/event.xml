@@ -32,7 +32,7 @@
                default="0"
         />
     </fieldset>
-    <fieldset name="details">
+    <fieldset name="details" addfieldprefix="Sda\Component\Sdajem\Administrator\Field">
         <field
                 name="description"
                 type="editor"
@@ -50,15 +50,18 @@
                 label="COM_SDAJEM_FIELD_URL_LABEL"
                 size="255"
         />
-        <field  addfieldprefix="Sda\Component\Sdajem\Administrator\Field"
+        <field
+                type="ModalSelect"
                 name="sdajem_location_id"
-                type="modal_location"
                 label="COM_SDAJEM_SELECT_LOCATION_LABEL"
-                required="false"
                 select="true"
-                new="true"
-                edit="true"
+                urlSelect="index.php?option=com_sdajem&amp;view=locations&amp;layout=modal&amp;tmpl=component"
                 clear="true"
+                new="true"
+                urlNew="index.php?option=com_sdajem&amp;view=locationform&amp;layout=modal&amp;id=0&amp;tmpl=component"
+                sql_title_table="#__sdajem_locations"
+                sql_title_column="title"
+                sql_title_key="id"
         />
         <field
                 name="allDayEvent"

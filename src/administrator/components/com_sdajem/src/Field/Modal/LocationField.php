@@ -1,165 +1,188 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
 
 /**
- * @package     Sda\Component\Sdajem\Administrator\Field\Modal
- * @subpackage
+ * @package     Joomla.Administrator
+ * @subpackage  com_categories
  *
- * @copyright   A copyright
- * @license     A "Slug" license name e.g. GPL2
+ * @copyright   (C) 2013 Open Source Matters, Inc. <https://www.joomla.org>
+ * @license     GNU General Public License version 2 or later; see LICENSE.txt
  */
 
 namespace Sda\Component\Sdajem\Administrator\Field\Modal;
 
 use Joomla\CMS\Factory;
-use Joomla\CMS\Form\FormField;
-use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Form\Field\ModalSelectField;
+use Joomla\CMS\Language\LanguageHelper;
 use Joomla\CMS\Language\Text;
+use Joomla\CMS\Layout\FileLayout;
 use Joomla\CMS\Session\Session;
-use Joomla\CMS\WebAsset\WebAssetManager;
-use Joomla\Database\DatabaseInterface;
-use RuntimeException;
+use Joomla\CMS\Uri\Uri;
+use Joomla\Database\ParameterType;
 
-defined('_JEXEC') or die();
+// phpcs:disable PSR1.Files.SideEffects
+\defined('_JEXEC') or die;
+// phpcs:enable PSR1.Files.SideEffects
 
-class LocationField extends FormField
+/**
+ * Supports a modal category picker.
+ *
+ * @since  3.1
+ */
+class LocationField extends ModalSelectField
 {
 	/**
 	 * The form field type.
 	 *
 	 * @var     string
-	 * @since   __DEPLOY_VERSION__
+	 * @since   1.6
 	 */
 	protected $type = 'Modal_Location';
 
 	/**
-	 * Method to get the field input markup.
+	 * Method to attach a Form object to the field.
 	 *
-	 * @return  string  The field input markup.
+	 * @param   \SimpleXMLElement  $element  The SimpleXMLElement object representing the `<field>` tag for the form field object.
+	 * @param   mixed              $value    The form field value to validate.
+	 * @param   string             $group    The field name group control value.
 	 *
-	 * @throws \Exception
-	 * @since   __DEPLOY_VERSION__
+	 * @return  boolean  True on success.
+	 *
+	 * @see     FormField::setup()
+	 * @since   5.1.0
 	 */
-	protected function getInput()
+	public function setup(\SimpleXMLElement $element, $value, $group = null)
 	{
-		$allowClear  = ((string) $this->element['clear'] != 'false');
-		$allowSelect = ((string) $this->element['select'] != 'false');
-		$allowNew    = ((string) $this->element['new'] != 'false');
-		$allowEdit   = ((string) $this->element['edit'] != 'false');
-		// The active location id field.
-		$value = (int) $this->value > 0 ? (int) $this->value : '';
-		// Create the modal id.
-		$modalId = 'Location_' . $this->id;
-		// Add the modal field script to the document head.
-		/** @var WebAssetManager $wa */
-		$wa = Factory::getApplication()->getDocument()->getWebAssetManager();
-		// Add the modal field script to the document head.
-		$wa->useScript('field.modal-fields');
-		// Script to proxy the select modal function to the modal-fields.js file.
-		if ($allowSelect) {
-			static $scriptSelect = null;
-			if (is_null($scriptSelect)) {
-				$scriptSelect = [];
-			}
-			if (!isset($scriptSelect[$this->id])) {
-				$wa->addInlineScript("
-				window.jSelectLocation_" . $this->id . " = function (id, title, object) {
-					window.processModalSelect('Location', '" . $this->id . "', id, title, '', object);
-				}",
-					[],
-					['type' => 'module']
-				);
-				$scriptSelect[$this->id] = true;
-			}
+		// Check if the value consist with id:alias, extract the id only
+		if ($value && str_contains($value, ':')) {
+			[$id]  = explode(':', $value, 2);
+			$value = (int) $id;
 		}
-		// Setup variables for display.
-		$linkLocations = '?option=com_sdajem&amp;view=locations&amp;layout=modal&amp;tmpl=component&amp;'
-			. Session::getFormToken() . '=1';
-		$linkLocation  = '?option=com_sdajem&amp;view=location&amp;layout=modal&amp;tmpl=component&amp;'
-			. Session::getFormToken() . '=1';
-		$modalTitle   = Text::_('COM_SDAJEM_CHANGE_LOCATION');
-		$urlSelect = $linkLocations . '&amp;function=jSelectLocation_' . $this->id;
+
+		$result = parent::setup($element, $value, $group);
+
+		if (!$result) {
+			return $result;
+		}
+
+		if ($this->element['extension']) {
+			$extension = (string) $this->element['extension'];
+		} else {
+			$extension = (string) Factory::getApplication()->getInput()->get('extension', 'com_sdajem');
+		}
+
+		Factory::getApplication()->getLanguage()->load('com_sdajem', JPATH_ADMINISTRATOR);
+
+		$languages = LanguageHelper::getContentLanguages([0, 1], false);
+		$language  = (string) $this->element['language'];
+
+		// Prepare enabled actions
+		$this->canDo['propagate']  = ((string) $this->element['propagate'] == 'true') && \count($languages) > 2;
+
+		// Prepare Urls
+		$linkItems = (new Uri())->setPath(Uri::base(true) . '/index.php');
+		$linkItems->setQuery([
+			'option'                => 'com_sdajem',
+			'view'                  => 'locations',
+			'layout'                => 'modal',
+			'tmpl'                  => 'component',
+			'extension'             => $extension,
+			Session::getFormToken() => 1,
+		]);
+		$linkItem = clone $linkItems;
+		$linkItem->setVar('view', 'location');
+
+		if ($language) {
+			$linkItems->setVar('forcedLanguage', $language);
+			$linkItem->setVar('forcedLanguage', $language);
+
+			$modalTitle = Text::_('COM_SDAJEM_CHANGE_LOCATION') . ' &#8212; ' . $this->getTitle();
+
+			$this->dataAttributes['data-language'] = $language;
+		} else {
+			$modalTitle = Text::_('COM_SDAJEM_CHANGE_LOCATION');
+		}
+
+		$urlSelect = $linkItems;
+		$urlEdit   = clone $linkItem;
+		$urlEdit->setVar('task', 'location.edit');
+		$urlNew    = clone $linkItem;
+		$urlNew->setVar('task', 'location.add');
+
+		$this->urls['select']  = (string) $urlSelect;
+		$this->urls['new']     = (string) $urlNew;
+		$this->urls['edit']    = (string) $urlEdit;
+
+		// Prepare titles
+		$this->modalTitles['select']  = $modalTitle;
+		$this->modalTitles['new']     = Text::_('JNEW');
+		$this->modalTitles['edit']    = Text::_('JEDIT');
+
+		$this->hint = $this->hint ?: Text::_('COM_SDAJEM_CHANGE_LOCATION');
+
+		return $result;
+	}
+
+	/**
+	 * Method to retrieve the title of selected item.
+	 *
+	 * @return string
+	 *
+	 * @since   5.1.0
+	 */
+	protected function getValueTitle()
+	{
+		$value = (int) $this->value ?: '';
+		$title = '';
+
 		if ($value) {
-			$db    = Factory::getContainer()->get(DatabaseInterface::class);
-			$query = $db->getQuery(true)
-				->select($db->quoteName('title'))
-				->from($db->quoteName('#__sdajem_locations'))
-				->where($db->quoteName('id') . ' = ' . (int) $value);
-			$db->setQuery($query);
 			try {
+				$db    = $this->getDatabase();
+				$query = $db->getQuery(true)
+					->select($db->quoteName('title'))
+					->from($db->quoteName('#__sdajem_locations'))
+					->where($db->quoteName('id') . ' = :value')
+					->bind(':value', $value, ParameterType::INTEGER);
+				$db->setQuery($query);
+
 				$title = $db->loadResult();
-			} catch (RuntimeException $e) {
+			} catch (\Throwable $e) {
 				Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 			}
 		}
-		$title = empty($title) ? Text::_('COM_SDAJEM_SELECT_A_LOCATION') : htmlspecialchars($title, ENT_QUOTES, 'UTF-8');
-		// The current location display field.
-		$html  = '';
-		if ($allowSelect || $allowNew || $allowEdit || $allowClear) {
-			$html .= '<span class="input-group">';
-		}
-		$html .= '<input class="form-control" id="' . $this->id . '_name" type="text" value="' . $title . '" readonly size="35">';
-		// Select location button
-		if ($allowSelect) {
-			$html .= '<button'
-				. ' class="btn btn-primary hasTooltip' . ($value ? ' hidden' : '') . '"'
-				. ' id="' . $this->id . '_select"'
-				. ' data-bs-toggle="modal"'
-				. ' type="button"'
-				. ' data-bs-target="#ModalSelect' . $modalId . '"'
-				. ' title="' . HTMLHelper::tooltipText('COM_SDAJEM_CHANGE_LOCATION') . '">'
-				. '<span class="icon-file" aria-hidden="true"></span> ' . Text::_('JSELECT')
-				. '</button>';
-		}
-		// Clear location button
-		if ($allowClear) {
-			$html .= '<button'
-				. ' class="btn btn-secondary' . ($value ? '' : ' hidden') . '"'
-				. ' id="' . $this->id . '_clear"'
-				. ' type="button"'
-				. ' onclick="window.processModalParent(\'' . $this->id . '\'); return false;">'
-				. '<span class="icon-remove" aria-hidden="true"></span>' . Text::_('JCLEAR')
-				. '</button>';
-		}
-		if ($allowSelect || $allowNew || $allowEdit || $allowClear) {
-			$html .= '</span>';
-		}
-		// Select location modal
-		if ($allowSelect) {
-			$html .= HTMLHelper::_(
-				'bootstrap.renderModal',
-				'ModalSelect' . $modalId,
-				[
-					'title'       => $modalTitle,
-					'url'         => $urlSelect,
-					'height'      => '400px',
-					'width'       => '800px',
-					'bodyHeight'  => 70,
-					'modalWidth'  => 80,
-					'locationter'      => '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">'
-						. Text::_('JLIB_HTML_BEHAVIOR_CLOSE') . '</button>',
-				]
-			);
-		}
-		// Note: class='required' for client side validation.
-		$class = $this->required ? ' class="required modal-value"' : '';
-		$html .= '<input type="hidden" id="'
-			. $this->id . '_id"'
-			. $class . ' data-required="' . (int) $this->required
-			. '" name="' . $this->name
-			. '" data-text="'
-			. htmlspecialchars(Text::_('COM_SDAJEM_SELECT_A_LOCATION', true), ENT_COMPAT, 'UTF-8')
-			. '" value="' . $value . '">';
-		return $html;
+
+		return $title ?: $value;
 	}
+
 	/**
-	 * Method to get the field label markup.
+	 * Method to get the data to be passed to the layout for rendering.
 	 *
-	 * @return  string  The field label markup.
+	 * @return  array
 	 *
-	 * @since   __DEPLOY_VERSION__
+	 * @since 5.1.0
 	 */
-	protected function getLabel()
+	protected function getLayoutData()
 	{
-		return str_replace($this->id, $this->id . '_name', parent::getLabel());
+		$data             = parent::getLayoutData();
+		$data['language'] = (string) $this->element['language'];
+
+		return $data;
+	}
+
+	/**
+	 * Get the renderer
+	 *
+	 * @param   string  $layoutId  Id to load
+	 *
+	 * @return  FileLayout
+	 *
+	 * @since   5.1.0
+	 */
+	protected function getRenderer($layoutId = 'default')
+	{
+		$layout = parent::getRenderer($layoutId);
+		$layout->setComponent('com_sdajem');
+		$layout->setClient(1);
+
+		return $layout;
 	}
 }

@@ -42,7 +42,7 @@ class HtmlView extends BaseHtmlView
 	 * @var    Form
 	 * @since  __DEPLOY_VERSION__
 	 */
-	public Form$form;
+	public Form $form;
 	/**
 	 * @var    Location
 	 * @since  __DEPLOY_VERSION__
@@ -89,6 +89,7 @@ class HtmlView extends BaseHtmlView
 		$this->item = $model->getItem();
 		$this->form = $model->getForm();
 		$this->return_page = $model->getReturnPage();
+
 		if (empty($this->item->id)) {
 			$authorised = $user->authorise('core.create', 'com_sdajem');
 		} else {

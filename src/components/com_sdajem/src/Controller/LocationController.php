@@ -30,6 +30,8 @@ class LocationController extends FormController
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $view_item = 'locationform';
+
+	protected $view_list = 'locations';
 	/**
 	 * Method to get a model object, loading it if required.
 	 *
@@ -96,24 +98,7 @@ class LocationController extends FormController
 
 		return false;
 	}
-	/**
-	 * Method to save a record.
-	 *
-	 * @param   string  $key     The name of the primary key of the URL variable.
-	 * @param   string  $urlVar  The name of the URL variable if different from the primary key (sometimes required to avoid router collisions).
-	 *
-	 * @return  boolean  True if successful, false otherwise.
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function save($key = null, $urlVar = null)
-	{
-		$result = parent::save($key, $urlVar = null);
 
-		#$this->setRedirect(Route::_($this->getReturnPage(), false));
-
-		return $result;
-	}
 	/**
 	 * Method to cancel an edit.
 	 *
@@ -125,41 +110,7 @@ class LocationController extends FormController
 	 */
 	public function cancel($key = null)
 	{
-		$result = parent::cancel($key);
-		$this->setRedirect(Route::_($this->getReturnPage(), false));
-		return $result;
-	}
-	/**
-	 * Gets the URL arguments to append to an item redirect.
-	 *
-	 * @param   integer  $recordId  The primary key id for the item.
-	 * @param   string   $urlVar    The name of the URL variable for the id.
-	 *
-	 * @return  string    The arguments to append to the redirect URL.
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected function getRedirectToItemAppend($recordId = 0, $urlVar = 'id')
-	{
-		// Need to override the parent method completely.
-		$tmpl = $this->input->get('tmpl');
-		$append = '';
-		// Setup redirect info.
-		if ($tmpl) {
-			$append .= '&tmpl=' . $tmpl;
-		}
-		$append .= '&layout=edit';
-		$append .= '&' . $urlVar . '=' . (int) $recordId;
-		$itemId = $this->input->getInt('Itemid');
-		$return = $this->getReturnPage();
-
-		if ($itemId) {
-			$append .= '&Itemid=' . $itemId;
-		}
-		if ($return) {
-			$append .= '&return=' . base64_encode($return);
-		}
-		return $append;
+		return parent::cancel($key);
 	}
 
 	public function delete(): bool
@@ -179,22 +130,6 @@ class LocationController extends FormController
 				$this->getModel()->delete($pk);
 			}
 		}
-
-/*
-		foreach ($pks as &$pk) {
-			$attendings = $attendingsModel->getAttendingsIdToEvent($pk);
-			$attResult = $attendingFormModel->delete($attendings);
-			$interests = $interestsModel->getInterestsIdToEvent($pk);
-			$intResult = $interestFormModel->delete($interests);
-		}
-
-		$eventFormModel = new EventformModel();
-
-		if ($attResult && $intResult)
-		{
-			$result = $eventFormModel->delete($pks);
-		}
-*/
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 		//return $result;
 
@@ -217,5 +152,24 @@ class LocationController extends FormController
 			return Uri::base();
 		}
 		return base64_decode($return);
+	}
+
+	protected function postSaveHook(BaseDatabaseModel $model, $validData = [])
+	{
+		if ($this->input->get('layout') === 'modal' && $this->task === 'save') {
+			$id = $model->state->get('locationform.id');
+			$model->state->set('locationform.id', $id);
+			$this->input->set('layout', 'modalreturn');
+			$return = 'index.php?option=' . $this->option . '&view=' . $this->view_item . $this->getRedirectToItemAppend($id);
+		}
+		else if ($this->input->get('task') === 'save2new')
+		{
+			$return = 'index.php?option=' . $this->option . '&view=locations&task=location.add';
+		}
+		else
+		{
+			$return = 'index.php?option=' . $this->option . '&view=locations';
+		}
+		$this->setRedirect(Route::_($return, false));
 	}
 }

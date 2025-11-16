@@ -71,7 +71,7 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 	 */
 	public function getItem($itemId = null)
 	{
-		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('location.id');
+		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('locationform.id');
 		// Get a row instance.
 		$table = $this->getTable();
 		// Attempt to load the row.
@@ -89,57 +89,6 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 		return Location::createFromArray($properties);
 		//return $table;
 	}
-	/**
-	 * Get the return URL.
-	 *
-	 * @return  string  The return URL.
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function getReturnPage()
-	{
-		return base64_encode($this->getState('return_page'));
-	}
-	/**
-	 * Method to save the form data.
-	 *
-	 * @param   array  $data  The form data.
-	 *
-	 * @return  boolean  True on success.
-	 *
-	 * @throws Exception
-	 * @since   __DEPLOY_VERSION__
-	 */
-	public function save($data)
-	{
-		return parent::save($data);
-	}
-	/**
-	 * Method to auto-populate the model state.
-	 *
-	 * Note. Calling getState in this method will result in recursion.
-	 *
-	 * @return  void
-	 *
-	 * @throws  Exception
-	 *
-	 * @since   __DEPLOY_VERSION__
-	 */
-	protected function populateState()
-	{
-		$app = Factory::getApplication();
-		// Load state from the request.
-		$pk = $app->input->getInt('id');
-		$this->setState('location.id', $pk);
-		$this->setState('location.catid', $app->input->getInt('catid'));
-		$return = $app->input->get('return', null, 'base64');
-		$this->setState('return_page', base64_decode($return));
-		// Load the parameters.
-		$params = $app->getParams();
-		$this->setState('params', $params);
-		$this->setState('layout', $app->input->getString('layout'));
-	}
-
 	/**
 	 * Allows preprocessing of the JForm object.
 	 *
@@ -175,5 +124,10 @@ class LocationformModel extends \Sda\Component\Sdajem\Administrator\Model\Locati
 	public function getTable($name = 'Location', $prefix = 'Administrator', $options = [])
 	{
 		return parent::getTable($name, $prefix, $options);
+	}
+
+	public function getReturnPage()
+	{
+		return base64_encode($this->getState('return_page', ''));
 	}
 }

@@ -104,11 +104,6 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                     <?php echo Text::_('COM_SDAJEM_EVENT_ADD'); ?>
                     <span class="fa fa-calendar-plus-o" aria-hidden="true"></span>
                 </button>
-                <button type="button" class="btn btn-secondary" onclick="Joomla.submitbutton('location.add', 'adminForm')">
-                    <span class="fas fa-plus-circle-o" aria-hidden="true"></span>
-                    <?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
-                    <span class="fas fa-map-marker-alt" aria-hidden="true"></span>
-                </button>
                 <input type="hidden" name="task" value/>
                 <input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
                 <?php echo HTMLHelper::_('form.token'); ?>

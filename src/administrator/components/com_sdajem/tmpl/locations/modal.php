@@ -9,8 +9,9 @@ use Joomla\CMS\Session\Session;
 
 $app = Factory::getApplication();
 $wa = $this->document->getWebAssetManager();
-$wa->useScript('com_sdajem.admin-locations-modal');
-$function  = $app->input->getCmd('function', 'jSelectEvents');
+$wa->useScript('modal-content-select');
+//$wa->useScript('com_sdajem.admin-locations-modal');
+$function  = $app->input->getCmd('function', 'jSelectLocation');
 $onclick   = $this->escape($function);
 ?>
 
@@ -40,10 +41,19 @@ $onclick   = $this->escape($function);
 				];
 				?>
 				<?php foreach ($this->items as $i => $item) : ?>
-					<?php $lang = ''; ?>
+					<?php $lang = '';
+                    $attribs = 'data-content-select'
+                    . ' data-id="' . $item->id . '"'
+                    . ' data-title="' . $this->escape($item->title) . '"';
+                    ?>
 					<tr class="row<?php echo $i % 2; ?>">
 						<th scope="row">
-							<a class="select-link" href="javascript:void(0)" data-function="<?php echo $this->escape($onclick); ?>" data-id="<?php echo $item->id; ?>" data-title="<?php echo $this->escape($item->title); ?>">
+							<a class="select-link" <?php echo $attribs; ?>
+                               href="javascript:void(0)"
+                               data-function="<?php echo $this->escape($onclick); ?>"
+                               data-id="<?php echo $item->id; ?>"
+                               data-title="<?php echo $this->escape($item->title);?>"
+                            >
 								<?php echo $this->escape($item->title); ?>
 							</a>
 						</th>

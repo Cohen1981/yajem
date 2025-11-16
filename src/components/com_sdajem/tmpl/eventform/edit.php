@@ -90,11 +90,6 @@ $wa->useScript('com_sdajem.calendar');
         <input type="hidden" name="return" value="<?php echo $this->return_page_edit; ?>">
         <input type="hidden" name="task" value=""/>
 	    <?php echo HTMLHelper::_('form.token'); ?>
-
-        <button type="button" class="btn me-2 btn-primary col-auto" onclick="Joomla.submitbutton('location.add','locForm','false')">
-            <span class="fas fa-plus-circle" aria-hidden="true"></span>
-            <?php echo Text::_('COM_SDAJEM_LOCATION_ADD'); ?>
-        </button>
     </div>
 </form>
 </div>
