@@ -113,7 +113,7 @@ class Icon
 		$overlib .= '&lt;br /&gt;';
 		$overlib .= $date;
 		$overlib .= '&lt;br /&gt;';
-		$overlib .= Text::sprintf('COM_FOOS_WRITTEN_BY', htmlspecialchars($author, ENT_COMPAT, 'UTF-8'));
+		$overlib .= Text::sprintf('COM_SDAJEM_WRITTEN_BY', htmlspecialchars($author, ENT_COMPAT, 'UTF-8'));
 		$icon = $event->published ? 'edit' : 'eye-slash';
 
 		$currentTimestamp = Factory::getDate()->format('Y-m-d H:i:s');
@@ -122,9 +122,9 @@ class Icon
 			$icon = 'eye-slash';
 		}
 		$text = '<span class="hasTooltip fa fa-' . $icon . '" title="'
-			. HTMLHelper::tooltipText(Text::_('COM_FOOS_EDIT_FOO'), $overlib, 0, 0) . '"></span> ';
+			. HTMLHelper::tooltipText(Text::_('COM_SDAJEM_EDIT_EVENT'), $overlib, 0, 0) . '"></span> ';
 		$text .= Text::_('JGLOBAL_EDIT');
-		$attribs['title'] = Text::_('COM_FOOS_EDIT_FOO');
+		$attribs['title'] = Text::_('COM_SDAJEM_EDIT_EVENT');
 		$output           = HTMLHelper::_('link', Route::_($url), $text, $attribs);
 		return $output;
 	}

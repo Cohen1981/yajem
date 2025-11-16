@@ -11,7 +11,6 @@
 namespace Sda\Component\Sdajem\Site\View;
 
 use Exception;
-use JObject;
 use Joomla\CMS\MVC\View\HtmlView;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;

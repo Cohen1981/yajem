@@ -68,5 +68,36 @@
   font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
   font-weight: 100;
 }
+.sdajem_content_container .card-header a {
+  text-decoration: none;
+}
+.sdajem_content_container .card-header a h5 {
+  font-size: 1.15rem;
+  font-weight: 500;
+}
+.sdajem_content_container .card-header .sda_float_right {
+  float: right;
+}
+.sdajem_content_container .accordion-header h5 {
+  font-weight: 500;
+}
+.sdajem_content_container .accordion-header .sda_events_accordion {
+  padding: 0.5rem 1.25rem;
+}
+.sdajem_content_container .sda-padding-top-bottom {
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+}
+.sdajem_content_container a.no-decor {
+  text-decoration: none;
+  color: #000;
+}
+.sdajem_content_container a.no-decor :hover {
+  text-decoration: none;
+  color: #000;
+}
+.sdajem_content_container .card [class^=col-] {
+  padding-bottom: 0.5em;
+}
 
 /*# sourceMappingURL=sdajem.css.map */

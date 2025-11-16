@@ -34,6 +34,14 @@ class Event extends \stdClass
 	public ?array $svg;
 	public ?string $registerUntil;
 
+	public ?string $location_name;
+	public ?string $organizerName;
+	public ?int $attendeeCount;
+	public ?int $guestCount;
+	public ?int $attendeeFeedbackCount;
+	public ?int $interestCount;
+	public ?int $feedbackCount;
+
 	public ?string $typeAlias;
 	public ?int $id;
 	public ?int $access;
@@ -48,4 +56,8 @@ class Event extends \stdClass
 	public ?int $ordering;
 	public ?string $language;
 
+	public function toArray(): array
+	{
+		return (array) $this;
+	}
 }

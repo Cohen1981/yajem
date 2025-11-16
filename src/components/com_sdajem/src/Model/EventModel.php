@@ -19,6 +19,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use Sda\Component\Sdajem\Site\Model\Item\Event;
 use function defined;
 
@@ -60,8 +61,84 @@ class EventModel extends BaseDatabaseModel
 
 				$query->select('a.*')
 					->from($db->quoteName('#__sdajem_events', 'a'))
-					->where($db->quoteName('a.id') . ' = :eventId')
-					->bind(':eventId', $pk);
+					->where($db->quoteName('a.id') . ' = :eventId');
+				// Join over locations
+				$query->select($db->quoteName('loc.title', 'location_name'))
+					->join(
+						'LEFT',
+						$db->quoteName('#__sdajem_locations', 'loc') . ' ON ' . $db->quoteName('loc.id') . ' = ' . $db->quoteName('a.sdajem_location_id')
+					);
+				//Join over User as organizer
+				$query->select($db->quoteName('org.username', 'organizerName'))
+					->join(
+						'LEFT',
+						$db->quoteName('#__users', 'org') . ' ON ' . $db->quoteName('org.id') . ' = ' . $db->quoteName('a.organizerId')
+					);
+
+				//Get the Attendee count
+				$attendees = $db->getQuery(true)
+					->select('COUNT(' . $db->quoteName('att.id') . ')')
+					->from($db->quoteName('#__sdajem_attendings', 'att'))
+					->where(
+						[
+							$db->quoteName('att.event_id') . ' = ' . $db->quoteName('a.id'),
+							$db->quoteName('att.status') . ' = ' . IntAttStatusEnum::POSITIVE->value,
+						]
+					);
+				$query->select('(' . $attendees . ') AS ' . $db->quoteName('attendeeCount'));
+
+				//Get the guest count
+				$guests = $db->getQuery(true)
+					->select('COUNT(' . $db->quoteName('g.id') . ')')
+					->from($db->quoteName('#__sdajem_attendings', 'g'))
+					->where(
+						[
+							$db->quoteName('g.event_id') . ' = ' . $db->quoteName('a.id'),
+							$db->quoteName('g.status') . ' = ' . IntAttStatusEnum::GUEST->value,
+						]
+					);
+				$query->select('(' . $guests . ') AS ' . $db->quoteName('guestCount'));
+
+				//Get the Attendee feedback count
+				$attendeesf = $db->getQuery(true)
+					->select('COUNT(' . $db->quoteName('atte.id') . ')')
+					->from($db->quoteName('#__sdajem_attendings', 'atte'))
+					->where(
+						[
+							$db->quoteName('atte.event_id') . ' = ' . $db->quoteName('a.id'),
+							$db->quoteName('atte.status') . ' IN( ' . IntAttStatusEnum::POSITIVE->value . ', ' . IntAttStatusEnum::NEGATIVE->value . ', ' . IntAttStatusEnum::GUEST->value . ')',
+						]
+					);
+				$query->select('(' . $attendeesf . ') AS ' . $db->quoteName('attendeeFeedbackCount'));
+
+				$interestCount = $db->getQuery(true)
+					->select('COUNT(' . $db->quoteName('int.id') . ')')
+					->from($db->quoteName('#__sdajem_interest', 'int'))
+					->where(
+						[
+							$db->quoteName('int.event_id') . ' = ' . $db->quoteName('a.id'),
+							$db->quoteName('int.status') . ' = ' . IntAttStatusEnum::POSITIVE->value,
+						]
+					);
+				$query->select('(' . $interestCount . ') AS ' . $db->quoteName('interestCount'));
+
+				$feedback = $db->getQuery(true)
+					->select('COUNT(' . $db->quoteName('i.id') . ')')
+					->from($db->quoteName('#__sdajem_interest', 'i'))
+					->where(
+						[
+							$db->quoteName('i.event_id') . ' = ' . $db->quoteName('a.id'),
+						]
+					);
+				$query->select('(' . $feedback . ') AS ' . $db->quoteName('feedbackCount'));
+				// Join over the asset groups.
+				$query->select($db->quoteName('ag.title', 'access_level'))
+					->join(
+						'LEFT',
+						$db->quoteName('#__viewlevels', 'ag') . ' ON ' . $db->quoteName('ag.id') . ' = ' . $db->quoteName('a.access')
+					);
+
+				$query->bind(':eventId', $pk);
 					#->where('a.id = ' . (int) $pk);
 
 				$db->setQuery($query);

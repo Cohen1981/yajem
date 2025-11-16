@@ -83,13 +83,6 @@ class LocationField extends ModalSelectField
 		]);
 		$linkLocation = clone $linkLocations;
 		$linkLocation->setVar('view', 'location');
-		$linkCheckin = (new Uri())->setPath(Uri::base(true) . '/index.php');
-		$linkCheckin->setQuery([
-			'option'                => 'com_sdajem',
-			'task'                  => 'locations.checkin',
-			'format'                => 'json',
-			Session::getFormToken() => 1,
-		]);
 
 		if ($language) {
 			$linkLocations->setVar('forcedLanguage', $language);
@@ -111,7 +104,6 @@ class LocationField extends ModalSelectField
 		$this->urls['select']  = (string) $urlSelect;
 		$this->urls['new']     = (string) $urlNew;
 		$this->urls['edit']    = (string) $urlEdit;
-		$this->urls['checkin'] = (string) $linkCheckin;
 
 		// Prepare titles
 		$this->modalTitles['select']  = $modalTitle;

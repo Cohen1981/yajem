@@ -148,7 +148,11 @@ class EventController extends FormController
 	 */
 	public function delete(): bool
 	{
-		$pks = $this->input->get('cid');
+		$pks = $this->input->get('cid') ?? $this->input->get('id');
+
+		if (!is_array($pks)) {
+			$pks = [$pks];
+		}
 
 		$attendingFormModel = new AttendingformModel();
 		$attendingsModel = new AttendingsModel();
@@ -537,19 +541,38 @@ class EventController extends FormController
 	public function savePlan()
 	{
 		$svg = $_POST['svg'];
+		if (empty($svg)) {
+			return;
+		}
+
 		/** @var EventModel $event */
 		$event = $this->getModel('Event');
 		$data = $event->getItem($_POST['id']);
-		$data->svg = $svg;
-		$data = is_object($data) ? (array) $data : $data;
+
+		if (is_object($svg))
+			$data->svg = (array) $svg;
+		if (is_array($svg))
+			$data->svg = $svg;
+		if (is_string($svg))
+			$data->svg = [$svg];
 
 		$eventForm = new EventformModel();
 		try
 		{
-			$eventForm->save($data);
+			$eventForm->save($data->toArray());
 		}
 		catch (Exception $e)
 		{
+			Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
 		}
+	}
+
+	public function changeTpl()
+	{
+		$user = Factory::getApplication()->getIdentity();
+		$template = ($user->getParam('events_tpl', 'default') === 'default') ? 'cards' : 'default';
+		$user->setParam('events_tpl', $template);
+		$user->save();
+		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 }

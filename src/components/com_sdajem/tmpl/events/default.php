@@ -1,6 +1,6 @@
 <?php
 /**
- * @package     Joomla.Administrator
+ * @package     Joomla.Site
  * @subpackage  com_sdajem
  *
  * @copyright   Copyright (C) 2005 - 2020 Open Source Matters, Inc. All rights reserved.
@@ -20,13 +20,14 @@ use Joomla\CMS\WebAsset\WebAssetManager;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
-use Sda\Component\Sdajem\Administrator\Model\Items\EventsItemModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
-use Sda\Component\Sdajem\Site\Model\AttendingModel;
+use Sda\Component\Sdajem\Site\View\Events\HtmlView;
+
+/** @var HtmlView $this */
 
 /* @var WebAssetManager $wa */
-$wa = $this->document->getWebAssetManager();
+$wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('bootstrap.dropdown');
 $wa->useScript('bootstrap.collapse');
 $wa->useScript('table.columns');
@@ -49,7 +50,6 @@ $currentUser = Factory::getApplication()->getIdentity();
 
 $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 
-/* @var EventsItemModel $item */
 ?>
 <div class="sdajem_content_container">
 
@@ -115,8 +115,28 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                         </div>
 
                     <?php endif; ?>
-                    <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="adminForm1" id="adminForm1">
-		            <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
+                        <div class="row justify-content-between">
+                            <div class="col-auto align-content-center">
+                                <?php
+                                $checked = ($currentUser->getParam('events_tpl', 'default') === 'default') ? '' : 'checked';
+                                ?>
+                                <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="tplForm" id="tplForm">
+                                    <div class="form-check form-switch float-right">
+                                        <input class="form-check-input" type="checkbox" value="" id="default_tpl" switch onclick="Joomla.submitbutton('event.changeTpl', 'tplForm')" <?php echo $checked; ?>
+                                        <label class="form-check-label" for="default_tpl">
+                                            <?php echo Text::_('COM_SDAJEM_EVENTS_TPL_CARDS'); ?>
+                                        </label>
+                                    </div>
+                                    <input type="hidden" name="task" value/>
+                                    <input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
+                                    <?php echo HTMLHelper::_('form.token'); ?>
+                                </form>
+                            </div>
+                            <div class="col">
+                                <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="adminForm1" id="adminForm1">
+                                <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -159,7 +179,6 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                             <tbody>
                             <?php
                             $n = count($this->items);
-                            $attending = new AttendingModel();
                             foreach ($this->items as $i => $item) : ?>
                             <?php if($item->eventStatus == EventStatusEnum::CONFIRMED->value || in_array($params->get('sda_public_planing'), $userAuthorizedViewLevels)) : ?>
                                 <tr class="row<?php echo $i % 2; ?>">
