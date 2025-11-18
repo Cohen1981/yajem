@@ -13,13 +13,18 @@ namespace Sda\Component\Sdajem\Site\Controller;
 defined('_JEXEC') or die();
 
 use Exception;
+use Joomla\CMS\Access\Access;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\HTML\HTMLHelper;
+use Joomla\CMS\Mail\MailerFactoryInterface;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Uri\Uri;
+use Joomla\CMS\User\UserFactoryInterface;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
+use Joomla\CMS\Language\Text;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
 use Sda\Component\Sdajem\Administrator\Model\AttendingModel;
@@ -53,7 +58,7 @@ class EventController extends FormController
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getModel($name = 'eventform', $prefix = '', $config = ['ignore_request' => true])
+	public function getModel($name = 'eventform', $prefix = '', $config = ['ignore_request' => true]):BaseDatabaseModel
 	{
 		return parent::getModel($name, $prefix, ['ignore_request' => false]);
 	}
@@ -68,7 +73,7 @@ class EventController extends FormController
 	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
-	protected function allowAdd($data = [])
+	protected function allowAdd($data = []):bool
 	{
 		$user = Factory::getApplication()->getIdentity();
 
@@ -86,7 +91,7 @@ class EventController extends FormController
 	 * @throws Exception
 	 * @since   __DEPLOY_VERSION__
 	 */
-	protected function allowEdit($data = [], $key = 'id')
+	protected function allowEdit($data = [], $key = 'id'):bool
 	{
 		$recordId = (int) isset($data[$key]) ? $data[$key] : 0;
 		if (!$recordId) {
@@ -116,7 +121,7 @@ class EventController extends FormController
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function save($key = null, $urlVar = null)
+	public function save($key = null, $urlVar = null):bool
 	{
 		$result = parent::save($key, $urlVar = null);
 
@@ -133,7 +138,7 @@ class EventController extends FormController
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function cancel($key = null)
+	public function cancel($key = null):bool
 	{
 		$result = parent::cancel($key);
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
@@ -188,7 +193,7 @@ class EventController extends FormController
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	protected function getRedirectToItemAppend($recordId = 0, $urlVar = 'id')
+	protected function getRedirectToItemAppend($recordId = 0, $urlVar = 'id'):string
 	{
 		// Need to override the parent method completely.
 		$tmpl = $this->input->get('tmpl');
@@ -219,7 +224,7 @@ class EventController extends FormController
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	protected function getReturnPage()
+	protected function getReturnPage():string
 	{
 		$return = $this->input->get('return', null, 'base64');
 		if (empty($return) || !Uri::isInternal(base64_decode($return))) {
@@ -231,7 +236,7 @@ class EventController extends FormController
 	/**
 	 * @since 1.2.4
 	 */
-	private function setViewLevel()
+	private function setViewLevel():void
 	{
 		$params = ComponentHelper::getParams('com_sdajem');
 		$this->setAccessLevel($params->get('sda_public_planing'));
@@ -242,28 +247,28 @@ class EventController extends FormController
 	 *
 	 * @since 1.0.9
 	 */
-	public function open()
+	public function open():void
 	{
 		$this->setEventStatus(EventStatusEnum::OPEN);
 		$this->setViewLevel();
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 
-	public function applied()
+	public function applied():void
 	{
 		$this->setEventStatus(EventStatusEnum::APPLIED);
 		$this->setViewLevel();
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 
-	public function canceled()
+	public function canceled():void
 	{
 		$this->setEventStatus(EventStatusEnum::CANCELED);
 		$this->setViewLevel();
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 
-	public function confirmed()
+	public function confirmed():void
 	{
 		$this->setEventStatus(EventStatusEnum::CONFIRMED);
 		$this->setAccessLevel(1);
@@ -275,14 +280,15 @@ class EventController extends FormController
 	 *
 	 * @since 1.0.9
 	 */
-	public function planing()
+	public function planing():void
 	{
 		$this->setEventStatus(EventStatusEnum::PLANING);
 		$this->setViewLevel();
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
 	}
 
-	protected function setEventStatus(EventStatusEnum $enum) {
+	protected function setEventStatus(EventStatusEnum $enum):void
+	{
 		$eventId = $this->input->get('eventId');
 
 		if ($eventId != null) {
@@ -292,7 +298,8 @@ class EventController extends FormController
 		}
 	}
 
-	protected function setAccessLevel(int $access) {
+	protected function setAccessLevel(int $access):void
+	{
 		$eventId = $this->input->get('eventId');
 
 		if ($eventId != null) {
@@ -302,7 +309,8 @@ class EventController extends FormController
 		}
 	}
 
-	public function addCategory() {
+	public function addCategory():bool
+	{
 		$input = Factory::getApplication()->input;
 		$app = Factory::getApplication();
 		$user = $app->getIdentity();
@@ -342,7 +350,7 @@ class EventController extends FormController
 	 * @throws Exception
 	 * @since 1.1.3
 	 */
-	public function positive($eventId = null, $userId = null)
+	public function positive($eventId = null, $userId = null):void
 	{
 		//$this->option = 'core.manage.attending';
 		$pks = [];
@@ -408,7 +416,7 @@ class EventController extends FormController
 	 * @throws Exception
 	 * @since 1.1.3
 	 */
-	public function negative($eventId = null, $userId = null)
+	public function negative($eventId = null, $userId = null):void
 	{
 		//$this->option = 'core.manage.attending';
 		$pks = [];
@@ -474,7 +482,7 @@ class EventController extends FormController
 	 * @throws Exception
 	 * @since 1.1.3
 	 */
-	public function guest($eventId = null, $userId = null)
+	public function guest($eventId = null, $userId = null):void
 	{
 		//$this->option = 'core.manage.attending';
 		$pks = [];
@@ -538,7 +546,7 @@ class EventController extends FormController
 	 *
 	 * @since 1.2.0
 	 */
-	public function savePlan()
+	public function savePlan():void
 	{
 		$svg = $_POST['svg'];
 		if (empty($svg)) {
@@ -567,12 +575,68 @@ class EventController extends FormController
 		}
 	}
 
-	public function changeTpl()
+	public function changeTpl():void
 	{
 		$user = Factory::getApplication()->getIdentity();
 		$template = ($user->getParam('events_tpl', 'default') === 'default') ? 'cards' : 'default';
 		$user->setParam('events_tpl', $template);
 		$user->save();
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
+	}
+
+	/**
+	 * @param   BaseDatabaseModel  $model
+	 * @param                      $validData
+	 *
+	 * @return void
+	 * @throws Exception
+	 *
+	 * @since 1.5.0
+	 */
+	protected function postSaveHook(BaseDatabaseModel $model, $validData = []):void
+	{
+		$componentParams = ComponentHelper::getParams('com_sdajem');
+
+		if ($model->state->get('eventform.new') && $componentParams->get('sda_mail_on_new_event'))
+		{
+			$mailer = Factory::getContainer()->get(MailerFactoryInterface::class)->createMailer();
+
+			// Define necessary variables
+			$subject = Text::_('NEW_EVENT_SAVED') . ': '
+				. $validData['title'] . ' '
+				. HTMLHelper::date($validData['startDateTime'],'d.m.Y')
+				. ' - ' . HTMLHelper::date($validData['endDateTime'], 'd.m.Y');
+			$body = Text::_('COM_SDAJEM_FIELD_REGISTERUNTIL_LABEL') . ': ' . HTMLHelper::date($validData['registerUntil'],'d.m.Y');
+
+			$recipientsUsers = Access::getUsersByGroup($componentParams->get('sda_usergroup_mail'));
+			$userFactory = Factory::getContainer()->get(UserFactoryInterface::class);
+
+			foreach ($recipientsUsers as $recipientUser)
+			{
+				$mailer->addRecipient($userFactory->loadUserById($recipientUser)->email);
+			}
+
+			// Set subject, and body of the email
+			$mailer
+				->isHTML(true)
+				->setSubject($subject)
+				->setBody($body);
+
+			// Set plain text alternative body (for email clients that don't support HTML)
+			$mailer->AltBody = strip_tags($body);
+
+			// Send the email and check for success or failure
+			try {
+				$send = $mailer->Send(); // Attempt to send the email
+
+				if ($send !== true) {
+					echo 'Error: ' . $send->__toString(); // Display error message if sending fails
+				} else {
+					Factory::getApplication()->enqueueMessage(Text::_('SDA_EMAIL_EVENT_SUCCESS'), 'info');
+				}
+			} catch (Exception $e) {
+				Factory::getApplication()->enqueueMessage($e->getMessage(), 'error');
+			}
+		}
 	}
 }
