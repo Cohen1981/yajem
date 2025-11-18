@@ -118,12 +118,13 @@ class LocationController extends FormController
 		$pks = ArrayHelper::toInteger($this->input->get('cid'));
 
 		// ToDo check for location usage in events before delete
-		/** @var LocationModel $model */
-		$model = $this->getModel('location');
+
 		foreach ($pks as &$pk) {
+			/** @var LocationModel $model */
+			$model = $this->getModel('location');
 			if ($model->countUsage($pk) > 0) {
 				$item = $model->getItem($pk);
-				$this->app->enqueueMessage($item->title .' '. Text::_('COM_SDAEJEM_LOCATION_IN_EVENTS'), 'error');
+				$this->app->enqueueMessage($item->title .' '. Text::_('COM_SDAEJEM_LOCATION_IN_EVENTS'), 'warning');
 			}
 			else
 			{

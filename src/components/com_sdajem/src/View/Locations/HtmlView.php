@@ -12,6 +12,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
+use Sda\Component\Sdajem\Site\Model\Collections\LocationsCollection;
 use Sda\Component\Sdajem\Site\Model\LocationsModel;
 use SimpleXMLElement;
 
@@ -32,7 +33,7 @@ class HtmlView extends BaseHtmlView
 	 * @var  array
 	 * @since 1.0.0
 	 */
-	protected $items;
+	protected LocationsCollection $items;
 
 	/**
 	 * The model state
@@ -72,7 +73,7 @@ class HtmlView extends BaseHtmlView
 	{
 		/** @var LocationsModel $model */
 		$model = $this->getModel();
-		$this->items = $model->getItems();
+		$this->items = new LocationsCollection($model->getItems());
 
 		$this->pagination = $model->getPagination();
 		$this->filterForm = $model->getFilterForm();

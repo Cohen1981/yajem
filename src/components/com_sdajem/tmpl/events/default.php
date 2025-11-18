@@ -116,22 +116,6 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
 
                     <?php endif; ?>
                         <div class="row justify-content-between">
-                            <div class="col-auto align-content-center">
-                                <?php
-                                $checked = ($currentUser->getParam('events_tpl', 'default') === 'default') ? '' : 'checked';
-                                ?>
-                                <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="tplForm" id="tplForm">
-                                    <div class="form-check form-switch float-right">
-                                        <input class="form-check-input" type="checkbox" value="" id="default_tpl" switch onclick="Joomla.submitbutton('event.changeTpl', 'tplForm')" <?php echo $checked; ?>
-                                        <label class="form-check-label" for="default_tpl">
-                                            <?php echo Text::_('COM_SDAJEM_EVENTS_TPL_CARDS'); ?>
-                                        </label>
-                                    </div>
-                                    <input type="hidden" name="task" value/>
-                                    <input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
-                                    <?php echo HTMLHelper::_('form.token'); ?>
-                                </form>
-                            </div>
                             <div class="col">
                                 <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="adminForm1" id="adminForm1">
                                 <?php echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
@@ -140,6 +124,24 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                     </div>
                 </div>
             </div>
+        </div>
+
+        <div class="row align-items-end">
+            <?php
+            $checked = ($currentUser->getParam('events_tpl', 'default') === 'default') ? '' : 'checked';
+            ?>
+            <form action="<?php echo Route::_('index.php?view=events'); ?>" method="post" name="tplForm" id="tplForm">
+                <div class="col"></div>
+                <div class="form-check form-switch col-auto">
+                    <input class="form-check-input" type="checkbox" value="" id="default_tpl" switch onclick="Joomla.submitbutton('event.changeTpl', 'tplForm')" <?php echo $checked; ?>
+                    <label class="form-check-label" for="default_tpl">
+                        <?php echo Text::_('COM_SDAJEM_EVENTS_TPL_CARDS'); ?>
+                    </label>
+                </div>
+                <input type="hidden" name="task" value/>
+                <input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
+                <?php echo HTMLHelper::_('form.token'); ?>
+            </form>
         </div>
 
         <div class="row">
