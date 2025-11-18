@@ -25,6 +25,7 @@ use Joomla\CMS\Form\Form;
 use Joomla\CMS\Language\Multilanguage;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\Table\Table;
+use Joomla\Utilities\ArrayHelper;
 use RuntimeException;
 use Sda\Component\Sdajem\Site\Model\Item\Event;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
@@ -101,6 +102,8 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 	 */
 	public function save($data)
 	{
+		if (is_array($data['svg']))
+			$data['svg'] = json_encode($data['svg']);
 		return parent::save($data);
 	}
 	/**

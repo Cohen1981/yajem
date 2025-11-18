@@ -30,4 +30,9 @@ class EventsCollection extends \ArrayObject implements IteratorAggregate {
 	{
 		return new ArrayIterator($this->events);
 	}
+
+	public function count():int
+	{
+		return count($this->events);
+	}
 }

@@ -25,6 +25,7 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\UserFactoryInterface;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 use Joomla\CMS\Language\Text;
+use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
 use Sda\Component\Sdajem\Administrator\Model\AttendingModel;
@@ -557,12 +558,9 @@ class EventController extends FormController
 		$event = $this->getModel('Event');
 		$data = $event->getItem($_POST['id']);
 
-		if (is_object($svg))
-			$data->svg = (array) $svg;
-		if (is_array($svg))
-			$data->svg = $svg;
-		if (is_string($svg))
-			$data->svg = [$svg];
+		$reg = new Registry($_POST['svg']);
+
+		$data->svg = $reg->toArray();
 
 		$eventForm = new EventformModel();
 		try

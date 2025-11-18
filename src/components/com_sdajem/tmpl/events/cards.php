@@ -69,24 +69,18 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                     </div>
 
                     <?php if ($canDo->get('core.delete')): ?>
-                    <!-- Show the delete buttons on events  -->
-                    <?php
-                    for ($i = 0; $i < count($this->items); $i++) {
-                        $aria_controls = 'cdelete'.$i;
-                    }
-                    ?>
-
-                    <div class="col-auto align-content-center">
-                        <div class="btn btn-danger"
-                                type="button"
-                                data-bs-toggle="collapse"
-                                data-bs-target=".multi-collapse"
-                                aria-expanded="false"
-                                aria-controls="<?php echo $aria_controls;?>"
-                        >
-                            <?php echo Text::_('COM_SDAJEM_DELETE_TOGGLE'); ?>
+                        <!-- Show the delete buttons on events  -->
+                        <div class="col-auto align-content-center">
+                            <div class="btn btn-danger"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target=".multi-collapse"
+                                    aria-expanded="false"
+                                    aria-controls=""
+                            >
+                                <?php echo Text::_('COM_SDAJEM_DELETE_TOGGLE'); ?>
+                            </div>
                         </div>
-                    </div>
                     <?php endif; ?>
                 </div>
             </div>
