@@ -12,6 +12,7 @@ namespace Sda\Component\Sdajem\Administrator\Table;
 
 use DateTime;
 use Exception;
+use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Database\DatabaseDriver;
@@ -49,7 +50,7 @@ class CommentTable extends Table
 		parent::__construct('#__sdajem_comments', 'id', $db);
 	}
 
-	public function check()
+	public function check():bool
 	{
 		try {
 			parent::check();
@@ -59,9 +60,11 @@ class CommentTable extends Table
 			return false;
 		}
 
-		if (!$this->users_user_id) {
+		if (!$this->users_user_id)
 			$this->users_user_id = Factory::getApplication()->getIdentity()->id;
-		}
+
+		if (!$this->timestamp)
+			$this->timestamp = Date::getInstance()->toSql();
 		return true;
 	}
 

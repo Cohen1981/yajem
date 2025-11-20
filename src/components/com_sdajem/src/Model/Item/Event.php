@@ -35,6 +35,7 @@ class Event extends \stdClass
 	public ?string $registerUntil;
 
 	public ?string $location_name;
+	public ?string $postalCode;
 	public ?string $organizerName;
 	public ?int $attendeeCount;
 	public ?int $guestCount;
@@ -56,8 +57,4 @@ class Event extends \stdClass
 	public ?int $ordering;
 	public ?string $language;
 
-	public function toArray(): array
-	{
-		return (array) $this;
-	}
 }

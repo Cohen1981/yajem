@@ -15,6 +15,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Sda\Component\Sdajem\Site\Model\Item\Comment;
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -26,13 +27,6 @@ defined('_JEXEC') or die;
  *
  * @since  1.0.0
  *
- * Fields
- * @property  int       id
- * @property  int       users_user_id
- * @property  int       sdajem_event_id
- * @property  string    comment
- * @property  DateTime timestamp
- * @property  string    commentReadBy
  */
 
 class CommentModel extends BaseDatabaseModel
@@ -74,19 +68,6 @@ class CommentModel extends BaseDatabaseModel
 					->from($db->quoteName('#__sdajem_comments', 'c'))
 					->where($db->quoteName('c.id') . ' = :commentId');
 
-				$query->select($db->quoteName('e.title', 'eventTitle'))
-					->join(
-						'LEFT',
-						$db->quoteName('#__sdajem_events', 'e') . ' ON ' . $db->quoteName('e.id') . '=' . $db->quoteName('c.sdajem_event_id')
-					);
-
-				//Join over User as attendee
-				$query->select($db->quoteName('at.username', 'userName'))
-					->join(
-						'LEFT',
-						$db->quoteName('#__users', 'at') . ' ON ' . $db->quoteName('at.id') . ' = ' . $db->quoteName('c.users_user_id')
-					);
-
 				$query->bind(':commentId', $pk);
 
 				$db->setQuery($query);
@@ -106,7 +87,7 @@ class CommentModel extends BaseDatabaseModel
 			}
 		}
 
-		return $this->_item[$pk];
+		return Comment::createFromObject($this->_item[$pk]);
 	}
 
 	/**

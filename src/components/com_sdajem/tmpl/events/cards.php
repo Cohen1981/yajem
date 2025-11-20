@@ -141,7 +141,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                 <div class="card-header row justify-content-between">
                     <!-- col1 title and date -->
                     <div class="col">
-                       <a href="<?php echo Route::_('index.php?view=event&id=' . $event->id); ?>">
+                       <a href="<?php echo Route::_('index.php?view=event&id=' . $event->id . '&task=event.display'); ?>">
                            <h5>
                             <p>
                                 <?php echo $event->title; ?>
@@ -219,6 +219,9 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                             </div>
                             <div class="col-11">
                                 <?php echo Text::_('COM_SDAJEM_REGISTER_UNTIL') . ': ' . HTMLHelper::date($event->registerUntil, 'd.m.Y', true);?>
+                                <?php if($event->organizerName): ?>
+                                <br><?php echo Text::_('COM_SDAJEM_ORGANIZIG') . ': ' . $event->organizerName ?>
+                                <?php endif ?>
                             </div>
                         <?php endif ?>
 
@@ -228,7 +231,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                 <span class="fas fa-map-marker-alt " aria-hidden="true"></span>
                             </div>
                             <div class="col-11">
-                                <?php echo ' ' . $this->escape($event->location_name);?>
+                                <?php echo ' ' . $this->escape($event->postalCode) .' ' . $this->escape($event->location_name);?>
                             </div>
                         <?php endif; ?>
 

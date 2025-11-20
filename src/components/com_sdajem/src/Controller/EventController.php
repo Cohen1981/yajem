@@ -14,17 +14,23 @@ defined('_JEXEC') or die();
 
 use Exception;
 use Joomla\CMS\Access\Access;
+use Joomla\CMS\Application\CMSWebApplicationInterface;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
+use Joomla\CMS\Form\FormFactoryInterface;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Mail\MailerFactoryInterface;
 use Joomla\CMS\MVC\Controller\FormController;
+use Joomla\CMS\MVC\Factory\MVCFactoryInterface;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
+use Joomla\CMS\MVC\View\ViewInterface;
 use Joomla\CMS\Router\Route;
+use Joomla\CMS\Router\Router;
 use Joomla\CMS\Uri\Uri;
 use Joomla\CMS\User\UserFactoryInterface;
 use Joomla\Component\Categories\Administrator\Model\CategoryModel;
 use Joomla\CMS\Language\Text;
+use Joomla\Input\Input;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
@@ -34,10 +40,13 @@ use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingformModel;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
+use Sda\Component\Sdajem\Site\Model\CommentformModel;
+use Sda\Component\Sdajem\Site\Model\CommentsModel;
 use Sda\Component\Sdajem\Site\Model\EventformModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\Model\InterestformModel;
 use Sda\Component\Sdajem\Site\Model\InterestsModel;
+use Sda\Component\Sdajem\Site\Model\Item\Comment;
 
 class EventController extends FormController
 {
@@ -48,6 +57,9 @@ class EventController extends FormController
 	 * @since  __DEPLOY_VERSION__
 	 */
 	protected $view_item = 'eventform';
+
+	protected $view_list = 'events';
+
 	/**
 	 * Method to get a model object, loading it if required.
 	 *
@@ -166,16 +178,23 @@ class EventController extends FormController
 		$interestFormModel = new InterestformModel();
 		$interestsModel = new InterestsModel();
 
+		$commentsModel = new CommentsModel();
+		$commentFormModel = new CommentformModel();
+
 		foreach ($pks as &$pk) {
 			$attendings = $attendingsModel->getAttendingsIdToEvent($pk);
 			$attResult = $attendingFormModel->delete($attendings);
+
 			$interests = $interestsModel->getInterestsIdToEvent($pk);
 			$intResult = $interestFormModel->delete($interests);
+
+			$comments = $commentsModel->getCommentsIdsToEvent($pk);
+			$commentResult = $commentFormModel->delete($comments);
 		}
 
 		$eventFormModel = new EventformModel();
 
-		if ($attResult && $intResult)
+		if ($attResult && $intResult && $commentResult)
 		{
 			$result = $eventFormModel->delete($pks);
 		}
@@ -553,6 +572,7 @@ class EventController extends FormController
 		if (empty($svg)) {
 			return;
 		}
+		$this->app->setUserState('com_sdajem.event.callContext', $this->input->get('callContext', ''));
 
 		/** @var EventModel $event */
 		$event = $this->getModel('Event');

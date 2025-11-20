@@ -15,7 +15,7 @@ use stdClass;
  */
 trait ItemTrait
 {
-	public ?stdClass $event;
+	public ?stdClass $item;
 	public function __construct()
 	{
 		$selfReflection = new ReflectionObject($this);
@@ -44,4 +44,8 @@ trait ItemTrait
 		return self::createFromArray((array) $data);
 	}
 
+	public function toArray(): array
+	{
+		return (array) $this;
+	}
 }

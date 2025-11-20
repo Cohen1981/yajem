@@ -73,6 +73,12 @@ class EventformModel extends \Sda\Component\Sdajem\Administrator\Model\EventMode
 			if (!$table->load($itemId)) {
 				return false;
 			}
+			else{
+				if($table->svg)
+					$table->svg = (array) json_decode($table->svg);
+				else
+					$table->svg = array();
+			}
 		} catch (Exception $e) {
 			Factory::getApplication()->enqueueMessage($e->getMessage());
 			return false;

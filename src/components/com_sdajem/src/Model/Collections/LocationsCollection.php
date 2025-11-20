@@ -4,6 +4,7 @@ namespace Sda\Component\Sdajem\Site\Model\Collections;
 
 use ArrayIterator;
 use IteratorAggregate;
+use Sda\Component\Sdajem\Administrator\Trait\ItemsTrait;
 use Sda\Component\Sdajem\Site\Model\Item\Event;
 use Sda\Component\Sdajem\Site\Model\Item\Location;
 
@@ -12,19 +13,21 @@ use Sda\Component\Sdajem\Site\Model\Item\Location;
  * @template-implements IteratorAggregate<Location>
  */
 class LocationsCollection extends \ArrayObject implements IteratorAggregate {
-	private array $locations = [];
+	use ItemsTrait;
 
-	public function __construct(array $ratings) {
+	private array $items = [];
+
+	public function __construct(array $items) {
 
 		parent::__construct();
 
-		foreach ($ratings as $rating) {
-			$this->locations[] = Location::createFromObject($rating);
+		foreach ($items as $item) {
+			$this->items[] = Location::createFromObject($item);
 		}
 	}
 
-	public function getIterator():ArrayIterator
+	public static function fromArry(array $items):LocationsCollection
 	{
-		return new ArrayIterator($this->locations);
+		return new self(...$items);
 	}
 }

@@ -78,8 +78,14 @@
 .sdajem_content_container .card-header .sda_float_right {
   float: right;
 }
-.sdajem_content_container .accordion-header h5 {
+.sdajem_content_container .accordion-header button {
+  font-weight: normal;
+  font-size: 1rem;
+}
+.sdajem_content_container .accordion-header button h5 {
   font-weight: 500;
+  font-size: 1.25rem;
+  margin-bottom: 0;
 }
 .sdajem_content_container .accordion-header .sda_events_accordion {
   padding: 0.5rem 1.25rem;
@@ -95,6 +101,16 @@
 .sdajem_content_container a.no-decor :hover {
   text-decoration: none;
   color: #000;
+}
+.sdajem_content_container .sda_comment_row {
+  padding-top: 0.5em;
+  margin-top: 0.5em;
+  border-top: rgba(0, 0, 0, 0.3) 1px solid;
+}
+.sdajem_content_container .sda_comment_user {
+  font-weight: 600;
+  text-decoration: underline;
+  padding-bottom: 0.5em;
 }
 .sdajem_content_container .card [class^=col-] {
   padding-bottom: 0.5em;

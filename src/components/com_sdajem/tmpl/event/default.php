@@ -27,6 +27,7 @@ $wa->useScript('com_sdajem.checkbox');
 
 $wa->useScript('bootstrap.dropdown');
 $wa->useScript('bootstrap.collapse');
+$wa->useScript('joomla.dialog-autocreate');
 
 $canDo   = ContentHelper::getActions('com_sdajem', 'category', $this->item->catid);
 $user = Factory::getApplication()->getIdentity();
@@ -153,14 +154,23 @@ $currentUser = Factory::getApplication()->getIdentity();
 
     <div class="accordion" id="accordionEvent">
 	    <?php if (isset($this->location)) : ?>
+            <?php
+            $status = ($this->activeAccordion === 'event.location') ? 'show' :  '';
+            $collapsed = ($this->activeAccordion === 'event.location') ? '' : 'collapsed';
+            ?>
         <div class="accordion-item">
             <div class="accordion-header" id="headingLocation">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocation" aria-expanded="true" aria-controls="collapseLocation">
-                    <?php echo Text::_('COM_SDAJEM_LOCATION'); ?>: <?php echo $location->title; ?>
+                <button class="accordion-button <?php echo $collapsed; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseLocation" aria-expanded="true" aria-controls="collapseLocation">
+                    <h5>
+                    <?php
+                        echo Text::_('COM_SDAJEM_LOCATION') . ': ';
+                        echo $location->title;
+                        ?>
+                    </h5>
                 </button>
             </div>
 
-            <div id="collapseLocation" class="accordion-collapse collapse show" aria-labelledby="headingLocation" data-bs-parent="#accordionEvent">
+            <div id="collapseLocation" class="accordion-collapse collapse <?php echo $status; ?>" aria-labelledby="headingLocation" data-bs-parent="#accordionEvent">
                 <div class="accordion-body clearfix">
 
                     <?php if ($user->authorise('core.edit', 'com_sdajem') || ($user->authorise('core.edit.own', 'com_sdajem') && $location->created_by == $user->id)) : ?>
@@ -203,13 +213,17 @@ $currentUser = Factory::getApplication()->getIdentity();
 	    <?php endif; ?>
 
 	    <?php if(isset($event->hostId)) : ?>
+            <?php
+            $status = ($this->activeAccordion === 'event.host') ? 'show' :  '';
+            $collapsed = ($this->activeAccordion === 'event.host') ? '' : 'collapsed';
+            ?>
             <div class="accordion-item">
                 <div class="accordion-header" id="headingHost">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHost" aria-expanded="true" aria-controls="collapseHost">
-                        <?php echo Text::_('COM_SDAJEM_FIELD_HOST_LABEL'); ?>: <?php echo $host->getName(); ?>
+                    <button class="accordion-button <?php echo $collapsed; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHost" aria-expanded="true" aria-controls="collapseHost">
+                        <h5><?php echo Text::_('COM_SDAJEM_FIELD_HOST_LABEL'); ?>: <?php echo $host->getName(); ?></h5>
                     </button>
                 </div>
-                <div id="collapseHost" class="accordion-collapse collapse" aria-labelledby="headingHost" data-bs-parent="#accordionEvent">
+                <div id="collapseHost" class="accordion-collapse collapse <?php echo $status; ?>" aria-labelledby="headingHost" data-bs-parent="#accordionEvent">
                     <div class="accordion-body">
 	                    <?php if ($canEdit) : ?>
                             <div class="icons float-end">
@@ -225,13 +239,21 @@ $currentUser = Factory::getApplication()->getIdentity();
 	    <?php endif; ?>
 
         <?php if ($tparams->get('sda_use_attending') && !$user->guest): ?>
+            <?php
+            $status = ($this->activeAccordion === 'event.attending') ? 'show' :  '';
+            $collapsed = ($this->activeAccordion === 'event.attending') ? '' : 'collapsed';
+            ?>
         <div class="accordion-item">
-            <h5 class="accordion-header" id="headingAttendings">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttendings" aria-expanded="true" aria-controls="collapseAttendings">
-                    <?php echo Text::_('COM_SDAJEM_FIELD_ATTENDINGS_LABEL'); ?><br>
+            <div class="accordion-header" id="headingAttendings">
+                <button class="accordion-button <?php echo $collapsed; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseAttendings" aria-expanded="true" aria-controls="collapseAttendings">
+                    <h5><?php echo Text::_('COM_SDAJEM_FIELD_ATTENDINGS_LABEL'); ?>&nbsp;</h5>
+                    <?php
+                    if ($event->registerUntil)
+                        echo ' (' . Text::_('COM_SDAJEM_FIELD_ATTENDINGS_UNTIL') . ' ' . HTMLHelper::date($event->registerUntil,'d.m.Y') . ') <br>';
+                    ?>
                 </button>
-            </h5>
-            <div id="collapseAttendings" class="accordion-collapse collapse" aria-labelledby="headingAttendings" data-bs-parent="#accordionEvent">
+            </div>
+            <div id="collapseAttendings" class="accordion-collapse collapse <?php echo $status; ?>" aria-labelledby="headingAttendings" data-bs-parent="#accordionEvent">
                 <div class="accordion-body">
                     <?php
                     if ($event->eventStatus == EventStatusEnum::PLANING->value) {
@@ -248,13 +270,18 @@ $currentUser = Factory::getApplication()->getIdentity();
         <?php endif; ?>
 
 	    <?php if ($tparams->get('sda_events_use_fittings') && !$user->guest && isset($this->eventFittings)): ?>
-        <div class="accordion-item">
-            <h5 class="accordion-header" id="headingPlaningArea">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlaningArea" aria-expanded="true" aria-controls="collapsePlaningArea">
-                    <?php echo Text::_('COM_SDAJEM_PLANING_AREA_LABEL'); ?><br>
+            <?php
+            $status = ($this->activeAccordion === 'event.planing') ? 'show' :  '';
+            $collapsed = ($this->activeAccordion === 'event.planing') ? '' : 'collapsed';
+            ?>
+
+        <div class="accordion-item d-none d-sm-block">
+            <div class="accordion-header" id="headingPlaningArea">
+                <button class="accordion-button <?php echo $collapsed; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePlaningArea" aria-expanded="true" aria-controls="collapsePlaningArea">
+                    <h5><?php echo Text::_('COM_SDAJEM_PLANING_AREA_LABEL'); ?></h5>
                 </button>
-            </h5>
-            <div id="collapsePlaningArea" class="accordion-collapse collapse" aria-labelledby="headingPlaningArea" data-bs-parent="#accordionEvent">
+            </div>
+            <div id="collapsePlaningArea" class="accordion-collapse collapse <?php echo $status; ?>" aria-labelledby="headingPlaningArea" data-bs-parent="#accordionEvent">
                 <div class="accordion-body">
 
                     <?php echo $this->loadTemplate('planing'); ?>
@@ -262,16 +289,28 @@ $currentUser = Factory::getApplication()->getIdentity();
                 </div>
             </div>
         </div>
+        <div class="accordion-item d-sm-none">
+            <button class="accordion-button collapsed" type="button"
+                    data-joomla-dialog='{"popupType": "iframe", "width":"90vw", "height": "90vh", "src":"index.php?option=com_sdajem&view=event&tmpl=component&layout=planning_modal&id=<?php echo $event->id; ?>"}'>
+                <?php echo Text::_('COM_SDAJEM_PLANING_AREA_LABEL'); ?>
+            </button>
+        </div>
+
         <?php endif; ?>
 
 	    <?php if ($tparams->get('sda_events_use_comments') && !$user->guest): ?>
+            <?php
+            $status = ($this->activeAccordion === 'event.comment') ? 'show' :  '';
+            $collapsed = ($this->activeAccordion === 'event.comment') ? '' : 'collapsed';
+            ?>
             <div class="accordion-item">
-                <h5 class="accordion-header" id="headingCommentArea">
-                    <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentArea" aria-expanded="true" aria-controls="collapseCommentArea">
-                        <?php echo Text::_('COM_SDAJEM_COMMENT_AREA_LABEL'); ?><br>
+                <div class="accordion-header" id="headingCommentArea">
+                    <button class="accordion-button <?php echo $collapsed; ?>" type="button" data-bs-toggle="collapse" data-bs-target="#collapseCommentArea" aria-expanded="true" aria-controls="collapseCommentArea">
+                        <h5><?php echo Text::_('COM_SDAJEM_COMMENT_AREA_LABEL') . ' '; ?></h5>&nbsp;
+                        <?php echo ' (' . $this->comments->count() . ')'; ?>
                     </button>
-                </h5>
-                <div id="collapseCommentArea" class="accordion-collapse collapse" aria-labelledby="headingCommentArea" data-bs-parent="#accordionEvent">
+                </div>
+                <div id="collapseCommentArea" class="accordion-collapse collapse <?php echo $status; ?>" aria-labelledby="headingCommentArea" data-bs-parent="#accordionEvent">
                     <div class="accordion-body">
 
 					    <?php echo $this->loadTemplate('comments'); ?>

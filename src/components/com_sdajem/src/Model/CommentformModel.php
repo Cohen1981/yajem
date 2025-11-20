@@ -18,6 +18,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Administrator\Model\CommentModel;
+use Sda\Component\Sdajem\Site\Model\Item\Comment;
 use stdClass;
 
 class CommentformModel extends CommentModel
@@ -82,7 +83,7 @@ class CommentformModel extends CommentModel
 		// Load state from the request.
 		$pk = $app->input->getInt('id');
 		$this->setState('comment.id', $pk);
-		$return = $app->input->get('return', null, 'base64');
+		$return = $app->input->get('return', '', 'base64');
 		$this->setState('return_page', base64_decode($return));
 		// Load the parameters.
 		$params = $app->getParams();
@@ -105,5 +106,25 @@ class CommentformModel extends CommentModel
 	public function getTable($name = 'Comment', $prefix = 'Administrator', $options = [])
 	{
 		return parent::getTable($name, $prefix, $options);
+	}
+
+	protected function loadFormData()
+	{
+		$app = Factory::getApplication();
+
+		/** @var Comment $data */
+		// Check the session for previously entered form data.
+		$data = $app->getUserState('com_sdajem.edit.comment.data', []);
+
+		if (empty($data)) {
+			$data = $this->getItem();
+		}
+
+		$data->sdajem_event_id = $app->getUserState('com_sdajem.comment.sdajem_event_id', 0);
+		$data->users_user_id = $app->getIdentity()->id;
+
+		$this->preprocessData($this->typeAlias, $data);
+
+		return $data;
 	}
 }

@@ -63,7 +63,14 @@ class EventModel extends BaseDatabaseModel
 					->from($db->quoteName('#__sdajem_events', 'a'))
 					->where($db->quoteName('a.id') . ' = :eventId');
 				// Join over locations
-				$query->select($db->quoteName('loc.title', 'location_name'))
+				$query->select($this->getState(
+					'list.select',
+					[
+						$db->quoteName('loc.title', 'location_name'),
+						$db->quoteName('loc.postalCode', 'postalCode')
+						]
+					)
+				)
 					->join(
 						'LEFT',
 						$db->quoteName('#__sdajem_locations', 'loc') . ' ON ' . $db->quoteName('loc.id') . ' = ' . $db->quoteName('a.sdajem_location_id')

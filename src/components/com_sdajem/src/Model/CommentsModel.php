@@ -38,10 +38,30 @@ class CommentsModel extends \Sda\Component\Sdajem\Administrator\Model\CommentsMo
 		$query->from($db->quoteName('#__sdajem_comments', 'a'));
 
 		$query->where($db->quoteName('a.sdajem_event_id') . '= :eventId');
+		$query->order($db->quoteName('a.timestamp') . ' DESC');
 		$query->bind(':eventId', $eventId);
 
 		$db->setQuery($query);
 		$data = $db->loadObjectList();
+
+		return $data;
+	}
+
+	public function getCommentsIdsToEvent(int $eventId = null)
+	{
+		// Create a new query object.
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+
+		// Select the required fields from the table.
+		$query->select($db->quoteName('a.id'));
+
+		$query->from($db->quoteName('#__sdajem_comments', 'a'));
+
+		$query->where($db->quoteName('a.sdajem_event_id') . '=' . $eventId);
+
+		$db->setQuery($query);
+		$data = $db->loadColumn();
 
 		return $data;
 	}

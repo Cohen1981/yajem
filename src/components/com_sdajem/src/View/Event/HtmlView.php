@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
 
 /**
  * @package     Sda\Component\Sdajem\Site\View
@@ -25,6 +25,7 @@ use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
 use Joomla\Component\Contact\Site\Model\ContactModel;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Model\FittingsModel;
+use Sda\Component\Sdajem\Site\Model\Collections\CommentsCollection;
 use Sda\Component\Sdajem\Site\Model\Item\Event;
 use Sda\Component\Sdajem\Site\Model\Item\Location;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
@@ -65,7 +66,8 @@ class HtmlView extends BaseHtmlView
 	public ?array $interests = [];
 	public ?array $userFittings = [];
 	public ?array $eventFittings =[];
-	public ?array $comments;
+	public ?CommentsCollection $comments;
+	public string $activeAccordion = 'event.location';
 
 	/**
 	 * Execute and display a template script.
@@ -80,11 +82,16 @@ class HtmlView extends BaseHtmlView
 		/* @var EventModel $model */
 		$model = $this->getModel();
 
+		$app = Factory::getApplication();
+
 		$item = $this->item = $model->getItem();
 
 		$state = $this->state = $model->getState();
 		$params = $this->params = $state->get('params');
 		$itemparams = new Registry(json_decode($item->params));
+
+		$activeAccordion = $app->getUserState('com_sdajem.event.callContext', $this->activeAccordion);
+		$this->activeAccordion = $activeAccordion;
 
 		$temp = clone $params;
 
@@ -120,7 +127,7 @@ class HtmlView extends BaseHtmlView
 
 		if($item->paramsRegistry->get('sda_events_use_comments')) {
 			$this->setModel(new CommentsModel());
-			$this->comments = $this->getModel('comments')->getCommentsToEvent($item->id);
+			$this->comments = new CommentsCollection($this->getModel('comments')->getCommentsToEvent($item->id));
 		}
 
 		if($item->paramsRegistry->get('sda_use_attending')) {
@@ -162,6 +169,10 @@ class HtmlView extends BaseHtmlView
 		} else if (isset($active->query['layout'])) {
 			// We need to set the layout in case this is an alternative menu item (with an alternative layout)
 			$this->setLayout($active->query['layout']);
+		}
+		if ($this->_layout === 'planning_modal')
+		{
+			$this->setLayout('planning_modal');
 		}
 
 		$contentEventArguments = [
