@@ -14,6 +14,7 @@ use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
 use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Site\Model\Item\Attending;
 use Sda\Component\Sdajem\Site\View\Events\HtmlView;
 use Joomla\CMS\Component\ComponentHelper;
 use Joomla\CMS\Factory;
@@ -174,15 +175,15 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                     <?php if ($currentUser->id == $event->organizerId || $canDo->get('core.manage')) : ?>
                         <div class="row pb-1">
                             <?php
-                            $class = EventStatusEnum::from($event->eventStatus)->getStatusColorClass();
+                            $class = $event->eventStatus->getStatusColorClass();
                             ?>
                             <button type="button" class="btn btn-sm <?php echo $class; ?> dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <?php echo Text::_(EventStatusEnum::from($event->eventStatus)->getStatusLabel()); ?>
+                                <?php echo Text::_($event->eventStatus->getStatusLabel()); ?>
                             </button>
                             <ul class="dropdown-menu">
 
                                 <?php foreach (EventStatusEnum::cases() as $status) : ?>
-                                    <?php if ($status != EventStatusEnum::from($event->eventStatus)) : ?>
+                                    <?php if ($status != $event->eventStatus) : ?>
                                         <li><?php echo HTMLHelper::_('sdajemIcon.switchEventStatus',$event, $status); ?></li>
                                     <?php endif; ?>
                                 <?php endforeach; ?>
@@ -191,7 +192,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                         </div>
                     <?php else: ?>
                         <div class="row">
-                            <?php echo EventStatusEnum::from($event->eventStatus)->getStatusBadge(); ?>
+                            <?php echo $event->eventStatus->getStatusBadge(); ?>
                         </div>
                     <?php endif; ?>
 
@@ -268,26 +269,24 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                             </div>
                             <div class="col-11">
                                 <?php
-                                $intStatus = (InterestHelper::getInterestStatusToEvent($currentUser->id,
-                                        $event->id)) ? InterestHelper::getInterestStatusToEvent($currentUser->id,
-                                        $event->id)->status : 0;
-
-                                $attStatus = (AttendingHelper::getAttendingStatusToEvent($currentUser->id,
-                                        $event->id)) ? AttendingHelper::getAttendingStatusToEvent($currentUser->id,
-                                        $event->id)->status : 0;
+                                $attending = Attending::getAttendingToEvent($currentUser->id, $event->id);
                                 ?>
                                 <div>
                                     <?php if ($event->eventStatus == EventStatusEnum::PLANING->value) :?>
 
-                                        <?php echo IntAttStatusEnum::from($intStatus)->getInterestStatusBadge(); ?>
+                                        <?php echo $attending->status->getInterestStatusBadge(); ?>
 
                                     <?php else: ?>
 
                                         <?php
-                                        if ($intStatus != IntAttStatusEnum::NA->value) {
-                                            echo IntAttStatusEnum::from($intStatus)->getInterestStatusBadge() . ' ';
+                                        if ($attending->event_status === EventStatusEnum::PLANING) {
+                                            echo $attending->status->getInterestStatusBadge() . ' ';
                                         }
-                                        echo IntAttStatusEnum::from($attStatus)->getAttendingStatusBadge(); ?>
+                                        else
+                                        {
+                                            echo $attending->status->getAttendingStatusBadge();
+                                        }
+                                        ?>
 
                                     <?php endif; ?>
                                 </div>

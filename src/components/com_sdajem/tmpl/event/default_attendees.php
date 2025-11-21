@@ -52,10 +52,7 @@ if (isset($event->registerUntil))
             <h5><?php echo Text::_('COM_SDAJEM_ATTENDESS'); ?></h5>
 <div class="sda_row">
 	<?php if (isset($this->interests)) : ?>
-		<?php if ($event->eventStatus != EventStatusEnum::PLANING->value ||
-			$canDo->get('core.manage') ||
-			($canDo->get('core.edit.own') && $event->created_by == $user->id)
-		) : ?>
+		<?php if (!$user->guest) : ?>
 			<div class="sda_attendee_container">
 				<?php foreach ($this->interests as $i => $attending) : ?>
 					<?php if ($tparams->get('sda_avatar_field_name') && $tparams->get('sda_use_avatar')): ?>

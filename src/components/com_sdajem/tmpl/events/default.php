@@ -18,10 +18,9 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Joomla\CMS\WebAsset\WebAssetManager;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
-use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
-use Sda\Component\Sdajem\Administrator\Helper\InterestHelper;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Site\Model\Item\Attending;
 use Sda\Component\Sdajem\Site\View\Events\HtmlView;
 
 /** @var HtmlView $this */
@@ -203,28 +202,30 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                         <?php if ($params->get('sda_use_attending') && !$currentUser->guest) :?>
 
                                             <?php
-                                            $intStatus = (InterestHelper::getInterestStatusToEvent($currentUser->id,
-                                                $item->id)) ? InterestHelper::getInterestStatusToEvent($currentUser->id,
-                                                $item->id)->status : 0;
-
-                                            $attStatus = (AttendingHelper::getAttendingStatusToEvent($currentUser->id,
-                                                $item->id)) ? AttendingHelper::getAttendingStatusToEvent($currentUser->id,
-                                                $item->id)->status : 0;
+                                            $attStatus = (Attending::getAttendingToEvent($currentUser->id, $item->id));
 	                                        ?>
+                                            <div class="small">
 
-                                            <?php if ($item->eventStatus == EventStatusEnum::PLANING->value) :?>
-                                                <div class="small">
-                                                    <?php echo IntAttStatusEnum::from($intStatus)->getInterestStatusBadge(); ?>
-                                                </div>
-                                            <?php else: ?>
-                                                <div class="small">
+                                                <?php if ($item->eventStatus == EventStatusEnum::PLANING->value) :?>
+
+                                                    <?php echo $attStatus->status->getInterestStatusBadge(); ?>
+
+                                                <?php else: ?>
+
                                                     <?php
-                                                    if ($intStatus != IntAttStatusEnum::NA->value) {
-	                                                    echo IntAttStatusEnum::from($intStatus)->getInterestStatusBadge() . ' ';
+                                                    if ($attStatus->event_status === EventStatusEnum::PLANING) {
+                                                        echo $attStatus->status->getInterestStatusBadge() . ' ';
                                                     }
-                                                    echo IntAttStatusEnum::from($attStatus)->getAttendingStatusBadge(); ?>
-                                                </div>
-                                            <?php endif; ?>
+                                                    else
+                                                    {
+                                                        echo $attStatus->status->getAttendingStatusBadge();
+                                                    }
+                                                    ?>
+
+                                                <?php endif; ?>
+
+                                            </div>
+
                                         <?php endif; ?>
                                     </th>
                                     <td class="col-3">
@@ -278,15 +279,15 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                         <?php if ($currentUser->id == $item->organizerId || $canDo->get('core.manage')) : ?>
                                         <div class="sda_form">
                                             <?php
-                                            $class = EventStatusEnum::from($item->eventStatus)->getStatusColorClass();
+                                            $class = $item->eventStatus->getStatusColorClass();
                                             ?>
                                             <button type="button" class="btn btn-sm <?php echo $class; ?> dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-	                                            <?php echo Text::_(EventStatusEnum::from($item->eventStatus)->getStatusLabel()); ?>
+	                                            <?php echo Text::_($item->eventStatus->getStatusLabel()); ?>
                                             </button>
                                             <ul class="dropdown-menu">
 
                                             <?php foreach (EventStatusEnum::cases() as $status) : ?>
-                                                <?php if ($status != EventStatusEnum::from($item->eventStatus)) : ?>
+                                                <?php if ($status != $item->eventStatus) : ?>
                                                     <li><?php echo HTMLHelper::_('sdajemIcon.switchEventStatus',$item, $status); ?></li>
                                                 <?php endif; ?>
                                             <?php endforeach; ?>
@@ -294,7 +295,7 @@ $userAuthorizedViewLevels = $currentUser->getAuthorisedViewLevels();
                                         </div>
                                         <?php else: ?>
                                         <div>
-		                                    <?php echo EventStatusEnum::from($item->eventStatus)->getStatusBadge(); ?>
+		                                    <?php echo $item->eventStatus->getStatusBadge(); ?>
                                         </div>
                                         <?php endif; ?>
                                     </td>

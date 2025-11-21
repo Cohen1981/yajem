@@ -17,6 +17,7 @@ namespace Sda\Component\Sdajem\Site\Model;
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\User\User;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 /**
@@ -33,6 +34,7 @@ class EventInterestModel extends UserModel
 	public string $comment;
 	public ?array $profile;
 	public ?array $userData;
+	public ?User $user = null;
 
 	public function __construct($data)
 	{

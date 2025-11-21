@@ -26,6 +26,7 @@ use Sda\Component\Sdajem\Administrator\Model\FittingModel;
 use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\RouteHelper;
+use Sda\Component\Sdajem\Site\Model\Item\Attending;
 use Sda\Component\Sdajem\Site\Model\Item\Event;
 use stdClass;
 use function defined;
@@ -74,10 +75,6 @@ class Icon
 	 */
 	public static function edit(stdClass $event, $params, $attribs = [], $legacy = false)
 	{
-		/**
-		 * @var User $user
-		 */
-		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
 		// Ignore if in a popup window.
 		if ($params && $params->get('popup')) {
@@ -207,7 +204,6 @@ class Icon
 	 * @since 1.0.1
 	 */
 	public static function editAttending($attending, $params, $attribs = [], $legacy = false) {
-		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
 		// Ignore if in a popup window.
 		if ($params && $params->get('popup')) {
@@ -264,91 +260,72 @@ class Icon
 
 		$url      = Route::_('index.php?option=com_sdajem');
 
-		$icon = 'add';
-
 		$text = '<form action="' . $url . '" method="post" id="adminForm" name="adminForm">';
 		$text .= '<input type="hidden" name="event_id" value="' . $event->id . '"/>'
 				. '<input type="hidden" name="return" value="' . base64_encode($uri) . '"/>'
 				. '<input type="hidden" name="task" value=""/>';
 		$text .= HTMLHelper::_('form.token');
-		// Test for attending Status
 
-		if ($event->eventStatus == EventStatusEnum::PLANING->value) {
-			$interest = InterestHelper::getInterestStatusToEvent(Factory::getApplication()->getIdentity()->id,
-				$event->id);
+		$interest = Attending::getAttendingToEvent($user->id, $event->id);
 
-			if ($interest)
-			{
-				$text .= '<input type="hidden" name="interestId" value="' . $interest->id . '"/>';
-			}
-			else
-			{
-				$interest         = new stdClass();
-				$interest->status = IntAttStatusEnum::NA->value;
-			}
+		if ($interest->status != IntAttStatusEnum::NA)
+		{
+			$text .= '<input type="hidden" name="attendingId" value="' . $interest->id . '"/>';
+		}
+		else
+		{
+			$interest         = new Attending();
+			$interest->status = IntAttStatusEnum::NA;
+		}
 
-			foreach (IntAttStatusEnum::cases() as $status)
+		$eventStatus = ($event->eventStatus === EventStatusEnum::PLANING->value) ? EventStatusEnum::PLANING : EventStatusEnum::OPEN;;
+
+		foreach (IntAttStatusEnum::cases() as $status)
+		{
+			if ($status != IntAttStatusEnum::NA)
 			{
-				if ($status != IntAttStatusEnum::from($interest->status) && $status != IntAttStatusEnum::NA)
+				if ($eventStatus === EventStatusEnum::OPEN)
+				{
+					if ($status !== $interest->status || $interest->event_status === EventStatusEnum::PLANING) {
+						$text .= '<button type="button" class="sda_button_spacer btn ' . $status->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
+							. '<span class="icon-spacer ' . $status->getIcon() . '" aria-hidden="true"></span>';
+						$text .= Text::_($status->getAttendingButtonLabel()) . '</button>';
+					}
+				}
+				else if ($status !== $interest->status)
 				{
 					$text .= '<button type="button" class="sda_button_spacer btn ' . $status->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
 						. '<span class="icon-spacer ' . $status->getIcon() . '" aria-hidden="true"></span>';
 					$text .= Text::_($status->getInterestButtonLabel()) . '</button>';
 				}
 			}
-
-			$text .= '<div class="sda_row"><input type="text" name="comment" id="comment" size="100" placeholder="' . Text::_('COM_SDAJEM_INTEREST_COMMENT') . '"/></div>';
 		}
-		else
-		{
-			$interest = AttendingHelper::getAttendingStatusToEvent($user->id, $event->id);
 
-			if ($interest->status != IntAttStatusEnum::NA->value)
-			{
-				$text .= '<input type="hidden" name="attendingId" value="' . $interest->id . '"/>';
-			}
-			else
-			{
-				$interest         = new stdClass();
-				$interest->status = IntAttStatusEnum::NA->value;
-			}
+		$params = ComponentHelper::getParams('com_sdajem');
+		$uf = $params->get('sda_events_use_fittings');
 
-			foreach (IntAttStatusEnum::cases() as $status)
+		if ($uf && isset($fittings) && $interest->status != IntAttStatusEnum::POSITIVE && $event->eventStatus != EventStatusEnum::PLANING->value) {
+			$text .= '<div class="sda_row"> <div class="sda_attendee_container">';
+			/* @var FittingModel $fitting */
+			foreach ($fittings as $i => $fitting)
 			{
-				if ($status != IntAttStatusEnum::from($interest->status) && $status != IntAttStatusEnum::NA)
+				$text .= '<div class="card" style="width: 120px;">';
+				$text .= HTMLHelper::image($fitting->image, '');
+				$text .= '<div class="card-body">';
+				$text .= '<h5 class="card-title">' . $fitting->title . '</h5>';
+				$text .= '<p class="card-text">' . $fitting->description . '</p>';
+				$text .= '<input type="checkbox" name="fittings[]" value="' . $fitting->id . '"';
+				if ($fitting->standard == 1)
 				{
-					$text .= '<button type="button" class="sda_button_spacer btn ' . $status->getButtonClass() . '" onclick="Joomla.submitbutton(\'' . $status->getAction() . '\')">'
-						. '<span class="icon-spacer ' . $status->getIcon() . '" aria-hidden="true"></span>';
-					$text .= Text::_($status->getAttendingButtonLabel()) . '</button>';
+					$text .= ' checked="true"/>';
 				}
-			}
-
-			$params = ComponentHelper::getParams('com_sdajem');
-			$uf = $params->get('sda_events_use_fittings');
-
-			if ($uf && isset($fittings) && AttendingHelper::getAttendingStatusToEvent($user->id, $event->id)->status != IntAttStatusEnum::POSITIVE->value) {
-				$text .= '<div class="sda_row"> <div class="sda_attendee_container">';
-				/* @var FittingModel $fitting */
-				foreach ($fittings as $i => $fitting)
+				else
 				{
-					$text .= '<div class="card" style="width: 120px;">';
-					$text .= HTMLHelper::image($fitting->image, '');
-					$text .= '<div class="card-body">';
-					$text .= '<h5 class="card-title">' . $fitting->title . '</h5>';
-					$text .= '<p class="card-text">' . $fitting->description . '</p>';
-					$text .= '<input type="checkbox" name="fittings[]" value="' . $fitting->id . '"';
-					if ($fitting->standard == 1)
-					{
-						$text .= ' checked="true"/>';
-					}
-					else
-					{
-						$text .= '/>';
-					}
-					$text .= '</div></div>';
+					$text .= '/>';
 				}
 				$text .= '</div></div>';
 			}
+			$text .= '</div></div>';
 		}
 
 		$text .= '</form>';
@@ -358,7 +335,6 @@ class Icon
 	}
 
 	public static function editFitting($fitting, $params, $attribs = [], $legacy = false) {
-		$user = Factory::getApplication()->getIdentity();
 		$uri  = Uri::getInstance();
 		// Ignore if in a popup window.
 		if ($params && $params->get('popup')) {

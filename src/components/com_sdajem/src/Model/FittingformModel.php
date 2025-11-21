@@ -1,7 +1,4 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
 
 /**
  * @package     Sda\Component\Sdajem\Site\Model
@@ -18,6 +15,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
 use Sda\Component\Sdajem\Administrator\Model\FittingModel;
+use Sda\Component\Sdajem\Site\Model\Item\Fitting;
 use stdClass;
 use function defined;
 
@@ -34,13 +32,13 @@ class FittingformModel extends FittingModel
 	 *
 	 * @param   integer  $itemId  The id of the attending.
 	 *
-	 * @return  mixed  Event item data object on success, false on failure.
+	 * @return  Fitting  Event item data object on success, false on failure.
 	 *
 	 * @throws  Exception|Exception
 	 *
 	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getItem($itemId = null)
+	public function getItem($itemId = null):Fitting
 	{
 		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('fitting.id');
 		// Get a row instance.
@@ -48,15 +46,16 @@ class FittingformModel extends FittingModel
 		// Attempt to load the row.
 		try {
 			if (!$table->load($itemId)) {
-				return false;
+				return new Fitting();
 			}
 		} catch (Exception $e) {
 			Factory::getApplication()->enqueueMessage($e->getMessage());
-			return false;
+			return new Fitting();
 		}
-		$properties = $table->getProperties();
+		return Fitting::createFromObject($table);
+		//$properties = $table->getProperties();
 
-		return ArrayHelper::toObject($properties, stdClass::class);
+		//return ArrayHelper::toObject($properties, stdClass::class);
 	}
 	/**
 	 * Get the return URL.

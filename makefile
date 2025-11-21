@@ -67,7 +67,7 @@ build:
 	@cp -Rf ./src/administrator/components/com_${COMPONENT_NAME} ./temp/comp/administrator/components
 	@cp -Rf ./src/components/com_${COMPONENT_NAME} ./temp/comp/components
 	@cp -Rf ./src/media/com_${COMPONENT_NAME} ./temp/comp/media
-	@cp -Rf ./temp/comp/administrator/components/com_${COMPONENT_NAME}/${COMPONENT_NAME}.xml ./temp/comp/*
+	@cp -f ./temp/comp/administrator/components/com_${COMPONENT_NAME}/${COMPONENT_NAME}.xml ./temp/comp/${COMPONENT_NAME}.xml
 
 	@cd temp/comp; zip -r ../../target/${COMPONENT_NAME}.zip *
 

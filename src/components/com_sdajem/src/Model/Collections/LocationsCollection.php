@@ -26,7 +26,7 @@ class LocationsCollection extends \ArrayObject implements IteratorAggregate {
 		}
 	}
 
-	public static function fromArry(array $items):LocationsCollection
+	public static function fromArry(array $items):self
 	{
 		return new self(...$items);
 	}

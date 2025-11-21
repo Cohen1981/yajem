@@ -83,26 +83,10 @@ CREATE TABLE IF NOT EXISTS `#__sdajem_attendings` (
   	`users_user_id` INT UNSIGNED NULL COMMENT 'Foreign Key to #__users',
   	`status` TINYINT(1) NOT NULL DEFAULT 0,
   	`fittings` varchar(50),
+    `event_status` tinyint(1),
 	PRIMARY KEY (`id`),
 	KEY `idx_attendings_event_id` (`event_id`),
     KEY `idx_attendings_user_id` (`users_user_id`)
-) ENGINE=InnoDB
-  DEFAULT CHARSET=utf8mb4
-  DEFAULT COLLATE=utf8mb4_unicode_ci;
-
-CREATE TABLE IF NOT EXISTS `#__sdajem_interest` (
-	`id` int(10) unsigned NOT NULL auto_increment,
-	`access` int(10) unsigned NOT NULL DEFAULT 0,
-	`alias` varchar(400),
-	`state` tinyint(3) NOT NULL DEFAULT 0,
-	`ordering` int(11) NOT NULL DEFAULT 0,
-	`event_id` INT UNSIGNED NOT NULL COMMENT 'Foreign Key to #__yajame_events',
-  	`users_user_id` INT UNSIGNED NULL COMMENT 'Foreign Key to #__users',
-  	`status` TINYINT(1) NOT NULL DEFAULT 0,
-  	`comment` MEDIUMTEXT  NULL,
-	PRIMARY KEY (`id`),
-	KEY `idx_interest_event_id` (`event_id`),
-    KEY `idx_interest_user_id` (`users_user_id`)
 ) ENGINE=InnoDB
   DEFAULT CHARSET=utf8mb4
   DEFAULT COLLATE=utf8mb4_unicode_ci;

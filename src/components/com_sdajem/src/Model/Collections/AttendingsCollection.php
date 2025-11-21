@@ -5,14 +5,15 @@ namespace Sda\Component\Sdajem\Site\Model\Collections;
 use ArrayIterator;
 use IteratorAggregate;
 use Sda\Component\Sdajem\Administrator\Trait\ItemsTrait;
-use Sda\Component\Sdajem\Site\Model\Item\Comment;
+use Sda\Component\Sdajem\Site\Model\Item\Attending;
 use Sda\Component\Sdajem\Site\Model\Item\Event;
 
 /**
  * @since 1.4.3
- * @template-implements IteratorAggregate<Comment>
+ * @template-implements IteratorAggregate<Attending>
  */
-class CommentsCollection extends \ArrayObject implements IteratorAggregate {
+class AttendingsCollection extends \ArrayObject implements IteratorAggregate {
+
 	use ItemsTrait;
 
 	private array $items = [];
@@ -21,14 +22,12 @@ class CommentsCollection extends \ArrayObject implements IteratorAggregate {
 
 		parent::__construct();
 
-		foreach ($items as $item)
-		{
-			$this->items[] = Comment::createFromObject($item);
+		foreach ($items as $item) {
+			$this->items[] = Event::createFromObject($item);
 		}
 	}
 
-	static function fromArray(array $items):self
-	{
+	static function fromArray(array $items):self {
 		return new self(...$items);
 	}
 }

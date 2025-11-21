@@ -1,10 +1,4 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
 
 /**
  * @package     Sda\Component\Sdajem\Site\Model
@@ -18,18 +12,14 @@ namespace Sda\Component\Sdajem\Site\Model;
 
 defined('_JEXEC') or die();
 
+use Joomla\CMS\User\User;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 /**
  * @since      1.0.0
  * @package     Sda\Component\Sdajem\Site\Model
  *
- * @property  int                 attendingId
- * @property  int                 event_id
- * @property  int                 users_user_id
- * @property  IntAttStatusEnum    status
- * @property  array               profile
- * @property  array               userData
  */
 class EventAttendeeModel extends UserModel
 {
@@ -39,8 +29,10 @@ class EventAttendeeModel extends UserModel
 	public ?IntAttStatusEnum $status;
 	public ?array $profile;
 	public ?array $userData;
+	public ?User $user = null;
+	public EventStatusEnum $event_status = EventStatusEnum::PLANING;
 
-	public function __construct($data)
+	public function __construct(\stdClass $data)
 	{
 		if (isset($data->users_user_id)) {
 			parent::__construct($data->users_user_id);
@@ -49,5 +41,6 @@ class EventAttendeeModel extends UserModel
 		$this->event_id = $data->event_id;
 		$this->attendingId = $data->id;
 		$this->status = IntAttStatusEnum::tryFrom($data->status);
+		$this->event_status = EventStatusEnum::PLANING::tryFrom($data->event_status);
 	}
 }

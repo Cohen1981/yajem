@@ -107,15 +107,15 @@ $currentUser = Factory::getApplication()->getIdentity();
 	                <?php if ($currentUser->id == $event->organizerId || $canDo->get('core.manage')) : ?>
 
 		                <?php
-		                $class = EventStatusEnum::from($event->eventStatus)->getStatusColorClass();
+		                $class = $event->eventStatus->getStatusColorClass();
 		                ?>
                         <button type="button" class="btn btn-sm <?php echo $class; ?> dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-			                <?php echo Text::_(EventStatusEnum::from($event->eventStatus)->getStatusLabel()); ?>
+			                <?php echo Text::_($event->eventStatus->getStatusLabel()); ?>
                         </button>
                         <ul class="dropdown-menu">
 
 			                <?php foreach (EventStatusEnum::cases() as $status) : ?>
-				                <?php if ($status != EventStatusEnum::from($event->eventStatus)) : ?>
+				                <?php if ($status != $event->eventStatus) : ?>
                                     <li><?php echo HTMLHelper::_('sdajemIcon.switchEventStatus',$event, $status); ?></li>
 				                <?php endif; ?>
 			                <?php endforeach; ?>
@@ -123,7 +123,7 @@ $currentUser = Factory::getApplication()->getIdentity();
 
 	                <?php else: ?>
 
-		                <?php echo EventStatusEnum::from($event->eventStatus)->getStatusBadge(); ?>
+		                <?php echo $event->eventStatus->getStatusBadge(); ?>
 
 	                <?php endif; ?>
                 </h5>
@@ -256,13 +256,7 @@ $currentUser = Factory::getApplication()->getIdentity();
             <div id="collapseAttendings" class="accordion-collapse collapse <?php echo $status; ?>" aria-labelledby="headingAttendings" data-bs-parent="#accordionEvent">
                 <div class="accordion-body">
                     <?php
-                    if ($event->eventStatus == EventStatusEnum::PLANING->value) {
-                        echo $this->loadTemplate('interest');
-                    }
-                    else
-                    {
                         echo $this->loadTemplate('attendees');
-                    }
                     ?>
                 </div>
             </div>

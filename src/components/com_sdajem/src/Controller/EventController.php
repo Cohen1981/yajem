@@ -46,7 +46,9 @@ use Sda\Component\Sdajem\Site\Model\EventformModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\Model\InterestformModel;
 use Sda\Component\Sdajem\Site\Model\InterestsModel;
+use Sda\Component\Sdajem\Site\Model\Item\Attending;
 use Sda\Component\Sdajem\Site\Model\Item\Comment;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
 
 class EventController extends FormController
 {
@@ -175,9 +177,6 @@ class EventController extends FormController
 		$attendingFormModel = new AttendingformModel();
 		$attendingsModel = new AttendingsModel();
 
-		$interestFormModel = new InterestformModel();
-		$interestsModel = new InterestsModel();
-
 		$commentsModel = new CommentsModel();
 		$commentFormModel = new CommentformModel();
 
@@ -185,18 +184,19 @@ class EventController extends FormController
 			$attendings = $attendingsModel->getAttendingsIdToEvent($pk);
 			$attResult = $attendingFormModel->delete($attendings);
 
-			$interests = $interestsModel->getInterestsIdToEvent($pk);
-			$intResult = $interestFormModel->delete($interests);
-
 			$comments = $commentsModel->getCommentsIdsToEvent($pk);
 			$commentResult = $commentFormModel->delete($comments);
 		}
 
 		$eventFormModel = new EventformModel();
 
-		if ($attResult && $intResult && $commentResult)
+		if ($attResult && $commentResult)
 		{
 			$result = $eventFormModel->delete($pks);
+		}
+		else
+		{
+			$this->app->enqueueMessage(Text::_('COM_SDAJEM_EVENTS_DELETE_ERROR'), 'error');
 		}
 
 		$this->setRedirect(Route::_($this->getReturnPage(), false));
@@ -372,61 +372,7 @@ class EventController extends FormController
 	 */
 	public function positive($eventId = null, $userId = null):void
 	{
-		//$this->option = 'core.manage.attending';
-		$pks = [];
-
-		if ($this->input->get('event_id')) {
-			$pks[0] = $this->input->get('event_id');
-		} else if ($eventId !== null)
-		{
-			$pks[0] = $eventId;
-		} else {
-			$pks = $this->input->get('cid');
-		}
-
-		if (count($pks) >= 0) {
-
-			if ($userId !== null) {
-				$currUser = $userId;
-			} else
-			{
-				$currUser = Factory::getApplication()->getIdentity();
-			}
-
-			foreach ($pks as $id)
-			{
-				$eventModel = new EventModel();
-				/* @var EventModel $event */
-				$event = $eventModel->getItem($id);
-
-				if ($event->eventStatus == EventStatusEnum::PLANING->value)
-				{
-					$interest = InterestHelper::getInterestStatusToEvent($currUser->id, $id);
-					$model = new InterestModel();
-				} else
-				{
-					$interest = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
-					$model = new AttendingModel();
-				}
-
-				$data = array(
-					'id'            => $interest->id,
-					'event_id'      => $id,
-					'users_user_id' => $currUser->id,
-					'status'        => IntAttStatusEnum::POSITIVE->value);
-					//'comment'       => $this->input->getRaw('comment')
-//				);
-				if ($event->eventStatus == EventStatusEnum::PLANING->value)
-				{
-					$data['comment'] = $this->input->getRaw('comment');
-				} else {
-					$data['fittings'] = $this->input->get('fittings');
-				}
-
-				$this->setRedirect(Route::_($this->getReturnPage(), false));
-				$model->save($data);
-			}
-		}
+		$this->setAttending($eventId, $userId, IntAttStatusEnum::POSITIVE);
 	}
 
 	/**
@@ -438,61 +384,7 @@ class EventController extends FormController
 	 */
 	public function negative($eventId = null, $userId = null):void
 	{
-		//$this->option = 'core.manage.attending';
-		$pks = [];
-
-		if ($this->input->get('event_id')) {
-			$pks[0] = $this->input->get('event_id');
-		} else if ($eventId !== null)
-		{
-			$pks[0] = $eventId;
-		} else {
-			$pks = $this->input->get('cid');
-		}
-
-		if (count($pks) >= 0) {
-
-			if ($userId !== null) {
-				$currUser = $userId;
-			} else
-			{
-				$currUser = Factory::getApplication()->getIdentity();
-			}
-
-			foreach ($pks as $id)
-			{
-				$eventModel = new EventModel();
-				/* @var EventModel $event */
-				$event = $eventModel->getItem($id);
-
-				if ($event->eventStatus == EventStatusEnum::PLANING->value)
-				{
-					$interest = InterestHelper::getInterestStatusToEvent($currUser->id, $id);
-					$model = new InterestModel();
-				} else
-				{
-					$interest = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
-					$model = new AttendingModel();
-				}
-
-				$data = array(
-					'id'            => $interest->id,
-					'event_id'      => $id,
-					'users_user_id' => $currUser->id,
-					'status'        => IntAttStatusEnum::NEGATIVE->value);
-				//'comment'       => $this->input->getRaw('comment')
-//				);
-				if ($event->eventStatus == EventStatusEnum::PLANING->value)
-				{
-					$data['comment'] = $this->input->getRaw('comment');
-				} else {
-					$data['fittings'] = '';
-				}
-
-				$this->setRedirect(Route::_($this->getReturnPage(), false));
-				$model->save($data);
-			}
-		}
+		$this->setAttending($eventId, $userId, IntAttStatusEnum::NEGATIVE);
 	}
 
 	/**
@@ -503,6 +395,11 @@ class EventController extends FormController
 	 * @since 1.1.3
 	 */
 	public function guest($eventId = null, $userId = null):void
+	{
+		$this->setAttending($eventId, $userId, IntAttStatusEnum::GUEST);
+	}
+
+	private function setAttending($eventId = null, $userId = null, IntAttStatusEnum $attStatus = IntAttStatusEnum::NA):void
 	{
 		//$this->option = 'core.manage.attending';
 		$pks = [];
@@ -528,30 +425,22 @@ class EventController extends FormController
 			foreach ($pks as $id)
 			{
 				$eventModel = new EventModel();
-				/* @var EventModel $event */
-				$event = $eventModel->getItem($id);
 
-				if ($event->eventStatus == EventStatusEnum::PLANING->value)
-				{
-					$interest = InterestHelper::getInterestStatusToEvent($currUser->id, $id);
-					$model = new InterestModel();
-				} else
-				{
-					$interest = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
-					$model = new AttendingModel();
-				}
+				$event = Event::createFromObject($eventModel->getItem($id));
+
+				$attending = Attending::getAttendingToEvent($currUser->id, $id);
+				$model = new AttendingModel();
 
 				$data = array(
-					'id'            => $interest->id,
+					'id'            => (isset($attending->id)) ? $attending->id : null,
 					'event_id'      => $id,
 					'users_user_id' => $currUser->id,
-					'status'        => IntAttStatusEnum::GUEST->value);
-				if ($event->eventStatus == EventStatusEnum::PLANING->value)
-				{
-					$data['comment'] = $this->input->getRaw('comment');
-				} else {
-					$data['fittings'] = '';
-				}
+					'status'        => $attStatus->value,
+					'event_status'  => ($event->eventStatus !== EventStatusEnum::PLANING->value) ? EventStatusEnum::OPEN->value: EventStatusEnum::PLANING->value
+				);
+
+				if (!$event->eventStatus == EventStatusEnum::PLANING->value)
+					$data['fittings'] = $this->input->get('fittings', '');
 
 				$this->setRedirect(Route::_($this->getReturnPage(), false));
 				$model->save($data);

@@ -26,7 +26,7 @@ class EventsCollection extends \ArrayObject implements IteratorAggregate {
 		}
 	}
 
-	static function fromArray(array $items):EventsCollection {
+	static function fromArray(array $items):self {
 		return new self(...$items);
 	}
 }

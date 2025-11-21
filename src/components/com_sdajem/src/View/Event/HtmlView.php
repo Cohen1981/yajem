@@ -28,11 +28,9 @@ use Sda\Component\Sdajem\Administrator\Model\FittingsModel;
 use Sda\Component\Sdajem\Site\Model\Collections\CommentsCollection;
 use Sda\Component\Sdajem\Site\Model\Item\Event;
 use Sda\Component\Sdajem\Site\Model\Item\Location;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
 use Sda\Component\Sdajem\Site\Model\CommentsModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
-use Sda\Component\Sdajem\Site\Model\InterestsModel;
 use Sda\Component\Sdajem\Site\Model\LocationModel;
 use Sda\Component\Sdajem\Site\Model\UserModel as SdaUserModel;
 use stdClass;
@@ -131,25 +129,15 @@ class HtmlView extends BaseHtmlView
 		}
 
 		if($item->paramsRegistry->get('sda_use_attending')) {
-			if($item->eventStatus == EventStatusEnum::PLANING->value)
-			{
-				$this->setModel(new InterestsModel());
-				$interested = $this->getModel('interests')->getInterestsToEvent($item->id);
-				if ($interested)
-				{
-					$this->interests = $interested;
-				}
-			} else
-			{
-				$this->setModel(new AttendingsModel());
-				$this->interests = $this->getModel('attendings')->getAttendingsToEvent($item->id);
 
-				if($item->paramsRegistry->get('sda_events_use_fittings'))
-				{
-					$this->setModel(new FittingsModel());
-					$this->userFittings = $this->getModel('fittings')->getFittingsForUser();
-					$this->eventFittings = $this->getModel('fittings')->getFittingsForEvent($item->id);
-				}
+			$this->setModel(new AttendingsModel());
+			$this->interests = $this->getModel('attendings')->getAttendingsToEvent($item->id);
+
+			if($item->paramsRegistry->get('sda_events_use_fittings'))
+			{
+				$this->setModel(new FittingsModel());
+				$this->userFittings = $this->getModel('fittings')->getFittingsForUser();
+				$this->eventFittings = $this->getModel('fittings')->getFittingsForEvent($item->id);
 			}
 		}
 

@@ -1,13 +1,4 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -38,13 +29,13 @@ $event = $this->item;
 <div id="attendings" class="sda_row">
 	<h5><?php echo Text::_('COM_SDAJEM_ATTENDESS'); ?></h5>
 	<div class="sda_row">
-		<?php if (isset($event->interests)) : ?>
+		<?php if (isset($this->interests)) : ?>
 			<?php if ($event->eventStatus != EventStatusEnum::PLANING->value ||
 				$canDo->get('core.manage') ||
 				($canDo->get('core.edit.own') && $event->created_by == $user->id)
 			) : ?>
 				<div class="sda_attendee_container">
-					<?php foreach ($event->interests as $i => $interested) : ?>
+					<?php foreach ($this->interests as $i => $interested) : ?>
 						<?php if ($tparams->get('sda_avatar_field_name') && $tparams->get('sda_use_avatar')): ?>
 							<?php EventHtmlHelper::renderInterest(new EventInterestModel($interested), $tparams->get('sda_avatar_field_name')); ?>
 						<?php else: ?>
@@ -54,7 +45,7 @@ $event = $this->item;
 				</div>
                 <div class="sda_row">
                     <h5><?php echo Text::_('COM_SDAJEM_INTEREST_COMMENTS'); ?></h5>
-	                <?php foreach ($event->interests as $i => $interested) : ?>
+	                <?php foreach ($this->interests as $i => $interested) : ?>
                         <?php
                             $interest = new EventInterestModel($interested);
                             if ($interest->comment)

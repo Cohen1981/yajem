@@ -24,7 +24,11 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Uri\Uri;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Site\Model\EventModel;
+use Sda\Component\Sdajem\Site\Model\Item\Attending;
+use Sda\Component\Sdajem\Site\Model\Item\Event;
 
 /**
  * @since       1.0.0
@@ -74,7 +78,7 @@ class AttendingController extends FormController
 				$input['users_user_id'] = Factory::getApplication()->getIdentity()->id;
 			}
 
-			$data = AttendingHelper::getAttendingStatusToEvent($input['users_user_id'], $input['event_id']);
+			$data = Attending::getAttendingToEvent($input['users_user_id'], $input['event_id']);
 			// attending exists so we set the id for updating the record
 			if ($data)
 			{
@@ -85,14 +89,7 @@ class AttendingController extends FormController
 		return parent::save($key, $urlVar);
 	}
 
-	/**
-	 * @param null $eventId
-	 * @param null $userId
-	 *
-	 * @throws Exception
-	 * @since 1.0.1
-	 */
-	public function attend($eventId = null, $userId = null)
+	private function setAttending($eventId = null, $userId = null, IntAttStatusEnum $attStatus = IntAttStatusEnum::NA):void
 	{
 		//$this->option = 'core.manage.attending';
 		$pks = $this->getPks();
@@ -117,7 +114,11 @@ class AttendingController extends FormController
 
 			foreach ($pks as $id)
 			{
-				$attending = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
+				$attending = Attending::getAttendingToEvent($currUser->id, $id);
+
+				$event = Event::createFromObject((new EventModel())->getItem($id));
+
+				$eventStatus = ($event->eventStatus == EventStatusEnum::PLANING->value) ? EventStatusEnum::PLANING->value : EventStatusEnum::OPEN->value;
 
 				$this->input->set('id', $attending->id);
 
@@ -125,7 +126,8 @@ class AttendingController extends FormController
 					'id'            => $attending->id,
 					'event_id'      => $id,
 					'users_user_id' => $currUser->id,
-					'status'        => IntAttStatusEnum::POSITIVE->value
+					'status'        => $attStatus->value,
+					'event_status'  => $eventStatus,
 				);
 
 				$this->input->post->set('jform', $data);
@@ -133,6 +135,17 @@ class AttendingController extends FormController
 				$this->save();
 			}
 		}
+	}
+	/**
+	 * @param null $eventId
+	 * @param null $userId
+	 *
+	 * @throws Exception
+	 * @since 1.0.1
+	 */
+	public function attend($eventId = null, $userId = null):void
+	{
+		$this->setAttending($eventId, $userId, IntAttStatusEnum::POSITIVE);
 	}
 
 	/**
@@ -144,36 +157,7 @@ class AttendingController extends FormController
 	 */
 	public function unattend($eventId = null, $userId = null)
 	{
-		//$this->option = 'core.manage.attending';
-		$pks = $this->getPks();
-
-		if (count($pks) >= 0) {
-
-			if ($userId !== null) {
-				$currUser = $userId;
-			} else
-			{
-				$currUser = Factory::getApplication()->getIdentity();
-			}
-
-			foreach ($pks as $id)
-			{
-				$attending = AttendingHelper::getAttendingStatusToEvent($currUser->id, $id);
-
-				$this->input->set('id', $attending->id);
-
-				$data = array(
-					'id'            => $attending->id,
-					'event_id'      => $id,
-					'users_user_id' => $currUser->id,
-					'status'        => IntAttStatusEnum::NEGATIVE->value
-				);
-
-				$this->input->post->set('jform', $data);
-
-				$this->save();
-			}
-		}
+		$this->setAttending($eventId, $userId, IntAttStatusEnum::NEGATIVE);
 	}
 
 	/**

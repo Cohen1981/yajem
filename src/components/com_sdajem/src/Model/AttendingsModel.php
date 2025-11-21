@@ -11,6 +11,8 @@
 
 namespace Sda\Component\Sdajem\Site\Model;
 
+use Sda\Component\Sdajem\Site\Model\Collections\AttendingsCollection;
+
 defined('_JEXEC') or die();
 
 class AttendingsModel extends \Sda\Component\Sdajem\Administrator\Model\AttendingsModel
@@ -31,6 +33,7 @@ class AttendingsModel extends \Sda\Component\Sdajem\Administrator\Model\Attendin
 					$db->quoteName('a.users_user_id'),
 					$db->quoteName('a.status'),
 					$db->quoteName('a.fittings'),
+					$db->quoteName('a.event_status')
 				]
 			)
 		);
@@ -66,6 +69,7 @@ class AttendingsModel extends \Sda\Component\Sdajem\Administrator\Model\Attendin
 					$db->quoteName('a.users_user_id'),
 					$db->quoteName('a.status'),
 					$db->quoteName('a.fittings'),
+					$db->quoteName('a.event_status')
 				]
 			)
 		);
@@ -77,7 +81,7 @@ class AttendingsModel extends \Sda\Component\Sdajem\Administrator\Model\Attendin
 		$db->setQuery($query);
 		$data = $db->loadObjectList();
 
-		return $data;
+		return new AttendingsCollection($data);
 	}
 
 }

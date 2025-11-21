@@ -62,6 +62,7 @@ class AttendingsModel extends ListModel
 					$db->quoteName('a.event_id'),
 					$db->quoteName('a.users_user_id'),
 					$db->quoteName('a.status'),
+					$db->quoteName('a.event_status')
 				]
 			)
 		);

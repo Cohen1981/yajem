@@ -23,6 +23,7 @@ use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
 
 defined('_JEXEC') or die();
@@ -108,6 +109,7 @@ class EventsModel extends \Sda\Component\Sdajem\Administrator\Model\EventsModel
 				[
 					$db->quoteName('att.event_id') . ' = ' . $db->quoteName('a.id'),
 					$db->quoteName('att.status') . ' = ' . IntAttStatusEnum::POSITIVE->value,
+					$db->quoteName('att.event_status') . ' = ' . EventStatusEnum::OPEN->value
 				]
 			);
 		$query->select('(' . $attendees . ') AS ' . $db->quoteName('attendeeCount'));
@@ -120,6 +122,7 @@ class EventsModel extends \Sda\Component\Sdajem\Administrator\Model\EventsModel
 				[
 					$db->quoteName('g.event_id') . ' = ' . $db->quoteName('a.id'),
 					$db->quoteName('g.status') . ' = ' . IntAttStatusEnum::GUEST->value,
+					$db->quoteName('g.event_status') . ' = ' . EventStatusEnum::OPEN->value
 				]
 			);
 		$query->select('(' . $guests . ') AS ' . $db->quoteName('guestCount'));
@@ -132,27 +135,30 @@ class EventsModel extends \Sda\Component\Sdajem\Administrator\Model\EventsModel
 				[
 					$db->quoteName('atte.event_id') . ' = ' . $db->quoteName('a.id'),
 					$db->quoteName('atte.status') . ' IN( ' . IntAttStatusEnum::POSITIVE->value . ', ' . IntAttStatusEnum::NEGATIVE->value . ', ' . IntAttStatusEnum::GUEST->value . ')',
+					$db->quoteName('atte.event_status') . ' = ' . EventStatusEnum::OPEN->value
 				]
 			);
 		$query->select('(' . $attendeesf . ') AS ' . $db->quoteName('attendeeFeedbackCount'));
 
 		$interestCount = $db->getQuery(true)
 			->select('COUNT(' . $db->quoteName('int.id') . ')')
-			->from($db->quoteName('#__sdajem_interest', 'int'))
+			->from($db->quoteName('#__sdajem_attendings', 'int'))
 			->where(
 				[
 					$db->quoteName('int.event_id') . ' = ' . $db->quoteName('a.id'),
 					$db->quoteName('int.status') . ' = ' . IntAttStatusEnum::POSITIVE->value,
+					$db->quoteName('int.event_status') . ' = ' . EventStatusEnum::PLANING->value
 				]
 			);
 		$query->select('(' . $interestCount . ') AS ' . $db->quoteName('interestCount'));
 
 		$feedback = $db->getQuery(true)
 			->select('COUNT(' . $db->quoteName('i.id') . ')')
-			->from($db->quoteName('#__sdajem_interest', 'i'))
+			->from($db->quoteName('#__sdajem_attendings', 'i'))
 			->where(
 				[
 					$db->quoteName('i.event_id') . ' = ' . $db->quoteName('a.id'),
+					$db->quoteName('i.event_status') . ' = ' . EventStatusEnum::PLANING->value
 				]
 			);
 		$query->select('(' . $feedback . ') AS ' . $db->quoteName('feedbackCount'));
