@@ -1,14 +1,8 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
+
 
 /**
- * @package     Sda\Component\Sdajem\Site\Model
- * @subpackage
- *
- * @copyright   A copyright
- * @license     A "Slug" license name e.g. GPL2
+ * Copyright (c) 2025. Alexander Bahlo <abahlo@hotmail.de
  */
 
 namespace Sda\Component\Sdajem\Site\Model;
@@ -17,24 +11,31 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Administrator\Library\Item\Comment;
 use Sda\Component\Sdajem\Administrator\Model\CommentModel;
-use Sda\Component\Sdajem\Site\Model\Item\Comment;
 use stdClass;
 
+/**
+ * @package     Sda\Component\Sdajem\Site\Model
+ * @since       1.5.1
+ */
 class CommentformModel extends CommentModel
 {
+	/**
+	 * @var string
+	 * @since 1.5.1
+	 */
 	protected $formName = 'form';
 
 	/**
 	 * Method to get attending data.
 	 *
+	 * @since   __DEPLOY_VERSION__
+	 *
 	 * @param   integer  $itemId  The id of the attending.
 	 *
 	 * @return  mixed  Event item data object on success, false on failure.
-	 *
 	 * @throws  Exception|Exception
-	 *
-	 * @since   __DEPLOY_VERSION__
 	 */
 	public function getItem($itemId = null)
 	{
@@ -42,24 +43,29 @@ class CommentformModel extends CommentModel
 		// Get a row instance.
 		$table = $this->getTable();
 		// Attempt to load the row.
-		try {
-			if (!$table->load($itemId)) {
+		try
+		{
+			if (!$table->load($itemId))
+			{
 				return false;
 			}
-		} catch (Exception $e) {
+		}
+		catch (Exception $e)
+		{
 			Factory::getApplication()->enqueueMessage($e->getMessage());
+
 			return false;
 		}
 		$properties = $table->getProperties();
 
 		return ArrayHelper::toObject($properties, stdClass::class);
 	}
+
 	/**
 	 * Get the return URL.
 	 *
-	 * @return  string  The return URL.
-	 *
 	 * @since   __DEPLOY_VERSION__
+	 * @return  string  The return URL.
 	 */
 	public function getReturnPage()
 	{
@@ -68,14 +74,11 @@ class CommentformModel extends CommentModel
 
 	/**
 	 * Method to auto-populate the model state.
-	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @return  void
-	 *
-	 * @throws  Exception
-	 *
 	 * @since   __DEPLOY_VERSION__
+	 * @return  void
+	 * @throws  Exception
 	 */
 	protected function populateState()
 	{
@@ -94,13 +97,13 @@ class CommentformModel extends CommentModel
 	/**
 	 * Method to get a table object, load it if necessary.
 	 *
-	 * @param   string  $name     The table name. Optional.
+	 * @since   __DEPLOY_VERSION__
+	 *
 	 * @param   string  $prefix   The class prefix. Optional.
 	 * @param   array   $options  Configuration array for model. Optional.
+	 * @param   string  $name     The table name. Optional.
 	 *
 	 * @return  Table  A Table object
-	 *
-	 * @since   __DEPLOY_VERSION__
 	 * @throws  Exception
 	 */
 	public function getTable($name = 'Comment', $prefix = 'Administrator', $options = [])
@@ -116,12 +119,13 @@ class CommentformModel extends CommentModel
 		// Check the session for previously entered form data.
 		$data = $app->getUserState('com_sdajem.edit.comment.data', []);
 
-		if (empty($data)) {
+		if (empty($data))
+		{
 			$data = $this->getItem();
 		}
 
 		$data->sdajem_event_id = $app->getUserState('com_sdajem.comment.sdajem_event_id', 0);
-		$data->users_user_id = $app->getIdentity()->id;
+		$data->users_user_id   = $app->getIdentity()->id;
 
 		$this->preprocessData($this->typeAlias, $data);
 

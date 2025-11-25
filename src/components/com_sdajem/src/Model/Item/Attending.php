@@ -1,5 +1,8 @@
 <?php
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+/**
+ * @copyright (c) 2025 Alexander Bahlo <abahlo@hotmail.de>
+ * @license   GNU General Public License version 2 or later; see LICENSE.txt
+ */
 
 namespace Sda\Component\Sdajem\Site\Model\Item;
 
@@ -7,16 +10,14 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
-use Sda\Component\Sdajem\Administrator\Trait\ItemTrait;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
-use stdClass;
+use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
+use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
 
 /**
- * @since       1.5.2
  * @package     Sda\Component\Sdajem\Site\Model\Item
- *
  * For programming convenience, the class gives type hinting for the class properties.
+ * @since       1.5.2
  */
 class Attending extends \stdClass
 {
@@ -35,13 +36,14 @@ class Attending extends \stdClass
 
 	public function __construct()
 	{
-		$this->status = IntAttStatusEnum::NA;
+		$this->status       = IntAttStatusEnum::NA;
 		$this->event_status = EventStatusEnum::PLANING;
 	}
 
-	public static function getAttendingToEvent(int $userId=null, int $eventId):self
+	public static function getAttendingToEvent(int $userId = null, int $eventId): self
 	{
-		if (!$userId) {
+		if (!$userId)
+		{
 			$userId = Factory::getApplication()->getIdentity()->id;
 		}
 
@@ -65,13 +67,13 @@ class Attending extends \stdClass
 			{
 				throw new Exception(Text::_('COM_SDAJEM_ERROR_ATTENDING_NOT_FOUND'), 404);
 			}
-			$data->status = IntAttStatusEnum::from($data->status);
+			$data->status       = IntAttStatusEnum::from($data->status);
 			$data->event_status = EventStatusEnum::from($data->event_status);
 		}
 		catch (Exception $e)
 		{
-			$data = new self();
-			$data->status = IntAttStatusEnum::NA;
+			$data               = new self();
+			$data->status       = IntAttStatusEnum::NA;
 			$data->event_status = EventStatusEnum::PLANING;
 		}
 

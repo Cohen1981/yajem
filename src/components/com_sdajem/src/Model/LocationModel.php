@@ -1,9 +1,8 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
 
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
- *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
@@ -16,7 +15,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Sda\Component\Sdajem\Site\Model\Item\Location;
+use Sda\Component\Sdajem\Administrator\Library\Item\Location;
 
 /**
  * Location model for the Joomla Locations component.
@@ -31,18 +30,18 @@ class LocationModel extends BaseDatabaseModel
 	/**
 	 * Gets a location
 	 *
+	 * @since   1.0.0
+	 *
 	 * @param   integer  $pk  Id for the location
 	 *
 	 * @return  mixed Object or null
-	 *
 	 * @throws Exception
-	 * @since   1.0.0
 	 */
 	public function getItem($pk = null): Location
 	{
 		$app = Factory::getApplication();
 
-		$pk  = !$pk ? $app->input->getInt('id') : $pk;
+		$pk = !$pk ? $app->input->getInt('id') : $pk;
 
 		if ($this->_item === null && $pk !== null)
 		{
@@ -72,14 +71,15 @@ class LocationModel extends BaseDatabaseModel
 				$this->_item->id = null;
 			}
 		}
-		else {
+		else
+		{
 			$this->_item = new Location();
 		}
 
 		return $this->_item;
 	}
 
-	public function countUsage(int $pk):int
+	public function countUsage(int $pk): int
 	{
 		$query = $this->getDatabase()->getQuery(true);
 		$query->select('COUNT(DISTINCT(id))')->from('#__sdajem_events')->where('sdajem_location_id = :locationId');
@@ -91,13 +91,11 @@ class LocationModel extends BaseDatabaseModel
 
 	/**
 	 * Method to auto-populate the model state.
-	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @return  void
-	 *
-	 * @throws Exception
 	 * @since   1.0.0
+	 * @return  void
+	 * @throws Exception
 	 */
 	protected function populateState()
 	{

@@ -1,12 +1,12 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php 
+
+
+
+
+
+
+
+
 
 /**
  * @package     Sda\Component\Sdajem\Site\Model
@@ -23,8 +23,8 @@ use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
 
 defined('_JEXEC') or die();
 

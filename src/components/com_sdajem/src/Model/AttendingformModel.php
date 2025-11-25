@@ -1,16 +1,6 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-
+<?php
 /**
- * @package     Sda\Component\Sdajem\Site\Model
- * @subpackage
- *
- * @copyright   A copyright
- * @license     A "Slug" license name e.g. GPL2
+ * Copyright (c) 2025. Alexander Bahlo <abahlo@hotmail.de
  */
 
 namespace Sda\Component\Sdajem\Site\Model;
@@ -31,26 +21,27 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 	/**
 	 * Model typeAlias string. Used for version history.
 	 *
-	 * @var  string
 	 * @since  __DEPLOY_VERSION__
+	 * @var  string
 	 */
 	public $typeAlias = 'com_sdajem.attending';
 	/**
 	 * Name of the form
 	 *
-	 * @var string
 	 * @since  __DEPLOY_VERSION__
+	 * @var string
 	 */
 	protected $formName = 'form';
+
 	/**
 	 * Method to get the row form.
 	 *
-	 * @param   array    $data      Data for the form.
+	 * @since   __DEPLOY_VERSION__
+	 *
 	 * @param   boolean  $loadData  True if the form is to load its own data (default case), false if not.
+	 * @param   array    $data      Data for the form.
 	 *
 	 * @return  JForm|boolean  A \JForm object on success, false on failure
-	 *
-	 * @since   __DEPLOY_VERSION__
 	 */
 	public function getForm($data = [], $loadData = true)
 	{
@@ -62,12 +53,12 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 	/**
 	 * Method to get attending data.
 	 *
+	 * @since   __DEPLOY_VERSION__
+	 *
 	 * @param   null  $pk
 	 *
 	 * @return  mixed  Event item data object on success, false on failure.
-	 *
 	 * @throws Exception
-	 * @since   __DEPLOY_VERSION__
 	 */
 	public function getItem($pk = null): mixed
 	{
@@ -75,53 +66,57 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 		// Get a row instance.
 		$table = $this->getTable();
 		// Attempt to load the row.
-		try {
-			if (!$table->load($itemId)) {
+		try
+		{
+			if (!$table->load($itemId))
+			{
 				return false;
 			}
-		} catch (Exception $e) {
+		}
+		catch (Exception $e)
+		{
 			Factory::getApplication()->enqueueMessage($e->getMessage());
+
 			return false;
 		}
 		$properties = $table->getProperties();
 
 		return ArrayHelper::toObject($properties, stdClass::class);
 	}
+
 	/**
 	 * Get the return URL.
 	 *
-	 * @return  string  The return URL.
-	 *
 	 * @since   __DEPLOY_VERSION__
+	 * @return  string  The return URL.
 	 */
 	public function getReturnPage()
 	{
 		return base64_encode($this->getState('return_page'));
 	}
+
 	/**
 	 * Method to save the form data.
+	 *
+	 * @since   __DEPLOY_VERSION__
 	 *
 	 * @param   array  $data  The form data.
 	 *
 	 * @return  boolean  True on success.
-	 *
 	 * @throws Exception
-	 * @since   __DEPLOY_VERSION__
 	 */
 	public function save($data)
 	{
 		return parent::save($data);
 	}
+
 	/**
 	 * Method to auto-populate the model state.
-	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @return  void
-	 *
-	 * @throws  Exception
-	 *
 	 * @since   __DEPLOY_VERSION__
+	 * @return  void
+	 * @throws  Exception
 	 */
 	protected function populateState()
 	{
@@ -136,37 +131,39 @@ class AttendingformModel extends \Sda\Component\Sdajem\Administrator\Model\Atten
 		$this->setState('params', $params);
 		$this->setState('layout', $app->input->getString('layout'));
 	}
+
 	/**
 	 * Allows preprocessing of the JForm object.
 	 *
-	 * @param   Form    $form   The form object
+	 * @since   __DEPLOY_VERSION__
+	 *
 	 * @param   array   $data   The data to be merged into the form object
 	 * @param   string  $group  The plugin group to be executed
+	 * @param   Form    $form   The form object
 	 *
 	 * @return void
-	 *
 	 * @throws Exception
-	 *
-	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function preprocessForm(Form $form, $data, $group = 'attending'): void
 	{
-		if (!Multilanguage::isEnabled()) {
+		if (!Multilanguage::isEnabled())
+		{
 			$form->setFieldAttribute('language', 'type', 'hidden');
 			$form->setFieldAttribute('language', 'default', '*');
 		}
 		parent::preprocessForm($form, $data, $group);
 	}
+
 	/**
 	 * Method to get a table object, load it if necessary.
 	 *
-	 * @param   string  $name     The table name. Optional.
+	 * @since   __DEPLOY_VERSION__
+	 *
 	 * @param   string  $prefix   The class prefix. Optional.
 	 * @param   array   $options  Configuration array for model. Optional.
+	 * @param   string  $name     The table name. Optional.
 	 *
 	 * @return  Table  A Table object
-	 *
-	 * @since   __DEPLOY_VERSION__
 	 * @throws  Exception
 	 */
 	public function getTable($name = 'Attending', $prefix = 'Administrator', $options = [])

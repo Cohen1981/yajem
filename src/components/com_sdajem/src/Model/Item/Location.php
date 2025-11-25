@@ -1,17 +1,17 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
+/**
+ * @copyright (c) 2025 Alexander Bahlo <abahlo@hotmail.de>
+ * @license   GNU General Public License version 2 or later; see LICENSE.txt
+ */
 
 namespace Sda\Component\Sdajem\Site\Model\Item;
 
-use Sda\Component\Sdajem\Administrator\Trait\ItemTrait;
+use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
 
 /**
- * @since       1.4.0
  * @package     Sda\Component\Sdajem\Site\Model\Item
- *
  * For programming convenience, the class gives type hinting for the class properties.
+ * @since       1.4.0
  */
 class Location extends \stdClass
 {
@@ -38,7 +38,7 @@ class Location extends \stdClass
 	public ?int $created_by;
 	public ?string $created_by_alias;
 	public ?int $published;
-	public ?string  $publish_up;
+	public ?string $publish_up;
 	public ?string $publish_down;
 	public ?int $state;
 	public ?int $ordering;

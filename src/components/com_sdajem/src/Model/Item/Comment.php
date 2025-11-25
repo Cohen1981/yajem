@@ -1,21 +1,20 @@
 <?php
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+/**
+ * @copyright (c) 2025 Alexander Bahlo <abahlo@hotmail.de>
+ * @license   GNU General Public License version 2 or later; see LICENSE.txt
+ */
 
 namespace Sda\Component\Sdajem\Site\Model\Item;
 
-use Joomla\CMS\Factory;
-use Joomla\CMS\User\User;
-use Joomla\CMS\User\UserFactoryInterface;
 use Joomla\Registry\Registry;
 use ReflectionObject;
-use Sda\Component\Sdajem\Administrator\Trait\ItemTrait;
+use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
 use Sda\Component\Sdajem\Site\Model\UserModel;
 
 /**
- * @since       1.4.0
  * @package     Sda\Component\Sdajem\Site\Model\Item
- *
  * For programming convenience, the class gives type hinting for the class properties.
+ * @since       1.4.0
  */
 class Comment extends \stdClass
 {
@@ -34,24 +33,27 @@ class Comment extends \stdClass
 		$selfReflection = new ReflectionObject($this);
 		foreach ($selfReflection->getProperties() as $property)
 		{
-			$name = $property->getName();
+			$name        = $property->getName();
 			$this->$name = null;
 		}
 	}
 
 	public static function createFromArray(array $data): self
 	{
-		$item = new self();
+		$item           = new self();
 		$selfReflection = new ReflectionObject($item);
 		foreach ($data as $key => $value)
 		{
-			if ($selfReflection->hasProperty($key)) {
+			if ($selfReflection->hasProperty($key))
+			{
 				$item->$key = $value;
 			}
 		}
 
 		if (isset($item->users_user_id))
-			$item->commentUser = New UserModel($item->users_user_id);
+		{
+			$item->commentUser = new UserModel($item->users_user_id);
+		}
 
 		return $item;
 	}

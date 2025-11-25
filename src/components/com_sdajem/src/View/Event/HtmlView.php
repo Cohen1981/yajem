@@ -3,7 +3,6 @@
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
- *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
@@ -24,11 +23,11 @@ use Joomla\CMS\Uri\Uri;
 use Joomla\Component\Contact\Administrator\Extension\ContactComponent;
 use Joomla\Component\Contact\Site\Model\ContactModel;
 use Joomla\Registry\Registry;
+use Sda\Component\Sdajem\Administrator\Library\Item\Event;
+use Sda\Component\Sdajem\Administrator\Library\Item\Location;
 use Sda\Component\Sdajem\Administrator\Model\FittingsModel;
-use Sda\Component\Sdajem\Site\Model\Collections\CommentsCollection;
-use Sda\Component\Sdajem\Site\Model\Item\Event;
-use Sda\Component\Sdajem\Site\Model\Item\Location;
 use Sda\Component\Sdajem\Site\Model\AttendingsModel;
+use Sda\Component\Sdajem\Site\Model\Collections\CommentsCollection;
 use Sda\Component\Sdajem\Site\Model\CommentsModel;
 use Sda\Component\Sdajem\Site\Model\EventModel;
 use Sda\Component\Sdajem\Site\Model\LocationModel;
@@ -63,17 +62,18 @@ class HtmlView extends BaseHtmlView
 	public ?ContactModel $host;
 	public ?array $interests = [];
 	public ?array $userFittings = [];
-	public ?array $eventFittings =[];
+	public ?array $eventFittings = [];
 	public ?CommentsCollection $comments;
 	public string $activeAccordion = 'event.location';
 
 	/**
 	 * Execute and display a template script.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @throws Exception
-	 * @since 1.0.0
 	 */
 	public function display($tpl = null)
 	{
@@ -84,11 +84,11 @@ class HtmlView extends BaseHtmlView
 
 		$item = $this->item = $model->getItem();
 
-		$state = $this->state = $model->getState();
-		$params = $this->params = $state->get('params');
+		$state      = $this->state = $model->getState();
+		$params     = $this->params = $state->get('params');
 		$itemparams = new Registry(json_decode($item->params));
 
-		$activeAccordion = $app->getUserState('com_sdajem.event.callContext', $this->activeAccordion);
+		$activeAccordion       = $app->getUserState('com_sdajem.event.callContext', $this->activeAccordion);
 		$this->activeAccordion = $activeAccordion;
 
 		$temp = clone $params;
@@ -96,7 +96,6 @@ class HtmlView extends BaseHtmlView
 		/**
 		 * $item->params are the foo params, $temp are the menu item params
 		 * Merge so that the menu item params take priority
-		 *
 		 * $itemparams->merge($temp);
 		 */
 
@@ -117,31 +116,32 @@ class HtmlView extends BaseHtmlView
 			$contactModel = $contactComponent->getMVCFactory()
 				->createModel('Contact', 'Administrator', ['ignore_request' => true]);
 
-			$temp = $contactModel->getItem($item->hostId);
+			$temp       = $contactModel->getItem($item->hostId);
 			$temp->slug = $temp->alias ? ($temp->id . ':' . $temp->alias) : $temp->id;
 			$this->host = $temp;
-
 		}
 
-		if($item->paramsRegistry->get('sda_events_use_comments')) {
+		if ($item->paramsRegistry->get('sda_events_use_comments'))
+		{
 			$this->setModel(new CommentsModel());
 			$this->comments = new CommentsCollection($this->getModel('comments')->getCommentsToEvent($item->id));
 		}
 
-		if($item->paramsRegistry->get('sda_use_attending')) {
-
+		if ($item->paramsRegistry->get('sda_use_attending'))
+		{
 			$this->setModel(new AttendingsModel());
 			$this->interests = $this->getModel('attendings')->getAttendingsToEvent($item->id);
 
-			if($item->paramsRegistry->get('sda_events_use_fittings'))
+			if ($item->paramsRegistry->get('sda_events_use_fittings'))
 			{
 				$this->setModel(new FittingsModel());
-				$this->userFittings = $this->getModel('fittings')->getFittingsForUser();
+				$this->userFittings  = $this->getModel('fittings')->getFittingsForUser();
 				$this->eventFittings = $this->getModel('fittings')->getFittingsForEvent($item->id);
 			}
 		}
 
-		if (isset($item->sdajem_location_id)) {
+		if (isset($item->sdajem_location_id))
+		{
 			$this->setModel(new LocationModel());
 			$this->location = $this->getModel('location')->getItem($item->sdajem_location_id);
 		}
@@ -150,13 +150,23 @@ class HtmlView extends BaseHtmlView
 
 		// Override the layout only if this is not the active menu item
 		// If it is the active menu item, then the view and item id will match
-		if ((!$active) || ((strpos($active->link, 'view=event') === false) || (strpos($active->link, '&id=' . (string) $this->item->id) === false))) {
-			if (($layout = $item->paramsRegistry->get('events_layout'))) {
+		if ((!$active) || ((strpos($active->link, 'view=event') === false) || (strpos(
+						$active->link,
+						'&id=' . (string) $this->item->id
+					) === false)))
+		{
+			if (($layout = $item->paramsRegistry->get('events_layout')))
+			{
 				$this->setLayout($layout);
 			}
-		} else if (isset($active->query['layout'])) {
-			// We need to set the layout in case this is an alternative menu item (with an alternative layout)
-			$this->setLayout($active->query['layout']);
+		}
+		else
+		{
+			if (isset($active->query['layout']))
+			{
+				// We need to set the layout in case this is an alternative menu item (with an alternative layout)
+				$this->setLayout($active->query['layout']);
+			}
 		}
 		if ($this->_layout === 'planning_modal')
 		{
@@ -181,7 +191,8 @@ class HtmlView extends BaseHtmlView
 			'afterDisplayContent'  => new AfterDisplayEvent('onContentAfterDisplay', $contentEventArguments),
 		];
 
-		foreach ($contentEvents as $resultKey => $event) {
+		foreach ($contentEvents as $resultKey => $event)
+		{
 			$results = $dispatcher->dispatch($event->getName(), $event)->getArgument('result', []);
 
 			$item->event->{$resultKey} = $results ? trim(implode("\n", $results)) : '';
@@ -192,7 +203,7 @@ class HtmlView extends BaseHtmlView
 		parent::display($tpl);
 	}
 
-	public function getDocument():Document
+	public function getDocument(): Document
 	{
 		return parent::getDocument();
 	}

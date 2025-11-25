@@ -1,22 +1,17 @@
 <?php
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+/**
+ * @copyright (c) 2025 Alexander Bahlo <abahlo@hotmail.de>
+ * @license   GNU General Public License version 2 or later; see LICENSE.txt
+ */
 
 namespace Sda\Component\Sdajem\Site\Model\Item;
 
-use Exception;
-use Joomla\CMS\Factory;
-use Joomla\CMS\Language\Text;
-use Joomla\Database\DatabaseInterface;
-use Sda\Component\Sdajem\Administrator\Trait\ItemTrait;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
-use stdClass;
+use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
 
 /**
- * @since       1.5.2
  * @package     Sda\Component\Sdajem\Site\Model\Item
- *
  * For programming convenience, the class gives type hinting for the class properties.
+ * @since       1.5.2
  */
 class Fitting extends \stdClass
 {

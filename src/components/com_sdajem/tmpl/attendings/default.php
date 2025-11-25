@@ -1,7 +1,7 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php 
+
+
+
 
 /**
  * @package     ${NAMESPACE}
@@ -18,7 +18,7 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
 use Sda\Component\Sdajem\Administrator\Model\Items\AttendingsItemModel;
-use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
 
 defined('_JEXEC') or die();
 

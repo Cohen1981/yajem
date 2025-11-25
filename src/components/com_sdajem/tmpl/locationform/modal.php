@@ -1,5 +1,5 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php 
+
 /**
  * @package     Joomla.Administrator
  * @subpackage  com_sdajem

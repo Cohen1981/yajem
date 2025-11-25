@@ -13,8 +13,8 @@ namespace Sda\Component\Sdajem\Site\Model;
 defined('_JEXEC') or die();
 
 use Joomla\CMS\User\User;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
 
 /**
  * @since      1.0.0

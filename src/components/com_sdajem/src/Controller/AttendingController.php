@@ -1,16 +1,9 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
+
 
 /**
  * @package     Sda\Component\Sdajem\Site\Controller
  * @subpackage
- *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
@@ -24,16 +17,15 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Controller\FormController;
 use Joomla\CMS\Uri\Uri;
 use Sda\Component\Sdajem\Administrator\Helper\AttendingHelper;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
-use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Item\Attending;
+use Sda\Component\Sdajem\Administrator\Library\Item\Event;
 use Sda\Component\Sdajem\Site\Model\EventModel;
-use Sda\Component\Sdajem\Site\Model\Item\Attending;
-use Sda\Component\Sdajem\Site\Model\Item\Event;
 
 /**
- * @since       1.0.0
  * @package     Sda\Component\Sdajem\Site\Controller
- *
+ * @since       1.0.0
  */
 class AttendingController extends FormController
 {
@@ -48,33 +40,43 @@ class AttendingController extends FormController
 	{
 		$pks = [];
 
-		if ($this->input->get('event_id')) {
-			$pks[0] = $this->input->get('event_id');
-		} else if ($eventId !== null)
+		if ($this->input->get('event_id'))
 		{
-			$pks[0] = $eventId;
-		} else {
-			$pks = $this->input->get('cid');
+			$pks[0] = $this->input->get('event_id');
 		}
+		else
+		{
+			if ($eventId !== null)
+			{
+				$pks[0] = $eventId;
+			}
+			else
+			{
+				$pks = $this->input->get('cid');
+			}
+		}
+
 		return $pks;
 	}
+
 	/**
-	 * @param   null  $key
+	 * @since 1.0.1
+	 *
 	 * @param   null  $urlVar
+	 * @param   null  $key
 	 *
 	 * @return bool
-	 *
-	 * @since 1.0.1
 	 * @throws Exception
 	 */
 	public function save($key = null, $urlVar = null)
 	{
 		// we are not in event context and have to check if attending exists
-		if($this->doTask === 'save')
+		if ($this->doTask === 'save')
 		{
 			$input = $this->input->get('jform');
 
-			if (!$input['users_user_id']) {
+			if (!$input['users_user_id'])
+			{
 				$input['users_user_id'] = Factory::getApplication()->getIdentity()->id;
 			}
 
@@ -89,25 +91,37 @@ class AttendingController extends FormController
 		return parent::save($key, $urlVar);
 	}
 
-	private function setAttending($eventId = null, $userId = null, IntAttStatusEnum $attStatus = IntAttStatusEnum::NA):void
-	{
+	private function setAttending(
+		$eventId = null,
+		$userId = null,
+		IntAttStatusEnum $attStatus = IntAttStatusEnum::NA
+	): void {
 		//$this->option = 'core.manage.attending';
 		$pks = $this->getPks();
 
-		if ($this->input->get('event_id')) {
-			$pks[0] = $this->input->get('event_id');
-		} else if ($eventId !== null)
+		if ($this->input->get('event_id'))
 		{
-			$pks[0] = $eventId;
-		} else {
-			$pks = $this->input->get('cid');
+			$pks[0] = $this->input->get('event_id');
+		}
+		else
+		{
+			if ($eventId !== null)
+			{
+				$pks[0] = $eventId;
+			}
+			else
+			{
+				$pks = $this->input->get('cid');
+			}
 		}
 
-		if (count($pks) >= 0) {
-
-			if ($userId !== null) {
+		if (count($pks) >= 0)
+		{
+			if ($userId !== null)
+			{
 				$currUser = $userId;
-			} else
+			}
+			else
 			{
 				$currUser = Factory::getApplication()->getIdentity();
 			}
@@ -136,24 +150,27 @@ class AttendingController extends FormController
 			}
 		}
 	}
+
 	/**
-	 * @param null $eventId
-	 * @param null $userId
+	 * @since 1.0.1
+	 *
+	 * @param   null  $userId
+	 * @param   null  $eventId
 	 *
 	 * @throws Exception
-	 * @since 1.0.1
 	 */
-	public function attend($eventId = null, $userId = null):void
+	public function attend($eventId = null, $userId = null): void
 	{
 		$this->setAttending($eventId, $userId, IntAttStatusEnum::POSITIVE);
 	}
 
 	/**
-	 * @param null $eventId
-	 * @param null $userId
+	 * @since 1.0.1
+	 *
+	 * @param   null  $userId
+	 * @param   null  $eventId
 	 *
 	 * @throws Exception
-	 * @since 1.0.1
 	 */
 	public function unattend($eventId = null, $userId = null)
 	{
@@ -162,14 +179,13 @@ class AttendingController extends FormController
 
 	/**
 	 * Method to check if you can add a new record.
-	 *
 	 * Extended classes can override this if necessary.
+	 *
+	 * @since   1.6
 	 *
 	 * @param   array  $data  An array of input data.
 	 *
 	 * @return  boolean
-	 *
-	 * @since   1.6
 	 */
 	protected function allowAdd($data = [])
 	{
@@ -178,15 +194,14 @@ class AttendingController extends FormController
 
 	/**
 	 * Method to check if you can edit an existing record.
-	 *
 	 * Extended classes can override this if necessary.
 	 *
-	 * @param   array   $data  An array of input data.
+	 * @since   1.6
+	 *
 	 * @param   string  $key   The name of the key for the primary key; default is id.
+	 * @param   array   $data  An array of input data.
 	 *
 	 * @return  boolean
-	 *
-	 * @since   1.6
 	 */
 	protected function allowEdit($data = [], $key = 'id')
 	{
@@ -196,50 +211,54 @@ class AttendingController extends FormController
 	/**
 	 * Gets the URL arguments to append to an item redirect.
 	 *
-	 * @param   integer  $recordId  The primary key id for the item.
+	 * @since   __DEPLOY_VERSION__
+	 *
 	 * @param   string   $urlVar    The name of the URL variable for the id.
+	 * @param   integer  $recordId  The primary key id for the item.
 	 *
 	 * @return  string    The arguments to append to the redirect URL.
-	 *
-	 * @since   __DEPLOY_VERSION__
 	 */
 	protected function getRedirectToItemAppend($recordId = 0, $urlVar = 'id')
 	{
 		// Need to override the parent method completely.
-		$tmpl = $this->input->get('tmpl');
+		$tmpl   = $this->input->get('tmpl');
 		$append = '';
 		// Setup redirect info.
-		if ($tmpl) {
+		if ($tmpl)
+		{
 			$append .= '&tmpl=' . $tmpl;
 		}
 		$append .= '&layout=edit';
 		$append .= '&' . $urlVar . '=' . (int) $recordId;
 		$itemId = $this->input->getInt('Itemid');
 		$return = $this->getReturnPage();
-		if ($itemId) {
+		if ($itemId)
+		{
 			$append .= '&Itemid=' . $itemId;
 		}
-		if ($return) {
+		if ($return)
+		{
 			$append .= '&return=' . base64_encode($return);
 		}
+
 		return $append;
 	}
 
 	/**
 	 * Get the return URL.
-	 *
 	 * If a "return" variable has been passed in the request
 	 *
-	 * @return  string    The return URL.
-	 *
 	 * @since   __DEPLOY_VERSION__
+	 * @return  string    The return URL.
 	 */
 	protected function getReturnPage()
 	{
 		$return = $this->input->get('return', null, 'base64');
-		if (empty($return) || !Uri::isInternal(base64_decode($return))) {
+		if (empty($return) || !Uri::isInternal(base64_decode($return)))
+		{
 			return Uri::base();
 		}
+
 		return base64_decode($return);
 	}
 }

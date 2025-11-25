@@ -1,13 +1,13 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php 
+
+
+
+
+
+
+
+
+
 /**
  * @package     ${NAMESPACE}
  * @subpackage
@@ -22,7 +22,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\HTML\HTMLHelper;
 use Joomla\CMS\Language\Text;
-use Sda\Component\Sdajem\Site\Enums\EventStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Site\Helper\EventHtmlHelper;
 use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
 use Sda\Component\Sdajem\Site\View\Event\HtmlView;

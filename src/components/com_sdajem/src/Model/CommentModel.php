@@ -1,21 +1,20 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
 
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
- *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
 
 namespace Sda\Component\Sdajem\Site\Model;
 
-use DateTime;
 use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Sda\Component\Sdajem\Site\Model\Item\Comment;
+use Sda\Component\Sdajem\Administrator\Library\Item\Comment;
+
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -26,9 +25,7 @@ defined('_JEXEC') or die;
  * Event model for the Joomla Events component.
  *
  * @since  1.0.0
- *
  */
-
 class CommentModel extends BaseDatabaseModel
 {
 	/**
@@ -40,12 +37,12 @@ class CommentModel extends BaseDatabaseModel
 	/**
 	 * Gets a event
 	 *
+	 * @since   1.0.0
+	 *
 	 * @param   null  $pk  Id for the event
 	 *
 	 * @return  mixed Object or null
-	 *
 	 * @throws Exception
-	 * @since   1.0.0
 	 */
 	public function getItem($pk = null)
 	{
@@ -82,7 +79,7 @@ class CommentModel extends BaseDatabaseModel
 			}
 			catch (Exception $e)
 			{
-				$app->enqueueMessage($e->getMessage(),'error');
+				$app->enqueueMessage($e->getMessage(), 'error');
 				$this->_item[$pk] = false;
 			}
 		}
@@ -92,13 +89,11 @@ class CommentModel extends BaseDatabaseModel
 
 	/**
 	 * Method to auto-populate the model state.
-	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @return  void
-	 *
-	 * @throws Exception
 	 * @since   1.0.0
+	 * @return  void
+	 * @throws Exception
 	 */
 	protected function populateState()
 	{

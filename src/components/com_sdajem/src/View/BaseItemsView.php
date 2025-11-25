@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php 
 
 /**
  * @package     Sda\Component\Sdajem\Site\View

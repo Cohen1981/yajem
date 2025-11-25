@@ -3,7 +3,6 @@
 /**
  * @package     Sda\Component\Sdajem\Site\Model
  * @subpackage
- *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
@@ -13,14 +12,14 @@ namespace Sda\Component\Sdajem\Site\Model;
 use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
-use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Administrator\Library\Item\Fitting;
 use Sda\Component\Sdajem\Administrator\Model\FittingModel;
-use Sda\Component\Sdajem\Site\Model\Item\Fitting;
-use stdClass;
+
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects
 defined('_JEXEC') or die;
+
 // phpcs:enable PSR1.Files.SideEffects
 
 class FittingformModel extends FittingModel
@@ -30,39 +29,44 @@ class FittingformModel extends FittingModel
 	/**
 	 * Method to get attending data.
 	 *
+	 * @since   __DEPLOY_VERSION__
+	 *
 	 * @param   integer  $itemId  The id of the attending.
 	 *
 	 * @return  Fitting  Event item data object on success, false on failure.
-	 *
 	 * @throws  Exception|Exception
-	 *
-	 * @since   __DEPLOY_VERSION__
 	 */
-	public function getItem($itemId = null):Fitting
+	public function getItem($itemId = null): Fitting
 	{
 		$itemId = (int) (!empty($itemId)) ? $itemId : $this->getState('fitting.id');
 		// Get a row instance.
 		$table = $this->getTable();
 		// Attempt to load the row.
-		try {
-			if (!$table->load($itemId)) {
+		try
+		{
+			if (!$table->load($itemId))
+			{
 				return new Fitting();
 			}
-		} catch (Exception $e) {
+		}
+		catch (Exception $e)
+		{
 			Factory::getApplication()->enqueueMessage($e->getMessage());
+
 			return new Fitting();
 		}
+
 		return Fitting::createFromObject($table);
 		//$properties = $table->getProperties();
 
 		//return ArrayHelper::toObject($properties, stdClass::class);
 	}
+
 	/**
 	 * Get the return URL.
 	 *
-	 * @return  string  The return URL.
-	 *
 	 * @since   __DEPLOY_VERSION__
+	 * @return  string  The return URL.
 	 */
 	public function getReturnPage()
 	{
@@ -71,14 +75,11 @@ class FittingformModel extends FittingModel
 
 	/**
 	 * Method to auto-populate the model state.
-	 *
 	 * Note. Calling getState in this method will result in recursion.
 	 *
-	 * @return  void
-	 *
-	 * @throws  Exception
-	 *
 	 * @since   __DEPLOY_VERSION__
+	 * @return  void
+	 * @throws  Exception
 	 */
 	protected function populateState()
 	{
@@ -97,13 +98,13 @@ class FittingformModel extends FittingModel
 	/**
 	 * Method to get a table object, load it if necessary.
 	 *
-	 * @param   string  $name     The table name. Optional.
+	 * @since   __DEPLOY_VERSION__
+	 *
 	 * @param   string  $prefix   The class prefix. Optional.
 	 * @param   array   $options  Configuration array for model. Optional.
+	 * @param   string  $name     The table name. Optional.
 	 *
 	 * @return  Table  A Table object
-	 *
-	 * @since   __DEPLOY_VERSION__
 	 * @throws  Exception
 	 */
 	public function getTable($name = 'Fitting', $prefix = 'Administrator', $options = [])

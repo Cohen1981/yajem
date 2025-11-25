@@ -1,7 +1,7 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php 
 
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+
+
 
 namespace Sda\Component\Sdajem\Site\View\Locations;
 

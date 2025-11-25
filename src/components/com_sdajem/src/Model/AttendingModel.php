@@ -1,7 +1,7 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php 
+
+
+
 
 /**
  * @package     Sda\Component\Sdajem\Site\Model
@@ -14,11 +14,10 @@
 namespace Sda\Component\Sdajem\Site\Model;
 
 use Exception;
-use Joomla\CMS\Date\Date;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\Model\BaseDatabaseModel;
-use Sda\Component\Sdajem\Site\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
 use function defined;
 
 defined('_JEXEC') or die;
@@ -28,21 +27,6 @@ defined('_JEXEC') or die;
  *
  * @since  1.0.0
  *
- * Fields
- * @property  int       id
- * @property  int       access
- * @property  string    alias
- * @property  Date      created
- * @property  int       created_by
- * @property  string    created_by_alias
- * @property  int       state
- * @property  int       ordering
- * @property  int       event_id
- * @property  string    eventTitle
- * @property  int       users_user_id
- * @property  string    attendeeName
- * @property  IntAttStatusEnum   status
- * @property  array     fittings
  */
 
 class AttendingModel extends BaseDatabaseModel
@@ -132,7 +116,6 @@ class AttendingModel extends BaseDatabaseModel
 	 * @return  void
 	 *
 	 * @throws Exception
-	 * @since   1.0.0
 	 */
 	protected function populateState()
 	{

@@ -1,5 +1,5 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php 
+
 
 /**
  * @package     ${NAMESPACE}

@@ -1,13 +1,9 @@
-<?php /** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
-/** @noinspection PhpMultipleClassDeclarationsInspection */
+<?php
+
 
 /**
  * @package     Sda\Component\Sdajem\Site\View
  * @subpackage
- *
  * @copyright   A copyright
  * @license     A "Slug" license name e.g. GPL2
  */
@@ -25,7 +21,7 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Uri\Uri;
 use Joomla\Registry\Registry;
-use Sda\Component\Sdajem\Site\Model\Item\Location;
+use Sda\Component\Sdajem\Administrator\Library\Item\Location;
 use Sda\Component\Sdajem\Site\Model\LocationModel;
 use stdClass;
 
@@ -56,24 +52,24 @@ class HtmlView extends BaseHtmlView
 	/**
 	 * Execute and display a template script.
 	 *
+	 * @since 1.0.0
+	 *
 	 * @param   string  $tpl  The name of the template file to parse; automatically searches through the template paths.
 	 *
 	 * @throws Exception
-	 * @since 1.0.0
 	 */
 	public function display($tpl = null)
 	{
 		/* @var LocationModel $model */
 		$model = $this->getModel();
-		$item = $this->item = $model->getItem();
+		$item  = $this->item = $model->getItem();
 
-		$state = $this->state = $model->getState();
+		$state  = $this->state = $model->getState();
 		$params = $this->params = $state->get('params');
 
 		/**
 		 * $item->params are the event params, $temp are the menu item params
 		 * Merge so that the menu item params take priority
-		 *
 		 * $itemparams->merge($temp);
 		 */
 
@@ -84,13 +80,23 @@ class HtmlView extends BaseHtmlView
 
 		// Override the layout only if this is not the active menu item
 		// If it is the active menu item, then the view and item id will match
-		if ((!$active) || ((strpos($active->link, 'view=location') === false) || (strpos($active->link, '&id=' . (string) $this->item->id) === false))) {
-			if (($layout = $item->params->get('locations_layout'))) {
+		if ((!$active) || ((strpos($active->link, 'view=location') === false) || (strpos(
+						$active->link,
+						'&id=' . (string) $this->item->id
+					) === false)))
+		{
+			if (($layout = $item->params->get('locations_layout')))
+			{
 				$this->setLayout($layout);
 			}
-		} else if (isset($active->query['layout'])) {
-			// We need to set the layout in case this is an alternative menu item (with an alternative layout)
-			$this->setLayout($active->query['layout']);
+		}
+		else
+		{
+			if (isset($active->query['layout']))
+			{
+				// We need to set the layout in case this is an alternative menu item (with an alternative layout)
+				$this->setLayout($active->query['layout']);
+			}
 		}
 
 		$contentEventArguments = [
@@ -111,7 +117,8 @@ class HtmlView extends BaseHtmlView
 			'afterDisplayContent'  => new AfterDisplayEvent('onContentAfterDisplay', $contentEventArguments),
 		];
 
-		foreach ($contentEvents as $resultKey => $event) {
+		foreach ($contentEvents as $resultKey => $event)
+		{
 			$results = $dispatcher->dispatch($event->getName(), $event)->getArgument('result', []);
 
 			$item->event->{$resultKey} = $results ? trim(implode("\n", $results)) : '';
