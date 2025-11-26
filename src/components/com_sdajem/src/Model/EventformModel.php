@@ -18,7 +18,6 @@ use Joomla\CMS\Table\Table;
 use RuntimeException;
 use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Administrator\Library\Item\Event;
-
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects

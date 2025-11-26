@@ -14,9 +14,7 @@ defined('_JEXEC') or die();
 
 use Joomla\CMS\HTML\HTMLHelper;
 use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
-use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
 use Sda\Component\Sdajem\Site\Model\EventAttendeeModel;
-use Sda\Component\Sdajem\Site\Model\EventInterestModel;
 
 abstract class EventHtmlHelper
 {

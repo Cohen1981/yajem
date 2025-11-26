@@ -20,6 +20,8 @@
     "joomla/coding-standards": "3.0.0-alpha"
   },
   "scripts": {
+    "post-install-cmd": ["cp -rf ./vendor/joomla/coding-standards/Joomla ./vendor/squizlabs/php_codesniffer/src/Standards/"],
+    "post-update-cmd": ["cp -rf ./vendor/joomla/coding-standards/Joomla ./vendor/squizlabs/php_codesniffer/src/Standards"],
     "phpcs": "phpcs --standard=Joomla"
   }
 }

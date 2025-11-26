@@ -12,7 +12,7 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 
-/** @var Sda\Component\Sdajem\Administrator\View\Location\HtmlView $this */
+/** @var \Sda\Component\Sdajem\Administrator\View\Location\HtmlView $this */
 
 $app   = Factory::getApplication();
 $input = $app->input;
@@ -21,8 +21,7 @@ $this->ignore_fieldsets = ['item_associations'];
 $this->useCoreUI        = true;
 
 $wa = $this->getDocument()->getWebAssetManager();
-$wa->useScript('keepalive')
-		->useScript('form.validate');
+$wa->useScript('keepalive')->useScript('form.validate');
 
 $item = $this->getItem();
 

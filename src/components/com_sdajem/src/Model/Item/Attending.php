@@ -10,9 +10,9 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Language\Text;
 use Joomla\Database\DatabaseInterface;
-use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
 use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
 
 /**
  * @package     Sda\Component\Sdajem\Site\Model\Item

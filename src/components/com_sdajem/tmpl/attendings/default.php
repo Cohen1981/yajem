@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 
@@ -17,8 +17,8 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\Component\Content\Administrator\Helper\ContentHelper;
-use Sda\Component\Sdajem\Administrator\Model\Items\AttendingsItemModel;
 use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Administrator\Model\Items\AttendingsItemModel;
 
 defined('_JEXEC') or die();
 

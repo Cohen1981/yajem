@@ -13,20 +13,21 @@ use Joomla\CMS\Layout\LayoutHelper;
 use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 
-/** @var Sda\Component\Sdajem\Administrator\View\Locations\HtmlView $this */
+/** @var \Sda\Component\Sdajem\Administrator\View\Locations\HtmlView $this */
 
 $wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('table.columns');
 $canChange = true;
 
-$listOrder = $this->escape($this->state->get('list.ordering'));
-$listDirn  = $this->escape($this->state->get('list.direction'));
+$items = $this->getItems();
+
+$listOrder = $this->escape($this->getState()->get('list.ordering'));
+$listDirn  = $this->escape($this->getState()->get('list.direction'));
 $saveOrder = $listOrder == 'a.ordering';
 
-if ($saveOrder && !empty($this->items))
+if ($saveOrder && !empty($items))
 {
-	$saveOrderingUrl = 'index.php?option=com_sdajem&task=locations.saveOrderAjax&tmpl=component&' . Session::getFormToken(
-			) . '=1';
+	$saveOrderingUrl = 'index.php?option=com_sdajem&task=locations.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 }
 
 ?>
@@ -38,7 +39,7 @@ echo Route::_('index.php?option=com_sdajem&view=locations'); ?>" method="post" n
 				<?php
 				echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
 				<?php
-				if (empty($this->items)) : ?>
+				if (empty($items)) : ?>
 					<div class="alert alert-warning">
 						<?php
 						echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
@@ -102,8 +103,8 @@ echo Route::_('index.php?option=com_sdajem&view=locations'); ?>" method="post" n
 						</thead>
 						<tbody>
 						<?php
-						$n = count($this->items);
-						foreach ($this->items as $i => $item) :
+						$n = count($items);
+						foreach ($items as $i => $item) :
 							?>
 							<tr class="row<?php
 							echo $i % 2; ?>">
@@ -145,7 +146,7 @@ echo Route::_('index.php?option=com_sdajem&view=locations'); ?>" method="post" n
 								</td>
 								<td class="small d-none d-md-table-cell">
 									<?php
-									echo $item->access_level; ?>
+									echo $item->accessLevel; ?>
 								</td>
 							</tr>
 						<?php

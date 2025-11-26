@@ -14,7 +14,6 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\Table\Table;
 use Sda\Component\Sdajem\Administrator\Library\Item\Fitting;
 use Sda\Component\Sdajem\Administrator\Model\FittingModel;
-
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects

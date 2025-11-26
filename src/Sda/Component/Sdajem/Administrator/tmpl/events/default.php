@@ -17,7 +17,7 @@ use Joomla\CMS\Router\Route;
 use Joomla\CMS\Session\Session;
 use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
 
-/** @var Sda\Component\Sdajem\Administrator\View\Events\HtmlView $this */
+/** @var \Sda\Component\Sdajem\Administrator\View\Events\HtmlView $this */
 
 $wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('table.columns');
