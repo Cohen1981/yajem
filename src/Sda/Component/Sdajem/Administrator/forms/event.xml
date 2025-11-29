@@ -42,14 +42,14 @@
                 label="COM_SDAJEM_EVENT_IMAGE_LABEL"
         />
         <field
-                name=""
+                name="url"
                 type="text"
                 label="COM_SDAJEM_FIELD_URL_LABEL"
                 size="255"
         />
         <field
-                type="ModalSelect"
                 name="sdajem_location_id"
+                type="ModalSelect"
                 label="COM_SDAJEM_SELECT_LOCATION_LABEL"
                 select="true"
                 urlSelect="index.php?option=com_sdajem&amp;view=locations&amp;layout=modal&amp;tmpl=component"

@@ -12,7 +12,7 @@ defined('_JEXEC') or die();
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
-use Sda\Component\Sdajem\Administrator\Library\Collection\LocationListItemsCollection;
+use Sda\Component\Sdajem\Administrator\Library\Collection\LocationsCollection;
 
 /**
  * The LocationsModel class provides methods for querying and managing
@@ -189,11 +189,11 @@ class LocationsModel extends ListModel
 	/**
 	 * Retrieves a collection of items.
 	 *
-	 * @return LocationListItemsCollection A collection of location table items.
+	 * @return LocationsCollection A collection of location table items.
 	 * @since 1.0.0
 	 */
-	public function getItems():LocationListItemsCollection
+	public function getItems():LocationsCollection
 	{
-		return new LocationListItemsCollection(parent::getItems());
+		return new LocationsCollection(parent::getItems());
 	}
 }

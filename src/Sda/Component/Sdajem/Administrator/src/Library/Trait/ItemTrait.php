@@ -20,27 +20,38 @@ trait ItemTrait
 	/**
 	 * @since 1.5.3
 	 */
-	public function __construct()
+	public function __construct(array|stdClass $data = null)
 	{
-		$selfReflection = new ReflectionObject($this);
-
-		foreach ($selfReflection->getProperties() as $property)
+		if (!$data)
 		{
-			$name        = $property->getName();
-			$this->$name = null;
+			$selfReflection = new ReflectionObject($this);
+
+			foreach ($selfReflection->getProperties() as $property)
+			{
+				$name        = $property->getName();
+				$this->$name = null;
+			}
+		}
+		elseif ($data instanceof stdClass)
+		{
+			$this->createFromObject($data);
+		}
+		else
+		{
+			$this->createFromArray($data);
 		}
 	}
 
 	/**
 	 * @param   array  $data  the data array to convert
 	 *
-	 * @return \Sda\Component\Sdajem\Administrator\Library\Item\Attending|ItemTrait|\Sda\Component\Sdajem\Administrator\Library\Item\Comment|\Sda\Component\Sdajem\Administrator\Library\Item\Event|\Sda\Component\Sdajem\Administrator\Library\Item\Fitting|\Sda\Component\Sdajem\Administrator\Library\Item\Location
-	 *@since 1.5.3
+	 * @return static
+	 * @since 1.5.3
 	 *
 	 */
-	public static function createFromArray(array $data): self
+	public static function createFromArray(array $data = []): static
 	{
-		$item           = new self;
+		$item           = new static;
 		$selfReflection = new ReflectionObject($item);
 
 		foreach ($data as $key => $value)
@@ -57,13 +68,13 @@ trait ItemTrait
 	/**
 	 * @param   stdClass  $data  The class to convert
 	 *
-	 * @return \Sda\Component\Sdajem\Administrator\Library\Item\Attending|ItemTrait|\Sda\Component\Sdajem\Administrator\Library\Item\Comment|\Sda\Component\Sdajem\Administrator\Library\Item\Event|\Sda\Component\Sdajem\Administrator\Library\Item\Fitting|\Sda\Component\Sdajem\Administrator\Library\Item\Location
-	 *@since 1.5.3
+	 * @return static
+	 * @since 1.5.3
 	 *
 	 */
-	public static function createFromObject(stdClass $data): self
+	public static function createFromObject(stdClass $data = new stdClass): static
 	{
-		return self::createFromArray((array) $data);
+		return static::createFromArray((array) $data);
 	}
 
 	/**

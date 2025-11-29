@@ -6,6 +6,8 @@
 
 namespace Sda\Component\Sdajem\Administrator\Library\Item;
 
+use Joomla\Database\DatabaseInterface;
+use Joomla\Database\QueryInterface;
 use Sda\Component\Sdajem\Administrator\Library\Interface\ItemInterface;
 use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
 use stdClass;
@@ -90,4 +92,26 @@ class AttendingTableItem extends stdClass implements ItemInterface
 	 */
 	public ?int $event_status;
 
+	public static function getBaseQuery(QueryInterface $query, DatabaseInterface $db):QueryInterface
+	{
+		$query->select(
+			$db->quoteName(
+				[
+					'a.id',
+					'a.access',
+					'a.alias',
+					'a.state',
+					'a.ordering',
+					'a.event_id',
+					'a.users_user_id',
+					'a.status',
+					'a.fittings',
+					'a.event_status'
+				]
+			)
+		);
+		$query->from($db->quoteName('#__sdajem_attendings', 'a'));
+
+		return $query;
+	}
 }

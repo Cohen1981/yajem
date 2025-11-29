@@ -20,6 +20,9 @@ use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Registry\Registry;
 use Sda\Component\Sdajem\Administrator\Library\Collection\EventsCollection;
+use Sda\Component\Sdajem\Administrator\Library\Interface\CollectionInterface;
+use Sda\Component\Sdajem\Administrator\Library\Interface\HtmlListViewInterface;
+use Sda\Component\Sdajem\Administrator\Library\Trait\HtmlViewTrait;
 use Sda\Component\Sdajem\Administrator\Model\EventsModel;
 
 /**
@@ -27,15 +30,17 @@ use Sda\Component\Sdajem\Administrator\Model\EventsModel;
  *
  * @since 1.0.0
  */
-class HtmlView extends BaseHtmlView
+class HtmlView extends BaseHtmlView implements HtmlListViewInterface
 {
+	use HtmlViewTrait;
+
 	/**
 	 * An array of items
 	 *
 	 * @var  array
 	 * @since 1.0.0
 	 */
-	public EventsCollection $items;
+	protected EventsCollection $items;
 
 	/**
 	 * The model state
@@ -43,7 +48,7 @@ class HtmlView extends BaseHtmlView
 	 * @var  Registry
 	 * @since 1.0.0
 	 */
-	public $state;
+	protected Registry $state;
 
 	/**
 	 * Form object for search filters
@@ -166,15 +171,13 @@ class HtmlView extends BaseHtmlView
 	}
 
 	/**
-	 * Get the Document.
 	 *
-	 * @since   4.4.0
-	 * @return  Document
-	 * @throws  \UnexpectedValueException May be thrown if the document has not been set.
+	 * @return EventsCollection
+	 *
+	 * @since 1.5.3
 	 */
-	public function getDocument(): Document
+	public function getItems(): EventsCollection
 	{
-		return parent::getDocument();
+		return $this->items;
 	}
-
 }

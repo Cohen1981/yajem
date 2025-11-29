@@ -18,8 +18,9 @@ use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
 use Joomla\Registry\Registry;
-use Sda\Component\Sdajem\Administrator\Library\Collection\LocationListItemsCollection;
-use Sda\Component\Sdajem\Administrator\Library\Trait\HtmlListViewTrait;
+use Sda\Component\Sdajem\Administrator\Library\Collection\LocationsCollection;
+use Sda\Component\Sdajem\Administrator\Library\Interface\HtmlListViewInterface;
+use Sda\Component\Sdajem\Administrator\Library\Trait\HtmlViewTrait;
 use Sda\Component\Sdajem\Administrator\Model\LocationsModel;
 use SimpleXMLElement;
 
@@ -30,17 +31,17 @@ use SimpleXMLElement;
  * elements such as the sidebar and toolbars.
  * @since 1.0.0
  */
-class  HtmlView extends BaseHtmlView
+class  HtmlView extends BaseHtmlView implements HtmlListViewInterface
 {
-	use HtmlListViewTrait;
+	use HtmlViewTrait;
 
 	/**
 	 * An array of items
 	 *
-	 * @var  LocationListItemsCollection
+	 * @var  LocationsCollection
 	 * @since 1.0.0
 	 */
-	protected LocationListItemsCollection $items;
+	protected LocationsCollection $items;
 
 	/**
 	 * The model state
@@ -179,5 +180,16 @@ class  HtmlView extends BaseHtmlView
 		{
 			$toolbar->preferences('com_sdajem');
 		}
+	}
+
+	/**
+	 *
+	 * @return LocationsCollection
+	 *
+	 * @since 1.5.3
+	 */
+	public function getItems(): LocationsCollection
+	{
+		return $this->items;
 	}
 }

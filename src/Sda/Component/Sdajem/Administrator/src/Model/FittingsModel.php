@@ -12,8 +12,10 @@ use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
 use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Administrator\Library\Collection\FittingsCollection;
 use Sda\Component\Sdajem\Administrator\Library\Collection\FittingTableItemsCollection;
 use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Item\FittingTableItem;
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -65,28 +67,7 @@ class FittingsModel extends ListModel
 		$query = $db->getQuery(true);
 
 		// Select the required fields from the table.
-		$query->select(
-			$this->getState(
-				'list.select',
-				[
-					$db->quoteName('a.id'),
-					$db->quoteName('a.access'),
-					$db->quoteName('a.alias'),
-					$db->quoteName('a.state'),
-					$db->quoteName('a.ordering'),
-					$db->quoteName('a.title'),
-					$db->quoteName('a.description'),
-					$db->quoteName('a.length'),
-					$db->quoteName('a.width'),
-					$db->quoteName('a.standard'),
-					$db->quoteName('a.fittingType'),
-					$db->quoteName('a.user_id'),
-					$db->quoteName('a.image'),
-					$db->quoteName('a.needSpace')
-				]
-			)
-		);
-		$query->from($db->quoteName('#__sdajem_fittings', 'a'));
+		$query = FittingTableItem::getBaseQuery($query, $db);
 
 		// Join over User
 		$query->select($db->quoteName('u.username', 'userName'))
@@ -123,42 +104,30 @@ class FittingsModel extends ListModel
 	}
 
 	/**
-	 * @since
-	 *
-	 * @param $userId
-	 *
-	 * @return mixed
-	 * @throws Exception
+	 * Retrieves a collection of items.
+	 * @return FittingsCollection
+	 * @since 1.5.3
 	 */
-	public function getFittingsForUser($userId = null): mixed
+	public function getItems(): FittingsCollection
+	{
+		return new FittingsCollection(parent::getItems());
+	}
+
+	/**
+	 * @param   int|null $userId The unique identifier of the user whose fittings are to be retrieved.
+	 *
+	 * @return FittingTableItemsCollection
+	 * @throws Exception
+	 * @since 1.5.3
+	 */
+	public function getFittingsForUser(int $userId = null): FittingTableItemsCollection
 	{
 		$userId = !$userId ? Factory::getApplication()->getIdentity()->id : $userId;
 
 		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
 
-		$query->select(
-			$this->getState(
-				'list.select',
-				[
-					$db->quoteName('a.id'),
-					$db->quoteName('a.access'),
-					$db->quoteName('a.alias'),
-					$db->quoteName('a.state'),
-					$db->quoteName('a.ordering'),
-					$db->quoteName('a.title'),
-					$db->quoteName('a.description'),
-					$db->quoteName('a.length'),
-					$db->quoteName('a.width'),
-					$db->quoteName('a.standard'),
-					$db->quoteName('a.fittingType'),
-					$db->quoteName('a.user_id'),
-					$db->quoteName('a.image'),
-					$db->quoteName('a.needSpace')
-				]
-			)
-		);
-		$query->from($db->quoteName('#__sdajem_fittings', 'a'));
+		$query = FittingTableItem::getBaseQuery($query, $db);
 
 		$query->where($db->quoteName('a.user_id') . '= :userId');
 		$query->bind(':userId', $userId);
@@ -173,11 +142,11 @@ class FittingsModel extends ListModel
 	 *
 	 * @since   1.1.4
 	 *
-	 * @param   int  $eventId
+	 * @param   int  $eventId  The event id
 	 *
-	 * @return  array|null
+	 * @return  FittingsCollection|null
 	 */
-	public function getFittingsForEvent(int $eventId): ?array
+	public function getFittingsForEvent(int $eventId): ?FittingsCollection
 	{
 		$db    = $this->getDatabase();
 		$query = $db->getQuery(true);
@@ -213,28 +182,7 @@ class FittingsModel extends ListModel
 		{
 			$query = $db->getQuery(true);
 
-			$query->select(
-				$this->getState(
-					'list.select',
-					[
-						$db->quoteName('a.id'),
-						$db->quoteName('a.access'),
-						$db->quoteName('a.alias'),
-						$db->quoteName('a.state'),
-						$db->quoteName('a.ordering'),
-						$db->quoteName('a.title'),
-						$db->quoteName('a.description'),
-						$db->quoteName('a.length'),
-						$db->quoteName('a.width'),
-						$db->quoteName('a.standard'),
-						$db->quoteName('a.fittingType'),
-						$db->quoteName('a.user_id'),
-						$db->quoteName('a.image'),
-						$db->quoteName('a.needSpace')
-					]
-				)
-			);
-			$query->from($db->quoteName('#__sdajem_fittings', 'a'));
+			$query = FittingTableItem::getBaseQuery($query, $db);
 			$query->select($db->quoteName('u.username', 'userName'))
 				->join(
 					'LEFT',
@@ -248,9 +196,9 @@ class FittingsModel extends ListModel
 		}
 		else
 		{
-			$data = null;
+			$data = [];
 		}
 
-		return $data;
+		return new FittingsCollection($data);
 	}
 }

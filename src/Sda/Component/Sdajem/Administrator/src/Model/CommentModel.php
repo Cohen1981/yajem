@@ -11,6 +11,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Sda\Component\Sdajem\Administrator\Library\Interface\ItemModelInterface;
 use Sda\Component\Sdajem\Administrator\Library\Item\CommentTableItem;
 
 /**
@@ -76,6 +77,18 @@ class CommentModel extends AdminModel
 
 		$this->preprocessData($this->typeAlias, $data);
 
-		return CommentTableItem::createFromObject($data);
+		return new CommentTableItem($data);  // CommentTableItem::createFromObject($data);
+	}
+
+	/**
+	 * @param   int|null  $pk The primary key.
+	 *
+	 * @return CommentTableItem
+	 *
+	 * @since 1.5.3
+	 */
+	public function getItem($pk = null): CommentTableItem
+	{
+		return CommentTableItem::createFromObject(parent::getItem($pk));
 	}
 }

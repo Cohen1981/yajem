@@ -26,7 +26,7 @@ class FittingTableItemsCollection extends \ArrayObject implements CollectionInte
 	 *
 	 * @param   array|null  $items  The items to add to the collection
 	 */
-	public function __construct(array $items = null)
+	public function __construct(array|null $items = [])
 	{
 		parent::__construct($items);
 

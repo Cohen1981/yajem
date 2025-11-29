@@ -18,6 +18,7 @@ $app = Factory::getApplication();
 $wa  = $this->getDocument()->getWebAssetManager();
 $wa->useScript('modal-content-select');
 
+
 $function = $app->input->getCmd('function', 'jSelectLocation');
 $onclick  = $this->escape($function);
 ?>
@@ -34,7 +35,7 @@ $onclick  = $this->escape($function);
 		  class="form-inline"
 	>
 		<?php
-		if (empty($this->items)) : ?>
+		if (empty($this->getItems())) : ?>
 			<div class="alert alert-warning">
 				<?php
 				echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
@@ -60,7 +61,7 @@ $onclick  = $this->escape($function);
 				];
 				?>
 				<?php
-				foreach ($this->items as $i => $item) : ?>
+				foreach ($this->getItems() as $i => $item) : ?>
 					<?php
 					$lang    = '';
 					$attribs = 'data-content-select'

@@ -10,8 +10,11 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Joomla\Utilities\ArrayHelper;
+use Sda\Component\Sdajem\Administrator\Library\Interface\ItemModelInterface;
 use Sda\Component\Sdajem\Administrator\Library\Item\EventTableItem;
 use Sda\Component\Sdajem\Administrator\Table\EventTable;
+use stdClass;
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -70,7 +73,7 @@ class EventModel extends AdminModel
 	 */
 	public function getItem($pk = null): EventTableItem
 	{
-		return EventTableItem::createFromObject(parent::getItem());
+		return EventTableItem::createFromObject(parent::getItem($pk));
 	}
 	/**
 	 * Method to get the data that should be injected in the form.
@@ -92,6 +95,11 @@ class EventModel extends AdminModel
 		}
 
 		$this->preprocessData($this->typeAlias, $data);
+
+		if (is_array($data))
+		{
+			$data = ArrayHelper::toObject($data, stdClass::class);
+		}
 
 		return EventTableItem::createFromObject($data);
 	}

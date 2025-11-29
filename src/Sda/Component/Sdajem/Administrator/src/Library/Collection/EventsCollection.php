@@ -7,12 +7,12 @@
 namespace Sda\Component\Sdajem\Administrator\Library\Collection;
 
 use Sda\Component\Sdajem\Administrator\Library\Interface\CollectionInterface;
-use Sda\Component\Sdajem\Administrator\Library\Item\EventListItem;
+use Sda\Component\Sdajem\Administrator\Library\Item\Event;
 use Sda\Component\Sdajem\Administrator\Library\Trait\ItemsTrait;
 
 /**
  * @since         1.5.3
- * @template-implements \IteratorAggregate<int, EventListItem>
+ * @template-implements \IteratorAggregate<int, Event>
  * Represents a collection of event table items, extending the functionality of the ArrayObject class.
  */
 class EventsCollection extends \ArrayObject implements CollectionInterface
@@ -32,7 +32,7 @@ class EventsCollection extends \ArrayObject implements CollectionInterface
 
 		foreach ($items as $item)
 		{
-			$this->items[] = EventListItem::createFromObject($item);
+			$this->items[] = Event::createFromObject($item);
 		}
 	}
 }

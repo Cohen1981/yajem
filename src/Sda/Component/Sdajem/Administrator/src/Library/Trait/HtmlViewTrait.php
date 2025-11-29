@@ -25,17 +25,6 @@ trait HtmlViewTrait
 	protected Registry $state;
 
 	/**
-	 * Retrieves the item.
-	 *
-	 * @return mixed The item stored in the property.
-	 * @since 1.5.3
-	 */
-	public function getItem()
-	{
-		return $this->item;
-	}
-
-	/**
 	 * Retrieves the state.
 	 *
 	 * @return Registry|null The state stored in the property.
@@ -55,5 +44,16 @@ trait HtmlViewTrait
 	public function getDocument(): Document
 	{
 		return parent::getDocument();
+	}
+
+	/**
+	 * Retrieves the parameters stored in the Registry.
+	 *
+	 * @return Registry|null The parameters stored in the Registry.
+	 * @since 1.5.3
+	 */
+	public function getParams():Registry|null
+	{
+		return $this->params;
 	}
 }

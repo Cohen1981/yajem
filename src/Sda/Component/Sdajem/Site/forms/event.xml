@@ -8,6 +8,7 @@
                 default="0"
                 class="readonly"
                 readonly="true"
+                hidden="true"
         />
         <field
                 name="title"
@@ -51,8 +52,8 @@
                 size="255"
         />
         <field
-                type="ModalSelect"
                 name="sdajem_location_id"
+                type="ModalSelect"
                 label="COM_SDAJEM_SELECT_LOCATION_LABEL"
                 select="true"
                 urlSelect="index.php?option=com_sdajem&amp;view=locations&amp;layout=modal&amp;tmpl=component"

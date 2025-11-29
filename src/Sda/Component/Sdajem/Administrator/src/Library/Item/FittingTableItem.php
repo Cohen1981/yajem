@@ -6,6 +6,8 @@
 
 namespace Sda\Component\Sdajem\Administrator\Library\Item;
 
+use Joomla\Database\DatabaseInterface;
+use Joomla\Database\QueryInterface;
 use Sda\Component\Sdajem\Administrator\Library\Interface\ItemInterface;
 use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
 use stdClass;
@@ -117,4 +119,38 @@ class FittingTableItem extends stdClass implements ItemInterface
 	 * @since 1.5.3
 	 */
 	public ?int $needSpace;
+
+	/**
+	 * Constructs and returns the base query.
+	 *
+	 * @param   QueryInterface     $query  An instance of the query object to build upon.
+	 * @param   DatabaseInterface  $db     The database connection to be used for the query.
+	 *
+	 * @return QueryInterface The query object with the base query applied.
+	 * @since 1.5.3
+	 */
+	public static function getBaseQuery(QueryInterface $query,DatabaseInterface $db): QueryInterface
+	{
+		return $query->select(
+			$db->quoteName(
+				[
+					'a.id',
+					'a.access',
+					'a.alias',
+					'a.state',
+					'a.ordering',
+					'a.title',
+					'a.description',
+					'a.length',
+					'a.width',
+					'a.standard',
+					'a.fittingType',
+					'a.user_id',
+					'a.image',
+					'a.needSpace',
+				]
+			)
+		)
+			->from($db->quoteName('#__sdajem_fittings', 'a'));
+	}
 }

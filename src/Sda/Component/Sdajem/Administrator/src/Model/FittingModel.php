@@ -11,6 +11,7 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Sda\Component\Sdajem\Administrator\Library\Interface\ItemModelInterface;
 use Sda\Component\Sdajem\Administrator\Library\Item\FittingTableItem;
 use function defined;
 
@@ -33,12 +34,12 @@ class FittingModel extends AdminModel
 	public $typeAlias = 'com_sdajem.fitting';
 
 	/**
-	 * @since 1.0.0
-	 *
-	 * @param   bool   $loadData
-	 * @param   array  $data
+	 * @param   array  $data     An optional associative array of data for the model.
+	 * @param   bool   $loadData True if the model instance should load its own data (if available); false to return a clean empty object.
 	 *
 	 * @return Form|false
+	 * @since 1.0.0
+	 *
 	 */
 	public function getForm($data = array(), $loadData = true)
 	{
@@ -95,8 +96,8 @@ class FittingModel extends AdminModel
 	 *
 	 * @return FittingTableItem The item retrieved and returned as a FittingTableItem instance.
 	 */
-	public function getItem(int $pk = null): FittingTableItem
+	public function getItem($pk = null): FittingTableItem
 	{
-		return FittingTableItem::createFromObject(parent::getItem());
+		return FittingTableItem::createFromObject(parent::getItem($pk));
 	}
 }

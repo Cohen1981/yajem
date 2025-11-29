@@ -23,18 +23,18 @@ $wa = $this->getDocument()->getWebAssetManager();
 $wa->useScript('table.columns');
 $canChange = true;
 
-$listOrder = $this->escape($this->state->get('list.ordering'));
-$listDirn  = $this->escape($this->state->get('list.direction'));
+$listOrder = $this->escape($this->getState()->get('list.ordering'));
+$listDirn  = $this->escape($this->getState()->get('list.direction'));
 $saveOrder = $listOrder == 'a.ordering';
 
-if ($saveOrder && !empty($this->items))
+if ($saveOrder && !empty($items))
 {
-	$saveOrderingUrl = 'index.php?option=com_sdajem&task=events.saveOrderAjax&tmpl=component&' . Session::getFormToken(
-			) . '=1';
+	$saveOrderingUrl = 'index.php?option=com_sdajem&task=events.saveOrderAjax&tmpl=component&' . Session::getFormToken() . '=1';
 }
 
 $params = ComponentHelper::getParams('com_sdajem');
 
+$items = $this->getItems();
 ?>
 <form action="<?php
 echo Route::_('index.php?option=com_sdajem'); ?>" method="post" name="adminForm" id="adminForm">
@@ -45,7 +45,7 @@ echo Route::_('index.php?option=com_sdajem'); ?>" method="post" name="adminForm"
 				echo LayoutHelper::render('joomla.searchtools.default', ['view' => $this]); ?>
 
 				<?php
-				if (empty($this->items)): ?>
+				if (empty($items)): ?>
 					<div class="alert alert-warning">
 						<?php
 						echo Text::_('JGLOBAL_NO_MATCHING_RESULTS'); ?>
@@ -138,8 +138,8 @@ echo Route::_('index.php?option=com_sdajem'); ?>" method="post" name="adminForm"
 						</thead>
 						<tbody>
 						<?php
-						$n = count($this->items);
-						foreach ($this->items as $i => $item) :
+						$n = count($items);
+						foreach ($items as $i => $item) :
 							?>
 							<tr class="row<?php
 							echo $i % 2; ?>">
@@ -161,18 +161,7 @@ echo Route::_('index.php?option=com_sdajem'); ?>" method="post" name="adminForm"
 										echo $this->escape($item->title); ?></a>
 								</th>
 								<td>
-									<?php
-
-									if ($item->allDayEvent)
-									{
-										echo $item->getStartDate() . ' - ' . $item->getEndDate();
-									}
-									else
-									{
-										echo $item->getStartDateTime() . ' - ' . $item->getEndDateTime();
-									}
-
-									?>
+									<?php echo $item->getStart() . ' - ' . $item->getEnd(); ?>
 								</td>
 								<td>
 									<?php

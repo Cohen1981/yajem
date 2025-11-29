@@ -14,13 +14,6 @@ use stdClass;
 interface ItemInterface
 {
 	/**
-	 * the constructor
-	 *
-	 * @since 1.5.3
-	 */
-	public function __construct();
-
-	/**
 	 * @since 1.5.3
 	 *
 	 * @param   array  $data  the data to convert to self
@@ -36,7 +29,7 @@ interface ItemInterface
 	 *
 	 * @return self
 	 */
-	public static function createFromObject(stdClass $data): self;
+	public static function createFromObject(stdClass $data = new stdClass): self;
 
 	/**
 	 * @since 1.5.3

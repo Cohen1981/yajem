@@ -182,7 +182,7 @@ class EventTableItem extends stdClass implements ItemInterface
 	 * @since 1.5.3
 	 * Holds configuration parameters for the event. For example, if users can register for the event.
 	 */
-	public ?array $params;
+	public array|string|null $params;
 
 	/**
 	 * @var string|null
@@ -199,100 +199,40 @@ class EventTableItem extends stdClass implements ItemInterface
 	public ?string $registerUntil;
 
 	/**
-	 * Constructor.
+	 * Retrieves the start date and time of an event.
 	 *
+	 * @return string The formatted start date and time. The format is 'd-m-Y' if it is an all-day event
+	 *                and 'd-m-Y H:i' otherwise.
 	 * @since 1.5.3
 	 */
-	public function __construct()
+	public function getStart(): string
 	{
-		$selfReflection = new ReflectionObject($this);
-
-		foreach ($selfReflection->getProperties() as $property)
+		if ($this->allDayEvent)
 		{
-			$name        = $property->getName();
-			$this->$name = null;
+			return HTMLHelper::date($this->startDateTime, 'd.m.Y');
+		}
+		else
+		{
+			return HTMLHelper::date($this->startDateTime, 'd.m.Y H:i');
 		}
 	}
 
 	/**
+	 * Retrieves the end date and time of an event.
+	 *
+	 * @return string The formatted end date and time. The format is 'd-m-Y' if it is an all-day event
+	 *                and 'd-m-Y H:i' otherwise.
 	 * @since 1.5.3
-	 *
-	 * @param   array  $data  the data array to convert
-	 *
-	 * @return  EventTableItem
 	 */
-	public static function createFromArray(array $data): self
+	public function getEnd(): string
 	{
-		$item           = new self;
-		$selfReflection = new ReflectionObject($item);
-
-		foreach ($data as $key => $value)
+		if ($this->allDayEvent)
 		{
-			if ($selfReflection->hasProperty($key))
-			{
-				switch ($key)
-				{
-					case 'params':
-						if (is_string($value))
-						{
-							$registry     = new Registry($value);
-							$item->params = $registry->toArray();
-						}
-						else
-						{
-							$item->params = $value;
-						}
-						break;
-					default:
-						$item->$key = $value;
-				}
-			}
+			return HTMLHelper::date($this->endDateTime, 'd.m.Y');
 		}
-
-		return $item;
-	}
-
-	/**
-	 * Retrieves the start date in a formatted string.
-	 *
-	 * @return string The formatted start date as 'd-m-Y'.
-	 * @since 1.5.3
-	 */
-	public function getStartDate(): string
-	{
-		return HTMLHelper::date($this->startDateTime, 'd-m-Y');
-	}
-
-	/**
-	 * Retrieves the end date formatted as a string.
-	 *
-	 * @return string The formatted end date in 'd-m-Y' format.
-	 * @since 1.5.3
-	 */
-	public function getEndDate(): string
-	{
-		return HTMLHelper::date($this->endDateTime, 'd-m-Y');
-	}
-
-	/**
-	 * Retrieves the formatted start date and time.
-	 *
-	 * @return string The start date and time formatted as 'd-m-Y H:i'.
-	 * @since 1.5.3
-	 */
-	public function getStartDateTime(): string
-	{
-		return HTMLHelper::date($this->startDateTime, 'd-m-Y H:i');
-	}
-
-	/**
-	 * Retrieves the formatted end date and time.
-	 *
-	 * @return string The end date and time formatted as 'd-m-Y H:i'.
-	 * @since 1.5.3
-	 */
-	public function getEndDateTime(): string
-	{
-		return HTMLHelper::date($this->endDateTime, 'd-m-Y H:i');
+		else
+		{
+			return HTMLHelper::date($this->endDateTime, 'd.m.Y H:i');
+		}
 	}
 }

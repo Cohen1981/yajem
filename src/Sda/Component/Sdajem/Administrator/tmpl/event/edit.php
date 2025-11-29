@@ -28,19 +28,21 @@ $wa->useScript('keepalive')
 
 $layout = 'edit';
 $tmpl   = $input->get('tmpl', '', 'cmd') === 'component' ? '&tmpl=component' : '';
+
+$form = $this->getForm();
 ?>
 
 <form action="<?php
-echo Route::_('index.php?option=com_sdajem&layout=' . $layout . $tmpl . '&id=' . (int) $this->item->id); ?>"
+echo Route::_('index.php?option=com_sdajem&layout=' . $layout . $tmpl . '&id=' . (int) $this->getItem()->id); ?>"
 	  method="post" name="adminForm" id="event-form" class="form-validate">
 	<div class="row title-alias form-vertical mb-3">
 		<div class="col-12 col-md-6">
 			<?php
-			echo $this->form->renderField('title'); ?>
+			echo $form->renderField('title'); ?>
 		</div>
 		<div class="col-12 col-md-6">
 			<?php
-			echo $this->form->renderField('alias'); ?>
+			echo $form->renderField('alias'); ?>
 		</div>
 	</div>
 	<div class="main-card">
@@ -52,31 +54,31 @@ echo Route::_('index.php?option=com_sdajem&layout=' . $layout . $tmpl . '&id=' .
 			'uitab.addTab',
 			'myTab',
 			'details',
-			empty($this->item->id) ? Text::_('COM_SDAJEM_NEW_EVENT') : Text::_('COM_SDAJEM_EDIT_EVENT')
+			empty($this->getItem()->id) ? Text::_('COM_SDAJEM_NEW_EVENT') : Text::_('COM_SDAJEM_EDIT_EVENT')
 		); ?>
 
 		<div class="row">
 			<div class="col-lg-9">
 				<?php
-				echo $this->form->renderField('eventStatus'); ?>
+				echo $form->renderField('eventStatus'); ?>
 				<?php
-				echo $this->form->renderField('description'); ?>
+				echo $form->renderField('description'); ?>
 				<?php
-				echo $this->form->renderField('image'); ?>
+				echo $form->renderField('image'); ?>
 				<?php
-				echo $this->form->renderField('url'); ?>
+				echo $form->renderField('url'); ?>
 				<?php
-				echo $this->form->renderField('sdajem_location_id'); ?>
+				echo $form->renderField('sdajem_location_id'); ?>
 				<?php
-				echo $this->form->renderField('allDayEvent'); ?>
+				echo $form->renderField('allDayEvent'); ?>
 				<?php
-				echo $this->form->renderField('startDateTime'); ?>
+				echo $form->renderField('startDateTime'); ?>
 				<?php
-				echo $this->form->renderField('endDateTime'); ?>
+				echo $form->renderField('endDateTime'); ?>
 				<?php
-				echo $this->form->renderField('organizerId'); ?>
+				echo $form->renderField('organizerId'); ?>
 				<?php
-				echo $this->form->renderField('hostId'); ?>
+				echo $form->renderField('hostId'); ?>
 			</div>
 			<div class="col-lg-3">
 				<?php

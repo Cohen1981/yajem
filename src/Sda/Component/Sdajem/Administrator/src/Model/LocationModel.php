@@ -111,6 +111,6 @@ class LocationModel extends AdminModel
 	 */
 	public function getItem($pk = null): LocationTableItem
 	{
-		return LocationTableItem::createFromObject(parent::getItem());
+		return LocationTableItem::createFromObject(parent::getItem($pk));
 	}
 }

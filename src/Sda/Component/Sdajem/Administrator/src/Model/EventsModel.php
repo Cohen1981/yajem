@@ -14,6 +14,7 @@ use Joomla\Database\QueryInterface;
 use Sda\Component\Sdajem\Administrator\Library\Collection\EventsCollection;
 use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
+use Sda\Component\Sdajem\Administrator\Library\Item\Event;
 use function defined;
 
 // phpcs:disable PSR1.Files.SideEffects
@@ -84,140 +85,7 @@ class EventsModel extends ListModel
 		$query = $db->getQuery(true);
 
 		// Select the required fields from the table.
-		$query->select(
-			$this->getState(
-				'list.select',
-				[
-					$db->quoteName('a.id'),
-					$db->quoteName('a.access'),
-					$db->quoteName('a.alias'),
-					$db->quoteName('a.created'),
-					$db->quoteName('a.created_by'),
-					$db->quoteName('a.published'),
-					$db->quoteName('a.publish_up'),
-					$db->quoteName('a.publish_down'),
-					$db->quoteName('a.state'),
-					$db->quoteName('a.ordering'),
-					$db->quoteName('a.title'),
-					$db->quoteName('a.description'),
-					$db->quoteName('a.url'),
-					$db->quoteName('a.startDateTime'),
-					$db->quoteName('a.endDateTime'),
-					$db->quoteName('a.allDayEvent'),
-					$db->quoteName('a.sdajem_location_id'),
-					$db->quoteName('a.image'),
-					$db->quoteName('a.eventStatus'),
-					$db->quoteName('a.organizerId'),
-					$db->quoteName('a.registerUntil'),
-					$db->quoteName('a.hostId'),
-					$db->quoteName('a.eventCancelled'),
-					$db->quoteName('a.params'),
-					$db->quoteName('a.svg'),
-				]
-			)
-		);
-		$query->from($db->quoteName('#__sdajem_events', 'a'));
-
-		// Join over locations
-		$query->select(
-			$this->getState(
-				'list.select',
-				[
-					$db->quoteName('loc.title', 'locationName'),
-					$db->quoteName('loc.postalCode', 'postalCode')
-				]
-			)
-		)
-			->join(
-				'LEFT',
-				$db->quoteName('#__sdajem_locations', 'loc') . ' ON ' . $db->quoteName(
-					'loc.id'
-				) . ' = ' . $db->quoteName('a.sdajem_location_id')
-			);
-
-		// Join over User as organizer
-		$query->select($db->quoteName('org.username', 'organizerName'))
-			->join(
-				'LEFT',
-				$db->quoteName('#__users', 'org') . ' ON ' . $db->quoteName('org.id') . ' = ' . $db->quoteName(
-					'a.organizerId'
-				)
-			);
-
-		// Get the Attendee count
-		$attendees = $db->getQuery(true)
-			->select('COUNT(' . $db->quoteName('att.id') . ')')
-			->from($db->quoteName('#__sdajem_attendings', 'att'))
-			->where(
-				[
-					$db->quoteName('att.event_id') . ' = ' . $db->quoteName('a.id'),
-					$db->quoteName('att.status') . ' = ' . IntAttStatusEnum::POSITIVE->value,
-					$db->quoteName('att.event_status') . ' = ' . EventStatusEnum::OPEN->value
-				]
-			);
-		$query->select('(' . $attendees . ') AS ' . $db->quoteName('attendeeCount'));
-
-		// Get the guest count
-		$guests = $db->getQuery(true)
-			->select('COUNT(' . $db->quoteName('g.id') . ')')
-			->from($db->quoteName('#__sdajem_attendings', 'g'))
-			->where(
-				[
-					$db->quoteName('g.event_id') . ' = ' . $db->quoteName('a.id'),
-					$db->quoteName('g.status') . ' = ' . IntAttStatusEnum::GUEST->value,
-					$db->quoteName('g.event_status') . ' = ' . EventStatusEnum::OPEN->value
-				]
-			);
-		$query->select('(' . $guests . ') AS ' . $db->quoteName('guestCount'));
-
-		// Get the Attendee feedback count
-		$attendeesf = $db->getQuery(true)
-			->select('COUNT(' . $db->quoteName('atte.id') . ')')
-			->from($db->quoteName('#__sdajem_attendings', 'atte'))
-			->where(
-				[
-					$db->quoteName('atte.event_id') . ' = ' . $db->quoteName('a.id'),
-					$db->quoteName(
-						'atte.status'
-					) . ' IN( ' . IntAttStatusEnum::POSITIVE->value . ',
-							 ' . IntAttStatusEnum::NEGATIVE->value . ',
-							  ' . IntAttStatusEnum::GUEST->value . ')',
-					$db->quoteName('atte.event_status') . ' = ' . EventStatusEnum::OPEN->value
-				]
-			);
-		$query->select('(' . $attendeesf . ') AS ' . $db->quoteName('attendeeFeedbackCount'));
-
-		$interestCount = $db->getQuery(true)
-			->select('COUNT(' . $db->quoteName('int.id') . ')')
-			->from($db->quoteName('#__sdajem_attendings', 'int'))
-			->where(
-				[
-					$db->quoteName('int.event_id') . ' = ' . $db->quoteName('a.id'),
-					$db->quoteName('int.status') . ' = ' . IntAttStatusEnum::POSITIVE->value,
-					$db->quoteName('int.event_status') . ' = ' . EventStatusEnum::PLANING->value
-				]
-			);
-		$query->select('(' . $interestCount . ') AS ' . $db->quoteName('interestCount'));
-
-		$feedback = $db->getQuery(true)
-			->select('COUNT(' . $db->quoteName('i.id') . ')')
-			->from($db->quoteName('#__sdajem_attendings', 'i'))
-			->where(
-				[
-					$db->quoteName('i.event_id') . ' = ' . $db->quoteName('a.id'),
-					$db->quoteName('i.event_status') . ' = ' . EventStatusEnum::PLANING->value
-				]
-			);
-		$query->select('(' . $feedback . ') AS ' . $db->quoteName('feedbackCount'));
-
-		// Join over the asset groups.
-		$query->select($db->quoteName('ag.title', 'accessLevel'))
-			->join(
-				'LEFT',
-				$db->quoteName('#__viewlevels', 'ag') . ' ON ' . $db->quoteName(
-					'ag.id'
-				) . ' = ' . $db->quoteName('a.access')
-			);
+		$query = Event::getBaseQuery($query, $db);
 
 		// Filter by access level.
 		if ($this->getState('filter.access', true))

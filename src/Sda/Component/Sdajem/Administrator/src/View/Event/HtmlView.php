@@ -15,15 +15,20 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Sda\Component\Sdajem\Administrator\Library\Interface\HtmlViewInterface;
+use Sda\Component\Sdajem\Administrator\Library\Interface\ItemInterface;
 use Sda\Component\Sdajem\Administrator\Library\Item\EventTableItem;
+use Sda\Component\Sdajem\Administrator\Library\Trait\HtmlViewTrait;
 use Sda\Component\Sdajem\Administrator\Model\EventModel;
 
 /**
  * @package     Sda\Component\Sdajem\Administrator\View\Event
  * @since       1.0
  */
-class HtmlView extends BaseHtmlView
+class HtmlView extends BaseHtmlView implements HtmlViewInterface
 {
+	use HtmlViewTrait;
+
 	/**
 	 * The \JForm object
 	 *
@@ -136,5 +141,16 @@ class HtmlView extends BaseHtmlView
 
 			ToolbarHelper::cancel('event.cancel', 'JTOOLBAR_CLOSE');
 		}
+	}
+
+	/**
+	 *
+	 * @return EventTableItem
+	 *
+	 * @since 1.5.3
+	 */
+	public function getItem(): EventTableItem
+	{
+		return $this->item;
 	}
 }

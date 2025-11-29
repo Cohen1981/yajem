@@ -10,6 +10,8 @@ namespace Sda\Component\Sdajem\Administrator\Model;
 use Joomla\CMS\Factory;
 use Joomla\CMS\MVC\Model\ListModel;
 use Joomla\Database\QueryInterface;
+use Sda\Component\Sdajem\Administrator\Library\Collection\AttendingsCollection;
+use Sda\Component\Sdajem\Administrator\Library\Item\Attending;
 use function defined;
 
 defined('_JEXEC') or die();
@@ -65,36 +67,7 @@ class AttendingsModel extends ListModel
 		$db = $this->getDatabase();
 		$query = $db->getQuery(true);
 
-		// Select the required fields from the table.
-		$query->select(
-			$this->getState(
-				'list.select',
-				[
-					$db->quoteName('a.id'),
-					$db->quoteName('a.event_id'),
-					$db->quoteName('a.users_user_id'),
-					$db->quoteName('a.status'),
-					$db->quoteName('a.event_status')
-				]
-			)
-		);
-		$query->from($db->quoteName('#__sdajem_attendings', 'a'));
-
-		// Join event
-		$query->select($db->quoteName('e.title', 'eventTitle'))
-			->select($db->quoteName('e.startDateTime', 'startDateTime'))
-			->select($db->quoteName('e.endDateTime', 'endDateTime'))
-			->join(
-				'LEFT',
-				$db->quoteName('#__sdajem_events', 'e') . ' ON ' . $db->quoteName('e.id') . '=' . $db->quoteName('a.event_id')
-			);
-
-		// Join over User as attendee
-		$query->select($db->quoteName('at.username', 'attendeeName'))
-			->join(
-				'LEFT',
-				$db->quoteName('#__users', 'at') . ' ON ' . $db->quoteName('at.id') . ' = ' . $db->quoteName('a.users_user_id')
-			);
+		$query = Attending::getBaseQuery($query, $db);
 
 		// Filter on user. Default Current User
 		if ($this->getState('filter.users_user_id'))
@@ -144,13 +117,13 @@ class AttendingsModel extends ListModel
 	}
 
 	/**
-	 * @param   int|null  $eventId
+	 * @param   int|null  $eventId The event id
 	 *
 	 * @return mixed
 	 *
 	 * @since 1.0.8
 	 */
-	public function getAttendingsIdToEvent(int $eventId = null)
+	public function getAttendingIdsToEvent(int $eventId = null)
 	{
 		// Create a new query object.
 		$db = $this->getDatabase();
@@ -169,5 +142,69 @@ class AttendingsModel extends ListModel
 		$data = $db->loadColumn();
 
 		return $data;
+	}
+
+	/**
+	 * Retrieves a collection of event attendings for a specific user.
+	 *
+	 * @param   int  $userId  The unique identifier of the user whose attendings are to be retrieved.
+	 *
+	 * @return AttendingsCollection A collection of attending records for the specified user.
+	 * @since 1.5.3
+	 */
+	public function getAttendingsForUser(int $userId):AttendingsCollection
+	{
+		// Create a new query object.
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+
+		// Select the required fields from the table.
+		$query = Attending::getBaseQuery($query, $db);
+
+		$query->where($db->quoteName('a.users_user_id') . '= :userId');
+		$query->bind(':userId', $userId);
+
+		$db->setQuery($query);
+		$data = $db->loadObjectList();
+
+		return new AttendingsCollection($data);
+	}
+
+	/**
+	 * Retrieves a collection of attendings for a specific event.
+	 *
+	 * @param   int|null  $eventId  The unique identifier of the event whose attendings are to be retrieved.
+	 *                              If null, the method may handle it as retrieving attendings without a specific event context.
+	 *
+	 * @return AttendingsCollection A collection of attending records for the specified event.
+	 * @since 1.5.3
+	 */
+	public function getAttendingsToEvent(int $eventId = null):AttendingsCollection
+	{
+		// Create a new query object.
+		$db = $this->getDatabase();
+		$query = $db->getQuery(true);
+
+		// Select the required fields from the table.
+		$query = Attending::getBaseQuery($query, $db);
+
+		$query->where($db->quoteName('a.event_id') . '= :eventId');
+		$query->bind(':eventId', $eventId);
+
+		$db->setQuery($query);
+		$data = $db->loadObjectList();
+
+		return new AttendingsCollection($data);
+	}
+
+	/**
+	 * Retrieves a collection of items as an AttendingsCollection instance.
+	 *
+	 * @return AttendingsCollection A collection of items encapsulated as an AttendingsCollection object.
+	 * @since 1.5.3
+	 */
+	public function getItems(): AttendingsCollection
+	{
+		return new AttendingsCollection(parent::getItems());
 	}
 }

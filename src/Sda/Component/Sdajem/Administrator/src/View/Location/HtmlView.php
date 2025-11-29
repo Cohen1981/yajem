@@ -18,6 +18,8 @@ use Joomla\CMS\Helper\ContentHelper;
 use Joomla\CMS\Language\Text;
 use Joomla\CMS\MVC\View\HtmlView as BaseHtmlView;
 use Joomla\CMS\Toolbar\ToolbarHelper;
+use Sda\Component\Sdajem\Administrator\Library\Interface\HtmlViewInterface;
+use Sda\Component\Sdajem\Administrator\Library\Interface\ItemInterface;
 use Sda\Component\Sdajem\Administrator\Library\Item\LocationTableItem;
 use Sda\Component\Sdajem\Administrator\Library\Trait\HtmlViewTrait;
 use Sda\Component\Sdajem\Administrator\Model\LocationModel;
@@ -29,7 +31,7 @@ use Sda\Component\Sdajem\Administrator\Model\LocationModel;
  * @package  Joomla.Component
  * @since    1.0.0
  */
-class HtmlView extends BaseHtmlView
+class HtmlView extends BaseHtmlView implements HtmlViewInterface
 {
 	use HtmlViewTrait;
 
@@ -145,5 +147,16 @@ class HtmlView extends BaseHtmlView
 
 			ToolbarHelper::cancel('location.cancel', 'JTOOLBAR_CLOSE');
 		}
+	}
+
+	/**
+	 *
+	 * @return LocationTableItem
+	 *
+	 * @since 1.5.3
+	 */
+	public function getItem(): LocationTableItem
+	{
+		return $this->item;
 	}
 }

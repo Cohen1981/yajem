@@ -11,6 +11,8 @@ use Exception;
 use Joomla\CMS\Factory;
 use Joomla\CMS\Form\Form;
 use Joomla\CMS\MVC\Model\AdminModel;
+use Sda\Component\Sdajem\Administrator\Library\Collection\AttendingTableItemsCollection;
+use Sda\Component\Sdajem\Administrator\Library\Interface\ItemModelInterface;
 use Sda\Component\Sdajem\Administrator\Library\Item\AttendingTableItem;
 use Sda\Component\Sdajem\Administrator\Table\AttendingTable;
 use function defined;
@@ -32,12 +34,12 @@ class AttendingModel extends AdminModel
 	public $typeAlias = 'com_sdajem.attending';
 
 	/**
-	 * @since 1.0.0
-	 *
-	 * @param   bool   $loadData
-	 * @param   array  $data
+	 * @param   array  $data     The data to populate the form with.
+	 * @param   bool   $loadData If true, the form is loaded with data from the database. Default is true.
 	 *
 	 * @return Form|false
+	 * @since 1.0.0
+	 *
 	 */
 	public function getForm($data = array(), $loadData = true): Form|false
 	{
@@ -97,5 +99,17 @@ class AttendingModel extends AdminModel
 	protected function prepareTable($table): void
 	{
 		$table->generateAlias();
+	}
+
+	/**
+	 * @param   int|null  $pk The primary key.
+	 *
+	 * @return AttendingTableItem
+	 *
+	 * @since 1.5.3
+	 */
+	public function getItem($pk = null): AttendingTableItem
+	{
+		return AttendingTableItem::createFromObject(parent::getItem($pk));
 	}
 }
