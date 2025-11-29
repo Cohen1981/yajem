@@ -8,9 +8,6 @@ namespace Sda\Component\Sdajem\Administrator\Library\Item;
 
 use Joomla\Database\DatabaseInterface;
 use Joomla\Database\QueryInterface;
-use Sda\Component\Sdajem\Administrator\Library\Interface\ItemInterface;
-use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
-use stdClass;
 
 /**
  * @package     Sda\Component\Sdajem\Administrator\Model\Item
@@ -18,10 +15,8 @@ use stdClass;
  * Representation of the database table #__sdajem_events.
  * All field types are database-compatible.
  */
-class FittingTableItem extends stdClass implements ItemInterface
+class FittingTableItem extends ItemClass
 {
-	use ItemTrait;
-
 	/**
 	 * @var integer|null
 	 * @since 1.5.3

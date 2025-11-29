@@ -6,9 +6,6 @@
 
 namespace Sda\Component\Sdajem\Administrator\Library\Item;
 
-use Sda\Component\Sdajem\Administrator\Library\Interface\ItemInterface;
-use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
-
 /**
  * Represents an item in the location table.
  * This class extends the base PHP stdClass and implements the ItemInterface,
@@ -18,10 +15,8 @@ use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
  * @since         1.5.3
  */
-class LocationTableItem extends \stdClass implements ItemInterface
+class LocationTableItem extends ItemClass
 {
-	use ItemTrait;
-
 	/**
 	 * @var integer|null
 	 * @since 1.5.3

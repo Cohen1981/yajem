@@ -64,9 +64,9 @@ build:
 	@cp -Rf ./src/media/templates/site/${TEMPLATE_NAME}/* ./temp/template/media
 	@cd temp/template; zip -r ../../target/${TEMPLATE_NAME}.zip *
 
-	@mkdir -p temp/comp temp/comp/media temp/comp/components temp/comp/administrator temp/comp/administrator/components
-	@cp -Rf ./src/administrator/components/com_${COMPONENT_NAME} ./temp/comp/administrator/components
-	@cp -Rf ./src/components/com_${COMPONENT_NAME} ./temp/comp/components
+	@mkdir -p temp/comp temp/comp/media temp/comp/components temp/comp/administrator temp/comp/administrator/components temp/comp/administrator/components/com_${COMPONENT_NAME} temp/comp/components/com_${COMPONENT_NAME}
+	@cp -Rf ./src/Sda/Component/${CAP_COMPONENT_NAME}/Administrator/* ./temp/comp/administrator/components/com_${COMPONENT_NAME}
+	@cp -Rf ./src/Sda/Component/${CAP_COMPONENT_NAME}/Site/* ./temp/comp/components/com_${COMPONENT_NAME}
 	@cp -Rf ./src/media/com_${COMPONENT_NAME} ./temp/comp/media
 	@cp -f ./temp/comp/administrator/components/com_${COMPONENT_NAME}/${COMPONENT_NAME}.xml ./temp/comp/${COMPONENT_NAME}.xml
 

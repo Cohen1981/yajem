@@ -1,9 +1,10 @@
 <?php
 /**
  * @package     Sda\Component\Sdajem\Site\Controller
- * @subpackage
- * @copyright   A copyright
- * @license     A "Slug" license name e.g. GPL2
+ * @subpackage     com_sdajem
+ * @copyright   (C)) 2025 Survivants-d-Acre <https://www.survivants-d-acre.com>
+ * @license        GNU General Public License version 2 or later; see LICENSE.txt
+ * @since          1.5.3
  */
 
 namespace Sda\Component\Sdajem\Site\Controller;
@@ -28,8 +29,17 @@ use Sda\Component\Sdajem\Site\Model\EventModel;
 class AttendingController extends FormController
 {
 
+	/**
+	 * The URL view item variable.
+	 * @var string
+	 * @since 1.0.1
+	 */
 	protected $view_item = 'attendingform';
 
+	/**
+	 * @var string
+	 * @since 1.0.1
+	 */
 	protected $view_list = 'attendings';
 
 	public function getModel($name = 'attendingform', $prefix = '', $config = ['ignore_request' => true])
@@ -37,6 +47,9 @@ class AttendingController extends FormController
 		return parent::getModel($name, $prefix, ['ignore_request' => false]);
 	}
 
+	/**
+	 * @return array
+	 */
 	private function getPks()
 	{
 		$pks = [];

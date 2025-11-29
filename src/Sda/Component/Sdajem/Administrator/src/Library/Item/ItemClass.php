@@ -4,9 +4,10 @@
  * @license       GNU General Public License version 2 or later; see LICENSE.txt
  */
 
-namespace Sda\Component\Sdajem\Administrator\Library\Trait;
+namespace Sda\Component\Sdajem\Administrator\Library\Item;
 
 use ReflectionObject;
+use Sda\Component\Sdajem\Administrator\Library\Interface\ItemInterface;
 use stdClass;
 
 /**
@@ -15,9 +16,11 @@ use stdClass;
  * @since   1.4.0
  * For programming convenience only
  */
-trait ItemTrait
+class ItemClass extends stdClass implements ItemInterface
 {
 	/**
+	 * @param   array|stdClass|null  $data  The data to convert to an object
+	 *
 	 * @since 1.5.3
 	 */
 	public function __construct(array|stdClass $data = null)

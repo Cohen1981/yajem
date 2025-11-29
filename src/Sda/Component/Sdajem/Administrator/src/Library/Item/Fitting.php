@@ -8,10 +8,6 @@
  */
 namespace Sda\Component\Sdajem\Administrator\Library\Item;
 
-use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
-use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
-use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
-
 /**
  * @package     Sda\Component\Sdajem\Administrator\Library\Item
  *
@@ -19,8 +15,6 @@ use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
  */
 class Fitting extends FittingTableItem
 {
-	use ItemTrait;
-
 	/**
 	 * Stores the username of a user.
 	 * @var string|null

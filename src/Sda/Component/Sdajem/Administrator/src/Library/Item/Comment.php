@@ -6,7 +6,6 @@
 
 namespace Sda\Component\Sdajem\Administrator\Library\Item;
 
-use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
 use Sda\Component\Sdajem\Site\Model\UserModel;
 
 /**
@@ -16,8 +15,6 @@ use Sda\Component\Sdajem\Site\Model\UserModel;
  */
 class Comment extends CommentTableItem
 {
-	use ItemTrait;
-
 	/**
 	 * The user who wrote the comment.
 	 * @var UserModel|null

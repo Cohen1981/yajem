@@ -8,19 +8,13 @@
  */
 namespace Sda\Component\Sdajem\Administrator\Library\Item;
 
-use Sda\Component\Sdajem\Administrator\Library\Interface\ItemInterface;
-use Sda\Component\Sdajem\Administrator\Library\Item\LocationTableItem;
-use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
-
 /**
  * Represents an item in a list of locations.
  * Extends the base functionality provided by LocationTableItem and implements the ItemInterface.
  * @since 1.5.3
  */
-class Location extends LocationTableItem implements ItemInterface
+class Location extends LocationTableItem
 {
-	use ItemTrait;
-
 	/**
 	 * @var string|null
 	 * Access level of the location.

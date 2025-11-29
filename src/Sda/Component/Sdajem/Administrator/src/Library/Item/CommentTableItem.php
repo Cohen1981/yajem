@@ -16,10 +16,8 @@ use stdClass;
  * Representation of the database table #__sdajem_events.
  * All field types are database-compatible.
  */
-class CommentTableItem extends stdClass implements ItemInterface
+class CommentTableItem extends ItemClass
 {
-	use ItemTrait;
-
 	/**
 	 * @var integer|null
 	 * @since 1.5.3

@@ -12,7 +12,6 @@ use Joomla\Database\DatabaseInterface;
 use Joomla\Database\QueryInterface;
 use Sda\Component\Sdajem\Administrator\Library\Enums\EventStatusEnum;
 use Sda\Component\Sdajem\Administrator\Library\Enums\IntAttStatusEnum;
-use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
 
 /**
  * @package     Sda\Component\Sdajem\Administrator\Library\Item
@@ -21,8 +20,6 @@ use Sda\Component\Sdajem\Administrator\Library\Trait\ItemTrait;
  */
 class Attending extends AttendingTableItem
 {
-	use ItemTrait;
-
 	/**
 	 * @var string|null
 	 * @since version 1.5.3

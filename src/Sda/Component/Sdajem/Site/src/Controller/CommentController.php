@@ -1,9 +1,10 @@
 <?php
 /**
  * @package     Sda\Component\Sdajem\Site\Controller
- * @subpackage
- * @copyright   A copyright
- * @license     A "Slug" license name e.g. GPL2
+ * @subpackage     com_sdajem
+ * @copyright   (C)) 2025 Survivants-d-Acre <https://www.survivants-d-acre.com>
+ * @license        GNU General Public License version 2 or later; see LICENSE.txt
+ * @since          1.5.3
  */
 
 namespace Sda\Component\Sdajem\Site\Controller;

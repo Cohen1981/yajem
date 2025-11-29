@@ -24,8 +24,6 @@ use stdClass;
  */
 class Event extends EventTableItem
 {
-	use ItemTrait;
-
 	/**
 	 * @var EventStatusEnum|null
 	 * Enum for the event status. For convenience set at construction of this class.
