@@ -49,13 +49,22 @@ services:
       - MYSQL_RANDOM_ROOT_PASSWORD='1'
       - MYSQL_USER=${DB_USER:-joomla}
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"] #"/usr/bin/mysql --user=${DB_USER:-joomla} --password=${DB_PASSWORD:-examplepass} --execute \"SHOW DATABASES;\"" ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+      test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
       interval: 2s
       timeout: 20s
       retries: 10
     user: ${UID:-1000}:${GID:-1000}
     volumes:
       - ./db_data:/var/lib/mysql
+    networks:
+      - joomla_network
+
+  composer:
+    image: composer:${COMPOSER_VERSION:-2.8.12}
+    container_name: ${CONTAINER_PREFIX:-joomla}-composer
+    command: [ "composer", "update" ]
+    volumes:
+      - .:/app
     networks:
       - joomla_network
 
