@@ -28,6 +28,7 @@ $wa->registerAndUseScript('com_sdajem.checkbox', 'com_sdajem/checkbox.js');
 $canDo   = ContentHelper::getActions('com_sdajem', 'attendings');
 $user = Factory::getApplication()->getIdentity();
 $tparams = $this->getParams();
+$tparams->set('callContext', 'event.attending');
 
 $event = $this->getItem();
 

@@ -144,7 +144,7 @@ class Event extends EventTableItem
 		$item->attendeeFeedbackCount = $data['attendeeFeedbackCount'];
 		$item->interestCount         = $data['interestCount'];
 		$item->feedbackCount         = $data['feedbackCount'];
-		$item->svgs                  = (isset($data['svg'])) ? json_decode($data['svg']) : [];
+		$item->svgs = (isset($data['svg'])) ? (array) json_decode($data['svg']) : [];
 
 		return $item;
 	}

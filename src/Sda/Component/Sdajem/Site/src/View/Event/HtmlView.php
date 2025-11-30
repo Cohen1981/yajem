@@ -137,7 +137,6 @@ class HtmlView extends BaseHtmlView implements HtmlViewInterface
 	 */
 	public function display($tpl = null):void
 	{
-		// ToDo : Last Class to refactor.
 		$model = $this->getModel();
 
 		$app = Factory::getApplication();
@@ -150,6 +149,7 @@ class HtmlView extends BaseHtmlView implements HtmlViewInterface
 
 		$activeAccordion       = $app->getUserState('com_sdajem.event.callContext', $this->activeAccordion);
 		$this->activeAccordion = $activeAccordion;
+		$app->setUserState('com_sdajem.event.callContext', '');
 
 		$temp = clone $params;
 
@@ -182,7 +182,8 @@ class HtmlView extends BaseHtmlView implements HtmlViewInterface
 
 		if ($item->paramsRegistry->get('sda_events_use_comments'))
 		{
-			$this->comments = $this->getModel('comments')->getCommentsToEvent($item->id);
+			$commentsModel  = $this->getModel('comments');
+			$this->comments = $commentsModel->getCommentsToEvent($item->id);
 		}
 
 		if ($item->paramsRegistry->get('sda_use_attending'))

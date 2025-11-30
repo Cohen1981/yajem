@@ -49,6 +49,7 @@ class CommentController extends FormController
 
 		$id = $this->input->get('eventId', null, 'int');
 		$this->app->setUserState('com_sdajem.comment.sdajem_event_id', $id);
+		$this->app->setUserState('com_sdajem.event.callContext', $this->input->get('callContext', ''));
 	}
 
 	public function save($key = null, $urlVar = null)
@@ -148,6 +149,7 @@ class CommentController extends FormController
 	public function delete(): bool
 	{
 		$pks = $this->input->get('cid') ?? $this->input->get('id');
+		$this->app->setUserState('com_sdajem.event.callContext', $this->input->get('callContext', ''));
 
 		if (!is_array($pks))
 		{

@@ -77,6 +77,7 @@ $event = $this->getItem();
                         <input type="hidden" name="task" value=""/>
                         <input type="hidden" name="cid" value="<?php echo $comment->id; ?>"/>
                         <input type="hidden" name="return" value="<?php echo $this->return_page; ?>"/>
+                        <input type="hidden" name="callContext" value="event.comment"/>
                         <?php echo HTMLHelper::_('form.token'); ?>
 
                     </form>

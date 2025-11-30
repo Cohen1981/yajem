@@ -332,6 +332,12 @@ class Icon
 		$text .= '<input type="hidden" name="event_id" value="' . $event->id . '"/>'
 			. '<input type="hidden" name="return" value="' . base64_encode($uri) . '"/>'
 			. '<input type="hidden" name="task" value=""/>';
+
+		if (isset($params['callContext']))
+		{
+			$text .= '<input type="hidden" name="callContext" value="' . $params['callContext'] . '"/>';
+		}
+
 		$text .= HTMLHelper::_('form.token');
 
 		$interest = AttendingModel::getAttendingToEvent($user->id, $event->id);

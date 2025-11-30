@@ -449,6 +449,8 @@ class EventController extends FormController
 			$pks = $this->input->get('cid');
 		}
 
+		$this->app->setUserState('com_sdajem.event.callContext', $this->input->get('callContext', ''));
+
 		if (count($pks) >= 0)
 		{
 			if ($userId !== null)
@@ -509,7 +511,7 @@ class EventController extends FormController
 
 		$reg = new Registry($_POST['svg']);
 
-		$data->svg = $reg->toArray();
+		$data->svg = json_encode($reg);
 
 		$eventForm = new EventformModel();
 		try
